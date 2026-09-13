@@ -33,3 +33,5 @@ tokio current-thread runtime.
   patches and an upstream-main source check. Measured by Codex on
   2026-09-13; formerly its own repository, folded in here unchanged apart
   from the crate name. Raw results and provenance in its `results/`.
+
+- `fs-portability/`: record 0035 filesystem code and unit gates type-checked for Windows independently of the TLS toolchain; no Windows execution claim.
