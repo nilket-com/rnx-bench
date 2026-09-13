@@ -21,7 +21,8 @@ over from the earlier Gemini chat, whose numbers came from a different box
 
 ## Conditions
 
-`hyperfine -N` (no shell), `taskset -c 4` (one core; this cut σ from ~2.5 ms
+Rust 1.98.1 (the default toolchain on nano; rnx's manifest records 1.95 as its
+tested toolchain). `hyperfine -N` (no shell), `taskset -c 4` (one core; this cut σ from ~2.5 ms
 to ~0.1 ms), 3–5 warmups, 30–50 runs. rnx is `cargo build --release --locked`
 at commit 3af1ccb (record 0030 applied: `version` and `help` no longer build
 a Rune context), Rune 0.14.2. Node appears twice: the Ubuntu package is
