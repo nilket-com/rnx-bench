@@ -1,0 +1,197 @@
+{
+  "commands": [
+    [
+      "version before",
+      [
+        "/tmp/rnx-0035/rnx-before",
+        "version"
+      ]
+    ],
+    [
+      "version after",
+      [
+        "/home/me/work/rnx/target/release/rnx",
+        "version"
+      ]
+    ],
+    [
+      "help before",
+      [
+        "/tmp/rnx-0035/rnx-before",
+        "help"
+      ]
+    ],
+    [
+      "help after",
+      [
+        "/home/me/work/rnx/target/release/rnx",
+        "help"
+      ]
+    ],
+    [
+      "eval before",
+      [
+        "/tmp/rnx-0035/rnx-before",
+        "eval",
+        "42"
+      ]
+    ],
+    [
+      "eval after",
+      [
+        "/home/me/work/rnx/target/release/rnx",
+        "eval",
+        "42"
+      ]
+    ],
+    [
+      "run before",
+      [
+        "/tmp/rnx-0035/rnx-before",
+        "run",
+        "scripts/bare.rn"
+      ]
+    ],
+    [
+      "run after",
+      [
+        "/home/me/work/rnx/target/release/rnx",
+        "run",
+        "scripts/bare.rn"
+      ]
+    ],
+    [
+      "json before",
+      [
+        "/tmp/rnx-0035/rnx-before",
+        "run",
+        "scripts/json.rn"
+      ]
+    ],
+    [
+      "json after",
+      [
+        "/home/me/work/rnx/target/release/rnx",
+        "run",
+        "scripts/json.rn"
+      ]
+    ],
+    [
+      "read before",
+      [
+        "/tmp/rnx-0035/rnx-before",
+        "eval",
+        "let n = 0; for _ in 0..100 { n += host::read(\"/tmp/rnx-fs-bench-pwo4rq9t/read.txt\")?.len(); } n"
+      ]
+    ],
+    [
+      "read after",
+      [
+        "/home/me/work/rnx/target/release/rnx",
+        "eval",
+        "let n = 0; for _ in 0..100 { n += fs::read(\"/tmp/rnx-fs-bench-pwo4rq9t/read.txt\")?.len(); } n"
+      ]
+    ]
+  ],
+  "outputs": [
+    {
+      "name": "version before",
+      "stdout": "rnx 0.0.0\nrune 0.14.2\n",
+      "stderr": "",
+      "exit": 0
+    },
+    {
+      "name": "version after",
+      "stdout": "rnx 0.0.0\nrune 0.14.2\n",
+      "stderr": "",
+      "exit": 0
+    },
+    {
+      "name": "help before",
+      "stdout": "rnx \u2014 a Rune scripting environment\n\n  rnx                       a session, the same as `rnx repl`\n  rnx repl                  a session: line editing, history, `:help`\n  rnx run [flags] FILE ...  run a file's `main`; arguments after FILE are its\n  rnx eval SOURCE           evaluate one expression and exit\n  rnx selfcheck             assert this build's own invariants and report\n  rnx version               this build, and the Rune it is pinned to\n  rnx help                  this\n\nFlags for `run`, before the file: --budget N, --debug-source.\n",
+      "stderr": "",
+      "exit": 0
+    },
+    {
+      "name": "help after",
+      "stdout": "rnx \u2014 a Rune scripting environment\n\n  rnx                       a session, the same as `rnx repl`\n  rnx repl                  a session: line editing, history, `:help`\n  rnx run [flags] FILE ...  run a file's `main`; arguments after FILE are its\n  rnx eval SOURCE           evaluate one expression and exit\n  rnx selfcheck             assert this build's own invariants and report\n  rnx version               this build, and the Rune it is pinned to\n  rnx help                  this\n\nFlags for `run`, before the file: --budget N, --debug-source.\n",
+      "stderr": "",
+      "exit": 0
+    },
+    {
+      "name": "eval before",
+      "stdout": "42\n",
+      "stderr": "",
+      "exit": 0
+    },
+    {
+      "name": "eval after",
+      "stdout": "42\n",
+      "stderr": "",
+      "exit": 0
+    },
+    {
+      "name": "run before",
+      "stdout": "42\n",
+      "stderr": "",
+      "exit": 0
+    },
+    {
+      "name": "run after",
+      "stdout": "42\n",
+      "stderr": "",
+      "exit": 0
+    },
+    {
+      "name": "json before",
+      "stdout": "{\"b\":\"hello\",\"a\":[9999,2,3]}\n",
+      "stderr": "",
+      "exit": 0
+    },
+    {
+      "name": "json after",
+      "stdout": "{\"b\":\"hello\",\"a\":[9999,2,3]}\n",
+      "stderr": "",
+      "exit": 0
+    },
+    {
+      "name": "read before",
+      "stdout": "409600\n",
+      "stderr": "",
+      "exit": 0
+    },
+    {
+      "name": "read after",
+      "stdout": "409600\n",
+      "stderr": "",
+      "exit": 0
+    }
+  ],
+  "versions": {
+    "rustc --version": "rustc 1.98.1 (48a229cea 2026-09-01)",
+    "hyperfine --version": "hyperfine 1.20.0",
+    "uname -a": "Linux nano 7.0.0-31-generic #31-Ubuntu SMP PREEMPT_DYNAMIC Sat Aug  1 04:26:38 UTC 2026 x86_64 GNU/Linux"
+  },
+  "binaries": {
+    "before": {
+      "path": "/tmp/rnx-0035/rnx-before",
+      "bytes": 14142008,
+      "sha256": "7165be726c82f00870d968c976897e8b1cdbe14547e5b5055f0a4a34959da5dc"
+    },
+    "after": {
+      "path": "/home/me/work/rnx/target/release/rnx",
+      "bytes": 14262968,
+      "sha256": "e7ca8e29a8adea5bd62a11c0478fdf1b2c73f5f5936384d0fb97a3269fbdd7ce"
+    }
+  },
+  "memory": {
+    "before": {
+      "stdout": "rnx: a Rune session. :help lists the commands, :quit ends it.\nrnx> tracked live allocation request bytes: 1822061 of a ceiling of 536870912.\nstartup reference point: 1813610 bytes; net change since: +8451 bytes\nsource and map storage: 0 bytes (inputs, declarations, and the source maps of 0 entries; the units themselves are held weakly and are not counted)\nThe figure counts requests through Rust's global allocator only. It excludes native allocations outside it, memory mappings, thread stacks, and child processes, it is not resident memory, and it is not the session's share of anything.\nrnx> ",
+      "stderr": ""
+    },
+    "after": {
+      "stdout": "rnx: a Rune session. :help lists the commands, :quit ends it.\nrnx> tracked live allocation request bytes: 1827161 of a ceiling of 536870912.\nstartup reference point: 1818697 bytes; net change since: +8464 bytes\nsource and map storage: 0 bytes (inputs, declarations, and the source maps of 0 entries; the units themselves are held weakly and are not counted)\nThe figure counts requests through Rust's global allocator only. It excludes native allocations outside it, memory mappings, thread stacks, and child processes, it is not resident memory, and it is not the session's share of anything.\nrnx> ",
+      "stderr": ""
+    }
+  }
+}

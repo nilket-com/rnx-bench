@@ -1,0 +1,11 @@
+[package]
+name = "fs-portability-check"
+version = "0.0.0"
+edition = "2024"
+[workspace]
+[features]
+test-support = []
+[dependencies]
+rune = { version = "=0.14.2", default-features = false, features = ["std"] }
+libc = "0.2.177"
+windows-sys = { version = "0.61.2", features = ["Win32_Foundation", "Win32_Storage_FileSystem"] }
