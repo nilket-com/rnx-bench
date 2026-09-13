@@ -1,0 +1,9 @@
+[package]
+name = "phase"
+version = "0.0.0"
+edition = "2024"
+[workspace]
+[dependencies]
+rune = { version = "=0.14.2", default-features = false, features = ["std"] }
+[profile.release]
+opt-level = 3

@@ -1,0 +1,11 @@
+[package]
+name = "mods"
+version = "0.0.0"
+edition = "2024"
+[workspace]
+[dependencies]
+rune = { version = "=0.14.2", default-features = false, features = ["std"] }
+rune-modules = { version = "=0.14.2", default-features = false, features = ["json", "fs", "time", "http", "toml", "process", "rand", "base64"] }
+tokio = { version = "1", features = ["rt", "macros"] }
+[profile.release]
+opt-level = 3
