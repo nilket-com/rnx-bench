@@ -13,3 +13,8 @@ tokio current-thread runtime.
   adoption cost figures cited by record 0031.
 
 `run.sh` builds both and writes `results/probes.json` and `results/probes.md`.
+- `context-phases-emit/` — the same crate with Rune's `emit` feature on, which
+  is what depending on `rune-modules` forces (its `rune` dependency keeps
+  default features: `emit` + `std`, not `doc`). Matched against
+  `context-phases` in `results/probes_emit.*`: binary 7.76 → 7.89 MiB,
+  context and run phases within noise.
