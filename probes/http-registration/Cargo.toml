@@ -1,0 +1,9 @@
+[package]
+name = "http-registration"
+version = "0.0.0"
+edition = "2024"
+[workspace]
+[dependencies]
+rune = { version = "=0.14.2", default-features = false, features = ["std"] }
+reqwest = { version = "=0.12.28", default-features = false, features = ["rustls-tls", "gzip"] }
+tokio = { version = "1", default-features = false, features = ["rt", "time", "net"] }
