@@ -1,0 +1,25 @@
+| Module | Stage | Entries | Mean ms | Stddev ms | Functions added | Metadata added |
+|---|---|---:|---:|---:|---:|---:|
+| ::std::iter | identity | 1 | 0.0006 | 0.0004 | 0 | 0 |
+| ::std::iter | module | 1 | 0.0028 | 0.0007 | 0 | 3 |
+| ::std::iter | types | 12 | 0.0207 | 0.0021 | 0 | 12 |
+| ::std::iter | traits | 3 | 0.0282 | 0.0015 | 0 | 38 |
+| ::std::iter | items | 3 | 0.0031 | 0.0001 | 3 | 3 |
+| ::std::iter | associated | 43 | 0.0115 | 0.0013 | 44 | 43 |
+| ::std::iter | trait_impls | 31 | 0.4689 | 0.0035 | 891 | 464 |
+| ::std::iter | reexports | 0 | 0.0000 | 0.0000 | 0 | 0 |
+| ::std::iter | construct | 0 | 0.0000 | 0.0000 | 0 | 0 |
+| ::std::ops | identity | 1 | 0.0001 | 0.0000 | 0 | 0 |
+| ::std::ops | module | 1 | 0.0007 | 0.0000 | 0 | 1 |
+| ::std::ops | types | 17 | 0.0190 | 0.0007 | 7 | 19 |
+| ::std::ops | traits | 0 | 0.0000 | 0.0000 | 0 | 0 |
+| ::std::ops | items | 5 | 0.0034 | 0.0001 | 5 | 5 |
+| ::std::ops | associated | 86 | 0.0202 | 0.0005 | 95 | 86 |
+| ::std::ops | trait_impls | 47 | 0.5021 | 0.0048 | 808 | 434 |
+| ::std::ops | reexports | 2 | 0.0009 | 0.0000 | 0 | 2 |
+| ::std::ops | construct | 0 | 0.0000 | 0.0000 | 0 | 0 |
+
+Whole context construction, including stage reporting when enabled:
+
+- Instrumented=0: 2.5560 ± 0.0181 ms
+- Instrumented=1: 2.5826 ± 0.0173 ms

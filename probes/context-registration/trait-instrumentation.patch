@@ -1,0 +1,38 @@
+--- a/src/compile/context.rs
++++ b/src/compile/context.rs
+@@ -860,6 +860,8 @@
+                 || module.item.as_ref() == crate::item!(::std::ops));
+         let mut stage_samples = [("", 0usize, 0u128, 0usize, 0usize); 9];
+         let mut stage_index = 0;
++        let trait_profile = stage_profile && std::env::var_os("RNX_PROFILE_TRAITS").is_some();
++        let mut trait_samples = std::vec::Vec::with_capacity(if trait_profile { module.trait_impls.len() } else { 0 });
+         macro_rules! profile_stage {
+             ($name:expr, $count:expr, $body:block) => {{
+                 let time = if stage_profile { Some(std::time::Instant::now()) } else { None };
+@@ -921,8 +923,15 @@
+ 
+         profile_stage!("trait_impls", module.trait_impls.len(), {
+         tracing::trace!(trait_impls = module.trait_impls.len(), "trait impls");
+-        for t in &module.trait_impls {
++        for (index, t) in module.trait_impls.iter().enumerate() {
++            let timer = if trait_profile { Some(std::time::Instant::now()) } else { None };
++            let functions_before = self.functions.len();
++            let meta_before = self.meta.len();
+             self.install_trait_impl(t)?;
++            if let Some(timer) = timer {
++                trait_samples.push((index, t, timer.elapsed().as_nanos(),
++                    self.functions.len() - functions_before, self.meta.len() - meta_before));
++            }
+         }
+         });
+ 
+@@ -940,6 +949,9 @@
+         }
+         });
+ 
++        for (index, t, ns, functions, meta) in trait_samples {
++            println!("trait,{},{index},{},{},{ns},{functions},{meta}", module.item, t.item, t.trait_item);
++        }
+         if stage_profile {
+             for (stage, count, ns, functions, meta) in &stage_samples[..stage_index] {
+                 println!("stage,{},{stage},{count},{ns},{functions},{meta}", module.item);
