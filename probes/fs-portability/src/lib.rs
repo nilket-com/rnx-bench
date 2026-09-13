@@ -10,3 +10,4 @@ fn compile(context: &rune::Context, text: &str) -> Result<()> {
     rune::prepare(&mut sources).with_context(context).build()?;
     Ok(())
 }
+#[path = "../../../../rnx/src/env.rs"] mod env;
