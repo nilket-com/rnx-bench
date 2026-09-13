@@ -1,0 +1,105 @@
+--- a/src/compile/context.rs
++++ b/src/compile/context.rs
+@@ -855,7 +855,26 @@
+         M: AsRef<Module>,
+     {
+         let module = module.as_ref();
++        let stage_profile = std::env::var_os("RNX_PROFILE_STAGES").is_some()
++            && (module.item.as_ref() == crate::item!(::std::iter)
++                || module.item.as_ref() == crate::item!(::std::ops));
++        let mut stage_samples = [("", 0usize, 0u128, 0usize, 0usize); 9];
++        let mut stage_index = 0;
++        macro_rules! profile_stage {
++            ($name:expr, $count:expr, $body:block) => {{
++                let time = if stage_profile { Some(std::time::Instant::now()) } else { None };
++                let functions_before = self.functions.len();
++                let meta_before = self.meta.len();
++                $body
++                if let Some(time) = time {
++                    stage_samples[stage_index] = ($name, $count, time.elapsed().as_nanos(),
++                        self.functions.len() - functions_before, self.meta.len() - meta_before);
++                    stage_index += 1;
++                }
++            }};
++        }
+         tracing::trace!("installing");
++        profile_stage!("identity", 1, {
+ 
+         if let Some(id) = module.unique {
+             if !self.unique.try_insert(id)? {
+@@ -867,44 +886,65 @@
+             self.crates.try_insert(name.try_into()?)?;
+         }
+ 
+-        tracing::trace!("module");
+-        self.install_module(module)?;
+-
++        });
++        profile_stage!("module", 1, {
++            self.install_module(module)?;
++        });
++
++        profile_stage!("types", module.types.len(), {
+         tracing::trace!(types = module.types.len(), "types");
+         for ty in &module.types {
+             self.install_type(ty)?;
+         }
+-
++        });
++
++        profile_stage!("traits", module.traits.len(), {
+         tracing::trace!(traits = module.traits.len(), "traits");
+         for t in &module.traits {
+             self.install_trait(t)?;
+         }
+-
++        });
++
++        profile_stage!("items", module.items.len(), {
+         tracing::trace!(items = module.items.len(), "items");
+         for item in &module.items {
+             self.install_item(item)?;
+         }
+-
++        });
++
++        profile_stage!("associated", module.associated.len(), {
+         tracing::trace!(associated = module.associated.len(), "associated");
+         for assoc in &module.associated {
+             self.install_associated(assoc)?;
+         }
+-
++        });
++
++        profile_stage!("trait_impls", module.trait_impls.len(), {
+         tracing::trace!(trait_impls = module.trait_impls.len(), "trait impls");
+         for t in &module.trait_impls {
+             self.install_trait_impl(t)?;
+         }
+-
++        });
++
++        profile_stage!("reexports", module.reexports.len(), {
+         tracing::trace!(reexports = module.reexports.len(), "reexports");
+         for r in &module.reexports {
+             self.install_reexport(r)?;
+         }
+-
++        });
++
++        profile_stage!("construct", module.construct.len(), {
+         tracing::trace!(construct = module.construct.len(), "construct");
+         for (hash, type_info, construct) in &module.construct {
+             self.install_construct(*hash, type_info, construct)?;
+         }
+-
++        });
++
++        if stage_profile {
++            for (stage, count, ns, functions, meta) in &stage_samples[..stage_index] {
++                println!("stage,{},{stage},{count},{ns},{functions},{meta}", module.item);
++            }
++        }
+         Ok(())
+     }
+ 

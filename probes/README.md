@@ -28,3 +28,8 @@ tokio current-thread runtime.
   the pool's task, the healthy socket stays open and is reused) and dropped
   (0 in ~6 ms, clean EOF on the pooled socket). Output in
   `results/http_lifecycle.txt`, two consecutive runs.
+- `context-registration/` — Rune default-context profiling: per-module,
+  per-stage and per-trait installation costs, with the instrumentation
+  patches and an upstream-main source check. Measured by Codex on
+  2026-09-13; formerly its own repository, folded in here unchanged apart
+  from the crate name. Raw results and provenance in its `results/`.

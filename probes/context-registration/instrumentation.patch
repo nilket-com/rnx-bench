@@ -1,0 +1,524 @@
+--- a/src/compile/context.rs
++++ b/src/compile/context.rs
+@@ -332,51 +332,485 @@
+     /// * `::std::io::print`
+     /// * `::std::io::println`
+     pub fn with_config(#[allow(unused)] stdio: bool) -> Result<Self, ContextError> {
++        let profile = std::env::var_os("RNX_PROFILE_MODULES").is_some();
++        let mut samples = Vec::new();
+         let mut this = Self::new();
+ 
+         // NB: Order is important, since later modules might use types defined
+         // in previous modules.
+ 
+-        this.install(crate::modules::iter::module()?)?;
+-        this.install(crate::modules::core::module()?)?;
+-        this.install(crate::modules::cmp::module()?)?;
+-        this.install(crate::modules::any::module()?)?;
+-        this.install(crate::modules::clone::module()?)?;
+-        this.install(crate::modules::num::module()?)?;
+-        this.install(crate::modules::hash::module()?)?;
+-
+-        this.install(crate::modules::string::module()?)?;
+-        this.install(crate::modules::bytes::module()?)?;
+-
+-        this.install(crate::modules::collections::module()?)?;
++        if profile {
++            let t = std::time::Instant::now();
++            let module = crate::modules::iter::module()?;
++            let built = t.elapsed();
++            let t = std::time::Instant::now();
++            this.install(&module)?;
++            let installed = t.elapsed();
++            let t = std::time::Instant::now();
++            drop(module);
++            let dropped = t.elapsed();
++            samples.try_push(("iter", built, installed, dropped))?;
++        } else {
++            this.install(crate::modules::iter::module()?)?;
++        }
++        if profile {
++            let t = std::time::Instant::now();
++            let module = crate::modules::core::module()?;
++            let built = t.elapsed();
++            let t = std::time::Instant::now();
++            this.install(&module)?;
++            let installed = t.elapsed();
++            let t = std::time::Instant::now();
++            drop(module);
++            let dropped = t.elapsed();
++            samples.try_push(("core", built, installed, dropped))?;
++        } else {
++            this.install(crate::modules::core::module()?)?;
++        }
++        if profile {
++            let t = std::time::Instant::now();
++            let module = crate::modules::cmp::module()?;
++            let built = t.elapsed();
++            let t = std::time::Instant::now();
++            this.install(&module)?;
++            let installed = t.elapsed();
++            let t = std::time::Instant::now();
++            drop(module);
++            let dropped = t.elapsed();
++            samples.try_push(("cmp", built, installed, dropped))?;
++        } else {
++            this.install(crate::modules::cmp::module()?)?;
++        }
++        if profile {
++            let t = std::time::Instant::now();
++            let module = crate::modules::any::module()?;
++            let built = t.elapsed();
++            let t = std::time::Instant::now();
++            this.install(&module)?;
++            let installed = t.elapsed();
++            let t = std::time::Instant::now();
++            drop(module);
++            let dropped = t.elapsed();
++            samples.try_push(("any", built, installed, dropped))?;
++        } else {
++            this.install(crate::modules::any::module()?)?;
++        }
++        if profile {
++            let t = std::time::Instant::now();
++            let module = crate::modules::clone::module()?;
++            let built = t.elapsed();
++            let t = std::time::Instant::now();
++            this.install(&module)?;
++            let installed = t.elapsed();
++            let t = std::time::Instant::now();
++            drop(module);
++            let dropped = t.elapsed();
++            samples.try_push(("clone", built, installed, dropped))?;
++        } else {
++            this.install(crate::modules::clone::module()?)?;
++        }
++        if profile {
++            let t = std::time::Instant::now();
++            let module = crate::modules::num::module()?;
++            let built = t.elapsed();
++            let t = std::time::Instant::now();
++            this.install(&module)?;
++            let installed = t.elapsed();
++            let t = std::time::Instant::now();
++            drop(module);
++            let dropped = t.elapsed();
++            samples.try_push(("num", built, installed, dropped))?;
++        } else {
++            this.install(crate::modules::num::module()?)?;
++        }
++        if profile {
++            let t = std::time::Instant::now();
++            let module = crate::modules::hash::module()?;
++            let built = t.elapsed();
++            let t = std::time::Instant::now();
++            this.install(&module)?;
++            let installed = t.elapsed();
++            let t = std::time::Instant::now();
++            drop(module);
++            let dropped = t.elapsed();
++            samples.try_push(("hash", built, installed, dropped))?;
++        } else {
++            this.install(crate::modules::hash::module()?)?;
++        }
++
++        if profile {
++            let t = std::time::Instant::now();
++            let module = crate::modules::string::module()?;
++            let built = t.elapsed();
++            let t = std::time::Instant::now();
++            this.install(&module)?;
++            let installed = t.elapsed();
++            let t = std::time::Instant::now();
++            drop(module);
++            let dropped = t.elapsed();
++            samples.try_push(("string", built, installed, dropped))?;
++        } else {
++            this.install(crate::modules::string::module()?)?;
++        }
++        if profile {
++            let t = std::time::Instant::now();
++            let module = crate::modules::bytes::module()?;
++            let built = t.elapsed();
++            let t = std::time::Instant::now();
++            this.install(&module)?;
++            let installed = t.elapsed();
++            let t = std::time::Instant::now();
++            drop(module);
++            let dropped = t.elapsed();
++            samples.try_push(("bytes", built, installed, dropped))?;
++        } else {
++            this.install(crate::modules::bytes::module()?)?;
++        }
++
++        if profile {
++            let t = std::time::Instant::now();
++            let module = crate::modules::collections::module()?;
++            let built = t.elapsed();
++            let t = std::time::Instant::now();
++            this.install(&module)?;
++            let installed = t.elapsed();
++            let t = std::time::Instant::now();
++            drop(module);
++            let dropped = t.elapsed();
++            samples.try_push(("collections", built, installed, dropped))?;
++        } else {
++            this.install(crate::modules::collections::module()?)?;
++        }
+         #[cfg(feature = "alloc")]
+-        this.install(crate::modules::collections::hash_map::module()?)?;
++        if profile {
++            let t = std::time::Instant::now();
++            let module = crate::modules::collections::hash_map::module()?;
++            let built = t.elapsed();
++            let t = std::time::Instant::now();
++            this.install(&module)?;
++            let installed = t.elapsed();
++            let t = std::time::Instant::now();
++            drop(module);
++            let dropped = t.elapsed();
++            samples.try_push(("collections::hash_map", built, installed, dropped))?;
++        } else {
++            this.install(crate::modules::collections::hash_map::module()?)?;
++        }
+         #[cfg(feature = "alloc")]
+-        this.install(crate::modules::collections::hash_set::module()?)?;
++        if profile {
++            let t = std::time::Instant::now();
++            let module = crate::modules::collections::hash_set::module()?;
++            let built = t.elapsed();
++            let t = std::time::Instant::now();
++            this.install(&module)?;
++            let installed = t.elapsed();
++            let t = std::time::Instant::now();
++            drop(module);
++            let dropped = t.elapsed();
++            samples.try_push(("collections::hash_set", built, installed, dropped))?;
++        } else {
++            this.install(crate::modules::collections::hash_set::module()?)?;
++        }
+         #[cfg(feature = "alloc")]
+-        this.install(crate::modules::collections::vec_deque::module()?)?;
+-
+-        this.install(crate::modules::char::module()?)?;
+-        this.install(crate::modules::f64::module()?)?;
+-        this.install(crate::modules::tuple::module()?)?;
+-        this.install(crate::modules::fmt::module()?)?;
+-        this.install(crate::modules::future::module()?)?;
+-        this.install(crate::modules::i64::module()?)?;
+-        this.install(crate::modules::u64::module()?)?;
+-        this.install(crate::modules::io::module(stdio)?)?;
+-        this.install(crate::modules::macros::module()?)?;
+-        this.install(crate::modules::macros::builtin::module()?)?;
+-        this.install(crate::modules::mem::module()?)?;
+-        this.install(crate::modules::object::module()?)?;
+-        this.install(crate::modules::ops::module()?)?;
+-        this.install(crate::modules::ops::generator::module()?)?;
+-        this.install(crate::modules::option::module()?)?;
+-        this.install(crate::modules::result::module()?)?;
+-        this.install(crate::modules::stream::module()?)?;
+-        this.install(crate::modules::test::module()?)?;
+-        this.install(crate::modules::vec::module()?)?;
+-        this.install(crate::modules::slice::module()?)?;
++        if profile {
++            let t = std::time::Instant::now();
++            let module = crate::modules::collections::vec_deque::module()?;
++            let built = t.elapsed();
++            let t = std::time::Instant::now();
++            this.install(&module)?;
++            let installed = t.elapsed();
++            let t = std::time::Instant::now();
++            drop(module);
++            let dropped = t.elapsed();
++            samples.try_push(("collections::vec_deque", built, installed, dropped))?;
++        } else {
++            this.install(crate::modules::collections::vec_deque::module()?)?;
++        }
++
++        if profile {
++            let t = std::time::Instant::now();
++            let module = crate::modules::char::module()?;
++            let built = t.elapsed();
++            let t = std::time::Instant::now();
++            this.install(&module)?;
++            let installed = t.elapsed();
++            let t = std::time::Instant::now();
++            drop(module);
++            let dropped = t.elapsed();
++            samples.try_push(("char", built, installed, dropped))?;
++        } else {
++            this.install(crate::modules::char::module()?)?;
++        }
++        if profile {
++            let t = std::time::Instant::now();
++            let module = crate::modules::f64::module()?;
++            let built = t.elapsed();
++            let t = std::time::Instant::now();
++            this.install(&module)?;
++            let installed = t.elapsed();
++            let t = std::time::Instant::now();
++            drop(module);
++            let dropped = t.elapsed();
++            samples.try_push(("f64", built, installed, dropped))?;
++        } else {
++            this.install(crate::modules::f64::module()?)?;
++        }
++        if profile {
++            let t = std::time::Instant::now();
++            let module = crate::modules::tuple::module()?;
++            let built = t.elapsed();
++            let t = std::time::Instant::now();
++            this.install(&module)?;
++            let installed = t.elapsed();
++            let t = std::time::Instant::now();
++            drop(module);
++            let dropped = t.elapsed();
++            samples.try_push(("tuple", built, installed, dropped))?;
++        } else {
++            this.install(crate::modules::tuple::module()?)?;
++        }
++        if profile {
++            let t = std::time::Instant::now();
++            let module = crate::modules::fmt::module()?;
++            let built = t.elapsed();
++            let t = std::time::Instant::now();
++            this.install(&module)?;
++            let installed = t.elapsed();
++            let t = std::time::Instant::now();
++            drop(module);
++            let dropped = t.elapsed();
++            samples.try_push(("fmt", built, installed, dropped))?;
++        } else {
++            this.install(crate::modules::fmt::module()?)?;
++        }
++        if profile {
++            let t = std::time::Instant::now();
++            let module = crate::modules::future::module()?;
++            let built = t.elapsed();
++            let t = std::time::Instant::now();
++            this.install(&module)?;
++            let installed = t.elapsed();
++            let t = std::time::Instant::now();
++            drop(module);
++            let dropped = t.elapsed();
++            samples.try_push(("future", built, installed, dropped))?;
++        } else {
++            this.install(crate::modules::future::module()?)?;
++        }
++        if profile {
++            let t = std::time::Instant::now();
++            let module = crate::modules::i64::module()?;
++            let built = t.elapsed();
++            let t = std::time::Instant::now();
++            this.install(&module)?;
++            let installed = t.elapsed();
++            let t = std::time::Instant::now();
++            drop(module);
++            let dropped = t.elapsed();
++            samples.try_push(("i64", built, installed, dropped))?;
++        } else {
++            this.install(crate::modules::i64::module()?)?;
++        }
++        if profile {
++            let t = std::time::Instant::now();
++            let module = crate::modules::u64::module()?;
++            let built = t.elapsed();
++            let t = std::time::Instant::now();
++            this.install(&module)?;
++            let installed = t.elapsed();
++            let t = std::time::Instant::now();
++            drop(module);
++            let dropped = t.elapsed();
++            samples.try_push(("u64", built, installed, dropped))?;
++        } else {
++            this.install(crate::modules::u64::module()?)?;
++        }
++        if profile {
++            let t = std::time::Instant::now();
++            let module = crate::modules::io::module(stdio)?;
++            let built = t.elapsed();
++            let t = std::time::Instant::now();
++            this.install(&module)?;
++            let installed = t.elapsed();
++            let t = std::time::Instant::now();
++            drop(module);
++            let dropped = t.elapsed();
++            samples.try_push(("io", built, installed, dropped))?;
++        } else {
++            this.install(crate::modules::io::module(stdio)?)?;
++        }
++        if profile {
++            let t = std::time::Instant::now();
++            let module = crate::modules::macros::module()?;
++            let built = t.elapsed();
++            let t = std::time::Instant::now();
++            this.install(&module)?;
++            let installed = t.elapsed();
++            let t = std::time::Instant::now();
++            drop(module);
++            let dropped = t.elapsed();
++            samples.try_push(("macros", built, installed, dropped))?;
++        } else {
++            this.install(crate::modules::macros::module()?)?;
++        }
++        if profile {
++            let t = std::time::Instant::now();
++            let module = crate::modules::macros::builtin::module()?;
++            let built = t.elapsed();
++            let t = std::time::Instant::now();
++            this.install(&module)?;
++            let installed = t.elapsed();
++            let t = std::time::Instant::now();
++            drop(module);
++            let dropped = t.elapsed();
++            samples.try_push(("macros::builtin", built, installed, dropped))?;
++        } else {
++            this.install(crate::modules::macros::builtin::module()?)?;
++        }
++        if profile {
++            let t = std::time::Instant::now();
++            let module = crate::modules::mem::module()?;
++            let built = t.elapsed();
++            let t = std::time::Instant::now();
++            this.install(&module)?;
++            let installed = t.elapsed();
++            let t = std::time::Instant::now();
++            drop(module);
++            let dropped = t.elapsed();
++            samples.try_push(("mem", built, installed, dropped))?;
++        } else {
++            this.install(crate::modules::mem::module()?)?;
++        }
++        if profile {
++            let t = std::time::Instant::now();
++            let module = crate::modules::object::module()?;
++            let built = t.elapsed();
++            let t = std::time::Instant::now();
++            this.install(&module)?;
++            let installed = t.elapsed();
++            let t = std::time::Instant::now();
++            drop(module);
++            let dropped = t.elapsed();
++            samples.try_push(("object", built, installed, dropped))?;
++        } else {
++            this.install(crate::modules::object::module()?)?;
++        }
++        if profile {
++            let t = std::time::Instant::now();
++            let module = crate::modules::ops::module()?;
++            let built = t.elapsed();
++            let t = std::time::Instant::now();
++            this.install(&module)?;
++            let installed = t.elapsed();
++            let t = std::time::Instant::now();
++            drop(module);
++            let dropped = t.elapsed();
++            samples.try_push(("ops", built, installed, dropped))?;
++        } else {
++            this.install(crate::modules::ops::module()?)?;
++        }
++        if profile {
++            let t = std::time::Instant::now();
++            let module = crate::modules::ops::generator::module()?;
++            let built = t.elapsed();
++            let t = std::time::Instant::now();
++            this.install(&module)?;
++            let installed = t.elapsed();
++            let t = std::time::Instant::now();
++            drop(module);
++            let dropped = t.elapsed();
++            samples.try_push(("ops::generator", built, installed, dropped))?;
++        } else {
++            this.install(crate::modules::ops::generator::module()?)?;
++        }
++        if profile {
++            let t = std::time::Instant::now();
++            let module = crate::modules::option::module()?;
++            let built = t.elapsed();
++            let t = std::time::Instant::now();
++            this.install(&module)?;
++            let installed = t.elapsed();
++            let t = std::time::Instant::now();
++            drop(module);
++            let dropped = t.elapsed();
++            samples.try_push(("option", built, installed, dropped))?;
++        } else {
++            this.install(crate::modules::option::module()?)?;
++        }
++        if profile {
++            let t = std::time::Instant::now();
++            let module = crate::modules::result::module()?;
++            let built = t.elapsed();
++            let t = std::time::Instant::now();
++            this.install(&module)?;
++            let installed = t.elapsed();
++            let t = std::time::Instant::now();
++            drop(module);
++            let dropped = t.elapsed();
++            samples.try_push(("result", built, installed, dropped))?;
++        } else {
++            this.install(crate::modules::result::module()?)?;
++        }
++        if profile {
++            let t = std::time::Instant::now();
++            let module = crate::modules::stream::module()?;
++            let built = t.elapsed();
++            let t = std::time::Instant::now();
++            this.install(&module)?;
++            let installed = t.elapsed();
++            let t = std::time::Instant::now();
++            drop(module);
++            let dropped = t.elapsed();
++            samples.try_push(("stream", built, installed, dropped))?;
++        } else {
++            this.install(crate::modules::stream::module()?)?;
++        }
++        if profile {
++            let t = std::time::Instant::now();
++            let module = crate::modules::test::module()?;
++            let built = t.elapsed();
++            let t = std::time::Instant::now();
++            this.install(&module)?;
++            let installed = t.elapsed();
++            let t = std::time::Instant::now();
++            drop(module);
++            let dropped = t.elapsed();
++            samples.try_push(("test", built, installed, dropped))?;
++        } else {
++            this.install(crate::modules::test::module()?)?;
++        }
++        if profile {
++            let t = std::time::Instant::now();
++            let module = crate::modules::vec::module()?;
++            let built = t.elapsed();
++            let t = std::time::Instant::now();
++            this.install(&module)?;
++            let installed = t.elapsed();
++            let t = std::time::Instant::now();
++            drop(module);
++            let dropped = t.elapsed();
++            samples.try_push(("vec", built, installed, dropped))?;
++        } else {
++            this.install(crate::modules::vec::module()?)?;
++        }
++        if profile {
++            let t = std::time::Instant::now();
++            let module = crate::modules::slice::module()?;
++            let built = t.elapsed();
++            let t = std::time::Instant::now();
++            this.install(&module)?;
++            let installed = t.elapsed();
++            let t = std::time::Instant::now();
++            drop(module);
++            let dropped = t.elapsed();
++            samples.try_push(("slice", built, installed, dropped))?;
++        } else {
++            this.install(crate::modules::slice::module()?)?;
++        }
+         this.has_default_modules = true;
++        for (name, built, installed, dropped) in samples {
++            println!("{name},{},{},{}", built.as_nanos(), installed.as_nanos(), dropped.as_nanos());
++        }
+         Ok(this)
+     }
+ 

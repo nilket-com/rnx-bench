@@ -1,0 +1,18 @@
+Benchmark 1: empty
+  Time (mean ± σ):     455.4 µs ±  16.6 µs    [User: 280.7 µs, System: 134.6 µs]
+  Range (min … max):   439.1 µs … 533.8 µs    100 runs
+ 
+Benchmark 2: context
+  Time (mean ± σ):       3.4 ms ±   0.0 ms    [User: 2.6 ms, System: 0.7 ms]
+  Range (min … max):     3.3 ms …   3.5 ms    100 runs
+ 
+  Warning: Statistical outliers were detected. Consider re-running this benchmark on a quiet system without any interferences from other programs. It might help to use the '--warmup' or '--prepare' options.
+ 
+Benchmark 3: instrumented
+  Time (mean ± σ):       4.4 ms ±   0.0 ms    [User: 2.9 ms, System: 1.4 ms]
+  Range (min … max):     4.4 ms …   4.5 ms    100 runs
+ 
+Summary
+  empty ran
+    7.41 ± 0.28 times faster than context
+    9.67 ± 0.35 times faster than instrumented

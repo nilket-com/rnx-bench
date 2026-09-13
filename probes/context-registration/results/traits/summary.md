@@ -1,0 +1,13 @@
+| Module | Trait | Implementations | Mean ms | Stddev ms | Functions added | Metadata added |
+|---|---|---:|---:|---:|---:|---:|
+| ::std::iter | ::std::iter::Iterator | 12 | 0.4247 | 0.0090 | 793 | 409 |
+| ::std::iter | ::std::iter::DoubleEndedIterator | 12 | 0.0434 | 0.0018 | 84 | 48 |
+| ::std::iter | ::std::iter::ExactSizeIterator | 7 | 0.0069 | 0.0013 | 14 | 7 |
+| ::std::ops | ::std::cmp::PartialEq | 7 | 0.0706 | 0.0027 | 28 | 14 |
+| ::std::ops | ::std::cmp::Eq | 7 | 0.0005 | 0.0000 | 0 | 0 |
+| ::std::ops | ::std::cmp::PartialOrd | 6 | 0.0314 | 0.0020 | 84 | 54 |
+| ::std::ops | ::std::cmp::Ord | 6 | 0.0843 | 0.0031 | 48 | 30 |
+| ::std::ops | ::std::iter::Iterator | 9 | 0.2941 | 0.0065 | 594 | 306 |
+| ::std::ops | ::std::iter::DoubleEndedIterator | 6 | 0.0173 | 0.0005 | 42 | 24 |
+| ::std::ops | ::std::iter::ExactSizeIterator | 4 | 0.0034 | 0.0001 | 8 | 4 |
+| ::std::ops | ::std::clone::Clone | 2 | 0.0019 | 0.0000 | 4 | 2 |

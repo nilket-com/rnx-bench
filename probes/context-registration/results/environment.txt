@@ -1,0 +1,341 @@
+2026-09-13T07:05:36-05:00
+rustc 1.98.1 (48a229cea 2026-09-01)
+binary: rustc
+commit-hash: 48a229ceaefd4985c50990b14116b6d856af0985
+commit-date: 2026-09-01
+host: x86_64-unknown-linux-gnu
+release: 1.98.1
+LLVM version: 22.1.8
+cargo 1.98.1 (797e8a9bc 2026-08-05)
+hyperfine 1.20.0
+Linux nano 7.0.0-31-generic #31-Ubuntu SMP PREEMPT_DYNAMIC Sat Aug  1 04:26:38 UTC 2026 x86_64 GNU/Linux
+Architecture:                            x86_64
+CPU op-mode(s):                          32-bit, 64-bit
+Address sizes:                           42 bits physical, 48 bits virtual
+Byte Order:                              Little Endian
+CPU(s):                                  28
+On-line CPU(s) list:                     0-27
+Vendor ID:                               GenuineIntel
+Model name:                              Intel(R) Core(TM) i7-14700
+CPU family:                              6
+Model:                                   183
+Thread(s) per core:                      2
+Core(s) per socket:                      20
+Socket(s):                               1
+Stepping:                                1
+CPU(s) scaling MHz:                      22%
+CPU max MHz:                             5400.0000
+CPU min MHz:                             800.0000
+BogoMIPS:                                4224.00
+Flags:                                   fpu vme de pse tsc msr pae mce cx8 apic sep mtrr pge mca cmov pat pse36 clflush dts acpi mmx fxsr sse sse2 ss ht tm pbe syscall nx pdpe1gb rdtscp lm constant_tsc art arch_perfmon pebs bts rep_good nopl xtopology nonstop_tsc cpuid aperfmperf tsc_known_freq pni pclmulqdq dtes64 monitor ds_cpl vmx smx est tm2 ssse3 sdbg fma cx16 xtpr pdcm pcid sse4_1 sse4_2 x2apic movbe popcnt tsc_deadline_timer aes xsave avx f16c rdrand lahf_lm abm 3dnowprefetch cpuid_fault epb ssbd ibrs ibpb stibp ibrs_enhanced tpr_shadow flexpriority ept vpid ept_ad fsgsbase tsc_adjust bmi1 avx2 smep bmi2 erms invpcid rdseed adx smap clflushopt clwb intel_pt sha_ni xsaveopt xsavec xgetbv1 xsaves split_lock_detect user_shstk avx_vnni dtherm ida arat pln pts hwp hwp_notify hwp_act_window hwp_epp hwp_pkg_req hfi vnmi umip pku ospke waitpkg gfni vaes vpclmulqdq tme rdpid movdiri movdir64b fsrm md_clear serialize pconfig arch_lbr ibt flush_l1d arch_capabilities
+Virtualization:                          VT-x
+L1d cache:                               768 KiB (20 instances)
+L1i cache:                               1 MiB (20 instances)
+L2 cache:                                28 MiB (11 instances)
+L3 cache:                                33 MiB (1 instance)
+NUMA node(s):                            1
+NUMA node0 CPU(s):                       0-27
+Vulnerability Gather data sampling:      Not affected
+Vulnerability Ghostwrite:                Not affected
+Vulnerability Indirect target selection: Not affected
+Vulnerability Itlb multihit:             Not affected
+Vulnerability L1tf:                      Not affected
+Vulnerability Mds:                       Not affected
+Vulnerability Meltdown:                  Not affected
+Vulnerability Mmio stale data:           Not affected
+Vulnerability Old microcode:             Not affected
+Vulnerability Reg file data sampling:    Mitigation; Clear Register File
+Vulnerability Retbleed:                  Not affected
+Vulnerability Spec rstack overflow:      Not affected
+Vulnerability Spec store bypass:         Mitigation; Speculative Store Bypass disabled via prctl
+Vulnerability Spectre v1:                Mitigation; usercopy/swapgs barriers and __user pointer sanitization
+Vulnerability Spectre v2:                Mitigation; Enhanced / Automatic IBRS; IBPB conditional; PBRSB-eIBRS SW sequence; BHI BHI_DIS_S
+Vulnerability Srbds:                     Not affected
+Vulnerability Tsa:                       Not affected
+Vulnerability Tsx async abort:           Not affected
+Vulnerability Vmscape:                   Mitigation; IBPB before exit to userspace
+7be5b171d4a30e92702bb9821f53c89222f846dea6b1f9d65d83f89e13ad0ea4  target/release/rnx-context-profile
+4883de27e84b4db5164c27d6f20912472c8342d8614aef80da968db1d16a81f2  Cargo.lock
+4e57d6a9775962c3bf491d30fc3aaafe4c8b62acc64cc2464e419b8d20641234  instrumentation.patch
+rnx-context-profile v0.0.0 (/home/me/work/rnx-context-profile)
+└── rune feature "std"
+    ├── rune v0.14.2 (/home/me/work/rnx-context-profile/rune)
+    │   ├── anyhow v1.0.104
+    │   ├── futures-core v0.3.34
+    │   ├── futures-util feature "alloc"
+    │   │   ├── futures-util v0.3.34
+    │   │   │   ├── futures-core v0.3.34
+    │   │   │   ├── futures-task v0.3.34
+    │   │   │   ├── slab v0.4.12
+    │   │   │   └── pin-project-lite feature "default"
+    │   │   │       └── pin-project-lite v0.2.17
+    │   │   ├── futures-core feature "alloc"
+    │   │   │   └── futures-core v0.3.34
+    │   │   ├── futures-util feature "slab"
+    │   │   │   └── futures-util v0.3.34 (*)
+    │   │   └── futures-task feature "alloc"
+    │   │       └── futures-task v0.3.34
+    │   ├── itoa feature "default"
+    │   │   └── itoa v1.0.18
+    │   ├── memchr feature "default"
+    │   │   ├── memchr v2.8.3
+    │   │   └── memchr feature "std"
+    │   │       ├── memchr v2.8.3
+    │   │       └── memchr feature "alloc"
+    │   │           └── memchr v2.8.3
+    │   ├── musli feature "alloc"
+    │   │   ├── musli v0.0.124
+    │   │   │   └── musli-core v0.0.124
+    │   │   │       └── musli-macros feature "default"
+    │   │   │           └── musli-macros v0.0.124 (proc-macro)
+    │   │   │               ├── proc-macro2 feature "default"
+    │   │   │               │   ├── proc-macro2 v1.0.107
+    │   │   │               │   │   └── unicode-ident feature "default"
+    │   │   │               │   │       └── unicode-ident v1.0.24
+    │   │   │               │   └── proc-macro2 feature "proc-macro"
+    │   │   │               │       └── proc-macro2 v1.0.107 (*)
+    │   │   │               ├── quote feature "default"
+    │   │   │               │   ├── quote v1.0.47
+    │   │   │               │   │   └── proc-macro2 v1.0.107 (*)
+    │   │   │               │   └── quote feature "proc-macro"
+    │   │   │               │       ├── quote v1.0.47 (*)
+    │   │   │               │       └── proc-macro2 feature "proc-macro" (*)
+    │   │   │               ├── syn feature "default"
+    │   │   │               │   ├── syn v2.0.119
+    │   │   │               │   │   ├── proc-macro2 v1.0.107 (*)
+    │   │   │               │   │   ├── quote v1.0.47 (*)
+    │   │   │               │   │   └── unicode-ident feature "default" (*)
+    │   │   │               │   ├── syn feature "clone-impls"
+    │   │   │               │   │   └── syn v2.0.119 (*)
+    │   │   │               │   ├── syn feature "derive"
+    │   │   │               │   │   └── syn v2.0.119 (*)
+    │   │   │               │   ├── syn feature "parsing"
+    │   │   │               │   │   └── syn v2.0.119 (*)
+    │   │   │               │   ├── syn feature "printing"
+    │   │   │               │   │   └── syn v2.0.119 (*)
+    │   │   │               │   └── syn feature "proc-macro"
+    │   │   │               │       ├── syn v2.0.119 (*)
+    │   │   │               │       ├── proc-macro2 feature "proc-macro" (*)
+    │   │   │               │       └── quote feature "proc-macro" (*)
+    │   │   │               ├── syn feature "extra-traits"
+    │   │   │               │   └── syn v2.0.119 (*)
+    │   │   │               └── syn feature "full"
+    │   │   │                   └── syn v2.0.119 (*)
+    │   │   └── musli-core feature "alloc"
+    │   │       └── musli-core v0.0.124 (*)
+    │   ├── unicode-ident feature "default" (*)
+    │   ├── num feature "alloc"
+    │   │   ├── num v0.4.3
+    │   │   │   ├── num-bigint v0.4.8
+    │   │   │   │   ├── num-integer feature "i128"
+    │   │   │   │   │   └── num-integer v0.1.47
+    │   │   │   │   │       └── num-traits feature "i128"
+    │   │   │   │   │           └── num-traits v0.2.19
+    │   │   │   │   │               [build-dependencies]
+    │   │   │   │   │               └── autocfg feature "default"
+    │   │   │   │   │                   └── autocfg v1.5.1
+    │   │   │   │   └── num-traits feature "i128" (*)
+    │   │   │   ├── num-complex v0.4.6
+    │   │   │   │   └── num-traits feature "i128" (*)
+    │   │   │   ├── num-rational v0.4.2
+    │   │   │   │   ├── num-bigint v0.4.8 (*)
+    │   │   │   │   ├── num-integer feature "i128" (*)
+    │   │   │   │   └── num-traits feature "i128" (*)
+    │   │   │   ├── num-integer feature "i128" (*)
+    │   │   │   ├── num-traits feature "i128" (*)
+    │   │   │   └── num-iter feature "i128"
+    │   │   │       └── num-iter v0.1.46
+    │   │   │           ├── num-integer feature "i128" (*)
+    │   │   │           └── num-traits feature "i128" (*)
+    │   │   └── num-rational feature "num-bigint"
+    │   │       └── num-rational v0.4.2 (*)
+    │   ├── once_cell feature "critical-section"
+    │   │   ├── once_cell v1.21.4
+    │   │   │   ├── portable-atomic v1.15.0
+    │   │   │   └── critical-section feature "default"
+    │   │   │       └── critical-section v1.2.0
+    │   │   └── once_cell feature "portable-atomic"
+    │   │       └── once_cell v1.21.4 (*)
+    │   ├── pin-project feature "default"
+    │   │   └── pin-project v1.1.13
+    │   │       └── pin-project-internal feature "default"
+    │   │           └── pin-project-internal v1.1.13 (proc-macro)
+    │   │               ├── proc-macro2 feature "default" (*)
+    │   │               ├── quote feature "default" (*)
+    │   │               ├── syn feature "clone-impls" (*)
+    │   │               ├── syn feature "full" (*)
+    │   │               ├── syn feature "parsing" (*)
+    │   │               ├── syn feature "printing" (*)
+    │   │               ├── syn feature "proc-macro" (*)
+    │   │               └── syn feature "visit-mut"
+    │   │                   └── syn v2.0.119 (*)
+    │   ├── rune-alloc feature "serde"
+    │   │   └── rune-alloc v0.14.2
+    │   │       ├── ahash v0.8.12
+    │   │       │   ├── once_cell feature "alloc"
+    │   │       │   │   ├── once_cell v1.21.4 (*)
+    │   │       │   │   └── once_cell feature "race"
+    │   │       │   │       └── once_cell v1.21.4 (*)
+    │   │       │   ├── cfg-if feature "default"
+    │   │       │   │   └── cfg-if v1.0.4
+    │   │       │   └── zerocopy feature "simd"
+    │   │       │       └── zerocopy v0.8.56
+    │   │       │   [build-dependencies]
+    │   │       │   └── version_check feature "default"
+    │   │       │       └── version_check v0.9.5
+    │   │       ├── pin-project feature "default" (*)
+    │   │       ├── rune-alloc-macros feature "default"
+    │   │       │   └── rune-alloc-macros v0.14.2 (proc-macro)
+    │   │       │       ├── proc-macro2 feature "default" (*)
+    │   │       │       ├── quote feature "default" (*)
+    │   │       │       ├── syn feature "default" (*)
+    │   │       │       └── syn feature "full" (*)
+    │   │       └── serde feature "derive"
+    │   │           ├── serde v1.0.229
+    │   │           │   ├── serde_core feature "result"
+    │   │           │   │   └── serde_core v1.0.229
+    │   │           │   └── serde_derive feature "default"
+    │   │           │       └── serde_derive v1.0.229 (proc-macro)
+    │   │           │           ├── proc-macro2 feature "proc-macro" (*)
+    │   │           │           ├── quote feature "proc-macro" (*)
+    │   │           │           ├── syn feature "clone-impls"
+    │   │           │           │   └── syn v3.0.5
+    │   │           │           │       ├── proc-macro2 v1.0.107 (*)
+    │   │           │           │       ├── quote v1.0.47 (*)
+    │   │           │           │       └── unicode-ident feature "default" (*)
+    │   │           │           ├── syn feature "derive"
+    │   │           │           │   └── syn v3.0.5 (*)
+    │   │           │           ├── syn feature "parsing"
+    │   │           │           │   └── syn v3.0.5 (*)
+    │   │           │           ├── syn feature "printing"
+    │   │           │           │   └── syn v3.0.5 (*)
+    │   │           │           └── syn feature "proc-macro"
+    │   │           │               ├── syn v3.0.5 (*)
+    │   │           │               ├── proc-macro2 feature "proc-macro" (*)
+    │   │           │               └── quote feature "proc-macro" (*)
+    │   │           └── serde feature "serde_derive"
+    │   │               └── serde v1.0.229 (*)
+    │   ├── serde feature "derive" (*)
+    │   ├── serde feature "rc"
+    │   │   ├── serde v1.0.229 (*)
+    │   │   └── serde_core feature "rc"
+    │   │       └── serde_core v1.0.229
+    │   ├── rune-core feature "default"
+    │   │   ├── rune-core v0.14.2
+    │   │   │   ├── musli v0.0.124 (*)
+    │   │   │   ├── rune-alloc feature "serde" (*)
+    │   │   │   ├── serde feature "derive" (*)
+    │   │   │   └── twox-hash feature "xxhash64"
+    │   │   │       └── twox-hash v2.1.4
+    │   │   └── rune-core feature "alloc"
+    │   │       ├── rune-core v0.14.2 (*)
+    │   │       ├── rune-alloc feature "alloc"
+    │   │       │   └── rune-alloc v0.14.2 (*)
+    │   │       └── serde feature "alloc"
+    │   │           ├── serde v1.0.229 (*)
+    │   │           └── serde_core feature "alloc"
+    │   │               └── serde_core v1.0.229
+    │   ├── rune-core feature "musli"
+    │   │   └── rune-core v0.14.2 (*)
+    │   ├── rune-macros feature "default"
+    │   │   └── rune-macros v0.14.2 (proc-macro)
+    │   │       ├── proc-macro2 feature "default" (*)
+    │   │       ├── quote feature "default" (*)
+    │   │       ├── syn feature "default" (*)
+    │   │       ├── syn feature "full" (*)
+    │   │       ├── rune-core feature "default"
+    │   │       │   ├── rune-core v0.14.2
+    │   │       │   │   ├── rune-alloc feature "serde" (*)
+    │   │       │   │   ├── twox-hash feature "xxhash64" (*)
+    │   │       │   │   └── serde feature "derive"
+    │   │       │   │       ├── serde v1.0.229
+    │   │       │   │       │   ├── serde_derive feature "default" (*)
+    │   │       │   │       │   └── serde_core feature "result"
+    │   │       │   │       │       └── serde_core v1.0.229
+    │   │       │   │       └── serde feature "serde_derive"
+    │   │       │   │           └── serde v1.0.229 (*)
+    │   │       │   └── rune-core feature "alloc"
+    │   │       │       ├── rune-core v0.14.2 (*)
+    │   │       │       ├── rune-alloc feature "alloc" (*)
+    │   │       │       └── serde feature "alloc"
+    │   │       │           ├── serde v1.0.229 (*)
+    │   │       │           └── serde_core feature "alloc"
+    │   │       │               └── serde_core v1.0.229
+    │   │       └── rune-core feature "std"
+    │   │           ├── rune-core v0.14.2 (*)
+    │   │           ├── rune-alloc feature "std"
+    │   │           │   ├── rune-alloc v0.14.2 (*)
+    │   │           │   ├── rune-alloc feature "alloc" (*)
+    │   │           │   ├── ahash feature "std"
+    │   │           │   │   └── ahash v0.8.12 (*)
+    │   │           │   └── serde feature "std"
+    │   │           │       ├── serde v1.0.229 (*)
+    │   │           │       └── serde_core feature "std"
+    │   │           │           └── serde_core v1.0.229
+    │   │           └── rune-core feature "alloc" (*)
+    │   ├── rune-tracing feature "default"
+    │   │   └── rune-tracing v0.14.2
+    │   │       └── rune-tracing-macros v0.14.2 (proc-macro)
+    │   │           ├── proc-macro2 feature "default" (*)
+    │   │           ├── quote feature "default" (*)
+    │   │           ├── syn feature "default" (*)
+    │   │           └── syn feature "full" (*)
+    │   ├── ryu feature "default"
+    │   │   └── ryu v1.0.23
+    │   └── syntree feature "alloc"
+    │       └── syntree v0.18.0
+    ├── rune feature "alloc"
+    │   ├── rune v0.14.2 (/home/me/work/rnx-context-profile/rune) (*)
+    │   ├── rune feature "anyhow"
+    │   │   └── rune v0.14.2 (/home/me/work/rnx-context-profile/rune) (*)
+    │   ├── once_cell feature "alloc" (*)
+    │   ├── rune-alloc feature "alloc" (*)
+    │   ├── serde feature "alloc" (*)
+    │   └── rune-core feature "alloc" (*)
+    ├── rune feature "anyhow" (*)
+    ├── anyhow feature "std"
+    │   └── anyhow v1.0.104
+    ├── musli feature "std"
+    │   ├── musli v0.0.124 (*)
+    │   └── musli-core feature "std"
+    │       └── musli-core v0.0.124 (*)
+    ├── num feature "std"
+    │   ├── num v0.4.3 (*)
+    │   ├── num feature "num-bigint"
+    │   │   └── num v0.4.3 (*)
+    │   ├── num-bigint feature "std"
+    │   │   ├── num-bigint v0.4.8 (*)
+    │   │   ├── num-integer feature "std"
+    │   │   │   ├── num-integer v0.1.47 (*)
+    │   │   │   └── num-traits feature "std"
+    │   │   │       └── num-traits v0.2.19 (*)
+    │   │   └── num-traits feature "std" (*)
+    │   ├── num-integer feature "std" (*)
+    │   ├── num-traits feature "std" (*)
+    │   ├── num-complex feature "std"
+    │   │   ├── num-complex v0.4.6 (*)
+    │   │   └── num-traits feature "std" (*)
+    │   ├── num-iter feature "std"
+    │   │   ├── num-iter v0.1.46 (*)
+    │   │   ├── num-integer feature "std" (*)
+    │   │   └── num-traits feature "std" (*)
+    │   ├── num-rational feature "num-bigint-std"
+    │   │   ├── num-rational v0.4.2 (*)
+    │   │   ├── num-bigint feature "std" (*)
+    │   │   └── num-rational feature "num-bigint" (*)
+    │   └── num-rational feature "std"
+    │       ├── num-rational v0.4.2 (*)
+    │       ├── num-bigint feature "std" (*)
+    │       ├── num-integer feature "std" (*)
+    │       └── num-traits feature "std" (*)
+    ├── once_cell feature "std"
+    │   ├── once_cell v1.21.4 (*)
+    │   └── once_cell feature "alloc" (*)
+    ├── rune-alloc feature "std" (*)
+    ├── serde feature "std" (*)
+    ├── rune-core feature "std"
+    │   ├── rune-core v0.14.2 (*)
+    │   ├── rune-alloc feature "std" (*)
+    │   └── rune-core feature "alloc" (*)
+    └── syntree feature "std"
+        └── syntree v0.18.0
