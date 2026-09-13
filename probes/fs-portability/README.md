@@ -12,3 +12,7 @@ cargo check --locked --manifest-path probes/fs-portability/Cargo.toml --tests --
 This checks Windows filesystem types. It neither executes Windows tests nor
 checks the entire application. The independent lockfile is preserved; this is
 not an assertion that every dependency matches rnx's lockfile.
+
+Record 0036 adds the actual environment module to the same isolated check.
+The environment and filesystem unit gates are type-checked on Windows;
+no Windows execution or whole-application build is claimed.
