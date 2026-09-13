@@ -1,0 +1,19 @@
+== output equivalence: exit status 0, stdout exactly one line, canonicalised with sorted keys ==
+rnx           status=0 lines=1 canon={"a":[9999,2,3],"b":"hello"} raw={"b":"hello","a":[9999,2,3]}
+python3       status=0 lines=1 canon={"a":[9999,2,3],"b":"hello"} raw={"a":[9999,2,3],"b":"hello"}
+perl_pp       status=0 lines=1 canon={"a":[9999,2,3],"b":"hello"} raw={"b":"hello","a":[9999,2,3]}
+perl_xs       status=0 lines=1 canon={"a":[9999,2,3],"b":"hello"} raw={"b":"hello","a":[9999,2,3]}
+ruby          status=0 lines=1 canon={"a":[9999,2,3],"b":"hello"} raw={"a":[9999,2,3],"b":"hello"}
+bun           status=0 lines=1 canon={"a":[9999,2,3],"b":"hello"} raw={"a":[9999,2,3],"b":"hello"}
+node_official status=0 lines=1 canon={"a":[9999,2,3],"b":"hello"} raw={"a":[9999,2,3],"b":"hello"}
+node_distro   status=0 lines=1 canon={"a":[9999,2,3],"b":"hello"} raw={"a":[9999,2,3],"b":"hello"}
+deno          status=0 lines=1 canon={"a":[9999,2,3],"b":"hello"} raw={"a":[9999,2,3],"b":"hello"}
+lua54_cjson   status=0 lines=1 canon={"a":[9999,2,3],"b":"hello"} raw={"b":"hello","a":[9999,2,3]}
+lua54_pure    status=0 lines=1 canon={"a":[9999,2,3],"b":"hello"} raw={"b":"hello","a":[9999,2,3]}
+luajit_cjson  status=0 lines=1 canon={"a":[9999,2,3],"b":"hello"} raw={"b":"hello","a":[9999,2,3]}
+luajit_pure   status=0 lines=1 canon={"a":[9999,2,3],"b":"hello"} raw={"b":"hello","a":[9999,2,3]}
+scala_jar     status=0 lines=1 canon={"a":[9999,2,3],"b":"hello"} raw={"a":[9999,2,3],"b":"hello"}
+kotlin_jar    status=0 lines=1 canon={"a":[9999,2,3],"b":"hello"} raw={"a":[9999,2,3],"b":"hello"}
+rscript       status=0 lines=1 canon={"a":[9999,2,3],"b":"hello"} raw={"a":[9999,2,3],"b":"hello"}
+julia         status=0 lines=1 canon={"a":[9999,2,3],"b":"hello"} raw={"a":[9999,2,3],"b":"hello"}
+ALL EQUIVALENT

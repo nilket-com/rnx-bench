@@ -1,0 +1,5 @@
+pub fn main(_args) {
+    let s = "";
+    for x in 0..10000 { s = host::json_stringify(#{ a: [x, 2, 3], b: "hello" })?; }
+    println(s);
+}
