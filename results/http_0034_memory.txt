@@ -1,0 +1,18 @@
+rnx: a Rune session. :help lists the commands, :quit ends it.
+rnx> tracked live allocation request bytes: 1822330 of a ceiling of 536870912.
+startup reference point: 1813869 bytes; net change since: +8461 bytes
+source and map storage: 0 bytes (inputs, declarations, and the source maps of 0 entries; the units themselves are held weakly and are not counted)
+The figure counts requests through Rust's global allocator only. It excludes native allocations outside it, memory mappings, thread stacks, and child processes, it is not resident memory, and it is not the session's share of anything.
+rnx> "ok"
+rnx> session reset
+rnx> tracked live allocation request bytes: 1822588 of a ceiling of 536870912.
+startup reference point: 1813869 bytes; net change since: +8719 bytes
+source and map storage: 0 bytes (inputs, declarations, and the source maps of 0 entries; the units themselves are held weakly and are not counted)
+The figure counts requests through Rust's global allocator only. It excludes native allocations outside it, memory mappings, thread stacks, and child processes, it is not resident memory, and it is not the session's share of anything.
+rnx> "ok"
+rnx> session reset
+rnx> tracked live allocation request bytes: 1822583 of a ceiling of 536870912.
+startup reference point: 1813869 bytes; net change since: +8714 bytes
+source and map storage: 0 bytes (inputs, declarations, and the source maps of 0 entries; the units themselves are held weakly and are not counted)
+The figure counts requests through Rust's global allocator only. It excludes native allocations outside it, memory mappings, thread stacks, and child processes, it is not resident memory, and it is not the session's share of anything.
+rnx> 

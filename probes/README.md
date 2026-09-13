@@ -18,3 +18,13 @@ tokio current-thread runtime.
   default features: `emit` + `std`, not `doc`). Matched against
   `context-phases` in `results/probes_emit.*`: binary 7.76 → 7.89 MiB,
   context and run phases within noise.
+- `http-lifecycle/` — no Rune; reqwest 0.12.28 on a current-thread tokio
+  runtime against two loopback fixtures that report a clean `Ok(0)` EOF
+  apart from a read error. Basis for record 0034's decision 3: tasks alive
+  after a request (2), after cancelling a request to the second fixture
+  while the first's socket sits healthy in the pool (3), whether the
+  cancelled socket closes without a runtime turn (it does not), what a
+  bounded drain reaches with the client kept (2: the healthy dispatcher and
+  the pool's task, the healthy socket stays open and is reused) and dropped
+  (0 in ~6 ms, clean EOF on the pooled socket). Output in
+  `results/http_lifecycle.txt`, two consecutive runs.

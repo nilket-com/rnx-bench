@@ -1,0 +1,32 @@
+tasks before any request: 0
+success: "ok"; tasks alive after block_on returned: 2
+fixture: ["accepted #0"]
+cancelled by drop
+tasks alive right after cancel (healthy socket #0 still pooled on the first fixture): 3
+hang fixture, no extra turns, 100ms wait: ["accepted #0"]
+drain after cancel (client kept): drained to 2 alive tasks in 103.20482ms
+hang fixture after drain: ["clean eof #0 after 150.627637ms"]
+first fixture after drain (pooled socket must still be open): []
+reuse after cancel ok; fixture: []; tasks 2
+tasks alive right after client drop, before any turn: 2
+fixture, no turns, 100ms: []
+drain after client drop: drained to 0 alive tasks in 6.364289ms
+first fixture after drain: ["clean eof #0 after 656.223719ms"]
+hang fixture after drain: []
+SUMMARY kept-client drain left 2; dropped-client drain left 0
+tasks before any request: 0
+success: "ok"; tasks alive after block_on returned: 2
+fixture: ["accepted #0"]
+cancelled by drop
+tasks alive right after cancel (healthy socket #0 still pooled on the first fixture): 3
+hang fixture, no extra turns, 100ms wait: ["accepted #0"]
+drain after cancel (client kept): drained to 2 alive tasks in 104.398355ms
+hang fixture after drain: ["clean eof #0 after 150.85437ms"]
+first fixture after drain (pooled socket must still be open): []
+reuse after cancel ok; fixture: []; tasks 2
+tasks alive right after client drop, before any turn: 2
+fixture, no turns, 100ms: []
+drain after client drop: drained to 0 alive tasks in 6.235667ms
+first fixture after drain: ["clean eof #0 after 658.001993ms"]
+hang fixture after drain: []
+SUMMARY kept-client drain left 2; dropped-client drain left 0

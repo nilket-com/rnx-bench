@@ -1,0 +1,25 @@
+nano, Linux i7-14700, Rust 1.98.1; 2026-09-13
+Command in rnx: TERM=xterm-kitty cargo test --locked --features test-support --test http -- --nocapture
+Debug test build; concurrent tests; elapsed observations, not a latency benchmark.
+
+   Compiling rnx v0.0.0 (/home/me/work/rnx)
+    Finished `test` profile [unoptimized] target(s) in 0.25s
+     Running tests/http.rs (target/debug/deps/http-f4a974c50c4c7cac)
+
+running 9 tests
+test declared_size_never_becomes_a_buffer_allocation ... ok
+test tls_verification_and_plaintext_protocol_failures_are_distinct ... ok
+test file_and_session_entry_points_and_module_names ... ok
+session request through next prompt: first 2.951034ms, reused 42.111029ms; one accepted socket
+test json_text_and_byte_contracts ... ok
+test cancellation_discards_healthy_pool_and_retained_request_then_reset_closes_reused_socket ... ok
+stalled DNS run process completed in 115.876178ms
+test responses_methods_headers_and_statuses ... ok
+test redirects_credentials_proxy_and_dns ... ok
+stalled DNS eval process completed in 121.56195ms
+stalled DNS session deadline, next input, reset and exit completed in 108.635083ms
+test stalled_system_lookup_does_not_delay_run_eval_session_or_reset ... ok
+test bounds_deadlines_and_invalid_options ... ok
+
+test result: ok. 9 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.54s
+
