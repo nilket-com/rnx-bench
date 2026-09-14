@@ -35,3 +35,8 @@ tokio current-thread runtime.
   from the crate name. Raw results and provenance in its `results/`.
 
 - `fs-portability/`: record 0035 filesystem code and unit gates type-checked for Windows independently of the TLS toolchain; no Windows execution claim.
+- Record 0037 extends `fs-portability/` to type-check the path module. Its
+  before/after measurement driver is `scripts/measure_path_0037.py`; raw
+  startup timings, binary hashes, session memory and test totals are in
+  `results/path_0037_*`. Run the driver from the repository root with the
+  before and after release binary paths as its two arguments.
