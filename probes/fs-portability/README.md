@@ -20,3 +20,7 @@ no Windows execution or whole-application build is claimed.
 Record 0037 adds the actual path-helper module and its registration unit gate.
 The path integration tests, including Windows-specific semantic expectations,
 remain in rnx; this check does not execute them.
+
+Record 0038 adds the actual time module and its timestamp/registration unit
+gates with the specified Jiff Windows features. This remains only a type
+check; no Windows execution or whole-application build is claimed.

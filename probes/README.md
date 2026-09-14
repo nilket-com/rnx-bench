@@ -45,3 +45,8 @@ tokio current-thread runtime.
   a negative timestamp, local time under `TZ=Europe/Paris`, parsing, and
   the overflow refusal. Sizes, build times and outputs in
   `results/time_0038_candidates.txt`. Basis for record 0038's crate choice.
+- Record 0038's integration measurements are in `results/time_0038_*`,
+  produced by `scripts/measure_time_0038.py BEFORE AFTER` and
+  `scripts/run_time_0038_examples.py AFTER` from this repository root.
+  `fs-portability/` also type-checks the actual time module with Jiff's
+  Windows database features. These are distinct from the candidate probes.

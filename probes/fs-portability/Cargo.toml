@@ -9,3 +9,8 @@ test-support = []
 rune = { version = "=0.14.2", default-features = false, features = ["std"] }
 libc = "0.2.177"
 windows-sys = { version = "0.61.2", features = ["Win32_Foundation", "Win32_Storage_FileSystem"] }
+
+jiff = { version = "=0.2.24", default-features = false, features = ["std", "tz-system", "tzdb-zoneinfo"] }
+tokio = { version = "1", default-features = false, features = ["rt", "time"] }
+[target.'cfg(windows)'.dependencies]
+jiff = { version = "=0.2.24", default-features = false, features = ["std", "tz-system", "tzdb-zoneinfo", "tzdb-bundle-platform"] }
