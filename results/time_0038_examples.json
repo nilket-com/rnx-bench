@@ -1,0 +1,33 @@
+{
+  "log": {
+    "source": "time::rfc3339(time::now_ms(), \"UTC\")?",
+    "stdout": "\"2026-09-14T07:17:01.614Z\"\n",
+    "stderr": "",
+    "exit": 0
+  },
+  "elapsed": {
+    "source": "let t=time::monotonic_ms(); time::sleep(50).await?; time::monotonic_ms()-t",
+    "stdout": "51\n",
+    "stderr": "",
+    "exit": 0
+  },
+  "zones": {
+    "source": "let jan=time::parse(\"2026-01-15T12:00:00Z\")?; let jul=time::parse(\"2026-07-15T12:00:00Z\")?; [time::rfc3339(jan,\"America/Chicago\")?, time::rfc3339(jan,\"Europe/Paris\")?, time::rfc3339(jul,\"America/Chicago\")?, time::rfc3339(jul,\"Europe/Paris\")?]",
+    "stdout": "[\"2026-01-15T06:00:00.000-06:00\", \"2026-01-15T13:00:00.000+01:00\", \"2026-07-15T07:00:00.000-05:00\", \"2026-07-15T14:00:00.000+02:00\"]\n",
+    "stderr": "",
+    "exit": 0
+  },
+  "age": {
+    "source": "let m=fs::metadata(\"/tmp/rnx-time-example-12areo52/old\")?.modified_ms; [m, time::now_ms()-m]",
+    "stdout": "[-1, 1789370221707]\n",
+    "stderr": "",
+    "exit": 0
+  },
+  "cancel": {
+    "source": "host::eprint(\"ready\\n\"); time::sleep(10000).await?",
+    "stdout": "",
+    "stderr": "ready\ninterrupted\n",
+    "exit": 130,
+    "seconds_after_signal": 0.0019289659976493567
+  }
+}

@@ -13,3 +13,5 @@ fn compile(context: &rune::Context, text: &str) -> Result<()> {
 #[path = "../../../../rnx/src/env.rs"] mod env;
 
 #[path = "../../../../rnx/src/path.rs"] mod path;
+
+#[path = "../../../../rnx/src/time.rs"] mod time;
