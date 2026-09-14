@@ -1,0 +1,120 @@
+{
+  "screen_and_cursor": "never and always identical",
+  "plain_before_after": [
+    {
+      "args": [
+        "run",
+        "/home/me/work/rnx-bench/scripts/bare.rn"
+      ],
+      "TERM": "xterm",
+      "exit": 0,
+      "stdout": "42\n",
+      "stderr": ""
+    },
+    {
+      "args": [
+        "run",
+        "/home/me/work/rnx-bench/scripts/bare.rn"
+      ],
+      "TERM": "dumb",
+      "exit": 0,
+      "stdout": "42\n",
+      "stderr": ""
+    },
+    {
+      "args": [
+        "run",
+        "/home/me/work/rnx-bench/scripts/json.rn"
+      ],
+      "TERM": "xterm",
+      "exit": 0,
+      "stdout": "{\"b\":\"hello\",\"a\":[9999,2,3]}\n",
+      "stderr": ""
+    },
+    {
+      "args": [
+        "run",
+        "/home/me/work/rnx-bench/scripts/json.rn"
+      ],
+      "TERM": "dumb",
+      "exit": 0,
+      "stdout": "{\"b\":\"hello\",\"a\":[9999,2,3]}\n",
+      "stderr": ""
+    },
+    {
+      "args": [
+        "eval",
+        "42"
+      ],
+      "TERM": "xterm",
+      "exit": 0,
+      "stdout": "42\n",
+      "stderr": ""
+    },
+    {
+      "args": [
+        "eval",
+        "42"
+      ],
+      "TERM": "dumb",
+      "exit": 0,
+      "stdout": "42\n",
+      "stderr": ""
+    },
+    {
+      "args": [
+        "eval",
+        "1.missing()"
+      ],
+      "TERM": "xterm",
+      "exit": 1,
+      "stdout": "",
+      "stderr": "runtime error at input 1, line 1, column 1: no method `missing` on `::std::i64`\n  1.missing()\n  ^\n"
+    },
+    {
+      "args": [
+        "eval",
+        "1.missing()"
+      ],
+      "TERM": "dumb",
+      "exit": 1,
+      "stdout": "",
+      "stderr": "runtime error at input 1, line 1, column 1: no method `missing` on `::std::i64`\n  1.missing()\n  ^\n"
+    },
+    {
+      "args": [
+        "--no-splash",
+        "repl"
+      ],
+      "TERM": "xterm",
+      "exit": 0,
+      "stdout": "42\n42\n",
+      "stderr": "runtime error at input 2, line 1, column 1: no method `missing` on `::std::i64`\n  1.missing()\n  ^\n"
+    },
+    {
+      "args": [
+        "--no-splash",
+        "repl"
+      ],
+      "TERM": "dumb",
+      "exit": 0,
+      "stdout": "[1] > [2] > [2] 42\n[3] > [1] > [1] 42\n[2] > [3] > ",
+      "stderr": "runtime error at input 2, line 1, column 1: no method `missing` on `::std::i64`\n  1.missing()\n  ^\n"
+    }
+  ],
+  "palette": "Tango ANSI normal slots, normal and bold DejaVu Sans Mono",
+  "faint": "SGR 2 captured and modelled; specimen blends foreground 50% toward background as an illustration, not a physical-terminal measurement",
+  "Windows": "not executed",
+  "baseline_commit": "6fe1bf3",
+  "plan_commit": "5263a06",
+  "binaries": {
+    "before": {
+      "sha256": "6902ed100b52100e17278f1b91edc26bd182621f26bc2e805782821caa4e82da",
+      "bytes": 15028912
+    },
+    "after": {
+      "sha256": "73c4ab89db93bf51f7644bc478c0ddadf0f95c22e47f4eb9706e4f90685e9f3f",
+      "bytes": 15018320
+    }
+  }
+}

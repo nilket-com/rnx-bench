@@ -71,3 +71,6 @@ tokio current-thread runtime.
 
 - `process/` — record 0044's matched startup and supervised-child measurements,
   with complete output equivalence, binary hashes and session memory.
+
+- `number-colours/` — record 0045's green input, blue output and dim frame;
+  pty screen/cursor equivalence, plain-output checks and dark/light specimens.
