@@ -32,3 +32,34 @@ retain at most 2 MiB per stream and continue draining discarded output to the
 barriers. Delaying handoff preserves the identity attached at collection.
 These initial gates do not yet establish the production worker's admission,
 reset, interruption, fatal-error or late-writer contracts.
+
+Integration follow-up:
+
+```
+PYTHONDONTWRITEBYTECODE=1 python3 probes/worker-boundary/late.py
+cargo check --manifest-path probes/worker-boundary/Cargo.toml --locked --target x86_64-pc-windows-msvc --bin production-transport
+python3 probes/worker-boundary/measure.py --before /path/to/before --after ../rnx/target/release/rnx
+```
+
+`late.py` imports the bounded parent fixture from the adjacent rnx checkout's
+`tests/worker_parent.py`. It shows an old writer classified as unassociated
+between operations and as request 2 during request 2's interval, despite its
+causal origin in request 1. `production-transport` type-checks the actual rnx
+transport source, not a copied approximation. These require both repositories
+checked out as siblings.
+
+The measurement runner checks exact exit status/stdout/stderr for six commands,
+then measures four before/after pairs pinned to CPU 4 with 10 warmups and 100
+samples. It records raw hyperfine data and binary sizes. No speedup is presumed.
+
+`examples.py ../rnx/target/release/rnx` captures a small actual-worker exchange.
+`measure.py` also checks an eight-input piped session with separate temporary
+history files. The final startup measurement pins hyperfine itself, rather than
+including taskset in every command. The preliminary export retaining that extra
+process is named `startup-including-taskset.json` and is not the cited table.
+
+`startup-before-alias-check.json` records the earlier integration binary. The
+final `startup.json` includes the refusal of control endpoints that alias a
+standard stream. The final JSON workload's after run is noisy; no workload
+speedup or regression is inferred from that row. `probe-confirmation.jsonl`
+reruns the boundary probe with exact retained-prefix byte assertions.
