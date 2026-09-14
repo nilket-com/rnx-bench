@@ -74,3 +74,6 @@ tokio current-thread runtime.
 
 - `number-colours/` — record 0045's green input, blue output and dim frame;
   pty screen/cursor equivalence, plain-output checks and dark/light specimens.
+
+- `worker-boundary/` — record 0046's inherited-pipe and byte-barrier gate,
+  including a real `process::run` descendant and an inheritable negative control.
