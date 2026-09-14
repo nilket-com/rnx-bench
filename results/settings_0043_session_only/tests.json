@@ -1,0 +1,26 @@
+{
+  "default": {
+    "command": [
+      "cargo",
+      "test",
+      "--locked"
+    ],
+    "TERM": "xterm-256color",
+    "RNX_CONFIG": "/tmp/rnx-0043-scope/no-config",
+    "exit": 0,
+    "passed": 324
+  },
+  "test-support": {
+    "command": [
+      "cargo",
+      "test",
+      "--locked",
+      "--features",
+      "test-support"
+    ],
+    "TERM": "xterm-256color",
+    "RNX_CONFIG": "/tmp/rnx-0043-scope/no-config",
+    "exit": 0,
+    "passed": 363
+  }
+}

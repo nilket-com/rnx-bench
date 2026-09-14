@@ -3,7 +3,7 @@
 import hashlib,json,os,pathlib,shlex,subprocess,sys,tempfile
 root=pathlib.Path(__file__).resolve().parents[2];os.chdir(root)
 before,after=(str(pathlib.Path(p).resolve()) for p in sys.argv[1:3])
-out=root/'results/settings_0043';out.mkdir(parents=True,exist_ok=True)
+out=root/'results/settings_0043_session_only';out.mkdir(parents=True,exist_ok=True)
 config=root/'probes/settings/config.rn'
 commands=[];outputs=[];conditions={'commands':commands,'outputs':outputs,'binaries':{},'versions':{},'memory':{}}
 for key in ['RNX_CONFIG','XDG_CONFIG_HOME','HOME','APPDATA','LOCALAPPDATA','NO_COLOR']:os.environ.pop(key,None)
