@@ -64,3 +64,6 @@ tokio current-thread runtime.
 
 - `prompt/` — record 0042 compact prompts, clear-screen and title protocol,
   plus startup measurements in `results/prompt_0042/`.
+
+- `settings/` — record 0043 pure Rune config, six-colour terminal specimens,
+  and absent/configured startup comparison in `results/settings_0043/`.
