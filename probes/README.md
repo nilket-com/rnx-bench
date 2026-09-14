@@ -61,3 +61,6 @@ tokio current-thread runtime.
 
 - `method-naming/` — record 0041 release diagnostic comparisons and matched
   startup measurements; raw evidence in `results/method_naming_0041/`.
+
+- `prompt/` — record 0042 compact prompts, clear-screen and title protocol,
+  plus startup measurements in `results/prompt_0042/`.
