@@ -1,0 +1,25 @@
+rnx: a Rune session. :help lists the commands, :quit ends it.
+[?2004h[?2026h[K[1] rnx> [9C[?2026llet total = 7;[?2004l
+[?2004h[?2026h[K[2] rnx> [9C[?2026llet items = [1, 2, 3];[?2004l
+[?2004h[?2026h[K[3] rnx> [9C[?2026lfn twice(n) { n * 2 }[?2004l
+[?2004h[?2026h[K[4] rnx> [9C[?2026llet old = |v| v.missing_method();[?2004l
+[?2004h[?2026h[K[5] rnx> [9C[?2026l:renumber[?2004l
+[?2004h[?2026h[K[1] rnx> [9C[?2026litems[?2004l
+[1] [1, 2, 3]
+[?2004h[?2026h[K[2] rnx> [9C[?2026lold(1)[?2004l
+runtime error at input 4 of numbering 1, line 1, column 15: Missing instance function `0xd568eb7c24a7c487` for `::std::i64`
+  let old = |v| v.missing_method();
+                ^
+[?2004h[?2026h[K[3] rnx> [9C[?2026ltotal + twice(2)[?2004l
+[3] 11
+[?2004h[?2026h[K[4] rnx> [9C[?2026l:renumber[?2004l
+[?2004h[?2026h[K[1] rnx> [9C[?2026l:renumber[?2004l
+[?2004h[?2026h[K[1] rnx> [9C[?2026llet broken = ;[?2004l
+error at input 1, line 1, column 14: Expected expression but got `;`
+  let broken = ;
+               ^
+[?2004h[?2026h[K[2] rnx> [9C[?2026l:reset[?2004l
+session reset
+[?2004h[?2026h[K[1] rnx> [9C[?2026l:vars[?2004l
+no bindings; :help lists the commands
+[?2004h[?2026h[K[1] rnx> [9C[?2026l
