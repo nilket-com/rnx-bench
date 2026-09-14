@@ -1,4 +1,8 @@
-# Record 0043 settings evidence
+# Record 0043 settings evidence (original scope)
+
+This is historical evidence for the original run/eval/session config scope.
+The session-only revision is measured in ../settings_0043_session_only/.
+These raw results have not been rewritten to describe the new implementation.
 
 Measured by Codex on nano, Linux x86_64, 2026-09-14, Rust 1.98.1,
 Rune 0.14.2, hyperfine 1.20.0. CPU 4, 10 warmups, 100 samples per command.

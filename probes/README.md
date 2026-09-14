@@ -67,3 +67,4 @@ tokio current-thread runtime.
 
 - `settings/` — record 0043 pure Rune config, six-colour terminal specimens,
   and absent/configured startup comparison in `results/settings_0043/`.
+  The session-only revision is in `results/settings_0043_session_only/`.
