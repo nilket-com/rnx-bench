@@ -40,3 +40,8 @@ tokio current-thread runtime.
   startup timings, binary hashes, session memory and test totals are in
   `results/path_0037_*`. Run the driver from the repository root with the
   before and after release binary paths as its two arguments.
+- `time-candidates/` — three one-file binaries (jiff 0.2.24, chrono 0.4.44,
+  time 0.3.47) doing the five things record 0038 needs: now as RFC 3339,
+  a negative timestamp, local time under `TZ=Europe/Paris`, parsing, and
+  the overflow refusal. Sizes, build times and outputs in
+  `results/time_0038_candidates.txt`. Basis for record 0038's crate choice.

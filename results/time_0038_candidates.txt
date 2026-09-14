@@ -1,0 +1,27 @@
+# time-candidates — 2026-09-14, release, --offline, nano (rustc 1.98.1 (48a229cea 2026-09-01))
+
+## jiff  size=962208 bytes
+neg ms  : 1969-12-31T23:59:58.5Z
+now utc : 2026-09-14T06:29:20.604757433Z
+local   : 2026-09-14T08:29:20.604757433+02:00[Europe/Paris]  offset=+02
+parsed  : 2026-09-14T12:00:00Z ms=1789387200000
+zoned   : 2026-09-14T12:00:00+02:00[Europe/Paris]
+strftime: 2026-09-14 08:29:20 CEST
+max ms  : true
+
+## chrono  size=585352 bytes
+neg ms  : 1969-12-31T23:59:58.500Z
+now utc : 2026-09-14T06:29:20.612Z
+local   : 2026-09-14T08:29:20.612732835+02:00  offset=+02:00
+parsed  : 2026-09-14 12:00:00 +00:00 ms=1789387200000
+strftime: 2026-09-14 08:29:20 +02:00
+max ms  : true
+
+## time  size=495400 bytes
+neg ms  : 1969-12-31T23:59:58.5Z
+now utc : 2026-09-14T06:29:20.620667978Z
+local   : offset=Ok(+02:00:00)
+parsed  : 2026-09-14 12:00:00.0 +00:00:00 ms=1789387200000
+max ms  : true
+
+time crate: local offset comes from localtime_r via the C library; the crate has no named zones. chrono: Local reads the system zoneinfo; other names need chrono-tz (embedded database). jiff: every name from the system zoneinfo.
