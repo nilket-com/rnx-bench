@@ -58,3 +58,6 @@ tokio current-thread runtime.
 - `numbering/` — record 0040 prompt/result numbering, retained-source diagnostics,
   screen/cursor equivalence and matched startup measurements. Raw captures and
   dark/light specimens are in `results/numbering_0040/`.
+
+- `method-naming/` — record 0041 release diagnostic comparisons and matched
+  startup measurements; raw evidence in `results/method_naming_0041/`.

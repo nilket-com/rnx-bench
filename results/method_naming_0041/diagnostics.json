@@ -1,0 +1,134 @@
+[
+  {
+    "case": "run",
+    "build": "before",
+    "args": [
+      "run",
+      "/tmp/tmpgyriaos6/fault.rn"
+    ],
+    "stdin": "",
+    "exit": 1,
+    "stdout": "",
+    "stderr": "runtime error at /tmp/tmpgyriaos6/fault.rn, line 2, column 1: no method `missing` on `::std::i64`\n  1.missing()\n  ^\n"
+  },
+  {
+    "case": "run",
+    "build": "after",
+    "args": [
+      "run",
+      "/tmp/tmpgyriaos6/fault.rn"
+    ],
+    "stdin": "",
+    "exit": 1,
+    "stdout": "",
+    "stderr": "runtime error at /tmp/tmpgyriaos6/fault.rn, line 2, column 1: no method `missing` on `::std::i64`\n  1.missing()\n  ^\n"
+  },
+  {
+    "case": "eval",
+    "build": "before",
+    "args": [
+      "eval",
+      "1.missing()"
+    ],
+    "stdin": "",
+    "exit": 1,
+    "stdout": "",
+    "stderr": "runtime error at input 1, line 1, column 1: Missing instance function `0xff0afefdd65e03a7` for `::std::i64`\n  1.missing()\n  ^\n"
+  },
+  {
+    "case": "eval",
+    "build": "after",
+    "args": [
+      "eval",
+      "1.missing()"
+    ],
+    "stdin": "",
+    "exit": 1,
+    "stdout": "",
+    "stderr": "runtime error at input 1, line 1, column 1: no method `missing` on `::std::i64`\n  1.missing()\n  ^\n"
+  },
+  {
+    "case": "session",
+    "build": "before",
+    "args": [],
+    "stdin": "1.missing()\n:quit\n",
+    "exit": 0,
+    "stdout": "rnx: a Rune session. :help lists the commands, :quit ends it.\n",
+    "stderr": "runtime error at input 1, line 1, column 1: Missing instance function `0xff0afefdd65e03a7` for `::std::i64`\n  1.missing()\n  ^\n"
+  },
+  {
+    "case": "session",
+    "build": "after",
+    "args": [],
+    "stdin": "1.missing()\n:quit\n",
+    "exit": 0,
+    "stdout": "rnx: a Rune session. :help lists the commands, :quit ends it.\n",
+    "stderr": "runtime error at input 1, line 1, column 1: no method `missing` on `::std::i64`\n  1.missing()\n  ^\n"
+  },
+  {
+    "case": "retained",
+    "build": "before",
+    "args": [],
+    "stdin": "()\n()\n()\nlet old = |v| v.missing_method();\n:renumber\n()\nold(1)\n:quit\n",
+    "exit": 0,
+    "stdout": "rnx: a Rune session. :help lists the commands, :quit ends it.\n",
+    "stderr": "runtime error at input 4 of numbering 1, line 1, column 15: Missing instance function `0xd568eb7c24a7c487` for `::std::i64`\n  let old = |v| v.missing_method();\n                ^\n"
+  },
+  {
+    "case": "retained",
+    "build": "after",
+    "args": [],
+    "stdin": "()\n()\n()\nlet old = |v| v.missing_method();\n:renumber\n()\nold(1)\n:quit\n",
+    "exit": 0,
+    "stdout": "rnx: a Rune session. :help lists the commands, :quit ends it.\n",
+    "stderr": "runtime error at input 4 of numbering 1, line 1, column 15: no method `missing_method` on `::std::i64`\n  let old = |v| v.missing_method();\n                ^\n"
+  },
+  {
+    "case": "chain",
+    "build": "before",
+    "args": [
+      "eval",
+      "\"abc\".to_uppercase().frobnicate()"
+    ],
+    "stdin": "",
+    "exit": 1,
+    "stdout": "",
+    "stderr": "runtime error at input 1, line 1, column 1: Missing instance function `0x52a5aa1cf699e7fd` for `::std::string::String`\n  \"abc\".to_uppercase().frobnicate()\n  ^\n"
+  },
+  {
+    "case": "chain",
+    "build": "after",
+    "args": [
+      "eval",
+      "\"abc\".to_uppercase().frobnicate()"
+    ],
+    "stdin": "",
+    "exit": 1,
+    "stdout": "",
+    "stderr": "runtime error at input 1, line 1, column 1: no method `frobnicate` on `::std::string::String`\n  \"abc\".to_uppercase().frobnicate()\n  ^\n"
+  },
+  {
+    "case": "unknown",
+    "build": "before",
+    "args": [
+      "eval",
+      "#{a: 1}.values().frobnicate()"
+    ],
+    "stdin": "",
+    "exit": 1,
+    "stdout": "",
+    "stderr": "runtime error at input 1, line 1, column 1: Missing instance function `0x253a813e7ee33982` for `::std::object::Values`\n  #{a: 1}.values().frobnicate()\n  ^\n"
+  },
+  {
+    "case": "unknown",
+    "build": "after",
+    "args": [
+      "eval",
+      "#{a: 1}.values().frobnicate()"
+    ],
+    "stdin": "",
+    "exit": 1,
+    "stdout": "",
+    "stderr": "runtime error at input 1, line 1, column 1: Missing instance function `0x253a813e7ee33982` for `::std::object::Values`\n  #{a: 1}.values().frobnicate()\n  ^\n"
+  }
+]
