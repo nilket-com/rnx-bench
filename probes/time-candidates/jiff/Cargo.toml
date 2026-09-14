@@ -1,0 +1,9 @@
+[package]
+name = "cand-jiff"
+version = "0.0.0"
+edition = "2024"
+[workspace]
+[dependencies]
+jiff = { version = "=0.2.24", default-features = false, features = ["std", "tz-system", "tzdb-zoneinfo"] }
+[profile.release]
+opt-level = 3
