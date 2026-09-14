@@ -24,3 +24,7 @@ remain in rnx; this check does not execute them.
 Record 0038 adds the actual time module and its timestamp/registration unit
 gates with the specified Jiff Windows features. This remains only a type
 check; no Windows execution or whole-application build is claimed.
+
+Record 0044 adds the actual process facade and path/registration unit gates.
+Its call into the supervisor is a type-check-only stub; this checks Windows
+launch-setting code, not the supervisor or Windows process execution.

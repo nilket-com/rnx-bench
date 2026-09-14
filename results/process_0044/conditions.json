@@ -1,0 +1,173 @@
+{
+  "binaries": {
+    "before": {
+      "bytes": 14984320,
+      "sha256": "203147bd12daa15b992e2329352b1c71c4157b97e1bcb04f15dd60e75b6f1d2f"
+    },
+    "after": {
+      "bytes": 15028912,
+      "sha256": "6902ed100b52100e17278f1b91edc26bd182621f26bc2e805782821caa4e82da"
+    }
+  },
+  "outputs": {
+    "version before": {
+      "stdout": "rnx 0.0.0\nrune 0.14.2\n",
+      "stderr": "",
+      "exit": 0
+    },
+    "eval before": {
+      "stdout": "42\n",
+      "stderr": "",
+      "exit": 0
+    },
+    "run before": {
+      "stdout": "42\n",
+      "stderr": "",
+      "exit": 0
+    },
+    "json before": {
+      "stdout": "{\"b\":\"hello\",\"a\":[9999,2,3]}\n",
+      "stderr": "",
+      "exit": 0
+    },
+    "child before": {
+      "stdout": "0\n",
+      "stderr": "",
+      "exit": 0
+    },
+    "version after": {
+      "stdout": "rnx 0.0.0\nrune 0.14.2\n",
+      "stderr": "",
+      "exit": 0
+    },
+    "eval after": {
+      "stdout": "42\n",
+      "stderr": "",
+      "exit": 0
+    },
+    "run after": {
+      "stdout": "42\n",
+      "stderr": "",
+      "exit": 0
+    },
+    "json after": {
+      "stdout": "{\"b\":\"hello\",\"a\":[9999,2,3]}\n",
+      "stderr": "",
+      "exit": 0
+    },
+    "child after": {
+      "stdout": "0\n",
+      "stderr": "",
+      "exit": 0
+    },
+    "facade after": {
+      "stdout": "0\n",
+      "stderr": "",
+      "exit": 0
+    }
+  },
+  "memory": {
+    "before": {
+      "stdout": "tracked live allocation request bytes: 1831864 of a ceiling of 536870912.\nstartup reference point: 1823240 bytes; net change since: +8624 bytes\nsource and map storage: 0 bytes (inputs, declarations, and the source maps of 0 entries; the units themselves are held weakly and are not counted)\nThe figure counts requests through Rust's global allocator only. It excludes native allocations outside it, memory mappings, thread stacks, and child processes, it is not resident memory, and it is not the session's share of anything.\n",
+      "stderr": ""
+    },
+    "after": {
+      "stdout": "tracked live allocation request bytes: 1831640 of a ceiling of 536870912.\nstartup reference point: 1823136 bytes; net change since: +8504 bytes\nsource and map storage: 0 bytes (inputs, declarations, and the source maps of 0 entries; the units themselves are held weakly and are not counted)\nThe figure counts requests through Rust's global allocator only. It excludes native allocations outside it, memory mappings, thread stacks, and child processes, it is not resident memory, and it is not the session's share of anything.\n",
+      "stderr": ""
+    }
+  },
+  "versions": {
+    "rustc --version": "rustc 1.98.1 (48a229cea 2026-09-01)",
+    "hyperfine --version": "hyperfine 1.20.0",
+    "uname -a": "Linux nano 7.0.0-31-generic #31-Ubuntu SMP PREEMPT_DYNAMIC Sat Aug  1 04:26:38 UTC 2026 x86_64 GNU/Linux"
+  },
+  "core": 4,
+  "commands": [
+    [
+      "version before",
+      [
+        "/tmp/rnx-0044/before",
+        "version"
+      ]
+    ],
+    [
+      "eval before",
+      [
+        "/tmp/rnx-0044/before",
+        "eval",
+        "42"
+      ]
+    ],
+    [
+      "run before",
+      [
+        "/tmp/rnx-0044/before",
+        "run",
+        "scripts/bare.rn"
+      ]
+    ],
+    [
+      "json before",
+      [
+        "/tmp/rnx-0044/before",
+        "run",
+        "scripts/json.rn"
+      ]
+    ],
+    [
+      "child before",
+      [
+        "/tmp/rnx-0044/before",
+        "eval",
+        "host::process(\"/bin/true\", [], 30000)?.code"
+      ]
+    ],
+    [
+      "version after",
+      [
+        "/home/me/work/rnx/target/release/rnx",
+        "version"
+      ]
+    ],
+    [
+      "eval after",
+      [
+        "/home/me/work/rnx/target/release/rnx",
+        "eval",
+        "42"
+      ]
+    ],
+    [
+      "run after",
+      [
+        "/home/me/work/rnx/target/release/rnx",
+        "run",
+        "scripts/bare.rn"
+      ]
+    ],
+    [
+      "json after",
+      [
+        "/home/me/work/rnx/target/release/rnx",
+        "run",
+        "scripts/json.rn"
+      ]
+    ],
+    [
+      "child after",
+      [
+        "/home/me/work/rnx/target/release/rnx",
+        "eval",
+        "host::process(\"/bin/true\", [], 30000)?.code"
+      ]
+    ],
+    [
+      "facade after",
+      [
+        "/home/me/work/rnx/target/release/rnx",
+        "eval",
+        "process::run(\"/bin/true\", [], #{})?.code"
+      ]
+    ]
+  ]
+}

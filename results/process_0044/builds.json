@@ -1,0 +1,40 @@
+{
+  "baseline_commit": "7877fdc9f350f40ce26d525e834dc714cc8536a1",
+  "plan_commit": "a0be64a",
+  "build_flags": [
+    "--release",
+    "--locked"
+  ],
+  "baseline_build": "cargo build --manifest-path /tmp/rnx-0044/baseline-tree/Cargo.toml --target-dir /home/me/work/rnx/target --release --locked",
+  "after_build": "cargo build --manifest-path rnx/Cargo.toml --release --locked",
+  "implementation_sources": {
+    "src/complete.rs": "f8c85603c4a160b816bbd0d3193f86e0de19f861a98dc93feb23b72c3f1b2b0a",
+    "src/config.rs": "5547c0299f98ad9caff1c98a0a7be970516827936f61dd3a0e34b66f216f4efd",
+    "src/declared.rs": "45bbdfe126652b87168bc894831d523e3a1a7eb072b666e197ba102d17af3490",
+    "src/delivery_control.rs": "63ac82559e3d91379d42d3757dd4f6ff5d831bcd21881526e5ff9affadcbf4c2",
+    "src/env.rs": "e3d7b939a3498bc2edfb7757f74689dc716e2069b3a87a921be37518cd62a741",
+    "src/execute.rs": "78c4129c9b1d1e435f1bc426c9f0b814452344d4d5e31a25bf63c715026868cf",
+    "src/format.rs": "c4763e8263af74c13616182632ed8a227dab6139daab622a424ed6b3d87fa42c",
+    "src/fs.rs": "da91d98c5f44bff4ce4a1404c85db6c003e11e7fc5834a0128dd8f16a54bbcec",
+    "src/fs_platform.rs": "dc3f2302fb88131eeab5abbe33238e85830477b828480099e139e796d7dfb5db",
+    "src/host.rs": "79d95a1759bbbb3dc0566c80c252e3f6aacef1653afe0e2bbb521b8f43c44b09",
+    "src/http.rs": "26fc40c51aeeb03323e14c9b290ba0c1bfd5bea2bd338f8ada51f6a2d0c8c499",
+    "src/inspect.rs": "b48806cd0a77c701d3b93b01a6fcb32820c358e790786ecf05f1b48ec93be94b",
+    "src/json.rs": "df3bf70cd86138aba6e3515e6bd9ec5498d8766d4bb7a2b059cc40e8bb7fb759",
+    "src/main.rs": "05cb5a18bd3c42c903e8818f8f345f1299c6fc5025cf149f0cca02ccb7b09e13",
+    "src/memory.rs": "2d008a9045318dafd1ad0504fa5858578c643943a048121466bbc2e411d5056a",
+    "src/method.rs": "84bba726ccd6949d04c88ce4a2f0a8338fbd5d27cbb656ced2c92b565932332d",
+    "src/path.rs": "fade49a914898da883f46d3e83fe055066c47531bb8b4c977801a987aaf5b654",
+    "src/pipe_control.rs": "a57477ddbbf479b8a360ef1bd49f536437b58231deadd7fe123340c250638fa9",
+    "src/platform.rs": "10ee4fbe0e33504e469b1c070676971facdd8baf98a5347db1a65a2626bf69e6",
+    "src/presentation.rs": "736076c16b19a19a5227ba4e53f8681d5cdda826ff2510d3436d4c3fadae14c9",
+    "src/process.rs": "ecc64ef7f298bc08f23de3b5b0af28d73904c2f66fb866d3d10df0edd0fb0881",
+    "src/repl.rs": "ff16aab267b94ab047c1d99b4a29fc1a98939970b1a6028795c3ddeb6c30cbed",
+    "src/runner.rs": "5279020c8d2f9b5a90e1f34726676aae2bff94dd86bd8fadfbcc1d194067f902",
+    "src/session.rs": "13fa29968234bdb5c293883eebf42146ca8cba390c7593e64014eb4bc09c6b51",
+    "src/terminal.rs": "c23484318a8f5778831849bd9f9df2d9932a33ae7b867bf8f69a1171c9fd6ebb",
+    "src/text.rs": "fef19438928293b32879bada7f84b425574e86c1b96c6b6c9579ddb33005bd51",
+    "src/time.rs": "3bc5db1f72fcdc334cf1465eb4702ea8ca73a4001404f03824edb3b125253dca"
+  },
+  "note": "Final timings were rerun after tests and builds completed. Commands were measured sequentially, not interleaved; differences across before/after include drift and layout effects. No speedup attribution."
+}
