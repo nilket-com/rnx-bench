@@ -16,3 +16,7 @@ not an assertion that every dependency matches rnx's lockfile.
 Record 0036 adds the actual environment module to the same isolated check.
 The environment and filesystem unit gates are type-checked on Windows;
 no Windows execution or whole-application build is claimed.
+
+Record 0037 adds the actual path-helper module and its registration unit gate.
+The path integration tests, including Windows-specific semantic expectations,
+remain in rnx; this check does not execute them.
