@@ -54,3 +54,7 @@ tokio current-thread runtime.
 - `colour/` — record 0039's screen/cursor gates, dark/light terminal specimen,
   matched startup timings and a probe importing the actual highlighter; its
   Windows check is type correctness only. See `results/colour_0039/`.
+
+- `numbering/` — record 0040 prompt/result numbering, retained-source diagnostics,
+  screen/cursor equivalence and matched startup measurements. Raw captures and
+  dark/light specimens are in `results/numbering_0040/`.
