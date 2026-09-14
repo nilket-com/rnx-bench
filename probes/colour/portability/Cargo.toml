@@ -1,0 +1,9 @@
+[package]
+name = "colour-portability-check"
+version = "0.0.0"
+edition = "2024"
+[workspace]
+[dependencies]
+rustyline = "18.0.1"
+unicode-ident = "1"
+windows-sys = { version = "0.61.2", features = ["Win32_Foundation", "Win32_System_Console"] }

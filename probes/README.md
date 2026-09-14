@@ -50,3 +50,7 @@ tokio current-thread runtime.
   `scripts/run_time_0038_examples.py AFTER` from this repository root.
   `fs-portability/` also type-checks the actual time module with Jiff's
   Windows database features. These are distinct from the candidate probes.
+
+- `colour/` — record 0039's screen/cursor gates, dark/light terminal specimen,
+  matched startup timings and a probe importing the actual highlighter; its
+  Windows check is type correctness only. See `results/colour_0039/`.
