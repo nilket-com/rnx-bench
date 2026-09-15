@@ -1,0 +1,8 @@
+[package]
+name = "rnx-extension-mismatched-rune"
+version = "0.0.0"
+edition = "2024"
+[workspace]
+[dependencies]
+rnx = { path = "../../../../rnx" }
+rune = { version = "=0.13.4", default-features = false, features = ["std"] }
