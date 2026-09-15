@@ -1,0 +1,233 @@
+[35m4652830:README.md[m[36m:[m[32m96[m[36m:[m`[1;31mhost::[mprocess`, `[1;31mhost::[mprocess_bytes` and `[1;31mhost::[mprocess_bytes_input` remain
+[35m4652830:README.md[m[36m:[m[32m99[m[36m:[mA script chooses its own exit status with `[1;31mhost::[mexit(code)`, and can say
+[35m4652830:README.md[m[36m:[m[32m100[m[36m:[msomething on the way out with `[1;31mhost::[meprint(text)`, so it can fail quietly
+[35m4652830:README.md[m[36m:[m[32m105[m[36m:[mA script given no path can read `[1;31mhost::[mstdin()`, so it can sit in a pipeline
+[35m4652830:README.md[m[36m:[m[32m110[m[36m:[mBesides `[1;31mhost::[m`, scripts and sessions have `text::`: `find`, `split_max`,
+[35m4652830:README.md[m[36m:[m[32m125[m[36m:[mJSON is something a script asks for, with `[1;31mhost::[mjson_stringify(value)`, which
+[35m4652830:README.md[m[36m:[m[32m129[m[36m:[m`[1;31mhost::[mjson_parse(text)` returns a `Result` containing the parsed value.
+[35m4652830:README.md[m[36m:[m[32m160[m[36m:[mJSON still uses `[1;31mhost::[mjson_parse(response.body)?`; request JSON uses
+[35m4652830:README.md[m[36m:[m[32m161[m[36m:[m`[1;31mhost::[mjson_stringify(value)?` and an explicit Content-Type header.
+[35m4652830:README.md[m[36m:[m[32m203[m[36m:[mscript `print!` / `println!` and `[1;31mhost::[meprint` remain untouched.
+[35m4652830:README.md[m[36m:[m[32m226[m[36m:[m`[1;31mhost::[m` function path, or a command, Ctrl-D or `:quit` to leave. `:reset` empties
+[35m4652830:README.md[m[36m:[m[32m247[m[36m:[mRecord 0035 deliberately moves `[1;31mhost::[mread`, `[1;31mhost::[mwrite_new`,
+[35m4652830:README.md[m[36m:[m[32m248[m[36m:[m`[1;31mhost::[mmkdir`, and `[1;31mhost::[mabsolute` to the same names under `fs::`.
+[35m4652830:journey.rn[m[36m:[m[32m7[m[36m:[m    fs::write_new(commands, [1;31mhost::[mjson_stringify(#{commands: [command]})?)?;
+[35m4652830:journey.rn[m[36m:[m[32m8[m[36m:[m    let result = [1;31mhost::[mprocess(state.binary,
+[35m4652830:journey.rn[m[36m:[m[32m18[m[36m:[m        let event = [1;31mhost::[mjson_parse(line)?;
+[35m4652830:src/complete.rs[m[36m:[m[32m303[m[36m:[m		let registered: Vec<String> = crate::[1;31mhost::[minstall(&mut context)
+[35m4652830:src/complete.rs[m[36m:[m[32m317[m[36m:[m		let listed = super::complete("[1;31mhost::[m", 6, &names).unwrap().candidates;
+[35m4652830:src/env.rs[m[36m:[m[32m2[m[36m:[muse crate::[1;31mhost::[mHostFunction;
+[35m4652830:src/execute.rs[m[36m:[m[32m118[m[36m:[m			Ok(GeneratorState::Complete(_)) if crate::[1;31mhost::[minterrupted() => {
+[35m4652830:src/execute.rs[m[36m:[m[32m125[m[36m:[m				if crate::[1;31mhost::[minterrupted() {
+[35m4652830:src/execute.rs[m[36m:[m[32m234[m[36m:[m				&& crate::[1;31mhost::[minterrupted() =>
+[35m4652830:src/execute.rs[m[36m:[m[32m297[m[36m:[m					if crate::[1;31mhost::[minterrupted() {
+[35m4652830:src/format.rs[m[36m:[m[32m658[m[36m:[m		crate::[1;31mhost::[minstall(&mut context).unwrap();
+[35m4652830:src/format.rs[m[36m:[m[32m1020[m[36m:[m		crate::[1;31mhost::[minstall(&mut context).unwrap();
+[35m4652830:src/fs.rs[m[36m:[m[32m2[m[36m:[muse crate::[1;31mhost::[mHostFunction;
+[35m4652830:src/host.rs[m[36m:[m[32m78[m[36m:[m/// run one thing and exit. The session never calls it, so `[1;31mhost::[mexit` is
+[35m4652830:src/host.rs[m[36m:[m[32m1086[m[36m:[m	text_reply(program, ran, "[1;31mhost::[mprocess_bytes")
+[35m4652830:src/host.rs[m[36m:[m[32m1223[m[36m:[m				path: format!("[1;31mhost::[m{name}"),
+[35m4652830:src/host.rs[m[36m:[m[32m1228[m[36m:[m			path: "[1;31mhost::[mtest_pending".to_owned(),
+[35m4652830:src/host.rs[m[36m:[m[32m1236[m[36m:[m				path: format!("[1;31mhost::[m{}", $name),
+[35m4652830:src/host.rs[m[36m:[m[32m1302[m[36m:[m				// choose how it ended — and `[1;31mhost::[mprocess` already tells a
+[35m4652830:src/host.rs[m[36m:[m[32m1382[m[36m:[m			r#"pub fn main(_) { [1;31mhost::[mprocess("/bin/sh", ["-c", "exit 7"], 1000)? }"#.to_owned(),
+[35m4652830:src/host.rs[m[36m:[m[32m1386[m[36m:[m			r#"pub fn main(_) { [1;31mhost::[mprocess("/bin/sh", ["-c", "sleep 10 & wait"], 40)? }"#
+[35m4652830:src/host.rs[m[36m:[m[32m1391[m[36m:[m			r#"pub fn main(_) { let r = [1;31mhost::[mprocess("/usr/bin/head", ["-c", "3000000", "/dev/zero"], 1000)?; (r.truncated, r.stdout.len()) }"#.to_owned(),
+[35m4652830:src/host.rs[m[36m:[m[32m1395[m[36m:[m			r#"pub fn main(_) { [1;31mhost::[mprocess("/bin/sh", ["-c", "kill -INT $PPID; sleep 10"], 1000)? }"#.to_owned(),
+[35m4652830:src/host.rs[m[36m:[m[32m1407[m[36m:[m			r#"pub fn main(_) { [1;31mhost::[mprocess("cmd", ["/c", "exit 7"], 1000)? }"#.to_owned(),
+[35m4652830:src/host.rs[m[36m:[m[32m1413[m[36m:[m			r#"pub fn main(_) { [1;31mhost::[mprocess("ping", ["-n", "20", "127.0.0.1"], 40)? }"#
+[35m4652830:src/host.rs[m[36m:[m[32m1419[m[36m:[m				"pub fn main(_) {{ let r = [1;31mhost::[mprocess(\"cmd\", [\"/c\", \"type\", {}], 1000)?; (r.truncated, r.stdout.len()) }}",
+[35m4652830:src/host.rs[m[36m:[m[32m1476[m[36m:[m		super::decode(program, stream, got, "[1;31mhost::[mprocess_bytes")
+[35m4652830:src/host.rs[m[36m:[m[32m1495[m[36m:[m		let source = format!(r#"pub fn main(_) {{ [1;31mhost::[mprocess("{missing}", [], 1000)? }}"#);
+[35m4652830:src/http.rs[m[36m:[m[32m362[m[36m:[m) -> crate::Result<Vec<crate::[1;31mhost::[mHostFunction>> {
+[35m4652830:src/http.rs[m[36m:[m[32m374[m[36m:[m			registered.push(crate::[1;31mhost::[mHostFunction {
+[35m4652830:src/http.rs[m[36m:[m[32m389[m[36m:[m			registered.push(crate::[1;31mhost::[mHostFunction {
+[35m4652830:src/inspect.rs[m[36m:[m[32m8[m[36m:[muse crate::[1;31mhost::[mHostFunction;
+[35m4652830:src/inspect.rs[m[36m:[m[32m296[m[36m:[m		crate::[1;31mhost::[minstall(&mut context).unwrap();
+[35m4652830:src/inspect.rs[m[36m:[m[32m302[m[36m:[m		let mut names = crate::[1;31mhost::[minstall(&mut context).unwrap();
+[35m4652830:src/inspect.rs[m[36m:[m[32m565[m[36m:[m		crate::[1;31mhost::[minstall(&mut context).unwrap();
+[35m4652830:src/inspect.rs[m[36m:[m[32m571[m[36m:[m		let mut names = crate::[1;31mhost::[minstall(&mut context).unwrap();
+[35m4652830:src/inspect.rs[m[36m:[m[32m694[m[36m:[m		let host = crate::[1;31mhost::[minstall(&mut context).unwrap();
+[35m4652830:src/json.rs[m[36m:[m[32m191[m[36m:[m		// Measured: `[1;31mhost::[mjson_stringify(Ok(1))` refuses. A result is not in
+[35m4652830:src/main.rs[m[36m:[m[32m175[m[36m:[m	let mut host_functions = [1;31mhost::[minstall(&mut context)?;
+[35m4652830:src/main.rs[m[36m:[m[32m205[m[36m:[m		[1;31mhost::[mrunning_a_script();
+[35m4652830:src/main.rs[m[36m:[m[32m398[m[36m:[m	[1;31mhost::[mprocess_checks(&context)?;
+[35m4652830:src/path.rs[m[36m:[m[32m2[m[36m:[muse crate::[1;31mhost::[mHostFunction;
+[35m4652830:src/process.rs[m[36m:[m[32m222[m[36m:[m	crate::[1;31mhost::[mconfigured_process(
+[35m4652830:src/process.rs[m[36m:[m[32m234[m[36m:[mpub(crate) fn install(context: &mut Context) -> crate::Result<Vec<crate::[1;31mhost::[mHostFunction>> {
+[35m4652830:src/process.rs[m[36m:[m[32m248[m[36m:[m		crate::[1;31mhost::[mHostFunction {
+[35m4652830:src/process.rs[m[36m:[m[32m252[m[36m:[m		crate::[1;31mhost::[mHostFunction {
+[35m4652830:src/repl.rs[m[36m:[m[32m4[m[36m:[muse crate::[1;31mhost::[mHostFunction;
+[35m4652830:src/runner.rs[m[36m:[m[32m218[m[36m:[m	crate::[1;31mhost::[mrunning_a_script();
+[35m4652830:src/session.rs[m[36m:[m[32m515[m[36m:[m		if crate::[1;31mhost::[minterrupted() {
+[35m4652830:src/session.rs[m[36m:[m[32m541[m[36m:[m		super::[1;31mhost::[mclear_interrupt();
+[35m4652830:src/session.rs[m[36m:[m[32m1015[m[36m:[m	super::[1;31mhost::[minstall(&mut context)?;
+[35m4652830:src/session.rs[m[36m:[m[32m1075[m[36m:[m	super::[1;31mhost::[minstall(&mut context)?;
+[35m4652830:src/session.rs[m[36m:[m[32m1097[m[36m:[m		crate::[1;31mhost::[minstall(&mut context).unwrap();
+[35m4652830:src/session.rs[m[36m:[m[32m1273[m[36m:[m		crate::[1;31mhost::[minstall(&mut context).unwrap();
+[35m4652830:src/session.rs[m[36m:[m[32m1558[m[36m:[m		crate::[1;31mhost::[minstall(&mut context).unwrap();
+[35m4652830:src/text.rs[m[36m:[m[32m4[m[36m:[m//! `[1;31mhost::[m` rather than inside it: a reader can tell at a glance which calls
+[35m4652830:src/text.rs[m[36m:[m[32m8[m[36m:[muse crate::[1;31mhost::[mHostFunction;
+[35m4652830:src/text.rs[m[36m:[m[32m225[m[36m:[m		let mut registered = crate::[1;31mhost::[minstall(&mut context).unwrap();
+[35m4652830:src/text.rs[m[36m:[m[32m229[m[36m:[m			"[1;31mhost::[mjson_parse",
+[35m4652830:src/text.rs[m[36m:[m[32m230[m[36m:[m			"[1;31mhost::[mjson_stringify",
+[35m4652830:src/text.rs[m[36m:[m[32m232[m[36m:[m			"[1;31mhost::[mstdin",
+[35m4652830:src/text.rs[m[36m:[m[32m233[m[36m:[m			"[1;31mhost::[mexit",
+[35m4652830:src/text.rs[m[36m:[m[32m234[m[36m:[m			"[1;31mhost::[meprint",
+[35m4652830:src/text.rs[m[36m:[m[32m238[m[36m:[m			"[1;31mhost::[mprocess",
+[35m4652830:src/text.rs[m[36m:[m[32m239[m[36m:[m			"[1;31mhost::[mprocess_bytes",
+[35m4652830:src/time.rs[m[36m:[m[32m2[m[36m:[muse crate::[1;31mhost::[mHostFunction;
+[35m4652830:tests/async_execution.rs[m[36m:[m[32m128[m[36m:[m		"pub async fn main(_) { [1;31mhost::[mtest_pending(20).await }",
+[35m4652830:tests/async_execution.rs[m[36m:[m[32m148[m[36m:[m	let ran = rnx(&["eval", "[1;31mhost::[mtest_pending(20).await + 1"], None);
+[35m4652830:tests/async_execution.rs[m[36m:[m[32m157[m[36m:[m		Some("let waited = [1;31mhost::[mtest_pending(20).await;\nwaited + 1\n"),
+[35m4652830:tests/async_execution.rs[m[36m:[m[32m204[m[36m:[m	let wait = "[1;31mhost::[mtest_pending(1).await;";
+[35m4652830:tests/async_execution.rs[m[36m:[m[32m236[m[36m:[m		"pub async fn main(_) { loop { [1;31mhost::[mtest_pending(0).await; } }",
+[35m4652830:tests/async_execution.rs[m[36m:[m[32m254[m[36m:[m		"pub async fn main(_) { [1;31mhost::[mtest_pending(10000).await }",
+[35m4652830:tests/async_execution.rs[m[36m:[m[32m291[m[36m:[m		&["eval", "[1;31mhost::[mtest_pending(10000).await"],
+[35m4652830:tests/async_execution.rs[m[36m:[m[32m303[m[36m:[m		Some("[1;31mhost::[mtest_pending(10000).await\n"),
+[35m4652830:tests/async_execution.rs[m[36m:[m[32m326[m[36m:[m		Some("[1;31mhost::[mtest_pending(10000).await\n[1;31mhost::[mtest_pending(10).await + 1\n"),
+[35m4652830:tests/async_execution.rs[m[36m:[m[32m428[m[36m:[m			"let a = [1;31mhost::[mtest_pending(5); select { r = a => r }",
+[35m4652830:tests/async_execution.rs[m[36m:[m[32m449[m[36m:[m		Some("async fn helper() { [1;31mhost::[mtest_pending(1).await }\nloop { }\n1 + 1\n"),
+[35m4652830:tests/async_execution.rs[m[36m:[m[32m507[m[36m:[m		"mod inner {\n    pub async fn work(_) { [1;31mhost::[mtest_pending(5).await }\n}\npub use inner::work as main;\n",
+[35m4652830:tests/async_execution.rs[m[36m:[m[32m547[m[36m:[m		"pub async fn main(_) {\n    [1;31mhost::[mtest_pending(1).await;\n    let v = [];\n    v[3]\n}\n",
+[35m4652830:tests/async_execution.rs[m[36m:[m[32m560[m[36m:[m		Some("1\n[1;31mhost::[mtest_pending(1).await; let v = []; v[3]\n"),
+[35m4652830:tests/capture_bound.rs[m[36m:[m[32m35[m[36m:[m			"pub fn main(_) {{\n\tlet r = [1;31mhost::[mprocess({child}, {deadline_ms})?;\n\tprintln!(\"timed_out={{}} cancelled={{}} truncated={{}} cut_short={{}} unreadable={{}} out={{}} err={{}}\", r.timed_out, r.cancelled, r.truncated, r.cut_short, r.unreadable, r.stdout.len(), r.stderr.len());\n\tOk(())\n}}\n"
+[35m4652830:tests/capture_bound.rs[m[36m:[m[32m264[m[36m:[m		"pub fn main(args) {\n\tlet r = [1;31mhost::[mprocess(\"sh\", [\"-c\", args[0]], 30000)?;\n\tprintln!(\"cancelled={} cut_short={}\", r.cancelled, r.cut_short);\n\tOk(())\n}\n",
+[35m4652830:tests/capture_bound_windows.rs[m[36m:[m[32m42[m[36m:[m/// What `[1;31mhost::[mprocess` caps a single stream at.
+[35m4652830:tests/capture_bound_windows.rs[m[36m:[m[32m101[m[36m:[m	let script = "pub fn main(args) { let r = [1;31mhost::[mprocess(\"cmd\", [\"/c\", args[0]], 30000)?; \
+[35m4652830:tests/capture_bound_windows.rs[m[36m:[m[32m236[m[36m:[m    let r = [1;31mhost::[mprocess(args[0], ["-NoProfile", "-NonInteractive", "-Command", args[1]], 30000)?;
+[35m4652830:tests/capture_hold_windows.rs[m[36m:[m[32m202[m[36m:[m	// `[1;31mhost::[mstdin()` after the call keeps rnx alive, so the ends of the child
+[35m4652830:tests/capture_hold_windows.rs[m[36m:[m[32m208[m[36m:[m			"pub fn main(_) {{ let r = [1;31mhost::[mprocess({}, {deadline_ms})?; \
+[35m4652830:tests/capture_hold_windows.rs[m[36m:[m[32m210[m[36m:[m			 [1;31mhost::[mstdin()?; Ok(()) }}",
+[35m4652830:tests/capture_hold_windows.rs[m[36m:[m[32m381[m[36m:[m			"pub fn main(_) {{ let r = [1;31mhost::[mprocess({}, {DEADLINE_MS})?; \
+[35m4652830:tests/capture_hold_windows.rs[m[36m:[m[32m383[m[36m:[m			 [1;31mhost::[mstdin()?; Ok(()) }}",
+[35m4652830:tests/child_input.rs[m[36m:[m[32m110[m[36m:[m			"pub fn main(_) {{\n\t{BUILD_INPUT}\tlet r = [1;31mhost::[mprocess_bytes_input(@PRESSURE@, s.as_bytes(), 30000)?;\n\tprintln!(\"code={{:?}} out={{}} err={{}} truncated={{}} read={{}}\", r.code, r.stdout.len(), r.stderr.len(), r.truncated, String::from_utf8([1;31mhost::[mprocess_bytes(@SUCCEED@, 1000)?.stdout)?);\n\tprintln!(\"tail={{:?}}\", String::from_utf8(r.stdout[200000..r.stdout.len()])?);\n\tOk(())\n}}\n"
+[35m4652830:tests/child_input.rs[m[36m:[m[32m145[m[36m:[m			"pub fn main(args) {{\n\t{BUILD_INPUT}\tlet r = [1;31mhost::[mprocess_bytes_input(\"sh\", [\"-c\", args[0]], s.as_bytes(), {deadline_ms})?;\n\tprintln!(\"timed_out={{}} cancelled={{}}\", r.timed_out, r.cancelled);\n\tOk(())\n}}\n"
+[35m4652830:tests/child_input.rs[m[36m:[m[32m250[m[36m:[m			"pub fn main(args) {{\n\t{BUILD_INPUT}\tlet r = [1;31mhost::[mprocess_bytes_input(\"sh\", [\"-c\", args[0]], s.as_bytes(), 30000)?;\n\tprintln!(\"returned\");\n\t// Blocks until the teardown closes this end, spawning nothing, so the\n\t// thread count is the delivery's alone.\n\t[1;31mhost::[mstdin()?;\n\tOk(())\n}}\n"
+[35m4652830:tests/child_input.rs[m[36m:[m[32m364[m[36m:[m			"pub fn main(_) {{\n\t{BUILD_INPUT}\tlet r = [1;31mhost::[mprocess_bytes_input(@FIRST_LINE@, s.as_bytes(), 20000)?;\n\tprintln!(\"code={{:?}} out={{:?}}\", r.code, String::from_utf8(r.stdout)?);\n\tOk(())\n}}\n"
+[35m4652830:tests/child_input.rs[m[36m:[m[32m385[m[36m:[m		"pub fn main(_) {\n\tlet a = [1;31mhost::[mprocess_bytes_input(@COPY_STDIN@, b\"\", 20000)?;\n\tlet b = [1;31mhost::[mprocess_bytes_input(@SUCCEED@, b\"ignored\", 20000)?;\n\tlet c = [1;31mhost::[mprocess_bytes_input(@COPY_STDIN@, b\"echoed\", 20000)?;\n\tprintln!(\"{:?} {:?} {:?}\", a.code, b.code, String::from_utf8(c.stdout)?);\n\tOk(())\n}\n",
+[35m4652830:tests/child_input.rs[m[36m:[m[32m399[m[36m:[m		"pub fn main(_) {\n\tlet slow = [1;31mhost::[mprocess_bytes_input(@SLEEP_5@, b\"x\", 200)?;\n\tprintln!(\"timed_out={} code={:?}\", slow.timed_out, slow.code);\n\tlet big = [1;31mhost::[mprocess_bytes_input(@THREE_MILLION_ZEROS@, b\"x\", 20000)?;\n\tprintln!(\"truncated={} out={}\", big.truncated, big.stdout.len());\n\tOk(())\n}\n",
+[35m4652830:tests/child_input.rs[m[36m:[m[32m417[m[36m:[m		"pub fn main(_) {\n\tlet a = [1;31mhost::[mprocess(@ECHO_TEXT@, 20000)?;\n\tlet b = [1;31mhost::[mprocess_bytes(@ECHO_BYTES@, 20000)?;\n\tprintln!(\"{:?} {:?} {:?}\", a.stdout, a.code, String::from_utf8(b.stdout)?);\n\tOk(())\n}\n",
+[35m4652830:tests/child_input.rs[m[36m:[m[32m461[m[36m:[m			"pub fn main(_) {{ [1;31mhost::[mprocess({program:?}, {}, 20000)?; Ok(()) }}",
+[35m4652830:tests/colour.rs[m[36m:[m[32m92[m[36m:[m				r#"println!("\u{1b}[2J"); [1;31mhost::[meprint("\u{1b}[31m")"#,
+[35m4652830:tests/console_interrupt.rs[m[36m:[m[32m152[m[36m:[m		"pub fn main(_) {{ let r = [1;31mhost::[mprocess(\"cmd\", [\"/c\", {}], {CHILD_DEADLINE_MS})?; \
+[35m4652830:tests/console_interrupt.rs[m[36m:[m[32m250[m[36m:[m		 let r = [1;31mhost::[mprocess_bytes_input(\"ping\", [\"-n\", \"30\", \"127.0.0.1\"], input.as_bytes(), {CHILD_DEADLINE_MS})?; \
+[35m4652830:tests/console_interrupt.rs[m[36m:[m[32m251[m[36m:[m		 println!(\"{{:?}}\", (r.cancelled, r.timed_out)); [1;31mhost::[mstdin()?; Ok(()) }}"
+[35m4652830:tests/console_interrupt.rs[m[36m:[m[32m629[m[36m:[m		"pub fn main(_) {{ let r = [1;31mhost::[mprocess(\"cmd\", [\"/c\", {}], 10000)?; \
+[35m4652830:tests/delivery_deadline_windows.rs[m[36m:[m[32m79[m[36m:[m	// `[1;31mhost::[mstdin()` at the end keeps rnx alive after the call, so the
+[35m4652830:tests/delivery_deadline_windows.rs[m[36m:[m[32m86[m[36m:[m			 let r = [1;31mhost::[mprocess_bytes_input(\"ping\", [\"-n\", \"30\", \"127.0.0.1\"], input.as_bytes(), {DEADLINE_MS})?; \
+[35m4652830:tests/delivery_deadline_windows.rs[m[36m:[m[32m87[m[36m:[m			 println!(\"{{:?}}\", (r.timed_out, r.cancelled)); [1;31mhost::[mstdin()?; Ok(()) }}"
+[35m4652830:tests/delivery_exit_windows.rs[m[36m:[m[32m60[m[36m:[m	// `[1;31mhost::[mstdin()` at the end keeps rnx alive after the call, so the
+[35m4652830:tests/delivery_exit_windows.rs[m[36m:[m[32m67[m[36m:[m			 let r = [1;31mhost::[mprocess_bytes_input({command}, input.as_bytes(), {DEADLINE_MS})?; \
+[35m4652830:tests/delivery_exit_windows.rs[m[36m:[m[32m68[m[36m:[m			 println!(\"{{:?}}\", (r.code, r.timed_out, r.cancelled)); [1;31mhost::[mstdin()?; Ok(()) }}"
+[35m4652830:tests/delivery_failure.rs[m[36m:[m[32m38[m[36m:[m		"pub fn main(args) {\n\tlet s = \"\";\n\tfor i in 0..50000 { s += \"0123456789abcdefghij\\n\" }\n\t// The `?` is the point: a delivery failure must reach the script as an\n\t// error rather than being swallowed with the thread that found it.\n\tlet r = [1;31mhost::[mprocess_bytes_input(\"sh\", [\"-c\", args[0]], s.as_bytes(), 30000)?;\n\tprintln!(\"the call succeeded, which it should not have\");\n\tOk(())\n}\n",
+[35m4652830:tests/delivery_failure.rs[m[36m:[m[32m108[m[36m:[m			"pub fn main(_) {{ let r = [1;31mhost::[mprocess({}, 20000)?; println!(\"unreadable={{}} truncated={{}} cut_short={{}} out={{}}\", r.unreadable, r.truncated, r.cut_short, r.stdout.len()); Ok(()) }}",
+[35m4652830:tests/delivery_failure.rs[m[36m:[m[32m160[m[36m:[m		"pub fn main(args) {\n\t// Kept rather than propagated, so this process is still here to be\n\t// counted.\n\tlet outcome = [1;31mhost::[mprocess(\"sh\", [\"-c\", args[0]], 30000);\n\tprintln!(\"returned {}\", outcome is Result);\n\t[1;31mhost::[mstdin()?;\n\tOk(())\n}\n",
+[35m4652830:tests/delivery_failure_windows.rs[m[36m:[m[32m70[m[36m:[m			 [1;31mhost::[mprocess_bytes_input(\"ping\", [\"-n\", \"30\", \"127.0.0.1\"], s.as_bytes(), {DEADLINE_MS})?; \
+[35m4652830:tests/env.rs[m[36m:[m[32m101[m[36m:[m		.eval(r#"[1;31mhost::[mjson_stringify(env::vars()?)? == [1;31mhost::[mjson_stringify(#{A:"1", E:""})?"#)
+[35m4652830:tests/eval_outcome.rs[m[36m:[m[32m119[m[36m:[m	let ran = evaluated("[1;31mhost::[mprocess(@FAIL@, 5000).map(|r| r.code)");
+[35m4652830:tests/eval_outcome.rs[m[36m:[m[32m141[m[36m:[m		"[1;31mhost::[mprocess(@FAIL@, 5000).map(|r| r.code)",
+[35m4652830:tests/eval_outcome.rs[m[36m:[m[32m346[m[36m:[m	// And `[1;31mhost::[mexit` still chooses the status, as record 0013 decided.
+[35m4652830:tests/eval_outcome.rs[m[36m:[m[32m347[m[36m:[m	let ran = evaluated("[1;31mhost::[mexit(5)");
+[35m4652830:tests/exit_status.rs[m[36m:[m[32m43[m[36m:[m			"pub fn main(args) {{\n\t[1;31mhost::[mexit({status})?;\n\tOk(())\n}}\n"
+[35m4652830:tests/exit_status.rs[m[36m:[m[32m55[m[36m:[m		"pub fn main(args) {\n\tprintln!(\"the whole report\");\n\t[1;31mhost::[mexit(1)?;\n\tOk(())\n}\n",
+[35m4652830:tests/exit_status.rs[m[36m:[m[32m67[m[36m:[m		run("pub fn main(args) {\n\tprint!(\"unterminated\");\n\t[1;31mhost::[mexit(3)?;\n\tOk(())\n}\n");
+[35m4652830:tests/exit_status.rs[m[36m:[m[32m79[m[36m:[m			"pub fn main(args) {{\n\tprintln!(\"printed\");\n\t[1;31mhost::[mexit({asked})?;\n\tOk(())\n}}\n"
+[35m4652830:tests/exit_status.rs[m[36m:[m[32m104[m[36m:[m		"pub fn main(args) {\n\tprintln!(\"before\");\n\t[1;31mhost::[mexit(4)?;\n\tprintln!(\"after\");\n\tOk(())\n}\n",
+[35m4652830:tests/exit_status.rs[m[36m:[m[32m114[m[36m:[m		"pub fn main(args) {\n\t[1;31mhost::[meprint(\"one\\n\")?;\n\t[1;31mhost::[meprint(\"two, {not a format} \\\\ \\\"quoted\\\"\")?;\n\tprintln!(\"out\");\n\tOk(())\n}\n",
+[35m4652830:tests/exit_status.rs[m[36m:[m[32m128[m[36m:[m		.arg("[1;31mhost::[mexit(5)")
+[35m4652830:tests/exit_status.rs[m[36m:[m[32m197[m[36m:[m		run("pub fn main(args) {\n\t[1;31mhost::[mexit(256);\n\tprintln!(\"continued\");\n\tOk(())\n}\n");
+[35m4652830:tests/exit_status.rs[m[36m:[m[32m207[m[36m:[m		"pub fn main(args) {\n\tlet ignored = [1;31mhost::[mexit(300);\n\tprintln!(\"continued\");\n\tOk(())\n}\n",
+[35m4652830:tests/exit_status.rs[m[36m:[m[32m217[m[36m:[m		.arg("[1;31mhost::[mexit(256)")
+[35m4652830:tests/exit_status.rs[m[36m:[m[32m236[m[36m:[m		"pub fn main(args) {\n\tprint!(\"report\");\n\t[1;31mhost::[mexit(0)?;\n\tOk(())\n}\n",
+[35m4652830:tests/exit_status.rs[m[36m:[m[32m251[m[36m:[m		"pub fn main(args) {\n\tprint!(\"report\");\n\t[1;31mhost::[mexit(2)?;\n\tOk(())\n}\n",
+[35m4652830:tests/fs.rs[m[36m:[m[32m351[m[36m:[m		let o = t.command(&format!("[1;31mhost::[m{name}")).output().unwrap();
+[35m4652830:tests/http.rs[m[36m:[m[32m271[m[36m:[m		serde_json::from_str(&eval(&format!("[1;31mhost::[mjson_stringify({expr}?)?"))).unwrap();
+[35m4652830:tests/http.rs[m[36m:[m[32m312[m[36m:[m			"let r = http::get({:?}).await?; [1;31mhost::[mjson_parse(r.body)?.n == 18446744073709551615u64",
+[35m4652830:tests/http.rs[m[36m:[m[32m319[m[36m:[m			"[1;31mhost::[mjson_parse(http::get({:?}).await?.body)",
+[35m4652830:tests/http.rs[m[36m:[m[32m642[m[36m:[m		"[1;31mhost::[mtest_reset_allocation_peak(); let r = {} ; [1;31mhost::[mtest_allocation_peak()",
+[35m4652830:tests/job_assignment_windows.rs[m[36m:[m[32m50[m[36m:[m		std::fs::write(&script, format!("pub fn main(_) {{ let r = [1;31mhost::[mprocess({exe}, {args}, 3000)?; println!(\"CALL timed_out={{}} cancelled={{}}\", r.timed_out, r.cancelled); Ok(()) }}")).unwrap();
+[35m4652830:tests/job_breakaway.rs[m[36m:[m[32m215[m[36m:[m		"pub fn main(_) {{ let r = [1;31mhost::[mprocess({}, [\"--exact\", \
+[35m4652830:tests/json.rs[m[36m:[m[32m1[m[36m:[m//! What `[1;31mhost::[mjson_stringify` does, and what it refuses. Record 0019
+[35m4652830:tests/json.rs[m[36m:[m[32m48[m[36m:[m	let r = evaluated("let v = [1]; v.push(v); [1;31mhost::[mjson_stringify(v)");
+[35m4652830:tests/json.rs[m[36m:[m[32m63[m[36m:[m	let r = evaluated("let a = [1]; [1;31mhost::[mjson_stringify([a, a])");
+[35m4652830:tests/json.rs[m[36m:[m[32m70[m[36m:[m	let inside = evaluated(&format!("{} [1;31mhost::[mjson_stringify(v)", nested(256)));
+[35m4652830:tests/json.rs[m[36m:[m[32m72[m[36m:[m	let past = evaluated(&format!("{} [1;31mhost::[mjson_stringify(v)", nested(257)));
+[35m4652830:tests/json.rs[m[36m:[m[32m94[m[36m:[m			"pub fn main(_) {{\n\t{}\n\tlet outcome = [1;31mhost::[mjson_stringify(v);\n\tprintln!(\"refused: {{}}\", outcome.is_err());\n\tprintln!(\"still running\");\n\tOk(())\n}}\n",
+[35m4652830:tests/json.rs[m[36m:[m[32m123[m[36m:[m		("[1;31mhost::[mjson_stringify(())", "\"null\"\n"),
+[35m4652830:tests/json.rs[m[36m:[m[32m124[m[36m:[m		("[1;31mhost::[mjson_stringify(true)", "\"true\"\n"),
+[35m4652830:tests/json.rs[m[36m:[m[32m125[m[36m:[m		("[1;31mhost::[mjson_stringify('x')", "\"\\\"x\\\"\"\n"),
+[35m4652830:tests/json.rs[m[36m:[m[32m126[m[36m:[m		("[1;31mhost::[mjson_stringify(7)", "\"7\"\n"),
+[35m4652830:tests/json.rs[m[36m:[m[32m127[m[36m:[m		("[1;31mhost::[mjson_stringify(1.5)", "\"1.5\"\n"),
+[35m4652830:tests/json.rs[m[36m:[m[32m128[m[36m:[m		("[1;31mhost::[mjson_stringify(\"hi\")", "\"\\\"hi\\\"\"\n"),
+[35m4652830:tests/json.rs[m[36m:[m[32m129[m[36m:[m		("[1;31mhost::[mjson_stringify(None)", "\"null\"\n"),
+[35m4652830:tests/json.rs[m[36m:[m[32m132[m[36m:[m		("[1;31mhost::[mjson_stringify(Some(Some(1)))", "\"1\"\n"),
+[35m4652830:tests/json.rs[m[36m:[m[32m133[m[36m:[m		("[1;31mhost::[mjson_stringify([1, 2])", "\"[1,2]\"\n"),
+[35m4652830:tests/json.rs[m[36m:[m[32m134[m[36m:[m		("[1;31mhost::[mjson_stringify((1, 2))", "\"[1,2]\"\n"),
+[35m4652830:tests/json.rs[m[36m:[m[32m135[m[36m:[m		("[1;31mhost::[mjson_stringify(#{a: 1})", "\"{\\\"a\\\":1}\"\n"),
+[35m4652830:tests/json.rs[m[36m:[m[32m142[m[36m:[m		("[1;31mhost::[mjson_stringify(Ok(1))", "cannot serialize a result"),
+[35m4652830:tests/json.rs[m[36m:[m[32m143[m[36m:[m		("[1;31mhost::[mjson_stringify(Err(1))", "cannot serialize a result"),
+[35m4652830:tests/json.rs[m[36m:[m[32m144[m[36m:[m		("[1;31mhost::[mjson_stringify(|| 1)", "cannot serialize a function"),
+[35m4652830:tests/json.rs[m[36m:[m[32m146[m[36m:[m			"fn h() {} [1;31mhost::[mjson_stringify(h)",
+[35m4652830:tests/json.rs[m[36m:[m[32m149[m[36m:[m		("[1;31mhost::[mjson_stringify(0..3)", "an external reference"),
+[35m4652830:tests/json.rs[m[36m:[m[32m151[m[36m:[m			"struct P { c } [1;31mhost::[mjson_stringify(P { c: 1 })",
+[35m4652830:tests/json.rs[m[36m:[m[32m155[m[36m:[m			"enum E { A } [1;31mhost::[mjson_stringify(E::A)",
+[35m4652830:tests/json.rs[m[36m:[m[32m170[m[36m:[m			"[1;31mhost::[mjson_stringify(#{a: #{b: #{c: #{d: #{e: #{f: #{g: [1, || 1]}}}}}}})",
+[35m4652830:tests/json.rs[m[36m:[m[32m173[m[36m:[m		("[1;31mhost::[mjson_stringify([[[|| 1]]])", "[0][0][0]"),
+[35m4652830:tests/json.rs[m[36m:[m[32m174[m[36m:[m		("[1;31mhost::[mjson_stringify(|| 1)", "the value itself"),
+[35m4652830:tests/json.rs[m[36m:[m[32m191[m[36m:[m	let dotted = evaluated("[1;31mhost::[mjson_stringify(#{\"a.b\": || 1})");
+[35m4652830:tests/json.rs[m[36m:[m[32m192[m[36m:[m	let nested_keys = evaluated("[1;31mhost::[mjson_stringify(#{a: #{b: || 1}})");
+[35m4652830:tests/json.rs[m[36m:[m[32m205[m[36m:[m	let numeric_key = evaluated("[1;31mhost::[mjson_stringify(#{\"3\": || 1})");
+[35m4652830:tests/json.rs[m[36m:[m[32m206[m[36m:[m	let index = evaluated("[1;31mhost::[mjson_stringify([0, 1, 2, || 1])");
+[35m4652830:tests/json.rs[m[36m:[m[32m215[m[36m:[m	let quoted = evaluated("[1;31mhost::[mjson_stringify(#{\"say \\\"hi\\\"\": || 1})");
+[35m4652830:tests/json.rs[m[36m:[m[32m221[m[36m:[m	let controlled = evaluated("[1;31mhost::[mjson_stringify(#{\"a\\u{1b}b\": || 1})");
+[35m4652830:tests/json.rs[m[36m:[m[32m277[m[36m:[m	let inside = evaluated(&format!("{} [1;31mhost::[mjson_stringify(v)", options(256)));
+[35m4652830:tests/json.rs[m[36m:[m[32m281[m[36m:[m	let past = evaluated(&format!("{} [1;31mhost::[mjson_stringify(v)", options(257)));
+[35m4652830:tests/json.rs[m[36m:[m[32m291[m[36m:[m	let mixed = evaluated("let v = 1; for i in 0..200 { v = [Some(v)] } [1;31mhost::[mjson_stringify(v)");
+[35m4652830:tests/json.rs[m[36m:[m[32m307[m[36m:[m		let serialized = evaluated(&format!("{} [1;31mhost::[mjson_stringify(v)", options(deep)));
+[35m4652830:tests/json.rs[m[36m:[m[32m327[m[36m:[m			"pub fn main(_) {{\n\t{}\n\tlet outcome = [1;31mhost::[mjson_stringify(v);\n\tprintln!(\"refused: {{}}\", outcome.is_err());\n\tprintln!(\"still running\");\n\tOk(())\n}}\n",
+[35m4652830:tests/json_parse.rs[m[36m:[m[32m23[m[36m:[m		"[1;31mhost::[mjson_parse({})",
+[35m4652830:tests/json_parse.rs[m[36m:[m[32m30[m[36m:[m		"[1;31mhost::[mjson_stringify({}?)?",
+[35m4652830:tests/json_parse.rs[m[36m:[m[32m74[m[36m:[m				"let v = {literal}; [1;31mhost::[mjson_parse([1;31mhost::[mjson_stringify(v)?)? == v"
+[35m4652830:tests/json_parse.rs[m[36m:[m[32m101[m[36m:[m	assert_eq!(result("[1;31mhost::[mjson_parse(\"null\")? == ()"), "true");
+[35m4652830:tests/process_bytes.rs[m[36m:[m[32m1[m[36m:[m//! What `[1;31mhost::[mprocess` refuses, and what `[1;31mhost::[mprocess_bytes` preserves.
+[35m4652830:tests/process_bytes.rs[m[36m:[m[32m47[m[36m:[mconst READ_TEXT: &str = "pub fn main(_) {\n\tlet r = [1;31mhost::[mprocess(@CAT_DATA@, 20000)?;\n\tprintln!(\"len={} truncated={}\", r.stdout.len(), r.truncated);\n\tOk(())\n}\n";
+[35m4652830:tests/process_bytes.rs[m[36m:[m[32m62[m[36m:[m	assert!(ran.stderr.contains("[1;31mhost::[mprocess_bytes"), "{}", ran.stderr);
+[35m4652830:tests/process_bytes.rs[m[36m:[m[32m75[m[36m:[m		"pub fn main(_) {\n\tlet r = [1;31mhost::[mprocess(@DATA_ON_STDERR@, 20000)?;\n\tprintln!(\"{}\", r.code);\n\tOk(())\n}\n",
+[35m4652830:tests/process_bytes.rs[m[36m:[m[32m158[m[36m:[m		"pub fn main(_) {\n\tlet r = [1;31mhost::[mprocess_bytes(@CAT_DATA@, 20000)?;\n\tlet i = 0;\n\tlet out = [];\n\twhile i < r.stdout.len() {\n\t\tout.push(r.stdout[i]);\n\t\ti += 1;\n\t}\n\tprintln!(\"{:?}\", out);\n\tOk(())\n}\n",
+[35m4652830:tests/process_bytes.rs[m[36m:[m[32m178[m[36m:[m		"fn show(r) { format!(\"code={:?} timed_out={} cancelled={} truncated={}\", r.code, r.timed_out, r.cancelled, r.truncated) }\npub fn main(_) {\n\tprintln!(\"{}\", show([1;31mhost::[mprocess(@EXIT_7@, 20000)?));\n\tprintln!(\"{}\", show([1;31mhost::[mprocess_bytes(@EXIT_7@, 20000)?));\n\tprintln!(\"{}\", show([1;31mhost::[mprocess(@SLEEP_5@, 200)?));\n\tprintln!(\"{}\", show([1;31mhost::[mprocess_bytes(@SLEEP_5@, 200)?));\n\tOk(())\n}\n",
+[35m4652830:tests/process_bytes.rs[m[36m:[m[32m221[m[36m:[m		"pub fn main(_) {\n\tlet r = [1;31mhost::[mprocess(@BIG_AND_PARTIAL@, 20000)?;\n\tprintln!(\"accepted truncated={} stderr={:?}\", r.truncated, r.stderr);\n\tOk(())\n}\n",
+[35m4652830:tests/process_bytes.rs[m[36m:[m[32m236[m[36m:[m		"pub fn main(_) {\n\tlet r = [1;31mhost::[mprocess(@PARTIAL_AND_BIG@, 20000)?;\n\tprintln!(\"accepted truncated={} stdout={:?}\", r.truncated, r.stdout);\n\tOk(())\n}\n",
+[35m4652830:tests/process_bytes.rs[m[36m:[m[32m256[m[36m:[m		"pub fn main(_) {\n\tlet r = [1;31mhost::[mprocess(@BIG_AND_FINE@, 20000)?;\n\tprintln!(\"len={} truncated={} err={:?}\", r.stdout.len(), r.truncated, r.stderr);\n\tOk(())\n}\n",
+[35m4652830:tests/process_module.rs[m[36m:[m[32m76[m[36m:[m        let b = [1;31mhost::[mprocess({p}, ["fail"], 30000)?;
+[35m4652830:tests/process_module.rs[m[36m:[m[32m77[m[36m:[m        assert_eq!([1;31mhost::[mjson_stringify(a)?, [1;31mhost::[mjson_stringify(b)?);
+[35m4652830:tests/process_module.rs[m[36m:[m[32m82[m[36m:[m        let d = [1;31mhost::[mprocess_bytes({p}, ["fail"], 30000)?;
+[35m4652830:tests/process_module.rs[m[36m:[m[32m151[m[36m:[m		text.contains("process::run_bytes") && !text.contains("[1;31mhost::[mprocess_bytes"),
+[35m4652830:tests/reader_panic_windows.rs[m[36m:[m[32m26[m[36m:[m    match [1;31mhost::[mprocess("cmd", ["/c", "exit 0"], 30000) {
+[35m4652830:tests/reader_panic_windows.rs[m[36m:[m[32m30[m[36m:[m    [1;31mhost::[mstdin()?;
+[35m4652830:tests/repl.rs[m[36m:[m[32m305[m[36m:[m	t.send("[1;31mhost::[mprocess(\"/bin/sh\", [\"-c\", \"sleep 30\"], 60000)\r");
+[35m4652830:tests/repl.rs[m[36m:[m[32m403[m[36m:[m	t.send("[1;31mhost::[m\t\t");
+[35m4652830:tests/repl.rs[m[36m:[m[32m408[m[36m:[m		if listed.contains("[1;31mhost::[mjson_parse") && listed.contains("[1;31mhost::[mprocess") {
+[35m4652830:tests/repl.rs[m[36m:[m[32m458[m[36m:[m	assert!(t.pending().contains("[1;31mhost::[m"), "{}", t.pending());
+[35m4652830:tests/repl.rs[m[36m:[m[32m801[m[36m:[m	// The module completes from its registered paths, like `[1;31mhost::[m`.
+[35m4652830:tests/repl.rs[m[36m:[m[32m845[m[36m:[m	t.send("[1;31mhost::[mstdin()\r");
+[35m4652830:tests/repl.rs[m[36m:[m[32m853[m[36m:[m	t.send(":help [1;31mhost::[mstdin\r");
+[35m4652830:tests/repl.rs[m[36m:[m[32m860[m[36m:[m	t.send("[1;31mhost::[mstdin()\r");
+[35m4652830:tests/repl.rs[m[36m:[m[32m869[m[36m:[m	// `[1;31mhost::[mexit` at a prompt would end the person's session, and `:quit`
+[35m4652830:tests/repl.rs[m[36m:[m[32m874[m[36m:[m	t.send("[1;31mhost::[mexit(0)\r");
+[35m4652830:tests/repl.rs[m[36m:[m[32m880[m[36m:[m	t.send("[1;31mhost::[mexit(256)\r");
+[35m4652830:tests/repl.rs[m[36m:[m[32m888[m[36m:[m	t.send("[1;31mhost::[meprint(\"a warning\\n\")\r");
+[35m4652830:tests/repl.rs[m[36m:[m[32m892[m[36m:[m	t.send(":help [1;31mhost::[mexit\r");
+[35m4652830:tests/repl.rs[m[36m:[m[32m896[m[36m:[m	t.send(":help [1;31mhost::[meprint\r");
+[35m4652830:tests/repl.rs[m[36m:[m[32m1146[m[36m:[m		"pub fn main(_) { [1;31mhost::[mexit(7) }",
+[35m4652830:tests/stdin.rs[m[36m:[m[32m1[m[36m:[m//! What `[1;31mhost::[mstdin` reads, and what it refuses.
+[35m4652830:tests/stdin.rs[m[36m:[m[32m145[m[36m:[mconst ECHO: &str = "pub fn main(args) {\n\tprintln!(\"{:?}\", [1;31mhost::[mstdin()?);\n\tOk(())\n}\n";
+[35m4652830:tests/stdin.rs[m[36m:[m[32m205[m[36m:[m	let source = "pub fn main(args) {\n\tlet first = [1;31mhost::[mstdin()?;\n\tprintln!(\"first {:?}\", first);\n\tlet second = [1;31mhost::[mstdin()?;\n\tprintln!(\"second {:?}\", second);\n\tOk(())\n}\n";
+[35m4652830:tests/stdin.rs[m[36m:[m[32m231[m[36m:[m	let source = "pub fn main(args) {\n\tprintln!(\"{}\", [1;31mhost::[mstdin()?.len());\n\tOk(())\n}\n";
+[35m4652830:tests/time.rs[m[36m:[m[32m378[m[36m:[m		let body = "[1;31mhost::[meprint(\"ready\\n\"); time::sleep(10000).await?; 7";
+[35m4652830:tests/worker_checks.py[m[36m:[m[32m54[m[36m:[m            check(run("[1;31mhost::[mstdin()?")["text_plain"] == '""')
+[35m4652830:tests/worker_checks.py[m[36m:[m[32m55[m[36m:[m            check(run("[1;31mhost::[mstdin()?")["failure"] is not None)
+[35m4652830:tests/worker_checks.py[m[36m:[m[32m56[m[36m:[m            check(run("[1;31mhost::[mexit(0)?")["failure"] is not None)
+[35m4652830:tests/worker_checks.py[m[36m:[m[32m58[m[36m:[m                'print!("no newline"); [1;31mhost::[meprint("stderr tail")?; 7'
+[35m4652830:tests/worker_checks.py[m[36m:[m[32m79[m[36m:[m            check(run("[1;31mhost::[mstdin()?")["failure"] is not None)
+[35m4652830:tests/worker_checks.py[m[36m:[m[32m191[m[36m:[m            'for n in 0..300 { print!("' + text + '"); [1;31mhost::[meprint("' + text + '")?; }'

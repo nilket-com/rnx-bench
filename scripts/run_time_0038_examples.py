@@ -15,7 +15,7 @@ with tempfile.TemporaryDirectory(prefix='rnx-time-example-') as tmp:
  for name,source in cases.items():
   r=subprocess.run([exe,'eval',source],env=env,capture_output=True,text=True,check=True)
   results[name]={'source':source,'stdout':r.stdout,'stderr':r.stderr,'exit':r.returncode}
- source='host::eprint("ready\\n"); time::sleep(10000).await?'
+ source='io::eprint("ready\\n"); time::sleep(10000).await?'
  child=subprocess.Popen([exe,'eval',source],env=env,stdout=subprocess.PIPE,stderr=subprocess.PIPE,text=True)
  # Use select so even failure to reach the ready marker cannot hang the probe.
  import select

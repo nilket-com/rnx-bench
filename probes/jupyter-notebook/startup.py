@@ -1,3 +1,6 @@
+# Historical identical-binary check at the 0047 supervision hash below.
+# Deliberately keeps that revision's host:: source. For current binaries and
+# namespace changes use probes/namespaces/measure.py, with separate variants.
 """Matched ordinary-rnx copies: the accepted worker hash must still be identical."""
 import hashlib,shlex
 from common import *

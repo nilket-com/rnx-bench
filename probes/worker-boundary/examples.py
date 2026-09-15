@@ -18,7 +18,7 @@ try:
         "x + 1",
         "fn old(v) { v.missing() }",
         "old(1)",
-        'print!("tail"); host::eprint("err")?; ()',
+        'print!("tail"); io::eprint("err")?; ()',
     ]:
         reply, messages, streams = w.execute(source)
         print(

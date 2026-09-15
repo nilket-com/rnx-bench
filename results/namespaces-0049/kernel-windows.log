@@ -1,0 +1,12 @@
+warning: variable does not need to be mutable
+  --> src/install.rs:71:6
+   |
+71 |     let mut builder = fs::DirBuilder::new();
+   |         ----^^^^^^^
+   |         |
+   |         help: remove this `mut`
+   |
+   = note: `#[warn(unused_mut)]` (part of `#[warn(unused)]`) on by default
+
+warning: `rnx-jupyter` (lib) generated 1 warning (run `cargo fix --lib -p rnx-jupyter` to apply 1 suggestion)
+    Finished `dev` profile [unoptimized + debuginfo] target(s) in 0.05s

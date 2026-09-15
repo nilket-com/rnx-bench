@@ -1,0 +1,140 @@
+[
+  {
+    "command": "cargo test --locked",
+    "exit": 0,
+    "tests": 347,
+    "log": "default-final.log"
+  },
+  {
+    "command": "cargo test --locked --features test-support",
+    "exit": 0,
+    "tests": 388,
+    "log": "support-first.log"
+  },
+  {
+    "command": "kernel cargo test --locked",
+    "exit": 0,
+    "tests": 23,
+    "log": "kernel-default.log"
+  },
+  {
+    "command": "kernel cargo test --locked --features transport-probe",
+    "exit": 0,
+    "tests": 23,
+    "log": "kernel-support.log"
+  },
+  {
+    "command": "kernel clippy all targets transport-probe -D warnings",
+    "exit": 0,
+    "tests": null,
+    "log": "clippy-kernel.log"
+  },
+  {
+    "command": "root clippy all targets test-support -D warnings (baseline)",
+    "exit": 101,
+    "tests": null,
+    "log": "clippy-baseline.jsonl"
+  },
+  {
+    "command": "root clippy all targets test-support -D warnings (current)",
+    "exit": 101,
+    "tests": null,
+    "log": "clippy-current.jsonl"
+  },
+  {
+    "command": "root fmt --check",
+    "exit": 0,
+    "tests": null,
+    "log": "fmt.log"
+  },
+  {
+    "command": "root notices --check",
+    "exit": 0,
+    "tests": null,
+    "log": "notices.log"
+  },
+  {
+    "command": "kernel notices --check",
+    "exit": 0,
+    "tests": null,
+    "log": "notices-kernel.log"
+  },
+  {
+    "command": "root Windows check (missing lib.exe)",
+    "exit": 101,
+    "tests": null,
+    "log": "root-windows.log"
+  },
+  {
+    "command": "isolated Windows module/unit type check",
+    "exit": 0,
+    "tests": null,
+    "log": "windows-portability.log"
+  },
+  {
+    "command": "kernel Windows check",
+    "exit": 0,
+    "tests": null,
+    "log": "kernel-windows.log"
+  },
+  {
+    "command": "release selfcheck",
+    "exit": 0,
+    "tests": null,
+    "log": "selfcheck.log"
+  },
+  {
+    "command": "release worker checks",
+    "exit": 0,
+    "tests": null,
+    "log": "worker-release.log"
+  },
+  {
+    "command": "paired measurements",
+    "exit": 0,
+    "tests": null,
+    "log": "measure.txt"
+  },
+  {
+    "command": "installed namespace notebook",
+    "exit": 0,
+    "tests": null,
+    "log": "notebook.jsonl"
+  },
+  {
+    "command": "JupyterLab browser journey",
+    "exit": 0,
+    "tests": null,
+    "log": "browser.jsonl"
+  },
+  {
+    "command": "supervision probe",
+    "exit": 0,
+    "tests": null,
+    "log": "supervision/probe.jsonl"
+  },
+  {
+    "command": "supervision extended",
+    "exit": 0,
+    "tests": null,
+    "log": "supervision/extended.jsonl"
+  },
+  {
+    "command": "supervision boundaries",
+    "exit": 0,
+    "tests": null,
+    "log": "supervision/boundaries.jsonl"
+  },
+  {
+    "command": "supervision notebook",
+    "exit": 0,
+    "tests": null,
+    "log": "supervision/notebook.jsonl"
+  },
+  {
+    "command": "isolated Windows compilation of 16 migrated integration-test targets",
+    "exit": 0,
+    "tests": null,
+    "log": "windows-tests.log"
+  }
+]

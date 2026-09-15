@@ -24,7 +24,7 @@ def stream_cases():
         assert streams(m,'stdout')=='😀��',streams(m,'stdout')
         assert any(x['metadata'].get('rnx',{}).get('utf8_replaced') for x in m)
         text='x'*8192
-        r,m=k.execute('for n in 0..300 { print!("'+text+'"); host::eprint("'+text+'")?; }')
+        r,m=k.execute('for n in 0..300 { print!("'+text+'"); io::eprint("'+text+'")?; }')
         for name in ['stdout','stderr']:
             output=streams(m,name);assert output.startswith('x'*(2*1024*1024))
             assert '360448 bytes discarded' in output,(name,len(output),output[-200:])

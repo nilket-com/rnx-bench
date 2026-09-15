@@ -1,3 +1,5 @@
+# Historical comparison for the 0044 revisions, which register host::.
+# Use probes/namespaces/measure.py for the 0049 migration and current binaries.
 #!/usr/bin/env python3
 """0044: matched one-shot and supervised-child process costs (Linux fixture)."""
 import hashlib,json,os,pathlib,shlex,subprocess,sys,tempfile
@@ -15,7 +17,7 @@ with tempfile.TemporaryDirectory() as tmp:
     for label,binary in [('before',before),('after',after)]:
         data=pathlib.Path(binary).read_bytes()
         conditions['binaries'][label]={'bytes':len(data),'sha256':hashlib.sha256(data).hexdigest()}
-        cases=[('version',['version']),('eval',['eval','42']),('run',['run','scripts/bare.rn']),('json',['run','scripts/json.rn']),('child',['eval','host::process("/bin/true", [], 30000)?.code'])]
+        cases=[('version',['version']),('eval',['eval','42']),('run',['run','scripts/bare.rn']),('json',['run','probes/process/json-0044.rn']),('child',['eval','host::process("/bin/true", [], 30000)?.code'])]
         if label=='after':cases.append(('facade',['eval','process::run("/bin/true", [], #{})?.code']))
         for name,args in cases:
             cmd=[binary,*args];ran=subprocess.run(cmd,capture_output=True);assert ran.returncode==0,ran.stderr

@@ -1,0 +1,44 @@
+    Blocking waiting for file lock on package cache
+    Blocking waiting for file lock on package cache
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 0.10s
+     Running unittests src/lib.rs (target/debug/deps/rnx_jupyter-a17388b6c1d1a129)
+
+running 23 tests
+test kernel::tests::iopub_errors_exclude_reply_only_fields ... ok
+test streams::tests::a_short_progress_line_does_not_wait_for_the_barrier ... ok
+test connection::tests::regular_file_and_size_limit ... ok
+test streams::tests::every_marker_split_and_stale_prefix_is_byte_exact ... ok
+test transport::tests::publication_preflight_and_closing_stale_generation ... ok
+test transport::tests::unwinding_retires_the_connection_generation ... ok
+test transport::tests::heartbeat_context_bounds_and_interleaving ... ok
+test transport::tests::thirty_two_reply_slots_include_current_write ... ok
+test wire::tests::signs_each_dictionary_and_preserves_parent_bytes ... ok
+test wire::tests::empty_key_and_authenticated_shape_refusals ... ok
+test connection::tests::local_subset_and_typed_fields ... ok
+test transport::tests::aggregate_failure_never_partially_publishes ... ok
+test transport::tests::borrowed_application_holds_credit_and_shutdown_cancels_it ... ok
+test transport::tests::malformed_and_truncated_states_release_credits ... ok
+test transport::tests::all_publication_credit_and_entry_boundaries ... ok
+test transport::tests::split_headers_and_coalesced_frames ... ok
+test transport::tests::caps_are_checked_before_body_or_narrowing ... ok
+test kernel::tests::history_and_origins_evict_without_borrowing_the_current_count ... ok
+test transport::tests::partial_writer_cancellation_releases_current_and_queued ... ok
+test wire::tests::encoding_bounds_json_expansion_before_growth ... ok
+test transport::tests::subscription_and_reply_credit_boundaries ... ok
+test streams::tests::cap_continues_draining_and_utf8_waits_for_boundary ... ok
+test transport::tests::writing_deadline_does_not_restart_on_progress ... ok
+
+test result: ok. 23 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 5.00s
+
+     Running unittests src/main.rs (target/debug/deps/rnx_jupyter-6c23906c4f2c5ec5)
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+   Doc-tests rnx_jupyter
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+

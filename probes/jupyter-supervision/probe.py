@@ -57,7 +57,7 @@ def ordinary():
     try:
         r,m=k.execute('let x = 40;');assert r['content']['status']=='ok' and not any(x['msg_type']=='execute_result' for x in m)
         r,m=k.execute('x + 2');assert result(m)=='42' and r['content']['execution_count']==2
-        r,m=k.execute('print!("no newline"); host::eprint("err\\0tail")?; 7');assert result(m)=='7' and streams(m,'stdout')=='no newline' and streams(m,'stderr')=='err\0tail'
+        r,m=k.execute('print!("no newline"); io::eprint("err\\0tail")?; 7');assert result(m)=='7' and streams(m,'stdout')=='no newline' and streams(m,'stderr')=='err\0tail'
         assert next(i for i,x in enumerate(m) if x['msg_type']=='execute_result')<len(m)-1
         r,m=k.execute('1.missing()');assert r['content']['ename']=='RuntimeError';assert 'missing' in r['content']['evalue']
         r,m=k.execute('this is broken');assert r['content']['ename']=='CompileError'

@@ -1,0 +1,73 @@
+{
+  "baseline_count": 35,
+  "current_count": 35,
+  "added": [],
+  "removed": [],
+  "baseline_diagnostics": [
+    {
+      "code": "clippy::non_octal_unix_permissions",
+      "message": "using a non-octal value to set unix file permissions",
+      "count": 2
+    },
+    {
+      "code": "clippy::unnecessary_mut_passed",
+      "message": "the function `libc::openpty` doesn't need a mutable reference",
+      "count": 1
+    },
+    {
+      "code": "clippy::clone_on_copy",
+      "message": "using `clone` on type `Kind` which implements the `Copy` trait",
+      "count": 2
+    },
+    {
+      "code": "clippy::collapsible_if",
+      "message": "this `if` statement can be collapsed",
+      "count": 10
+    },
+    {
+      "code": "clippy::drop_non_drop",
+      "message": "call to `std::mem::drop` with a value that does not implement `Drop`. Dropping such a type only extends its contained lifetimes",
+      "count": 2
+    },
+    {
+      "code": "clippy::needless_late_init",
+      "message": "unneeded late initialization",
+      "count": 2
+    },
+    {
+      "code": "clippy::if_same_then_else",
+      "message": "this `if` has identical blocks",
+      "count": 4
+    },
+    {
+      "code": "clippy::doc_lazy_continuation",
+      "message": "doc list item without indentation",
+      "count": 4
+    },
+    {
+      "code": "clippy::manual_strip",
+      "message": "stripping a prefix manually",
+      "count": 2
+    },
+    {
+      "code": "clippy::manual_pattern_char_comparison",
+      "message": "this manual char comparison can be written more succinctly",
+      "count": 2
+    },
+    {
+      "code": "clippy::manual_is_multiple_of",
+      "message": "manual implementation of `.is_multiple_of()`",
+      "count": 2
+    },
+    {
+      "code": "clippy::manual_dangling_ptr",
+      "message": "manual creation of a dangling pointer",
+      "count": 1
+    },
+    {
+      "code": "clippy::items_after_test_module",
+      "message": "items after a test module",
+      "count": 1
+    }
+  ]
+}
