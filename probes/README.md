@@ -77,3 +77,8 @@ tokio current-thread runtime.
 
 - `worker-boundary/` — record 0046's inherited-pipe and byte-barrier gate,
   including a real `process::run` descendant and an inheritable negative control.
+
+- `jupyter-transport/` and `jupyter-containment/` — record 0047's pre-kernel
+  gates. The selected transport's pre-validation allocations and loss of the
+  worker-owned child deadline both hit stop conditions; see their READMEs and
+  `results/jupyter-0047/`. The kernel is not implemented by these probes.
