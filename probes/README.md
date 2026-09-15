@@ -92,3 +92,8 @@ tokio current-thread runtime.
   client sends PING despite a 3.0 server greeting, reaching the command-scope
   stop. Diagnostic coverage and unpassed gates are separated explicitly in
   `results/jupyter-zmtp-0048/`.
+
+- The accepted heartbeat extension and remaining `jupyter-zmtp/` gates are in
+  `results/jupyter-zmtp-0048-extension/`: default-client interoperability,
+  paced subscriber continuity, aggregate allocation recovery and pending I/O
+  teardown all pass in the recorded prototype runs. Adoption still needs review.

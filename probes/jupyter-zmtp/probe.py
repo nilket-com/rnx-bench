@@ -28,9 +28,10 @@ def log(**v):
 
 class Server:
     def __init__(self, empty=False):
+        started = time.monotonic()
         self.errors = open(
             ROOT
-            / "../../results/jupyter-zmtp-0048"
+            / "../../results/jupyter-zmtp-0048-extension"
             / ("empty-stderr.txt" if empty else "transport-stderr.txt"),
             "w",
         )
@@ -55,6 +56,10 @@ class Server:
         self.thread = threading.Thread(target=reader, daemon=True)
         self.thread.start()
         self.address = self.lines.get(timeout=TIMEOUT)
+        log(
+            case="transport_ready",
+            elapsed_ms=round((time.monotonic() - started) * 1000, 3),
+        )
         self.ctx = zmq.Context()
         self.session = Session(
             key=b"" if empty else b"local-probe-key", signature_scheme="hmac-sha256"
@@ -455,9 +460,21 @@ def run():
         )
         r.close()
         log(case="subscription_reference_counts", passed=True)
+        s.until(
+            lambda v: (
+                next(e for e in v["endpoints"] if e["name"] == "iopub")["routes"] == 0
+            )
+        )
         slow = handshake(s, "iopub", kind="SUB")
         slow.setsockopt(socket.SOL_SOCKET, socket.SO_RCVBUF, 1024)
         slow.sendall(frame(b"\x01"))
+        s.until(
+            lambda v: (
+                next(e for e in v["endpoints"] if e["name"] == "iopub")["subscriptions"]
+                == 1
+            )
+        )
+        slow_generation = endpoint(s, "iopub")["identities"][0]["generation"]
         fast = s.new(zmq.SUB, "iopub")
         fast.setsockopt(zmq.SUBSCRIBE, b"")
         s.until(
@@ -465,6 +482,11 @@ def run():
                 next(e for e in v["endpoints"] if e["name"] == "iopub")["subscriptions"]
                 == 2
             )
+        )
+        fast_generation = next(
+            i["generation"]
+            for i in endpoint(s, "iopub")["identities"]
+            if i["generation"] != slow_generation
         )
         count = [0]
         done = threading.Event()
@@ -479,15 +501,39 @@ def run():
         t.start()
         try:
             before = s.stats()["pub_send_ok"]
-            s.request({"publish": 20000}, s.control)
-            s.until(lambda v: v["pub_send_ok"] >= before + 20000)
-            assert count[0] > 0
+            s.request({"publish": 1000, "paced": True}, s.control)
+            during = []
+            for i in range(8):
+                start = time.monotonic()
+                s.request({"during_publication": i}, s.control)
+                during.append((time.monotonic() - start) * 1000)
+                assert during[-1] < 500 and s.ping() < 500
+                time.sleep(0.03)
+            assert s.stats()["pub_send_ok"] < before + 1000
+            s.until(lambda v: v["pub_send_ok"] >= before + 1000)
+            until = time.monotonic() + 2
+            while count[0] < 1000:
+                assert time.monotonic() < until
+                time.sleep(0.005)
+            ids = [i["generation"] for i in endpoint(s, "iopub")["identities"]]
+            assert fast_generation in ids and slow_generation not in ids, ids
+            s.request({"publish": 1}, s.control)
+            until = time.monotonic() + 2
+            while count[0] < 1001:
+                assert time.monotonic() < until
+                time.sleep(0.005)
+            assert fast_generation in [
+                i["generation"] for i in endpoint(s, "iopub")["identities"]
+            ]
             start = time.monotonic()
             s.request({"control": True}, s.control)
             ms = (time.monotonic() - start) * 1000
             assert ms < 500 and s.ping() < 500
             log(
-                case="slow_and_healthy_pub",
+                case="paced_pub_with_continuity",
+                control_during_max_ms=max(during),
+                fast_generation=fast_generation,
+                slow_generation=slow_generation,
                 received=count[0],
                 control_ms=round(ms, 3),
                 stats=s.stats(),
