@@ -1,0 +1,10 @@
+{"case": "signed_roundtrip", "header_version": "5.4", "extra_routing_identity_preserved": true, "heartbeat_ms": 0.163}
+{"case": "wrong_signature", "no_reply": true, "accepted_unchanged": true}
+{"case": "short_multipart", "refused": true}
+{"case": "binary_buffer", "refused": true}
+{"case": "pub_without_subscriber", "send_calls_succeeded": 50, "subscriber_count": 0, "delivery_not_proven": true}
+{"case": "unread_subscriber", "additional_send_ok": 61, "timeouts_or_errors": 1, "control_ms": 1.215, "heartbeat_ms": 0.567}
+{"case": "application_limit_is_late", "application_limit": 1048576, "payload_bytes": 4194304, "largest_allocation_request": 4194313, "rejected_after_receive": true}
+{"case": "length_header_reserves_before_body", "wire_bytes_after_handshake": 9, "announced_body_bytes": 67108864, "body_bytes_sent": 0, "largest_allocation_request": 67108967, "heartbeat_ms": 1.246, "stop_condition": "receive allocation is not bounded by application checks"}
+{"case": "empty_key_roundtrip", "passed": true}
+{"cleanup": "both servers exited zero and all sockets closed"}

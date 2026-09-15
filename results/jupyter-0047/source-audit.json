@@ -1,0 +1,16 @@
+{
+  "package": "zeromq",
+  "version": "0.6.0",
+  "files": {
+    "src/codec/zmq_codec.rs": "3ada3a12bc16e0369fa0e67180944d6e33b536e59d0622f01a85b40c2e5b9f9e",
+    "src/lib.rs": "077326fb3119958a26c85cccb8aa02afd89cc0ebfe9df103281bfe396648d4b7",
+    "src/pub.rs": "6d8d0633133bca962f5d4b4e59a38fa70932fa75f9b781d53424b86be8107060",
+    "src/codec/command.rs": "f2b183f82cd8f77035cf6afd8d4d1b0097ae91aa5d793a6cb044fcc30019042d",
+    "src/backend.rs": "de3eed0d2011bfa5adab152100555af2ba538c76e26037b37773a3ba10ad2675"
+  },
+  "notes": {
+    "src/codec/zmq_codec.rs": "FrameLen sets waiting_for from peer length; decode reserves before body; buffered_message accumulates MORE frames before returning a message.",
+    "src/lib.rs": "SocketOptions exposes peer identity and connect timeout; no receive frame/multipart cap.",
+    "src/pub.rs": "send awaits subscriber framed writers serially; successful send with no targets proves no delivery."
+  }
+}

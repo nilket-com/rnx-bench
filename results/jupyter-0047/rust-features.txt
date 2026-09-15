@@ -1,0 +1,507 @@
+jupyter-transport-probe v0.0.0 (/home/me/work/rnx-bench/probes/jupyter-transport)
+├── bytes feature "default"
+│   ├── bytes v1.12.1
+│   └── bytes feature "std"
+│       └── bytes v1.12.1
+├── hex feature "default"
+│   ├── hex v0.4.3
+│   └── hex feature "std"
+│       ├── hex v0.4.3
+│       └── hex feature "alloc"
+│           └── hex v0.4.3
+├── hmac feature "default"
+│   └── hmac v0.13.0
+│       ├── digest feature "default"
+│       │   ├── digest v0.11.3
+│       │   │   ├── block-buffer feature "default"
+│       │   │   │   └── block-buffer v0.12.1
+│       │   │   │       └── hybrid-array feature "default"
+│       │   │   │           └── hybrid-array v0.4.15
+│       │   │   │               ├── typenum feature "const-generics"
+│       │   │   │               │   └── typenum v1.20.1
+│       │   │   │               └── typenum feature "default"
+│       │   │   │                   └── typenum v1.20.1
+│       │   │   ├── const-oid feature "default"
+│       │   │   │   └── const-oid v0.10.2
+│       │   │   ├── crypto-common feature "default"
+│       │   │   │   └── crypto-common v0.2.2
+│       │   │   │       └── hybrid-array feature "default" (*)
+│       │   │   └── ctutils feature "default"
+│       │   │       └── ctutils v0.4.2
+│       │   │           └── cmov feature "default"
+│       │   │               └── cmov v0.5.4
+│       │   └── digest feature "block-api"
+│       │       └── digest v0.11.3 (*)
+│       └── digest feature "mac"
+│           └── digest v0.11.3 (*)
+├── serde_json feature "default"
+│   ├── serde_json v1.0.151
+│   │   ├── memchr v2.8.3
+│   │   ├── serde_core v1.0.229
+│   │   ├── itoa feature "default"
+│   │   │   └── itoa v1.0.18
+│   │   └── zmij feature "default"
+│   │       └── zmij v1.0.23
+│   └── serde_json feature "std"
+│       ├── serde_json v1.0.151 (*)
+│       ├── memchr feature "std"
+│       │   ├── memchr v2.8.3
+│       │   └── memchr feature "alloc"
+│       │       └── memchr v2.8.3
+│       └── serde_core feature "std"
+│           └── serde_core v1.0.229
+├── sha2 feature "default"
+│   ├── sha2 v0.11.0
+│   │   ├── digest feature "default" (*)
+│   │   ├── cfg-if feature "default"
+│   │   │   └── cfg-if v1.0.4
+│   │   └── cpufeatures feature "default"
+│   │       └── cpufeatures v0.3.1
+│   ├── sha2 feature "alloc"
+│   │   ├── sha2 v0.11.0 (*)
+│   │   └── digest feature "alloc"
+│   │       └── digest v0.11.3 (*)
+│   └── sha2 feature "oid"
+│       ├── sha2 v0.11.0 (*)
+│       └── digest feature "oid"
+│           └── digest v0.11.3 (*)
+├── tokio feature "default"
+│   └── tokio v1.53.1
+│       ├── mio v1.2.3
+│       │   └── libc feature "default"
+│       │       ├── libc v0.2.189
+│       │       └── libc feature "std"
+│       │           └── libc v0.2.189
+│       ├── bytes feature "default" (*)
+│       ├── libc feature "default" (*)
+│       ├── parking_lot feature "default"
+│       │   └── parking_lot v0.12.5
+│       │       ├── lock_api feature "default"
+│       │       │   ├── lock_api v0.4.14
+│       │       │   │   └── scopeguard v1.2.0
+│       │       │   └── lock_api feature "atomic_usize"
+│       │       │       └── lock_api v0.4.14 (*)
+│       │       └── parking_lot_core feature "default"
+│       │           └── parking_lot_core v0.9.12
+│       │               ├── cfg-if feature "default" (*)
+│       │               ├── libc feature "default" (*)
+│       │               └── smallvec feature "default"
+│       │                   └── smallvec v1.16.1
+│       ├── pin-project-lite feature "default"
+│       │   └── pin-project-lite v0.2.17
+│       ├── signal-hook-registry feature "default"
+│       │   └── signal-hook-registry v1.4.8
+│       │       ├── libc feature "default" (*)
+│       │       └── errno feature "default"
+│       │           ├── errno v0.3.14
+│       │           │   └── libc v0.2.189
+│       │           └── errno feature "std"
+│       │               ├── errno v0.3.14 (*)
+│       │               └── libc feature "std" (*)
+│       ├── socket2 feature "all"
+│       │   └── socket2 v0.6.5
+│       │       └── libc feature "default" (*)
+│       ├── socket2 feature "default"
+│       │   └── socket2 v0.6.5 (*)
+│       └── tokio-macros feature "default"
+│           └── tokio-macros v2.7.2 (proc-macro)
+│               ├── proc-macro2 feature "default"
+│               │   ├── proc-macro2 v1.0.107
+│               │   │   └── unicode-ident feature "default"
+│               │   │       └── unicode-ident v1.0.24
+│               │   └── proc-macro2 feature "proc-macro"
+│               │       └── proc-macro2 v1.0.107 (*)
+│               ├── quote feature "default"
+│               │   ├── quote v1.0.47
+│               │   │   └── proc-macro2 v1.0.107 (*)
+│               │   └── quote feature "proc-macro"
+│               │       ├── quote v1.0.47 (*)
+│               │       └── proc-macro2 feature "proc-macro" (*)
+│               ├── syn feature "default"
+│               │   ├── syn v3.0.5
+│               │   │   ├── proc-macro2 v1.0.107 (*)
+│               │   │   ├── quote v1.0.47 (*)
+│               │   │   └── unicode-ident feature "default" (*)
+│               │   ├── syn feature "clone-impls"
+│               │   │   └── syn v3.0.5 (*)
+│               │   ├── syn feature "derive"
+│               │   │   └── syn v3.0.5 (*)
+│               │   ├── syn feature "parsing"
+│               │   │   └── syn v3.0.5 (*)
+│               │   ├── syn feature "printing"
+│               │   │   └── syn v3.0.5 (*)
+│               │   └── syn feature "proc-macro"
+│               │       ├── syn v3.0.5 (*)
+│               │       ├── proc-macro2 feature "proc-macro" (*)
+│               │       └── quote feature "proc-macro" (*)
+│               └── syn feature "full"
+│                   └── syn v3.0.5 (*)
+├── tokio feature "io-std"
+│   └── tokio v1.53.1 (*)
+├── tokio feature "io-util"
+│   ├── tokio v1.53.1 (*)
+│   └── tokio feature "bytes"
+│       └── tokio v1.53.1 (*)
+├── tokio feature "macros"
+│   ├── tokio v1.53.1 (*)
+│   └── tokio feature "tokio-macros"
+│       └── tokio v1.53.1 (*)
+├── tokio feature "rt-multi-thread"
+│   ├── tokio v1.53.1 (*)
+│   └── tokio feature "rt"
+│       └── tokio v1.53.1 (*)
+├── tokio feature "sync"
+│   └── tokio v1.53.1 (*)
+├── tokio feature "time"
+│   └── tokio v1.53.1 (*)
+├── uuid feature "default"
+│   ├── uuid v1.26.1
+│   │   └── getrandom feature "default"
+│   │       └── getrandom v0.4.3
+│   │           ├── libc v0.2.189
+│   │           └── cfg-if feature "default" (*)
+│   └── uuid feature "std"
+│       └── uuid v1.26.1 (*)
+├── uuid feature "v4"
+│   ├── uuid v1.26.1 (*)
+│   └── uuid feature "rng"
+│       └── uuid v1.26.1 (*)
+├── zeromq feature "tcp-transport"
+│   └── zeromq v0.6.0
+│       ├── bytes feature "default" (*)
+│       ├── tokio feature "default" (*)
+│       ├── tokio feature "full"
+│       │   ├── tokio v1.53.1 (*)
+│       │   ├── tokio feature "fs"
+│       │   │   └── tokio v1.53.1 (*)
+│       │   ├── tokio feature "io-std" (*)
+│       │   ├── tokio feature "io-util" (*)
+│       │   ├── tokio feature "macros" (*)
+│       │   ├── tokio feature "net"
+│       │   │   ├── tokio v1.53.1 (*)
+│       │   │   ├── tokio feature "libc"
+│       │   │   │   └── tokio v1.53.1 (*)
+│       │   │   ├── tokio feature "mio"
+│       │   │   │   └── tokio v1.53.1 (*)
+│       │   │   ├── tokio feature "socket2"
+│       │   │   │   └── tokio v1.53.1 (*)
+│       │   │   ├── mio feature "net"
+│       │   │   │   └── mio v1.2.3 (*)
+│       │   │   ├── mio feature "os-ext"
+│       │   │   │   ├── mio v1.2.3 (*)
+│       │   │   │   └── mio feature "os-poll"
+│       │   │   │       └── mio v1.2.3 (*)
+│       │   │   └── mio feature "os-poll" (*)
+│       │   ├── tokio feature "parking_lot"
+│       │   │   └── tokio v1.53.1 (*)
+│       │   ├── tokio feature "process"
+│       │   │   ├── tokio v1.53.1 (*)
+│       │   │   ├── tokio feature "bytes" (*)
+│       │   │   ├── tokio feature "libc" (*)
+│       │   │   ├── tokio feature "mio" (*)
+│       │   │   ├── tokio feature "signal-hook-registry"
+│       │   │   │   └── tokio v1.53.1 (*)
+│       │   │   ├── mio feature "net" (*)
+│       │   │   ├── mio feature "os-ext" (*)
+│       │   │   └── mio feature "os-poll" (*)
+│       │   ├── tokio feature "rt" (*)
+│       │   ├── tokio feature "rt-multi-thread" (*)
+│       │   ├── tokio feature "signal"
+│       │   │   ├── tokio v1.53.1 (*)
+│       │   │   ├── tokio feature "libc" (*)
+│       │   │   ├── tokio feature "mio" (*)
+│       │   │   ├── tokio feature "signal-hook-registry" (*)
+│       │   │   ├── mio feature "net" (*)
+│       │   │   ├── mio feature "os-ext" (*)
+│       │   │   └── mio feature "os-poll" (*)
+│       │   ├── tokio feature "sync" (*)
+│       │   └── tokio feature "time" (*)
+│       ├── parking_lot feature "default" (*)
+│       ├── uuid feature "default" (*)
+│       ├── uuid feature "v4" (*)
+│       ├── async-trait feature "default"
+│       │   └── async-trait v0.1.92 (proc-macro)
+│       │       ├── proc-macro2 feature "default" (*)
+│       │       ├── quote feature "default" (*)
+│       │       ├── syn feature "clone-impls" (*)
+│       │       ├── syn feature "full" (*)
+│       │       ├── syn feature "parsing" (*)
+│       │       ├── syn feature "printing" (*)
+│       │       ├── syn feature "proc-macro" (*)
+│       │       └── syn feature "visit-mut"
+│       │           └── syn v3.0.5 (*)
+│       ├── asynchronous-codec feature "default"
+│       │   └── asynchronous-codec v0.7.0
+│       │       ├── bytes feature "default" (*)
+│       │       ├── memchr feature "default"
+│       │       │   ├── memchr v2.8.3
+│       │       │   └── memchr feature "std" (*)
+│       │       ├── pin-project-lite feature "default" (*)
+│       │       ├── futures-sink feature "default"
+│       │       │   ├── futures-sink v0.3.34
+│       │       │   └── futures-sink feature "std"
+│       │       │       ├── futures-sink v0.3.34
+│       │       │       └── futures-sink feature "alloc"
+│       │       │           └── futures-sink v0.3.34
+│       │       ├── futures-util feature "default"
+│       │       │   ├── futures-util v0.3.34
+│       │       │   │   ├── futures-core v0.3.34
+│       │       │   │   ├── futures-macro v0.3.34 (proc-macro)
+│       │       │   │   │   ├── proc-macro2 feature "default" (*)
+│       │       │   │   │   ├── quote feature "default" (*)
+│       │       │   │   │   ├── syn feature "default" (*)
+│       │       │   │   │   └── syn feature "full" (*)
+│       │       │   │   ├── futures-sink v0.3.34
+│       │       │   │   ├── futures-task v0.3.34
+│       │       │   │   ├── slab v0.4.12
+│       │       │   │   ├── memchr feature "default" (*)
+│       │       │   │   ├── pin-project-lite feature "default" (*)
+│       │       │   │   ├── futures-channel feature "std"
+│       │       │   │   │   ├── futures-channel v0.3.34
+│       │       │   │   │   │   ├── futures-core v0.3.34
+│       │       │   │   │   │   └── futures-sink v0.3.34
+│       │       │   │   │   ├── futures-channel feature "alloc"
+│       │       │   │   │   │   ├── futures-channel v0.3.34 (*)
+│       │       │   │   │   │   └── futures-core feature "alloc"
+│       │       │   │   │   │       └── futures-core v0.3.34
+│       │       │   │   │   └── futures-core feature "std"
+│       │       │   │   │       ├── futures-core v0.3.34
+│       │       │   │   │       └── futures-core feature "alloc" (*)
+│       │       │   │   └── futures-io feature "std"
+│       │       │   │       └── futures-io v0.3.34
+│       │       │   ├── futures-util feature "async-await"
+│       │       │   │   └── futures-util v0.3.34 (*)
+│       │       │   ├── futures-util feature "async-await-macro"
+│       │       │   │   ├── futures-util v0.3.34 (*)
+│       │       │   │   ├── futures-util feature "async-await" (*)
+│       │       │   │   └── futures-util feature "futures-macro"
+│       │       │   │       └── futures-util v0.3.34 (*)
+│       │       │   └── futures-util feature "std"
+│       │       │       ├── futures-util v0.3.34 (*)
+│       │       │       ├── futures-util feature "alloc"
+│       │       │       │   ├── futures-util v0.3.34 (*)
+│       │       │       │   ├── futures-util feature "slab"
+│       │       │       │   │   └── futures-util v0.3.34 (*)
+│       │       │       │   ├── futures-core feature "alloc" (*)
+│       │       │       │   └── futures-task feature "alloc"
+│       │       │       │       └── futures-task v0.3.34
+│       │       │       ├── futures-util feature "slab" (*)
+│       │       │       ├── futures-core feature "std" (*)
+│       │       │       ├── futures-task feature "std"
+│       │       │       │   ├── futures-task v0.3.34
+│       │       │       │   └── futures-task feature "alloc" (*)
+│       │       │       └── slab feature "std"
+│       │       │           └── slab v0.4.12
+│       │       └── futures-util feature "io"
+│       │           ├── futures-util v0.3.34 (*)
+│       │           ├── futures-util feature "futures-io"
+│       │           │   └── futures-util v0.3.34 (*)
+│       │           ├── futures-util feature "memchr"
+│       │           │   └── futures-util v0.3.34 (*)
+│       │           └── futures-util feature "std" (*)
+│       ├── crossbeam-queue feature "default"
+│       │   ├── crossbeam-queue v0.3.14
+│       │   │   └── crossbeam-utils v0.8.23
+│       │   └── crossbeam-queue feature "std"
+│       │       ├── crossbeam-queue v0.3.14 (*)
+│       │       ├── crossbeam-queue feature "alloc"
+│       │       │   └── crossbeam-queue v0.3.14 (*)
+│       │       └── crossbeam-utils feature "std"
+│       │           └── crossbeam-utils v0.8.23
+│       ├── futures feature "default"
+│       │   ├── futures v0.3.34
+│       │   │   ├── futures-core v0.3.34
+│       │   │   ├── futures-executor v0.3.34
+│       │   │   │   ├── futures-core v0.3.34
+│       │   │   │   ├── futures-task v0.3.34
+│       │   │   │   └── futures-util v0.3.34 (*)
+│       │   │   ├── futures-io v0.3.34
+│       │   │   ├── futures-sink v0.3.34
+│       │   │   ├── futures-task v0.3.34
+│       │   │   ├── futures-util feature "sink"
+│       │   │   │   ├── futures-util v0.3.34 (*)
+│       │   │   │   └── futures-util feature "futures-sink"
+│       │   │   │       └── futures-util v0.3.34 (*)
+│       │   │   └── futures-channel feature "sink"
+│       │   │       ├── futures-channel v0.3.34 (*)
+│       │   │       └── futures-channel feature "futures-sink"
+│       │   │           └── futures-channel v0.3.34 (*)
+│       │   ├── futures feature "async-await"
+│       │   │   ├── futures v0.3.34 (*)
+│       │   │   ├── futures-util feature "async-await" (*)
+│       │   │   └── futures-util feature "async-await-macro" (*)
+│       │   ├── futures feature "executor"
+│       │   │   ├── futures v0.3.34 (*)
+│       │   │   ├── futures feature "futures-executor"
+│       │   │   │   └── futures v0.3.34 (*)
+│       │   │   ├── futures feature "std"
+│       │   │   │   ├── futures v0.3.34 (*)
+│       │   │   │   ├── futures-sink feature "std" (*)
+│       │   │   │   ├── futures-util feature "channel"
+│       │   │   │   │   ├── futures-util v0.3.34 (*)
+│       │   │   │   │   ├── futures-util feature "futures-channel"
+│       │   │   │   │   │   └── futures-util v0.3.34 (*)
+│       │   │   │   │   └── futures-util feature "std" (*)
+│       │   │   │   ├── futures-util feature "io" (*)
+│       │   │   │   ├── futures-util feature "std" (*)
+│       │   │   │   ├── futures-core feature "std" (*)
+│       │   │   │   ├── futures-io feature "std" (*)
+│       │   │   │   ├── futures-task feature "std" (*)
+│       │   │   │   └── futures feature "alloc"
+│       │   │   │       ├── futures v0.3.34 (*)
+│       │   │   │       ├── futures-sink feature "alloc" (*)
+│       │   │   │       ├── futures-util feature "alloc" (*)
+│       │   │   │       ├── futures-channel feature "alloc" (*)
+│       │   │   │       ├── futures-core feature "alloc" (*)
+│       │   │   │       └── futures-task feature "alloc" (*)
+│       │   │   └── futures-executor feature "std"
+│       │   │       ├── futures-executor v0.3.34 (*)
+│       │   │       ├── futures-util feature "std" (*)
+│       │   │       ├── futures-core feature "std" (*)
+│       │   │       └── futures-task feature "std" (*)
+│       │   └── futures feature "std" (*)
+│       ├── log feature "default"
+│       │   └── log v0.4.34
+│       ├── num-traits feature "default"
+│       │   ├── num-traits v0.2.19
+│       │   │   [build-dependencies]
+│       │   │   └── autocfg feature "default"
+│       │   │       └── autocfg v1.5.1
+│       │   └── num-traits feature "std"
+│       │       └── num-traits v0.2.19 (*)
+│       ├── once_cell feature "default"
+│       │   ├── once_cell v1.21.4
+│       │   └── once_cell feature "std"
+│       │       ├── once_cell v1.21.4
+│       │       └── once_cell feature "alloc"
+│       │           ├── once_cell v1.21.4
+│       │           └── once_cell feature "race"
+│       │               └── once_cell v1.21.4
+│       ├── rand feature "default"
+│       │   ├── rand v0.9.5
+│       │   │   ├── rand_chacha v0.9.0
+│       │   │   │   ├── ppv-lite86 feature "simd"
+│       │   │   │   │   └── ppv-lite86 v0.2.21
+│       │   │   │   │       ├── zerocopy feature "default"
+│       │   │   │   │       │   └── zerocopy v0.8.57
+│       │   │   │   │       └── zerocopy feature "simd"
+│       │   │   │   │           └── zerocopy v0.8.57
+│       │   │   │   └── rand_core feature "default"
+│       │   │   │       └── rand_core v0.9.5
+│       │   │   │           └── getrandom feature "default"
+│       │   │   │               └── getrandom v0.3.4
+│       │   │   │                   ├── libc v0.2.189
+│       │   │   │                   └── cfg-if feature "default" (*)
+│       │   │   └── rand_core v0.9.5 (*)
+│       │   ├── rand feature "os_rng"
+│       │   │   ├── rand v0.9.5 (*)
+│       │   │   └── rand_core feature "os_rng"
+│       │   │       └── rand_core v0.9.5 (*)
+│       │   ├── rand feature "small_rng"
+│       │   │   └── rand v0.9.5 (*)
+│       │   ├── rand feature "std"
+│       │   │   ├── rand v0.9.5 (*)
+│       │   │   ├── rand feature "alloc"
+│       │   │   │   └── rand v0.9.5 (*)
+│       │   │   ├── rand_chacha feature "std"
+│       │   │   │   ├── rand_chacha v0.9.0 (*)
+│       │   │   │   ├── ppv-lite86 feature "std"
+│       │   │   │   │   └── ppv-lite86 v0.2.21 (*)
+│       │   │   │   └── rand_core feature "std"
+│       │   │   │       ├── rand_core v0.9.5 (*)
+│       │   │   │       └── getrandom feature "std"
+│       │   │   │           └── getrandom v0.3.4 (*)
+│       │   │   └── rand_core feature "std" (*)
+│       │   ├── rand feature "std_rng"
+│       │   │   └── rand v0.9.5 (*)
+│       │   └── rand feature "thread_rng"
+│       │       ├── rand v0.9.5 (*)
+│       │       ├── rand feature "os_rng" (*)
+│       │       ├── rand feature "std" (*)
+│       │       └── rand feature "std_rng" (*)
+│       ├── regex feature "std"
+│       │   ├── regex v1.13.1
+│       │   │   ├── regex-syntax v0.8.11
+│       │   │   ├── regex-automata feature "alloc"
+│       │   │   │   └── regex-automata v0.4.18
+│       │   │   │       └── regex-syntax v0.8.11
+│       │   │   ├── regex-automata feature "meta"
+│       │   │   │   ├── regex-automata v0.4.18 (*)
+│       │   │   │   ├── regex-automata feature "nfa-pikevm"
+│       │   │   │   │   ├── regex-automata v0.4.18 (*)
+│       │   │   │   │   └── regex-automata feature "nfa-thompson"
+│       │   │   │   │       ├── regex-automata v0.4.18 (*)
+│       │   │   │   │       └── regex-automata feature "alloc" (*)
+│       │   │   │   └── regex-automata feature "syntax"
+│       │   │   │       ├── regex-automata v0.4.18 (*)
+│       │   │   │       └── regex-automata feature "alloc" (*)
+│       │   │   ├── regex-automata feature "nfa-pikevm" (*)
+│       │   │   └── regex-automata feature "syntax" (*)
+│       │   ├── regex-automata feature "std"
+│       │   │   ├── regex-automata v0.4.18 (*)
+│       │   │   ├── regex-automata feature "alloc" (*)
+│       │   │   └── regex-syntax feature "std"
+│       │   │       └── regex-syntax v0.8.11
+│       │   └── regex-syntax feature "std" (*)
+│       ├── regex feature "unicode-perl"
+│       │   ├── regex v1.13.1 (*)
+│       │   ├── regex-automata feature "unicode-perl"
+│       │   │   ├── regex-automata v0.4.18 (*)
+│       │   │   └── regex-syntax feature "unicode-perl"
+│       │   │       └── regex-syntax v0.8.11
+│       │   ├── regex-automata feature "unicode-word-boundary"
+│       │   │   └── regex-automata v0.4.18 (*)
+│       │   └── regex-syntax feature "unicode-perl" (*)
+│       ├── scc feature "default"
+│       │   └── scc v3.8.8
+│       │       ├── saa feature "default"
+│       │       │   └── saa v5.6.0
+│       │       └── sdd feature "default"
+│       │           └── sdd v4.8.10
+│       │               └── saa feature "default" (*)
+│       ├── thiserror feature "default"
+│       │   └── thiserror v1.0.69
+│       │       └── thiserror-impl feature "default"
+│       │           └── thiserror-impl v1.0.69 (proc-macro)
+│       │               ├── proc-macro2 feature "default" (*)
+│       │               ├── quote feature "default" (*)
+│       │               └── syn feature "default"
+│       │                   ├── syn v2.0.119
+│       │                   │   ├── proc-macro2 v1.0.107 (*)
+│       │                   │   ├── quote v1.0.47 (*)
+│       │                   │   └── unicode-ident feature "default" (*)
+│       │                   ├── syn feature "clone-impls"
+│       │                   │   └── syn v2.0.119 (*)
+│       │                   ├── syn feature "derive"
+│       │                   │   └── syn v2.0.119 (*)
+│       │                   ├── syn feature "parsing"
+│       │                   │   └── syn v2.0.119 (*)
+│       │                   ├── syn feature "printing"
+│       │                   │   └── syn v2.0.119 (*)
+│       │                   └── syn feature "proc-macro"
+│       │                       ├── syn v2.0.119 (*)
+│       │                       ├── proc-macro2 feature "proc-macro" (*)
+│       │                       └── quote feature "proc-macro" (*)
+│       ├── tokio-util feature "compat"
+│       │   ├── tokio-util v0.7.19
+│       │   │   ├── bytes feature "default" (*)
+│       │   │   ├── tokio feature "default" (*)
+│       │   │   ├── tokio feature "sync" (*)
+│       │   │   ├── pin-project-lite feature "default" (*)
+│       │   │   ├── futures-sink feature "default" (*)
+│       │   │   ├── futures-core feature "default"
+│       │   │   │   ├── futures-core v0.3.34
+│       │   │   │   └── futures-core feature "std" (*)
+│       │   │   └── futures-io feature "default"
+│       │   │       ├── futures-io v0.3.34
+│       │   │       └── futures-io feature "std" (*)
+│       │   └── tokio-util feature "futures-io"
+│       │       └── tokio-util v0.7.19 (*)
+│       └── tokio-util feature "default"
+│           └── tokio-util v0.7.19 (*)
+└── zeromq feature "tokio-runtime"
+    ├── zeromq v0.6.0 (*)
+    ├── zeromq feature "tokio"
+    │   └── zeromq v0.6.0 (*)
+    └── zeromq feature "tokio-util"
+        └── zeromq v0.6.0 (*)
