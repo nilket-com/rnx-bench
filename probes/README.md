@@ -110,3 +110,7 @@ tokio current-thread runtime.
   save/reopen, status regression, nbclient and ready/first/warm timings.
 
 - `namespaces/`: record 0049, paired old/new sources, migration costs and notebook gates.
+
+- `file-modules/` — record 0050's matched single-file equivalence and timing
+  checks, plus compile-only Windows checks of the bounded loader and runner.
+  Resolution and source-allowance fixtures live in rnx's regular test suite.
