@@ -108,3 +108,5 @@ tokio current-thread runtime.
 
 - `jupyter-notebook/` — 0047 installation, real JupyterLab screenshots and
   save/reopen, status regression, nbclient and ready/first/warm timings.
+
+- `namespaces/`: record 0049, paired old/new sources, migration costs and notebook gates.

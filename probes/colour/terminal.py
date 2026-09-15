@@ -155,7 +155,7 @@ def main():
         worker=threading.Thread(target=server.serve_forever,daemon=True);worker.start()
         t=Terminal(a.binary);kept.append(t);t.prompt()
         for line in [f'let reply = http::get("http://127.0.0.1:{server.server_port}").await?; reply',
-                     'host::json_parse(reply.body)?',
+                     'json::parse(reply.body)?',
                      '["café", "e\\u{301}界\\t\\u{1b}[2J", Some(42)]',
                      'if true {\n  [1, 2, 3]\n}', 'let café = ;']:
             t.send(line+'\n');t.prompt()

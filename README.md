@@ -173,3 +173,14 @@ scala-cli --power package json.scala --assembly -o json-scala.jar -f
 kotlinc bare.kt -include-runtime -d bare-kotlin.jar
 kotlinc json.kt -cp ~/opt/json.jar -include-runtime -d json-kotlin.jar
 ```
+
+## Namespace migration (record 0049)
+
+Current `scripts/json.rn` uses `json::stringify`. Saved tables, notebooks,
+source snapshots and raw exports retain the API and binary measured at
+their original commits; their `host::` spellings are historical evidence.
+`probes/process/measure.py` retains a dedicated `json-0044.rn` workload
+for its old revisions. `probes/jupyter-notebook/startup.py` intentionally
+requires the old 0047 worker hash. Neither is a current-head comparison.
+The new `probes/namespaces` comparison records separate before/after sources
+and requires equal successful outputs before timing them.

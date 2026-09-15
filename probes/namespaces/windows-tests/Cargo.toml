@@ -1,0 +1,79 @@
+[package]
+name = "namespace-windows-test-check"
+version = "0.0.0"
+edition = "2024"
+[workspace]
+[features]
+test-support = []
+count-allocations = []
+[dependencies]
+serde_json = "1"
+libc = "0.2"
+windows-sys = { version = "0.61.2", features = ["Win32_Foundation", "Win32_Security", "Win32_System_JobObjects", "Win32_System_Threading", "Win32_System_Console", "Win32_System_Pipes", "Win32_System_IO", "Win32_System_Diagnostics_ToolHelp", "Win32_Storage_FileSystem", "Wdk_Storage_FileSystem"] }
+[[bin]]
+name = "rnx"
+path = "placeholder.rs"
+
+[[test]]
+name = "capture_bound_windows"
+path = "../../../../rnx/tests/capture_bound_windows.rs"
+
+[[test]]
+name = "capture_hold_windows"
+path = "../../../../rnx/tests/capture_hold_windows.rs"
+
+[[test]]
+name = "delivery_deadline_windows"
+path = "../../../../rnx/tests/delivery_deadline_windows.rs"
+
+[[test]]
+name = "delivery_exit_windows"
+path = "../../../../rnx/tests/delivery_exit_windows.rs"
+
+[[test]]
+name = "delivery_failure_windows"
+path = "../../../../rnx/tests/delivery_failure_windows.rs"
+
+[[test]]
+name = "reader_panic_windows"
+path = "../../../../rnx/tests/reader_panic_windows.rs"
+
+[[test]]
+name = "job_assignment_windows"
+path = "../../../../rnx/tests/job_assignment_windows.rs"
+
+[[test]]
+name = "job_breakaway"
+path = "../../../../rnx/tests/job_breakaway.rs"
+
+[[test]]
+name = "console_interrupt"
+path = "../../../../rnx/tests/console_interrupt.rs"
+
+[[test]]
+name = "process_bytes"
+path = "../../../../rnx/tests/process_bytes.rs"
+
+[[test]]
+name = "child_input"
+path = "../../../../rnx/tests/child_input.rs"
+
+[[test]]
+name = "eval_outcome"
+path = "../../../../rnx/tests/eval_outcome.rs"
+
+[[test]]
+name = "exit_status"
+path = "../../../../rnx/tests/exit_status.rs"
+
+[[test]]
+name = "stdin"
+path = "../../../../rnx/tests/stdin.rs"
+
+[[test]]
+name = "process_module"
+path = "../../../../rnx/tests/process_module.rs"
+
+[[test]]
+name = "namespaces"
+path = "../../../../rnx/tests/namespaces.rs"

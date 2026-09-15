@@ -1,6 +1,6 @@
 import json,os,pathlib,shutil,subprocess,tempfile,time
 ROOT=pathlib.Path(__file__).resolve().parents[2]
-OUT=ROOT/'results/jupyter-0047-notebook';OUT.mkdir(exist_ok=True)
+OUT=pathlib.Path(os.environ.get('RNX_NOTEBOOK_RESULTS', ROOT/'results/jupyter-0047-notebook'));OUT.mkdir(parents=True,exist_ok=True)
 VENV=ROOT/'probes/jupyter-notebook/.venv'
 class Environment:
     def __init__(self):

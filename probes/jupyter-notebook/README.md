@@ -52,3 +52,11 @@ already cached. Timeouts are failure bounds, not evidence that messages arrived.
 
 Windows checks cover the portable package and explicit unsupported supervisor;
 no Windows notebook execution is claimed. Review notes remain outside git.
+
+After record 0049, the notebook and status fixtures run against the new
+namespaces. Set `RNX_NOTEBOOK_RESULTS` to a fresh directory to preserve
+accepted captures. `startup.py` is deliberately the historical 0047
+identical-binary assertion, pinned to its recorded worker hash and old API;
+it is not a current-head startup gate. The full historical `run.sh` must
+be reproduced at its original commit. Use `probes/namespaces/run.sh` for
+the 0049 comparison and migrated notebook fixtures.

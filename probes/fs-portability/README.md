@@ -28,3 +28,8 @@ check; no Windows execution or whole-application build is claimed.
 Record 0044 adds the actual process facade and path/registration unit gates.
 Its call into the supervisor is a type-check-only stub; this checks Windows
 launch-setting code, not the supervisor or Windows process execution.
+
+Record 0049 includes the I/O registration module and supplies signature-only
+stubs for stdin, stderr and exit, plus the existing supervisor stub. It checks
+Windows compilation of these registrations and the updated process inventory;
+it does not execute those operations or compile the complete application.
