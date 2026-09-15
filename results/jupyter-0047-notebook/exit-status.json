@@ -1,0 +1,136 @@
+[
+  {
+    "command": [
+      "probes/jupyter-notebook/.venv/bin/python",
+      "probes/jupyter-notebook/install.py"
+    ],
+    "run": "install",
+    "exit": 0
+  },
+  {
+    "command": [
+      "probes/jupyter-notebook/.venv/bin/python",
+      "probes/jupyter-notebook/status.py"
+    ],
+    "run": "status",
+    "exit": 0
+  },
+  {
+    "command": [
+      "probes/jupyter-notebook/.venv/bin/python",
+      "probes/jupyter-notebook/notebook.py"
+    ],
+    "run": "notebook",
+    "exit": 0
+  },
+  {
+    "command": [
+      "probes/jupyter-notebook/.venv/bin/python",
+      "probes/jupyter-notebook/browser.py"
+    ],
+    "run": "browser",
+    "exit": 0
+  },
+  {
+    "command": [
+      "probes/jupyter-notebook/.venv/bin/python",
+      "probes/jupyter-notebook/install.py"
+    ],
+    "run": "install-confirmation",
+    "exit": 0
+  },
+  {
+    "command": [
+      "probes/jupyter-notebook/.venv/bin/python",
+      "probes/jupyter-notebook/status.py"
+    ],
+    "run": "status-confirmation",
+    "exit": 0
+  },
+  {
+    "command": [
+      "probes/jupyter-notebook/.venv/bin/python",
+      "probes/jupyter-notebook/notebook.py"
+    ],
+    "run": "notebook-confirmation",
+    "exit": 0
+  },
+  {
+    "command": [
+      "probes/jupyter-notebook/.venv/bin/python",
+      "probes/jupyter-notebook/browser.py"
+    ],
+    "run": "browser-confirmation",
+    "exit": 0
+  },
+  {
+    "command": [
+      "probes/jupyter-notebook/.venv/bin/python",
+      "probes/jupyter-supervision/probe.py"
+    ],
+    "run": "supervision-probe",
+    "exit": 0
+  },
+  {
+    "command": [
+      "probes/jupyter-notebook/.venv/bin/python",
+      "probes/jupyter-supervision/extended.py"
+    ],
+    "run": "supervision-extended",
+    "exit": 0
+  },
+  {
+    "command": [
+      "probes/jupyter-notebook/.venv/bin/python",
+      "probes/jupyter-supervision/boundaries.py"
+    ],
+    "run": "supervision-boundaries",
+    "exit": 0
+  },
+  {
+    "command": [
+      "probes/jupyter-notebook/.venv/bin/python",
+      "probes/jupyter-supervision/notebook.py"
+    ],
+    "run": "supervision-notebook",
+    "exit": 0
+  },
+  {
+    "command": [
+      "probes/jupyter-notebook/.venv/bin/python",
+      "probes/jupyter-zmtp/probe.py"
+    ],
+    "run": "wire-probe",
+    "exit": 0
+  },
+  {
+    "command": [
+      "probes/jupyter-notebook/.venv/bin/python",
+      "probes/jupyter-zmtp/extended.py"
+    ],
+    "run": "wire-extended",
+    "exit": 0
+  },
+  {
+    "command": [
+      "taskset",
+      "-c",
+      "4",
+      "probes/jupyter-notebook/.venv/bin/python",
+      "probes/jupyter-notebook/timing.py"
+    ],
+    "run": "timing",
+    "exit": 0
+  },
+  {
+    "command": [
+      "taskset",
+      "-c",
+      "4",
+      "probes/jupyter-notebook/.venv/bin/python",
+      "probes/jupyter-notebook/startup.py"
+    ],
+    "run": "startup",
+    "exit": 0
+  }
+]

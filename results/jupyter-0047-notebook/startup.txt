@@ -1,0 +1,32 @@
+Benchmark 1: accepted-copy version
+  Time (mean ± σ):     870.0 µs ±  23.5 µs    [User: 271.7 µs, System: 553.8 µs]
+  Range (min … max):   833.2 µs … 953.7 µs    100 runs
+ 
+Benchmark 2: current version
+  Time (mean ± σ):     877.1 µs ±  45.1 µs    [User: 330.3 µs, System: 502.3 µs]
+  Range (min … max):   833.1 µs … 1126.9 µs    100 runs
+ 
+Benchmark 3: accepted-copy eval
+  Time (mean ± σ):       4.5 ms ±   0.1 ms    [User: 3.0 ms, System: 1.4 ms]
+  Range (min … max):     4.4 ms …   4.8 ms    100 runs
+ 
+Benchmark 4: current eval
+  Time (mean ± σ):       4.3 ms ±   0.0 ms    [User: 3.0 ms, System: 1.3 ms]
+  Range (min … max):     4.3 ms …   4.5 ms    100 runs
+ 
+Benchmark 5: accepted-copy run
+  Time (mean ± σ):       4.1 ms ±   0.0 ms    [User: 2.6 ms, System: 1.4 ms]
+  Range (min … max):     4.0 ms …   4.1 ms    100 runs
+ 
+Benchmark 6: current run
+  Time (mean ± σ):       4.0 ms ±   0.0 ms    [User: 2.7 ms, System: 1.3 ms]
+  Range (min … max):     4.0 ms …   4.0 ms    100 runs
+ 
+Summary
+  accepted-copy version ran
+    1.01 ± 0.06 times faster than current version
+    4.58 ± 0.12 times faster than current run
+    4.66 ± 0.13 times faster than accepted-copy run
+    4.98 ± 0.14 times faster than current eval
+    5.12 ± 0.16 times faster than accepted-copy eval
+{"case": "ordinary_rnx_bytes_and_startup", "byte_cases": 5, "accepted_sha256": "b4747b4067dd9ecd1099f81e22300f40839c5246a812eebd25f68b89e6ed7a87", "identical_binaries": true}

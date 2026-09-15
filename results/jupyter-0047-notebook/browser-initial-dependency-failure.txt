@@ -1,0 +1,52 @@
+[I 2026-09-15 09:12:08.772 ServerApp] jupyter_lsp | extension was successfully linked.
+[I 2026-09-15 09:12:08.774 ServerApp] jupyter_server_terminals | extension was successfully linked.
+[I 2026-09-15 09:12:08.776 ServerApp] jupyterlab | extension was successfully linked.
+[I 2026-09-15 09:12:08.776 ServerApp] Writing Jupyter server cookie secret to /tmp/rnx notebook acceptance qhi3m314/runtime/jupyter_cookie_secret
+[I 2026-09-15 09:12:08.794 ServerApp] notebook_shim | extension was successfully linked.
+[I 2026-09-15 09:12:08.814 ServerApp] notebook_shim | extension was successfully loaded.
+[I 2026-09-15 09:12:08.815 ServerApp] jupyter_lsp | extension was successfully loaded.
+[I 2026-09-15 09:12:08.816 ServerApp] jupyter_server_terminals | extension was successfully loaded.
+[I 2026-09-15 09:12:08.817 LabApp] JupyterLab extension loaded from /home/me/work/rnx-bench/probes/jupyter-transport/.venv/lib/python3.14/site-packages/jupyterlab
+[I 2026-09-15 09:12:08.817 LabApp] JupyterLab application directory is /home/me/work/rnx-bench/probes/jupyter-transport/.venv/share/jupyter/lab
+[I 2026-09-15 09:12:08.817 LabApp] Extension Manager is 'pypi'.
+[I 2026-09-15 09:12:08.872 ServerApp] jupyterlab | extension was successfully loaded.
+[I 2026-09-15 09:12:08.873 ServerApp] Serving notebooks from local directory: /tmp/rnx notebook acceptance qhi3m314/notebooks
+[I 2026-09-15 09:12:08.873 ServerApp] Jupyter Server 2.21.0 is running at:
+[I 2026-09-15 09:12:08.873 ServerApp] http://127.0.0.1:41621/lab?token=...
+[I 2026-09-15 09:12:08.873 ServerApp] Use Control-C to stop this server and shut down all kernels (twice to skip confirmation).
+    Checking for new Julia versions
+[E 2026-09-15 09:12:09.274 ServerApp] Uncaught exception GET /static/lab/main.910e4a95b492eb7e.js?v=910e4a95b492eb7e (127.0.0.1)
+    HTTPServerRequest(protocol='http', host='127.0.0.1:41621', method='GET', uri='/static/lab/main.910e4a95b492eb7e.js?v=910e4a95b492eb7e', version='HTTP/1.1', remote_ip='127.0.0.1')
+    Traceback (most recent call last):
+      File "/home/me/work/rnx-bench/probes/jupyter-transport/.venv/lib/python3.14/site-packages/tornado/web.py", line 1887, in _execute
+        result = await result
+                 ^^^^^^^^^^^^
+      File "/home/me/work/rnx-bench/probes/jupyter-transport/.venv/lib/python3.14/site-packages/tornado/web.py", line 2822, in get
+        self.absolute_path = self.validate_absolute_path(self.root, absolute_path)
+                             ~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^
+      File "/home/me/work/rnx-bench/probes/jupyter-transport/.venv/lib/python3.14/site-packages/jupyter_server/base/handlers.py", line 1069, in validate_absolute_path
+        return super().validate_absolute_path(root, absolute_path)
+               ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^
+      File "/home/me/work/rnx-bench/probes/jupyter-transport/.venv/lib/python3.14/site-packages/tornado/web.py", line 3027, in validate_absolute_path
+        absolute_path = self._resolve_symlink_target(absolute_path)
+      File "/home/me/work/rnx-bench/probes/jupyter-transport/.venv/lib/python3.14/site-packages/tornado/web.py", line 3092, in _resolve_symlink_target
+        allowed_directory = os.path.realpath(self.allowed_symlink_directory)
+                                             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    AttributeError: 'FileFindHandler' object has no attribute 'allowed_symlink_directory'
+[E 2026-09-15 09:12:09.288 ServerApp] {
+      "Host": "127.0.0.1:41621",
+      "Accept": "*/*",
+      "Referer": "http://127.0.0.1:41621/lab/tree/Journey.ipynb?token=[secret]",
+      "User-Agent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/151.0.7922.34 Safari/537.36"
+    }
+[E 2026-09-15 09:12:09.288 ServerApp] 500 GET /static/lab/main.910e4a95b492eb7e.js?v=910e4a95b492eb7e (7f7826b3cb1e4a60a7710b62d8c0aefd@127.0.0.1) 14.66ms referer=http://127.0.0.1:41621/lab/tree/Journey.ipynb?token=[secret]
+  Installing Julia 1.13.0+0.x64.linux.gnu
+[I 2026-09-15 09:12:39.338 ServerApp] Shutting down on /api/shutdown request.
+[I 2026-09-15 09:12:39.339 ServerApp] Shutting down 4 extensions
+Error: Failed to run `run_command_add` from the `run_command_initial_setup_from_launcher` command.
+
+Caused by:
+    0: Failed to extract downloaded file from url `https://julialang-s3.julialang.org/bin/linux/x64/1.13/julia-1.13.0-linux-x86_64.tar.gz`.
+    1: failed to create `/tmp/rnx notebook acceptance qhi3m314/.julia/juliaup/.tmpIZ2JWA/julia-1.13.0/share/julia/compiled/v1.13/Pkg`
+    2: No such file or directory (os error 2) while canonicalizing /tmp/rnx notebook acceptance qhi3m314/.julia/juliaup/.tmpIZ2JWA
+Error: The Julia launcher failed to figure out which juliaup channel to use.
