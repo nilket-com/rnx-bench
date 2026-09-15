@@ -1,0 +1,8 @@
+{"case": "cooperative", "discovery": "all task children, no fixture PID input", "reaped": [1160324, 1160325], "cleanup_ms": 10.405}
+{"case": "hard_kill", "discovery": "all task children, no fixture PID input", "reaped": [1160331, 1160334, 1160335], "cleanup_ms": 10.569}
+{"case": "stopped", "discovery": "all task children, no fixture PID input", "reaped": [1160340, 1160343, 1160344], "cleanup_ms": 10.371}
+{"case": "parent_death_normal", "child_alive": false, "parent_alive": false}
+{"case": "parent_dies_before_prctl", "exit": 92}
+{"case": "parent_death_thread", "child_alive": false, "parent_alive": true}
+{"case": "spawning_thread_died_before_prctl", "child_alive": true, "parent_alive": true, "observation": "getppid check does not detect prior spawning-thread exit"}
+{"cleanup": "no remaining children", "children": []}

@@ -1,0 +1,126 @@
+[
+  {
+    "source": "index.crates.io-1949cf8c6b5b557f/zeromq-src-0.2.6+4.3.4/vendor/src/v2_decoder.cpp",
+    "sha256": "05da7895036cd04fd112c28fe83711c4b4ae0b830aa28feecb4a3960bdfa1b6e",
+    "matches": [
+      {
+        "line": 47,
+        "text": "    _max_msg_size (maxmsgsize_)"
+      },
+      {
+        "line": 98,
+        "text": "    if (_max_msg_size >= 0)"
+      },
+      {
+        "line": 99,
+        "text": "        if (unlikely (msg_size_ > static_cast<uint64_t> (_max_msg_size))) {"
+      },
+      {
+        "line": 122,
+        "text": "        rc = _in_progress.init_size (static_cast<size_t> (msg_size_));"
+      }
+    ]
+  },
+  {
+    "source": "index.crates.io-1949cf8c6b5b557f/zeromq-src-0.2.6+4.3.4/vendor/src/pipe.cpp",
+    "sha256": "34a14f66d837bd38435fed51437384fcc557486cb570e3f82e152d5c7192dacc",
+    "matches": [
+      {
+        "line": 82,
+        "text": "    const int rc = id.init_size (options_.routing_id_size);"
+      },
+      {
+        "line": 256,
+        "text": "    _out_pipe->write (*msg_, more);"
+      },
+      {
+        "line": 258,
+        "text": "        _msgs_written++;"
+      },
+      {
+        "line": 469,
+        "text": "        _out_pipe->write (msg, false);"
+      },
+      {
+        "line": 604,
+        "text": "        _out_pipe->write (_disconnect_msg, false);"
+      }
+    ]
+  },
+  {
+    "source": "index.crates.io-1949cf8c6b5b557f/zeromq-src-0.2.6+4.3.4/vendor/src/ypipe.hpp",
+    "sha256": "b719695efb37cf68b6df8ca88c34df7449299621fae6a8dd82f9e57f16fe1a0c",
+    "matches": [
+      {
+        "line": 57,
+        "text": "        _r = _w = _f = &_queue.back ();"
+      },
+      {
+        "line": 81,
+        "text": "        if (!incomplete_)"
+      },
+      {
+        "line": 82,
+        "text": "            _f = &_queue.back ();"
+      },
+      {
+        "line": 93,
+        "text": "        if (_f == &_queue.back ())"
+      },
+      {
+        "line": 103,
+        "text": "    bool flush ()"
+      },
+      {
+        "line": 106,
+        "text": "        if (_w == _f)"
+      }
+    ]
+  },
+  {
+    "source": "index.crates.io-1949cf8c6b5b557f/zeromq-src-0.2.6+4.3.4/vendor/src/fq.cpp",
+    "sha256": "46ea0811d19224478b83c0edaa8d1073ace6a3c54e474168f80f8f7f9c3219fa",
+    "matches": [
+      {
+        "line": 101,
+        "text": "            _more = (msg_->flags () & msg_t::more) != 0;"
+      }
+    ]
+  },
+  {
+    "source": "index.crates.io-1949cf8c6b5b557f/zeromq-src-0.2.6+4.3.4/src/lib.rs",
+    "sha256": "c56bcac0f11015cb9df3183123aa04c56b904f4942fca0190bc963a9eb704401",
+    "matches": [
+      {
+        "line": 9,
+        "text": "    build: &mut cc::Build,"
+      },
+      {
+        "line": 24,
+        "text": "    build: &mut cc::Build,"
+      },
+      {
+        "line": 75,
+        "text": "        cc::Build::new()"
+      },
+      {
+        "line": 180,
+        "text": "        let mut build = cc::Build::new();"
+      },
+      {
+        "line": 351,
+        "text": "        let create_platform_hpp_shim = |build: &mut cc::Build| {"
+      }
+    ]
+  },
+  {
+    "source": "index.crates.io-1949cf8c6b5b557f/zmq-sys-0.12.0/build/main.rs",
+    "sha256": "7bfe07be3186af810615015eba9ff106abbae1bb12f0940a9fcc320ce8992720",
+    "matches": [
+      {
+        "line": 9,
+        "text": "    zeromq_src::Build::new()"
+      }
+    ]
+  }
+]

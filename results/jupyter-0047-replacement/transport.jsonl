@@ -1,0 +1,12 @@
+{"case": "native_version", "version": [4, 3, 4], "frame_limit": 1048576, "hwm": 64, "linger": 0, "address_space_limit": 536870912}
+{"case": "signed_roundtrip", "version": "5.4", "heartbeat_ms": 0.185}
+{"case": "wrong_signature", "no_reply": true}
+{"case": "short", "refused": true}
+{"case": "extra_buffer", "refused": true}
+{"case": "oversized_header", "declared": 67108864, "body_sent": 0, "peer_eof": true, "rss_before": 5734400, "rss_after": 5734400}
+{"case": "unfinished_multipart", "parts_sent": 2048, "body_bytes": 16777216, "application_parts_delta": 0, "rss_before": 5750784, "rss_now": 22761472, "rss_growth": 17010688, "other_shell_peer_ms": 1.351, "control_ms": 0.981, "heartbeat_ms": 0.559}
+{"case": "unfinished_multipart", "parts_sent": 4096, "body_bytes": 33554432, "application_parts_delta": 0, "rss_before": 5750784, "rss_now": 39776256, "rss_growth": 34025472, "other_shell_peer_ms": 1.379, "control_ms": 1.187, "heartbeat_ms": 0.707}
+{"case": "final_part_releases_message", "application_parts_delta": 4098, "rejected": true}
+{"case": "slow_and_reading_subscribers", "send_successes": 20000, "reading_peer_received": 535, "send_errors": 0, "heartbeat_ms": 0.54, "delivery_not_guaranteed": true}
+{"case": "native_shutdown", "exit": 0, "elapsed_ms": 33.148}
+{"case": "empty_key", "passed": true}
