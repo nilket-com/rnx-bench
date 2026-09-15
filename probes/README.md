@@ -105,3 +105,6 @@ tokio current-thread runtime.
 
 - `jupyter-supervision/` — integrated Linux worker scheduling, stream barriers,
   bounded queues, cancellation/containment and private nbclient notebook for 0047.
+
+- `jupyter-notebook/` — 0047 installation, real JupyterLab screenshots and
+  save/reopen, status regression, nbclient and ready/first/warm timings.

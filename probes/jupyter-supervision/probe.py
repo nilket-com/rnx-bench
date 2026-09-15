@@ -6,7 +6,7 @@ from jupyter_client.connect import write_connection_file
 ROOT=pathlib.Path(__file__).resolve().parents[2]
 BIN=ROOT.parent/'rnx/jupyter/target/release/rnx-jupyter'
 WORKER=ROOT.parent/'rnx/target/release/rnx'
-OUT=ROOT/'results/jupyter-0047-supervision'
+OUT=pathlib.Path(os.environ.get('RNX_JUPYTER_RESULTS',str(ROOT/'results/jupyter-0047-supervision')))
 OUT.mkdir(exist_ok=True)
 
 def log(case,**kw):print(json.dumps(dict(case=case,**kw)),flush=True)
