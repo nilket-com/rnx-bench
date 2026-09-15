@@ -82,3 +82,8 @@ tokio current-thread runtime.
   gates. The selected transport's pre-validation allocations and loss of the
   worker-owned child deadline both hit stop conditions; see their READMEs and
   `results/jupyter-0047/`. The kernel is not implemented by these probes.
+
+- `jupyter-libzmq/` and `jupyter-containment-replacement/` — record 0047's
+  replacement probes: native multipart buffering still reaches the receive
+  stop condition; Linux adopted-child cleanup and parent-death lifetime cases
+  are measured independently. See `results/jupyter-0047-replacement/`.
