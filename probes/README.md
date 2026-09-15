@@ -102,3 +102,6 @@ tokio current-thread runtime.
   owned `rnx/jupyter` transport/message component. Reuses the 0048 wire fixtures
   with an explicit binary override; browser smoke evidence is a prerequisite,
   not notebook acceptance. Results in `results/jupyter-0047-integration/`.
+
+- `jupyter-supervision/` — integrated Linux worker scheduling, stream barriers,
+  bounded queues, cancellation/containment and private nbclient notebook for 0047.
