@@ -87,3 +87,8 @@ tokio current-thread runtime.
   replacement probes: native multipart buffering still reaches the receive
   stop condition; Linux adopted-child cleanup and parent-death lifetime cases
   are measured independently. See `results/jupyter-0047-replacement/`.
+
+- `jupyter-zmtp/` — record 0048's owned bounded transport prototype. The pinned
+  client sends PING despite a 3.0 server greeting, reaching the command-scope
+  stop. Diagnostic coverage and unpassed gates are separated explicitly in
+  `results/jupyter-zmtp-0048/`.
