@@ -1,0 +1,162 @@
+{
+  "before": [
+    {
+      "code": "clippy::non_octal_unix_permissions",
+      "message": "using a non-octal value to set unix file permissions",
+      "level": "error",
+      "occurrences": 2
+    },
+    {
+      "code": "clippy::unnecessary_mut_passed",
+      "message": "the function `libc::openpty` doesn't need a mutable reference",
+      "level": "warning",
+      "occurrences": 1
+    },
+    {
+      "code": "clippy::clone_on_copy",
+      "message": "using `clone` on type `Kind` which implements the `Copy` trait",
+      "level": "warning",
+      "occurrences": 2
+    },
+    {
+      "code": "clippy::collapsible_if",
+      "message": "this `if` statement can be collapsed",
+      "level": "warning",
+      "occurrences": 10
+    },
+    {
+      "code": "clippy::drop_non_drop",
+      "message": "call to `std::mem::drop` with a value that does not implement `Drop`. Dropping such a type only extends its contained lifetimes",
+      "level": "warning",
+      "occurrences": 2
+    },
+    {
+      "code": "clippy::needless_late_init",
+      "message": "unneeded late initialization",
+      "level": "warning",
+      "occurrences": 2
+    },
+    {
+      "code": "clippy::if_same_then_else",
+      "message": "this `if` has identical blocks",
+      "level": "warning",
+      "occurrences": 4
+    },
+    {
+      "code": "clippy::doc_lazy_continuation",
+      "message": "doc list item without indentation",
+      "level": "warning",
+      "occurrences": 4
+    },
+    {
+      "code": "clippy::manual_strip",
+      "message": "stripping a prefix manually",
+      "level": "warning",
+      "occurrences": 2
+    },
+    {
+      "code": "clippy::manual_pattern_char_comparison",
+      "message": "this manual char comparison can be written more succinctly",
+      "level": "warning",
+      "occurrences": 2
+    },
+    {
+      "code": "clippy::manual_is_multiple_of",
+      "message": "manual implementation of `.is_multiple_of()`",
+      "level": "warning",
+      "occurrences": 2
+    },
+    {
+      "code": "clippy::manual_dangling_ptr",
+      "message": "manual creation of a dangling pointer",
+      "level": "warning",
+      "occurrences": 1
+    },
+    {
+      "code": "clippy::items_after_test_module",
+      "message": "items after a test module",
+      "level": "warning",
+      "occurrences": 1
+    }
+  ],
+  "after": [
+    {
+      "code": "clippy::clone_on_copy",
+      "message": "using `clone` on type `Kind` which implements the `Copy` trait",
+      "level": "warning",
+      "occurrences": 2
+    },
+    {
+      "code": "clippy::collapsible_if",
+      "message": "this `if` statement can be collapsed",
+      "level": "warning",
+      "occurrences": 10
+    },
+    {
+      "code": "clippy::drop_non_drop",
+      "message": "call to `std::mem::drop` with a value that does not implement `Drop`. Dropping such a type only extends its contained lifetimes",
+      "level": "warning",
+      "occurrences": 2
+    },
+    {
+      "code": "clippy::needless_late_init",
+      "message": "unneeded late initialization",
+      "level": "warning",
+      "occurrences": 2
+    },
+    {
+      "code": "clippy::if_same_then_else",
+      "message": "this `if` has identical blocks",
+      "level": "warning",
+      "occurrences": 4
+    },
+    {
+      "code": "clippy::doc_lazy_continuation",
+      "message": "doc list item without indentation",
+      "level": "warning",
+      "occurrences": 4
+    },
+    {
+      "code": "clippy::manual_strip",
+      "message": "stripping a prefix manually",
+      "level": "warning",
+      "occurrences": 2
+    },
+    {
+      "code": "clippy::manual_pattern_char_comparison",
+      "message": "this manual char comparison can be written more succinctly",
+      "level": "warning",
+      "occurrences": 2
+    },
+    {
+      "code": "clippy::manual_is_multiple_of",
+      "message": "manual implementation of `.is_multiple_of()`",
+      "level": "warning",
+      "occurrences": 2
+    },
+    {
+      "code": "clippy::manual_dangling_ptr",
+      "message": "manual creation of a dangling pointer",
+      "level": "warning",
+      "occurrences": 1
+    },
+    {
+      "code": "clippy::unnecessary_mut_passed",
+      "message": "the function `libc::openpty` doesn't need a mutable reference",
+      "level": "warning",
+      "occurrences": 1
+    },
+    {
+      "code": "clippy::items_after_test_module",
+      "message": "items after a test module",
+      "level": "warning",
+      "occurrences": 1
+    },
+    {
+      "code": "clippy::non_octal_unix_permissions",
+      "message": "using a non-octal value to set unix file permissions",
+      "level": "error",
+      "occurrences": 2
+    }
+  ]
+}

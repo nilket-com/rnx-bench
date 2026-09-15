@@ -1,0 +1,471 @@
+{
+  "binaries": {
+    "before": {
+      "path": "/tmp/rnx-0051/rnx-before",
+      "bytes": 15111848,
+      "sha256": "f1486f2bee4342159666f6b1591e66ed1285fd66f6a6d13d1531b1ce9090caa6"
+    },
+    "after": {
+      "path": "/home/me/work/rnx/target/release/rnx",
+      "bytes": 15134384,
+      "sha256": "d7f34a81c05f7e3051bc692a842d48675493af8b724dbdf54167eae3535cb37e"
+    },
+    "app": {
+      "path": "/home/me/work/rnx-bench/probes/extensions/target/release/app",
+      "bytes": 15205664,
+      "sha256": "536b0cd93ad8c1866b64736fe059694719bff73baa80fbf06393d307f8ddc5e3"
+    }
+  },
+  "outputs": {
+    "bare before": {
+      "stdout": "42\n",
+      "stderr": "",
+      "exit": 0
+    },
+    "args before": {
+      "stdout": "[\"abc\", \"--budget\", \"3\"]\n",
+      "stderr": "",
+      "exit": 0
+    },
+    "compile before": {
+      "stdout": "",
+      "stderr": "error at /tmp/rnx modules i7u77tig/compile.rn, line 2, column 13: Expected expression but got `;`\n      let x = ;\n              ^\n",
+      "exit": 1
+    },
+    "runtime before": {
+      "stdout": "",
+      "stderr": "runtime error at /tmp/rnx modules i7u77tig/runtime.rn, line 2, column 5: Type `::std::vec::Vec` missing integer index `7`\n      [1][7]\n      ^\n",
+      "exit": 1
+    },
+    "method before": {
+      "stdout": "",
+      "stderr": "runtime error at /tmp/rnx modules i7u77tig/method.rn, line 1, column 18: no method `missing` on `::std::i64`\n  pub fn main(_) { 1.missing() }\n                   ^\n",
+      "exit": 1
+    },
+    "returned-error before": {
+      "stdout": "",
+      "stderr": "error: bad\n",
+      "exit": 1
+    },
+    "struct before": {
+      "stdout": "P {x: 42}\n",
+      "stderr": "",
+      "exit": 0
+    },
+    "unit before": {
+      "stdout": "",
+      "stderr": "",
+      "exit": 0
+    },
+    "streams before": {
+      "stdout": "out42\n",
+      "stderr": "err",
+      "exit": 0
+    },
+    "budget before": {
+      "stdout": "",
+      "stderr": "halted: 100 instructions exceeded; --budget N raises it\n",
+      "exit": 1
+    },
+    "debug before": {
+      "stdout": "42\n",
+      "stderr": "--- compiled source of /tmp/rnx modules i7u77tig/debug.rn\npub fn main(_) { 42 }--- end of compiled source\n",
+      "exit": 0
+    },
+    "debug-error before": {
+      "stdout": "",
+      "stderr": "error at /tmp/rnx modules i7u77tig/debug-error.rn, line 1, column 26: Expected expression but got `;`\n  pub fn main(_) { let x = ; }\n                           ^\n--- compiled source of /tmp/rnx modules i7u77tig/debug-error.rn\npub fn main(_) { let x = ; }--- end of compiled source\n",
+      "exit": 1
+    },
+    "eval-missing before": {
+      "stdout": "",
+      "stderr": "Error: \"eval needs source\"\n",
+      "exit": 1
+    },
+    "run-missing before": {
+      "stdout": "",
+      "stderr": "Error: \"run needs a file\"\n",
+      "exit": 1
+    },
+    "file-missing before": {
+      "stdout": "",
+      "stderr": "error: cannot read /tmp/rnx modules i7u77tig/missing.rn: No such file or directory (os error 2)\n",
+      "exit": 1
+    },
+    "budget-text before": {
+      "stdout": "",
+      "stderr": "Error: \"--budget takes a whole number of instructions from 1 to 18446744073709551614, not `bad`\"\n",
+      "exit": 1
+    },
+    "budget-zero before": {
+      "stdout": "",
+      "stderr": "Error: \"--budget takes a whole number of instructions from 1 to 18446744073709551614, not `0`\"\n",
+      "exit": 1
+    },
+    "budget-max before": {
+      "stdout": "",
+      "stderr": "Error: \"--budget takes a whole number of instructions from 1 to 18446744073709551614, not `18446744073709551615`\"\n",
+      "exit": 1
+    },
+    "version before": {
+      "stdout": "rnx 0.0.0\nrune 0.14.2\n",
+      "stderr": "",
+      "exit": 0
+    },
+    "eval before": {
+      "stdout": "42\n",
+      "stderr": "",
+      "exit": 0
+    },
+    "bare run before": {
+      "stdout": "42\n",
+      "stderr": "",
+      "exit": 0
+    },
+    "10k JSON before": {
+      "stdout": "{\"b\":\"hello\",\"a\":[9999,2,3]}\n",
+      "stderr": "",
+      "exit": 0
+    },
+    "bare after": {
+      "stdout": "42\n",
+      "stderr": "",
+      "exit": 0
+    },
+    "args after": {
+      "stdout": "[\"abc\", \"--budget\", \"3\"]\n",
+      "stderr": "",
+      "exit": 0
+    },
+    "compile after": {
+      "stdout": "",
+      "stderr": "error at /tmp/rnx modules i7u77tig/compile.rn, line 2, column 13: Expected expression but got `;`\n      let x = ;\n              ^\n",
+      "exit": 1
+    },
+    "runtime after": {
+      "stdout": "",
+      "stderr": "runtime error at /tmp/rnx modules i7u77tig/runtime.rn, line 2, column 5: Type `::std::vec::Vec` missing integer index `7`\n      [1][7]\n      ^\n",
+      "exit": 1
+    },
+    "method after": {
+      "stdout": "",
+      "stderr": "runtime error at /tmp/rnx modules i7u77tig/method.rn, line 1, column 18: no method `missing` on `::std::i64`\n  pub fn main(_) { 1.missing() }\n                   ^\n",
+      "exit": 1
+    },
+    "returned-error after": {
+      "stdout": "",
+      "stderr": "error: bad\n",
+      "exit": 1
+    },
+    "struct after": {
+      "stdout": "P {x: 42}\n",
+      "stderr": "",
+      "exit": 0
+    },
+    "unit after": {
+      "stdout": "",
+      "stderr": "",
+      "exit": 0
+    },
+    "streams after": {
+      "stdout": "out42\n",
+      "stderr": "err",
+      "exit": 0
+    },
+    "budget after": {
+      "stdout": "",
+      "stderr": "halted: 100 instructions exceeded; --budget N raises it\n",
+      "exit": 1
+    },
+    "debug after": {
+      "stdout": "42\n",
+      "stderr": "--- compiled source of /tmp/rnx modules i7u77tig/debug.rn\npub fn main(_) { 42 }--- end of compiled source\n",
+      "exit": 0
+    },
+    "debug-error after": {
+      "stdout": "",
+      "stderr": "error at /tmp/rnx modules i7u77tig/debug-error.rn, line 1, column 26: Expected expression but got `;`\n  pub fn main(_) { let x = ; }\n                           ^\n--- compiled source of /tmp/rnx modules i7u77tig/debug-error.rn\npub fn main(_) { let x = ; }--- end of compiled source\n",
+      "exit": 1
+    },
+    "eval-missing after": {
+      "stdout": "",
+      "stderr": "Error: \"eval needs source\"\n",
+      "exit": 1
+    },
+    "run-missing after": {
+      "stdout": "",
+      "stderr": "Error: \"run needs a file\"\n",
+      "exit": 1
+    },
+    "file-missing after": {
+      "stdout": "",
+      "stderr": "error: cannot read /tmp/rnx modules i7u77tig/missing.rn: No such file or directory (os error 2)\n",
+      "exit": 1
+    },
+    "budget-text after": {
+      "stdout": "",
+      "stderr": "Error: \"--budget takes a whole number of instructions from 1 to 18446744073709551614, not `bad`\"\n",
+      "exit": 1
+    },
+    "budget-zero after": {
+      "stdout": "",
+      "stderr": "Error: \"--budget takes a whole number of instructions from 1 to 18446744073709551614, not `0`\"\n",
+      "exit": 1
+    },
+    "budget-max after": {
+      "stdout": "",
+      "stderr": "Error: \"--budget takes a whole number of instructions from 1 to 18446744073709551614, not `18446744073709551615`\"\n",
+      "exit": 1
+    },
+    "version after": {
+      "stdout": "rnx 0.0.0\nrune 0.14.2\n",
+      "stderr": "",
+      "exit": 0
+    },
+    "eval after": {
+      "stdout": "42\n",
+      "stderr": "",
+      "exit": 0
+    },
+    "bare run after": {
+      "stdout": "42\n",
+      "stderr": "",
+      "exit": 0
+    },
+    "10k JSON after": {
+      "stdout": "{\"b\":\"hello\",\"a\":[9999,2,3]}\n",
+      "stderr": "",
+      "exit": 0
+    },
+    "bare app": {
+      "stdout": "42\n",
+      "stderr": "",
+      "exit": 0
+    },
+    "args app": {
+      "stdout": "[\"abc\", \"--budget\", \"3\"]\n",
+      "stderr": "",
+      "exit": 0
+    },
+    "compile app": {
+      "stdout": "",
+      "stderr": "error at /tmp/rnx modules i7u77tig/compile.rn, line 2, column 13: Expected expression but got `;`\n      let x = ;\n              ^\n",
+      "exit": 1
+    },
+    "runtime app": {
+      "stdout": "",
+      "stderr": "runtime error at /tmp/rnx modules i7u77tig/runtime.rn, line 2, column 5: Type `::std::vec::Vec` missing integer index `7`\n      [1][7]\n      ^\n",
+      "exit": 1
+    },
+    "method app": {
+      "stdout": "",
+      "stderr": "runtime error at /tmp/rnx modules i7u77tig/method.rn, line 1, column 18: no method `missing` on `::std::i64`\n  pub fn main(_) { 1.missing() }\n                   ^\n",
+      "exit": 1
+    },
+    "returned-error app": {
+      "stdout": "",
+      "stderr": "error: bad\n",
+      "exit": 1
+    },
+    "struct app": {
+      "stdout": "P {x: 42}\n",
+      "stderr": "",
+      "exit": 0
+    },
+    "unit app": {
+      "stdout": "",
+      "stderr": "",
+      "exit": 0
+    },
+    "streams app": {
+      "stdout": "out42\n",
+      "stderr": "err",
+      "exit": 0
+    },
+    "budget app": {
+      "stdout": "",
+      "stderr": "halted: 100 instructions exceeded; --budget N raises it\n",
+      "exit": 1
+    },
+    "debug app": {
+      "stdout": "42\n",
+      "stderr": "--- compiled source of /tmp/rnx modules i7u77tig/debug.rn\npub fn main(_) { 42 }--- end of compiled source\n",
+      "exit": 0
+    },
+    "debug-error app": {
+      "stdout": "",
+      "stderr": "error at /tmp/rnx modules i7u77tig/debug-error.rn, line 1, column 26: Expected expression but got `;`\n  pub fn main(_) { let x = ; }\n                           ^\n--- compiled source of /tmp/rnx modules i7u77tig/debug-error.rn\npub fn main(_) { let x = ; }--- end of compiled source\n",
+      "exit": 1
+    },
+    "eval-missing app": {
+      "stdout": "",
+      "stderr": "Error: \"eval needs source\"\n",
+      "exit": 1
+    },
+    "run-missing app": {
+      "stdout": "",
+      "stderr": "Error: \"run needs a file\"\n",
+      "exit": 1
+    },
+    "file-missing app": {
+      "stdout": "",
+      "stderr": "error: cannot read /tmp/rnx modules i7u77tig/missing.rn: No such file or directory (os error 2)\n",
+      "exit": 1
+    },
+    "budget-text app": {
+      "stdout": "",
+      "stderr": "Error: \"--budget takes a whole number of instructions from 1 to 18446744073709551614, not `bad`\"\n",
+      "exit": 1
+    },
+    "budget-zero app": {
+      "stdout": "",
+      "stderr": "Error: \"--budget takes a whole number of instructions from 1 to 18446744073709551614, not `0`\"\n",
+      "exit": 1
+    },
+    "budget-max app": {
+      "stdout": "",
+      "stderr": "Error: \"--budget takes a whole number of instructions from 1 to 18446744073709551614, not `18446744073709551615`\"\n",
+      "exit": 1
+    },
+    "version app": {
+      "stdout": "rnx 0.0.0\nrune 0.14.2\n",
+      "stderr": "",
+      "exit": 0
+    },
+    "eval app": {
+      "stdout": "42\n",
+      "stderr": "",
+      "exit": 0
+    },
+    "bare run app": {
+      "stdout": "42\n",
+      "stderr": "",
+      "exit": 0
+    },
+    "10k JSON app": {
+      "stdout": "{\"b\":\"hello\",\"a\":[9999,2,3]}\n",
+      "stderr": "",
+      "exit": 0
+    }
+  },
+  "versions": {
+    "rustc --version": "rustc 1.98.1 (48a229cea 2026-09-01)",
+    "cargo --version": "cargo 1.98.1 (797e8a9bc 2026-08-05)",
+    "hyperfine --version": "hyperfine 1.20.0",
+    "uname -a": "Linux nano 7.0.0-31-generic #31-Ubuntu SMP PREEMPT_DYNAMIC Sat Aug  1 04:26:38 UTC 2026 x86_64 GNU/Linux"
+  },
+  "conditions": {
+    "core": 4,
+    "warmups": 10,
+    "runs": 100
+  },
+  "sources": {
+    "bare": "pub fn main(_) { 42 }",
+    "args": "pub fn main(args) { args }",
+    "compile": "pub fn main(_) {\n    let x = ;\n}",
+    "runtime": "fn inner() {\n    [1][7]\n}\npub fn main(_) { inner() }",
+    "method": "pub fn main(_) { 1.missing() }",
+    "returned-error": "pub fn main(_) { Err(\"bad\") }",
+    "struct": "struct P { x }\npub fn main(_) { P { x: 42 } }",
+    "unit": "pub fn main(_) {}",
+    "streams": "pub fn main(_) { print!(\"out\"); io::eprint(\"err\")?; 42 }",
+    "budget": "pub fn main(_) { loop {} }",
+    "debug": "pub fn main(_) { 42 }",
+    "debug-error": "pub fn main(_) { let x = ; }"
+  },
+  "commands": [
+    [
+      "version before",
+      [
+        "/tmp/rnx-0051/rnx-before",
+        "version"
+      ]
+    ],
+    [
+      "eval before",
+      [
+        "/tmp/rnx-0051/rnx-before",
+        "eval",
+        "42"
+      ]
+    ],
+    [
+      "bare run before",
+      [
+        "/tmp/rnx-0051/rnx-before",
+        "run",
+        "/home/me/work/rnx-bench/scripts/bare.rn"
+      ]
+    ],
+    [
+      "10k JSON before",
+      [
+        "/tmp/rnx-0051/rnx-before",
+        "run",
+        "/home/me/work/rnx-bench/scripts/json.rn"
+      ]
+    ],
+    [
+      "version after",
+      [
+        "/home/me/work/rnx/target/release/rnx",
+        "version"
+      ]
+    ],
+    [
+      "eval after",
+      [
+        "/home/me/work/rnx/target/release/rnx",
+        "eval",
+        "42"
+      ]
+    ],
+    [
+      "bare run after",
+      [
+        "/home/me/work/rnx/target/release/rnx",
+        "run",
+        "/home/me/work/rnx-bench/scripts/bare.rn"
+      ]
+    ],
+    [
+      "10k JSON after",
+      [
+        "/home/me/work/rnx/target/release/rnx",
+        "run",
+        "/home/me/work/rnx-bench/scripts/json.rn"
+      ]
+    ],
+    [
+      "version app",
+      [
+        "/home/me/work/rnx-bench/probes/extensions/target/release/app",
+        "version"
+      ]
+    ],
+    [
+      "eval app",
+      [
+        "/home/me/work/rnx-bench/probes/extensions/target/release/app",
+        "eval",
+        "42"
+      ]
+    ],
+    [
+      "bare run app",
+      [
+        "/home/me/work/rnx-bench/probes/extensions/target/release/app",
+        "run",
+        "/home/me/work/rnx-bench/scripts/bare.rn"
+      ]
+    ],
+    [
+      "10k JSON app",
+      [
+        "/home/me/work/rnx-bench/probes/extensions/target/release/app",
+        "run",
+        "/home/me/work/rnx-bench/scripts/json.rn"
+      ]
+    ]
+  ]
+}

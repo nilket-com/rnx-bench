@@ -1,0 +1,26 @@
+use rnx::rune::{self, Module, Context, Source, Sources, Vm};
+use std::sync::Arc;
+#[derive(rune::Any)]
+#[rune(crate = rnx::rune, item = ::other)]
+struct Elsewhere;
+fn main() -> Result<(), Box<dyn std::error::Error>> {
+    let mut module = Module::with_crate("fixture")?;
+    module.function(["nested", "answer"], || 42i64).build()?;
+    let mut context = Context::with_default_modules()?;
+    context.install(module)?;
+    for path in ["fixture::nested::answer()", "nested::answer()"] {
+        let mut sources = Sources::new();
+        sources.insert(Source::memory(format!("pub fn main() {{ {path} }}"))?)?;
+        match rune::prepare(&mut sources).with_context(&context).build() {
+            Ok(unit) => { let mut vm=Vm::new(Arc::new(context.runtime()?), Arc::new(unit)); println!("{path}: {}", rune::from_value::<i64>(vm.call(["main"], ())?)?); },
+            Err(error) => println!("{path}: refused: {error}"),
+        }
+    }
+    let mut module = Module::with_crate("fixture")?;
+    module.ty::<Elsewhere>()?;
+    match Context::with_default_modules()?.install(module) {
+        Ok(()) => println!("type item ::other: installed"),
+        Err(error) => println!("type item ::other: refused: {error}"),
+    }
+    Ok(())
+}

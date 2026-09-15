@@ -1,0 +1,25 @@
+   Compiling rnx-extension-fixture v0.0.0 (/home/me/work/rnx-bench/probes/extensions)
+error[E0277]: the trait bound `[&str; 2]: IntoComponent` is not satisfied
+  --> examples/paths.rs:8:53
+   |
+ 8 |     module.function(["nested", "answer"], || 42i64).build()?;
+   |                                                     ^^^^^ the trait `IntoComponent` is not implemented for `[&str; 2]`
+   |
+help: the trait `IntoComponent` is implemented for `[T; 1]`
+  --> /home/me/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/rune-core-0.14.2/src/item/into_component.rs:48:1
+   |
+48 | / impl<T> IntoComponent for [T; 1]
+49 | | where
+50 | |     T: IntoComponent,
+   | |_____________________^
+note: required by a bound in `ModuleFunctionBuilder::<'a, F, A, N, K>::build`
+  --> /home/me/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/rune-0.14.2/src/module/module_function_builder.rs:46:12
+   |
+44 |     pub fn build(self) -> Result<ItemFnMut<'a>, ContextError>
+   |            ----- required by a bound in this associated function
+45 |     where
+46 |         N: IntoComponent,
+   |            ^^^^^^^^^^^^^ required by this bound in `ModuleFunctionBuilder::<'a, F, A, N, K>::build`
+
+For more information about this error, try `rustc --explain E0277`.
+error: could not compile `rnx-extension-fixture` (example "paths") due to 1 previous error

@@ -1,0 +1,11 @@
+[package]
+name = "rnx-extension-fixture"
+version = "0.0.0"
+edition = "2024"
+[workspace]
+[features]
+default = ["count-allocations"]
+count-allocations = ["rnx/count-allocations"]
+test-support = ["rnx/test-support"]
+[dependencies]
+rnx = { path = "../../../rnx", default-features = false }

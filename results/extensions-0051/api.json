@@ -1,0 +1,70 @@
+{
+  "documented": {
+    "structs": [
+      "Extensions"
+    ],
+    "functions": [
+      "main_with"
+    ],
+    "reexports": [
+      "rune"
+    ]
+  },
+  "compilation": {
+    "public": {
+      "source": "use rnx::{main_with, Extensions, rune}; fn check() { let _ = main_with; let _ = Extensions::none(); let _ = rune::Module::new(); }",
+      "exit": 0,
+      "stderr": "warning: function `check` is never used\n --> /tmp/rnx public api 0_au0kt8/public.rs:1:44\n  |\n1 | use rnx::{main_with, Extensions, rune}; fn check() { let _ = main_with; let _ = Extensions::none(); let _ = rune::Module::new(); }\n  |                                            ^^^^^\n  |\n  = note: `#[warn(dead_code)]` (part of `#[warn(unused)]`) on by default\n\nwarning: 1 warning emitted\n\n"
+    },
+    "install_core": {
+      "source": "use rnx::install_core;",
+      "exit": 1,
+      "stderr": "error[E0603]: function `install_core` is private\n --> /tmp/rnx public api 0_au0kt8/install_core.rs:1:10\n  |\n1 | use rnx::install_core;\n  |          ^^^^^^^^^^^^ private function\n  |\nnote: the function `install_core` is defined here\n --> src/lib.rs:63:0\n\nerror: aborting due to 1 previous error\n\nFor more information about this error, try `rustc --explain E0603`.\n"
+    },
+    "session": {
+      "source": "use rnx::session;",
+      "exit": 1,
+      "stderr": "error[E0603]: module `session` is private\n --> /tmp/rnx public api 0_au0kt8/session.rs:1:10\n  |\n1 | use rnx::session;\n  |          ^^^^^^^ private module\n  |\nnote: the module `session` is defined here\n --> src/lib.rs:46:0\n\nerror: aborting due to 1 previous error\n\nFor more information about this error, try `rustc --explain E0603`.\n"
+    },
+    "runner": {
+      "source": "use rnx::runner;",
+      "exit": 1,
+      "stderr": "error[E0603]: module `runner` is private\n --> /tmp/rnx public api 0_au0kt8/runner.rs:1:10\n  |\n1 | use rnx::runner;\n  |          ^^^^^^ private module\n  |\nnote: the module `runner` is defined here\n --> src/lib.rs:45:0\n\nerror: aborting due to 1 previous error\n\nFor more information about this error, try `rustc --explain E0603`.\n"
+    },
+    "worker": {
+      "source": "use rnx::worker;",
+      "exit": 1,
+      "stderr": "error[E0603]: module `worker` is private\n --> /tmp/rnx public api 0_au0kt8/worker.rs:1:10\n  |\n1 | use rnx::worker;\n  |          ^^^^^^ private module\n  |\nnote: the module `worker` is defined here\n --> src/lib.rs:50:0\n\nerror: aborting due to 1 previous error\n\nFor more information about this error, try `rustc --explain E0603`.\n"
+    },
+    "config": {
+      "source": "use rnx::config;",
+      "exit": 1,
+      "stderr": "error[E0603]: module `config` is private\n --> /tmp/rnx public api 0_au0kt8/config.rs:1:10\n  |\n1 | use rnx::config;\n  |          ^^^^^^ private module\n  |\nnote: the module `config` is defined here\n --> src/lib.rs:16:0\n\nerror: aborting due to 1 previous error\n\nFor more information about this error, try `rustc --explain E0603`.\n"
+    },
+    "memory": {
+      "source": "use rnx::memory;",
+      "exit": 1,
+      "stderr": "error[E0603]: module `memory` is private\n --> /tmp/rnx public api 0_au0kt8/memory.rs:1:10\n  |\n1 | use rnx::memory;\n  |          ^^^^^^ private module\n  |\nnote: the module `memory` is defined here\n --> src/lib.rs:30:0\n\nerror: aborting due to 1 previous error\n\nFor more information about this error, try `rustc --explain E0603`.\n"
+    },
+    "host": {
+      "source": "use rnx::host;",
+      "exit": 1,
+      "stderr": "error[E0603]: module `host` is private\n --> /tmp/rnx public api 0_au0kt8/host.rs:1:10\n  |\n1 | use rnx::host;\n  |          ^^^^ private module\n  |\nnote: the module `host` is defined here\n --> src/lib.rs:25:0\n\nerror: aborting due to 1 previous error\n\nFor more information about this error, try `rustc --explain E0603`.\n"
+    },
+    "extensions": {
+      "source": "use rnx::extensions;",
+      "exit": 1,
+      "stderr": "error[E0603]: module `extensions` is private\n --> /tmp/rnx public api 0_au0kt8/extensions.rs:1:10\n  |\n1 | use rnx::extensions;\n  |          ^^^^^^^^^^ private module\n  |\nnote: the module `extensions` is defined here\n --> src/lib.rs:9:0\n\nerror: aborting due to 1 previous error\n\nFor more information about this error, try `rustc --explain E0603`.\n"
+    },
+    "VERSION": {
+      "source": "use rnx::VERSION;",
+      "exit": 1,
+      "stderr": "error[E0603]: constant `VERSION` is private\n --> /tmp/rnx public api 0_au0kt8/VERSION.rs:1:10\n  |\n1 | use rnx::VERSION;\n  |          ^^^^^^^ private constant\n  |\nnote: the constant `VERSION` is defined here\n --> src/lib.rs:97:0\n\nerror: aborting due to 1 previous error\n\nFor more information about this error, try `rustc --explain E0603`.\n"
+    },
+    "fields": {
+      "source": "fn check(e: rnx::Extensions) { let _ = e.builders; }",
+      "exit": 1,
+      "stderr": "error[E0616]: field `builders` of struct `Extensions` is private\n --> /tmp/rnx public api 0_au0kt8/fields.rs:1:42\n  |\n1 | fn check(e: rnx::Extensions) { let _ = e.builders; }\n  |                                          ^^^^^^^^ private field\n\nerror: aborting due to 1 previous error\n\nFor more information about this error, try `rustc --explain E0616`.\n"
+    }
+  }
+}

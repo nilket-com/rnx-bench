@@ -114,3 +114,6 @@ tokio current-thread runtime.
 - `file-modules/` — record 0050's matched single-file equivalence and timing
   checks, plus compile-only Windows checks of the bounded loader and runner.
   Resolution and source-allowance fixtures live in rnx's regular test suite.
+- `extensions/` — record 0051's external application, assembly refusals,
+  public API and allocator checks, worker/notebook restart, namespace probes,
+  and matched before/stock/application timings (`results/extensions-0051/`).

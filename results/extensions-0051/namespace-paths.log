@@ -1,0 +1,11 @@
+   Compiling rnx-extension-fixture v0.0.0 (/home/me/work/rnx-bench/probes/extensions)
+    Finished `release` profile [optimized] target(s) in 1.06s
+     Running `probes/extensions/target/release/examples/paths`
+fixture::nested::answer(): refused: Failed to build rune sources (see diagnostics for details)
+nested::answer(): refused: Failed to build rune sources (see diagnostics for details)
+type item ::other: installed
+type name fixture::Elsewhere: compiles=false
+type name other::Elsewhere: compiles=false
+type name ::other::Elsewhere: compiles=true
+native type item: ::other::Elsewhere
+other::Elsewhere after declaring other crate: compiles=true
