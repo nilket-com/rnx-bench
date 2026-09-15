@@ -16,6 +16,41 @@ use tokio::{
     sync::{OwnedSemaphorePermit, Semaphore, mpsc, watch},
     time::{Instant, timeout, timeout_at},
 };
+// Independent allocator accounting: requested Rust allocation sizes, not payload credits.
+struct Alloc;
+static LIVE: AtomicUsize = AtomicUsize::new(0);
+static PEAK: AtomicUsize = AtomicUsize::new(0);
+static LARGEST: AtomicUsize = AtomicUsize::new(0);
+unsafe impl std::alloc::GlobalAlloc for Alloc {
+    unsafe fn alloc(&self, l: std::alloc::Layout) -> *mut u8 {
+        let p = unsafe { std::alloc::System.alloc(l) };
+        if !p.is_null() {
+            let n = LIVE.fetch_add(l.size(), SeqCst) + l.size();
+            PEAK.fetch_max(n, SeqCst);
+            LARGEST.fetch_max(l.size(), SeqCst);
+        }
+        p
+    }
+    unsafe fn dealloc(&self, p: *mut u8, l: std::alloc::Layout) {
+        LIVE.fetch_sub(l.size(), SeqCst);
+        unsafe { std::alloc::System.dealloc(p, l) };
+    }
+    unsafe fn realloc(&self, p: *mut u8, l: std::alloc::Layout, n: usize) -> *mut u8 {
+        let q = unsafe { std::alloc::System.realloc(p, l, n) };
+        if !q.is_null() {
+            if n >= l.size() {
+                LIVE.fetch_add(n - l.size(), SeqCst);
+            } else {
+                LIVE.fetch_sub(l.size() - n, SeqCst);
+            }
+            PEAK.fetch_max(LIVE.load(SeqCst), SeqCst);
+            LARGEST.fetch_max(n, SeqCst);
+        }
+        q
+    }
+}
+#[global_allocator]
+static ALLOC: Alloc = Alloc;
 const M: usize = 1024 * 1024;
 type Res<T> = Result<T, Box<dyn std::error::Error + Send + Sync>>;
 fn err(s: &str) -> Box<dyn std::error::Error + Send + Sync> {
@@ -52,6 +87,7 @@ struct Peer {
     bytes: Arc<Semaphore>,
     count: Arc<Semaphore>,
     subs: Mutex<HashMap<Vec<u8>, u16>>,
+    writing: AtomicUsize,
 }
 struct Endpoint {
     name: &'static str,
@@ -127,7 +163,28 @@ async fn body<R: tokio::io::AsyncRead + Unpin>(r: &mut R, n: u64, cap: usize) ->
     r.read_exact(&mut b).await?;
     Ok(b)
 }
+#[cfg(test)]
 async fn message<R: tokio::io::AsyncRead + Unpin>(r: &mut R, ep: &Endpoint) -> Res<Message> {
+    message_with(r, ep, None).await
+}
+fn heartbeat(command: &[u8], peer: Option<&Peer>) -> Res<()> {
+    if command.starts_with(b"\x04PING") && (7..=23).contains(&command.len()) {
+        let mut wire = Vec::with_capacity(command.len());
+        wire.extend([4, (command.len() - 2) as u8]);
+        wire.extend(b"\x04PONG");
+        wire.extend(&command[7..]);
+        enqueue(peer.ok_or("heartbeat without peer")?, Arc::new(wire), None)
+    } else if command.starts_with(b"\x04PONG") && (5..=21).contains(&command.len()) {
+        Ok(())
+    } else {
+        Err(err("malformed or unsupported traffic command"))
+    }
+}
+async fn message_with<R: tokio::io::AsyncRead + Unpin>(
+    r: &mut R,
+    ep: &Endpoint,
+    peer: Option<&Peer>,
+) -> Res<Message> {
     // Idle connections have no assembly deadline. Start after the first header byte.
     let first = r.read_u8().await?;
     let end = Instant::now() + Duration::from_secs(5);
@@ -151,12 +208,18 @@ async fn message<R: tokio::io::AsyncRead + Unpin>(r: &mut R, ep: &Endpoint) -> R
                 header(r).await?
             };
             if f & 4 != 0 {
-                let command = body(r, n, 8192).await?;
-                return Err(err(&format!(
-                    "unsupported traffic command: {}",
-                    hex::encode(&command[..command.len().min(128)])
-                )));
+                let command = body(r, n, 23).await?;
+                heartbeat(&command, peer)?;
+                tokio::task::yield_now().await;
+                if parts.is_empty() {
+                    return Ok(Message {
+                        parts,
+                        _credits: credits,
+                    });
+                }
+                continue;
             }
+
             if parts.len() == 32 || n > (M - total) as u64 {
                 return Err(err("multipart cap"));
             }
@@ -301,7 +364,12 @@ fn subscription(peer: &Peer, m: &Message) -> Res<()> {
     };
     Ok(())
 }
-async fn application(st: &State, peer: &Peer, m: &Message, jobs: &mpsc::Sender<usize>) -> Res<()> {
+async fn application(
+    st: &State,
+    peer: &Peer,
+    m: &Message,
+    jobs: &mpsc::Sender<(usize, bool)>,
+) -> Res<()> {
     let parts = &m.parts;
     let Some(d) = parts.iter().position(|p| p == b"<IDS|MSG>") else {
         return Err(err("delimiter"));
@@ -334,7 +402,10 @@ async fn application(st: &State, peer: &Peer, m: &Message, jobs: &mpsc::Sender<u
     }
     st.stats.accepted.fetch_add(1, SeqCst);
     if let Some(n) = v[3]["publish"].as_u64() {
-        jobs.try_send(n.min(20000) as usize)?;
+        jobs.try_send((
+            n.min(20000) as usize,
+            v[3]["paced"].as_bool().unwrap_or(false),
+        ))?;
     }
     let reply = vec![
         serde_json::to_vec(
@@ -349,12 +420,29 @@ async fn application(st: &State, peer: &Peer, m: &Message, jobs: &mpsc::Sender<u
     out.extend(reply);
     enqueue(peer, encode(&out)?, None)
 }
+struct Writing<'a>(&'a AtomicUsize);
+impl Drop for Writing<'_> {
+    fn drop(&mut self) {
+        self.0.store(0, SeqCst);
+    }
+}
+async fn write_packets<W: tokio::io::AsyncWrite + Unpin>(
+    write: &mut W,
+    rx: &mut mpsc::Receiver<Packet>,
+    peer: &Peer,
+) -> Res<()> {
+    while let Some(p) = rx.recv().await {
+        peer.writing.store(p.wire.len(), SeqCst);
+        let _writing = Writing(&peer.writing);
+        timeout(Duration::from_secs(5), write.write_all(&p.wire)).await??;
+    }
+    Ok(())
+}
 async fn connection(
     mut s: TcpStream,
     ep: Arc<Endpoint>,
     st: Arc<State>,
-    jobs: mpsc::Sender<usize>,
-    _slot: OwnedSemaphorePermit,
+    jobs: mpsc::Sender<(usize, bool)>,
     mut shutdown: watch::Receiver<bool>,
 ) -> Res<()> {
     if *shutdown.borrow() {
@@ -400,6 +488,7 @@ async fn connection(
             bytes: Arc::new(Semaphore::new(if ep.kind == "PUB" { 2 * M } else { M })),
             count: Arc::new(Semaphore::new(if ep.kind == "PUB" { 64 } else { 32 })),
             subs: Mutex::new(HashMap::new()),
+            writing: AtomicUsize::new(0),
         });
         peers.insert(id, peer.clone());
         peer
@@ -407,7 +496,10 @@ async fn connection(
     let (mut read, mut write) = s.into_split();
     let read_loop = async {
         loop {
-            let m = message(&mut read, &ep).await?;
+            let m = message_with(&mut read, &ep, Some(&peer)).await?;
+            if m.parts.is_empty() {
+                continue;
+            }
             st.stats.received.fetch_add(1, SeqCst);
             match ep.kind {
                 "PUB" => {
@@ -430,12 +522,8 @@ async fn connection(
         #[allow(unreachable_code)]
         Ok::<(), Box<dyn std::error::Error + Send + Sync>>(())
     };
-    let write_loop = async {
-        while let Some(p) = rx.recv().await {
-            timeout(Duration::from_secs(5), write.write_all(&p.wire)).await??;
-        }
-        Ok::<(), Box<dyn std::error::Error + Send + Sync>>(())
-    };
+    let write_loop = write_packets(&mut write, &mut rx, &peer);
+
     let result = tokio::select! {r=read_loop=>r,r=write_loop=>r,_=stopped.changed()=>Ok(()),_=shutdown.changed()=>Ok(())};
     peer.stop.send_replace(true);
     {
@@ -458,7 +546,7 @@ fn trace(st: &State, v: Value) {
     }
 }
 fn snapshot(st: &State) -> Value {
-    json!({"last_failure":st.stats.last_failure.lock().unwrap().clone(),"wire_trace":st.trace.lock().unwrap().clone(),"next_generation":st.next.load(SeqCst),"accepted":st.stats.accepted.load(SeqCst),"bad_signature":st.stats.bad.load(SeqCst),"rejected":st.stats.rejected.load(SeqCst),"messages_received":st.stats.received.load(SeqCst),"pub_send_ok":st.stats.sent.load(SeqCst),"generated_collisions":st.stats.generated_collisions.load(SeqCst),"publication_reserved":16*M-st.publication.available_permits(),"endpoints":st.endpoints.iter().map(|e|{let peers=e.peers.lock().unwrap();json!({"name":e.name,"connections":8-e.slots.available_permits(),"incoming_reserved":8*M-e.incoming.available_permits(),"routes":peers.len(),"identities":peers.values().map(|p|json!({"id":hex::encode(&p.id),"generation":p.generation})).collect::<Vec<_>>(),"outgoing_reserved":peers.values().map(|p|(if e.kind=="PUB"{2*M}else{M})-p.bytes.available_permits()).sum::<usize>(),"subscriptions":peers.values().map(|p|p.subs.lock().unwrap().len()).sum::<usize>()})}).collect::<Vec<_>>()})
+    json!({"allocation_live":LIVE.load(SeqCst),"allocation_peak":PEAK.load(SeqCst),"largest_allocation":LARGEST.load(SeqCst),"last_failure":st.stats.last_failure.lock().unwrap().clone(),"wire_trace":st.trace.lock().unwrap().clone(),"next_generation":st.next.load(SeqCst),"accepted":st.stats.accepted.load(SeqCst),"bad_signature":st.stats.bad.load(SeqCst),"rejected":st.stats.rejected.load(SeqCst),"messages_received":st.stats.received.load(SeqCst),"pub_send_ok":st.stats.sent.load(SeqCst),"generated_collisions":st.stats.generated_collisions.load(SeqCst),"publication_reserved":16*M-st.publication.available_permits(),"endpoints":st.endpoints.iter().map(|e|{let peers=e.peers.lock().unwrap();json!({"name":e.name,"connections":8-e.slots.available_permits(),"incoming_reserved":8*M-e.incoming.available_permits(),"routes":peers.len(),"identities":peers.values().map(|p|json!({"id":hex::encode(&p.id),"generation":p.generation,"writing":p.writing.load(SeqCst)})).collect::<Vec<_>>(),"outgoing_reserved":peers.values().map(|p|(if e.kind=="PUB"{2*M}else{M})-p.bytes.available_permits()).sum::<usize>(),"subscriptions":peers.values().map(|p|p.subs.lock().unwrap().len()).sum::<usize>()})}).collect::<Vec<_>>()})
 }
 #[tokio::main(flavor = "multi_thread", worker_threads = 2)]
 async fn main() -> Res<()> {
@@ -506,13 +594,54 @@ async fn main() -> Res<()> {
         let st = st.clone();
         let jobs = jobs.clone();
         let mut shutdown = shutdown.clone();
-        tasks.spawn(async move{let mut children=tokio::task::JoinSet::new();loop{tokio::select!{_=shutdown.changed()=>break,Some(_)=children.join_next()=>{},accepted=listener.accept()=>{let Ok((s,_))=accepted else{break;};if let Ok(slot)=ep.slots.clone().try_acquire_owned(){let ep=ep.clone();let st=st.clone();let jobs=jobs.clone();let shutdown=shutdown.clone();children.spawn(async move{if let Err(e)=connection(s,ep,st.clone(),jobs,slot,shutdown).await{*st.stats.last_failure.lock().unwrap()=e.to_string().chars().take(512).collect();st.stats.rejected.fetch_add(1,SeqCst);}});}else{drop(s);st.stats.rejected.fetch_add(1,SeqCst);}}}}
-   while children.join_next().await.is_some(){};
-  });
+        tasks.spawn(async move {
+            let mut children=tokio::task::JoinSet::new();
+            // Admission covers completed task records until they are joined too.
+            let mut permits=HashMap::new();
+            loop {
+                tokio::select! {
+                    _=shutdown.changed()=>break,
+                    result=children.join_next_with_id(), if !children.is_empty()=>{
+                        let id=match result.unwrap(){Ok((id,_))=>id,Err(e)=>e.id()};
+                        permits.remove(&id);
+                    },
+                    accepted=listener.accept()=>{
+                        let Ok((s,_))=accepted else{break;};
+                        if let Ok(slot)=ep.slots.clone().try_acquire_owned(){
+                            let ep=ep.clone();let st=st.clone();let jobs=jobs.clone();let shutdown=shutdown.clone();
+                            let task=children.spawn(async move {
+                                if let Err(e)=connection(s,ep,st.clone(),jobs,shutdown).await {
+                                    *st.stats.last_failure.lock().unwrap()=e.to_string().chars().take(512).collect();st.stats.rejected.fetch_add(1,SeqCst);
+                                }
+                            });
+                            permits.insert(task.id(),slot);
+                        } else {drop(s);st.stats.rejected.fetch_add(1,SeqCst);}
+                    }
+                }
+            }
+            while let Some(result)=children.join_next_with_id().await {
+                let id=match result{Ok((id,_))=>id,Err(e)=>e.id()};permits.remove(&id);
+            }
+        });
     }
     let state = st.clone();
     let mut done = shutdown.clone();
-    tasks.spawn(async move{loop{tokio::select!{_=done.changed()=>break,job=pending.recv()=>{let Some(n)=job else{break;};for _ in 0..n{if *done.borrow(){break;}let _=publish(&state,&[b"probe".to_vec(),vec![b'x';16384]]);tokio::task::yield_now().await;}}}}});
+    tasks.spawn(async move {
+        loop {
+            tokio::select! {
+                _ = done.changed() => break,
+                job = pending.recv() => {
+                    let Some((n,paced))=job else {break;};
+                    for _ in 0..n {
+                        if *done.borrow(){break;}
+                        let _=publish(&state,&[b"probe".to_vec(),vec![b'x';16384]]);
+                        if paced {tokio::time::sleep(Duration::from_millis(2)).await;}
+                        else {tokio::task::yield_now().await;}
+                    }
+                }
+            }
+        }
+    });
     emit(Value::Object(addresses));
     let mut lines = tokio::io::BufReader::new(tokio::io::stdin()).lines();
     while let Some(line) = lines.next_line().await? {
@@ -622,6 +751,7 @@ mod tests {
                 bytes: Arc::new(Semaphore::new(limit)),
                 count: Arc::new(Semaphore::new(64)),
                 subs: Mutex::new(HashMap::new()),
+                writing: AtomicUsize::new(0),
             }),
             rx,
         )
@@ -733,5 +863,185 @@ mod tests {
         e.peers.lock().unwrap().insert(vec![0], new.clone());
         assert!(enqueue(&p, encode(&[b"stale".to_vec()]).unwrap(), None).is_err());
         assert_eq!(new.bytes.available_permits(), 2 * M);
+    }
+    #[tokio::test]
+    async fn heartbeat_context_bounds_and_interleaving() {
+        let (p, mut rx) = peer(2 * M);
+        for n in [0, 16] {
+            let mut ping = b"\x04PING\xff\xff".to_vec();
+            ping.extend(vec![42; n]);
+            heartbeat(&ping, Some(&p)).unwrap();
+            let pong = rx.try_recv().unwrap();
+            assert_eq!(&pong.wire[2..7], b"\x04PONG");
+            assert_eq!(&pong.wire[7..], vec![42; n]);
+            heartbeat(&pong.wire[2..], Some(&p)).unwrap();
+            assert!(rx.try_recv().is_err());
+        }
+        for b in [
+            b"\x04PING\0".to_vec(),
+            [b"\x04PING\0\0".as_slice(), &[42; 17]].concat(),
+            [b"\x04PONG".as_slice(), &[42; 17]].concat(),
+            b"\x03PING\0\0".to_vec(),
+        ] {
+            assert!(heartbeat(&b, Some(&p)).is_err());
+        }
+        let mut wire = vec![1, 1, b'a', 4, 7];
+        wire.extend(b"\x04PING\0\0");
+        wire.extend([0, 1, b'b']);
+        let e = ep();
+        let m = message_with(&mut wire.as_slice(), &e, Some(&p))
+            .await
+            .unwrap();
+        assert_eq!(m.parts, vec![b"a".to_vec(), b"b".to_vec()]);
+        drop(m);
+        drop(rx.try_recv().unwrap());
+        assert_eq!(e.incoming.available_permits(), 8 * M);
+        for _ in 0..64 {
+            heartbeat(b"\x04PING\0\0", Some(&p)).unwrap();
+        }
+        assert!(heartbeat(b"\x04PING\0\0", Some(&p)).is_err());
+        drop(rx);
+        assert_eq!(p.bytes.available_permits(), 2 * M);
+        assert_eq!(p.count.available_permits(), 64);
+    }
+    #[test]
+    fn all_publication_credit_and_entry_boundaries() {
+        let e = Arc::new(ep());
+        let st = State {
+            trace: Mutex::new(vec![]),
+            stats: Stats::default(),
+            next: AtomicU64::new(1),
+            publication: Arc::new(Semaphore::new(16 * M)),
+            endpoints: vec![e.clone(); 5],
+            key: vec![],
+        };
+        let mut receivers = vec![];
+        // The encoder reserves nine framing bytes per part, charged as capacity.
+        let body = vec![7; M - 9];
+        for id in 0..8 {
+            let (p, rx) = peer(2 * M);
+            p.subs.lock().unwrap().insert(vec![], 1);
+            e.peers.lock().unwrap().insert(vec![id], p);
+            receivers.push(rx);
+        }
+        publish(&st, &[body.clone()]).unwrap();
+        publish(&st, &[body]).unwrap();
+        assert_eq!(st.publication.available_permits(), 0);
+        // A byte beyond a subscriber's allowance retires it without growing queues.
+        publish(&st, &[vec![1]]).unwrap();
+        assert!(e.peers.lock().unwrap().values().all(|p| *p.stop.borrow()));
+        drop(receivers);
+        assert_eq!(st.publication.available_permits(), 16 * M);
+        let (p, rx) = peer(M);
+        for _ in 0..64 {
+            enqueue(&p, Arc::new(vec![]), None).unwrap();
+        }
+        assert!(enqueue(&p, Arc::new(vec![]), None).is_err());
+        drop(rx);
+        assert_eq!(p.count.available_permits(), 64);
+        let budget = Arc::new(Semaphore::new(8 * M));
+        let mut credits = vec![];
+        for _ in 0..8 {
+            credits.push(budget.clone().try_acquire_many_owned(M as u32).unwrap());
+        }
+        assert!(budget.clone().try_acquire_owned().is_err());
+        drop(credits);
+        assert_eq!(budget.available_permits(), 8 * M);
+    }
+
+    #[tokio::test]
+    async fn partial_writer_cancellation_releases_current_and_queued() {
+        let (p, mut rx) = peer(2 * M);
+        enqueue(&p, Arc::new(vec![1; 1024]), None).unwrap();
+        enqueue(&p, Arc::new(vec![2; 1024]), None).unwrap();
+        let (mut writer, mut reader) = tokio::io::duplex(8);
+        {
+            let future = write_packets(&mut writer, &mut rx, &p);
+            tokio::pin!(future);
+            tokio::select! {r=&mut future=>panic!("writer unexpectedly completed: {r:?}"),_=tokio::time::sleep(Duration::from_millis(20))=>{}}
+            assert_eq!(p.writing.load(SeqCst), 1024);
+            let mut prefix = [0; 8];
+            reader.read_exact(&mut prefix).await.unwrap();
+            assert_eq!(prefix, [1; 8]);
+            assert_eq!(p.bytes.available_permits(), 2 * M - 2048);
+        }
+        assert_eq!(p.writing.load(SeqCst), 0);
+        assert_eq!(p.bytes.available_permits(), 2 * M - 1024);
+        drop(rx);
+        assert_eq!(p.bytes.available_permits(), 2 * M);
+    }
+    #[test]
+    fn thirty_two_reply_slots_include_current_write() {
+        let (mut p, rx) = peer(M);
+        Arc::get_mut(&mut p).unwrap().count = Arc::new(Semaphore::new(32));
+        for _ in 0..32 {
+            enqueue(&p, Arc::new(vec![1]), None).unwrap();
+        }
+        assert!(enqueue(&p, Arc::new(vec![1]), None).is_err());
+        drop(rx);
+        assert_eq!(p.count.available_permits(), 32);
+    }
+
+    #[test]
+    fn aggregate_failure_never_partially_publishes() {
+        let e = Arc::new(ep());
+        let st = State {
+            trace: Mutex::new(vec![]),
+            stats: Stats::default(),
+            next: AtomicU64::new(1),
+            publication: Arc::new(Semaphore::new(16 * M)),
+            endpoints: vec![e.clone(); 5],
+            key: vec![],
+        };
+        let mut receivers = vec![];
+        for id in 0..8 {
+            let (p, rx) = peer(2 * M);
+            p.subs.lock().unwrap().insert(vec![], 1);
+            e.peers.lock().unwrap().insert(vec![id], p);
+            receivers.push(rx);
+        }
+        let held = st
+            .publication
+            .clone()
+            .try_acquire_many_owned((9 * M) as u32)
+            .unwrap();
+        assert!(publish(&st, &[vec![1; M - 9]]).is_err());
+        assert!(receivers.iter_mut().all(|r| r.try_recv().is_err()));
+        assert!(
+            e.peers
+                .lock()
+                .unwrap()
+                .values()
+                .all(|p| p.bytes.available_permits() == 2 * M)
+        );
+        assert_eq!(st.publication.available_permits(), 7 * M);
+        drop(held);
+        assert_eq!(st.publication.available_permits(), 16 * M);
+        let (p, mut rx) = peer(M);
+        enqueue(&p, Arc::new(vec![1; M]), None).unwrap();
+        assert!(enqueue(&p, Arc::new(vec![1]), None).is_err());
+        drop(rx.try_recv().unwrap());
+        assert_eq!(p.bytes.available_permits(), M);
+    }
+    #[tokio::test]
+    async fn writing_deadline_does_not_restart_on_progress() {
+        let (p, mut rx) = peer(M);
+        enqueue(&p, Arc::new(vec![1; 1024]), None).unwrap();
+        let (mut writer, mut reader) = tokio::io::duplex(1);
+        let drain = tokio::spawn(async move {
+            let mut byte = [0; 1];
+            while reader.read_exact(&mut byte).await.is_ok() {
+                tokio::time::sleep(Duration::from_millis(100)).await;
+            }
+        });
+        let start = Instant::now();
+        assert!(write_packets(&mut writer, &mut rx, &p).await.is_err());
+        assert!(
+            start.elapsed() >= Duration::from_millis(4900)
+                && start.elapsed() < Duration::from_millis(6000)
+        );
+        assert_eq!(p.bytes.available_permits(), M);
+        drain.abort();
+        let _ = drain.await;
     }
 }

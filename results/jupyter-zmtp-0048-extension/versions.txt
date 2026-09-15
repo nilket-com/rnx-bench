@@ -1,0 +1,18 @@
+Linux-7.0.0-31-generic-x86_64-with-glibc2.43
+$ rustc --version
+rustc 1.98.1 (48a229cea 2026-09-01)
+
+$ cargo --version
+cargo 1.98.1 (797e8a9bc 2026-08-05)
+
+$ ldd probes/jupyter-zmtp/target/release/jupyter-zmtp-probe
+	linux-vdso.so.1 (0x00007a547e7b8000)
+	libgcc_s.so.1 => /usr/lib/x86_64-linux-gnu/libgcc_s.so.1 (0x00007a547e65c000)
+	libm.so.6 => /usr/lib/x86_64-linux-gnu/libm.so.6 (0x00007a547e536000)
+	libc.so.6 => /usr/lib/x86_64-linux-gnu/libc.so.6 (0x00007a547e200000)
+	/lib64/ld-linux-x86-64.so.2 (0x00007a547e7ba000)
+
+$ probes/jupyter-transport/.venv/bin/python -c import sys,zmq,jupyter_client; print(sys.version);print("pyzmq",zmq.pyzmq_version(),"libzmq",zmq.zmq_version(),"jupyter_client",jupyter_client.__version__)
+3.14.4 (main, Aug 20 2026, 10:41:58) [GCC 15.2.0]
+pyzmq 27.2.0 libzmq 4.3.5 jupyter_client 8.10.0
+

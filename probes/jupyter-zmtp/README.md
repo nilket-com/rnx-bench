@@ -1,9 +1,9 @@
 # Record 0048 bounded ZMTP prototype
 
-**Not accepted for integration.** The default interoperability run reaches the
-record's explicit command-compatibility stop: the heartbeat-enabled libzmq
-client sends PING after a 3.0 greeting. This prototype refuses that command.
-See `results/jupyter-zmtp-0048/README.md` before using these results.
+**Ready for review, not yet adopted by 0047.** The accepted bounded heartbeat
+extension handles the PING that libzmq sends after a 3.0 greeting. Current evidence
+is in `results/jupyter-zmtp-0048-extension/`. The original failed prototype and
+its captures remain in `results/jupyter-zmtp-0048/` and commit ae74699.
 
 From this directory:
 
@@ -13,31 +13,36 @@ cargo test --locked
 ../jupyter-transport/.venv/bin/python probe.py
 ```
 
-The last command is expected to exit **1**, with a named heartbeat gate failure.
+The command now exits **0**, with client transport heartbeats enabled.
 It cleans up the server and checks zero remaining connection/credit counters.
 The Python environment and its complete pins are in the earlier transport
 probe. The fixture uses only loopback ports and a public test HMAC key. Servers
 have a 512 MiB address-space limit; tests send finite bounded workloads.
 
-For independent diagnostic coverage, explicitly disable the client's transport
-heartbeat setting (this does not pass the default gate):
+The optional no-heartbeat mode remains for comparison, not as an acceptance workaround:
 
 ```sh
 ../jupyter-transport/.venv/bin/python probe.py --diagnostic-no-heartbeats
 ```
 
-That run covers signed/empty-key exchanges, three ROUTER endpoints, binary REP
+The default run covers signed/empty-key exchanges, three ROUTER endpoints, binary REP
 heartbeat, metadata and payload boundaries, maximum u64 lengths, split greetings,
 32/33 parts, duplicate/reconnected/anonymous identities, a forced generated-ID
 collision, connection caps, deadlines, subscriptions, publication saturation and
-cleanup. The five Rust tests cover framing splits/truncation, capacity release,
-subscription/count overflow and publication/reply admission mechanics. They do
-not amount to exhaustive acceptance of every record gate.
+cleanup. Run `bash run.sh` to rebuild, run the Rust tests, and record both wire fixtures
+twice. `extended.py` adds heartbeat boundaries and idle/interleaved deadlines,
+all forty connection slots with 40 MiB reserved, independent allocation counters,
+stale pending replies, pending-read/write shutdown and READY/identity boundaries.
+Eleven Rust tests cover parser fragmentation, capacity endpoints, reference counts,
+atomic fanout failure, command admission, partial writes and absolute write timeout.
+The evidence map distinguishes wire tests, unit tests and structural bounds.
 
 ## Shape and accounting
 
 The server is a standalone Rust/Tokio executable, with no Rune or ZMQ library.
-One task owns each listener and its JoinSet of admitted connections; each
+One task owns each listener and its JoinSet of admitted connections. Admission
+permits remain in a listener-owned map until the task is joined, bounding both
+running and completed task records. Each
 connection independently reads and writes. Handshake and assembly have absolute
 timeouts. A u64 length is checked before conversion and allocation. Payload
 credit moves with a complete message through application processing. Exact
@@ -69,9 +74,15 @@ measurements or an independent exhaustive allocator audit. Windows cross-check
 is type checking only. There is no installed kernel, notebook screenshot,
 worker integration, final notices audit or rnx performance comparison here.
 
-The unpaced publication flood can exceed even the reading Python subscriber's
-queue capacity. Both subscriber connections were gone at its final snapshot;
-receiving some output does not prove sustained service to a healthy peer.
-A paced producer/consumer gate and the remaining aggregate-capacity, partial-write
-and teardown-state tests are still needed after the protocol decision is reviewed.
-Do not cite the diagnostic command's exit zero as all five record gates passed.
+The old unpaced flood was inconclusive. The new producer emits 1000 messages
+with a 2 ms pacing request; actual intervals depend on scheduling. The fixture
+proves the stalled connection disappears, the reading connection generation is
+unchanged, and all 1000 publications plus a final marker arrive. Control and
+heartbeat are checked while publication is still pending. This measures service
+under that offered load, not lossless delivery at arbitrary publication rates.
+
+PING is bounded to 7–23 command-body bytes, PONG to 5–21, before body allocation.
+PONG echoes at most 16 context bytes through the same bounded writer. TTL and
+valid inbound PONG are ignored. Interleaved commands leave a multipart's deadline
+unchanged; standalone heartbeat traffic does not acquire an idle data lifetime.
+The server remains 3.0 plus this extension, not a general 3.1 implementation.
