@@ -97,3 +97,8 @@ tokio current-thread runtime.
   `results/jupyter-zmtp-0048-extension/`: default-client interoperability,
   paced subscriber continuity, aggregate allocation recovery and pending I/O
   teardown all pass in the recorded prototype runs. Adoption still needs review.
+
+- `jupyter-integration/` — record 0047's first implementation checks against the
+  owned `rnx/jupyter` transport/message component. Reuses the 0048 wire fixtures
+  with an explicit binary override; browser smoke evidence is a prerequisite,
+  not notebook acceptance. Results in `results/jupyter-0047-integration/`.

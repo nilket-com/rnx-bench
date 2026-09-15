@@ -1,11 +1,17 @@
 #!/usr/bin/env python3
 """Local interoperability and bounded-size counterexamples; not a kernel."""
 
-import json, pathlib, queue, socket, struct, subprocess, threading, time, sys
+import json, os, pathlib, queue, socket, struct, subprocess, threading, time, sys
 import zmq
 from jupyter_client.session import Session
 
 ROOT = pathlib.Path(__file__).resolve().parent
+RESULTS = pathlib.Path(
+    os.environ.get("RNX_ZMTP_RESULTS", ROOT / "../../results/jupyter-zmtp-0048-extension")
+)
+BINARY = pathlib.Path(
+    os.environ.get("RNX_ZMTP_BINARY", ROOT / "target/release/jupyter-zmtp-probe")
+)
 TIMEOUT = 5
 
 
@@ -30,14 +36,13 @@ class Server:
     def __init__(self, empty=False):
         started = time.monotonic()
         self.errors = open(
-            ROOT
-            / "../../results/jupyter-zmtp-0048-extension"
+            RESULTS
             / ("empty-stderr.txt" if empty else "transport-stderr.txt"),
             "w",
         )
         self.p = subprocess.Popen(
             [
-                str(ROOT / "target/release/jupyter-zmtp-probe"),
+                str(BINARY),
                 *(["empty"] if empty else []),
             ],
             stdin=subprocess.PIPE,
