@@ -1,0 +1,17 @@
+{"case": "signed_channels", "passed": true, "python_libzmq": "4.3.5"}
+{"case": "wrong_signature", "no_reply": true}
+{"case": "declared_length_refused", "length": 1048577, "body_sent": 0}
+{"case": "declared_length_refused", "length": 4294967295, "body_sent": 0}
+{"case": "declared_length_refused", "length": 18446744073709551614, "body_sent": 0}
+{"case": "declared_length_refused", "length": 18446744073709551615, "body_sent": 0}
+{"case": "split_greeting_ready_and_32_parts", "passed": true}
+{"case": "33_empty_parts", "refused": true}
+{"case": "former_32MiB_case", "attempted": 33554432, "tcp_bytes_sent": 917504, "rss_before": 3915776, "rss_after": 4046848, "peer_closed": true}
+{"case": "payload_boundary", "n": 1048576, "reached_application": true}
+{"case": "payload_boundary", "n": 1048577, "reached_application": false}
+{"case": "identities_reconnect_and_collision", "passed": true}
+{"case": "eight_connections_ninth_closed", "passed": true}
+{"case": "metadata_count_duplicate_and_names", "passed": true}
+{"case": "handshake_deadline", "elapsed_ms": 2000.638}
+{"case": "assembly_deadline", "elapsed_ms": 5042.362}
+{"case": "shutdown_credits", "released": true}
