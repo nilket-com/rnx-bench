@@ -1,0 +1,34 @@
+[
+  {
+    "command": [
+      "probes/jupyter-transport/.venv/bin/python",
+      "probes/jupyter-zmtp/probe.py"
+    ],
+    "run": "transport",
+    "exit": 0
+  },
+  {
+    "command": [
+      "probes/jupyter-transport/.venv/bin/python",
+      "probes/jupyter-zmtp/extended.py"
+    ],
+    "run": "extended",
+    "exit": 0
+  },
+  {
+    "command": [
+      "probes/jupyter-transport/.venv/bin/python",
+      "probes/jupyter-zmtp/probe.py"
+    ],
+    "run": "transport-confirmation",
+    "exit": 0
+  },
+  {
+    "command": [
+      "probes/jupyter-transport/.venv/bin/python",
+      "probes/jupyter-zmtp/extended.py"
+    ],
+    "run": "extended-confirmation",
+    "exit": 0
+  }
+]
