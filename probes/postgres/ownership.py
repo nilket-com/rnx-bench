@@ -5,7 +5,7 @@ sys.path.insert(0,str(ROOT.parent/'rnx/tests'))
 from worker_parent import Parent
 BIN=ROOT/'probes/postgres/ownership/target/release/rnx-postgres-ownership'
 PG=pathlib.Path('/usr/lib/postgresql/18/bin')
-OUT=ROOT/'results/postgres-0052';OUT.mkdir(exist_ok=True,parents=True)
+OUT=pathlib.Path(os.environ.get('RNX_PG_OWNERSHIP_OUT', str(ROOT/'results/lifecycle-0053/postgres')));OUT.mkdir(exist_ok=True,parents=True)
 results={}
 def sockets(pid):
     result={}
@@ -75,12 +75,17 @@ with tempfile.TemporaryDirectory(prefix='rnx-pg-ownership-') as directory:
                 (OUT/'ownership.json').write_text(json.dumps(results,indent=2)+'\n')
                 if case=='retained-interrupt':
                     entry['ownership_passed']=len(after)==len(before)
+                    assert entry['ownership_passed'],entry
                     time.sleep(.8)  # Parent waits; the worker receives no input or ack.
                     entry['after_passive_wait']=sockets(w.p.pid)
                     entry['backend_after_passive_wait']=activity(tag)
                     entry['events_after_passive_wait']=trace.read_text()
                     (OUT/'ownership.json').write_text(json.dumps(results,indent=2)+'\n')
                     w.handoff()
+                    entry['repoll']=w.execute('q.await')[0]
+                    assert entry['repoll']['text_plain']=='Err(\"operation cancelled\")',entry
+                    assert len(sockets(w.p.pid))==len(before),entry
+                    (OUT/'ownership.json').write_text(json.dumps(results,indent=2)+'\n')
                     print(case, 'socket count',len(before),'->',len(after),flush=True)
                     continue
                 assert len(after)==len(before),(case,entry)
@@ -105,7 +110,7 @@ with tempfile.TemporaryDirectory(prefix='rnx-pg-ownership-') as directory:
         assert stopped.returncode==0,stopped
         assert not pathlib.Path(f'/proc/{postmaster}').exists(),postmaster
 (OUT/'ownership-cleanup.json').write_text(json.dumps({'directory':str(directory),'directory_removed':not directory.exists(),'postmaster':postmaster,'postmaster_exited':not pathlib.Path(f'/proc/{postmaster}').exists(),'stop_output':stopped.stdout},indent=2)+'\n')
-print('seven required cases passed; retained-binding observation recorded; private cluster stopped and removed')
+print('seven required cases and retained-binding cancellation passed; private cluster stopped and removed')
 if any(r.get('ownership_passed') is False for r in results.values()):
     print('STOP: retained future still owns its socket after interruption')
     sys.exit(2)

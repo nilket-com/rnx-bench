@@ -82,3 +82,21 @@ HostFunction data stub; check it with `--target x86_64-pc-windows-msvc`.
 The full library/binary check stops in ring because lib.exe is unavailable.
 The isolated check does not verify whole-program Windows integration or
 execution. Linux assembly, PTY, worker and notebook checks are executed.
+
+
+## Record 0053 lifecycle fixture
+
+`src/bin/lifecycle.rs` assembles a separate app using `Extensions::with_lifecycle`.
+Its pending future is deliberately non-Send, records resource acquisition on its
+first poll, and can panic at destruction. `lifecycle.py` tests run, eval, session
+and the real parked worker; `lifecycle-notebook.py` uses the pinned Jupyter
+virtualenv to test cancellation and queued WorkerDied on the unchanged kernel.
+Both write `results/lifecycle-0053`. `api.py` now expects Scope in the public
+inventory; the original 0051 results remain historical. `check.py` and `measure.py`
+accept RNX_EXTENSION_RESULTS to keep reruns separate.
+
+```sh
+cargo build --release --locked --manifest-path probes/extensions/Cargo.toml
+PYTHONDONTWRITEBYTECODE=1 python3 probes/extensions/lifecycle.py
+PYTHONDONTWRITEBYTECODE=1 probes/jupyter-notebook/.venv/bin/python probes/extensions/lifecycle-notebook.py
+```

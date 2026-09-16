@@ -1,0 +1,129 @@
+{
+  "eval": {
+    "code": 0,
+    "stdout": "42\n",
+    "stderr": ""
+  },
+  "run": {
+    "code": 0,
+    "stdout": "42\n",
+    "stderr": ""
+  },
+  "session": {
+    "code": 0,
+    "stdout": "rnx: a Rune session. :help lists the commands, :quit ends it.\n42\n",
+    "stderr": ""
+  },
+  "one-input-1000-calls": {
+    "code": 0,
+    "stdout": "1000\n",
+    "stderr": ""
+  },
+  "eval-destructor": {
+    "code": 1,
+    "stdout": "",
+    "stderr": "lifecycle opened\nlifecycle closed\nruntime error (position not in your input; :debug shows the generated source): extension `fixture` lifecycle cleanup panicked: injected lifecycle destructor panic\n"
+  },
+  "run-destructor": {
+    "code": 1,
+    "stdout": "",
+    "stderr": "lifecycle opened\nlifecycle closed\nerror: extension `fixture` lifecycle cleanup panicked: injected lifecycle destructor panic\n"
+  },
+  "session-destructor": {
+    "code": 1,
+    "stdout": "rnx: a Rune session. :help lists the commands, :quit ends it.\n",
+    "stderr": "lifecycle opened\nlifecycle closed\nruntime error (position not in your input; :debug shows the generated source): extension `fixture` lifecycle cleanup panicked: injected lifecycle destructor panic\n"
+  },
+  "quit-destructor": {
+    "code": 1,
+    "stdout": "rnx: a Rune session. :help lists the commands, :quit ends it.\n",
+    "stderr": "lifecycle opened\nlifecycle closed\nError: \"extension `fixture` lifecycle cleanup panicked: injected lifecycle destructor panic\"\n"
+  },
+  "eof-destructor": {
+    "code": 1,
+    "stdout": "rnx: a Rune session. :help lists the commands, :quit ends it.\n",
+    "stderr": "lifecycle opened\nlifecycle closed\nError: \"extension `fixture` lifecycle cleanup panicked: injected lifecycle destructor panic\"\n"
+  },
+  "interrupt": {
+    "reply": {
+      "epoch": 1,
+      "failure": {
+        "category": "interrupted",
+        "diagnostic": "interrupted",
+        "diagnostic_truncated": false,
+        "origin": null
+      },
+      "id": 2,
+      "input": 2,
+      "state_lost": false,
+      "text_plain": null,
+      "type": "settled"
+    },
+    "stderr": "lifecycle opened\nlifecycle closed\n"
+  },
+  "runtime": {
+    "reply": {
+      "epoch": 1,
+      "failure": {
+        "category": "runtime",
+        "diagnostic": "runtime error at input 2, line 1, column 70: Panicked: stop\n  let timer = time::sleep(5); select { _ = q => (), _ = timer => () }; panic!(\"stop\");\n                                                                       ^",
+        "diagnostic_truncated": false,
+        "origin": {
+          "column": 70,
+          "epoch": 1,
+          "excerpt": "let timer = time::sleep(5); select { _ = q => (), _ = timer => () }; panic!(\"stop\");",
+          "excerpt_truncated": false,
+          "input": 2,
+          "line": 1
+        }
+      },
+      "id": 2,
+      "input": 2,
+      "state_lost": false,
+      "text_plain": null,
+      "type": "settled"
+    },
+    "stderr": "lifecycle opened\nlifecycle closed\n"
+  },
+  "reset": {
+    "reply": {
+      "epoch": 2,
+      "failure": null,
+      "id": 3,
+      "input": null,
+      "state_lost": false,
+      "text_plain": null,
+      "type": "settled"
+    },
+    "stderr": "lifecycle closed\n"
+  },
+  "shutdown": {
+    "reply": {
+      "epoch": 1,
+      "failure": null,
+      "id": 3,
+      "input": null,
+      "state_lost": false,
+      "text_plain": null,
+      "type": "settled"
+    },
+    "stderr": "lifecycle closed\n"
+  },
+  "destructor": {
+    "reply": {
+      "epoch": 1,
+      "failure": {
+        "category": "runtime",
+        "diagnostic": "runtime error (position not in your input; :debug shows the generated source): extension `fixture` lifecycle cleanup panicked: injected lifecycle destructor panic",
+        "diagnostic_truncated": false,
+        "origin": null
+      },
+      "id": 3,
+      "input": 3,
+      "state_lost": true,
+      "text_plain": null,
+      "type": "settled"
+    },
+    "stderr": "lifecycle opened\nlifecycle closed\nlifecycle closed\n"
+  }
+}

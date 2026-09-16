@@ -1,0 +1,191 @@
+{
+  "stock refuses extension": {
+    "exit": 1,
+    "stdout": "",
+    "stderr": "error at input 1, line 1, column 1: Missing item {root}::fixture::answer\n  fixture::answer()\n  ^\n"
+  },
+  "eval": {
+    "exit": 0,
+    "stdout": "42\n",
+    "stderr": ""
+  },
+  "await": {
+    "exit": 0,
+    "stdout": "20\n",
+    "stderr": ""
+  },
+  "run": {
+    "exit": 0,
+    "stdout": "42\n",
+    "stderr": ""
+  },
+  "file error": {
+    "exit": 1,
+    "stdout": "",
+    "stderr": "error: fixture failure\n"
+  },
+  "eval returned error": {
+    "exit": 1,
+    "stdout": "",
+    "stderr": "error: fixture failure\n"
+  },
+  "eval question-mark observation": {
+    "exit": 1,
+    "stdout": "",
+    "stderr": "runtime error (position not in your input; :debug shows the generated source): Expected type `::std::tuple::Tuple` but found `::std::result::Result`\n"
+  },
+  "refusal ": {
+    "exit": 1,
+    "stdout": "",
+    "stderr": "error: extension `sibling` could not be installed: deliberately broken\n"
+  },
+  "refusal json": {
+    "exit": 1,
+    "stdout": "",
+    "stderr": "error: extension `json` could not be installed: the name is reserved by rnx\n"
+  },
+  "refusal std": {
+    "exit": 1,
+    "stdout": "",
+    "stderr": "error: extension `std` could not be installed: the name is reserved by rnx\n"
+  },
+  "refusal duplicate": {
+    "exit": 1,
+    "stdout": "",
+    "stderr": "error: extension `fixture` could not be installed: the name was already registered by an extension\n"
+  },
+  "refusal help": {
+    "exit": 1,
+    "stdout": "",
+    "stderr": "error: extension `sibling` could not be installed: help path `other::thing` must name an item under `sibling::`\n"
+  },
+  "refusal install": {
+    "exit": 1,
+    "stdout": "",
+    "stderr": "error: extension `sibling` could not be installed: Function with hash `0x7edefe1422da5845` part of `::fixture::answer` already exists\n"
+  },
+  "refusal panic": {
+    "exit": 1,
+    "stdout": "",
+    "stderr": "error: extension `sibling` could not be installed: panicked: builder boom\n"
+  },
+  "refusal empty": {
+    "exit": 1,
+    "stdout": "",
+    "stderr": "error: extension `` could not be installed: the name must be a Rune identifier\n"
+  },
+  "refusal invalid": {
+    "exit": 1,
+    "stdout": "",
+    "stderr": "error: extension `two words` could not be installed: the name must be a Rune identifier\n"
+  },
+  "other thread panic": {
+    "exit": 0,
+    "stdout": "42\n",
+    "stderr": "\nthread '<unnamed>' (1747934) panicked at src/lib.rs:100:43:\nother thread boom\nnote: run with `RUST_BACKTRACE=1` environment variable to display a backtrace\n"
+  },
+  "module replacement": {
+    "exit": 0,
+    "stdout": "17\n",
+    "stderr": ""
+  },
+  "no hook version": {
+    "exit": 0,
+    "stdout": "rnx 0.0.0\nrune 0.14.2\n",
+    "stderr": ""
+  },
+  "no hook --help": {
+    "exit": 0,
+    "stdout": "rnx \u2014 a Rune scripting environment\n\n  rnx                       a session, the same as `rnx repl`\n  rnx repl                  a session: line editing, history, `:help`\n  rnx run [flags] FILE ...  run a file's `main`; arguments after FILE are its\n  rnx eval SOURCE           evaluate one expression and exit\n  rnx selfcheck             assert this build's own invariants and report\n  rnx version               this build, and the Rune it is pinned to\n  rnx help                  this\n\nFlags for `run`, before the file: --budget N, --debug-source.\n",
+    "stderr": ""
+  },
+  "no hook selfcheck": {
+    "exit": 0,
+    "stdout": "retained closure/function, new function, old struct field/type/method: [11,10,20,7,true,7]\nafter compile failure: 11\nruntime failure: Panicked: after mutation\nshared object after failed input: [1,2]\nchanged struct shape: [true,7]\nnew field on old instance: Missing index by static string slot `1`\nold closure without declarations: 15\nexit status: {\"code\":7,\"unreadable\":false,\"cancelled\":false,\"truncated\":false,\"stderr\":\"\",\"cut_short\":false,\"timed_out\":false,\"stdout\":\"\"}\ndeadline: {\"code\":null,\"unreadable\":false,\"cancelled\":false,\"truncated\":false,\"stderr\":\"\",\"cut_short\":false,\"timed_out\":true,\"stdout\":\"\"}\ncapture cap: [true,2097152]\ninterruption: {\"code\":null,\"unreadable\":false,\"cancelled\":true,\"truncated\":false,\"stderr\":\"\",\"cut_short\":true,\"timed_out\":false,\"stdout\":\"\"}\nsession: 5\nsession: (10, 20, 11, 7, true)\nsession: (7, 3, 8, 9, 4, 1)\nafter compile/runtime failures: (7, [1, 2], 20, 1)\nchanged type declaration: refused until reset\ninfinite loop: halted: 2000000 instructions exceeded\nexternal write before runtime failure survives; later input does not replay it\n100 incremental inputs (compile + execute): 20.084285ms\n",
+    "stderr": ""
+  },
+  "one hook": {
+    "exit": 0,
+    "stdout": "1\n",
+    "stderr": "fixture builder marker\n"
+  },
+  "settings ordering": {
+    "exit": 0,
+    "stdout": "42\nfixture::answer: host function\n  answer() -> 42\nsession reset\n42\n",
+    "stderr": "rnx: config `/tmp/rnx extensions 002xbzja/config.rn`: cannot compile config at line 1: Missing item {root}::fixture::answer\nfixture builder marker\n"
+  },
+  "worker": {
+    "ready": {
+      "bounds": {
+        "budget": 2000000000,
+        "control_bytes": 262144,
+        "parent_wait_ms": 5000,
+        "pending_stream_bytes": 2097152,
+        "render_bytes": 16384,
+        "source_bytes": 32768,
+        "stream_bytes": 2097152,
+        "unassociated_stream_bytes": 2097152
+      },
+      "protocol": 1,
+      "rnx": "0.0.0",
+      "rune": "0.14.2",
+      "type": "ready"
+    },
+    "before": {
+      "epoch": 1,
+      "failure": null,
+      "id": 1,
+      "input": 1,
+      "render_bounded": true,
+      "state_lost": false,
+      "text_plain": "42",
+      "type": "settled"
+    },
+    "reset": {
+      "epoch": 2,
+      "failure": null,
+      "id": 3,
+      "input": null,
+      "state_lost": false,
+      "text_plain": null,
+      "type": "settled"
+    },
+    "after": {
+      "epoch": 2,
+      "failure": null,
+      "id": 4,
+      "input": 1,
+      "render_bounded": true,
+      "state_lost": false,
+      "text_plain": "42",
+      "type": "settled"
+    },
+    "fresh": {
+      "epoch": 2,
+      "failure": {
+        "category": "compile",
+        "diagnostic": "error at input 2, line 1, column 1: No local variable `saved`\n  saved\n  ^",
+        "diagnostic_truncated": false,
+        "origin": {
+          "column": 1,
+          "epoch": 2,
+          "excerpt": "saved",
+          "excerpt_truncated": false,
+          "input": 2,
+          "line": 1
+        }
+      },
+      "id": 5,
+      "input": 2,
+      "state_lost": false,
+      "text_plain": null,
+      "type": "settled"
+    }
+  },
+  "worker startup refusal": {
+    "exit": 1,
+    "stdout": "",
+    "stderr": "error: extension `sibling` could not be installed: deliberately broken\n",
+    "control": ""
+  }
+}

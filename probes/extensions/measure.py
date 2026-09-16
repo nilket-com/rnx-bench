@@ -2,7 +2,7 @@
 """0051: compare complete single-file outputs before matched process timings."""
 import hashlib, json, os, pathlib, shlex, subprocess, sys, tempfile
 ROOT = pathlib.Path(__file__).resolve().parents[2]
-OUT = ROOT / 'results/extensions-0051'
+OUT = pathlib.Path(os.environ.get('RNX_EXTENSION_RESULTS', str(ROOT / 'results/extensions-0051')))
 OUT.mkdir(parents=True, exist_ok=True)
 before, after, app = (str(pathlib.Path(p).resolve()) for p in sys.argv[1:4])
 result = {'binaries': {}, 'outputs': {}, 'versions': {}, 'conditions': {'core': 4, 'warmups': 10, 'runs': 100}, 'sources': {}}

@@ -1,0 +1,275 @@
+{
+  "success": {
+    "setup_source": null,
+    "source": "pg_probe::query(\"postgresql:///postgres?host=/tmp/rnx-pg-ownership-arstnc34&application_name=rnx-pg-ownership-success\", 0.5, 90000, false).await?",
+    "before": {},
+    "opened": {
+      "8": "socket:[3097213]"
+    },
+    "active": "1748078|active|SELECT 42::bigint AS n FROM pg_sleep($1)",
+    "after_select": null,
+    "after": {},
+    "reply": {
+      "epoch": 1,
+      "failure": null,
+      "id": 1,
+      "input": 1,
+      "render_bounded": true,
+      "state_lost": false,
+      "text_plain": "42",
+      "type": "settled"
+    },
+    "seconds": 0.5091370409936644,
+    "events": "connected 0 1\ndropped 0 0\n",
+    "backend_after": ""
+  },
+  "deadline": {
+    "setup_source": null,
+    "source": "match pg_probe::query(\"postgresql:///postgres?host=/tmp/rnx-pg-ownership-arstnc34&application_name=rnx-pg-ownership-deadline\", 5.0, 600, false).await { Ok(n) => n.to_string(), Err(e) => e }",
+    "before": {},
+    "opened": {
+      "8": "socket:[3100702]"
+    },
+    "active": "1748214|active|SELECT 42::bigint AS n FROM pg_sleep($1)",
+    "after_select": null,
+    "after": {},
+    "reply": {
+      "epoch": 1,
+      "failure": null,
+      "id": 1,
+      "input": 1,
+      "render_bounded": true,
+      "state_lost": false,
+      "text_plain": "\"prototype deadline\"",
+      "type": "settled"
+    },
+    "seconds": 0.6048773659858853,
+    "events": "connected 0 1\ndropped 0 0\n",
+    "backend_after": ""
+  },
+  "conversion": {
+    "setup_source": null,
+    "source": "pg_probe::query(\"postgresql:///postgres?host=/tmp/rnx-pg-ownership-arstnc34&application_name=rnx-pg-ownership-conversion\", 0.5, 90000, true).await",
+    "before": {},
+    "opened": {
+      "8": "socket:[3096131]"
+    },
+    "active": "1748224|active|SELECT 42::bigint AS n FROM pg_sleep($1)",
+    "after_select": null,
+    "after": {},
+    "reply": {
+      "epoch": 1,
+      "failure": null,
+      "id": 1,
+      "input": 1,
+      "render_bounded": true,
+      "state_lost": false,
+      "text_plain": "Err(\"prototype conversion refusal\")",
+      "type": "settled"
+    },
+    "seconds": 0.5083575760363601,
+    "events": "connected 0 1\ndropped 0 0\n",
+    "backend_after": ""
+  },
+  "interrupt": {
+    "setup_source": null,
+    "source": "pg_probe::query(\"postgresql:///postgres?host=/tmp/rnx-pg-ownership-arstnc34&application_name=rnx-pg-ownership-interrupt\", 120.0, 90000, false).await?",
+    "before": {},
+    "opened": {
+      "8": "socket:[3096141]"
+    },
+    "active": "1748234|active|SELECT 42::bigint AS n FROM pg_sleep($1)",
+    "after_select": null,
+    "after": {},
+    "reply": {
+      "epoch": 1,
+      "failure": {
+        "category": "interrupted",
+        "diagnostic": "interrupted",
+        "diagnostic_truncated": false,
+        "origin": null
+      },
+      "id": 1,
+      "input": 1,
+      "state_lost": false,
+      "text_plain": null,
+      "type": "settled"
+    },
+    "seconds": 0.02406110696028918,
+    "events": "connected 0 1\ndropped 0 0\n",
+    "backend_after": "1748234|active|SELECT 42::bigint AS n FROM pg_sleep($1)"
+  },
+  "pending-drop": {
+    "setup_source": null,
+    "source": "let q = pg_probe::query(\"postgresql:///postgres?host=/tmp/rnx-pg-ownership-arstnc34&application_name=rnx-pg-ownership-pending-drop\", 120.0, 90000, false); let timer = time::sleep(400); select { _ = q => (), _ = timer => () }; io::eprint(\"released-select........................................................................................................................................................................................................\")?; time::sleep(600).await?; panic!(\"discard new binding\")",
+    "before": {},
+    "opened": {
+      "8": "socket:[3090150]"
+    },
+    "active": "1748244|active|SELECT 42::bigint AS n FROM pg_sleep($1)",
+    "after_select": {
+      "8": "socket:[3090150]"
+    },
+    "after": {},
+    "reply": {
+      "epoch": 1,
+      "failure": {
+        "category": "runtime",
+        "diagnostic": "runtime error at input 1, line 1, column 484: Panicked: discard new binding\n  let q = pg_probe::query(\"postgresql:///postgres?host=/tmp/rnx-pg-ownership-arstnc34&application_name=rnx-pg-ownership-pending-drop\", 120.0, 90000, false); let timer = time::sleep(400); select { _ = q => (), _ = timer => () }; io::eprint(\"released-select........................................................................................................................................................................................................\")?; time::sleep(600).await?; panic!(\"discard new binding\")\n                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     ^",
+        "diagnostic_truncated": false,
+        "origin": {
+          "column": 484,
+          "epoch": 1,
+          "excerpt": "let q = pg_probe::query(\"postgresql:///postgres?host=/tmp/rnx-pg-ownership-arstnc34&application_name=rnx-pg-ownership-pending-drop\", 120.0, 90000, false); let timer = time::sleep(400); select { _ = q => (), _ = timer => () }; io::eprint(\"released-select........................................................................................................................................................................................................\")?; time::sleep(600).await?; panic!(\"discard new binding\")",
+          "excerpt_truncated": false,
+          "input": 1,
+          "line": 1
+        }
+      },
+      "id": 1,
+      "input": 1,
+      "state_lost": false,
+      "text_plain": null,
+      "type": "settled"
+    },
+    "seconds": 1.0062235319637693,
+    "events": "connected 0 1\ndropped 0 0\n",
+    "backend_after": "1748244|active|SELECT 42::bigint AS n FROM pg_sleep($1)",
+    "binding_unpublished": {
+      "epoch": 1,
+      "failure": {
+        "category": "compile",
+        "diagnostic": "error at input 2, line 1, column 1: No local variable `q`\n  q\n  ^",
+        "diagnostic_truncated": false,
+        "origin": {
+          "column": 1,
+          "epoch": 1,
+          "excerpt": "q",
+          "excerpt_truncated": false,
+          "input": 2,
+          "line": 1
+        }
+      },
+      "id": 2,
+      "input": 2,
+      "state_lost": false,
+      "text_plain": null,
+      "type": "settled"
+    }
+  },
+  "budget": {
+    "setup_source": null,
+    "source": "let q = pg_probe::query(\"postgresql:///postgres?host=/tmp/rnx-pg-ownership-arstnc34&application_name=rnx-pg-ownership-budget\", 120.0, 90000, false); let timer = time::sleep(400); select { _ = q => (), _ = timer => () }; io::eprint(\"released-select........................................................................................................................................................................................................\")?; time::sleep(600).await?; loop {}",
+    "before": {},
+    "opened": {
+      "8": "socket:[3093101]"
+    },
+    "active": "1748255|active|SELECT 42::bigint AS n FROM pg_sleep($1)",
+    "after_select": {
+      "8": "socket:[3093101]"
+    },
+    "after": {},
+    "reply": {
+      "epoch": 1,
+      "failure": {
+        "budget": 2000000000,
+        "category": "budget",
+        "diagnostic": "halted: 2000000000 instructions exceeded",
+        "diagnostic_truncated": false,
+        "origin": null
+      },
+      "id": 1,
+      "input": 1,
+      "state_lost": false,
+      "text_plain": null,
+      "type": "settled"
+    },
+    "seconds": 12.8181642399868,
+    "events": "connected 0 1\ndropped 0 0\n",
+    "backend_after": "1748255|active|SELECT 42::bigint AS n FROM pg_sleep($1)",
+    "binding_unpublished": {
+      "epoch": 1,
+      "failure": {
+        "category": "compile",
+        "diagnostic": "error at input 2, line 1, column 1: No local variable `q`\n  q\n  ^",
+        "diagnostic_truncated": false,
+        "origin": {
+          "column": 1,
+          "epoch": 1,
+          "excerpt": "q",
+          "excerpt_truncated": false,
+          "input": 2,
+          "line": 1
+        }
+      },
+      "id": 2,
+      "input": 2,
+      "state_lost": false,
+      "text_plain": null,
+      "type": "settled"
+    }
+  },
+  "lazy": {
+    "setup_source": null,
+    "source": "let q = pg_probe::query(\"postgresql:///postgres?host=/tmp/rnx-pg-ownership-arstnc34&application_name=rnx-pg-ownership-lazy\", 120.0, 90000, false);",
+    "before": {},
+    "opened": null,
+    "active": null,
+    "after_select": null,
+    "after": {},
+    "reply": {
+      "epoch": 1,
+      "failure": null,
+      "id": 1,
+      "input": 1,
+      "state_lost": false,
+      "text_plain": null,
+      "type": "settled"
+    },
+    "seconds": 0.0010055809980258346,
+    "events": "",
+    "backend_after": ""
+  },
+  "retained-interrupt": {
+    "setup_source": "let q = pg_probe::query(\"postgresql:///postgres?host=/tmp/rnx-pg-ownership-arstnc34&application_name=rnx-pg-ownership-retained-interrupt\", 5.0, 600, false);",
+    "source": "let timer = time::sleep(120000); select { _ = q => (), _ = timer => () };",
+    "before": {},
+    "opened": {
+      "8": "socket:[3103791]"
+    },
+    "active": "1748276|active|SELECT 42::bigint AS n FROM pg_sleep($1)",
+    "after_select": null,
+    "after": {},
+    "reply": {
+      "epoch": 1,
+      "failure": {
+        "category": "interrupted",
+        "diagnostic": "interrupted",
+        "diagnostic_truncated": false,
+        "origin": null
+      },
+      "id": 2,
+      "input": 2,
+      "state_lost": false,
+      "text_plain": null,
+      "type": "settled"
+    },
+    "seconds": 0.02300557302078232,
+    "events": "connected 0 1\ndropped 0 0\n",
+    "backend_after": "1748276|active|SELECT 42::bigint AS n FROM pg_sleep($1)",
+    "ownership_passed": true,
+    "after_passive_wait": {},
+    "backend_after_passive_wait": "",
+    "events_after_passive_wait": "connected 0 1\ndropped 0 0\n",
+    "repoll": {
+      "epoch": 1,
+      "failure": null,
+      "id": 3,
+      "input": 3,
+      "render_bounded": true,
+      "state_lost": false,
+      "text_plain": "Err(\"operation cancelled\")",
+      "type": "settled"
+    }
+  }
+}
