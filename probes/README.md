@@ -179,3 +179,8 @@ tokio current-thread runtime.
   independent transaction-state and rollback observations, wire-level no-retry
   counts, retirement and fresh backends. Results and unchanged transaction
   regression: `results/commit-classification-0056/`.
+
+- `server-extraction/` — record 0056 gate 4: independent server package using
+  only the public execution API; unchanged wire, transaction, scheduling and
+  both-signal shutdown regressions, integrated COMMIT classification and
+  blocked-stderr containment. Results: `results/server-extraction-0056/`.
