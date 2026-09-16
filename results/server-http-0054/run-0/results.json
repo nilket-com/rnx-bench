@@ -1,0 +1,384 @@
+[
+  {
+    "case": "HTTP 1.0 refused",
+    "status": 505,
+    "end": "eof",
+    "bytes": 136,
+    "elapsed_ms": 0.32839697087183595
+  },
+  {
+    "case": "echo",
+    "status": 200,
+    "end": "eof",
+    "bytes": 101,
+    "elapsed_ms": 6.386837980244309
+  },
+  {
+    "case": "exact body",
+    "status": 200,
+    "end": "eof",
+    "bytes": 1048676,
+    "elapsed_ms": 300.7382240029983
+  },
+  {
+    "case": "response bad-status",
+    "status": 500,
+    "end": "eof",
+    "bytes": 128,
+    "elapsed_ms": 10.268220969010144
+  },
+  {
+    "case": "response extra-field",
+    "status": 500,
+    "end": "eof",
+    "bytes": 128,
+    "elapsed_ms": 9.487207978963852
+  },
+  {
+    "case": "response bad-header",
+    "status": 500,
+    "end": "eof",
+    "bytes": 128,
+    "elapsed_ms": 8.674513024743646
+  },
+  {
+    "case": "response framing",
+    "status": 500,
+    "end": "eof",
+    "bytes": 128,
+    "elapsed_ms": 7.388034020550549
+  },
+  {
+    "case": "response no-content",
+    "status": 500,
+    "end": "eof",
+    "bytes": 128,
+    "elapsed_ms": 7.342224009335041
+  },
+  {
+    "case": "response body cap",
+    "status": 500,
+    "end": "eof",
+    "bytes": 128,
+    "elapsed_ms": 8.975199947599322
+  },
+  {
+    "case": "empty 204",
+    "status": 204,
+    "end": "eof",
+    "bytes": 83,
+    "elapsed_ms": 5.156034021638334
+  },
+  {
+    "case": "response fields over",
+    "status": 500,
+    "end": "eof",
+    "bytes": 128,
+    "elapsed_ms": 5.0060199573636055
+  },
+  {
+    "case": "response bytes over",
+    "status": 500,
+    "end": "eof",
+    "bytes": 128,
+    "elapsed_ms": 4.433495982084423
+  },
+  {
+    "case": "headers-exact",
+    "status": 200,
+    "wire_fields": 64,
+    "wire_header_bytes": 429
+  },
+  {
+    "case": "header-bytes-exact",
+    "status": 200,
+    "wire_fields": 4,
+    "wire_header_bytes": 16384
+  },
+  {
+    "case": "raw query and repeated non-Unicode headers",
+    "status": 200
+  },
+  {
+    "case": "no path normalization",
+    "status": 404,
+    "end": "eof",
+    "bytes": 106,
+    "elapsed_ms": 0.1974920160137117
+  },
+  {
+    "case": "body plus one",
+    "status": 413,
+    "end": "eof",
+    "bytes": 113,
+    "elapsed_ms": 0.20747102098539472
+  },
+  {
+    "case": "huge declared length",
+    "status": 413,
+    "end": "eof",
+    "bytes": 113,
+    "elapsed_ms": 0.19199796952307224
+  },
+  {
+    "case": "expect",
+    "status": 417,
+    "end": "eof",
+    "bytes": 116,
+    "elapsed_ms": 0.24540198501199484
+  },
+  {
+    "case": "encoding",
+    "status": 415,
+    "end": "eof",
+    "bytes": 122,
+    "elapsed_ms": 0.08974096272140741
+  },
+  {
+    "case": "unknown",
+    "status": 404,
+    "end": "eof",
+    "bytes": 106,
+    "elapsed_ms": 0.15717296628281474
+  },
+  {
+    "case": "method",
+    "status": 405,
+    "end": "eof",
+    "bytes": 129,
+    "elapsed_ms": 0.07746199844405055
+  },
+  {
+    "case": "absolute target",
+    "status": 400,
+    "end": "eof",
+    "bytes": 115,
+    "elapsed_ms": 0.06736000068485737
+  },
+  {
+    "case": "upgrade",
+    "status": 400,
+    "end": "eof",
+    "bytes": 110,
+    "elapsed_ms": 0.09035703260451555
+  },
+  {
+    "case": "long target",
+    "status": 414,
+    "end": "eof",
+    "bytes": 110,
+    "elapsed_ms": 0.07353496039286256
+  },
+  {
+    "case": "exact header count",
+    "status": 200,
+    "end": "eof",
+    "bytes": 94,
+    "elapsed_ms": 3.2025680411607027
+  },
+  {
+    "case": "too many headers",
+    "status": 431,
+    "end": "eof",
+    "bytes": 123,
+    "elapsed_ms": 0.05645398050546646
+  },
+  {
+    "case": "large head",
+    "status": 431,
+    "end": "eof",
+    "bytes": 123,
+    "elapsed_ms": 0.049220980145037174
+  },
+  {
+    "case": "conflicting lengths",
+    "status": 400,
+    "end": "eof",
+    "bytes": 103,
+    "elapsed_ms": 0.04051695577800274
+  },
+  {
+    "case": "pipeline ignored",
+    "status": 200,
+    "end": "eof",
+    "bytes": 95,
+    "elapsed_ms": 3.126853029243648
+  },
+  {
+    "case": "chunked",
+    "status": 200,
+    "end": "eof",
+    "bytes": 97,
+    "elapsed_ms": 3.1759830308146775
+  },
+  {
+    "case": "huge declared chunk",
+    "status": 413,
+    "end": "eof",
+    "bytes": 113,
+    "elapsed_ms": 0.5030769971199334
+  },
+  {
+    "case": "chunks over cap",
+    "status": 413,
+    "end": "eof",
+    "bytes": 113,
+    "elapsed_ms": 0.37263002013787627
+  },
+  {
+    "case": "many chunks",
+    "status": 200,
+    "end": "eof",
+    "bytes": 10098,
+    "elapsed_ms": 10.697212012019008
+  },
+  {
+    "case": "oversized chunk extension",
+    "status": 400,
+    "end": "eof",
+    "bytes": 116,
+    "elapsed_ms": 0.42652199044823647
+  },
+  {
+    "case": "chunk length overflow",
+    "status": 400,
+    "end": "eof",
+    "bytes": 116,
+    "elapsed_ms": 0.07944897515699267
+  },
+  {
+    "case": "trailers",
+    "status": 400,
+    "end": "eof",
+    "bytes": 111,
+    "elapsed_ms": 0.09538402082398534
+  },
+  {
+    "case": "huge trailer",
+    "status": 400,
+    "end": "eof",
+    "bytes": 116,
+    "elapsed_ms": 0.4363799816928804
+  },
+  {
+    "case": "truncated body",
+    "status": 400,
+    "end": "eof"
+  },
+  {
+    "case": "body deadline",
+    "status": 408,
+    "elapsed_ms": 5000.922698993236,
+    "end": "eof"
+  },
+  {
+    "case": "head deadline",
+    "status": null,
+    "elapsed_ms": 5002.112544956617,
+    "end": "eof"
+  },
+  {
+    "case": "empty head deadline",
+    "status": null,
+    "elapsed_ms": 5001.754790020641,
+    "end": "eof"
+  },
+  {
+    "case": "fragmented head deadline",
+    "status": null,
+    "elapsed_ms": 5001.932028972078,
+    "end": "eof"
+  },
+  {
+    "case": "connection saturation",
+    "end": "eof"
+  },
+  {
+    "case": "queue saturation",
+    "status": 503,
+    "builds": 26
+  },
+  {
+    "case": "disconnect cleanup",
+    "elapsed_ms": 7.241946004796773
+  },
+  {
+    "case": "admitted deadline",
+    "status": 504,
+    "elapsed_ms": 2002.1902099833824
+  },
+  {
+    "case": "recovery",
+    "status": 200,
+    "end": "eof",
+    "bytes": 96,
+    "elapsed_ms": 9.700903960037977
+  },
+  {
+    "case": "cpu whole budget",
+    "status": 500,
+    "end": "eof",
+    "bytes": 128,
+    "elapsed_ms": 91.47223102627322
+  },
+  {
+    "case": "failure",
+    "status": 500,
+    "end": "eof",
+    "bytes": 128,
+    "elapsed_ms": 3.3266099635511637
+  },
+  {
+    "case": "coordinator under CPU",
+    "status": 417,
+    "elapsed_ms": 0.19621895626187325
+  },
+  {
+    "case": "native call retains active slot after 504",
+    "status": 504,
+    "deadline_ms": 1998.3745209999997,
+    "teardown_ms": 2500.2158249999993
+  },
+  {
+    "case": "queued expiry without construction",
+    "status": 504,
+    "id": 123
+  },
+  {
+    "case": "slow reader",
+    "observed_write_deadlines": 1
+  },
+  {
+    "case": "post slow-reader recovery",
+    "status": 200,
+    "end": "eof",
+    "bytes": 96,
+    "elapsed_ms": 8.498374023474753
+  },
+  {
+    "case": "resource batches",
+    "batches": [
+      {
+        "iteration": 0,
+        "held_live_bytes": 51499312,
+        "held_rss_kib": 56052,
+        "idle_live_bytes": 129840,
+        "idle_rss_kib": 23268
+      },
+      {
+        "iteration": 1,
+        "held_live_bytes": 51499312,
+        "held_rss_kib": 56048,
+        "idle_live_bytes": 129840,
+        "idle_rss_kib": 23268
+      },
+      {
+        "iteration": 2,
+        "held_live_bytes": 51499312,
+        "held_rss_kib": 56048,
+        "idle_live_bytes": 129840,
+        "idle_rss_kib": 23268
+      }
+    ]
+  }
+]

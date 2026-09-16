@@ -144,3 +144,11 @@ tokio current-thread runtime.
   remains open. Evidence: `results/server-assembly-0054/`.
 
 - [HTTP lifecycle migration](http-lifecycle-0055/): record 0055; inline tracked HTTP, in-runtime owner cancellation, 0054 assembly replay and matched costs.
+
+- `server-http/` — record 0054 gate 3: a private Hyper 1.11.1 HTTP/1.1
+  coordinator with two real-battery executor workers, eight active credits and
+  a sixteen-request queue. Two raw-TCP repeats exercise 56 boundary cases,
+  parser/body/response limits, admission, disconnect/deadline ownership, CPU
+  separation, memory release and SIGINT/SIGTERM teardown. Results are in
+  `results/server-http-0054/`; transaction integration and gate-4 measurements
+  remain open.
