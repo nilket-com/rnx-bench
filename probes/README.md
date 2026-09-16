@@ -168,3 +168,8 @@ tokio current-thread runtime.
   backend observations, and explicit driver/overall deadline failures. The
   eight transaction and 57 wire regressions also pass. Results are in
   `results/server-shutdown-0054/`; the supported server entry remains open.
+
+- `server-entry/` — record 0056 gate 1: a separate crate using only the optional
+  public execution API and Rune re-export; started-drop-close, same-worker and
+  cross-worker isolation, explicit counts and diagnostics. Two-run evidence in
+  `results/server-entry-0056/`; no HTTP server extraction yet.

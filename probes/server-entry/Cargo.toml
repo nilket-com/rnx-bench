@@ -1,0 +1,13 @@
+[package]
+name = "rnx-server-entry-fixture"
+version = "0.0.0"
+edition = "2024"
+publish = false
+[workspace]
+[dependencies]
+rnx = { path = "../../../rnx", features = ["server-runtime"] }
+tokio = { version = "1", features = ["rt", "time"] }
+[profile.dev]
+debug = false
+[profile.dev.package."*"]
+opt-level = 2
