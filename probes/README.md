@@ -150,5 +150,6 @@ tokio current-thread runtime.
   a sixteen-request queue. Two raw-TCP repeats exercise 56 boundary cases,
   parser/body/response limits, admission, disconnect/deadline ownership, CPU
   separation, memory release and SIGINT/SIGTERM teardown. Results are in
-  `results/server-http-0054/`; transaction integration and gate-4 measurements
-  remain open.
+  `results/server-http-0054/`; gate-4 scheduling follows in
+  `results/server-http-0054-scheduling/`. Transaction integration and the full
+  shutdown matrix remain open.
