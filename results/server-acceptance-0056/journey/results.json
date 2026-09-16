@@ -1,0 +1,141 @@
+{
+  "client_command": [
+    "/usr/bin/python3",
+    "/home/me/work/rnx-bench/probes/server-acceptance/client.py",
+    "46175"
+  ],
+  "client_pid": 2258725,
+  "server_pid": 2258716,
+  "binary_sha256": "259e8b0b0f4de7a5570bb5d467c8c22875f5d5d44865b1d3c896e0beb4874076",
+  "program_sha256": "8868a951ace7043c404218d4ed4aefd744201cdfbb5836d7c797f0687e5914d4",
+  "requests": [
+    {
+      "tag": "healthy-await",
+      "status": 200,
+      "body_hex": "6865616c74687920626573696465206177616974",
+      "started_ns": 306697460047351,
+      "ended_ns": 306697467592955
+    },
+    {
+      "tag": "await",
+      "status": 200,
+      "body_hex": "68656c6c6f",
+      "started_ns": 306697449594463,
+      "ended_ns": 306697708376253
+    },
+    {
+      "tag": "healthy-cpu",
+      "status": 200,
+      "body_hex": "6865616c7468792062657369646520637075",
+      "started_ns": 306697726321215,
+      "ended_ns": 306697730945608
+    },
+    {
+      "tag": "cpu",
+      "status": 500,
+      "body_hex": "68616e646c6572206661696c6564",
+      "started_ns": 306697709922934,
+      "ended_ns": 306697806151340
+    },
+    {
+      "tag": "rollback",
+      "status": 500,
+      "body_hex": "68616e646c6572206661696c6564",
+      "started_ns": 306697806818734,
+      "ended_ns": 306697812259109
+    },
+    {
+      "tag": "next1",
+      "status": 200,
+      "body_hex": "68656c6c6f",
+      "started_ns": 306697818628419,
+      "ended_ns": 306697823435631
+    },
+    {
+      "tag": "next2",
+      "status": 200,
+      "body_hex": "68656c6c6f",
+      "started_ns": 306697823648266,
+      "ended_ns": 306697828428736
+    }
+  ],
+  "context_build_ms": [
+    4.33119,
+    6.324487,
+    9.968734,
+    3.762735,
+    3.64977,
+    3.2621640000000003,
+    3.699046
+  ],
+  "rollback_pid": 2258723,
+  "reused_pid": 2258723,
+  "shutdown_ms": 9.1072489740327,
+  "closed": {
+    "active": [
+      0,
+      0
+    ],
+    "builds": 8,
+    "connections": 0,
+    "event": "closed",
+    "inherited_sockets": 0,
+    "live_bytes": 39760,
+    "ms": 490.006585,
+    "peak_bytes": 3013486,
+    "retired": 8,
+    "sockets": 0
+  },
+  "pooled_backends_after": 0,
+  "postmaster_reaped": 2258702,
+  "cluster_events": [
+    {
+      "stage": "initdb",
+      "pid": 2258670,
+      "directory": "/tmp/rnx-pg-contract-goawc3j0",
+      "data": "/tmp/rnx-pg-contract-goawc3j0/data"
+    },
+    {
+      "stage": "pg_ctl",
+      "pid": 2258699,
+      "directory": "/tmp/rnx-pg-contract-goawc3j0",
+      "data": "/tmp/rnx-pg-contract-goawc3j0/data"
+    },
+    {
+      "stage": "psql",
+      "pid": 2258712,
+      "directory": "/tmp/rnx-pg-contract-goawc3j0",
+      "data": "/tmp/rnx-pg-contract-goawc3j0/data"
+    },
+    {
+      "stage": "psql",
+      "pid": 2258714,
+      "directory": "/tmp/rnx-pg-contract-goawc3j0",
+      "data": "/tmp/rnx-pg-contract-goawc3j0/data"
+    },
+    {
+      "stage": "psql",
+      "pid": 2258729,
+      "directory": "/tmp/rnx-pg-contract-goawc3j0",
+      "data": "/tmp/rnx-pg-contract-goawc3j0/data"
+    },
+    {
+      "stage": "psql",
+      "pid": 2258731,
+      "directory": "/tmp/rnx-pg-contract-goawc3j0",
+      "data": "/tmp/rnx-pg-contract-goawc3j0/data"
+    },
+    {
+      "stage": "psql",
+      "pid": 2258733,
+      "directory": "/tmp/rnx-pg-contract-goawc3j0",
+      "data": "/tmp/rnx-pg-contract-goawc3j0/data"
+    },
+    {
+      "stage": "pg_ctl",
+      "pid": 2258744,
+      "directory": "/tmp/rnx-pg-contract-goawc3j0",
+      "data": "/tmp/rnx-pg-contract-goawc3j0/data"
+    }
+  ]
+}

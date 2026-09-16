@@ -1,0 +1,52 @@
+{
+  "before_commit": "032579a22ec615d510b7d326a285361c06c55e4f",
+  "after_commit": "3f8f6af3f162b8a0177b875e065ed2cfccd01567",
+  "rustc": "rustc 1.98.1 (48a229cea 2026-09-01)\nbinary: rustc\ncommit-hash: 48a229ceaefd4985c50990b14116b6d856af0985\ncommit-date: 2026-09-01\nhost: x86_64-unknown-linux-gnu\nrelease: 1.98.1\nLLVM version: 22.1.8\n",
+  "binaries": {
+    "before": {
+      "path": "/home/me/work/rnx-bench/probes/server-acceptance/target/before-build/release/rnx",
+      "sha256": "faa0f08bce74dcd0f4ca7670cbf70785b07c11a14abe93f65699c3518346ff49",
+      "bytes": 15182344
+    },
+    "after": {
+      "path": "/home/me/work/rnx-bench/probes/server-acceptance/target/after-build/release/rnx",
+      "sha256": "4a4be718d371131f6d86023195893f998ee9441487266e831739adea19ec03d1",
+      "bytes": 15182472
+    }
+  },
+  "graph": {
+    "before": "fbed833f91ea6906ac59bd563fa1134bd372d5c1567c02898fc6b874bb4e8063",
+    "after": "fbed833f91ea6906ac59bd563fa1134bd372d5c1567c02898fc6b874bb4e8063"
+  },
+  "commands": [
+    {
+      "cwd": "/home/me/work/rnx-bench/probes/server-acceptance/target/before-tree",
+      "args": [
+        "cargo",
+        "build",
+        "--locked",
+        "--offline",
+        "--release",
+        "--target-dir",
+        "/home/me/work/rnx-bench/probes/server-acceptance/target/before-build"
+      ]
+    },
+    {
+      "cwd": "/home/me/work/rnx",
+      "args": [
+        "cargo",
+        "build",
+        "--locked",
+        "--offline",
+        "--release",
+        "--target-dir",
+        "/home/me/work/rnx-bench/probes/server-acceptance/target/after-build"
+      ]
+    }
+  ],
+  "before_lock_sha256": "9991a3df21fd96a6e7cb400ff1a71ce236fc62fc0d6bd1d5b6d953aad06ca115",
+  "after_lock_sha256": "9991a3df21fd96a6e7cb400ff1a71ce236fc62fc0d6bd1d5b6d953aad06ca115",
+  "root_workspace_members": [
+    "path+file:///home/me/work/rnx#0.0.0"
+  ]
+}

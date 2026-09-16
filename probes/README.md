@@ -184,3 +184,8 @@ tokio current-thread runtime.
   only the public execution API; unchanged wire, transaction, scheduling and
   both-signal shutdown regressions, integrated COMMIT classification and
   blocked-stderr containment. Results: `results/server-extraction-0056/`.
+
+- `server-acceptance/` — record 0056 gates 5 and 6: separate-client journey
+  through the ordinary shipped example; exact CLI comparison and ABBA stock
+  timings against `032579a`, root suite logs and default graph isolation.
+  Results: `results/server-acceptance-0056/`.
