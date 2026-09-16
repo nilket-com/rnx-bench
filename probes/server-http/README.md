@@ -129,10 +129,19 @@ SIGTERM. The stock test in `results/server-http-0054/stock-interrupt.txt`
 executes the existing synchronous-session interrupt test with test-support
 and requires one test, not a zero-test feature-disabled invocation.
 
+The gate-3 review found two details now pinned by follow-up fixtures. Hyper
+accepts bare LF line endings; the raw-wire driver records that tolerance instead
+of claiming strict CRLF framing. A future reverse-proxy deployment must verify
+framing compatibility. No second parser is added here. The final socket check
+now snapshots `(descriptor, socket identity)` before startup and requires the
+same inherited set at shutdown, with no additional sockets. `inherited.py`
+proves null, pipe and Unix-socket stdin; the normal driver explicitly uses the
+null device. Follow-up results are in `results/server-http-0054-review/`.
+
 On teardown the prototype cancels owners, drops queued requests, disposes
 connection tasks, awaits handler tasks, then drains each worker runtime only
-after its owners end. It joins both worker threads and asserts zero socket
-FDs, zero charged active slots, zero connection permits, zero runtime tasks,
+after its owners end. It joins both worker threads and asserts zero newly owned socket
+FDs (inherited sockets remain unchanged), zero charged active slots, zero connection permits, zero runtime tasks,
 and equal context construction/retirement counts. Python waits for exit and
 joins its monitor. Failure cleanup kills/reaps the fixture process group.
 

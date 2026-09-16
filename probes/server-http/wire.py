@@ -4,14 +4,15 @@ import argparse, concurrent.futures, hashlib, json, os, pathlib, signal, socket,
 HERE=pathlib.Path(__file__).resolve().parent
 LIMIT=1024*1024
 class Server:
-    def __init__(self,out):
+    def __init__(self,out, *, stdin=subprocess.DEVNULL, extra_env=None):
         self.out=out;out.mkdir(parents=True,exist_ok=True)
         self.events_path=out/'events.jsonl';self.events_path.write_text('')
         build=json.loads((HERE/'build.json').read_text());self.build=build
         env={k:v for k,v in os.environ.items() if k.lower() not in ('http_proxy','https_proxy','all_proxy','no_proxy') and k!='RNX_CONFIG'}
         env.update(RNX_HTTP_EVENTS=str(self.events_path.resolve()),TERM='dumb',RNX_HTTP_SMALL_SEND_BUFFER='1')
+        if extra_env:env.update(extra_env)
         self.log=(out/'server.log').open('w')
-        self.p=subprocess.Popen([build['binary'],'server_http_probe::server','--exact','--ignored','--nocapture'],env=env,stdout=self.log,stderr=subprocess.STDOUT,start_new_session=True)
+        self.p=subprocess.Popen([build['binary'],'server_http_probe::server','--exact','--ignored','--nocapture'],env=env,stdin=stdin,stdout=self.log,stderr=subprocess.STDOUT,start_new_session=True)
         self.samples=[];self.stop=threading.Event()
         self.monitor=threading.Thread(target=self.sample);self.monitor.start()
         try:self.wait(lambda:any(e['event']=='ready' for e in self.events()),10)
@@ -80,6 +81,7 @@ def run(s,rows):
         if body is not None:assert r[0].split(b'\r\n\r\n',1)[1]==body,row
         if want in (400,404,405,413,414,415,417,431,505):assert sum(e['event']=='built' for e in s.events())==before,row
     case('HTTP 1.0 refused',s.request().replace(b'HTTP/1.1',b'HTTP/1.0'),505)
+    case('bare LF tolerated',s.request().replace(b'\r\n',b'\n'),200,b'')
     case('echo',s.request(data=b'hello\x00\xff'),200,b'hello\x00\xff')
     case('exact body',s.request(data=b'x'*LIMIT),200,b'x'*LIMIT)
     for query in ['bad-status','extra-field','bad-header','framing','no-content']:
