@@ -1,7 +1,50 @@
-# PostgreSQL ownership prototype — 0052 stop and 0053 lifecycle rerun
+# PostgreSQL adapter gates
+
+The original `ownership/` crate and `ownership.py` are the stopped 0052 prototype
+and its 0053 tracked-lifecycle rerun. Their historical result directories remain
+unchanged. The implementation is the independent `rnx/adapters/postgres` package.
+
+Build both the product binary and the separate commitment fixture, then restore
+the default product build (its hash is the one measured):
+
+```sh
+cargo build --locked --release --manifest-path ../rnx/adapters/postgres/Cargo.toml --features test-support --bin rnx-pg-test
+cargo build --locked --release --manifest-path ../rnx/adapters/postgres/Cargo.toml --bin rnx-pg
+PYTHONDONTWRITEBYTECODE=1 python3 probes/postgres/contract.py
+PYTHONDONTWRITEBYTECODE=1 python3 probes/postgres/lifecycle.py
+PYTHONDONTWRITEBYTECODE=1 probes/jupyter-notebook/.venv/bin/python probes/postgres/entrypoints.py
+PYTHONDONTWRITEBYTECODE=1 python3 probes/postgres/cleanup.py
+PYTHONDONTWRITEBYTECODE=1 python3 probes/postgres/cost.py
+```
+
+Run the cleanup battery after other PostgreSQL fixtures have finished; it refuses
+to start if a prior fixture's postmaster is still alive. PostgreSQL 18 tools must
+exist at `/usr/lib/postgresql/18/bin`. No test uses the system cluster. `cluster.py`
+owns a mode-0700 directory, no listening TCP socket, its own authentication file,
+and cleanup from before initdb begins. The notebook gate reuses the pinned Jupyter
+environment and installer with a temporary user directory.
+
+`lifecycle.py` deliberately takes about 90 seconds: it observes an interrupted
+backend independently of the already-closed client descriptor. It cannot replace
+that server observation with the much quicker client settlement. Each operation
+case has its own application name so an older sleeping backend cannot satisfy a
+later case's active-query observation. Descriptor checks occur before worker ack.
+
+The committed-write pause requires `rnx-pg-test`, which explicitly activates the
+feature-only hook. The ordinary executable does not activate it. The fixture
+observes the row from another connection before releasing decoding.
+
+`results/postgres-0052-adapter/` contains full observations, notebook and checks.
+`probes/extensions/measure.py` additionally compares the existing 0051 cases and
+matched startup timings. Windows cross-compilation is recorded as blocked at
+ring's missing MSVC librarian; these Linux gates do not imply Windows execution.
+
+---
+
+# Historical ownership prototype — 0052 stop and 0053 lifecycle rerun
 
 The original stop: Codex, nano/Linux, 2026-09-16. Used rnx at `aee1d83` (plan `cb4f519`),
-tokio-postgres exactly 0.7.18, and PostgreSQL 18.6. No product adapter exists yet.
+tokio-postgres exactly 0.7.18, and PostgreSQL 18.6. At that point no product adapter existed.
 
 ```sh
 cargo build --locked --release --manifest-path probes/postgres/ownership/Cargo.toml

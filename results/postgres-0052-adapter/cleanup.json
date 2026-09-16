@@ -1,0 +1,174 @@
+{
+  "success": {
+    "observed": null,
+    "report": {
+      "events": [
+        {
+          "stage": "initdb",
+          "pid": 1827533,
+          "directory": "/tmp/rnx-pg-contract-ckwcv44f",
+          "data": "/tmp/rnx-pg-contract-ckwcv44f/data"
+        },
+        {
+          "stage": "pg_ctl",
+          "pid": 1827546,
+          "directory": "/tmp/rnx-pg-contract-ckwcv44f",
+          "data": "/tmp/rnx-pg-contract-ckwcv44f/data"
+        },
+        {
+          "stage": "psql",
+          "pid": 1827559,
+          "directory": "/tmp/rnx-pg-contract-ckwcv44f",
+          "data": "/tmp/rnx-pg-contract-ckwcv44f/data"
+        },
+        {
+          "stage": "pg_ctl",
+          "pid": 1827561,
+          "directory": "/tmp/rnx-pg-contract-ckwcv44f",
+          "data": "/tmp/rnx-pg-contract-ckwcv44f/data"
+        }
+      ],
+      "root": "/tmp/rnx-pg-contract-ckwcv44f",
+      "postmaster": 1827549
+    },
+    "stdout": "",
+    "stderr": ""
+  },
+  "failure": {
+    "observed": null,
+    "report": {
+      "events": [
+        {
+          "stage": "initdb",
+          "pid": 1827563,
+          "directory": "/tmp/rnx-pg-contract-t1djq55w",
+          "data": "/tmp/rnx-pg-contract-t1djq55w/data"
+        },
+        {
+          "stage": "pg_ctl",
+          "pid": 1827576,
+          "directory": "/tmp/rnx-pg-contract-t1djq55w",
+          "data": "/tmp/rnx-pg-contract-t1djq55w/data"
+        },
+        {
+          "stage": "psql",
+          "pid": 1827589,
+          "directory": "/tmp/rnx-pg-contract-t1djq55w",
+          "data": "/tmp/rnx-pg-contract-t1djq55w/data"
+        },
+        {
+          "stage": "pg_ctl",
+          "pid": 1827591,
+          "directory": "/tmp/rnx-pg-contract-t1djq55w",
+          "data": "/tmp/rnx-pg-contract-t1djq55w/data"
+        }
+      ],
+      "root": "/tmp/rnx-pg-contract-t1djq55w",
+      "postmaster": 1827579
+    },
+    "stdout": "RuntimeError deliberate fixture failure\n",
+    "stderr": ""
+  },
+  "initdb": {
+    "observed": {
+      "stage": "initdb",
+      "pid": 1827593,
+      "directory": "/tmp/rnx-pg-contract-b_hxbjjw",
+      "data": "/tmp/rnx-pg-contract-b_hxbjjw/data"
+    },
+    "report": {
+      "events": [
+        {
+          "stage": "initdb",
+          "pid": 1827593,
+          "directory": "/tmp/rnx-pg-contract-b_hxbjjw",
+          "data": "/tmp/rnx-pg-contract-b_hxbjjw/data"
+        }
+      ],
+      "root": "/tmp/rnx-pg-contract-b_hxbjjw",
+      "postmaster": null
+    },
+    "stdout": "KeyboardInterrupt fixture interrupted\n",
+    "stderr": ""
+  },
+  "startup": {
+    "observed": {
+      "stage": "pg_ctl",
+      "pid": 1827620,
+      "directory": "/tmp/rnx-pg-contract-p2e8ot84",
+      "data": "/tmp/rnx-pg-contract-p2e8ot84/data"
+    },
+    "report": {
+      "events": [
+        {
+          "stage": "initdb",
+          "pid": 1827607,
+          "directory": "/tmp/rnx-pg-contract-p2e8ot84",
+          "data": "/tmp/rnx-pg-contract-p2e8ot84/data"
+        },
+        {
+          "stage": "pg_ctl",
+          "pid": 1827620,
+          "directory": "/tmp/rnx-pg-contract-p2e8ot84",
+          "data": "/tmp/rnx-pg-contract-p2e8ot84/data"
+        },
+        {
+          "stage": "pg_ctl",
+          "pid": 1827633,
+          "directory": "/tmp/rnx-pg-contract-p2e8ot84",
+          "data": "/tmp/rnx-pg-contract-p2e8ot84/data"
+        }
+      ],
+      "root": "/tmp/rnx-pg-contract-p2e8ot84",
+      "postmaster": 1827623
+    },
+    "stdout": "KeyboardInterrupt fixture interrupted\n",
+    "stderr": ""
+  },
+  "query": {
+    "observed": {
+      "stage": "psql",
+      "pid": 1827663,
+      "directory": "/tmp/rnx-pg-contract-ef_324y2",
+      "data": "/tmp/rnx-pg-contract-ef_324y2/data"
+    },
+    "report": {
+      "events": [
+        {
+          "stage": "initdb",
+          "pid": 1827635,
+          "directory": "/tmp/rnx-pg-contract-ef_324y2",
+          "data": "/tmp/rnx-pg-contract-ef_324y2/data"
+        },
+        {
+          "stage": "pg_ctl",
+          "pid": 1827648,
+          "directory": "/tmp/rnx-pg-contract-ef_324y2",
+          "data": "/tmp/rnx-pg-contract-ef_324y2/data"
+        },
+        {
+          "stage": "psql",
+          "pid": 1827661,
+          "directory": "/tmp/rnx-pg-contract-ef_324y2",
+          "data": "/tmp/rnx-pg-contract-ef_324y2/data"
+        },
+        {
+          "stage": "psql",
+          "pid": 1827663,
+          "directory": "/tmp/rnx-pg-contract-ef_324y2",
+          "data": "/tmp/rnx-pg-contract-ef_324y2/data"
+        },
+        {
+          "stage": "pg_ctl",
+          "pid": 1827665,
+          "directory": "/tmp/rnx-pg-contract-ef_324y2",
+          "data": "/tmp/rnx-pg-contract-ef_324y2/data"
+        }
+      ],
+      "root": "/tmp/rnx-pg-contract-ef_324y2",
+      "postmaster": 1827651
+    },
+    "stdout": "KeyboardInterrupt fixture interrupted\n",
+    "stderr": ""
+  }
+}

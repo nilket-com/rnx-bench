@@ -1,0 +1,71 @@
+Benchmark 1: version before
+  Time (mean ± σ):     544.4 µs ±  19.7 µs    [User: 335.8 µs, System: 166.5 µs]
+  Range (min … max):   520.6 µs … 627.0 µs    100 runs
+ 
+Benchmark 2: eval before
+  Time (mean ± σ):       4.0 ms ±   0.0 ms    [User: 2.8 ms, System: 1.2 ms]
+  Range (min … max):     4.0 ms …   4.2 ms    100 runs
+ 
+Benchmark 3: bare run before
+  Time (mean ± σ):       3.7 ms ±   0.0 ms    [User: 2.7 ms, System: 0.9 ms]
+  Range (min … max):     3.6 ms …   3.7 ms    100 runs
+ 
+Benchmark 4: 10k JSON before
+  Time (mean ± σ):      11.9 ms ±   0.1 ms    [User: 10.7 ms, System: 1.1 ms]
+  Range (min … max):    11.6 ms …  12.6 ms    100 runs
+ 
+  Warning: Statistical outliers were detected. Consider re-running this benchmark on a quiet system without any interferences from other programs. It might help to use the '--warmup' or '--prepare' options.
+ 
+Benchmark 5: version after
+  Time (mean ± σ):     539.1 µs ±  14.4 µs    [User: 348.1 µs, System: 150.8 µs]
+  Range (min … max):   519.0 µs … 594.0 µs    100 runs
+ 
+Benchmark 6: eval after
+  Time (mean ± σ):       4.0 ms ±   0.0 ms    [User: 2.7 ms, System: 1.2 ms]
+  Range (min … max):     4.0 ms …   4.0 ms    100 runs
+ 
+Benchmark 7: bare run after
+  Time (mean ± σ):       3.7 ms ±   0.1 ms    [User: 2.5 ms, System: 1.1 ms]
+  Range (min … max):     3.7 ms …   4.2 ms    100 runs
+ 
+  Warning: Statistical outliers were detected. Consider re-running this benchmark on a quiet system without any interferences from other programs. It might help to use the '--warmup' or '--prepare' options.
+ 
+Benchmark 8: 10k JSON after
+  Time (mean ± σ):      11.8 ms ±   0.1 ms    [User: 10.8 ms, System: 0.9 ms]
+  Range (min … max):    11.7 ms …  12.8 ms    100 runs
+ 
+  Warning: Statistical outliers were detected. Consider re-running this benchmark on a quiet system without any interferences from other programs. It might help to use the '--warmup' or '--prepare' options.
+ 
+Benchmark 9: version app
+  Time (mean ± σ):     558.7 µs ±  16.0 µs    [User: 313.4 µs, System: 204.1 µs]
+  Range (min … max):   539.6 µs … 632.6 µs    100 runs
+ 
+Benchmark 10: eval app
+  Time (mean ± σ):       4.0 ms ±   0.0 ms    [User: 2.9 ms, System: 1.1 ms]
+  Range (min … max):     4.0 ms …   4.1 ms    100 runs
+ 
+Benchmark 11: bare run app
+  Time (mean ± σ):       3.7 ms ±   0.1 ms    [User: 2.6 ms, System: 1.1 ms]
+  Range (min … max):     3.7 ms …   4.2 ms    100 runs
+ 
+  Warning: Statistical outliers were detected. Consider re-running this benchmark on a quiet system without any interferences from other programs. It might help to use the '--warmup' or '--prepare' options.
+ 
+Benchmark 12: 10k JSON app
+  Time (mean ± σ):      11.5 ms ±   0.1 ms    [User: 10.4 ms, System: 1.1 ms]
+  Range (min … max):    11.4 ms …  12.0 ms    100 runs
+ 
+  Warning: Statistical outliers were detected. Consider re-running this benchmark on a quiet system without any interferences from other programs. It might help to use the '--warmup' or '--prepare' options.
+ 
+Summary
+  version after ran
+    1.01 ± 0.05 times faster than version before
+    1.04 ± 0.04 times faster than version app
+    6.81 ± 0.18 times faster than bare run before
+    6.82 ± 0.21 times faster than bare run after
+    6.87 ± 0.21 times faster than bare run app
+    7.44 ± 0.20 times faster than eval after
+    7.46 ± 0.21 times faster than eval before
+    7.49 ± 0.20 times faster than eval app
+   21.37 ± 0.59 times faster than 10k JSON app
+   21.94 ± 0.63 times faster than 10k JSON after
+   21.98 ± 0.64 times faster than 10k JSON before

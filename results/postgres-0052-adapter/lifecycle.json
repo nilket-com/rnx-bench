@@ -1,0 +1,248 @@
+{
+  "interrupt": {
+    "after_signal_seconds": 0.004670889989938587,
+    "before": {},
+    "opened": {
+      "8": "socket:[3260392]"
+    },
+    "active": "1829319|active|SELECT 1 AS n FROM pg_sleep(120)",
+    "unpolled": null,
+    "after": {},
+    "reply": {
+      "epoch": 1,
+      "failure": {
+        "category": "interrupted",
+        "diagnostic": "interrupted",
+        "diagnostic_truncated": false,
+        "origin": null
+      },
+      "id": 1,
+      "input": 1,
+      "state_lost": false,
+      "text_plain": null,
+      "type": "settled"
+    },
+    "seconds": 0.021464038989506662,
+    "backend_after": "1829319|active|SELECT 1 AS n FROM pg_sleep(120)",
+    "backend_gone_seconds": 90.00556598999538
+  },
+  "success": {
+    "after_signal_seconds": null,
+    "before": {},
+    "opened": null,
+    "active": null,
+    "unpolled": null,
+    "after": {},
+    "reply": {
+      "epoch": 1,
+      "failure": null,
+      "id": 1,
+      "input": 1,
+      "render_bounded": true,
+      "state_lost": false,
+      "text_plain": "{\"affected\": 1, \"columns\": [\"n\"], \"rows\": [{\"n\": 42}]}",
+      "type": "settled"
+    },
+    "seconds": 0.053207204036880285
+  },
+  "deadline": {
+    "after_signal_seconds": null,
+    "before": {},
+    "opened": {
+      "8": "socket:[3265835]"
+    },
+    "active": "1829438|active|SELECT 1 AS n FROM pg_sleep(5)",
+    "unpolled": null,
+    "after": {},
+    "reply": {
+      "epoch": 1,
+      "failure": null,
+      "id": 1,
+      "input": 1,
+      "render_bounded": true,
+      "state_lost": false,
+      "text_plain": "\"cannot query postgres at /tmp/rnx-pg-contract-4c0pre8d: deadline of 200 ms elapsed; completion may be ambiguous\"",
+      "type": "settled"
+    },
+    "seconds": 0.20188824203796685,
+    "server_disappearance_after_observed_active": 0.19111195398727432
+  },
+  "decode": {
+    "after_signal_seconds": null,
+    "before": {},
+    "opened": null,
+    "active": null,
+    "unpolled": null,
+    "after": {},
+    "reply": {
+      "epoch": 1,
+      "failure": null,
+      "id": 1,
+      "input": 1,
+      "render_bounded": true,
+      "state_lost": false,
+      "text_plain": "\"cannot query postgres at /tmp/rnx-pg-contract-4c0pre8d: column \\\"ts\\\" (timestamptz): infinite timestamptz is not a time moment\"",
+      "type": "settled"
+    },
+    "seconds": 0.0031600419897586107
+  },
+  "pending-drop": {
+    "after_signal_seconds": null,
+    "before": {},
+    "opened": {
+      "8": "socket:[3271942]"
+    },
+    "active": "1829573|active|SELECT 1 AS n FROM pg_sleep(120)",
+    "unpolled": {
+      "8": "socket:[3271942]"
+    },
+    "after": {},
+    "reply": {
+      "epoch": 1,
+      "failure": {
+        "category": "runtime",
+        "diagnostic": "runtime error at input 1, line 1, column 520: Panicked: discard\n  let q = postgres::query(\"postgresql:///postgres?host=/tmp/rnx-pg-contract-4c0pre8d&application_name=rnx-pg-fixture-pending-drop\", \"SELECT 1 AS n FROM pg_sleep(120)\", [], #{timeout_ms:1500}); let t=time::sleep(300); select { _=q=>(), _=t=>() }; io::eprint(\"unpolled-open............................................................................................................................................................................................................................\")?; time::sleep(400).await?; panic!(\"discard\")\n                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         ^",
+        "diagnostic_truncated": false,
+        "origin": {
+          "column": 520,
+          "epoch": 1,
+          "excerpt": "let q = postgres::query(\"postgresql:///postgres?host=/tmp/rnx-pg-contract-4c0pre8d&application_name=rnx-pg-fixture-pending-drop\", \"SELECT 1 AS n FROM pg_sleep(120)\", [], #{timeout_ms:1500}); let t=time::sleep(300); select { _=q=>(), _=t=>() }; io::eprint(\"unpolled-open............................................................................................................................................................................................................................\")?; time::sleep(400).await?; panic!(\"discard\")",
+          "excerpt_truncated": false,
+          "input": 1,
+          "line": 1
+        }
+      },
+      "id": 1,
+      "input": 1,
+      "state_lost": false,
+      "text_plain": null,
+      "type": "settled"
+    },
+    "seconds": 0.7039880530210212
+  },
+  "budget": {
+    "after_signal_seconds": null,
+    "before": {},
+    "opened": {
+      "8": "socket:[3262152]"
+    },
+    "active": "1829883|active|SELECT 1 AS n FROM pg_sleep(120)",
+    "unpolled": {
+      "8": "socket:[3262152]"
+    },
+    "after": {},
+    "reply": {
+      "epoch": 1,
+      "failure": {
+        "budget": 2000000000,
+        "category": "budget",
+        "diagnostic": "halted: 2000000000 instructions exceeded",
+        "diagnostic_truncated": false,
+        "origin": null
+      },
+      "id": 1,
+      "input": 1,
+      "state_lost": false,
+      "text_plain": null,
+      "type": "settled"
+    },
+    "seconds": 12.508323072979692
+  },
+  "lazy": {
+    "after_signal_seconds": null,
+    "before": {},
+    "opened": null,
+    "active": null,
+    "unpolled": null,
+    "after": {},
+    "reply": {
+      "epoch": 1,
+      "failure": null,
+      "id": 1,
+      "input": 1,
+      "state_lost": false,
+      "text_plain": null,
+      "type": "settled"
+    },
+    "seconds": 0.0009944920311681926
+  },
+  "retained": {
+    "after_signal_seconds": 0.0018312959582544863,
+    "before": {},
+    "opened": {
+      "8": "socket:[3258353]"
+    },
+    "active": "1831273|active|SELECT 1 AS n FROM pg_sleep(120)",
+    "unpolled": null,
+    "after": {},
+    "reply": {
+      "epoch": 1,
+      "failure": {
+        "category": "interrupted",
+        "diagnostic": "interrupted",
+        "diagnostic_truncated": false,
+        "origin": null
+      },
+      "id": 2,
+      "input": 2,
+      "state_lost": false,
+      "text_plain": null,
+      "type": "settled"
+    },
+    "seconds": 0.03265802504029125,
+    "repoll": {
+      "epoch": 1,
+      "failure": null,
+      "id": 3,
+      "input": 3,
+      "render_bounded": true,
+      "state_lost": false,
+      "text_plain": "\"operation cancelled\"",
+      "type": "settled"
+    }
+  },
+  "reset pending": {
+    "before": {
+      "8": "socket:[3267848]"
+    },
+    "after": {},
+    "reply": {
+      "epoch": 2,
+      "failure": null,
+      "id": 2,
+      "input": null,
+      "state_lost": false,
+      "text_plain": null,
+      "type": "settled"
+    }
+  },
+  "committed refusal": {
+    "count_before_refusal": "1",
+    "reply": {
+      "epoch": 1,
+      "failure": null,
+      "id": 1,
+      "input": 1,
+      "render_bounded": true,
+      "state_lost": false,
+      "text_plain": "\"cannot query postgres at /tmp/rnx-pg-contract-4c0pre8d: column \\\"ts\\\" (timestamptz): infinite timestamptz is not a time moment\"",
+      "type": "settled"
+    }
+  },
+  "memory": {
+    "reports": [
+      "rnx: a Rune session. :help lists the commands, :quit ends it.\ntracked live allocation request bytes: 1835981 of a ceiling of 536870912.\nstartup reference point: 1825614 bytes; net change since: +10367 bytes\nsource and map storage: 207 bytes (inputs, declarations, and the source maps of 1 entries; the units themselves are held weakly and are not counted)\nThe figure counts requests through Rust's global allocator only. It excludes native allocations outside it, memory mappings, thread stacks, and child processes, it is not resident memory, and it is not the session's share of anything.\nsession reset\n",
+      "rnx: a Rune session. :help lists the commands, :quit ends it.\ntracked live allocation request bytes: 1836187 of a ceiling of 536870912.\nstartup reference point: 1825947 bytes; net change since: +10240 bytes\nsource and map storage: 209 bytes (inputs, declarations, and the source maps of 1 entries; the units themselves are held weakly and are not counted)\nThe figure counts requests through Rust's global allocator only. It excludes native allocations outside it, memory mappings, thread stacks, and child processes, it is not resident memory, and it is not the session's share of anything.\nsession reset\n"
+    ],
+    "live_bytes": [
+      1835981,
+      1836187
+    ],
+    "delta": 206,
+    "tolerance": 65536
+  },
+  "cleanup": {
+    "directory": "/tmp/rnx-pg-contract-4c0pre8d",
+    "postmaster": 1829207
+  }
+}

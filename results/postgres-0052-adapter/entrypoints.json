@@ -1,0 +1,43 @@
+{
+  "connect run": "[\"cannot query postgres at /missing: error connecting to server: No such file or directory (os error 2)\", 42]\n",
+  "connect eval": "[\"cannot query postgres at /missing: error connecting to server: No such file or directory (os error 2)\", 42]\n",
+  "connect session": "[\"cannot query postgres at /missing: error connecting to server: No such file or directory (os error 2)\", 42]",
+  "authentication run": "[\"cannot query postgres at /tmp/rnx-pg-contract-aj5qmec9: password authentication failed for user \\\"locked\\\" [28P01]\", 42]\n",
+  "authentication eval": "[\"cannot query postgres at /tmp/rnx-pg-contract-aj5qmec9: password authentication failed for user \\\"locked\\\" [28P01]\", 42]\n",
+  "authentication session": "[\"cannot query postgres at /tmp/rnx-pg-contract-aj5qmec9: password authentication failed for user \\\"locked\\\" [28P01]\", 42]",
+  "syntax run": "[\"cannot query postgres at /tmp/rnx-pg-contract-aj5qmec9: syntax error at end of input [42601]\", 42]\n",
+  "syntax eval": "[\"cannot query postgres at /tmp/rnx-pg-contract-aj5qmec9: syntax error at end of input [42601]\", 42]\n",
+  "syntax session": "[\"cannot query postgres at /tmp/rnx-pg-contract-aj5qmec9: syntax error at end of input [42601]\", 42]",
+  "unique run": "[\"cannot query postgres at /tmp/rnx-pg-contract-aj5qmec9: duplicate key value violates unique constraint \\\"unique_values_v_key\\\" [23505]\", 42]\n",
+  "unique eval": "[\"cannot query postgres at /tmp/rnx-pg-contract-aj5qmec9: duplicate key value violates unique constraint \\\"unique_values_v_key\\\" [23505]\", 42]\n",
+  "unique session": "[\"cannot query postgres at /tmp/rnx-pg-contract-aj5qmec9: duplicate key value violates unique constraint \\\"unique_values_v_key\\\" [23505]\", 42]",
+  "type run": "[\"cannot query postgres at /tmp/rnx-pg-contract-aj5qmec9: invalid input syntax for type bigint: \\\"abc\\\" [22P02]\", 42]\n",
+  "type eval": "[\"cannot query postgres at /tmp/rnx-pg-contract-aj5qmec9: invalid input syntax for type bigint: \\\"abc\\\" [22P02]\", 42]\n",
+  "type session": "[\"cannot query postgres at /tmp/rnx-pg-contract-aj5qmec9: invalid input syntax for type bigint: \\\"abc\\\" [22P02]\", 42]",
+  "oversize": {
+    "peak_rss_kib": 28788,
+    "stdout": "\"cannot query postgres at /tmp/rnx-pg-contract-aj5qmec9: column \\\"v\\\" (text): logical payload exceeds 8388608 bytes at row 1 (row 0 is SQL and parameters)\"\n",
+    "stderr": ""
+  },
+  "notebook 1": {
+    "ename": "RuntimeError",
+    "evalue": "runtime error at input 1, line 1, column 169: Panicked: cannot query postgres at /tmp/rnx-pg-contract-aj5qmec9: syntax error at end of input [42601]\n  match postgres::query(\"postgresql:///postgres?host=/tmp/rnx-pg-contract-aj5qmec9&application_name=rnx-pg-fixture\", \"SELECT ???\", [], #{}).await { Ok(v) => v, Err(e) => panic!(\"{}\", e) }\n                                                                                                                                                                          ^",
+    "execution_count": 1,
+    "status": "error",
+    "traceback": [
+      "runtime error at input 1, line 1, column 169: Panicked: cannot query postgres at /tmp/rnx-pg-contract-aj5qmec9: syntax error at end of input [42601]",
+      "  match postgres::query(\"postgresql:///postgres?host=/tmp/rnx-pg-contract-aj5qmec9&application_name=rnx-pg-fixture\", \"SELECT ???\", [], #{}).await { Ok(v) => v, Err(e) => panic!(\"{}\", e) }",
+      "                                                                                                                                                                          ^"
+    ]
+  },
+  "notebook 2": {
+    "execution_count": 2,
+    "payload": [],
+    "status": "ok",
+    "user_expressions": {}
+  },
+  "cleanup": {
+    "directory": "/tmp/rnx-pg-contract-aj5qmec9",
+    "postmaster": 1830029
+  }
+}

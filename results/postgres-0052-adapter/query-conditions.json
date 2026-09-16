@@ -1,0 +1,11 @@
+{
+  "source": "pub async fn main(_) { postgres::query(\"postgresql:///postgres?host=/tmp/rnx-pg-contract-yh65qsd4&application_name=rnx-pg-fixture\", \"SELECT 1 AS n\", [], #{}).await? }",
+  "core": 4,
+  "warmups": 10,
+  "runs": 100,
+  "pg_version": "PostgreSQL 18.6 (Ubuntu 18.6-0ubuntu0.26.04.1) on x86_64-pc-linux-gnu, compiled by gcc (Ubuntu 15.2.0-16ubuntu1) 15.2.0, 64-bit",
+  "binary_bytes": 16277496,
+  "sha256": "116769869904c8b3c4fc6c591a15ac397d30cf871abbd710235537075ecf6037",
+  "postmaster": 1837502,
+  "directory": "/tmp/rnx-pg-contract-yh65qsd4"
+}
