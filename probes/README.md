@@ -132,3 +132,8 @@ tokio current-thread runtime.
   write before decode refusal, notebook recovery, startup interruption cleanup
   and per-call costs are recorded in `results/postgres-0052-adapter/`.
   The original stopped results above remain historical evidence.
+
+- `server-boundary/` — step four's real-Rune scheduling comparison (shared
+  executor, two workers and saturation), single-slot transaction ownership,
+  rollback-before-reuse and awaited shutdown. Private clusters and raw results
+  in `results/server-boundary-step-four/`; no production server or new rnx API.

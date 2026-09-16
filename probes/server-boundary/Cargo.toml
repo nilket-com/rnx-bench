@@ -1,0 +1,15 @@
+[package]
+name = "rnx-server-boundary-probe"
+version = "0.0.0"
+edition = "2024"
+publish = false
+[workspace]
+[dependencies]
+rune = { version = "=0.14.2", default-features = false, features = ["std"] }
+tokio = { version = "1", features = ["rt", "net", "time", "macros", "sync"] }
+tokio-postgres = "=0.7.18"
+serde_json = "1"
+[profile.dev]
+debug = false
+[profile.dev.package."*"]
+opt-level = 2
