@@ -124,3 +124,11 @@ tokio current-thread runtime.
 - Record 0053 extends `extensions/` with a tracked-future app and CLI/worker/Jupyter
   lifecycle fixtures. `postgres/ownership` reruns the retained-socket stop with
   that public wrapper; evidence is in `results/lifecycle-0053/`.
+
+- `postgres/contract.py`, `lifecycle.py`, `entrypoints.py`, `cleanup.py` and
+  `cost.py` exercise the resumed 0052 adapter in `rnx/adapters/postgres`.
+  Private Unix-socket clusters, typed binding and decoding, descriptor ownership
+  before acknowledgement, separately measured backend lifetime, a committed
+  write before decode refusal, notebook recovery, startup interruption cleanup
+  and per-call costs are recorded in `results/postgres-0052-adapter/`.
+  The original stopped results above remain historical evidence.
