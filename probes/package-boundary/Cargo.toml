@@ -1,0 +1,13 @@
+[package]
+name = "rnx-package-boundary-probe"
+version = "0.0.0"
+edition = "2024"
+publish = false
+[workspace]
+[dependencies]
+rune = { version = "=0.14.2", default-features = false, features = ["std"] }
+serde_json = "1"
+[profile.dev]
+debug = false
+[profile.dev.package."*"]
+opt-level = 2

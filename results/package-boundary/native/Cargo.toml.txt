@@ -1,0 +1,10 @@
+[package]
+name="assembled-probe"
+version="0.0.0"
+edition="2024"
+publish=false
+[workspace]
+[dependencies]
+rnx={path="../../../../../../rnx"}
+native_0={package="local-fixture",path="../local"}
+native_1={package="rnx-postgres",path="../../../../../../rnx/adapters/postgres"}

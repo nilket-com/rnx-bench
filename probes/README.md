@@ -189,3 +189,7 @@ tokio current-thread runtime.
   through the ordinary shipped example; exact CLI comparison and ABBA stock
   timings against `032579a`, root suite logs and default graph isolation.
   Results: `results/server-acceptance-0056/`.
+
+- `package-boundary/` — step-five source-root mapping and namespace behavior,
+  deterministic Cargo wrapper generation, local-source lock counterexample,
+  and an existing-executable override. Results: `results/package-boundary/`.

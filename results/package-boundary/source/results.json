@@ -1,0 +1,696 @@
+{
+  "binary_sha256": "5466721ed3be336f4df194f2177e9a748ddcd750d252789d418570c8a475c61b",
+  "fixture_sources": {
+    "app/main.rn": "pub mod atlas; pub mod other; pub fn marker() { 99 } pub fn main() { atlas::value() + other::value() }",
+    "deps/one/mod.rn": "pub mod nested; pub mod inline { pub mod leaf; } pub fn marker() { 7 } pub fn value() { self::nested::value() + self::inline::leaf::value() }",
+    "deps/one/nested.rn": "pub mod deep; pub fn value() { self::deep::value() + super::marker() }",
+    "deps/one/nested/deep.rn": "pub fn value() { 10 }",
+    "deps/one/inline/leaf.rn": "pub fn value() { 100 }",
+    "deps/two/mod.rn": "pub mod nested; pub fn value() { self::nested::value() }",
+    "deps/two/nested.rn": "pub fn value() { 1000 }"
+  },
+  "rows": [
+    {
+      "compile_ok": true,
+      "entry": "/home/me/work/rnx-bench/probes/package-boundary/target/source-fixtures/app/main.rn",
+      "errors": [],
+      "loads": [
+        {
+          "candidates": [
+            "/home/me/work/rnx-bench/probes/package-boundary/target/source-fixtures/deps/one/mod.rn"
+          ],
+          "chosen": "/home/me/work/rnx-bench/probes/package-boundary/target/source-fixtures/deps/one/mod.rn",
+          "item": "atlas",
+          "mapped": "/home/me/work/rnx-bench/probes/package-boundary/target/source-fixtures/deps/one",
+          "parts": [
+            "atlas"
+          ],
+          "root": "/home/me/work/rnx-bench/probes/package-boundary/target/source-fixtures/app/main.rn"
+        },
+        {
+          "candidates": [
+            "/home/me/work/rnx-bench/probes/package-boundary/target/source-fixtures/deps/two/mod.rn"
+          ],
+          "chosen": "/home/me/work/rnx-bench/probes/package-boundary/target/source-fixtures/deps/two/mod.rn",
+          "item": "other",
+          "mapped": "/home/me/work/rnx-bench/probes/package-boundary/target/source-fixtures/deps/two",
+          "parts": [
+            "other"
+          ],
+          "root": "/home/me/work/rnx-bench/probes/package-boundary/target/source-fixtures/app/main.rn"
+        },
+        {
+          "candidates": [
+            "/home/me/work/rnx-bench/probes/package-boundary/target/source-fixtures/deps/one/nested/mod.rn",
+            "/home/me/work/rnx-bench/probes/package-boundary/target/source-fixtures/deps/one/nested.rn"
+          ],
+          "chosen": "/home/me/work/rnx-bench/probes/package-boundary/target/source-fixtures/deps/one/nested.rn",
+          "item": "atlas::nested",
+          "mapped": "/home/me/work/rnx-bench/probes/package-boundary/target/source-fixtures/deps/one",
+          "parts": [
+            "atlas",
+            "nested"
+          ],
+          "root": "/home/me/work/rnx-bench/probes/package-boundary/target/source-fixtures/app/main.rn"
+        },
+        {
+          "candidates": [
+            "/home/me/work/rnx-bench/probes/package-boundary/target/source-fixtures/deps/one/inline/leaf/mod.rn",
+            "/home/me/work/rnx-bench/probes/package-boundary/target/source-fixtures/deps/one/inline/leaf.rn"
+          ],
+          "chosen": "/home/me/work/rnx-bench/probes/package-boundary/target/source-fixtures/deps/one/inline/leaf.rn",
+          "item": "atlas::inline::leaf",
+          "mapped": "/home/me/work/rnx-bench/probes/package-boundary/target/source-fixtures/deps/one",
+          "parts": [
+            "atlas",
+            "inline",
+            "leaf"
+          ],
+          "root": "/home/me/work/rnx-bench/probes/package-boundary/target/source-fixtures/app/main.rn"
+        },
+        {
+          "candidates": [
+            "/home/me/work/rnx-bench/probes/package-boundary/target/source-fixtures/deps/two/nested/mod.rn",
+            "/home/me/work/rnx-bench/probes/package-boundary/target/source-fixtures/deps/two/nested.rn"
+          ],
+          "chosen": "/home/me/work/rnx-bench/probes/package-boundary/target/source-fixtures/deps/two/nested.rn",
+          "item": "other::nested",
+          "mapped": "/home/me/work/rnx-bench/probes/package-boundary/target/source-fixtures/deps/two",
+          "parts": [
+            "other",
+            "nested"
+          ],
+          "root": "/home/me/work/rnx-bench/probes/package-boundary/target/source-fixtures/app/main.rn"
+        },
+        {
+          "candidates": [
+            "/home/me/work/rnx-bench/probes/package-boundary/target/source-fixtures/deps/one/nested/deep/mod.rn",
+            "/home/me/work/rnx-bench/probes/package-boundary/target/source-fixtures/deps/one/nested/deep.rn"
+          ],
+          "chosen": "/home/me/work/rnx-bench/probes/package-boundary/target/source-fixtures/deps/one/nested/deep.rn",
+          "item": "atlas::nested::deep",
+          "mapped": "/home/me/work/rnx-bench/probes/package-boundary/target/source-fixtures/deps/one",
+          "parts": [
+            "atlas",
+            "nested",
+            "deep"
+          ],
+          "root": "/home/me/work/rnx-bench/probes/package-boundary/target/source-fixtures/app/main.rn"
+        }
+      ],
+      "value": 1117,
+      "case": "outside-entry-tree"
+    },
+    {
+      "compile_ok": true,
+      "entry": "/home/me/work/rnx-bench/probes/package-boundary/target/source-fixtures/app/main.rn",
+      "errors": [],
+      "loads": [
+        {
+          "candidates": [
+            "/home/me/work/rnx-bench/probes/package-boundary/target/source-fixtures/deps/one/mod.rn"
+          ],
+          "chosen": "/home/me/work/rnx-bench/probes/package-boundary/target/source-fixtures/deps/one/mod.rn",
+          "item": "atlas",
+          "mapped": "/home/me/work/rnx-bench/probes/package-boundary/target/source-fixtures/deps/one",
+          "parts": [
+            "atlas"
+          ],
+          "root": "/home/me/work/rnx-bench/probes/package-boundary/target/source-fixtures/app/main.rn"
+        },
+        {
+          "candidates": [
+            "/home/me/work/rnx-bench/probes/package-boundary/target/source-fixtures/deps/two/mod.rn"
+          ],
+          "chosen": "/home/me/work/rnx-bench/probes/package-boundary/target/source-fixtures/deps/two/mod.rn",
+          "item": "other",
+          "mapped": "/home/me/work/rnx-bench/probes/package-boundary/target/source-fixtures/deps/two",
+          "parts": [
+            "other"
+          ],
+          "root": "/home/me/work/rnx-bench/probes/package-boundary/target/source-fixtures/app/main.rn"
+        },
+        {
+          "candidates": [
+            "/home/me/work/rnx-bench/probes/package-boundary/target/source-fixtures/deps/one/nested/mod.rn",
+            "/home/me/work/rnx-bench/probes/package-boundary/target/source-fixtures/deps/one/nested.rn"
+          ],
+          "chosen": "/home/me/work/rnx-bench/probes/package-boundary/target/source-fixtures/deps/one/nested.rn",
+          "item": "atlas::nested",
+          "mapped": "/home/me/work/rnx-bench/probes/package-boundary/target/source-fixtures/deps/one",
+          "parts": [
+            "atlas",
+            "nested"
+          ],
+          "root": "/home/me/work/rnx-bench/probes/package-boundary/target/source-fixtures/app/main.rn"
+        },
+        {
+          "candidates": [
+            "/home/me/work/rnx-bench/probes/package-boundary/target/source-fixtures/deps/one/inline/leaf/mod.rn",
+            "/home/me/work/rnx-bench/probes/package-boundary/target/source-fixtures/deps/one/inline/leaf.rn"
+          ],
+          "chosen": "/home/me/work/rnx-bench/probes/package-boundary/target/source-fixtures/deps/one/inline/leaf.rn",
+          "item": "atlas::inline::leaf",
+          "mapped": "/home/me/work/rnx-bench/probes/package-boundary/target/source-fixtures/deps/one",
+          "parts": [
+            "atlas",
+            "inline",
+            "leaf"
+          ],
+          "root": "/home/me/work/rnx-bench/probes/package-boundary/target/source-fixtures/app/main.rn"
+        },
+        {
+          "candidates": [
+            "/home/me/work/rnx-bench/probes/package-boundary/target/source-fixtures/deps/two/nested/mod.rn",
+            "/home/me/work/rnx-bench/probes/package-boundary/target/source-fixtures/deps/two/nested.rn"
+          ],
+          "chosen": "/home/me/work/rnx-bench/probes/package-boundary/target/source-fixtures/deps/two/nested.rn",
+          "item": "other::nested",
+          "mapped": "/home/me/work/rnx-bench/probes/package-boundary/target/source-fixtures/deps/two",
+          "parts": [
+            "other",
+            "nested"
+          ],
+          "root": "/home/me/work/rnx-bench/probes/package-boundary/target/source-fixtures/app/main.rn"
+        },
+        {
+          "candidates": [
+            "/home/me/work/rnx-bench/probes/package-boundary/target/source-fixtures/deps/one/nested/deep/mod.rn",
+            "/home/me/work/rnx-bench/probes/package-boundary/target/source-fixtures/deps/one/nested/deep.rn"
+          ],
+          "chosen": "/home/me/work/rnx-bench/probes/package-boundary/target/source-fixtures/deps/one/nested/deep.rn",
+          "item": "atlas::nested::deep",
+          "mapped": "/home/me/work/rnx-bench/probes/package-boundary/target/source-fixtures/deps/one",
+          "parts": [
+            "atlas",
+            "nested",
+            "deep"
+          ],
+          "root": "/home/me/work/rnx-bench/probes/package-boundary/target/source-fixtures/app/main.rn"
+        }
+      ],
+      "value": 1117,
+      "case": "other-working-directory"
+    },
+    {
+      "compile_ok": true,
+      "entry": "/home/me/work/rnx-bench/probes/package-boundary/target/source-fixtures/app/main.rn",
+      "errors": [],
+      "loads": [
+        {
+          "candidates": [
+            "/home/me/work/rnx-bench/probes/package-boundary/target/source-fixtures/deps/one/mod.rn"
+          ],
+          "chosen": "/home/me/work/rnx-bench/probes/package-boundary/target/source-fixtures/deps/one/mod.rn",
+          "item": "renamed",
+          "mapped": "/home/me/work/rnx-bench/probes/package-boundary/target/source-fixtures/deps/one",
+          "parts": [
+            "renamed"
+          ],
+          "root": "/home/me/work/rnx-bench/probes/package-boundary/target/source-fixtures/app/main.rn"
+        },
+        {
+          "candidates": [
+            "/home/me/work/rnx-bench/probes/package-boundary/target/source-fixtures/deps/two/mod.rn"
+          ],
+          "chosen": "/home/me/work/rnx-bench/probes/package-boundary/target/source-fixtures/deps/two/mod.rn",
+          "item": "other",
+          "mapped": "/home/me/work/rnx-bench/probes/package-boundary/target/source-fixtures/deps/two",
+          "parts": [
+            "other"
+          ],
+          "root": "/home/me/work/rnx-bench/probes/package-boundary/target/source-fixtures/app/main.rn"
+        },
+        {
+          "candidates": [
+            "/home/me/work/rnx-bench/probes/package-boundary/target/source-fixtures/deps/one/nested/mod.rn",
+            "/home/me/work/rnx-bench/probes/package-boundary/target/source-fixtures/deps/one/nested.rn"
+          ],
+          "chosen": "/home/me/work/rnx-bench/probes/package-boundary/target/source-fixtures/deps/one/nested.rn",
+          "item": "renamed::nested",
+          "mapped": "/home/me/work/rnx-bench/probes/package-boundary/target/source-fixtures/deps/one",
+          "parts": [
+            "renamed",
+            "nested"
+          ],
+          "root": "/home/me/work/rnx-bench/probes/package-boundary/target/source-fixtures/app/main.rn"
+        },
+        {
+          "candidates": [
+            "/home/me/work/rnx-bench/probes/package-boundary/target/source-fixtures/deps/one/inline/leaf/mod.rn",
+            "/home/me/work/rnx-bench/probes/package-boundary/target/source-fixtures/deps/one/inline/leaf.rn"
+          ],
+          "chosen": "/home/me/work/rnx-bench/probes/package-boundary/target/source-fixtures/deps/one/inline/leaf.rn",
+          "item": "renamed::inline::leaf",
+          "mapped": "/home/me/work/rnx-bench/probes/package-boundary/target/source-fixtures/deps/one",
+          "parts": [
+            "renamed",
+            "inline",
+            "leaf"
+          ],
+          "root": "/home/me/work/rnx-bench/probes/package-boundary/target/source-fixtures/app/main.rn"
+        },
+        {
+          "candidates": [
+            "/home/me/work/rnx-bench/probes/package-boundary/target/source-fixtures/deps/two/nested/mod.rn",
+            "/home/me/work/rnx-bench/probes/package-boundary/target/source-fixtures/deps/two/nested.rn"
+          ],
+          "chosen": "/home/me/work/rnx-bench/probes/package-boundary/target/source-fixtures/deps/two/nested.rn",
+          "item": "other::nested",
+          "mapped": "/home/me/work/rnx-bench/probes/package-boundary/target/source-fixtures/deps/two",
+          "parts": [
+            "other",
+            "nested"
+          ],
+          "root": "/home/me/work/rnx-bench/probes/package-boundary/target/source-fixtures/app/main.rn"
+        },
+        {
+          "candidates": [
+            "/home/me/work/rnx-bench/probes/package-boundary/target/source-fixtures/deps/one/nested/deep/mod.rn",
+            "/home/me/work/rnx-bench/probes/package-boundary/target/source-fixtures/deps/one/nested/deep.rn"
+          ],
+          "chosen": "/home/me/work/rnx-bench/probes/package-boundary/target/source-fixtures/deps/one/nested/deep.rn",
+          "item": "renamed::nested::deep",
+          "mapped": "/home/me/work/rnx-bench/probes/package-boundary/target/source-fixtures/deps/one",
+          "parts": [
+            "renamed",
+            "nested",
+            "deep"
+          ],
+          "root": "/home/me/work/rnx-bench/probes/package-boundary/target/source-fixtures/app/main.rn"
+        }
+      ],
+      "value": 1117,
+      "case": "renamed-dependency"
+    },
+    {
+      "compile_ok": true,
+      "entry": "/home/me/work/rnx-bench/probes/package-boundary/target/source-fixtures/app/main.rn",
+      "errors": [],
+      "loads": [
+        {
+          "candidates": [
+            "/home/me/work/rnx-bench/probes/package-boundary/target/source-fixtures/deps/one/mod.rn"
+          ],
+          "chosen": "/home/me/work/rnx-bench/probes/package-boundary/target/source-fixtures/deps/one/mod.rn",
+          "item": "renamed",
+          "mapped": "/home/me/work/rnx-bench/probes/package-boundary/target/source-fixtures/deps/one",
+          "parts": [
+            "renamed"
+          ],
+          "root": "/home/me/work/rnx-bench/probes/package-boundary/target/source-fixtures/app/main.rn"
+        },
+        {
+          "candidates": [
+            "/home/me/work/rnx-bench/probes/package-boundary/target/source-fixtures/deps/two/mod.rn"
+          ],
+          "chosen": "/home/me/work/rnx-bench/probes/package-boundary/target/source-fixtures/deps/two/mod.rn",
+          "item": "other",
+          "mapped": "/home/me/work/rnx-bench/probes/package-boundary/target/source-fixtures/deps/two",
+          "parts": [
+            "other"
+          ],
+          "root": "/home/me/work/rnx-bench/probes/package-boundary/target/source-fixtures/app/main.rn"
+        },
+        {
+          "candidates": [
+            "/home/me/work/rnx-bench/probes/package-boundary/target/source-fixtures/deps/one/nested/mod.rn",
+            "/home/me/work/rnx-bench/probes/package-boundary/target/source-fixtures/deps/one/nested.rn"
+          ],
+          "chosen": "/home/me/work/rnx-bench/probes/package-boundary/target/source-fixtures/deps/one/nested.rn",
+          "item": "renamed::nested",
+          "mapped": "/home/me/work/rnx-bench/probes/package-boundary/target/source-fixtures/deps/one",
+          "parts": [
+            "renamed",
+            "nested"
+          ],
+          "root": "/home/me/work/rnx-bench/probes/package-boundary/target/source-fixtures/app/main.rn"
+        },
+        {
+          "candidates": [
+            "/home/me/work/rnx-bench/probes/package-boundary/target/source-fixtures/deps/one/inline/leaf/mod.rn",
+            "/home/me/work/rnx-bench/probes/package-boundary/target/source-fixtures/deps/one/inline/leaf.rn"
+          ],
+          "chosen": "/home/me/work/rnx-bench/probes/package-boundary/target/source-fixtures/deps/one/inline/leaf.rn",
+          "item": "renamed::inline::leaf",
+          "mapped": "/home/me/work/rnx-bench/probes/package-boundary/target/source-fixtures/deps/one",
+          "parts": [
+            "renamed",
+            "inline",
+            "leaf"
+          ],
+          "root": "/home/me/work/rnx-bench/probes/package-boundary/target/source-fixtures/app/main.rn"
+        },
+        {
+          "candidates": [
+            "/home/me/work/rnx-bench/probes/package-boundary/target/source-fixtures/deps/two/nested/mod.rn",
+            "/home/me/work/rnx-bench/probes/package-boundary/target/source-fixtures/deps/two/nested.rn"
+          ],
+          "chosen": "/home/me/work/rnx-bench/probes/package-boundary/target/source-fixtures/deps/two/nested.rn",
+          "item": "other::nested",
+          "mapped": "/home/me/work/rnx-bench/probes/package-boundary/target/source-fixtures/deps/two",
+          "parts": [
+            "other",
+            "nested"
+          ],
+          "root": "/home/me/work/rnx-bench/probes/package-boundary/target/source-fixtures/app/main.rn"
+        },
+        {
+          "candidates": [
+            "/home/me/work/rnx-bench/probes/package-boundary/target/source-fixtures/deps/one/nested/deep/mod.rn",
+            "/home/me/work/rnx-bench/probes/package-boundary/target/source-fixtures/deps/one/nested/deep.rn"
+          ],
+          "chosen": "/home/me/work/rnx-bench/probes/package-boundary/target/source-fixtures/deps/one/nested/deep/mod.rn",
+          "item": "renamed::nested::deep",
+          "mapped": "/home/me/work/rnx-bench/probes/package-boundary/target/source-fixtures/deps/one",
+          "parts": [
+            "renamed",
+            "nested",
+            "deep"
+          ],
+          "root": "/home/me/work/rnx-bench/probes/package-boundary/target/source-fixtures/app/main.rn"
+        }
+      ],
+      "value": 1127,
+      "case": "candidate-order"
+    },
+    {
+      "compile_ok": true,
+      "entry": "/home/me/work/rnx-bench/probes/package-boundary/target/source-fixtures/app/main.rn",
+      "errors": [],
+      "loads": [
+        {
+          "candidates": [
+            "/home/me/work/rnx-bench/probes/package-boundary/target/source-fixtures/deps/one/mod.rn"
+          ],
+          "chosen": "/home/me/work/rnx-bench/probes/package-boundary/target/source-fixtures/deps/one/mod.rn",
+          "item": "renamed",
+          "mapped": "/home/me/work/rnx-bench/probes/package-boundary/target/source-fixtures/deps/one",
+          "parts": [
+            "renamed"
+          ],
+          "root": "/home/me/work/rnx-bench/probes/package-boundary/target/source-fixtures/app/main.rn"
+        },
+        {
+          "candidates": [
+            "/home/me/work/rnx-bench/probes/package-boundary/target/source-fixtures/deps/two/mod.rn"
+          ],
+          "chosen": "/home/me/work/rnx-bench/probes/package-boundary/target/source-fixtures/deps/two/mod.rn",
+          "item": "other",
+          "mapped": "/home/me/work/rnx-bench/probes/package-boundary/target/source-fixtures/deps/two",
+          "parts": [
+            "other"
+          ],
+          "root": "/home/me/work/rnx-bench/probes/package-boundary/target/source-fixtures/app/main.rn"
+        },
+        {
+          "candidates": [
+            "/home/me/work/rnx-bench/probes/package-boundary/target/source-fixtures/deps/two/nested/mod.rn",
+            "/home/me/work/rnx-bench/probes/package-boundary/target/source-fixtures/deps/two/nested.rn"
+          ],
+          "chosen": "/home/me/work/rnx-bench/probes/package-boundary/target/source-fixtures/deps/two/nested.rn",
+          "item": "other::nested",
+          "mapped": "/home/me/work/rnx-bench/probes/package-boundary/target/source-fixtures/deps/two",
+          "parts": [
+            "other",
+            "nested"
+          ],
+          "root": "/home/me/work/rnx-bench/probes/package-boundary/target/source-fixtures/app/main.rn"
+        }
+      ],
+      "value": 1099,
+      "case": "crate-is-consumer"
+    },
+    {
+      "compile_ok": false,
+      "entry": "/home/me/work/rnx-bench/probes/package-boundary/target/source-fixtures/app/main.rn",
+      "errors": [
+        {
+          "message": "missing probe module: /home/me/work/rnx-bench/probes/package-boundary/target/source-fixtures/deps/one/other",
+          "offset": 0,
+          "source": "/home/me/work/rnx-bench/probes/package-boundary/target/source-fixtures/deps/one/mod.rn"
+        }
+      ],
+      "loads": [
+        {
+          "candidates": [
+            "/home/me/work/rnx-bench/probes/package-boundary/target/source-fixtures/deps/one/mod.rn"
+          ],
+          "chosen": "/home/me/work/rnx-bench/probes/package-boundary/target/source-fixtures/deps/one/mod.rn",
+          "item": "renamed",
+          "mapped": "/home/me/work/rnx-bench/probes/package-boundary/target/source-fixtures/deps/one",
+          "parts": [
+            "renamed"
+          ],
+          "root": "/home/me/work/rnx-bench/probes/package-boundary/target/source-fixtures/app/main.rn"
+        },
+        {
+          "candidates": [
+            "/home/me/work/rnx-bench/probes/package-boundary/target/source-fixtures/deps/two/mod.rn"
+          ],
+          "chosen": "/home/me/work/rnx-bench/probes/package-boundary/target/source-fixtures/deps/two/mod.rn",
+          "item": "other",
+          "mapped": "/home/me/work/rnx-bench/probes/package-boundary/target/source-fixtures/deps/two",
+          "parts": [
+            "other"
+          ],
+          "root": "/home/me/work/rnx-bench/probes/package-boundary/target/source-fixtures/app/main.rn"
+        },
+        {
+          "candidates": [
+            "/home/me/work/rnx-bench/probes/package-boundary/target/source-fixtures/deps/one/other/mod.rn",
+            "/home/me/work/rnx-bench/probes/package-boundary/target/source-fixtures/deps/one/other.rn"
+          ],
+          "chosen": null,
+          "item": "renamed::other",
+          "mapped": "/home/me/work/rnx-bench/probes/package-boundary/target/source-fixtures/deps/one",
+          "parts": [
+            "renamed",
+            "other"
+          ],
+          "root": "/home/me/work/rnx-bench/probes/package-boundary/target/source-fixtures/app/main.rn"
+        },
+        {
+          "candidates": [
+            "/home/me/work/rnx-bench/probes/package-boundary/target/source-fixtures/deps/two/nested/mod.rn",
+            "/home/me/work/rnx-bench/probes/package-boundary/target/source-fixtures/deps/two/nested.rn"
+          ],
+          "chosen": "/home/me/work/rnx-bench/probes/package-boundary/target/source-fixtures/deps/two/nested.rn",
+          "item": "other::nested",
+          "mapped": "/home/me/work/rnx-bench/probes/package-boundary/target/source-fixtures/deps/two",
+          "parts": [
+            "other",
+            "nested"
+          ],
+          "root": "/home/me/work/rnx-bench/probes/package-boundary/target/source-fixtures/app/main.rn"
+        }
+      ],
+      "case": "transitive-name-is-local"
+    },
+    {
+      "compile_ok": true,
+      "entry": "/home/me/work/rnx-bench/probes/package-boundary/target/source-fixtures/app/main.rn",
+      "errors": [],
+      "loads": [
+        {
+          "candidates": [
+            "/home/me/work/rnx-bench/probes/package-boundary/target/source-fixtures/deps/one/mod.rn"
+          ],
+          "chosen": "/home/me/work/rnx-bench/probes/package-boundary/target/source-fixtures/deps/one/mod.rn",
+          "item": "renamed",
+          "mapped": "/home/me/work/rnx-bench/probes/package-boundary/target/source-fixtures/deps/one",
+          "parts": [
+            "renamed"
+          ],
+          "root": "/home/me/work/rnx-bench/probes/package-boundary/target/source-fixtures/app/main.rn"
+        },
+        {
+          "candidates": [
+            "/home/me/work/rnx-bench/probes/package-boundary/target/source-fixtures/deps/two/mod.rn"
+          ],
+          "chosen": "/home/me/work/rnx-bench/probes/package-boundary/target/source-fixtures/deps/two/mod.rn",
+          "item": "other",
+          "mapped": "/home/me/work/rnx-bench/probes/package-boundary/target/source-fixtures/deps/two",
+          "parts": [
+            "other"
+          ],
+          "root": "/home/me/work/rnx-bench/probes/package-boundary/target/source-fixtures/app/main.rn"
+        },
+        {
+          "candidates": [
+            "/home/me/work/rnx-bench/probes/package-boundary/target/source-fixtures/deps/one/nested/mod.rn",
+            "/home/me/work/rnx-bench/probes/package-boundary/target/source-fixtures/deps/one/nested.rn"
+          ],
+          "chosen": "/home/me/work/rnx-bench/probes/package-boundary/target/source-fixtures/deps/one/nested.rn",
+          "item": "renamed::nested",
+          "mapped": "/home/me/work/rnx-bench/probes/package-boundary/target/source-fixtures/deps/one",
+          "parts": [
+            "renamed",
+            "nested"
+          ],
+          "root": "/home/me/work/rnx-bench/probes/package-boundary/target/source-fixtures/app/main.rn"
+        },
+        {
+          "candidates": [
+            "/home/me/work/rnx-bench/probes/package-boundary/target/source-fixtures/deps/one/inline/leaf/mod.rn",
+            "/home/me/work/rnx-bench/probes/package-boundary/target/source-fixtures/deps/one/inline/leaf.rn"
+          ],
+          "chosen": "/home/me/work/rnx-bench/probes/package-boundary/target/source-fixtures/deps/one/inline/leaf.rn",
+          "item": "renamed::inline::leaf",
+          "mapped": "/home/me/work/rnx-bench/probes/package-boundary/target/source-fixtures/deps/one",
+          "parts": [
+            "renamed",
+            "inline",
+            "leaf"
+          ],
+          "root": "/home/me/work/rnx-bench/probes/package-boundary/target/source-fixtures/app/main.rn"
+        },
+        {
+          "candidates": [
+            "/home/me/work/rnx-bench/probes/package-boundary/target/source-fixtures/deps/two/nested/mod.rn",
+            "/home/me/work/rnx-bench/probes/package-boundary/target/source-fixtures/deps/two/nested.rn"
+          ],
+          "chosen": "/home/me/work/rnx-bench/probes/package-boundary/target/source-fixtures/deps/two/nested.rn",
+          "item": "other::nested",
+          "mapped": "/home/me/work/rnx-bench/probes/package-boundary/target/source-fixtures/deps/two",
+          "parts": [
+            "other",
+            "nested"
+          ],
+          "root": "/home/me/work/rnx-bench/probes/package-boundary/target/source-fixtures/app/main.rn"
+        },
+        {
+          "candidates": [
+            "/home/me/work/rnx-bench/probes/package-boundary/target/source-fixtures/deps/one/nested/deep/mod.rn",
+            "/home/me/work/rnx-bench/probes/package-boundary/target/source-fixtures/deps/one/nested/deep.rn"
+          ],
+          "chosen": "/home/me/work/rnx-bench/probes/package-boundary/target/source-fixtures/deps/one/nested/deep.rn",
+          "item": "renamed::nested::deep",
+          "mapped": "/home/me/work/rnx-bench/probes/package-boundary/target/source-fixtures/deps/one",
+          "parts": [
+            "renamed",
+            "nested",
+            "deep"
+          ],
+          "root": "/home/me/work/rnx-bench/probes/package-boundary/target/source-fixtures/app/main.rn"
+        }
+      ],
+      "origin": {
+        "line": 2,
+        "offset": 21,
+        "source": "/home/me/work/rnx-bench/probes/package-boundary/target/source-fixtures/deps/one/nested/deep.rn"
+      },
+      "runtime_error": "Type `::std::vec::Vec` missing integer index `7`",
+      "case": "runtime-in-dependency"
+    },
+    {
+      "compile_ok": false,
+      "entry": "/home/me/work/rnx-bench/probes/package-boundary/target/source-fixtures/app/main.rn",
+      "errors": [
+        {
+          "message": "Expected expression but got `;`",
+          "offset": 29,
+          "source": "/home/me/work/rnx-bench/probes/package-boundary/target/source-fixtures/deps/one/nested/deep.rn"
+        }
+      ],
+      "loads": [
+        {
+          "candidates": [
+            "/home/me/work/rnx-bench/probes/package-boundary/target/source-fixtures/deps/one/mod.rn"
+          ],
+          "chosen": "/home/me/work/rnx-bench/probes/package-boundary/target/source-fixtures/deps/one/mod.rn",
+          "item": "renamed",
+          "mapped": "/home/me/work/rnx-bench/probes/package-boundary/target/source-fixtures/deps/one",
+          "parts": [
+            "renamed"
+          ],
+          "root": "/home/me/work/rnx-bench/probes/package-boundary/target/source-fixtures/app/main.rn"
+        },
+        {
+          "candidates": [
+            "/home/me/work/rnx-bench/probes/package-boundary/target/source-fixtures/deps/two/mod.rn"
+          ],
+          "chosen": "/home/me/work/rnx-bench/probes/package-boundary/target/source-fixtures/deps/two/mod.rn",
+          "item": "other",
+          "mapped": "/home/me/work/rnx-bench/probes/package-boundary/target/source-fixtures/deps/two",
+          "parts": [
+            "other"
+          ],
+          "root": "/home/me/work/rnx-bench/probes/package-boundary/target/source-fixtures/app/main.rn"
+        },
+        {
+          "candidates": [
+            "/home/me/work/rnx-bench/probes/package-boundary/target/source-fixtures/deps/one/nested/mod.rn",
+            "/home/me/work/rnx-bench/probes/package-boundary/target/source-fixtures/deps/one/nested.rn"
+          ],
+          "chosen": "/home/me/work/rnx-bench/probes/package-boundary/target/source-fixtures/deps/one/nested.rn",
+          "item": "renamed::nested",
+          "mapped": "/home/me/work/rnx-bench/probes/package-boundary/target/source-fixtures/deps/one",
+          "parts": [
+            "renamed",
+            "nested"
+          ],
+          "root": "/home/me/work/rnx-bench/probes/package-boundary/target/source-fixtures/app/main.rn"
+        },
+        {
+          "candidates": [
+            "/home/me/work/rnx-bench/probes/package-boundary/target/source-fixtures/deps/one/inline/leaf/mod.rn",
+            "/home/me/work/rnx-bench/probes/package-boundary/target/source-fixtures/deps/one/inline/leaf.rn"
+          ],
+          "chosen": "/home/me/work/rnx-bench/probes/package-boundary/target/source-fixtures/deps/one/inline/leaf.rn",
+          "item": "renamed::inline::leaf",
+          "mapped": "/home/me/work/rnx-bench/probes/package-boundary/target/source-fixtures/deps/one",
+          "parts": [
+            "renamed",
+            "inline",
+            "leaf"
+          ],
+          "root": "/home/me/work/rnx-bench/probes/package-boundary/target/source-fixtures/app/main.rn"
+        },
+        {
+          "candidates": [
+            "/home/me/work/rnx-bench/probes/package-boundary/target/source-fixtures/deps/two/nested/mod.rn",
+            "/home/me/work/rnx-bench/probes/package-boundary/target/source-fixtures/deps/two/nested.rn"
+          ],
+          "chosen": "/home/me/work/rnx-bench/probes/package-boundary/target/source-fixtures/deps/two/nested.rn",
+          "item": "other::nested",
+          "mapped": "/home/me/work/rnx-bench/probes/package-boundary/target/source-fixtures/deps/two",
+          "parts": [
+            "other",
+            "nested"
+          ],
+          "root": "/home/me/work/rnx-bench/probes/package-boundary/target/source-fixtures/app/main.rn"
+        },
+        {
+          "candidates": [
+            "/home/me/work/rnx-bench/probes/package-boundary/target/source-fixtures/deps/one/nested/deep/mod.rn",
+            "/home/me/work/rnx-bench/probes/package-boundary/target/source-fixtures/deps/one/nested/deep.rn"
+          ],
+          "chosen": "/home/me/work/rnx-bench/probes/package-boundary/target/source-fixtures/deps/one/nested/deep.rn",
+          "item": "renamed::nested::deep",
+          "mapped": "/home/me/work/rnx-bench/probes/package-boundary/target/source-fixtures/deps/one",
+          "parts": [
+            "renamed",
+            "nested",
+            "deep"
+          ],
+          "root": "/home/me/work/rnx-bench/probes/package-boundary/target/source-fixtures/app/main.rn"
+        }
+      ],
+      "case": "compile-in-dependency"
+    },
+    {
+      "compile_ok": false,
+      "entry": "/home/me/work/rnx-bench/probes/package-boundary/target/source-fixtures/app/main.rn",
+      "errors": [
+        {
+          "message": "Missing item {root}::renamed::value",
+          "offset": 16,
+          "source": "/home/me/work/rnx-bench/probes/package-boundary/target/source-fixtures/app/main.rn"
+        }
+      ],
+      "loads": [],
+      "case": "no-implicit-discovery"
+    }
+  ]
+}

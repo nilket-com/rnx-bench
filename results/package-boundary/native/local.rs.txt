@@ -1,0 +1,1 @@
+pub fn build(m: &mut rnx::rune::Module) -> Result<Vec<(String, &'static str)>, String> { m.function("answer", || 2i64).build().map_err(|e| e.to_string())?; Ok(vec![]) }
