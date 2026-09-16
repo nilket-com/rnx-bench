@@ -137,3 +137,8 @@ tokio current-thread runtime.
   executor, two workers and saturation), single-slot transaction ownership,
   rollback-before-reuse and awaited shutdown. Private clusters and raw results
   in `results/server-boundary-step-four/`; no production server or new rnx API.
+- `server-assembly/` — record 0054 gate 2, an isolated private-test build of
+  rnx's actual installers: serial versus multiplexed contexts, lifecycle and
+  HTTP isolation, builder/retirement counts and allocation measurements. The
+  existing synchronous, whole-runtime HTTP drain is a reproduced stop; gate 2
+  remains open. Evidence: `results/server-assembly-0054/`.
