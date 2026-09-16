@@ -1,0 +1,21 @@
+
+running 1 test
+
+thread '<unnamed>' (2063737) panicked at src/server_pool_probe.rs:105:17:
+driver retirement deadline; forced abort, not clean shutdown
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+thread '<unnamed>' (2063738) panicked at src/server_pool_probe.rs:105:17:
+driver retirement deadline; forced abort, not clean shutdown
+
+thread 'server_http_probe::server' (2063736) panicked at src/server_http_probe.rs:849:9:
+shutdown failed: worker failure [0, 1]
+test server_http_probe::server ... FAILED
+
+failures:
+
+failures:
+    server_http_probe::server
+
+test result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 142 filtered out; finished in 1.25s
+

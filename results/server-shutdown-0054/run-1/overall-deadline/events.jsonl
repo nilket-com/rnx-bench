@@ -1,0 +1,23 @@
+{"descriptors":[],"event":"socket_baseline","ms":0.051821}
+{"event":"pool_connect","ms":14.354987,"pid":2065053,"worker":0}
+{"event":"pool_connect","ms":15.374777,"pid":2065056,"worker":1}
+{"event":"pool_connect","ms":19.953405,"pid":2065059,"worker":0}
+{"drivers":2,"event":"pool_ready","idle":2,"leases":0,"ms":20.051455999999998,"runtime_tasks":2,"worker":0}
+{"event":"pool_connect","ms":20.826596,"pid":2065062,"worker":1}
+{"drivers":2,"event":"pool_ready","idle":2,"leases":0,"ms":20.948608,"runtime_tasks":2,"worker":1}
+{"address":"127.0.0.1:38481","event":"ready","live_bytes":211109,"ms":21.165715000000002,"pid":2065046}
+{"event":"request","id":1,"ms":39.609027999999995,"path":"/healthy","tag":null}
+{"active":[1,0],"event":"dispatch","id":1,"ms":39.700399,"queue":0,"worker":0}
+{"active":[1,0],"event":"admitted","id":1,"ms":39.791450999999995,"path":null,"queue":0}
+{"build_ms":11.716275999999999,"event":"built","id":1,"ms":51.540634000000004,"worker":0}
+{"event":"vm_start","id":1,"ms":51.654500999999996,"worker":0}
+{"event":"native_stall_start","id":1,"ms":51.777103999999994}
+{"active":[1,0],"event":"shutdown","ms":57.291044,"queue":0}
+{"event":"queued_shutdown","ids":[],"ms":57.37115}
+{"event":"request_cancel_signal","id":1,"ms":57.475143}
+{"drivers":2,"event":"pool_closing","idle":2,"leases":0,"ms":57.556014000000005,"runtime_tasks":2,"worker":1}
+{"driver_error":null,"drivers":1,"event":"pool_retire","id":0,"ms":57.734513,"pid":2065056,"reason":"shutdown","worker":1}
+{"driver_error":null,"drivers":0,"event":"pool_retire","id":0,"ms":57.925374000000005,"pid":2065062,"reason":"shutdown","worker":1}
+{"drivers":0,"event":"pool_closed","idle":0,"leases":0,"ms":58.10693,"runtime_tasks":0,"worker":1}
+{"event":"worker_end","ms":58.269083,"tasks":0,"worker":1}
+{"active":[1,0],"connection_tasks":0,"event":"shutdown_failed","ms":5059.242591,"owned_sockets":[[10,"socket:[3693451]"],[14,"socket:[3696273]"]],"reason":"overall deadline","requests":[1],"workers_unjoined":[0]}

@@ -1,0 +1,117 @@
+{
+  "case": "cpu",
+  "signal": "SIGINT",
+  "built_before_signal": 1,
+  "signal_at": 299252.765422398,
+  "shutdown_event": {
+    "active": [
+      1,
+      0
+    ],
+    "event": "shutdown",
+    "ms": 59.875025,
+    "queue": 0
+  },
+  "new_connection_refused": true,
+  "exit_code": 0,
+  "signal_to_exit_ms": 69.21236199559644,
+  "client_owned_socket_report": {
+    "active": [
+      0,
+      0
+    ],
+    "builds": 2,
+    "connections": 0,
+    "event": "closed",
+    "inherited_sockets": 0,
+    "live_bytes": 75769,
+    "ms": 116.91072199999999,
+    "peak_bytes": 2506129,
+    "retired": 2,
+    "sockets": 0
+  },
+  "signal_to_backend_zero_ms": 72.08342000376433,
+  "rows_after": "0",
+  "observer": [
+    {
+      "at": 299252.753223476,
+      "backends": [
+        {
+          "pid": 2064370,
+          "state": "idle",
+          "query": "SELECT pg_backend_pid()"
+        },
+        {
+          "pid": 2064373,
+          "state": "idle",
+          "query": "SELECT pg_backend_pid()"
+        },
+        {
+          "pid": 2064376,
+          "state": "idle",
+          "query": "SELECT pg_backend_pid()"
+        },
+        {
+          "pid": 2064379,
+          "state": "idle",
+          "query": "SELECT pg_backend_pid()"
+        }
+      ]
+    },
+    {
+      "at": 299252.775120317,
+      "backends": [
+        {
+          "pid": 2064370,
+          "state": "idle",
+          "query": "SELECT pg_backend_pid()"
+        },
+        {
+          "pid": 2064376,
+          "state": "idle",
+          "query": "SELECT pg_backend_pid()"
+        }
+      ]
+    },
+    {
+      "at": 299252.796198077,
+      "backends": [
+        {
+          "pid": 2064370,
+          "state": "idle",
+          "query": "SELECT pg_backend_pid()"
+        },
+        {
+          "pid": 2064376,
+          "state": "idle",
+          "query": "SELECT pg_backend_pid()"
+        }
+      ]
+    },
+    {
+      "at": 299252.816980121,
+      "backends": [
+        {
+          "pid": 2064370,
+          "state": "idle",
+          "query": "SELECT pg_backend_pid()"
+        },
+        {
+          "pid": 2064376,
+          "state": "idle",
+          "query": "SELECT pg_backend_pid()"
+        }
+      ]
+    },
+    {
+      "at": 299252.837505818,
+      "backends": []
+    }
+  ],
+  "http_connections": [
+    {
+      "bytes": 0,
+      "end": "eof"
+    }
+  ]
+}

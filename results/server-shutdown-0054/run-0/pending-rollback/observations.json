@@ -1,0 +1,98 @@
+{
+  "case": "pending-rollback",
+  "signal": "SIGTERM",
+  "visible_at_barrier": "0",
+  "built_before_signal": 1,
+  "signal_at": 299242.128261699,
+  "shutdown_event": {
+    "active": [
+      1,
+      0
+    ],
+    "event": "shutdown",
+    "ms": 63.310849000000005,
+    "queue": 0
+  },
+  "new_connection_refused": true,
+  "exit_code": 0,
+  "signal_to_exit_ms": 14.97953402576968,
+  "client_owned_socket_report": {
+    "active": [
+      0,
+      0
+    ],
+    "builds": 2,
+    "connections": 0,
+    "event": "closed",
+    "inherited_sockets": 0,
+    "live_bytes": 75769,
+    "ms": 70.354726,
+    "peak_bytes": 2506210,
+    "retired": 2,
+    "sockets": 0
+  },
+  "signal_to_backend_zero_ms": 31.808661995455623,
+  "rows_after": "0",
+  "observer": [
+    {
+      "at": 299242.102447905,
+      "backends": [
+        {
+          "pid": 2063358,
+          "state": "idle",
+          "query": "SELECT pg_backend_pid()"
+        },
+        {
+          "pid": 2063361,
+          "state": "idle",
+          "query": "SELECT pg_backend_pid()"
+        },
+        {
+          "pid": 2063364,
+          "state": "idle",
+          "query": "SELECT pg_backend_pid()"
+        },
+        {
+          "pid": 2063367,
+          "state": "idle",
+          "query": "SELECT pg_backend_pid()"
+        }
+      ]
+    },
+    {
+      "at": 299242.131861904,
+      "backends": [
+        {
+          "pid": 2063358,
+          "state": "idle",
+          "query": "SELECT pg_backend_pid()"
+        },
+        {
+          "pid": 2063361,
+          "state": "idle",
+          "query": "SELECT pg_backend_pid()"
+        },
+        {
+          "pid": 2063364,
+          "state": "idle",
+          "query": "SELECT pg_backend_pid()"
+        },
+        {
+          "pid": 2063367,
+          "state": "idle",
+          "query": "ROLLBACK"
+        }
+      ]
+    },
+    {
+      "at": 299242.160070361,
+      "backends": []
+    }
+  ],
+  "http_connections": [
+    {
+      "bytes": 0,
+      "end": "eof"
+    }
+  ]
+}

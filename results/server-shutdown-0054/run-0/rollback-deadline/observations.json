@@ -1,0 +1,811 @@
+{
+  "case": "rollback-deadline",
+  "signal": "SIGTERM",
+  "visible_at_barrier": "0",
+  "built_before_signal": 1,
+  "signal_at": 299242.387543203,
+  "shutdown_event": {
+    "active": [
+      1,
+      0
+    ],
+    "event": "shutdown",
+    "ms": 61.685752,
+    "queue": 0
+  },
+  "new_connection_refused": true,
+  "completion_failure": {
+    "category": "rollback unacknowledged; retired",
+    "detail": "cleanup deadline",
+    "event": "tx_finish_error",
+    "id": 1,
+    "ms": 1250.263305,
+    "pid": 2063450
+  },
+  "exit_code": 0,
+  "signal_to_exit_ms": 1203.2613349729218,
+  "client_owned_socket_report": {
+    "active": [
+      0,
+      0
+    ],
+    "builds": 2,
+    "connections": 0,
+    "event": "closed",
+    "inherited_sockets": 0,
+    "live_bytes": 75769,
+    "ms": 1258.2263440000002,
+    "peak_bytes": 2506216,
+    "retired": 2,
+    "sockets": 0
+  },
+  "signal_to_backend_zero_ms": 1219.9434209614992,
+  "rows_after": "0",
+  "observer": [
+    {
+      "at": 299242.362429192,
+      "backends": [
+        {
+          "pid": 2063443,
+          "state": "idle",
+          "query": "SELECT pg_backend_pid()"
+        },
+        {
+          "pid": 2063447,
+          "state": "idle",
+          "query": "SELECT pg_backend_pid()"
+        },
+        {
+          "pid": 2063450,
+          "state": "idle",
+          "query": "SELECT pg_backend_pid()"
+        },
+        {
+          "pid": 2063453,
+          "state": "idle",
+          "query": "SELECT pg_backend_pid()"
+        }
+      ]
+    },
+    {
+      "at": 299242.385055543,
+      "backends": [
+        {
+          "pid": 2063443,
+          "state": "idle",
+          "query": "SELECT pg_backend_pid()"
+        },
+        {
+          "pid": 2063447,
+          "state": "idle",
+          "query": "SELECT pg_backend_pid()"
+        },
+        {
+          "pid": 2063450,
+          "state": "idle",
+          "query": "ROLLBACK"
+        },
+        {
+          "pid": 2063453,
+          "state": "idle",
+          "query": "SELECT pg_backend_pid()"
+        }
+      ]
+    },
+    {
+      "at": 299242.413472528,
+      "backends": [
+        {
+          "pid": 2063443,
+          "state": "idle",
+          "query": "SELECT pg_backend_pid()"
+        },
+        {
+          "pid": 2063450,
+          "state": "idle",
+          "query": "ROLLBACK"
+        }
+      ]
+    },
+    {
+      "at": 299242.442155526,
+      "backends": [
+        {
+          "pid": 2063443,
+          "state": "idle",
+          "query": "SELECT pg_backend_pid()"
+        },
+        {
+          "pid": 2063450,
+          "state": "idle",
+          "query": "ROLLBACK"
+        }
+      ]
+    },
+    {
+      "at": 299242.469840624,
+      "backends": [
+        {
+          "pid": 2063443,
+          "state": "idle",
+          "query": "SELECT pg_backend_pid()"
+        },
+        {
+          "pid": 2063450,
+          "state": "idle",
+          "query": "ROLLBACK"
+        }
+      ]
+    },
+    {
+      "at": 299242.497515743,
+      "backends": [
+        {
+          "pid": 2063443,
+          "state": "idle",
+          "query": "SELECT pg_backend_pid()"
+        },
+        {
+          "pid": 2063450,
+          "state": "idle",
+          "query": "ROLLBACK"
+        }
+      ]
+    },
+    {
+      "at": 299242.525771726,
+      "backends": [
+        {
+          "pid": 2063443,
+          "state": "idle",
+          "query": "SELECT pg_backend_pid()"
+        },
+        {
+          "pid": 2063450,
+          "state": "idle",
+          "query": "ROLLBACK"
+        }
+      ]
+    },
+    {
+      "at": 299242.554395964,
+      "backends": [
+        {
+          "pid": 2063443,
+          "state": "idle",
+          "query": "SELECT pg_backend_pid()"
+        },
+        {
+          "pid": 2063450,
+          "state": "idle",
+          "query": "ROLLBACK"
+        }
+      ]
+    },
+    {
+      "at": 299242.584210558,
+      "backends": [
+        {
+          "pid": 2063443,
+          "state": "idle",
+          "query": "SELECT pg_backend_pid()"
+        },
+        {
+          "pid": 2063450,
+          "state": "idle",
+          "query": "ROLLBACK"
+        }
+      ]
+    },
+    {
+      "at": 299242.611860015,
+      "backends": [
+        {
+          "pid": 2063443,
+          "state": "idle",
+          "query": "SELECT pg_backend_pid()"
+        },
+        {
+          "pid": 2063450,
+          "state": "idle",
+          "query": "ROLLBACK"
+        }
+      ]
+    },
+    {
+      "at": 299242.639376161,
+      "backends": [
+        {
+          "pid": 2063443,
+          "state": "idle",
+          "query": "SELECT pg_backend_pid()"
+        },
+        {
+          "pid": 2063450,
+          "state": "idle",
+          "query": "ROLLBACK"
+        }
+      ]
+    },
+    {
+      "at": 299242.667820659,
+      "backends": [
+        {
+          "pid": 2063443,
+          "state": "idle",
+          "query": "SELECT pg_backend_pid()"
+        },
+        {
+          "pid": 2063450,
+          "state": "idle",
+          "query": "ROLLBACK"
+        }
+      ]
+    },
+    {
+      "at": 299242.695830701,
+      "backends": [
+        {
+          "pid": 2063443,
+          "state": "idle",
+          "query": "SELECT pg_backend_pid()"
+        },
+        {
+          "pid": 2063450,
+          "state": "idle",
+          "query": "ROLLBACK"
+        }
+      ]
+    },
+    {
+      "at": 299242.72325394,
+      "backends": [
+        {
+          "pid": 2063443,
+          "state": "idle",
+          "query": "SELECT pg_backend_pid()"
+        },
+        {
+          "pid": 2063450,
+          "state": "idle",
+          "query": "ROLLBACK"
+        }
+      ]
+    },
+    {
+      "at": 299242.750668662,
+      "backends": [
+        {
+          "pid": 2063443,
+          "state": "idle",
+          "query": "SELECT pg_backend_pid()"
+        },
+        {
+          "pid": 2063450,
+          "state": "idle",
+          "query": "ROLLBACK"
+        }
+      ]
+    },
+    {
+      "at": 299242.779089404,
+      "backends": [
+        {
+          "pid": 2063443,
+          "state": "idle",
+          "query": "SELECT pg_backend_pid()"
+        },
+        {
+          "pid": 2063450,
+          "state": "idle",
+          "query": "ROLLBACK"
+        }
+      ]
+    },
+    {
+      "at": 299242.808737367,
+      "backends": [
+        {
+          "pid": 2063443,
+          "state": "idle",
+          "query": "SELECT pg_backend_pid()"
+        },
+        {
+          "pid": 2063450,
+          "state": "idle",
+          "query": "ROLLBACK"
+        }
+      ]
+    },
+    {
+      "at": 299242.835614573,
+      "backends": [
+        {
+          "pid": 2063443,
+          "state": "idle",
+          "query": "SELECT pg_backend_pid()"
+        },
+        {
+          "pid": 2063450,
+          "state": "idle",
+          "query": "ROLLBACK"
+        }
+      ]
+    },
+    {
+      "at": 299242.865591514,
+      "backends": [
+        {
+          "pid": 2063443,
+          "state": "idle",
+          "query": "SELECT pg_backend_pid()"
+        },
+        {
+          "pid": 2063450,
+          "state": "idle",
+          "query": "ROLLBACK"
+        }
+      ]
+    },
+    {
+      "at": 299242.893727048,
+      "backends": [
+        {
+          "pid": 2063443,
+          "state": "idle",
+          "query": "SELECT pg_backend_pid()"
+        },
+        {
+          "pid": 2063450,
+          "state": "idle",
+          "query": "ROLLBACK"
+        }
+      ]
+    },
+    {
+      "at": 299242.921438038,
+      "backends": [
+        {
+          "pid": 2063443,
+          "state": "idle",
+          "query": "SELECT pg_backend_pid()"
+        },
+        {
+          "pid": 2063450,
+          "state": "idle",
+          "query": "ROLLBACK"
+        }
+      ]
+    },
+    {
+      "at": 299242.948578608,
+      "backends": [
+        {
+          "pid": 2063443,
+          "state": "idle",
+          "query": "SELECT pg_backend_pid()"
+        },
+        {
+          "pid": 2063450,
+          "state": "idle",
+          "query": "ROLLBACK"
+        }
+      ]
+    },
+    {
+      "at": 299242.976623556,
+      "backends": [
+        {
+          "pid": 2063443,
+          "state": "idle",
+          "query": "SELECT pg_backend_pid()"
+        },
+        {
+          "pid": 2063450,
+          "state": "idle",
+          "query": "ROLLBACK"
+        }
+      ]
+    },
+    {
+      "at": 299243.005157163,
+      "backends": [
+        {
+          "pid": 2063443,
+          "state": "idle",
+          "query": "SELECT pg_backend_pid()"
+        },
+        {
+          "pid": 2063450,
+          "state": "idle",
+          "query": "ROLLBACK"
+        }
+      ]
+    },
+    {
+      "at": 299243.034293756,
+      "backends": [
+        {
+          "pid": 2063443,
+          "state": "idle",
+          "query": "SELECT pg_backend_pid()"
+        },
+        {
+          "pid": 2063450,
+          "state": "idle",
+          "query": "ROLLBACK"
+        }
+      ]
+    },
+    {
+      "at": 299243.061988847,
+      "backends": [
+        {
+          "pid": 2063443,
+          "state": "idle",
+          "query": "SELECT pg_backend_pid()"
+        },
+        {
+          "pid": 2063450,
+          "state": "idle",
+          "query": "ROLLBACK"
+        }
+      ]
+    },
+    {
+      "at": 299243.089117056,
+      "backends": [
+        {
+          "pid": 2063443,
+          "state": "idle",
+          "query": "SELECT pg_backend_pid()"
+        },
+        {
+          "pid": 2063450,
+          "state": "idle",
+          "query": "ROLLBACK"
+        }
+      ]
+    },
+    {
+      "at": 299243.118163712,
+      "backends": [
+        {
+          "pid": 2063443,
+          "state": "idle",
+          "query": "SELECT pg_backend_pid()"
+        },
+        {
+          "pid": 2063450,
+          "state": "idle",
+          "query": "ROLLBACK"
+        }
+      ]
+    },
+    {
+      "at": 299243.146227703,
+      "backends": [
+        {
+          "pid": 2063443,
+          "state": "idle",
+          "query": "SELECT pg_backend_pid()"
+        },
+        {
+          "pid": 2063450,
+          "state": "idle",
+          "query": "ROLLBACK"
+        }
+      ]
+    },
+    {
+      "at": 299243.172767768,
+      "backends": [
+        {
+          "pid": 2063443,
+          "state": "idle",
+          "query": "SELECT pg_backend_pid()"
+        },
+        {
+          "pid": 2063450,
+          "state": "idle",
+          "query": "ROLLBACK"
+        }
+      ]
+    },
+    {
+      "at": 299243.200375867,
+      "backends": [
+        {
+          "pid": 2063443,
+          "state": "idle",
+          "query": "SELECT pg_backend_pid()"
+        },
+        {
+          "pid": 2063450,
+          "state": "idle",
+          "query": "ROLLBACK"
+        }
+      ]
+    },
+    {
+      "at": 299243.226956413,
+      "backends": [
+        {
+          "pid": 2063443,
+          "state": "idle",
+          "query": "SELECT pg_backend_pid()"
+        },
+        {
+          "pid": 2063450,
+          "state": "idle",
+          "query": "ROLLBACK"
+        }
+      ]
+    },
+    {
+      "at": 299243.247986811,
+      "backends": [
+        {
+          "pid": 2063443,
+          "state": "idle",
+          "query": "SELECT pg_backend_pid()"
+        },
+        {
+          "pid": 2063450,
+          "state": "idle",
+          "query": "ROLLBACK"
+        }
+      ]
+    },
+    {
+      "at": 299243.26938877,
+      "backends": [
+        {
+          "pid": 2063443,
+          "state": "idle",
+          "query": "SELECT pg_backend_pid()"
+        },
+        {
+          "pid": 2063450,
+          "state": "idle",
+          "query": "ROLLBACK"
+        }
+      ]
+    },
+    {
+      "at": 299243.289870684,
+      "backends": [
+        {
+          "pid": 2063443,
+          "state": "idle",
+          "query": "SELECT pg_backend_pid()"
+        },
+        {
+          "pid": 2063450,
+          "state": "idle",
+          "query": "ROLLBACK"
+        }
+      ]
+    },
+    {
+      "at": 299243.310084195,
+      "backends": [
+        {
+          "pid": 2063443,
+          "state": "idle",
+          "query": "SELECT pg_backend_pid()"
+        },
+        {
+          "pid": 2063450,
+          "state": "idle",
+          "query": "ROLLBACK"
+        }
+      ]
+    },
+    {
+      "at": 299243.331156148,
+      "backends": [
+        {
+          "pid": 2063443,
+          "state": "idle",
+          "query": "SELECT pg_backend_pid()"
+        },
+        {
+          "pid": 2063450,
+          "state": "idle",
+          "query": "ROLLBACK"
+        }
+      ]
+    },
+    {
+      "at": 299243.356468618,
+      "backends": [
+        {
+          "pid": 2063443,
+          "state": "idle",
+          "query": "SELECT pg_backend_pid()"
+        },
+        {
+          "pid": 2063450,
+          "state": "idle",
+          "query": "ROLLBACK"
+        }
+      ]
+    },
+    {
+      "at": 299243.380178955,
+      "backends": [
+        {
+          "pid": 2063443,
+          "state": "idle",
+          "query": "SELECT pg_backend_pid()"
+        },
+        {
+          "pid": 2063450,
+          "state": "idle",
+          "query": "ROLLBACK"
+        }
+      ]
+    },
+    {
+      "at": 299243.400208069,
+      "backends": [
+        {
+          "pid": 2063443,
+          "state": "idle",
+          "query": "SELECT pg_backend_pid()"
+        },
+        {
+          "pid": 2063450,
+          "state": "idle",
+          "query": "ROLLBACK"
+        }
+      ]
+    },
+    {
+      "at": 299243.420853557,
+      "backends": [
+        {
+          "pid": 2063443,
+          "state": "idle",
+          "query": "SELECT pg_backend_pid()"
+        },
+        {
+          "pid": 2063450,
+          "state": "idle",
+          "query": "ROLLBACK"
+        }
+      ]
+    },
+    {
+      "at": 299243.44284016,
+      "backends": [
+        {
+          "pid": 2063443,
+          "state": "idle",
+          "query": "SELECT pg_backend_pid()"
+        },
+        {
+          "pid": 2063450,
+          "state": "idle",
+          "query": "ROLLBACK"
+        }
+      ]
+    },
+    {
+      "at": 299243.463671274,
+      "backends": [
+        {
+          "pid": 2063443,
+          "state": "idle",
+          "query": "SELECT pg_backend_pid()"
+        },
+        {
+          "pid": 2063450,
+          "state": "idle",
+          "query": "ROLLBACK"
+        }
+      ]
+    },
+    {
+      "at": 299243.484395821,
+      "backends": [
+        {
+          "pid": 2063443,
+          "state": "idle",
+          "query": "SELECT pg_backend_pid()"
+        },
+        {
+          "pid": 2063450,
+          "state": "idle",
+          "query": "ROLLBACK"
+        }
+      ]
+    },
+    {
+      "at": 299243.504617703,
+      "backends": [
+        {
+          "pid": 2063443,
+          "state": "idle",
+          "query": "SELECT pg_backend_pid()"
+        },
+        {
+          "pid": 2063450,
+          "state": "idle",
+          "query": "ROLLBACK"
+        }
+      ]
+    },
+    {
+      "at": 299243.525157051,
+      "backends": [
+        {
+          "pid": 2063443,
+          "state": "idle",
+          "query": "SELECT pg_backend_pid()"
+        },
+        {
+          "pid": 2063450,
+          "state": "idle",
+          "query": "ROLLBACK"
+        }
+      ]
+    },
+    {
+      "at": 299243.545458471,
+      "backends": [
+        {
+          "pid": 2063443,
+          "state": "idle",
+          "query": "SELECT pg_backend_pid()"
+        },
+        {
+          "pid": 2063450,
+          "state": "idle",
+          "query": "ROLLBACK"
+        }
+      ]
+    },
+    {
+      "at": 299243.56557616,
+      "backends": [
+        {
+          "pid": 2063443,
+          "state": "idle",
+          "query": "SELECT pg_backend_pid()"
+        },
+        {
+          "pid": 2063450,
+          "state": "idle",
+          "query": "ROLLBACK"
+        }
+      ]
+    },
+    {
+      "at": 299243.585474186,
+      "backends": [
+        {
+          "pid": 2063576,
+          "state": "idle",
+          "query": ""
+        },
+        {
+          "pid": 2063443,
+          "state": "idle",
+          "query": "SELECT pg_backend_pid()"
+        }
+      ]
+    },
+    {
+      "at": 299243.607486624,
+      "backends": []
+    }
+  ],
+  "http_connections": [
+    {
+      "bytes": 0,
+      "end": "eof"
+    }
+  ]
+}

@@ -1,0 +1,395 @@
+{
+  "cases": [
+    {
+      "case": "HTTP 1.0 refused",
+      "status": 505,
+      "end": "eof",
+      "bytes": 136,
+      "elapsed_ms": 0.3911569947376847
+    },
+    {
+      "case": "bare LF tolerated",
+      "status": 200,
+      "end": "eof",
+      "bytes": 94,
+      "elapsed_ms": 9.10371501231566
+    },
+    {
+      "case": "echo",
+      "status": 200,
+      "end": "eof",
+      "bytes": 101,
+      "elapsed_ms": 8.20437801303342
+    },
+    {
+      "case": "exact body",
+      "status": 200,
+      "end": "eof",
+      "bytes": 1048676,
+      "elapsed_ms": 304.85098098870367
+    },
+    {
+      "case": "response bad-status",
+      "status": 500,
+      "end": "eof",
+      "bytes": 128,
+      "elapsed_ms": 8.983777021057904
+    },
+    {
+      "case": "response extra-field",
+      "status": 500,
+      "end": "eof",
+      "bytes": 128,
+      "elapsed_ms": 7.2359180194325745
+    },
+    {
+      "case": "response bad-header",
+      "status": 500,
+      "end": "eof",
+      "bytes": 128,
+      "elapsed_ms": 7.499718980398029
+    },
+    {
+      "case": "response framing",
+      "status": 500,
+      "end": "eof",
+      "bytes": 128,
+      "elapsed_ms": 7.262360013555735
+    },
+    {
+      "case": "response no-content",
+      "status": 500,
+      "end": "eof",
+      "bytes": 128,
+      "elapsed_ms": 7.800847990438342
+    },
+    {
+      "case": "response body cap",
+      "status": 500,
+      "end": "eof",
+      "bytes": 128,
+      "elapsed_ms": 11.741347960196435
+    },
+    {
+      "case": "empty 204",
+      "status": 204,
+      "end": "eof",
+      "bytes": 83,
+      "elapsed_ms": 6.437699950765818
+    },
+    {
+      "case": "response fields over",
+      "status": 500,
+      "end": "eof",
+      "bytes": 128,
+      "elapsed_ms": 6.786901969462633
+    },
+    {
+      "case": "response bytes over",
+      "status": 500,
+      "end": "eof",
+      "bytes": 128,
+      "elapsed_ms": 5.8282139943912625
+    },
+    {
+      "case": "headers-exact",
+      "status": 200,
+      "wire_fields": 64,
+      "wire_header_bytes": 429
+    },
+    {
+      "case": "header-bytes-exact",
+      "status": 200,
+      "wire_fields": 4,
+      "wire_header_bytes": 16384
+    },
+    {
+      "case": "raw query and repeated non-Unicode headers",
+      "status": 200
+    },
+    {
+      "case": "no path normalization",
+      "status": 404,
+      "end": "eof",
+      "bytes": 106,
+      "elapsed_ms": 0.06625597598031163
+    },
+    {
+      "case": "body plus one",
+      "status": 413,
+      "end": "eof",
+      "bytes": 113,
+      "elapsed_ms": 0.22332801017910242
+    },
+    {
+      "case": "huge declared length",
+      "status": 413,
+      "end": "eof",
+      "bytes": 113,
+      "elapsed_ms": 0.10066700633615255
+    },
+    {
+      "case": "expect",
+      "status": 417,
+      "end": "eof",
+      "bytes": 116,
+      "elapsed_ms": 0.08369202259927988
+    },
+    {
+      "case": "encoding",
+      "status": 415,
+      "end": "eof",
+      "bytes": 122,
+      "elapsed_ms": 0.08663098560646176
+    },
+    {
+      "case": "unknown",
+      "status": 404,
+      "end": "eof",
+      "bytes": 106,
+      "elapsed_ms": 0.14303502393886447
+    },
+    {
+      "case": "method",
+      "status": 405,
+      "end": "eof",
+      "bytes": 129,
+      "elapsed_ms": 0.16167399007827044
+    },
+    {
+      "case": "absolute target",
+      "status": 400,
+      "end": "eof",
+      "bytes": 115,
+      "elapsed_ms": 0.1557529903948307
+    },
+    {
+      "case": "upgrade",
+      "status": 400,
+      "end": "eof",
+      "bytes": 110,
+      "elapsed_ms": 0.15865196473896503
+    },
+    {
+      "case": "long target",
+      "status": 414,
+      "end": "eof",
+      "bytes": 110,
+      "elapsed_ms": 0.1742900349199772
+    },
+    {
+      "case": "exact header count",
+      "status": 200,
+      "end": "eof",
+      "bytes": 94,
+      "elapsed_ms": 7.283177983481437
+    },
+    {
+      "case": "too many headers",
+      "status": 431,
+      "end": "eof",
+      "bytes": 123,
+      "elapsed_ms": 0.07483200170099735
+    },
+    {
+      "case": "large head",
+      "status": 431,
+      "end": "eof",
+      "bytes": 123,
+      "elapsed_ms": 0.0767559977248311
+    },
+    {
+      "case": "conflicting lengths",
+      "status": 400,
+      "end": "eof",
+      "bytes": 103,
+      "elapsed_ms": 0.062278006225824356
+    },
+    {
+      "case": "pipeline ignored",
+      "status": 200,
+      "end": "eof",
+      "bytes": 95,
+      "elapsed_ms": 5.980453977826983
+    },
+    {
+      "case": "chunked",
+      "status": 200,
+      "end": "eof",
+      "bytes": 97,
+      "elapsed_ms": 6.81098602944985
+    },
+    {
+      "case": "huge declared chunk",
+      "status": 413,
+      "end": "eof",
+      "bytes": 113,
+      "elapsed_ms": 0.6664120010100305
+    },
+    {
+      "case": "chunks over cap",
+      "status": 413,
+      "end": "eof",
+      "bytes": 113,
+      "elapsed_ms": 0.9401860297657549
+    },
+    {
+      "case": "many chunks",
+      "status": 200,
+      "end": "eof",
+      "bytes": 10098,
+      "elapsed_ms": 20.961073983926326
+    },
+    {
+      "case": "oversized chunk extension",
+      "status": 400,
+      "end": "eof",
+      "bytes": 116,
+      "elapsed_ms": 0.7941170479170978
+    },
+    {
+      "case": "chunk length overflow",
+      "status": 400,
+      "end": "eof",
+      "bytes": 116,
+      "elapsed_ms": 0.1817820011638105
+    },
+    {
+      "case": "trailers",
+      "status": 400,
+      "end": "eof",
+      "bytes": 111,
+      "elapsed_ms": 0.11386803817003965
+    },
+    {
+      "case": "huge trailer",
+      "status": 400,
+      "end": "eof",
+      "bytes": 116,
+      "elapsed_ms": 0.7568229921162128
+    },
+    {
+      "case": "truncated body",
+      "status": 400,
+      "end": "eof"
+    },
+    {
+      "case": "body deadline",
+      "status": 408,
+      "elapsed_ms": 5000.777024019044,
+      "end": "eof"
+    },
+    {
+      "case": "empty head deadline",
+      "status": null,
+      "elapsed_ms": 5001.622740004677,
+      "end": "eof"
+    },
+    {
+      "case": "fragmented head deadline",
+      "status": null,
+      "elapsed_ms": 5001.403642992955,
+      "end": "eof"
+    },
+    {
+      "case": "head deadline",
+      "status": null,
+      "elapsed_ms": 5001.857907976955,
+      "end": "eof"
+    },
+    {
+      "case": "connection saturation",
+      "end": "eof"
+    },
+    {
+      "case": "queue saturation",
+      "status": 503,
+      "builds": 27
+    },
+    {
+      "case": "disconnect cleanup",
+      "elapsed_ms": 7.98766000661999
+    },
+    {
+      "case": "admitted deadline",
+      "status": 504,
+      "elapsed_ms": 2001.8672419828363
+    },
+    {
+      "case": "recovery",
+      "status": 200,
+      "end": "eof",
+      "bytes": 96,
+      "elapsed_ms": 9.994830994401127
+    },
+    {
+      "case": "cpu whole budget",
+      "status": 500,
+      "end": "eof",
+      "bytes": 128,
+      "elapsed_ms": 65.48668403411284
+    },
+    {
+      "case": "failure",
+      "status": 500,
+      "end": "eof",
+      "bytes": 128,
+      "elapsed_ms": 3.610213054344058
+    },
+    {
+      "case": "coordinator under CPU",
+      "status": 417,
+      "elapsed_ms": 0.11005596024915576
+    },
+    {
+      "case": "native call retains active slot after 504",
+      "status": 504,
+      "deadline_ms": 1997.7276149999989,
+      "teardown_ms": 2500.657786999999
+    },
+    {
+      "case": "queued expiry without construction",
+      "status": 504,
+      "id": 124
+    },
+    {
+      "case": "slow reader",
+      "observed_write_deadlines": 1
+    },
+    {
+      "case": "post slow-reader recovery",
+      "status": 200,
+      "end": "eof",
+      "bytes": 96,
+      "elapsed_ms": 10.2865329827182
+    },
+    {
+      "case": "resource batches",
+      "batches": [
+        {
+          "iteration": 0,
+          "held_live_bytes": 51584239,
+          "held_rss_kib": 57276,
+          "idle_live_bytes": 214767,
+          "idle_rss_kib": 24504
+        },
+        {
+          "iteration": 1,
+          "held_live_bytes": 51584239,
+          "held_rss_kib": 57276,
+          "idle_live_bytes": 214767,
+          "idle_rss_kib": 24504
+        },
+        {
+          "iteration": 2,
+          "held_live_bytes": 51584239,
+          "held_rss_kib": 57276,
+          "idle_live_bytes": 214767,
+          "idle_rss_kib": 24504
+        }
+      ]
+    }
+  ],
+  "postmaster_reaped": 2063583,
+  "driver_sha256": "f1cee8ad0008c01c05297ce5b31b7f997fd5fd5408b6c946e2cecada05ba06c4"
+}

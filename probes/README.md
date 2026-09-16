@@ -162,3 +162,9 @@ tokio current-thread runtime.
   lease contention. Pool driver tasks outlive requests and are joined on close.
   Results: `results/server-transactions-0054/`, including the 57-case HTTP
   regression with the pool enabled. Active-work shutdown remains gate 6.
+
+- `server-shutdown/` — record 0054 gate 6: the accepted pool/HTTP prototype with
+  a 13-case shutdown matrix under SIGTERM and SIGINT, independent PostgreSQL
+  backend observations, and explicit driver/overall deadline failures. The
+  eight transaction and 57 wire regressions also pass. Results are in
+  `results/server-shutdown-0054/`; the supported server entry remains open.

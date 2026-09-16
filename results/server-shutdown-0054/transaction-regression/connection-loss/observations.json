@@ -1,0 +1,87 @@
+{
+  "case": "connection-loss",
+  "idle_before": {
+    "backend_pids": [
+      2063259,
+      2063262,
+      2063266,
+      2063269
+    ],
+    "driver_tasks": 4,
+    "handler_leases": 0
+  },
+  "status": 500,
+  "failure": {
+    "category": "rollback unacknowledged; retired",
+    "detail": "connection closed",
+    "event": "tx_finish_error",
+    "id": 1,
+    "ms": 72.743919,
+    "pid": 2063266
+  },
+  "original_pid": 2063266,
+  "next_pid": 2063282,
+  "idle_after": [
+    {
+      "drivers": 2,
+      "event": "pool_state",
+      "idle": 2,
+      "leases": 0,
+      "ms": 103.250284,
+      "runtime_tasks": 2,
+      "worker": 1
+    },
+    {
+      "drivers": 2,
+      "event": "pool_state",
+      "idle": 2,
+      "leases": 0,
+      "ms": 114.360822,
+      "runtime_tasks": 2,
+      "worker": 0
+    }
+  ],
+  "idle_socket_descriptors": [
+    [
+      13,
+      "socket:[3684891]"
+    ],
+    [
+      14,
+      "socket:[3690837]"
+    ],
+    [
+      15,
+      "socket:[3681106]"
+    ],
+    [
+      16,
+      "socket:[3687822]"
+    ],
+    [
+      17,
+      "socket:[3697245]"
+    ]
+  ],
+  "pool_closed": [
+    {
+      "drivers": 0,
+      "event": "pool_closed",
+      "idle": 0,
+      "leases": 0,
+      "ms": 148.440698,
+      "runtime_tasks": 0,
+      "worker": 1
+    },
+    {
+      "drivers": 0,
+      "event": "pool_closed",
+      "idle": 0,
+      "leases": 0,
+      "ms": 148.986648,
+      "runtime_tasks": 0,
+      "worker": 0
+    }
+  ],
+  "backend_count_after": 0
+}
