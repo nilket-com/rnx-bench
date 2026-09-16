@@ -3,7 +3,7 @@
 import os, pathlib, subprocess, json, tempfile, sys
 ROOT = pathlib.Path(__file__).resolve().parents[2]
 RNX = ROOT.parent/'rnx'
-OUT = ROOT/'results/extensions-0051'
+OUT = pathlib.Path(os.environ.get('RNX_EXTENSION_RESULTS', str(ROOT/'results/extensions-0051')))
 APP = pathlib.Path(sys.argv[1]).resolve()
 BROKEN = APP.with_name('broken')
 sys.path.insert(0, str(RNX/'tests'))

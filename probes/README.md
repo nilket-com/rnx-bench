@@ -120,3 +120,7 @@ tokio current-thread runtime.
 - `postgres/` — record 0052's real-Rune connection-ownership prototype;
   seven cases pass, while interruption of a previously retained future leaves
   its socket open (`results/postgres-0052/`). Adapter implementation stopped.
+
+- Record 0053 extends `extensions/` with a tracked-future app and CLI/worker/Jupyter
+  lifecycle fixtures. `postgres/ownership` reruns the retained-socket stop with
+  that public wrapper; evidence is in `results/lifecycle-0053/`.

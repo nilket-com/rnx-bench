@@ -1,6 +1,6 @@
-# 0052 ownership prototype — stopped before the adapter
+# PostgreSQL ownership prototype — 0052 stop and 0053 lifecycle rerun
 
-Codex, nano/Linux, 2026-09-16. Uses rnx at `aee1d83` (plan `cb4f519`),
+The original stop: Codex, nano/Linux, 2026-09-16. Used rnx at `aee1d83` (plan `cb4f519`),
 tokio-postgres exactly 0.7.18, and PostgreSQL 18.6. No product adapter exists yet.
 
 ```sh
@@ -8,8 +8,10 @@ cargo build --locked --release --manifest-path probes/postgres/ownership/Cargo.t
 PYTHONDONTWRITEBYTECODE=1 python3 probes/postgres/ownership.py
 ```
 
-The final command **exits 2 intentionally** when it reproduces the retained-
-binding stop condition. It starts its own initdb cluster in a mode-0700
+At the original `fbc08a9` bench commit, the command **exits 2 intentionally**
+when it reproduces the retained-binding stop condition. The current command
+uses 0053 tracking, asserts that case closes, and exits zero. Its output goes to
+`results/lifecycle-0053/postgres/`; the 0052 raw evidence is unchanged. It starts its own initdb cluster in a mode-0700
 TemporaryDirectory, with no TCP listener. All queries use that Unix socket.
 Finally it stops the server, verifies its PID disappeared and removes the
 cluster. It never uses the system server. Requires PostgreSQL binaries under
@@ -78,3 +80,12 @@ a registration-only extension cannot cancel resources retained by earlier
 session bindings on its own. A later lifecycle interface or an explicit
 contract change needs review. No extra runtime turn, forced reset, or detached
 worker is used to make the stop condition pass.
+
+## 0053 rerun
+
+The only operation change is registration through `with_lifecycle` and wrapping
+`query(...)` with `scope.track(...)`. Connection/statement ownership and timeout
+logic are unchanged. All eight cases pass. The eighth socket is gone at settlement
+before ack, and repolling the retained Rune future returns `Err("operation
+cancelled")` with no replacement socket. This is lifecycle evidence, not completion
+of the database adapter or its remaining contract gates.

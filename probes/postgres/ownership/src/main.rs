@@ -79,13 +79,18 @@ async fn query(url: String, seconds: f64, timeout_ms: u64, refuse: bool) -> Resu
         .await
         .map_err(|_| "prototype deadline".to_owned())?
 }
-fn build(module: &mut Module) -> Result<Vec<(String, &'static str)>, String> {
+fn build(module: &mut Module, scope: rnx::Scope) -> Result<Vec<(String, &'static str)>, String> {
     module
-        .function("query", query)
+        .function(
+            "query",
+            move |url: String, seconds: f64, timeout_ms: u64, refuse: bool| {
+                scope.track(query(url, seconds, timeout_ms, refuse))
+            },
+        )
         .build()
         .map_err(|e| e.to_string())?;
     Ok(vec![("pg_probe::query".into(), "ownership prototype only")])
 }
 fn main() -> Result<(), Box<dyn std::error::Error>> {
-    rnx::main_with(rnx::Extensions::none().with("pg_probe", build))
+    rnx::main_with(rnx::Extensions::none().with_lifecycle("pg_probe", build))
 }
