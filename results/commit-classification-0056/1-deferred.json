@@ -1,0 +1,76 @@
+{
+  "result": {
+    "backend_idle_without_transaction": true,
+    "case": "deferred",
+    "category": "rejected",
+    "observed_before_retirement": {
+      "audit": 0,
+      "child": 0,
+      "dead": 0,
+      "victim_row": 0
+    },
+    "replacement_pid": 2189576,
+    "severity": "ERROR",
+    "sqlstate": "23503",
+    "victim_pid": 2189570,
+    "repeat": 1,
+    "commit_attempts": 1,
+    "backends_after": 0
+  },
+  "wire": [
+    {
+      "at": 303380.849217992,
+      "event": "query",
+      "pid": 2189567,
+      "sql": "SET statement_timeout='8s'"
+    },
+    {
+      "at": 303380.854868481,
+      "event": "query",
+      "pid": 2189570,
+      "sql": "SET statement_timeout='8s'"
+    },
+    {
+      "at": 303380.855143635,
+      "event": "query",
+      "pid": 2189567,
+      "sql": "DROP SCHEMA IF EXISTS commit_probe CASCADE; CREATE SCHEMA commit_probe; SET search_path=commit_probe;\n        CREATE TABLE parent(id int PRIMARY KEY);\n        CREATE TABLE child(id int REFERENCES parent DEFERRABLE INITIALLY DEFERRED);\n        CREATE TABLE audit(id text PRIMARY KEY);\n        CREATE TABLE skew(id int PRIMARY KEY, n int); INSERT INTO skew VALUES(1,0),(2,0);\n        CREATE TABLE dead(id int PRIMARY KEY);\n        CREATE FUNCTION deferred_lock() RETURNS trigger LANGUAGE plpgsql AS $$ BEGIN PERFORM pg_advisory_xact_lock(222); RETURN NEW; END $$;\n        CREATE CONSTRAINT TRIGGER lock_on_commit AFTER INSERT ON dead DEFERRABLE INITIALLY DEFERRED FOR EACH ROW EXECUTE FUNCTION deferred_lock();"
+    },
+    {
+      "at": 303380.864825028,
+      "event": "query",
+      "pid": 2189570,
+      "sql": "SET search_path=commit_probe"
+    },
+    {
+      "at": 303380.870448316,
+      "event": "query",
+      "pid": 2189573,
+      "sql": "SET statement_timeout='8s'"
+    },
+    {
+      "at": 303380.870708114,
+      "event": "query",
+      "pid": 2189573,
+      "sql": "SET search_path=commit_probe"
+    },
+    {
+      "at": 303380.870903134,
+      "event": "query",
+      "pid": 2189570,
+      "sql": "BEGIN; INSERT INTO audit VALUES('victim'); INSERT INTO child VALUES(7)"
+    },
+    {
+      "at": 303380.872030924,
+      "event": "query",
+      "pid": 2189570,
+      "sql": "COMMIT"
+    },
+    {
+      "at": 303380.885207284,
+      "event": "query",
+      "pid": 2189576,
+      "sql": "SET statement_timeout='8s'"
+    }
+  ]
+}

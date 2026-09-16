@@ -1,0 +1,94 @@
+{
+  "result": {
+    "backend_idle_without_transaction": true,
+    "case": "serialization",
+    "category": "rejected",
+    "observed_before_retirement": {
+      "audit": 0,
+      "child": 0,
+      "dead": 0,
+      "victim_row": 0
+    },
+    "replacement_pid": 2189686,
+    "severity": "ERROR",
+    "sqlstate": "40001",
+    "victim_pid": 2189681,
+    "repeat": 2,
+    "commit_attempts": 1,
+    "backends_after": 0
+  },
+  "wire": [
+    {
+      "at": 303382.19610612,
+      "event": "query",
+      "pid": 2189678,
+      "sql": "SET statement_timeout='8s'"
+    },
+    {
+      "at": 303382.201862689,
+      "event": "query",
+      "pid": 2189681,
+      "sql": "SET statement_timeout='8s'"
+    },
+    {
+      "at": 303382.202202065,
+      "event": "query",
+      "pid": 2189678,
+      "sql": "DROP SCHEMA IF EXISTS commit_probe CASCADE; CREATE SCHEMA commit_probe; SET search_path=commit_probe;\n        CREATE TABLE parent(id int PRIMARY KEY);\n        CREATE TABLE child(id int REFERENCES parent DEFERRABLE INITIALLY DEFERRED);\n        CREATE TABLE audit(id text PRIMARY KEY);\n        CREATE TABLE skew(id int PRIMARY KEY, n int); INSERT INTO skew VALUES(1,0),(2,0);\n        CREATE TABLE dead(id int PRIMARY KEY);\n        CREATE FUNCTION deferred_lock() RETURNS trigger LANGUAGE plpgsql AS $$ BEGIN PERFORM pg_advisory_xact_lock(222); RETURN NEW; END $$;\n        CREATE CONSTRAINT TRIGGER lock_on_commit AFTER INSERT ON dead DEFERRABLE INITIALLY DEFERRED FOR EACH ROW EXECUTE FUNCTION deferred_lock();"
+    },
+    {
+      "at": 303382.211707609,
+      "event": "query",
+      "pid": 2189681,
+      "sql": "SET search_path=commit_probe"
+    },
+    {
+      "at": 303382.214164983,
+      "event": "query",
+      "pid": 2189684,
+      "sql": "SET statement_timeout='8s'"
+    },
+    {
+      "at": 303382.214316872,
+      "event": "query",
+      "pid": 2189684,
+      "sql": "SET search_path=commit_probe"
+    },
+    {
+      "at": 303382.214539003,
+      "event": "query",
+      "pid": 2189681,
+      "sql": "BEGIN ISOLATION LEVEL SERIALIZABLE"
+    },
+    {
+      "at": 303382.214692555,
+      "event": "query",
+      "pid": 2189684,
+      "sql": "BEGIN ISOLATION LEVEL SERIALIZABLE"
+    },
+    {
+      "at": 303382.218244282,
+      "event": "query",
+      "pid": 2189681,
+      "sql": "INSERT INTO audit VALUES('victim'); UPDATE skew SET n=1 WHERE id=2"
+    },
+    {
+      "at": 303382.219375385,
+      "event": "query",
+      "pid": 2189684,
+      "sql": "UPDATE skew SET n=1 WHERE id=1; COMMIT"
+    },
+    {
+      "at": 303382.220053228,
+      "event": "query",
+      "pid": 2189681,
+      "sql": "COMMIT"
+    },
+    {
+      "at": 303382.232621933,
+      "event": "query",
+      "pid": 2189686,
+      "sql": "SET statement_timeout='8s'"
+    }
+  ]
+}

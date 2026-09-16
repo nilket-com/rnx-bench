@@ -1,0 +1,96 @@
+{
+  "case": "commit-loss",
+  "idle_before": {
+    "backend_pids": [
+      2188659,
+      2188662,
+      2188665,
+      2188668
+    ],
+    "driver_tasks": 4,
+    "handler_leases": 0
+  },
+  "visible_while_unacknowledged": "1",
+  "barrier": {
+    "at": 303340.363311392,
+    "event": "withheld",
+    "pid": 2188665,
+    "command": "COMMIT",
+    "first_type": "3"
+  },
+  "status": 500,
+  "failure": {
+    "category": "ambiguous commit; no retry",
+    "detail": "connection closed",
+    "event": "tx_finish_error",
+    "id": 1,
+    "ms": 125.389824,
+    "pid": 2188665
+  },
+  "original_pid": 2188665,
+  "next_pid": 2188687,
+  "commit_attempts": 1,
+  "idle_after": [
+    {
+      "drivers": 2,
+      "event": "pool_state",
+      "idle": 2,
+      "leases": 0,
+      "ms": 159.10359499999998,
+      "runtime_tasks": 2,
+      "worker": 1
+    },
+    {
+      "drivers": 2,
+      "event": "pool_state",
+      "idle": 2,
+      "leases": 0,
+      "ms": 169.725425,
+      "runtime_tasks": 2,
+      "worker": 0
+    }
+  ],
+  "idle_socket_descriptors": [
+    [
+      13,
+      "socket:[3887045]"
+    ],
+    [
+      14,
+      "socket:[3893710]"
+    ],
+    [
+      15,
+      "socket:[3891910]"
+    ],
+    [
+      16,
+      "socket:[3884780]"
+    ],
+    [
+      17,
+      "socket:[3883845]"
+    ]
+  ],
+  "pool_closed": [
+    {
+      "drivers": 0,
+      "event": "pool_closed",
+      "idle": 0,
+      "leases": 0,
+      "ms": 242.98712,
+      "runtime_tasks": 0,
+      "worker": 1
+    },
+    {
+      "drivers": 0,
+      "event": "pool_closed",
+      "idle": 0,
+      "leases": 0,
+      "ms": 243.636641,
+      "runtime_tasks": 0,
+      "worker": 0
+    }
+  ],
+  "backend_count_after": 0
+}

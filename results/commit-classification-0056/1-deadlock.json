@@ -1,0 +1,94 @@
+{
+  "result": {
+    "backend_idle_without_transaction": true,
+    "case": "deadlock",
+    "category": "rejected",
+    "observed_before_retirement": {
+      "audit": 0,
+      "child": 0,
+      "dead": 0,
+      "victim_row": 0
+    },
+    "replacement_pid": 2189610,
+    "severity": "ERROR",
+    "sqlstate": "40P01",
+    "victim_pid": 2189603,
+    "repeat": 1,
+    "commit_attempts": 1,
+    "backends_after": 0
+  },
+  "wire": [
+    {
+      "at": 303381.133897236,
+      "event": "query",
+      "pid": 2189600,
+      "sql": "SET statement_timeout='8s'"
+    },
+    {
+      "at": 303381.139375749,
+      "event": "query",
+      "pid": 2189603,
+      "sql": "SET statement_timeout='8s'"
+    },
+    {
+      "at": 303381.139606627,
+      "event": "query",
+      "pid": 2189600,
+      "sql": "DROP SCHEMA IF EXISTS commit_probe CASCADE; CREATE SCHEMA commit_probe; SET search_path=commit_probe;\n        CREATE TABLE parent(id int PRIMARY KEY);\n        CREATE TABLE child(id int REFERENCES parent DEFERRABLE INITIALLY DEFERRED);\n        CREATE TABLE audit(id text PRIMARY KEY);\n        CREATE TABLE skew(id int PRIMARY KEY, n int); INSERT INTO skew VALUES(1,0),(2,0);\n        CREATE TABLE dead(id int PRIMARY KEY);\n        CREATE FUNCTION deferred_lock() RETURNS trigger LANGUAGE plpgsql AS $$ BEGIN PERFORM pg_advisory_xact_lock(222); RETURN NEW; END $$;\n        CREATE CONSTRAINT TRIGGER lock_on_commit AFTER INSERT ON dead DEFERRABLE INITIALLY DEFERRED FOR EACH ROW EXECUTE FUNCTION deferred_lock();"
+    },
+    {
+      "at": 303381.149038617,
+      "event": "query",
+      "pid": 2189603,
+      "sql": "SET search_path=commit_probe"
+    },
+    {
+      "at": 303381.152326445,
+      "event": "query",
+      "pid": 2189606,
+      "sql": "SET statement_timeout='8s'"
+    },
+    {
+      "at": 303381.152542764,
+      "event": "query",
+      "pid": 2189606,
+      "sql": "SET search_path=commit_probe"
+    },
+    {
+      "at": 303381.152835302,
+      "event": "query",
+      "pid": 2189603,
+      "sql": "BEGIN; SET LOCAL deadlock_timeout='50ms'; SELECT pg_advisory_xact_lock(111); INSERT INTO audit VALUES('victim'); INSERT INTO dead VALUES(1)"
+    },
+    {
+      "at": 303381.154321663,
+      "event": "query",
+      "pid": 2189606,
+      "sql": "BEGIN; SET LOCAL deadlock_timeout='10s'; SELECT pg_advisory_xact_lock(222)"
+    },
+    {
+      "at": 303381.154810084,
+      "event": "query",
+      "pid": 2189606,
+      "sql": "SELECT pg_advisory_xact_lock(111)"
+    },
+    {
+      "at": 303381.157843428,
+      "event": "query",
+      "pid": 2189603,
+      "sql": "COMMIT"
+    },
+    {
+      "at": 303381.209812912,
+      "event": "query",
+      "pid": 2189606,
+      "sql": "ROLLBACK"
+    },
+    {
+      "at": 303381.22087289,
+      "event": "query",
+      "pid": 2189610,
+      "sql": "SET statement_timeout='8s'"
+    }
+  ]
+}

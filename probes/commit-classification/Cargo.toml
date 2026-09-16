@@ -1,0 +1,14 @@
+[package]
+name = "rnx-commit-classification-probe"
+version = "0.0.0"
+edition = "2024"
+publish = false
+[workspace]
+[dependencies]
+tokio = { version = "1", features = ["rt", "net", "time", "macros"] }
+tokio-postgres = "=0.7.18"
+serde_json = "1"
+[profile.dev]
+debug = false
+[profile.dev.package."*"]
+opt-level = 2
