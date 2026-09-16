@@ -117,3 +117,6 @@ tokio current-thread runtime.
 - `extensions/` — record 0051's external application, assembly refusals,
   public API and allocator checks, worker/notebook restart, namespace probes,
   and matched before/stock/application timings (`results/extensions-0051/`).
+- `postgres/` — record 0052's real-Rune connection-ownership prototype;
+  seven cases pass, while interruption of a previously retained future leaves
+  its socket open (`results/postgres-0052/`). Adapter implementation stopped.
