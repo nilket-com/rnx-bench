@@ -1,0 +1,140 @@
+{
+  "before": [
+    {
+      "sequential_ms": [
+        0.719175033736974,
+        0.6641210056841373,
+        0.6329049938358366,
+        0.6323080160655081,
+        0.61974604614079,
+        0.6292890175245702,
+        0.6269700243137777,
+        0.6199449999257922,
+        0.6469709915108979,
+        0.6470709922723472,
+        0.6338550010696054,
+        0.6635939935222268,
+        0.6358759710565209,
+        0.6119259633123875,
+        0.6026549963280559,
+        0.6033459794707596,
+        0.6306589930318296,
+        0.6281869718804955,
+        0.6036839913576841,
+        0.6067990325391293
+      ],
+      "median_ms": 0.6299740052781999,
+      "connections_for_21_requests": 1,
+      "signal_to_settled_ms": 7.547806017100811
+    },
+    {
+      "sequential_ms": [
+        0.6330659962259233,
+        0.6052959943190217,
+        0.6088310037739575,
+        0.6073630065657198,
+        0.5926630110479891,
+        0.5936080124229193,
+        0.639132980722934,
+        0.5993969971314073,
+        0.594783981796354,
+        0.6049749790690839,
+        0.6080750026740134,
+        0.6008189520798624,
+        0.5941889830864966,
+        0.5947609897702932,
+        0.5846759886480868,
+        0.6260609952732921,
+        0.6055620033293962,
+        0.5908669554628432,
+        0.5892399931326509,
+        0.5920140538364649
+      ],
+      "median_ms": 0.6001079746056348,
+      "connections_for_21_requests": 1,
+      "signal_to_settled_ms": 7.479073014110327
+    }
+  ],
+  "after": [
+    {
+      "sequential_ms": [
+        0.6552229751832783,
+        0.644212996121496,
+        0.6567660020664334,
+        0.6087120273150504,
+        0.6237640045583248,
+        0.6249179714359343,
+        0.6003649905323982,
+        0.6040410371497273,
+        0.619887956418097,
+        0.5991240032017231,
+        0.6261710077524185,
+        0.6126940133981407,
+        0.6072460091672838,
+        0.6021740264259279,
+        0.5918089882470667,
+        0.599863997194916,
+        0.6138000171631575,
+        0.6160559714771807,
+        0.6039580330252647,
+        0.5952499923296273
+      ],
+      "median_ms": 0.6107030203565955,
+      "connections_for_21_requests": 1,
+      "signal_to_settled_ms": 1.4041890390217304
+    },
+    {
+      "sequential_ms": [
+        0.6137779564596713,
+        0.6108160014264286,
+        0.6247080164030194,
+        0.6399099947884679,
+        0.5865650018677115,
+        0.5827210261486471,
+        0.6017650011926889,
+        0.5876770010218024,
+        0.5966909811832011,
+        0.5799499922432005,
+        0.5761909997090697,
+        0.5809750291518867,
+        0.583123997785151,
+        0.6071370444260538,
+        0.6146089872345328,
+        0.5877549992874265,
+        0.5854630144312978,
+        0.589215022046119,
+        0.5826670094393194,
+        0.6052740500308573
+      ],
+      "median_ms": 0.5884850106667727,
+      "connections_for_21_requests": 1,
+      "signal_to_settled_ms": 1.2698309728875756
+    }
+  ],
+  "before-allocation-transcript": {
+    "stdout": "tracked live allocation request bytes: 1838920 of a ceiling of 536870912.\nstartup reference point: 1830452 bytes; net change since: +8468 bytes\nsource and map storage: 0 bytes (inputs, declarations, and the source maps of 0 entries; the units themselves are held weakly and are not counted)\nThe figure counts requests through Rust's global allocator only. It excludes native allocations outside it, memory mappings, thread stacks, and child processes, it is not resident memory, and it is not the session's share of anything.\ntracked live allocation request bytes: 1840966 of a ceiling of 536870912.\nstartup reference point: 1830452 bytes; net change since: +10514 bytes\nsource and map storage: 79 bytes (inputs, declarations, and the source maps of 1 entries; the units themselves are held weakly and are not counted)\nThe figure counts requests through Rust's global allocator only. It excludes native allocations outside it, memory mappings, thread stacks, and child processes, it is not resident memory, and it is not the session's share of anything.\nsession reset\ntracked live allocation request bytes: 1839186 of a ceiling of 536870912.\nstartup reference point: 1830452 bytes; net change since: +8734 bytes\nsource and map storage: 0 bytes (inputs, declarations, and the source maps of 0 entries; the units themselves are held weakly and are not counted)\nThe figure counts requests through Rust's global allocator only. It excludes native allocations outside it, memory mappings, thread stacks, and child processes, it is not resident memory, and it is not the session's share of anything.\n",
+    "stderr": ""
+  },
+  "after-allocation-transcript": {
+    "stdout": "tracked live allocation request bytes: 1839174 of a ceiling of 536870912.\nstartup reference point: 1830724 bytes; net change since: +8450 bytes\nsource and map storage: 0 bytes (inputs, declarations, and the source maps of 0 entries; the units themselves are held weakly and are not counted)\nThe figure counts requests through Rust's global allocator only. It excludes native allocations outside it, memory mappings, thread stacks, and child processes, it is not resident memory, and it is not the session's share of anything.\ntracked live allocation request bytes: 1842891 of a ceiling of 536870912.\nstartup reference point: 1830724 bytes; net change since: +12167 bytes\nsource and map storage: 79 bytes (inputs, declarations, and the source maps of 1 entries; the units themselves are held weakly and are not counted)\nThe figure counts requests through Rust's global allocator only. It excludes native allocations outside it, memory mappings, thread stacks, and child processes, it is not resident memory, and it is not the session's share of anything.\nsession reset\ntracked live allocation request bytes: 1839734 of a ceiling of 536870912.\nstartup reference point: 1830724 bytes; net change since: +9010 bytes\nsource and map storage: 0 bytes (inputs, declarations, and the source maps of 0 entries; the units themselves are held weakly and are not counted)\nThe figure counts requests through Rust's global allocator only. It excludes native allocations outside it, memory mappings, thread stacks, and child processes, it is not resident memory, and it is not the session's share of anything.\n",
+    "stderr": ""
+  },
+  "before-transport-allocation-transcript": {
+    "stdout": "tracked live allocation request bytes: 1906542 of a ceiling of 536870912.\nstartup reference point: 1830237 bytes; net change since: +76305 bytes\nsource and map storage: 164 bytes (inputs, declarations, and the source maps of 1 entries; the units themselves are held weakly and are not counted)\nThe figure counts requests through Rust's global allocator only. It excludes native allocations outside it, memory mappings, thread stacks, and child processes, it is not resident memory, and it is not the session's share of anything.\nsession reset\ntracked live allocation request bytes: 1839072 of a ceiling of 536870912.\nstartup reference point: 1830237 bytes; net change since: +8835 bytes\nsource and map storage: 0 bytes (inputs, declarations, and the source maps of 0 entries; the units themselves are held weakly and are not counted)\nThe figure counts requests through Rust's global allocator only. It excludes native allocations outside it, memory mappings, thread stacks, and child processes, it is not resident memory, and it is not the session's share of anything.\ntracked live allocation request bytes: 1839381 of a ceiling of 536870912.\nstartup reference point: 1830237 bytes; net change since: +9144 bytes\nsource and map storage: 54 bytes (inputs, declarations, and the source maps of 1 entries; the units themselves are held weakly and are not counted)\nThe figure counts requests through Rust's global allocator only. It excludes native allocations outside it, memory mappings, thread stacks, and child processes, it is not resident memory, and it is not the session's share of anything.\n",
+    "stderr": "",
+    "stages": [
+      "held before reset",
+      "after logical reset",
+      "after runtime progress"
+    ]
+  },
+  "after-transport-allocation-transcript": {
+    "stdout": "tracked live allocation request bytes: 1907177 of a ceiling of 536870912.\nstartup reference point: 1830675 bytes; net change since: +76502 bytes\nsource and map storage: 164 bytes (inputs, declarations, and the source maps of 1 entries; the units themselves are held weakly and are not counted)\nThe figure counts requests through Rust's global allocator only. It excludes native allocations outside it, memory mappings, thread stacks, and child processes, it is not resident memory, and it is not the session's share of anything.\nsession reset\ntracked live allocation request bytes: 1868693 of a ceiling of 536870912.\nstartup reference point: 1830675 bytes; net change since: +38018 bytes\nsource and map storage: 0 bytes (inputs, declarations, and the source maps of 0 entries; the units themselves are held weakly and are not counted)\nThe figure counts requests through Rust's global allocator only. It excludes native allocations outside it, memory mappings, thread stacks, and child processes, it is not resident memory, and it is not the session's share of anything.\ntracked live allocation request bytes: 1839929 of a ceiling of 536870912.\nstartup reference point: 1830675 bytes; net change since: +9254 bytes\nsource and map storage: 54 bytes (inputs, declarations, and the source maps of 1 entries; the units themselves are held weakly and are not counted)\nThe figure counts requests through Rust's global allocator only. It excludes native allocations outside it, memory mappings, thread stacks, and child processes, it is not resident memory, and it is not the session's share of anything.\n",
+    "stderr": "",
+    "stages": [
+      "held before reset",
+      "after logical reset",
+      "after runtime progress"
+    ]
+  }
+}

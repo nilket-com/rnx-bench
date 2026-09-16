@@ -1,0 +1,7 @@
+{"case": "persistent_values_errors_streams_counts_and_origins", "passed": true}
+{"case": "interrupt_recovery", "source": "loop {}", "seconds": 0.0010743460152298212}
+{"case": "interrupt_recovery", "source": "time::sleep(10000).await?", "seconds": 0.0022019820171408355}
+{"case": "interrupt_recovery", "source": "process::run(\"/bin/sleep\", [\"10\"], #{})?", "seconds": 0.0012329310411587358}
+{"case": "active_shutdown_and_independent_control", "passed": true}
+{"case": "stop_on_error_snapshot_and_continue", "passed": true}
+{"case": "manager_starts_fresh_kernel_after_restart", "passed": true}

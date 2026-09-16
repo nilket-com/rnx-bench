@@ -1,0 +1,696 @@
+   Compiling rnx v0.0.0 (/home/me/work/rnx)
+    Finished `test` profile [unoptimized] target(s) in 1.32s
+     Running unittests src/lib.rs (target/debug/deps/rnx-911d9b02dd220f2a)
+
+running 142 tests
+test config::tests::every_colour_name_and_rgb_value_is_validated_before_emission ... ok
+test complete::tests::the_whole_token_containing_the_cursor_is_the_range ... ok
+test complete::tests::commands_complete_only_at_the_start_and_names_are_deduplicated ... ok
+test complete::tests::a_later_line_of_a_multiline_input_is_found_by_byte_offset ... ok
+test complete::tests::qualified_paths_complete_within_the_module ... ok
+test complete::tests::nothing_is_offered_inside_strings_comments_or_after_a_dot ... ok
+test format::boundary_tests::styling_preserves_an_atomic_wrapper_at_the_byte_boundary ... ok
+test extensions::tests::names_and_help_are_checked_before_installation ... ok
+test extensions::tests::overlapping_and_nested_catches_do_not_hold_a_lock_across_adapter_code ... ok
+test fs::tests::times_floor_before_epoch_and_refuse_overflow ... ok
+test fs_platform::tests::exclusive_call_needs_no_existing_source_or_destination ... ok
+test host::tests::a_shortfall_rnx_caused_excuses_a_partial_last_character ... ok
+test host::tests::a_wait_grows_with_the_child_and_never_outlives_the_deadline ... ok
+test host::tests::each_stream_is_judged_on_its_own_flags ... ok
+test host::tests::an_unreadable_stream_overrides_both_exemptions ... ok
+test host::tests::the_reachable_ways_running_a_program_can_fail_name_the_program ... ok
+test host::tests::every_error_that_touches_a_path_names_it ... ok
+test host::tests::a_file_past_the_limit_names_itself_too ... ok
+test host::tests::a_probe_that_cannot_spawn_reports_the_spawn_failure ... ok
+test format::tests::rendering_runs_no_script_code_even_when_a_debug_protocol_is_defined ... ok
+test fs::tests::exactly_eighteen_names_have_help_and_resolve ... ok
+test env::tests::exactly_four_names_and_no_setter ... ok
+test inspect::budget_tests::the_escaper_stops_at_its_budget ... ok
+test format::tests::long_vector_is_cut_with_the_omitted_count ... ok
+test format::tests::a_large_byte_string_is_complete_at_an_entry_point_and_previewed_at_a_prompt ... ok
+test http::tests::the_module_registers_exactly_four_functions_and_no_json_reader ... ok
+test format::boundary_tests::wrapper_chains_stop_at_the_depth ... ok
+test format::tests::repeated_shared_data_is_not_a_cycle ... ok
+test format::tests::unsupported_types_print_opaque_markers_with_the_type_name ... ok
+test format::tests::structs_print_by_declared_fields_and_enums_by_variant ... ok
+test complete::host_source_tests::host_candidates_are_the_registered_functions ... ok
+test http::tests::unpolled_native_calls_construct_no_client ... ok
+test inspect::tests::every_registered_host_function_has_a_description ... ok
+test execute::shutdown_tests::final_drain_refuses_a_live_task_then_succeeds_after_it_ends ... ok
+test lifecycle::tests::contexts_threads_and_retired_handles_never_fall_back ... ok
+test lifecycle::tests::destructor_failure_retires_and_still_revokes_other_owners ... ok
+test lifecycle::tests::final_drop_completion_and_returned_error_remove_entries ... ok
+test inspect::budget_tests::vars_visits_only_the_bindings_it_may_list ... ok
+test format::tests::a_candidate_that_does_not_fit_the_value_is_not_used ... ok
+test lifecycle::tests::retained_owner_is_revoked_without_another_poll ... ok
+test lifecycle::tests::rune_registration_accepts_scope_and_non_send_future ... ok
+test format::tests::total_budget_truncates_the_whole_rendering_honestly ... ok
+test memory::tests::every_event_is_accounted_and_a_failure_is_not ... ok
+test method::tests::a_message_that_does_not_parse_is_left_alone ... ok
+test method::tests::a_name_is_proved_before_it_is_printed ... ok
+test method::tests::candidates_are_the_names_used_in_method_position ... ok
+test method::tests::the_map_comes_from_the_linked_rune_and_reproduces_a_reported_hash ... ok
+test inspect::budget_tests::an_oversized_unknown_name_is_bounded_and_escaped ... ok
+test inspect::tests::a_name_that_is_both_reports_the_binding_and_says_the_declaration_exists ... ok
+test platform::tests::a_cancellation_that_arrives_before_the_submission_is_asked_again ... ok
+test inspect::tests::both_commands_answer_when_the_session_is_over_its_ceiling ... ok
+test platform::tests::a_panic_inside_an_operation_withdraws_the_handle ... ok
+test platform::tests::a_stop_reaches_the_operation_a_worker_is_inside ... ok
+test platform::tests::an_operation_is_never_declared_after_a_stop ... ok
+test inspect::tests::a_failed_input_leaves_its_mutation_visible_and_its_binding_absent ... ok
+test platform::tests::nothing_is_reachable_once_an_operation_is_over ... ok
+test presentation::tests::edits_change_token_classes_without_rewriting_text ... ok
+test platform::tests::a_worker_never_lets_go_of_a_stream_that_is_still_reachable ... ok
+test presentation::tests::numbered_spans_keep_digits_bold_and_frame_dim_without_changing_text ... ok
+test process::tests::path_preparation_keeps_parent_components_and_bare_names_distinct ... ok
+test inspect::tests::vars_lists_bindings_in_name_order_with_type_and_value ... ok
+test inspect::budget_tests::declaration_help_escapes_only_what_fits ... ok
+test program::tests::duplicate_snapshot_does_not_shift_source_ids ... ok
+test format::tests::a_cycle_and_an_opaque_value_are_complete_renderings ... ok
+test program::tests::understated_size_does_not_bypass_the_read_bound ... ok
+test inspect::tests::help_answers_for_each_kind_and_states_the_precedence ... ok
+test session::escape_tests::a_capture_hidden_behind_an_escape_is_still_found ... ok
+test session::escape_tests::an_unrecognised_escape_restores_everything ... ok
+test session::escape_tests::ordinary_escapes_decode_without_widening ... ok
+test session::escape_tests::the_decoder_matches_the_escapes_the_lexer_accepts ... ok
+test inspect::tests::declaration_source_is_escaped_for_the_terminal ... ok
+test inspect::tests::inspection_runs_no_code ... ok
+test path::tests::exact_surface_compiles ... ok
+test lifecycle::tests::repeated_operations_do_not_accumulate_weak_entries ... ok
+test inspect::tests::the_invocation_budget_bounds_every_command ... ok
+test session::position_tests::a_column_counts_characters_not_bytes ... ok
+test session::position_tests::an_offset_past_the_end_lands_on_the_last_line ... ok
+test session::position_tests::the_first_character_is_line_one_column_one ... ok
+test format::tests::deep_object_is_cut_at_the_depth_with_the_field_count ... ok
+test http::tests::lifecycle_failure_releases_the_cached_client_before_returning ... ok
+test process::tests::the_module_registers_exactly_the_three_documented_names ... ok
+test format::boundary_tests::object_keys_are_quoted_and_escaped ... ok
+test format::tests::a_value_containing_itself_prints_a_cycle_marker ... ok
+test session::numbering_tests::admission_not_success_spends_the_next_number ... ok
+test session::method_naming_tests::an_unmapped_retained_error_never_uses_the_callers_matching_candidate ... ok
+test session::prelude_tests::the_scan_over_approximates_rather_than_missing_a_name ... ok
+test session::prelude_tests::a_failed_input_publishes_no_rebinding_and_keeps_its_mutation ... ok
+test format::tests::byte_strings_show_their_contents ... ok
+test session::prelude_tests::a_template_interpolation_restores_the_binding_it_names ... ok
+test program::tests::aggregate_exact_fit_runs_and_one_less_stops_further_opens ... ok
+test namespace_tests::core_inventory_has_domain_names_and_no_host_crate ... ok
+test session::method_naming_tests::the_exhaustion_clause_follows_the_proved_name ... ok
+test format::tests::a_preview_elides_and_a_complete_rendering_does_not ... ok
+7
+test session::numbering_tests::repeated_boundaries_and_three_generations_do_not_relabel_old_sources ... ok
+test session::tests::complete_inputs_include_invalid_ones ... ok
+test session::prelude_tests::a_format_capture_restores_the_binding_it_names ... ok
+test session::tests::incomplete_inputs_are_the_closed_list ... ok
+test format::tests::a_retained_value_keeps_its_field_names_across_later_inputs ... ok
+test format::tests::an_error_is_bounded_by_the_same_budget_whatever_its_shape ... ok
+test session::retention_tests::a_closure_kept_by_a_failed_input_keeps_its_unit_and_its_position ... ok
+test session::unicode_capture_tests::a_capture_naming_a_unicode_binding_is_found ... ok
+test session::unicode_capture_tests::a_group_naming_nothing_published_restores_nothing ... ok
+test session::unicode_capture_tests::a_longer_name_is_not_shadowed_by_its_own_prefix ... ok
+test session::tests::compile_error_maps_to_the_typed_line_and_column ... ok
+test lifecycle::tests::rune_success_unrelated_failure_compile_refusal_and_reset ... ok
+test text::tests::find_behaves_as_rusts_does ... ok
+test text::tests::find_returns_a_byte_index_a_range_accepts ... ok
+test text::tests::group_digits_groups_to_both_boundaries ... ok
+test text::tests::split_max_follows_its_table ... ok
+test text::tests::split_max_keeps_the_remainder_verbatim ... ok
+test time::tests::conversion_floors_and_keeps_both_endpoints ... ok
+test session::retention_tests::a_reset_keeps_the_context_and_empties_the_session ... ok
+test worker::tests::a_flush_failure_cannot_produce_a_barrier ... ok
+test worker::tests::diagnostics_are_capped_on_character_boundaries ... ok
+test worker::tests::unknown_keys_are_not_ignored ... ok
+test session::retention_tests::a_missing_entry_reports_the_position_as_unavailable ... ok
+test session::tests::a_closure_retained_by_a_failed_input_still_maps_to_that_input ... ok
+test session::tests::every_refusal_and_failure_reports_user_text_never_generated_text ... ok
+test session::tests::over_the_ceiling_refuses_evaluation_but_not_inspection ... ok
+test text::description_tests::a_description_names_a_result_when_the_function_returns_one ... ok
+test text::tests::every_registered_function_carries_a_description ... ok
+test runner::module_tests::unavailable_origin_keeps_the_hash_despite_a_matching_entry_candidate ... ok
+test config::tests::extension_in_a_serving_context_is_absent_from_settings ... ok
+test inspect::short_circuit_tests::binding_help_does_not_render_a_value_it_cannot_print ... ok
+test time::tests::exact_surface_compiles ... ok
+test session::retention_tests::a_unit_something_can_still_call_is_kept ... ok
+test session::retention_tests::every_ordinary_runtime_error_finds_its_position ... ok
+test lifecycle::tests::rune_retained_runtime_failure_and_budget_revoke_before_return ... ok
+test session::numbering_tests::renumber_preserves_sources_and_labels_retained_closures_by_their_own_numbering ... ok
+test http::tests::retained_rune_http_inner_drops_synchronously_on_failure_and_reset ... ok
+test program::tests::every_layout_and_refusal_matches_the_pinned_loader ... ok
+test session::tests::runtime_error_through_a_retained_closure_reports_the_closure_input ... ok
+test session::tests::runtime_error_in_an_older_definition_reports_that_input ... ok
+test session::prelude_tests::a_closure_captures_a_restored_binding_and_keeps_seeing_it ... ok
+test session::prelude_tests::aliases_keep_one_shared_handle_across_a_narrowed_prelude ... ok
+test session::prelude_tests::assignment_shadowing_and_destructuring_publish_correctly ... ok
+test session::retention_tests::a_unit_nothing_can_call_is_released_and_its_entry_pruned ... ok
+test session::prelude_tests::the_generated_source_follows_the_input_not_the_session ... ok
+test format::tests::huge_string_is_cut_by_bytes ... ok
+test format::boundary_tests::limits_bound_the_work_not_only_the_output ... ok
+test platform::tests::asking_does_not_stop_while_the_operation_is_still_declared ... ok
+test presentation::tests::every_utf8_prefix_keeps_its_bytes_and_finishes_open_tokens ... ok
+
+test result: ok. 142 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 5.25s
+
+     Running unittests src/main.rs (target/debug/deps/rnx-b084c5895a00786b)
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+     Running tests/async_execution.rs (target/debug/deps/async_execution-f0203d97c9ed91ad)
+
+running 23 tests
+test a_synchronous_file_still_runs ... ok
+test a_file_whose_string_mentions_await_is_still_synchronous ... ok
+test a_run_in_a_loop_is_bounded_by_its_budget_as_it_always_was ... ok
+test a_runtime_error_after_an_await_is_still_placed ... ok
+test select_is_recognised_even_though_it_never_writes_await ... ok
+test a_failure_inside_one_slice_does_not_claim_the_whole_budget ... ok
+test a_session_error_after_an_await_names_its_input ... ok
+test a_nested_async_fn_that_outruns_a_slice_still_completes ... ok
+test an_entry_point_reached_through_an_alias_is_executed_as_what_it_is ... ok
+test an_awaited_async_block_is_recognised ... ok
+test a_failure_on_the_last_permitted_instruction_keeps_its_diagnostic ... ok
+test a_file_may_await_in_main ... ok
+test a_session_input_may_await_at_the_top_level ... ok
+test eval_may_await ... ok
+test ctrl_c_ends_an_eval_pending_on_a_future ... ok
+test ctrl_c_ends_a_run_pending_on_a_future ... ok
+test ctrl_c_ends_a_session_input_pending_on_a_future_and_the_next_input_runs ... ok
+test a_synchronous_session_input_in_a_loop_is_still_interrupted_within_a_slice ... ok
+test a_string_that_looks_like_an_await_keeps_the_synchronous_slices ... ok
+test after_an_interrupted_input_the_next_input_runs_to_completion ... ok
+test declaring_an_async_function_does_not_make_the_input_that_declares_it_async ... ok
+test awaiting_in_a_loop_halts_for_budget_and_nothing_else ... ok
+test an_await_does_not_grant_a_fresh_budget ... ok
+
+test result: ok. 23 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 9.51s
+
+     Running tests/budget.rs (target/debug/deps/budget-b554e318b4c4fcdc)
+
+running 7 tests
+test the_budget_is_written_in_one_place_in_the_source ... ok
+test the_scripts_own_arguments_are_untouched ... ok
+test a_bad_value_is_refused_before_the_script_starts ... ok
+test the_default_is_two_million_and_exhausting_it_still_fails ... ok
+test a_chosen_budget_moves_the_ceiling_in_both_directions ... ok
+test the_sentinel_that_means_no_budget_is_refused ... ok
+test both_flags_are_read_in_either_order ... ok
+
+test result: ok. 7 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.38s
+
+     Running tests/capture_bound.rs (target/debug/deps/capture_bound-84cba060d12cf1d1)
+
+running 10 tests
+test a_child_that_ends_its_streams_spends_none_of_the_allowance ... ok
+test the_size_cap_alone_does_not_cut_a_capture_short ... ok
+test what_was_captured_is_still_captured ... ok
+test a_child_that_exits_while_a_pipe_is_held_returns_after_the_cleanup ... ok
+test a_completeness_check_can_see_a_prefix_that_truncation_cannot ... ok
+test the_three_shortfalls_are_independent ... ok
+test the_readers_are_drained_before_any_of_them_is_reached ... ok
+test a_descendant_that_never_stops_writing_does_not_hold_the_call ... ok
+test an_interrupt_during_the_cleanup_is_still_an_interrupt ... ok
+test a_held_reply_pipe_no_longer_holds_the_call ... ok
+
+test result: ok. 10 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 1.18s
+
+     Running tests/capture_bound_windows.rs (target/debug/deps/capture_bound_windows-c6033881aacd8765)
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+     Running tests/capture_hold_windows.rs (target/debug/deps/capture_hold_windows-ecbe5939bcbce0fb)
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+     Running tests/child_input.rs (target/debug/deps/child_input-bf128b33489c0f39)
+
+running 12 tests
+test nothing_to_say_and_nothing_to_hear_are_ordinary ... ok
+test the_older_forms_are_untouched ... ok
+test a_child_that_stops_reading_is_reported_as_itself ... ok
+test all_three_streams_under_pressure_at_once ... ok
+test a_cancellation_ends_the_call_while_delivery_is_blocked ... ok
+test the_delivery_thread_is_gone_before_the_call_returns ... ok
+test the_harness_reports_a_stream_it_could_not_read ... ok
+test the_harness_remembers_a_run_that_outstayed_its_bound - should panic ... ok
+test the_harness_never_reports_a_child_that_would_not_end_as_ended ... ok
+test the_guarantees_of_the_older_forms_hold_for_this_one ... ok
+test a_deadline_ends_the_call_while_delivery_is_blocked ... ok
+test the_harness_fails_within_its_bounds_against_a_runner_that_never_returns - should panic ... ok
+
+test result: ok. 12 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 5.02s
+
+     Running tests/colour.rs (target/debug/deps/colour-b15fafa8bae496b5)
+
+running 4 tests
+test diagnostic_caret_styling_starts_after_the_source_newline ... ok
+test colour_flag_belongs_only_before_the_command ... ok
+test raw_script_output_is_not_presentation ... ok
+test presentation_styles_cannot_change_output_or_bounds ... ok
+
+test result: ok. 4 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.18s
+
+     Running tests/commands.rs (target/debug/deps/commands-2bbb7817f4cd1b09)
+
+running 6 tests
+test asking_for_help_is_not_an_error ... ok
+test a_word_that_is_not_a_command_is_refused ... ok
+test a_refused_command_cannot_repaint_the_terminal ... ok
+test the_bare_command_is_a_session ... ok
+test the_named_commands_still_do_what_they_did ... ok
+test the_self_check_is_asked_for_by_name ... ok
+
+test result: ok. 6 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.19s
+
+     Running tests/config.rs (target/debug/deps/config-523399170f327a71)
+
+running 11 tests
+test fifo_config_is_refused_without_waiting_for_a_writer ... ok
+test computed_settings_keep_valid_neighbours_and_warn_in_key_order ... ok
+test non_unicode_override_warns_and_permission_refusal_recovers ... ok
+test marker_palette_keys_accept_colours_and_refuse_invalid_values ... ok
+test missing_blank_and_empty_settings_are_silent ... ok
+test cli_overrides_saved_mode_and_splash_and_no_color_still_controls_auto ... ok
+test discovery_uses_only_the_selected_absolute_location ... ok
+test only_session_entry_points_attempt_to_open_config ... ok
+test palette_foregrounds_preserve_attributes_and_plain_text ... ok
+test content_failures_warn_once_and_reach_the_prompt_without_io ... ok
+test one_shot_commands_ignore_valid_invalid_and_missing_config ... ok
+
+test result: ok. 11 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.50s
+
+     Running tests/console_interrupt.rs (target/debug/deps/console_interrupt-803e9e557b873d6b)
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+     Running tests/delivery_deadline_windows.rs (target/debug/deps/delivery_deadline_windows-e17b1644f509129b)
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+     Running tests/delivery_exit_windows.rs (target/debug/deps/delivery_exit_windows-b53dfd478ac9bbc8)
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+     Running tests/delivery_failure.rs (target/debug/deps/delivery_failure-276b6b1ced79ff58)
+
+running 3 tests
+test an_unreadable_stream_is_reported_and_excuses_nothing ... ok
+test a_failure_after_cleanup_begins_still_reaches_the_script ... ok
+test a_reader_that_panics_does_not_strand_the_other ... ok
+
+test result: ok. 3 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.15s
+
+     Running tests/delivery_failure_windows.rs (target/debug/deps/delivery_failure_windows-704f43a29efb69e8)
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+     Running tests/env.rs (target/debug/deps/env-71e051ec9c039eb0)
+
+running 8 tests
+test home_directory_uses_explicit_platform_variable ... ok
+test unix::every_bad_argument_is_refused_before_dispatch_but_arg_zero_is_not_decoded ... ok
+test unix::empty_home_uses_account_database_and_unset_is_observed ... ok
+test unix::duplicate_entries_and_bad_names_are_not_hidden_by_a_map ... ok
+test unix::nonunicode_values_are_refused_without_poisoning_other_lookups ... ok
+test module_is_read_only_and_ceiling_still_applies ... ok
+test environment_distinguishes_missing_empty_and_invalid_names ... ok
+test arguments_agree_and_never_share_mutable_storage ... ok
+
+test result: ok. 8 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.05s
+
+     Running tests/eval_outcome.rs (target/debug/deps/eval_outcome-940e3c22df08663c)
+
+running 16 tests
+test a_string_error_prints_bare ... ok
+test a_failed_rendering_leaves_a_scripts_own_output_alone ... ok
+test a_returned_error_fails ... ok
+test two_structs_of_one_name_each_render_their_own_fields ... ok
+test a_value_that_is_not_a_result_is_unchanged ... ok
+test a_child_that_failed_is_still_a_success ... ok
+test a_struct_variant_names_its_fields_too ... ok
+test nothing_else_about_eval_changed ... ok
+test a_returned_ok_is_unwrapped ... ok
+test a_deep_value_is_refused_with_a_status_and_never_a_signal ... ok
+test a_returned_value_is_not_elided_at_either_shell_entry_point ... ok
+test shapes_json_could_not_show_now_render ... ok
+test a_struct_names_its_fields_from_either_entry_point ... ok
+test an_error_reads_the_same_and_costs_the_same_from_either_entry_point ... ok
+test the_depth_bound_is_a_boundary ... ok
+test the_two_entry_points_agree_on_everything_they_show ... ok
+
+test result: ok. 16 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.26s
+
+     Running tests/exit_status.rs (target/debug/deps/exit_status-20b250cfdd9c9f20)
+
+running 12 tests
+test nothing_after_the_exit_runs ... ok
+test a_status_that_was_already_failing_survives_a_failing_stream ... ok
+test output_with_no_trailing_newline_is_not_lost ... ok
+test eprint_writes_exactly_what_it_is_given ... ok
+test a_script_can_fail_quietly ... ok
+test output_that_could_not_be_written_never_reports_success ... ok
+test an_invalid_status_from_eval_also_fails ... ok
+test eval_may_choose_a_status ... ok
+test an_invalid_status_ends_the_script_even_when_the_result_is_discarded ... ok
+test a_script_that_never_asks_keeps_the_status_it_always_had ... ok
+test a_status_outside_the_range_is_refused_rather_than_truncated ... ok
+test a_chosen_status_reaches_the_shell ... ok
+
+test result: ok. 12 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.03s
+
+     Running tests/fs.rs (target/debug/deps/fs-5ae9aaf8efa2881c)
+
+running 8 tests
+test failed_copy_leaves_exact_partial_destination ... ok
+test module_names_migrate_and_run_and_session_work ... ok
+test read_bounds_utf8_and_bytes ... ok
+test writes_accept_only_text_or_bytes_and_preserve_existing_identity ... ok
+test exclusive_copy_rename_and_directory_changes ... ok
+test links_nonunicode_fifo_and_permission_refusals ... ok
+test queries_names_and_all_path_errors ... ok
+test directory_listing_is_sorted_and_bounded ... ok
+
+test result: ok. 8 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.61s
+
+     Running tests/history.rs (target/debug/deps/history-a76f182c359c434a)
+
+running 3 tests
+test history_is_written_under_the_platforms_state_directory ... ok
+test rnx_history_names_the_file_and_wins ... ok
+test without_a_state_variable_unix_falls_back_to_home ... ok
+
+test result: ok. 3 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.01s
+
+     Running tests/http.rs (target/debug/deps/http-3a3c2370a2b874dd)
+
+running 11 tests
+test declared_size_never_becomes_a_buffer_allocation ... ok
+test tls_verification_and_plaintext_protocol_failures_are_distinct ... ok
+test file_and_session_entry_points_and_module_names ... ok
+test json_text_and_byte_contracts ... ok
+test responses_methods_headers_and_statuses ... ok
+test redirects_credentials_proxy_and_dns ... ok
+test cancellation_preserves_pool_and_reset_releases_it_on_runtime_progress ... ok
+test retained_http_uses_execution_scopes_and_observes_an_expired_deadline_on_repoll ... ok
+test all_four_calls_borrow_and_snapshot_their_inputs ... ok
+test stalled_system_lookup_does_not_delay_run_eval_session_or_reset ... ok
+test bounds_deadlines_and_invalid_options ... ok
+
+test result: ok. 11 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.44s
+
+     Running tests/job_assignment_windows.rs (target/debug/deps/job_assignment_windows-7565c2b423e50d2b)
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+     Running tests/job_breakaway.rs (target/debug/deps/job_breakaway-30237a66e5e383f2)
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+     Running tests/json.rs (target/debug/deps/json-baf99bc4769ff7ce)
+
+running 11 tests
+test a_cycle_is_refused_rather_than_aborting_the_process ... ok
+test repeated_shared_data_is_not_a_cycle ... ok
+test one_user_facing_serializer ... ok
+test a_deep_option_chain_is_catchable_and_cleans_up ... ok
+test a_refusal_is_catchable_and_the_script_carries_on ... ok
+test the_depth_bound_is_shared_with_the_renderer ... ok
+test a_refusal_names_where_it_happened ... ok
+test the_depth_bound_covers_a_path_with_no_container_on_it ... ok
+test the_two_walks_agree_on_what_is_too_deep ... ok
+test a_path_cannot_be_confused_with_one_that_looks_like_it ... ok
+test every_arm_of_the_serializer_is_mirrored ... ok
+
+test result: ok. 11 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.13s
+
+     Running tests/json_parse.rs (target/debug/deps/json_parse-13686b5f04e8f984)
+
+running 7 tests
+test unicode_and_escaped_control_characters_survive ... ok
+test duplicate_keys_take_the_last_value_including_escaped_keys ... ok
+test null_is_unit_and_round_trips_inside_containers ... ok
+test reader_accepts_127_containers_and_refuses_128_without_disabling_its_guard ... ok
+test floats_and_out_of_range_integers_keep_the_configured_conversion ... ok
+test refusals_are_catchable_and_name_positions_in_the_document ... ok
+test integers_keep_their_full_signed_and_unsigned_ranges ... ok
+
+test result: ok. 7 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.16s
+
+     Running tests/method_naming.rs (target/debug/deps/method_naming-1d0d888c8cad24df)
+
+running 3 tests
+test all_entry_points_name_the_same_fault_without_moving_its_caret ... ok
+test retained_sources_supply_the_name_across_renumber_and_redefinition ... ok
+test chains_are_named_but_unknown_types_and_quoted_errors_are_unchanged ... ok
+
+test result: ok. 3 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.03s
+
+     Running tests/modules.rs (target/debug/deps/modules-0e841aba4cd885fd)
+
+running 6 tests
+test nested_compile_and_runtime_errors_keep_their_source_and_caret ... ok
+test imported_structs_and_named_variants_keep_their_field_names ... ok
+test module_refusals_name_the_declaring_file_and_line ... ok
+test mixed_layout_uses_the_entry_root_from_either_working_directory ... ok
+test real_allowance_and_invalid_utf8_name_the_crossing_module ... ok
+test sessions_eval_and_config_gain_no_module_loading ... ok
+
+test result: ok. 6 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.04s
+
+     Running tests/namespaces.rs (target/debug/deps/namespaces-5a866159dcf33d66)
+
+running 2 tests
+test rune_printing_coexists_and_an_explicit_io_import_can_be_disambiguated ... ok
+test domains_work_in_run_eval_and_a_session_after_reset ... ok
+
+test result: ok. 2 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.02s
+
+     Running tests/numbering.rs (target/debug/deps/numbering-dc8f58ac1e996513)
+
+running 3 tests
+test renumbering_keeps_history_and_old_origins_while_reset_clears_origins ... ok
+test colours_are_separable_and_commands_are_not_marked_as_results ... ok
+test marker_visibility_tracks_the_actual_reader_including_uppercase_unsupported_modes ... ok
+
+test result: ok. 3 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.04s
+
+     Running tests/path.rs (target/debug/deps/path-91789f22766a2b13)
+
+running 5 tests
+test session_help_and_reset_keep_the_surface ... ok
+test answers_do_not_depend_on_existence ... ok
+test unicode_reassembly_preserves_names_not_spelling_or_file_identity ... ok
+test separators_are_catchable_and_nul_is_lexical ... ok
+test lexical_table ... ok
+
+test result: ok. 5 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.14s
+
+     Running tests/pipe_cancel_windows.rs (target/debug/deps/pipe_cancel_windows-d98d53321c59b0cd)
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+     Running tests/process_bytes.rs (target/debug/deps/process_bytes-d7d7643f3815cc97)
+
+running 10 tests
+test a_missing_method_on_bytes_is_named_rather_than_hashed ... ok
+test output_that_is_not_utf8_is_refused_and_says_where_to_go ... ok
+test the_same_tail_without_truncation_is_refused ... ok
+test standard_error_that_is_not_utf8_is_refused_too ... ok
+test process_bytes_returns_the_bytes_exactly ... ok
+test a_streams_own_truncation_still_excuses_its_own_tail ... ok
+test a_truncated_capture_ending_mid_character_is_not_an_encoding_error ... ok
+test bytes_wrong_where_they_stand_are_refused_even_when_truncated ... ok
+test one_streams_truncation_does_not_excuse_the_other ... ok
+test both_report_the_same_outcome_fields_for_the_same_child ... ok
+
+test result: ok. 10 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.42s
+
+     Running tests/process_module.rs (target/debug/deps/process_module-8227203a917ab8a8)
+
+running 13 tests
+test git_status_example_uses_an_isolated_checkout ... ok
+test help_survives_reset_and_the_ceiling_still_refuses_input ... ok
+test input_backpressure_and_early_exit_use_the_existing_writer ... ok
+test build_fixture_combines_directory_and_environment ... ok
+test native_environment_is_inherited_without_unicode_conversion ... ok
+test environment_overrides_clear_and_remove_without_changing_parent_or_next_child ... ok
+test unreadable_capture_is_reported_by_both_forms ... ok
+test defaults_explicit_timeout_nonzero_and_input_are_the_same_supervised_reply ... ok
+test explicit_program_is_parent_relative_and_cwd_changes_only_the_child ... ok
+test cancellation_during_a_child_call_reaches_both_facades ... ok
+test capture_and_deadline_flags_reach_the_new_surface ... ok
+test validation_refuses_before_launch_and_names_the_sibling ... ok
+test cleanup_interrupt_and_late_delivery_error_cross_the_facade ... ok
+
+test result: ok. 13 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.26s
+
+     Running tests/prompt.rs (target/debug/deps/prompt-744f8fb308c16acf)
+
+running 2 tests
+test splash_flags_compose_before_the_command_and_stay_arguments_after_the_path ... ok
+test clear_never_controls_a_pipe_and_quit_alias_preserves_transcripts ... ok
+
+test result: ok. 2 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.05s
+
+     Running tests/reader_panic_windows.rs (target/debug/deps/reader_panic_windows-a4b073a970bde39f)
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+     Running tests/release_metadata.rs (target/debug/deps/release_metadata-9c9041da180827ad)
+
+running 13 tests
+test the_manifest_makes_its_claims ... ok
+test the_version_is_the_one_the_ladder_has_earned ... ok
+test the_rune_it_reports_is_the_rune_it_pins ... ok
+test the_usage_names_it ... ok
+test every_spelling_of_the_question_answers_it ... ok
+test every_fetched_licence_matches_its_recorded_digest ... ok
+test the_packaged_manifest_makes_the_same_claims ... ok
+test a_failed_request_is_not_an_absent_licence ... ok
+test a_failed_publication_keeps_the_previous_licences ... ok
+test the_notices_ship_with_the_package ... ok
+test a_failed_dependency_query_writes_nothing ... ok
+test a_retry_does_not_delete_what_the_first_attempt_salvaged ... ok
+test the_third_party_notices_describe_the_dependencies_that_exist ... ok
+
+test result: ok. 13 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 10.59s
+
+     Running tests/repl.rs (target/debug/deps/repl-ee116844dc50f673)
+
+running 25 tests
+test gate_0045_a_result_marker_is_blue_with_the_same_dim_frame ... ok
+test gate_0042_run_restores_titles_before_explicit_exits ... ok
+test gate_0005_memory_names_what_the_figure_is_and_is_not ... ok
+test gate_0045_input_output_and_frame_are_independently_configurable ... ok
+test gate_0039_prompt_edits_and_cancellation_carry_balanced_styles ... ok
+test gate_0040_a_ceiling_refusal_spends_no_number ... ok
+test gate_0012_standard_input_is_refused_at_the_prompt_and_the_prompt_survives ... ok
+test gate_0013_the_exit_status_is_refused_at_the_prompt_and_the_prompt_survives ... ok
+test editing_ctrl_c_preserves_a_started_http_request ... ok
+test gate_0005_the_ceiling_latches_and_a_reset_that_cannot_recover_says_so ... ok
+test gate_2_history_survives_and_state_does_not ... ok
+test gate_0043_saved_palette_reaches_input_prompt_result_and_error ... ok
+test gate_0042_clear_and_title_follow_the_real_session_lifetime ... ok
+test gate_0004_vars_and_help_in_the_terminal ... ok
+test gate_0005_the_figure_moves_with_the_payload_against_a_control ... ok
+test gate_0005_a_failed_input_that_grew_shared_state_still_charges ... ok
+test gate_0040_numbers_follow_admission_and_not_editor_or_command_activity ... ok
+test gate_6_ctrl_c_clears_an_open_input ... ok
+test gate_0005_an_input_past_the_ceiling_is_not_interrupted ... ok
+test gate_5_a_waited_child_is_cancelled_and_the_next_input_runs ... ok
+test gate_5_interrupt_semantics_in_a_process_of_their_own ... ok
+test gate_0005_a_self_referential_value_is_not_reclaimed_by_a_reset ... ok
+test gate_0010_the_text_helpers_can_be_found_at_the_prompt ... ok
+test gate_1_the_ordinary_session ... ok
+test gate_0003_completion_in_the_terminal ... ok
+
+test result: ok. 25 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 1.81s
+
+     Running tests/run_diagnostics.rs (target/debug/deps/run_diagnostics-a95bfbd0784dc0ff)
+
+running 17 tests
+test a_file_that_cannot_be_read_names_it_without_inventing_a_place ... ok
+test a_runtime_error_names_the_place_it_happened ... ok
+test an_error_inside_a_called_function_reports_that_function_not_the_call ... ok
+test a_type_outside_the_map_keeps_the_message_rune_produced ... ok
+test a_compile_error_names_the_file_line_column_and_marks_the_column ... ok
+test a_returned_error_prints_plainly_and_claims_no_position ... ok
+test the_error_that_took_five_rounds_of_printing_to_find_now_names_its_line ... ok
+test the_streams_stay_separated ... ok
+test a_missing_method_is_named_rather_than_hashed ... ok
+test a_chain_names_the_method_that_failed_not_the_first_one ... ok
+test a_column_counts_characters_through_tabs_and_beyond_ascii ... ok
+test a_panic_that_quotes_the_diagnostic_is_still_a_panic ... ok
+test a_comment_between_the_dot_and_the_name_does_not_hide_the_method ... ok
+test a_script_that_loops_for_ever_is_halted_by_the_budget ... ok
+test the_source_dump_is_asked_for_and_cannot_be_triggered_by_an_argument ... ok
+test a_fault_with_no_resolvable_place_says_so ... ok
+test a_returned_error_that_is_not_a_string_prints_through_the_bounded_renderer ... ok
+
+test result: ok. 17 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.04s
+
+     Running tests/run_output.rs (target/debug/deps/run_output-5621af49c4e5db0f)
+
+running 3 tests
+test a_script_output_goes_to_stdout_and_is_not_disturbed ... ok
+test a_script_returning_unit_prints_nothing ... ok
+test every_other_value_still_prints ... ok
+
+test result: ok. 3 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.05s
+
+     Running tests/stdin.rs (target/debug/deps/stdin-efe7c44c9fe21827)
+
+running 8 tests
+test input_that_is_not_utf8_is_refused_rather_than_replaced ... ok
+test an_empty_stream_is_not_an_error ... ok
+test a_redirected_file_reads_as_the_same_text_host_read_gives ... ok
+test a_second_read_is_refused_and_is_not_the_empty_stream ... ok
+test a_terminal_is_refused_and_does_not_block ... ok
+test a_pipe_is_read_exactly ... ok
+test the_read_is_bounded_and_does_not_wait_past_the_limit ... ok
+test the_limit_holds_at_its_boundary ... ok
+
+test result: ok. 8 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.04s
+
+     Running tests/terminal_safety.rs (target/debug/deps/terminal_safety-f9eb681c1de54ffd)
+
+running 3 tests
+test the_reported_column_is_a_source_position_not_a_display_column ... ok
+test the_caret_lands_on_the_token ... ok
+test nothing_rnx_prints_can_move_a_cursor ... ok
+
+test result: ok. 3 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.08s
+
+     Running tests/time.rs (target/debug/deps/time-964112037baa9191)
+
+running 7 tests
+test clocks_and_the_log_stopwatch_and_file_examples ... ok
+test zones_and_formatting_fail_catchably ... ok
+test cancellation_ends_pending_sleep_in_run_eval_and_session ... ok
+test from_parts_refuses_gaps_and_selects_only_valid_fold_offsets ... ok
+test parsing_validates_annotations_leaps_and_offset_spelling ... ok
+test sleep_runs_in_every_entry_and_futures_are_inert ... ok
+test every_calendar_round_trip_and_zone_offset ... ok
+
+test result: ok. 7 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 1.70s
+
+     Running tests/upstream_isolation.rs (target/debug/deps/upstream_isolation-428481058f17b286)
+
+running 2 tests
+test a_function_value_crosses_units_when_the_contexts_differ ... ok
+test a_function_value_crosses_units_wrongly_when_the_context_is_shared ... ok
+
+test result: ok. 2 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.01s
+
+     Running tests/worker.rs (target/debug/deps/worker-77b579eacee73a1c)
+
+running 1 test
+test worker_protocol_and_lifecycle ... ok
+
+test result: ok. 1 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 10.20s
+
+   Doc-tests rnx
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
