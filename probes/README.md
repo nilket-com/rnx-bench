@@ -173,3 +173,9 @@ tokio current-thread runtime.
   public execution API and Rune re-export; started-drop-close, same-worker and
   cross-worker isolation, explicit counts and diagnostics. Two-run evidence in
   `results/server-entry-0056/`; no HTTP server extraction yet.
+
+- `commit-classification/` — record 0056 gate 3: actual COMMIT errors for deferred
+  constraints, serialization and deadlock, plus an unclassified-code control;
+  independent transaction-state and rollback observations, wire-level no-retry
+  counts, retirement and fresh backends. Results and unchanged transaction
+  regression: `results/commit-classification-0056/`.
