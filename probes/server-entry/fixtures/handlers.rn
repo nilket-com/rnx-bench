@@ -1,0 +1,15 @@
+pub async fn healthy(request) {
+    let value = probe::wait().await?;
+    #{status: 200, body: value + request.n}
+}
+pub async fn failed(request) {
+    let op = probe::wait();
+    select {
+        _ = op => {},
+        _ = probe::trigger() => {},
+    }
+    panic("fixture failure")
+}
+pub fn cpu(request) { loop {} }
+pub fn named(request) { 1.missing() }
+pub fn exit(request) { process::exit(7) }
