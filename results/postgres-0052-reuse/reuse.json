@@ -1,0 +1,63 @@
+{
+  "sha256": "8132775a5496c99e6d77c6f49fb2938c8d5978404123c6530924ed7e3ba90d4d",
+  "run": {
+    "source": "let url=\"postgresql:///postgres?host=/tmp/rnx-pg-contract-2xlo7r20&application_name=rnx-pg-fixture\"; let sql=\"SELECT $1::int8 AS n\"; let a=postgres::query(url, sql, [42], #{}).await?.rows[0].n; let b=postgres::query(url, sql, [43], #{}).await?.rows[0].n; [a, b, url == \"postgresql:///postgres?host=/tmp/rnx-pg-contract-2xlo7r20&application_name=rnx-pg-fixture\", sql == \"SELECT $1::int8 AS n\"]",
+    "stdout": "[42, 43, true, true]\n",
+    "stderr": "",
+    "exit": 0
+  },
+  "eval": {
+    "source": "let url=\"postgresql:///postgres?host=/tmp/rnx-pg-contract-2xlo7r20&application_name=rnx-pg-fixture\"; let sql=\"SELECT $1::int8 AS n\"; let a=postgres::query(url, sql, [42], #{}).await?.rows[0].n; let b=postgres::query(url, sql, [43], #{}).await?.rows[0].n; [a, b, url == \"postgresql:///postgres?host=/tmp/rnx-pg-contract-2xlo7r20&application_name=rnx-pg-fixture\", sql == \"SELECT $1::int8 AS n\"]",
+    "stdout": "[42, 43, true, true]\n",
+    "stderr": "",
+    "exit": 0
+  },
+  "retained session": {
+    "calls": [
+      {
+        "epoch": 1,
+        "failure": null,
+        "id": 2,
+        "input": 2,
+        "render_bounded": true,
+        "state_lost": false,
+        "text_plain": "42",
+        "type": "settled"
+      },
+      {
+        "epoch": 1,
+        "failure": null,
+        "id": 3,
+        "input": 3,
+        "render_bounded": true,
+        "state_lost": false,
+        "text_plain": "43",
+        "type": "settled"
+      }
+    ],
+    "bindings": {
+      "epoch": 1,
+      "failure": null,
+      "id": 4,
+      "input": 4,
+      "render_bounded": true,
+      "state_lost": false,
+      "text_plain": "[true, true]",
+      "type": "settled"
+    }
+  },
+  "lazy snapshot": {
+    "epoch": 1,
+    "failure": null,
+    "id": 5,
+    "input": 5,
+    "render_bounded": true,
+    "state_lost": false,
+    "text_plain": "44",
+    "type": "settled"
+  },
+  "cleanup": {
+    "directory": "/tmp/rnx-pg-contract-2xlo7r20",
+    "postmaster": 1849271
+  }
+}

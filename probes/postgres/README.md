@@ -1,5 +1,11 @@
 # PostgreSQL adapter gates
 
+`reuse.py` gates the 0052 review fix: URL and SQL bindings survive two queries
+in run, eval and separate session inputs. A pending query keeps a snapshot,
+without retaining a borrow on the original SQL. Results and the corrected binary
+hash are in `results/postgres-0052-reuse/`. `contract.py` accepts
+`RNX_PG_CONTRACT_OUT` so a follow-up run can preserve the original measurements.
+
 The original `ownership/` crate and `ownership.py` are the stopped 0052 prototype
 and its 0053 tracked-lifecycle rerun. Their historical result directories remain
 unchanged. The implementation is the independent `rnx/adapters/postgres` package.

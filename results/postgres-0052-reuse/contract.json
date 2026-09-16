@@ -1,0 +1,713 @@
+{
+  "stock refusal": {
+    "exit": 1,
+    "stdout": "",
+    "stderr": "error at input 1, line 1, column 1: Missing item {root}::postgres::query\n  postgres::query(\"\", \"\", [], #{}).await\n  ^\n"
+  },
+  "bind insert": {
+    "affected": 1,
+    "columns": [
+      "v"
+    ],
+    "rows": [
+      {
+        "v": "'); DROP TABLE t; -- \"x\" \\ 😀"
+      }
+    ]
+  },
+  "bind select": {
+    "affected": 1,
+    "columns": [
+      "v"
+    ],
+    "rows": [
+      {
+        "v": "'); DROP TABLE t; -- \"x\" \\ 😀"
+      }
+    ]
+  },
+  "spliced": "Err(cannot query postgres at /tmp/rnx-pg-contract-4gx5cvl1: cannot insert multiple commands into a prepared statement [42601])",
+  "spliced recovery": {
+    "affected": 1,
+    "columns": [
+      "n"
+    ],
+    "rows": [
+      {
+        "n": 1
+      }
+    ]
+  },
+  "null inferred": {
+    "affected": 1,
+    "columns": [
+      "v"
+    ],
+    "rows": [
+      {
+        "v": null
+      }
+    ]
+  },
+  "null typed": {
+    "affected": 1,
+    "columns": [
+      "v"
+    ],
+    "rows": [
+      {
+        "v": null
+      }
+    ]
+  },
+  "bool": {
+    "affected": 1,
+    "columns": [
+      "v"
+    ],
+    "rows": [
+      {
+        "v": true
+      }
+    ]
+  },
+  "min": {
+    "affected": 1,
+    "columns": [
+      "v"
+    ],
+    "rows": [
+      {
+        "v": -9223372036854775808
+      }
+    ]
+  },
+  "max": {
+    "affected": 1,
+    "columns": [
+      "v"
+    ],
+    "rows": [
+      {
+        "v": 9223372036854775807
+      }
+    ]
+  },
+  "text": {
+    "affected": 1,
+    "columns": [
+      "v"
+    ],
+    "rows": [
+      {
+        "v": "x"
+      }
+    ]
+  },
+  "cast": {
+    "affected": 1,
+    "columns": [
+      "v"
+    ],
+    "rows": [
+      {
+        "v": 7
+      }
+    ]
+  },
+  "negative zero": {
+    "affected": 1,
+    "columns": [
+      "v"
+    ],
+    "rows": [
+      {
+        "v": -0.0
+      }
+    ]
+  },
+  "nan": "true",
+  "infinity": "true",
+  "minus infinity": "true",
+  "bytes": "all 256 equal",
+  "int4 assignment": {
+    "affected": 1,
+    "columns": [
+      "v"
+    ],
+    "rows": [
+      {
+        "v": 42
+      }
+    ]
+  },
+  "int4 overflow": "Err(cannot query postgres at /tmp/rnx-pg-contract-4gx5cvl1: integer out of range [22003])",
+  "int4 overflow recovery": {
+    "affected": 1,
+    "columns": [
+      "n"
+    ],
+    "rows": [
+      {
+        "n": 1
+      }
+    ]
+  },
+  "nul": "Err(cannot query postgres at /tmp/rnx-pg-contract-4gx5cvl1: parameter 1 contains NUL)",
+  "nul recovery": {
+    "affected": 1,
+    "columns": [
+      "n"
+    ],
+    "rows": [
+      {
+        "n": 1
+      }
+    ]
+  },
+  "unsigned": "Err(cannot query postgres at /tmp/rnx-pg-contract-4gx5cvl1: parameter 1 has unsupported Rune type ::std::u64)",
+  "unsigned recovery": {
+    "affected": 1,
+    "columns": [
+      "n"
+    ],
+    "rows": [
+      {
+        "n": 1
+      }
+    ]
+  },
+  "more than one statement": "Err(cannot query postgres at /tmp/rnx-pg-contract-4gx5cvl1: cannot insert multiple commands into a prepared statement [42601])",
+  "more than one statement recovery": {
+    "affected": 1,
+    "columns": [
+      "n"
+    ],
+    "rows": [
+      {
+        "n": 1
+      }
+    ]
+  },
+  "count": "Err(cannot query postgres at /tmp/rnx-pg-contract-4gx5cvl1: parameter count is 1, statement expects 2)",
+  "count recovery": {
+    "affected": 1,
+    "columns": [
+      "n"
+    ],
+    "rows": [
+      {
+        "n": 1
+      }
+    ]
+  },
+  "unused typed parameter": {
+    "affected": 1,
+    "columns": [
+      "n"
+    ],
+    "rows": [
+      {
+        "n": 1
+      }
+    ]
+  },
+  "all unused typed parameters": {
+    "affected": 1,
+    "columns": [
+      "n"
+    ],
+    "rows": [
+      {
+        "n": 1
+      }
+    ]
+  },
+  "types": {
+    "affected": 1,
+    "columns": [
+      "b",
+      "i2",
+      "i4",
+      "i8",
+      "f4",
+      "f8",
+      "t",
+      "v",
+      "c",
+      "n",
+      "z",
+      "ts"
+    ],
+    "rows": [
+      {
+        "b": true,
+        "f4": 1.5,
+        "i2": 2,
+        "i8": 8,
+        "v": "var",
+        "ts": -1,
+        "i4": 4,
+        "n": "name",
+        "f8": 2.5,
+        "t": "text",
+        "c": "c ",
+        "z": null
+      }
+    ]
+  },
+  "numeric populated": "Err(cannot query postgres at /tmp/rnx-pg-contract-4gx5cvl1: column \"unsupported\" has unsupported PostgreSQL type numeric)",
+  "numeric populated recovery": {
+    "affected": 1,
+    "columns": [
+      "n"
+    ],
+    "rows": [
+      {
+        "n": 1
+      }
+    ]
+  },
+  "numeric empty": "Err(cannot query postgres at /tmp/rnx-pg-contract-4gx5cvl1: column \"unsupported\" has unsupported PostgreSQL type numeric)",
+  "numeric empty recovery": {
+    "affected": 1,
+    "columns": [
+      "n"
+    ],
+    "rows": [
+      {
+        "n": 1
+      }
+    ]
+  },
+  "timestamp populated": "Err(cannot query postgres at /tmp/rnx-pg-contract-4gx5cvl1: column \"unsupported\" has unsupported PostgreSQL type timestamp)",
+  "timestamp populated recovery": {
+    "affected": 1,
+    "columns": [
+      "n"
+    ],
+    "rows": [
+      {
+        "n": 1
+      }
+    ]
+  },
+  "timestamp empty": "Err(cannot query postgres at /tmp/rnx-pg-contract-4gx5cvl1: column \"unsupported\" has unsupported PostgreSQL type timestamp)",
+  "timestamp empty recovery": {
+    "affected": 1,
+    "columns": [
+      "n"
+    ],
+    "rows": [
+      {
+        "n": 1
+      }
+    ]
+  },
+  "date populated": "Err(cannot query postgres at /tmp/rnx-pg-contract-4gx5cvl1: column \"unsupported\" has unsupported PostgreSQL type date)",
+  "date populated recovery": {
+    "affected": 1,
+    "columns": [
+      "n"
+    ],
+    "rows": [
+      {
+        "n": 1
+      }
+    ]
+  },
+  "date empty": "Err(cannot query postgres at /tmp/rnx-pg-contract-4gx5cvl1: column \"unsupported\" has unsupported PostgreSQL type date)",
+  "date empty recovery": {
+    "affected": 1,
+    "columns": [
+      "n"
+    ],
+    "rows": [
+      {
+        "n": 1
+      }
+    ]
+  },
+  "uuid populated": "Err(cannot query postgres at /tmp/rnx-pg-contract-4gx5cvl1: column \"unsupported\" has unsupported PostgreSQL type uuid)",
+  "uuid populated recovery": {
+    "affected": 1,
+    "columns": [
+      "n"
+    ],
+    "rows": [
+      {
+        "n": 1
+      }
+    ]
+  },
+  "uuid empty": "Err(cannot query postgres at /tmp/rnx-pg-contract-4gx5cvl1: column \"unsupported\" has unsupported PostgreSQL type uuid)",
+  "uuid empty recovery": {
+    "affected": 1,
+    "columns": [
+      "n"
+    ],
+    "rows": [
+      {
+        "n": 1
+      }
+    ]
+  },
+  "int4[] populated": "Err(cannot query postgres at /tmp/rnx-pg-contract-4gx5cvl1: column \"unsupported\" has unsupported PostgreSQL type _int4)",
+  "int4[] populated recovery": {
+    "affected": 1,
+    "columns": [
+      "n"
+    ],
+    "rows": [
+      {
+        "n": 1
+      }
+    ]
+  },
+  "int4[] empty": "Err(cannot query postgres at /tmp/rnx-pg-contract-4gx5cvl1: column \"unsupported\" has unsupported PostgreSQL type _int4)",
+  "int4[] empty recovery": {
+    "affected": 1,
+    "columns": [
+      "n"
+    ],
+    "rows": [
+      {
+        "n": 1
+      }
+    ]
+  },
+  "duplicates": "Err(cannot query postgres at /tmp/rnx-pg-contract-4gx5cvl1: duplicate column name \"x\")",
+  "duplicates recovery": {
+    "affected": 1,
+    "columns": [
+      "n"
+    ],
+    "rows": [
+      {
+        "n": 1
+      }
+    ]
+  },
+  "json": {
+    "affected": 1,
+    "columns": [
+      "v"
+    ],
+    "rows": [
+      {
+        "v": "{\"n\":18446744073709551615}"
+      }
+    ]
+  },
+  "jsonb": {
+    "affected": 1,
+    "columns": [
+      "v"
+    ],
+    "rows": [
+      {
+        "v": "{\"n\": 18446744073709551615}"
+      }
+    ]
+  },
+  "epoch": {
+    "affected": 1,
+    "columns": [
+      "ts"
+    ],
+    "rows": [
+      {
+        "ts": 0
+      }
+    ]
+  },
+  "server minimum": {
+    "affected": 1,
+    "columns": [
+      "ts"
+    ],
+    "rows": [
+      {
+        "ts": -210863520000000
+      }
+    ]
+  },
+  "upper": {
+    "affected": 1,
+    "columns": [
+      "ts"
+    ],
+    "rows": [
+      {
+        "ts": 253402207200999
+      }
+    ]
+  },
+  "upper plus microsecond": "Err(cannot query postgres at /tmp/rnx-pg-contract-4gx5cvl1: column \"ts\" (timestamptz): timestamptz is outside the time range -377705023201000 through 253402207200999 milliseconds)",
+  "upper plus microsecond recovery": {
+    "affected": 1,
+    "columns": [
+      "n"
+    ],
+    "rows": [
+      {
+        "n": 1
+      }
+    ]
+  },
+  "infinite timestamp": "Err(cannot query postgres at /tmp/rnx-pg-contract-4gx5cvl1: column \"ts\" (timestamptz): infinite timestamptz is not a time moment)",
+  "infinite timestamp recovery": {
+    "affected": 1,
+    "columns": [
+      "n"
+    ],
+    "rows": [
+      {
+        "n": 1
+      }
+    ]
+  },
+  "negative infinite timestamp": "Err(cannot query postgres at /tmp/rnx-pg-contract-4gx5cvl1: column \"ts\" (timestamptz): infinite timestamptz is not a time moment)",
+  "negative infinite timestamp recovery": {
+    "affected": 1,
+    "columns": [
+      "n"
+    ],
+    "rows": [
+      {
+        "n": 1
+      }
+    ]
+  },
+  "lower endpoint SQL unavailable": "ERROR:  timestamp out of range: \"10000-01-02 01:59:59+00 BC\"\nLINE 1: SELECT '10000-01-02 01:59:59+00 BC'::timestamptz\n               ^\n",
+  "select count": {
+    "affected": 3,
+    "columns": [
+      "n"
+    ],
+    "rows": [
+      {
+        "n": 1
+      },
+      {
+        "n": 2
+      },
+      {
+        "n": 3
+      }
+    ]
+  },
+  "insert count": {
+    "affected": 1,
+    "columns": [
+      "v"
+    ],
+    "rows": [
+      {
+        "v": 1
+      }
+    ]
+  },
+  "setup count": {
+    "affected": 1,
+    "columns": [],
+    "rows": []
+  },
+  "update count": {
+    "affected": 2,
+    "columns": [],
+    "rows": []
+  },
+  "ddl count": {
+    "affected": 0,
+    "columns": [],
+    "rows": []
+  },
+  "zero timeout": "Err(cannot query postgres at /missing: timeout_ms must be an integer from 1 through 90000)",
+  "zero timeout recovery": {
+    "affected": 1,
+    "columns": [
+      "n"
+    ],
+    "rows": [
+      {
+        "n": 1
+      }
+    ]
+  },
+  "large timeout": "Err(cannot query postgres at /missing: timeout_ms must be an integer from 1 through 90000)",
+  "large timeout recovery": {
+    "affected": 1,
+    "columns": [
+      "n"
+    ],
+    "rows": [
+      {
+        "n": 1
+      }
+    ]
+  },
+  "float timeout": "Err(cannot query postgres at /missing: timeout_ms must be an integer from 1 through 90000)",
+  "float timeout recovery": {
+    "affected": 1,
+    "columns": [
+      "n"
+    ],
+    "rows": [
+      {
+        "n": 1
+      }
+    ]
+  },
+  "unknown": "Err(cannot query postgres at /missing: unknown option \"wat\")",
+  "unknown recovery": {
+    "affected": 1,
+    "columns": [
+      "n"
+    ],
+    "rows": [
+      {
+        "n": 1
+      }
+    ]
+  },
+  "connect": "Err(cannot query postgres at /missing: error connecting to server: No such file or directory (os error 2))",
+  "connect recovery": {
+    "affected": 1,
+    "columns": [
+      "n"
+    ],
+    "rows": [
+      {
+        "n": 1
+      }
+    ]
+  },
+  "authentication": "Err(cannot query postgres at /tmp/rnx-pg-contract-4gx5cvl1: password authentication failed for user \"locked\" [28P01])",
+  "authentication recovery": {
+    "affected": 1,
+    "columns": [
+      "n"
+    ],
+    "rows": [
+      {
+        "n": 1
+      }
+    ]
+  },
+  "syntax": "Err(cannot query postgres at /tmp/rnx-pg-contract-4gx5cvl1: syntax error at end of input [42601])",
+  "syntax recovery": {
+    "affected": 1,
+    "columns": [
+      "n"
+    ],
+    "rows": [
+      {
+        "n": 1
+      }
+    ]
+  },
+  "unique": "Err(cannot query postgres at /tmp/rnx-pg-contract-4gx5cvl1: duplicate key value violates unique constraint \"unique_values_v_key\" [23505])",
+  "unique recovery": {
+    "affected": 1,
+    "columns": [
+      "n"
+    ],
+    "rows": [
+      {
+        "n": 1
+      }
+    ]
+  },
+  "type": "Err(cannot query postgres at /tmp/rnx-pg-contract-4gx5cvl1: invalid input syntax for type bigint: \"abc\" [22P02])",
+  "type recovery": {
+    "affected": 1,
+    "columns": [
+      "n"
+    ],
+    "rows": [
+      {
+        "n": 1
+      }
+    ]
+  },
+  "tls": "Err(cannot query postgres at /tmp/rnx-pg-contract-4gx5cvl1: sslmode=require is not supported; this adapter offers no TLS)",
+  "tls recovery": {
+    "affected": 1,
+    "columns": [
+      "n"
+    ],
+    "rows": [
+      {
+        "n": 1
+      }
+    ]
+  },
+  "verify-ca": "Err(cannot query unknown database at unknown host: invalid connection URL or sslmode option)",
+  "verify-ca recovery": {
+    "affected": 1,
+    "columns": [
+      "n"
+    ],
+    "rows": [
+      {
+        "n": 1
+      }
+    ]
+  },
+  "verify-full": "Err(cannot query unknown database at unknown host: invalid connection URL or sslmode option)",
+  "verify-full recovery": {
+    "affected": 1,
+    "columns": [
+      "n"
+    ],
+    "rows": [
+      {
+        "n": 1
+      }
+    ]
+  },
+  "row limit": "Err(cannot query postgres at /tmp/rnx-pg-contract-4gx5cvl1: result exceeds 10000 rows at row 10001)",
+  "row limit recovery": {
+    "affected": 1,
+    "columns": [
+      "n"
+    ],
+    "rows": [
+      {
+        "n": 1
+      }
+    ]
+  },
+  "deadline": {
+    "seconds": 0.21689027099637315,
+    "error": "Err(cannot query postgres at /tmp/rnx-pg-contract-4gx5cvl1: deadline of 200 ms elapsed; completion may be ambiguous)"
+  },
+  "logical limit plus one": "Err(cannot query postgres at /tmp/rnx-pg-contract-4gx5cvl1: column \"v\" (text): logical payload exceeds 8388608 bytes at row 1 (row 0 is SQL and parameters))",
+  "logical limit plus one recovery": {
+    "affected": 1,
+    "columns": [
+      "n"
+    ],
+    "rows": [
+      {
+        "n": 1
+      }
+    ]
+  },
+  "exact charge": {
+    "sql_bytes": 33,
+    "parameter": 16,
+    "row": 16,
+    "name": 1,
+    "value_header": 16,
+    "payload": 8388526,
+    "total": 8388608
+  },
+  "SQL cap": "cannot query postgres at /missing: SQL exceeds 1048576 bytes",
+  "parameter cap": "cannot query postgres at /missing: params exceeds 1000 values",
+  "cleanup": {
+    "directory": "/tmp/rnx-pg-contract-4gx5cvl1",
+    "postmaster": 1849321
+  }
+}
