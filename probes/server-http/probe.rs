@@ -8,7 +8,7 @@ use hyper_util::rt::{TokioIo, TokioTimer};
 use serde_json::json;
 use std::{
     cell::{Cell, RefCell},
-    collections::{BTreeMap, VecDeque},
+    collections::{BTreeMap, BTreeSet, VecDeque},
     convert::Infallible,
     fs::OpenOptions,
     io::Write,
@@ -368,16 +368,24 @@ impl Drop for ConnectionPermit {
         self.0.set(self.0.get() - 1);
     }
 }
-fn sockets() -> usize {
+fn sockets() -> BTreeSet<(u32, String)> {
     std::fs::read_dir("/proc/self/fd")
         .unwrap()
         .filter_map(Result::ok)
-        .filter(|e| {
-            std::fs::read_link(e.path())
-                .is_ok_and(|p| p.as_os_str().as_encoded_bytes().starts_with(b"socket:["))
+        .filter_map(|entry| {
+            let target = std::fs::read_link(entry.path()).ok()?;
+            let target = target.to_string_lossy();
+            if !target.starts_with("socket:[") {
+                return None;
+            }
+            Some((
+                entry.file_name().to_str()?.parse().ok()?,
+                target.into_owned(),
+            ))
         })
-        .count()
+        .collect()
 }
+
 fn fault(e: &rune::runtime::VmError) -> Option<serde_json::Value> {
     let at = e.first_location()?;
     let instruction = at.unit.debug_info()?.instruction_at(at.ip)?;
@@ -614,7 +622,7 @@ async fn serve(
     drop(guard);
     output
 }
-async fn coordinator(unit: Arc<rune::Unit>) {
+async fn coordinator(unit: Arc<rune::Unit>, inherited: BTreeSet<(u32, String)>) {
     let (done_tx, mut done_rx) = mpsc::channel::<Done>(8);
     let (ready_tx, ready_rx) = std::sync::mpsc::channel();
     let mut threads = vec![];
@@ -734,9 +742,15 @@ async fn coordinator(unit: Arc<rune::Unit>) {
     }
     assert_eq!(state.borrow().active, [0, 0]);
     assert_eq!(connections.get(), 0);
-    assert_eq!(sockets(), 0);
+    let remaining = sockets();
+    let owned: Vec<_> = remaining.difference(&inherited).collect();
+    assert!(
+        owned.is_empty(),
+        "owned socket descriptors remain: {owned:?}"
+    );
+    assert_eq!(remaining, inherited, "inherited socket descriptors changed");
     event(
-        json!({"event":"closed","sockets":sockets(),"connections":connections.get(),"active":state.borrow().active,"builds":BUILDS.load(Ordering::SeqCst),"retired":RETIRED.load(Ordering::SeqCst),"live_bytes":crate::memory::live(),"peak_bytes":crate::memory::peak()}),
+        json!({"event":"closed","sockets":owned.len(),"inherited_sockets":inherited.len(),"connections":connections.get(),"active":state.borrow().active,"builds":BUILDS.load(Ordering::SeqCst),"retired":RETIRED.load(Ordering::SeqCst),"live_bytes":crate::memory::live(),"peak_bytes":crate::memory::peak()}),
     );
     assert_eq!(
         BUILDS.load(Ordering::SeqCst),
@@ -746,6 +760,7 @@ async fn coordinator(unit: Arc<rune::Unit>) {
 #[test]
 #[ignore]
 fn server() {
+    let inherited = sockets();
     ORIGIN.set(Instant::now()).unwrap();
     EVENTS
         .set(Mutex::new(
@@ -756,6 +771,7 @@ fn server() {
                 .unwrap(),
         ))
         .unwrap();
+    event(json!({"event":"socket_baseline","descriptors":inherited}));
     let (schema, ctx) = bundle();
     let unit = Arc::new(crate::compile(&ctx, SOURCE).unwrap());
     schema.close();
@@ -767,5 +783,5 @@ fn server() {
         libc::signal(libc::SIGTERM, term as *const () as libc::sighandler_t);
     }
     let rt = runtime();
-    LocalSet::new().block_on(&rt, coordinator(unit));
+    LocalSet::new().block_on(&rt, coordinator(unit, inherited));
 }
