@@ -153,3 +153,12 @@ tokio current-thread runtime.
   `results/server-http-0054/`; gate-4 scheduling follows in
   `results/server-http-0054-scheduling/`. Transaction integration and the full
   shutdown matrix remain open.
+
+- `server-transactions/` — record 0054 gate 5: a private copy of the accepted
+  HTTP prototype with two pooled connections per worker and transaction
+  completion owned outside the handler VM. Two eight-case repeats prove
+  rollback acknowledgement before reuse, retirement on lost replies/connection
+  loss, ambiguous commit without retry, active-query cancellation and bounded
+  lease contention. Pool driver tasks outlive requests and are joined on close.
+  Results: `results/server-transactions-0054/`, including the 57-case HTTP
+  regression with the pool enabled. Active-work shutdown remains gate 6.

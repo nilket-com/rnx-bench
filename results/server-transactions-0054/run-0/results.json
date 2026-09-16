@@ -1,0 +1,999 @@
+{
+  "rows": [
+    {
+      "case": "rollback",
+      "idle_before": {
+        "backend_pids": [
+          2053111,
+          2053114,
+          2053117,
+          2053120
+        ],
+        "driver_tasks": 4,
+        "handler_leases": 0
+      },
+      "visible_while_unacknowledged": "0",
+      "barrier": {
+        "at": 297976.230190143,
+        "event": "withheld",
+        "pid": 2053120,
+        "command": "ROLLBACK",
+        "first_type": "3"
+      },
+      "status": 500,
+      "original_pid": 2053120,
+      "next_pid": 2053120,
+      "idle_after": [
+        {
+          "drivers": 2,
+          "event": "pool_state",
+          "idle": 2,
+          "leases": 0,
+          "ms": 148.176321,
+          "runtime_tasks": 2,
+          "worker": 1
+        },
+        {
+          "drivers": 2,
+          "event": "pool_state",
+          "idle": 2,
+          "leases": 0,
+          "ms": 161.250278,
+          "runtime_tasks": 2,
+          "worker": 0
+        }
+      ],
+      "idle_socket_descriptors": [
+        [
+          13,
+          "socket:[3674625]"
+        ],
+        [
+          14,
+          "socket:[3663770]"
+        ],
+        [
+          15,
+          "socket:[3655674]"
+        ],
+        [
+          16,
+          "socket:[3663772]"
+        ],
+        [
+          17,
+          "socket:[3659420]"
+        ]
+      ],
+      "pool_closed": [
+        {
+          "drivers": 0,
+          "event": "pool_closed",
+          "idle": 0,
+          "leases": 0,
+          "ms": 249.057641,
+          "runtime_tasks": 0,
+          "worker": 0
+        },
+        {
+          "drivers": 0,
+          "event": "pool_closed",
+          "idle": 0,
+          "leases": 0,
+          "ms": 249.69481800000003,
+          "runtime_tasks": 0,
+          "worker": 1
+        }
+      ],
+      "backend_count_after": 0
+    },
+    {
+      "case": "rollback-loss",
+      "idle_before": {
+        "backend_pids": [
+          2053147,
+          2053144,
+          2053149,
+          2053153
+        ],
+        "driver_tasks": 4,
+        "handler_leases": 0
+      },
+      "visible_while_unacknowledged": "0",
+      "barrier": {
+        "at": 297976.559609355,
+        "event": "withheld",
+        "pid": 2053149,
+        "command": "ROLLBACK",
+        "first_type": "3"
+      },
+      "status": 500,
+      "failure": {
+        "category": "rollback unacknowledged; retired",
+        "detail": "connection closed",
+        "event": "tx_finish_error",
+        "id": 1,
+        "ms": 135.664594,
+        "pid": 2053149
+      },
+      "original_pid": 2053149,
+      "next_pid": 2053167,
+      "idle_after": [
+        {
+          "drivers": 2,
+          "event": "pool_state",
+          "idle": 2,
+          "leases": 0,
+          "ms": 167.65191099999998,
+          "runtime_tasks": 2,
+          "worker": 1
+        },
+        {
+          "drivers": 2,
+          "event": "pool_state",
+          "idle": 2,
+          "leases": 0,
+          "ms": 174.50707,
+          "runtime_tasks": 2,
+          "worker": 0
+        }
+      ],
+      "idle_socket_descriptors": [
+        [
+          13,
+          "socket:[3654523]"
+        ],
+        [
+          14,
+          "socket:[3671653]"
+        ],
+        [
+          15,
+          "socket:[3661515]"
+        ],
+        [
+          16,
+          "socket:[3656454]"
+        ],
+        [
+          17,
+          "socket:[3667072]"
+        ]
+      ],
+      "pool_closed": [
+        {
+          "drivers": 0,
+          "event": "pool_closed",
+          "idle": 0,
+          "leases": 0,
+          "ms": 242.669125,
+          "runtime_tasks": 0,
+          "worker": 0
+        },
+        {
+          "drivers": 0,
+          "event": "pool_closed",
+          "idle": 0,
+          "leases": 0,
+          "ms": 243.40809099999998,
+          "runtime_tasks": 0,
+          "worker": 1
+        }
+      ],
+      "backend_count_after": 0
+    },
+    {
+      "case": "commit-loss",
+      "idle_before": {
+        "backend_pids": [
+          2053186,
+          2053188,
+          2053191,
+          2053195
+        ],
+        "driver_tasks": 4,
+        "handler_leases": 0
+      },
+      "visible_while_unacknowledged": "1",
+      "barrier": {
+        "at": 297976.91790687,
+        "event": "withheld",
+        "pid": 2053191,
+        "command": "COMMIT",
+        "first_type": "3"
+      },
+      "status": 500,
+      "failure": {
+        "category": "ambiguous commit; no retry",
+        "detail": "connection closed",
+        "event": "tx_finish_error",
+        "id": 1,
+        "ms": 125.689514,
+        "pid": 2053191
+      },
+      "original_pid": 2053191,
+      "next_pid": 2053202,
+      "commit_attempts": 1,
+      "idle_after": [
+        {
+          "drivers": 2,
+          "event": "pool_state",
+          "idle": 2,
+          "leases": 0,
+          "ms": 158.88464499999998,
+          "runtime_tasks": 2,
+          "worker": 1
+        },
+        {
+          "drivers": 2,
+          "event": "pool_state",
+          "idle": 2,
+          "leases": 0,
+          "ms": 172.934731,
+          "runtime_tasks": 2,
+          "worker": 0
+        }
+      ],
+      "idle_socket_descriptors": [
+        [
+          10,
+          "socket:[3663779]"
+        ],
+        [
+          11,
+          "socket:[3664515]"
+        ],
+        [
+          15,
+          "socket:[3658620]"
+        ],
+        [
+          16,
+          "socket:[3674639]"
+        ],
+        [
+          17,
+          "socket:[3666474]"
+        ]
+      ],
+      "pool_closed": [
+        {
+          "drivers": 0,
+          "event": "pool_closed",
+          "idle": 0,
+          "leases": 0,
+          "ms": 246.262137,
+          "runtime_tasks": 0,
+          "worker": 0
+        },
+        {
+          "drivers": 0,
+          "event": "pool_closed",
+          "idle": 0,
+          "leases": 0,
+          "ms": 246.59419899999997,
+          "runtime_tasks": 0,
+          "worker": 1
+        }
+      ],
+      "backend_count_after": 0
+    },
+    {
+      "case": "commit-cancel",
+      "idle_before": {
+        "backend_pids": [
+          2053222,
+          2053225,
+          2053228,
+          2053231
+        ],
+        "driver_tasks": 4,
+        "handler_leases": 0
+      },
+      "visible_while_unacknowledged": "1",
+      "barrier": {
+        "at": 297977.275745678,
+        "event": "withheld",
+        "pid": 2053228,
+        "command": "COMMIT",
+        "first_type": "3"
+      },
+      "failure": {
+        "category": "ambiguous commit; no retry",
+        "detail": "connection closed",
+        "event": "tx_finish_error",
+        "id": 1,
+        "ms": 138.38891,
+        "pid": 2053228
+      },
+      "original_pid": 2053228,
+      "next_pid": 2053237,
+      "commit_attempts": 1,
+      "idle_after": [
+        {
+          "drivers": 2,
+          "event": "pool_state",
+          "idle": 2,
+          "leases": 0,
+          "ms": 173.01271200000002,
+          "runtime_tasks": 2,
+          "worker": 1
+        },
+        {
+          "drivers": 2,
+          "event": "pool_state",
+          "idle": 2,
+          "leases": 0,
+          "ms": 185.651246,
+          "runtime_tasks": 2,
+          "worker": 0
+        }
+      ],
+      "idle_socket_descriptors": [
+        [
+          13,
+          "socket:[3658621]"
+        ],
+        [
+          14,
+          "socket:[3676295]"
+        ],
+        [
+          15,
+          "socket:[3659448]"
+        ],
+        [
+          16,
+          "socket:[3660786]"
+        ],
+        [
+          17,
+          "socket:[3675392]"
+        ]
+      ],
+      "pool_closed": [
+        {
+          "drivers": 0,
+          "event": "pool_closed",
+          "idle": 0,
+          "leases": 0,
+          "ms": 247.666954,
+          "runtime_tasks": 0,
+          "worker": 0
+        },
+        {
+          "drivers": 0,
+          "event": "pool_closed",
+          "idle": 0,
+          "leases": 0,
+          "ms": 248.22324,
+          "runtime_tasks": 0,
+          "worker": 1
+        }
+      ],
+      "backend_count_after": 0
+    },
+    {
+      "case": "cancel",
+      "idle_before": {
+        "backend_pids": [
+          2053258,
+          2053261,
+          2053264,
+          2053267
+        ],
+        "driver_tasks": 4,
+        "handler_leases": 0
+      },
+      "original_pid": 2053264,
+      "next_pid": 2053264,
+      "idle_after": [
+        {
+          "drivers": 2,
+          "event": "pool_state",
+          "idle": 2,
+          "leases": 0,
+          "ms": 874.132013,
+          "runtime_tasks": 2,
+          "worker": 1
+        },
+        {
+          "drivers": 2,
+          "event": "pool_state",
+          "idle": 2,
+          "leases": 0,
+          "ms": 884.024716,
+          "runtime_tasks": 2,
+          "worker": 0
+        }
+      ],
+      "idle_socket_descriptors": [
+        [
+          10,
+          "socket:[3676299]"
+        ],
+        [
+          14,
+          "socket:[3658631]"
+        ],
+        [
+          15,
+          "socket:[3658630]"
+        ],
+        [
+          16,
+          "socket:[3672647]"
+        ],
+        [
+          17,
+          "socket:[3672648]"
+        ]
+      ],
+      "pool_closed": [
+        {
+          "drivers": 0,
+          "event": "pool_closed",
+          "idle": 0,
+          "leases": 0,
+          "ms": 967.91765,
+          "runtime_tasks": 0,
+          "worker": 1
+        },
+        {
+          "drivers": 0,
+          "event": "pool_closed",
+          "idle": 0,
+          "leases": 0,
+          "ms": 968.678727,
+          "runtime_tasks": 0,
+          "worker": 0
+        }
+      ],
+      "backend_count_after": 0
+    },
+    {
+      "case": "connection-loss",
+      "idle_before": {
+        "backend_pids": [
+          2053290,
+          2053292,
+          2053295,
+          2053299
+        ],
+        "driver_tasks": 4,
+        "handler_leases": 0
+      },
+      "status": 500,
+      "failure": {
+        "category": "rollback unacknowledged; retired",
+        "detail": "connection closed",
+        "event": "tx_finish_error",
+        "id": 1,
+        "ms": 71.67698,
+        "pid": 2053299
+      },
+      "original_pid": 2053299,
+      "next_pid": 2053309,
+      "idle_after": [
+        {
+          "drivers": 2,
+          "event": "pool_state",
+          "idle": 2,
+          "leases": 0,
+          "ms": 104.187791,
+          "runtime_tasks": 2,
+          "worker": 1
+        },
+        {
+          "drivers": 2,
+          "event": "pool_state",
+          "idle": 2,
+          "leases": 0,
+          "ms": 115.471928,
+          "runtime_tasks": 2,
+          "worker": 0
+        }
+      ],
+      "idle_socket_descriptors": [
+        [
+          13,
+          "socket:[3658646]"
+        ],
+        [
+          14,
+          "socket:[3676302]"
+        ],
+        [
+          15,
+          "socket:[3674649]"
+        ],
+        [
+          16,
+          "socket:[3661544]"
+        ],
+        [
+          17,
+          "socket:[3670493]"
+        ]
+      ],
+      "pool_closed": [
+        {
+          "drivers": 0,
+          "event": "pool_closed",
+          "idle": 0,
+          "leases": 0,
+          "ms": 150.1574,
+          "runtime_tasks": 0,
+          "worker": 1
+        },
+        {
+          "drivers": 0,
+          "event": "pool_closed",
+          "idle": 0,
+          "leases": 0,
+          "ms": 150.48077400000003,
+          "runtime_tasks": 0,
+          "worker": 0
+        }
+      ],
+      "backend_count_after": 0
+    },
+    {
+      "case": "budget",
+      "idle_before": {
+        "backend_pids": [
+          2053328,
+          2053331,
+          2053334,
+          2053337
+        ],
+        "driver_tasks": 4,
+        "handler_leases": 0
+      },
+      "status": 500,
+      "original_pid": 2053334,
+      "next_pid": 2053334,
+      "idle_after": [
+        {
+          "drivers": 2,
+          "event": "pool_state",
+          "idle": 2,
+          "leases": 0,
+          "ms": 167.16081499999999,
+          "runtime_tasks": 2,
+          "worker": 1
+        },
+        {
+          "drivers": 2,
+          "event": "pool_state",
+          "idle": 2,
+          "leases": 0,
+          "ms": 172.303333,
+          "runtime_tasks": 2,
+          "worker": 0
+        }
+      ],
+      "idle_socket_descriptors": [
+        [
+          13,
+          "socket:[3663792]"
+        ],
+        [
+          14,
+          "socket:[3654549]"
+        ],
+        [
+          15,
+          "socket:[3661548]"
+        ],
+        [
+          16,
+          "socket:[3672668]"
+        ],
+        [
+          17,
+          "socket:[3659460]"
+        ]
+      ],
+      "pool_closed": [
+        {
+          "drivers": 0,
+          "event": "pool_closed",
+          "idle": 0,
+          "leases": 0,
+          "ms": 253.934654,
+          "runtime_tasks": 0,
+          "worker": 1
+        },
+        {
+          "drivers": 0,
+          "event": "pool_closed",
+          "idle": 0,
+          "leases": 0,
+          "ms": 254.16582100000002,
+          "runtime_tasks": 0,
+          "worker": 0
+        }
+      ],
+      "backend_count_after": 0
+    },
+    {
+      "case": "contention",
+      "active_http": 8,
+      "leased_connections": 4,
+      "waiting_without_context": 4,
+      "cancelled_waiters": 4,
+      "backend_count_after": 0
+    }
+  ],
+  "postmaster_reaped": 2053062,
+  "cluster_events": [
+    {
+      "stage": "initdb",
+      "pid": 2053032,
+      "directory": "/tmp/rnx-pg-contract-gva4dq06",
+      "data": "/tmp/rnx-pg-contract-gva4dq06/data"
+    },
+    {
+      "stage": "pg_ctl",
+      "pid": 2053058,
+      "directory": "/tmp/rnx-pg-contract-gva4dq06",
+      "data": "/tmp/rnx-pg-contract-gva4dq06/data"
+    },
+    {
+      "stage": "psql",
+      "pid": 2053084,
+      "directory": "/tmp/rnx-pg-contract-gva4dq06",
+      "data": "/tmp/rnx-pg-contract-gva4dq06/data"
+    },
+    {
+      "stage": "psql",
+      "pid": 2053088,
+      "directory": "/tmp/rnx-pg-contract-gva4dq06",
+      "data": "/tmp/rnx-pg-contract-gva4dq06/data"
+    },
+    {
+      "stage": "psql",
+      "pid": 2053092,
+      "directory": "/tmp/rnx-pg-contract-gva4dq06",
+      "data": "/tmp/rnx-pg-contract-gva4dq06/data"
+    },
+    {
+      "stage": "psql",
+      "pid": 2053121,
+      "directory": "/tmp/rnx-pg-contract-gva4dq06",
+      "data": "/tmp/rnx-pg-contract-gva4dq06/data"
+    },
+    {
+      "stage": "psql",
+      "pid": 2053124,
+      "directory": "/tmp/rnx-pg-contract-gva4dq06",
+      "data": "/tmp/rnx-pg-contract-gva4dq06/data"
+    },
+    {
+      "stage": "psql",
+      "pid": 2053126,
+      "directory": "/tmp/rnx-pg-contract-gva4dq06",
+      "data": "/tmp/rnx-pg-contract-gva4dq06/data"
+    },
+    {
+      "stage": "psql",
+      "pid": 2053128,
+      "directory": "/tmp/rnx-pg-contract-gva4dq06",
+      "data": "/tmp/rnx-pg-contract-gva4dq06/data"
+    },
+    {
+      "stage": "psql",
+      "pid": 2053130,
+      "directory": "/tmp/rnx-pg-contract-gva4dq06",
+      "data": "/tmp/rnx-pg-contract-gva4dq06/data"
+    },
+    {
+      "stage": "psql",
+      "pid": 2053132,
+      "directory": "/tmp/rnx-pg-contract-gva4dq06",
+      "data": "/tmp/rnx-pg-contract-gva4dq06/data"
+    },
+    {
+      "stage": "psql",
+      "pid": 2053134,
+      "directory": "/tmp/rnx-pg-contract-gva4dq06",
+      "data": "/tmp/rnx-pg-contract-gva4dq06/data"
+    },
+    {
+      "stage": "psql",
+      "pid": 2053154,
+      "directory": "/tmp/rnx-pg-contract-gva4dq06",
+      "data": "/tmp/rnx-pg-contract-gva4dq06/data"
+    },
+    {
+      "stage": "psql",
+      "pid": 2053157,
+      "directory": "/tmp/rnx-pg-contract-gva4dq06",
+      "data": "/tmp/rnx-pg-contract-gva4dq06/data"
+    },
+    {
+      "stage": "psql",
+      "pid": 2053163,
+      "directory": "/tmp/rnx-pg-contract-gva4dq06",
+      "data": "/tmp/rnx-pg-contract-gva4dq06/data"
+    },
+    {
+      "stage": "psql",
+      "pid": 2053168,
+      "directory": "/tmp/rnx-pg-contract-gva4dq06",
+      "data": "/tmp/rnx-pg-contract-gva4dq06/data"
+    },
+    {
+      "stage": "psql",
+      "pid": 2053170,
+      "directory": "/tmp/rnx-pg-contract-gva4dq06",
+      "data": "/tmp/rnx-pg-contract-gva4dq06/data"
+    },
+    {
+      "stage": "psql",
+      "pid": 2053172,
+      "directory": "/tmp/rnx-pg-contract-gva4dq06",
+      "data": "/tmp/rnx-pg-contract-gva4dq06/data"
+    },
+    {
+      "stage": "psql",
+      "pid": 2053174,
+      "directory": "/tmp/rnx-pg-contract-gva4dq06",
+      "data": "/tmp/rnx-pg-contract-gva4dq06/data"
+    },
+    {
+      "stage": "psql",
+      "pid": 2053176,
+      "directory": "/tmp/rnx-pg-contract-gva4dq06",
+      "data": "/tmp/rnx-pg-contract-gva4dq06/data"
+    },
+    {
+      "stage": "psql",
+      "pid": 2053196,
+      "directory": "/tmp/rnx-pg-contract-gva4dq06",
+      "data": "/tmp/rnx-pg-contract-gva4dq06/data"
+    },
+    {
+      "stage": "psql",
+      "pid": 2053199,
+      "directory": "/tmp/rnx-pg-contract-gva4dq06",
+      "data": "/tmp/rnx-pg-contract-gva4dq06/data"
+    },
+    {
+      "stage": "psql",
+      "pid": 2053204,
+      "directory": "/tmp/rnx-pg-contract-gva4dq06",
+      "data": "/tmp/rnx-pg-contract-gva4dq06/data"
+    },
+    {
+      "stage": "psql",
+      "pid": 2053206,
+      "directory": "/tmp/rnx-pg-contract-gva4dq06",
+      "data": "/tmp/rnx-pg-contract-gva4dq06/data"
+    },
+    {
+      "stage": "psql",
+      "pid": 2053208,
+      "directory": "/tmp/rnx-pg-contract-gva4dq06",
+      "data": "/tmp/rnx-pg-contract-gva4dq06/data"
+    },
+    {
+      "stage": "psql",
+      "pid": 2053210,
+      "directory": "/tmp/rnx-pg-contract-gva4dq06",
+      "data": "/tmp/rnx-pg-contract-gva4dq06/data"
+    },
+    {
+      "stage": "psql",
+      "pid": 2053212,
+      "directory": "/tmp/rnx-pg-contract-gva4dq06",
+      "data": "/tmp/rnx-pg-contract-gva4dq06/data"
+    },
+    {
+      "stage": "psql",
+      "pid": 2053232,
+      "directory": "/tmp/rnx-pg-contract-gva4dq06",
+      "data": "/tmp/rnx-pg-contract-gva4dq06/data"
+    },
+    {
+      "stage": "psql",
+      "pid": 2053234,
+      "directory": "/tmp/rnx-pg-contract-gva4dq06",
+      "data": "/tmp/rnx-pg-contract-gva4dq06/data"
+    },
+    {
+      "stage": "psql",
+      "pid": 2053239,
+      "directory": "/tmp/rnx-pg-contract-gva4dq06",
+      "data": "/tmp/rnx-pg-contract-gva4dq06/data"
+    },
+    {
+      "stage": "psql",
+      "pid": 2053241,
+      "directory": "/tmp/rnx-pg-contract-gva4dq06",
+      "data": "/tmp/rnx-pg-contract-gva4dq06/data"
+    },
+    {
+      "stage": "psql",
+      "pid": 2053243,
+      "directory": "/tmp/rnx-pg-contract-gva4dq06",
+      "data": "/tmp/rnx-pg-contract-gva4dq06/data"
+    },
+    {
+      "stage": "psql",
+      "pid": 2053245,
+      "directory": "/tmp/rnx-pg-contract-gva4dq06",
+      "data": "/tmp/rnx-pg-contract-gva4dq06/data"
+    },
+    {
+      "stage": "psql",
+      "pid": 2053247,
+      "directory": "/tmp/rnx-pg-contract-gva4dq06",
+      "data": "/tmp/rnx-pg-contract-gva4dq06/data"
+    },
+    {
+      "stage": "psql",
+      "pid": 2053268,
+      "directory": "/tmp/rnx-pg-contract-gva4dq06",
+      "data": "/tmp/rnx-pg-contract-gva4dq06/data"
+    },
+    {
+      "stage": "psql",
+      "pid": 2053270,
+      "directory": "/tmp/rnx-pg-contract-gva4dq06",
+      "data": "/tmp/rnx-pg-contract-gva4dq06/data"
+    },
+    {
+      "stage": "psql",
+      "pid": 2053272,
+      "directory": "/tmp/rnx-pg-contract-gva4dq06",
+      "data": "/tmp/rnx-pg-contract-gva4dq06/data"
+    },
+    {
+      "stage": "psql",
+      "pid": 2053274,
+      "directory": "/tmp/rnx-pg-contract-gva4dq06",
+      "data": "/tmp/rnx-pg-contract-gva4dq06/data"
+    },
+    {
+      "stage": "psql",
+      "pid": 2053276,
+      "directory": "/tmp/rnx-pg-contract-gva4dq06",
+      "data": "/tmp/rnx-pg-contract-gva4dq06/data"
+    },
+    {
+      "stage": "psql",
+      "pid": 2053278,
+      "directory": "/tmp/rnx-pg-contract-gva4dq06",
+      "data": "/tmp/rnx-pg-contract-gva4dq06/data"
+    },
+    {
+      "stage": "psql",
+      "pid": 2053280,
+      "directory": "/tmp/rnx-pg-contract-gva4dq06",
+      "data": "/tmp/rnx-pg-contract-gva4dq06/data"
+    },
+    {
+      "stage": "psql",
+      "pid": 2053300,
+      "directory": "/tmp/rnx-pg-contract-gva4dq06",
+      "data": "/tmp/rnx-pg-contract-gva4dq06/data"
+    },
+    {
+      "stage": "psql",
+      "pid": 2053303,
+      "directory": "/tmp/rnx-pg-contract-gva4dq06",
+      "data": "/tmp/rnx-pg-contract-gva4dq06/data"
+    },
+    {
+      "stage": "psql",
+      "pid": 2053305,
+      "directory": "/tmp/rnx-pg-contract-gva4dq06",
+      "data": "/tmp/rnx-pg-contract-gva4dq06/data"
+    },
+    {
+      "stage": "psql",
+      "pid": 2053310,
+      "directory": "/tmp/rnx-pg-contract-gva4dq06",
+      "data": "/tmp/rnx-pg-contract-gva4dq06/data"
+    },
+    {
+      "stage": "psql",
+      "pid": 2053312,
+      "directory": "/tmp/rnx-pg-contract-gva4dq06",
+      "data": "/tmp/rnx-pg-contract-gva4dq06/data"
+    },
+    {
+      "stage": "psql",
+      "pid": 2053314,
+      "directory": "/tmp/rnx-pg-contract-gva4dq06",
+      "data": "/tmp/rnx-pg-contract-gva4dq06/data"
+    },
+    {
+      "stage": "psql",
+      "pid": 2053316,
+      "directory": "/tmp/rnx-pg-contract-gva4dq06",
+      "data": "/tmp/rnx-pg-contract-gva4dq06/data"
+    },
+    {
+      "stage": "psql",
+      "pid": 2053318,
+      "directory": "/tmp/rnx-pg-contract-gva4dq06",
+      "data": "/tmp/rnx-pg-contract-gva4dq06/data"
+    },
+    {
+      "stage": "psql",
+      "pid": 2053338,
+      "directory": "/tmp/rnx-pg-contract-gva4dq06",
+      "data": "/tmp/rnx-pg-contract-gva4dq06/data"
+    },
+    {
+      "stage": "psql",
+      "pid": 2053341,
+      "directory": "/tmp/rnx-pg-contract-gva4dq06",
+      "data": "/tmp/rnx-pg-contract-gva4dq06/data"
+    },
+    {
+      "stage": "psql",
+      "pid": 2053343,
+      "directory": "/tmp/rnx-pg-contract-gva4dq06",
+      "data": "/tmp/rnx-pg-contract-gva4dq06/data"
+    },
+    {
+      "stage": "psql",
+      "pid": 2053345,
+      "directory": "/tmp/rnx-pg-contract-gva4dq06",
+      "data": "/tmp/rnx-pg-contract-gva4dq06/data"
+    },
+    {
+      "stage": "psql",
+      "pid": 2053347,
+      "directory": "/tmp/rnx-pg-contract-gva4dq06",
+      "data": "/tmp/rnx-pg-contract-gva4dq06/data"
+    },
+    {
+      "stage": "psql",
+      "pid": 2053349,
+      "directory": "/tmp/rnx-pg-contract-gva4dq06",
+      "data": "/tmp/rnx-pg-contract-gva4dq06/data"
+    },
+    {
+      "stage": "psql",
+      "pid": 2053369,
+      "directory": "/tmp/rnx-pg-contract-gva4dq06",
+      "data": "/tmp/rnx-pg-contract-gva4dq06/data"
+    },
+    {
+      "stage": "psql",
+      "pid": 2053371,
+      "directory": "/tmp/rnx-pg-contract-gva4dq06",
+      "data": "/tmp/rnx-pg-contract-gva4dq06/data"
+    },
+    {
+      "stage": "psql",
+      "pid": 2053373,
+      "directory": "/tmp/rnx-pg-contract-gva4dq06",
+      "data": "/tmp/rnx-pg-contract-gva4dq06/data"
+    },
+    {
+      "stage": "psql",
+      "pid": 2053375,
+      "directory": "/tmp/rnx-pg-contract-gva4dq06",
+      "data": "/tmp/rnx-pg-contract-gva4dq06/data"
+    },
+    {
+      "stage": "pg_ctl",
+      "pid": 2053377,
+      "directory": "/tmp/rnx-pg-contract-gva4dq06",
+      "data": "/tmp/rnx-pg-contract-gva4dq06/data"
+    }
+  ],
+  "postgres_version": "postgres (PostgreSQL) 18.6 (Ubuntu 18.6-0ubuntu0.26.04.1)",
+  "cluster_sha256": "866edb570678d9e8d046f2a9126c13d1cd663b3ce84bd8c6d5fbdb96ca016deb",
+  "hashes": {
+    "transactions.py": "2fd563cc9e156959d8e6da5327b985ae6d038cb4986e9bba50165334b1d6882c",
+    "proxy.py": "71723d94c9990d86eb6f23571b120d3d73ca4c40bc396e34dc7594633c477d8e",
+    "pool.rs": "3b798f43cccdf9f52c7d2e825c785fe082d3065dfaae6a28d3f66a20c8ca04ac"
+  }
+}
