@@ -40,3 +40,29 @@ while already unwinding. Root now catches cleanup without hook replacement on
 that path; its focused regression additionally catches a destructor panic while
 preserving the caller's original panic. Such nested panic diagnostics use the
 caller's hook rather than the usual temporary silent hook.
+
+## Gate 2: host boundary
+
+Run `python3 probes/server-entry/host_boundary.py` on Linux. This invokes the
+root's test-only subprocess fixture with `server-runtime,test-support`, then
+checks compile-fail documentation and generated public type listings. The
+private test controls set the real existing script flag and emit the existing
+config-open counter; they add no public accessor or production behavior.
+
+One child installs its own SIGINT/SIGTERM handlers and verifies actual delivery
+before and after compilation, successful and failed execution, and close. It
+sets the CLI script flag before testing the server exit refusal. A valid config
+is installed: server operations report zero opens; an explicit config load as
+positive control reports one. Owned compile and VM failures produce no library
+output. The parent rejects unexpected child stdout and all child stderr.
+
+Another child starts a native call blocked on a condition variable. After
+observing the call has started, its host waits 5.25 seconds, confirms the worker
+has not finished, releases it and joins it. The library installs no kill timer;
+this is a finite observation, not proof of arbitrary native-call cancellation.
+It deliberately does not test or implement the standalone server's hard exit.
+
+**Run feature configurations serially in one target directory.** Default and
+`test-support` integration tests launch the same executable path; concurrent
+builds can replace it during the other configuration's test. Separate target
+directories are required if running configurations concurrently.
