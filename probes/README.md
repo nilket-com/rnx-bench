@@ -142,3 +142,5 @@ tokio current-thread runtime.
   HTTP isolation, builder/retirement counts and allocation measurements. The
   existing synchronous, whole-runtime HTTP drain is a reproduced stop; gate 2
   remains open. Evidence: `results/server-assembly-0054/`.
+
+- [HTTP lifecycle migration](http-lifecycle-0055/): record 0055; inline tracked HTTP, in-runtime owner cancellation, 0054 assembly replay and matched costs.
