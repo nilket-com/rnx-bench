@@ -4,13 +4,16 @@ import argparse, concurrent.futures, hashlib, json, os, pathlib, signal, socket,
 HERE=pathlib.Path(__file__).resolve().parent
 LIMIT=1024*1024
 class Server:
-    def __init__(self,out, *, stdin=subprocess.DEVNULL, extra_env=None):
+    def __init__(self,out, *, stdin=subprocess.DEVNULL, extra_env=None, small_send_buffer=True):
         self.out=out;out.mkdir(parents=True,exist_ok=True)
         self.events_path=out/'events.jsonl';self.events_path.write_text('')
         build=json.loads((HERE/'build.json').read_text());self.build=build
         env={k:v for k,v in os.environ.items() if k.lower() not in ('http_proxy','https_proxy','all_proxy','no_proxy') and k!='RNX_CONFIG'}
         env.update(RNX_HTTP_EVENTS=str(self.events_path.resolve()),TERM='dumb',RNX_HTTP_SMALL_SEND_BUFFER='1')
+        if not small_send_buffer:env.pop("RNX_HTTP_SMALL_SEND_BUFFER",None)
         if extra_env:env.update(extra_env)
+        self.extra_env=extra_env or {}
+        self.small_send_buffer=small_send_buffer
         self.log=(out/'server.log').open('w')
         self.p=subprocess.Popen([build['binary'],'server_http_probe::server','--exact','--ignored','--nocapture'],env=env,stdin=stdin,stdout=self.log,stderr=subprocess.STDOUT,start_new_session=True)
         self.samples=[];self.stop=threading.Event()
@@ -21,7 +24,7 @@ class Server:
             self.stop.set();self.monitor.join();self.log.close();raise
         self.port=int(next(e['address'] for e in self.events() if e['event']=='ready').rsplit(':',1)[1])
     def events(self):
-        return [json.loads(line) for line in self.events_path.read_text().splitlines() if line.endswith('}')]
+        return [json.loads(line) for line in self.events_path.read_text().splitlines(keepends=True) if line.endswith('\n')]
     def wait(self,predicate,seconds=3):
         end=time.monotonic()+seconds
         while not predicate():
@@ -54,7 +57,7 @@ class Server:
         finally:
             self.stop.set();self.monitor.join();self.log.close()
             (self.out/'memory.json').write_text(json.dumps(self.samples,indent=2)+'\n')
-            (self.out/'conditions.json').write_text(json.dumps(self.build|{'wire_sha256':hashlib.sha256(pathlib.Path(__file__).read_bytes()).hexdigest(),'sample_interval_ms':10,'small_send_buffer_bytes':16384,'cpu_affinity':sorted(os.sched_getaffinity(self.p.pid)) if self.p.poll() is None else sorted(os.sched_getaffinity(0)),'kernel':os.uname().release,'signal':sig.name},indent=2)+'\n')
+            (self.out/'conditions.json').write_text(json.dumps(self.build|{'wire_sha256':hashlib.sha256(pathlib.Path(__file__).read_bytes()).hexdigest(),'sample_interval_ms':10,'small_send_buffer_bytes':16384 if self.small_send_buffer else None,'extra_env':self.extra_env,'cpu_affinity':sorted(os.sched_getaffinity(self.p.pid)) if self.p.poll() is None else sorted(os.sched_getaffinity(0)),'kernel':os.uname().release,'signal':sig.name},indent=2)+'\n')
         assert code==0,(code,(self.out/'server.log').read_text())
         assert any(e['event']=='closed' for e in self.events())
 def receive(s):

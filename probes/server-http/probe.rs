@@ -28,8 +28,13 @@ use tokio::{
 const LIMIT: usize = 1024 * 1024;
 const SOURCE: &str = r#"
 pub async fn main(request) {
-    if request.path == "/await" { time::sleep(10000).await?; }
-    if request.path == "/cpu" { loop {} }
+    if request.path == "/await" {
+        let ms = match request.query { "bench" => 250, "batch" => 40, "mixed" => 40, _ => 10000 };
+        probe::phase("await-start");
+        time::sleep(ms).await?;
+        probe::phase("await-end");
+    }
+    if request.path == "/cpu" { probe::phase("cpu-start"); loop {} }
     if request.path == "/fail" { panic("fixture failure, not a transaction integration claim"); }
     let body = request.body;
     match request.query {
@@ -73,8 +78,13 @@ struct Bundle {
     life: Lifecycle,
     http: crate::http::State,
 }
-fn bundle() -> (Bundle, Context) {
-    let ext = Extensions::none().with("probe", |m| {
+fn bundle(id: usize) -> (Bundle, Context) {
+    let ext = Extensions::none().with("probe", move |m| {
+        m.function("phase", move |phase: &str| {
+            event(json!({"event":"phase","id":id,"phase":phase}));
+        })
+        .build()
+        .map_err(|e| e.to_string())?;
         m.function("stall", || {
             thread::sleep(Duration::from_millis(2500));
         })
@@ -298,6 +308,25 @@ struct Done {
     worker: usize,
     id: usize,
 }
+fn pin(index: usize) {
+    let Ok(raw) = std::env::var("RNX_HTTP_CPUS") else {
+        return;
+    };
+    let cpus: Vec<usize> = raw.split(',').map(|v| v.parse().unwrap()).collect();
+    assert_eq!(cpus.len(), 3);
+    let cpu = cpus[index];
+    assert!(cpu < (libc::CPU_SETSIZE as usize));
+    unsafe {
+        let mut set: libc::cpu_set_t = std::mem::zeroed();
+        libc::CPU_ZERO(&mut set);
+        libc::CPU_SET(cpu, &mut set);
+        assert_eq!(
+            libc::sched_setaffinity(0, std::mem::size_of_val(&set), &set),
+            0
+        );
+    }
+    event(json!({"event":"affinity","role":index,"cpu":cpu}));
+}
 fn worker(
     n: usize,
     mut jobs: mpsc::Receiver<Work>,
@@ -305,6 +334,7 @@ fn worker(
     unit: Arc<rune::Unit>,
     ready: std::sync::mpsc::Sender<()>,
 ) {
+    pin(n);
     let rt = runtime();
     LocalSet::new().block_on(&rt,async move {
         let mut tasks=JoinSet::new();ready.send(()).unwrap();
@@ -318,7 +348,7 @@ fn worker(
                             let start=Instant::now();
                             // A dispatched credit may wait behind a CPU poll; cancelled work builds nothing.
                             if *job.cancel.borrow() {done.send(Done{worker:n,id:job.id}).await.unwrap();return;}
-                            let (bundle,_)=bundle();
+                            let (bundle,_)=bundle(job.id);
                             event(json!({"event":"built","id":job.id,"worker":n,"build_ms":start.elapsed().as_secs_f64()*1000.}));
                             bundle.life.begin().unwrap();
                             let result={
@@ -553,6 +583,9 @@ async fn serve(
             .or_default()
             .push(v.as_bytes().to_vec());
     }
+    event(
+        json!({"event":"request","id":id,"path":path,"tag":parts.headers.get("x-probe-tag").and_then(|v|v.to_str().ok())}),
+    );
     let input = Input {
         method: parts.method.to_string(),
         path,
@@ -623,6 +656,7 @@ async fn serve(
     output
 }
 async fn coordinator(unit: Arc<rune::Unit>, inherited: BTreeSet<(u32, String)>) {
+    pin(2);
     let (done_tx, mut done_rx) = mpsc::channel::<Done>(8);
     let (ready_tx, ready_rx) = std::sync::mpsc::channel();
     let mut threads = vec![];
@@ -649,8 +683,9 @@ async fn coordinator(unit: Arc<rune::Unit>, inherited: BTreeSet<(u32, String)>) 
         stopping: false,
     }));
     let listener = tokio::net::TcpListener::bind("127.0.0.1:0").await.unwrap();
+    crate::memory::reset_peak();
     event(
-        json!({"event":"ready","address":listener.local_addr().unwrap().to_string(),"pid":std::process::id()}),
+        json!({"event":"ready","address":listener.local_addr().unwrap().to_string(),"pid":std::process::id(),"live_bytes":crate::memory::live()}),
     );
     let connections = Rc::new(Cell::new(0usize));
     let mut tasks = JoinSet::new();
@@ -772,7 +807,7 @@ fn server() {
         ))
         .unwrap();
     event(json!({"event":"socket_baseline","descriptors":inherited}));
-    let (schema, ctx) = bundle();
+    let (schema, ctx) = bundle(0);
     let unit = Arc::new(crate::compile(&ctx, SOURCE).unwrap());
     schema.close();
     drop(schema);

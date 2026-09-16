@@ -2,8 +2,8 @@
 
 Measured by Codex on Linux, 2026-09-16, against the archived rnx revision in
 `results/server-http-0054/run-{0,1}/conditions.json`. This is a **private
-prototype**, not a server command or public factory. Gates 4–6 (HTTP scheduling
-measurements, transaction integration and database shutdown) remain separate.
+prototype**, not a server command or public factory. Gate 4 has a separate scheduling follow-up below; transaction integration and
+the database shutdown matrix remain open.
 
 ```sh
 python3 probes/server-http/build.py
@@ -151,3 +151,53 @@ rollback, and it does not prove rollback-before-credit-return. It also does not
 publish a factory, choose a pool, measure steady-state HTTP throughput, promise
 CPU preemption, execute on Windows, or establish isolation from trusted native
 code. Those remain in 0054's later gates and server-entry decision.
+
+## Gate 4: scheduling through HTTP
+
+Measured by Codex on Linux, 2026-09-16. Rebuild, then run:
+
+```sh
+python3 probes/server-http/scheduling.py --samples 7 --output results/server-http-0054-scheduling/run-0
+python3 probes/server-http/scheduling.py --samples 7 --output results/server-http-0054-scheduling/run-1
+python3 probes/server-http/wire.py --output results/server-http-0054-scheduling/wire-regression
+```
+
+Each repeat runs six scenarios seven times in fresh server processes: healthy
+alone, awaiting with a spare worker, CPU-bound with a spare worker, both workers
+CPU-bound, mixed awaiting/CPU on one worker, and a finite sixteen-await batch
+followed by a healthy request. The compiled unit/schema startup precedes the
+measurement; each measured handler still constructs its own context. Workers
+are pinned to CPUs 2 and 4, coordinator to 6, and client to 8 (distinct physical
+cores on this machine). The driver accepts CPU choices; conditions record them.
+Frequency/turbo are not controlled. Logging and allocation accounting remain on;
+the wire fixture's artificial small send buffer is disabled for scheduling.
+
+Client latency starts before connect and ends after the complete response and
+EOF. Reader threads start immediately. Server phase events prove the overlap,
+not just request launch order. The mixed scenario proves a nominal 40 ms timer
+expires while its worker is in a CPU poll and resumes only after that poll ends.
+The saturated row separates central FIFO time from waiting in an already
+charged worker slot. The batch asserts all sixteen slow requests were admitted
+before the healthy one and the healthy one is dispatched last.
+
+Both repeats pass all ordering, response and ownership assertions. Healthy
+median latency in ms (repeat 0 / 1): alone 9.16 / 8.88; awaiting-spare 8.55 / 8.60;
+CPU-spare 3.87 / 6.08; CPU-saturated 61.43 / 61.30; mixed, other worker 3.52 / 3.56;
+awaiting-batch 104.26 / 104.38. In the mixed row the blocked 40 ms timer takes
+63.27–69.61 ms, versus 40.62–41.74 ms on the other worker. This explicitly
+preserves the CPU starvation limitation within one worker.
+
+Fresh context construction varies roughly 3–8 ms across these rows. The cause
+is not isolated; the smaller CPU-spare figures are not a claimed acceleration.
+The batch rate is a finite seventeen-request completion rate, not steady-state
+throughput, and is not comparable to the earlier assembly-only rates. There is
+no hard millisecond performance threshold: overlap/order is asserted, with
+three-second observation and four-second client watchdogs. The server's own
+admitted deadline stays two seconds. Raw per-request intervals, queue/build
+costs and tracked allocation above ready are retained in each measurement.
+
+Across the two repeats, 84 server processes build and retire 490 contexts,
+including schemas, with zero newly owned sockets, active credits, connection
+permits or surviving worker tasks. The same binary passes all 57 wire cases.
+This is not gate 6: there is no SQL command, pool or pending rollback. Gate 5,
+the full shutdown matrix and a supported server entry remain open.

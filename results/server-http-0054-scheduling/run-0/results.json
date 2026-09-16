@@ -1,0 +1,3740 @@
+{
+  "summary": {
+    "healthy-alone": {
+      "median_ms": 9.158055,
+      "max_ms": 9.410847
+    },
+    "awaiting-spare": {
+      "median_ms": 8.547257,
+      "max_ms": 10.698779
+    },
+    "cpu-spare": {
+      "median_ms": 3.866128,
+      "max_ms": 3.983516
+    },
+    "cpu-saturated": {
+      "median_ms": 61.434542,
+      "max_ms": 61.843939
+    },
+    "mixed": {
+      "median_ms": 3.516608,
+      "max_ms": 3.56743
+    },
+    "awaiting-batch": {
+      "median_ms": 104.260592,
+      "max_ms": 105.706659
+    }
+  },
+  "rows": [
+    {
+      "case": "healthy-alone",
+      "sample": 0,
+      "healthy_ms": 4.129388,
+      "healthy_queue_ms": 0.030527999999998556,
+      "healthy_dispatch_to_vm_ms": 3.740807,
+      "healthy_build_ms": 3.658836,
+      "build_total_ms": 3.658836,
+      "assertions": [],
+      "requests": [
+        {
+          "tag": "healthy",
+          "status": 200,
+          "client_ms": 4.129388,
+          "start_ns": 296187473026958,
+          "end_ns": 296187477156346,
+          "id": 1,
+          "worker": 0,
+          "queue_ms": 0.030527999999998556,
+          "dispatch_to_vm_ms": 3.740807,
+          "build_ms": 3.658836
+        }
+      ],
+      "peak_increase_bytes": 2293053,
+      "closed": {
+        "active": [
+          0,
+          0
+        ],
+        "builds": 2,
+        "connections": 0,
+        "event": "closed",
+        "inherited_sockets": 0,
+        "live_bytes": 73055,
+        "ms": 19.247762,
+        "peak_bytes": 2420158,
+        "retired": 2,
+        "sockets": 0
+      }
+    },
+    {
+      "case": "awaiting-spare",
+      "sample": 0,
+      "healthy_ms": 10.698779,
+      "healthy_queue_ms": 0.08032899999999898,
+      "healthy_dispatch_to_vm_ms": 10.178442000000004,
+      "healthy_build_ms": 9.946063,
+      "build_total_ms": 15.103436,
+      "assertions": [
+        "healthy finishes during awaited slow request on spare worker"
+      ],
+      "requests": [
+        {
+          "tag": "slow",
+          "status": 200,
+          "client_ms": 257.5011,
+          "start_ns": 296187507657912,
+          "end_ns": 296187765159012,
+          "id": 1,
+          "worker": 0,
+          "queue_ms": 0.04128599999999949,
+          "dispatch_to_vm_ms": 5.301402000000001,
+          "build_ms": 5.157373
+        },
+        {
+          "tag": "healthy",
+          "status": 200,
+          "client_ms": 10.698779,
+          "start_ns": 296187518215522,
+          "end_ns": 296187528914301,
+          "id": 2,
+          "worker": 1,
+          "queue_ms": 0.08032899999999898,
+          "dispatch_to_vm_ms": 10.178442000000004,
+          "build_ms": 9.946063
+        }
+      ],
+      "peak_increase_bytes": 2835294,
+      "closed": {
+        "active": [
+          0,
+          0
+        ],
+        "builds": 3,
+        "connections": 0,
+        "event": "closed",
+        "inherited_sockets": 0,
+        "live_bytes": 73055,
+        "ms": 277.192982,
+        "peak_bytes": 2962399,
+        "retired": 3,
+        "sockets": 0
+      }
+    },
+    {
+      "case": "cpu-spare",
+      "sample": 0,
+      "healthy_ms": 3.983516,
+      "healthy_queue_ms": 0.029488000000000625,
+      "healthy_dispatch_to_vm_ms": 3.7857899999999987,
+      "healthy_build_ms": 3.6737990000000003,
+      "build_total_ms": 11.795658000000001,
+      "assertions": [
+        "healthy finishes during CPU loop on spare worker"
+      ],
+      "requests": [
+        {
+          "tag": "slow",
+          "status": 500,
+          "client_ms": 67.985463,
+          "start_ns": 296187802064400,
+          "end_ns": 296187870049863,
+          "id": 1,
+          "worker": 0,
+          "queue_ms": 0.0516299999999994,
+          "dispatch_to_vm_ms": 8.250914000000002,
+          "build_ms": 8.121859
+        },
+        {
+          "tag": "healthy",
+          "status": 200,
+          "client_ms": 3.983516,
+          "start_ns": 296187812773224,
+          "end_ns": 296187816756740,
+          "id": 2,
+          "worker": 1,
+          "queue_ms": 0.029488000000000625,
+          "dispatch_to_vm_ms": 3.7857899999999987,
+          "build_ms": 3.6737990000000003
+        }
+      ],
+      "peak_increase_bytes": 2834951,
+      "closed": {
+        "active": [
+          0,
+          0
+        ],
+        "builds": 3,
+        "connections": 0,
+        "event": "closed",
+        "inherited_sockets": 0,
+        "live_bytes": 73055,
+        "ms": 88.090066,
+        "peak_bytes": 2962056,
+        "retired": 3,
+        "sockets": 0
+      }
+    },
+    {
+      "case": "cpu-saturated",
+      "sample": 0,
+      "healthy_ms": 61.434542,
+      "healthy_queue_ms": 0.029462999999999795,
+      "healthy_dispatch_to_vm_ms": 61.138948000000006,
+      "healthy_build_ms": 3.037331,
+      "build_total_ms": 10.346798,
+      "assertions": [
+        "both workers busy at healthy arrival; selected worker starts it only after CPU halt"
+      ],
+      "requests": [
+        {
+          "tag": "cpu0",
+          "status": 500,
+          "client_ms": 63.379481,
+          "start_ns": 296187886293057,
+          "end_ns": 296187949672538,
+          "id": 1,
+          "worker": 0,
+          "queue_ms": 0.03359600000000018,
+          "dispatch_to_vm_ms": 3.7747470000000014,
+          "build_ms": 3.6981140000000003
+        },
+        {
+          "tag": "cpu1",
+          "status": 500,
+          "client_ms": 63.466671,
+          "start_ns": 296187891592649,
+          "end_ns": 296187955059320,
+          "id": 2,
+          "worker": 1,
+          "queue_ms": 0.02830699999999986,
+          "dispatch_to_vm_ms": 3.691410000000001,
+          "build_ms": 3.611353
+        },
+        {
+          "tag": "healthy",
+          "status": 200,
+          "client_ms": 61.434542,
+          "start_ns": 296187896922277,
+          "end_ns": 296187958356819,
+          "id": 3,
+          "worker": 1,
+          "queue_ms": 0.029462999999999795,
+          "dispatch_to_vm_ms": 61.138948000000006,
+          "build_ms": 3.037331
+        }
+      ],
+      "peak_increase_bytes": 2834944,
+      "closed": {
+        "active": [
+          0,
+          0
+        ],
+        "builds": 4,
+        "connections": 0,
+        "event": "closed",
+        "inherited_sockets": 0,
+        "live_bytes": 73055,
+        "ms": 84.39362799999999,
+        "peak_bytes": 2962049,
+        "retired": 4,
+        "sockets": 0
+      }
+    },
+    {
+      "case": "mixed",
+      "sample": 0,
+      "healthy_ms": 3.516608,
+      "healthy_queue_ms": 0.029505000000000337,
+      "healthy_dispatch_to_vm_ms": 3.344291000000002,
+      "healthy_build_ms": 3.22999,
+      "build_total_ms": 15.687023,
+      "assertions": [
+        "timer becomes due inside same-worker CPU loop and cannot complete until halt"
+      ],
+      "requests": [
+        {
+          "tag": "await0",
+          "status": 200,
+          "client_ms": 46.035816,
+          "start_ns": 296187974283945,
+          "end_ns": 296188020319761,
+          "id": 1,
+          "worker": 0,
+          "queue_ms": 0.03292499999999965,
+          "dispatch_to_vm_ms": 4.100415999999999,
+          "build_ms": 3.991591
+        },
+        {
+          "tag": "await1",
+          "status": 200,
+          "client_ms": 68.811685,
+          "start_ns": 296187979606131,
+          "end_ns": 296188048417816,
+          "id": 2,
+          "worker": 1,
+          "queue_ms": 0.040328000000000586,
+          "dispatch_to_vm_ms": 4.928993999999999,
+          "build_ms": 4.831092
+        },
+        {
+          "tag": "slow",
+          "status": 500,
+          "client_ms": 63.249724,
+          "start_ns": 296187984986092,
+          "end_ns": 296188048235816,
+          "id": 3,
+          "worker": 1,
+          "queue_ms": 0.03741899999999987,
+          "dispatch_to_vm_ms": 3.7281220000000026,
+          "build_ms": 3.63435
+        },
+        {
+          "tag": "healthy",
+          "status": 200,
+          "client_ms": 3.516608,
+          "start_ns": 296187990336507,
+          "end_ns": 296187993853115,
+          "id": 4,
+          "worker": 0,
+          "queue_ms": 0.029505000000000337,
+          "dispatch_to_vm_ms": 3.344291000000002,
+          "build_ms": 3.22999
+        }
+      ],
+      "blocked_await_ms": 63.68355699999999,
+      "other_await_ms": 41.543364,
+      "peak_increase_bytes": 3919053,
+      "closed": {
+        "active": [
+          0,
+          0
+        ],
+        "builds": 5,
+        "connections": 0,
+        "event": "closed",
+        "inherited_sockets": 0,
+        "live_bytes": 73055,
+        "ms": 89.171914,
+        "peak_bytes": 4046158,
+        "retired": 5,
+        "sockets": 0
+      }
+    },
+    {
+      "case": "awaiting-batch",
+      "sample": 0,
+      "healthy_ms": 104.111203,
+      "healthy_queue_ms": 95.348481,
+      "healthy_dispatch_to_vm_ms": 8.459542999999996,
+      "healthy_build_ms": 8.032911,
+      "build_total_ms": 104.958022,
+      "assertions": [
+        "healthy was centrally queued behind all sixteen requests"
+      ],
+      "requests": [
+        {
+          "tag": "await0",
+          "status": 200,
+          "client_ms": 50.206725,
+          "start_ns": 296188073402554,
+          "end_ns": 296188123609279,
+          "id": 1,
+          "worker": 0,
+          "queue_ms": 0.04924000000000017,
+          "dispatch_to_vm_ms": 8.559009999999999,
+          "build_ms": 8.448428
+        },
+        {
+          "tag": "await1",
+          "status": 200,
+          "client_ms": 49.720168,
+          "start_ns": 296188073608153,
+          "end_ns": 296188123328321,
+          "id": 2,
+          "worker": 1,
+          "queue_ms": 0.053753999999999635,
+          "dispatch_to_vm_ms": 8.429433999999999,
+          "build_ms": 8.319011
+        },
+        {
+          "tag": "await2",
+          "status": 200,
+          "client_ms": 61.627397,
+          "start_ns": 296188073728846,
+          "end_ns": 296188135356243,
+          "id": 3,
+          "worker": 1,
+          "queue_ms": 0.05854999999999855,
+          "dispatch_to_vm_ms": 13.012693000000004,
+          "build_ms": 4.701894
+        },
+        {
+          "tag": "await3",
+          "status": 200,
+          "client_ms": 61.842146,
+          "start_ns": 296188073834787,
+          "end_ns": 296188135676933,
+          "id": 4,
+          "worker": 0,
+          "queue_ms": 0.05589700000000164,
+          "dispatch_to_vm_ms": 12.978349999999999,
+          "build_ms": 4.799137999999999
+        },
+        {
+          "tag": "await4",
+          "status": 200,
+          "client_ms": 62.12914,
+          "start_ns": 296188073944935,
+          "end_ns": 296188136074075,
+          "id": 5,
+          "worker": 0,
+          "queue_ms": 0.048129999999998674,
+          "dispatch_to_vm_ms": 17.656686,
+          "build_ms": 4.828797
+        },
+        {
+          "tag": "await5",
+          "status": 200,
+          "client_ms": 61.85299,
+          "start_ns": 296188074078393,
+          "end_ns": 296188135931383,
+          "id": 6,
+          "worker": 1,
+          "queue_ms": 0.055733999999999284,
+          "dispatch_to_vm_ms": 17.276813,
+          "build_ms": 4.815524
+        },
+        {
+          "tag": "await6",
+          "status": 200,
+          "client_ms": 72.551126,
+          "start_ns": 296188074195183,
+          "end_ns": 296188146746309,
+          "id": 7,
+          "worker": 1,
+          "queue_ms": 0.045036999999998883,
+          "dispatch_to_vm_ms": 21.940967,
+          "build_ms": 4.7653039999999995
+        },
+        {
+          "tag": "await7",
+          "status": 200,
+          "client_ms": 72.216847,
+          "start_ns": 296188074326121,
+          "end_ns": 296188146542968,
+          "id": 8,
+          "worker": 0,
+          "queue_ms": 0.05393199999999965,
+          "dispatch_to_vm_ms": 21.951441999999997,
+          "build_ms": 4.774736
+        },
+        {
+          "tag": "await8",
+          "status": 200,
+          "client_ms": 101.847856,
+          "start_ns": 296188074472085,
+          "end_ns": 296188176319941,
+          "id": 9,
+          "worker": 1,
+          "queue_ms": 48.191768999999994,
+          "dispatch_to_vm_ms": 11.794726999999995,
+          "build_ms": 11.346010999999999
+        },
+        {
+          "tag": "await9",
+          "status": 200,
+          "client_ms": 102.61642,
+          "start_ns": 296188074590370,
+          "end_ns": 296188177206790,
+          "id": 10,
+          "worker": 0,
+          "queue_ms": 48.434718000000004,
+          "dispatch_to_vm_ms": 11.739853999999994,
+          "build_ms": 10.842155
+        },
+        {
+          "tag": "await10",
+          "status": 200,
+          "client_ms": 110.535782,
+          "start_ns": 296188074700272,
+          "end_ns": 296188185236054,
+          "id": 11,
+          "worker": 1,
+          "queue_ms": 59.96837700000001,
+          "dispatch_to_vm_ms": 5.9624279999999885,
+          "build_ms": 5.043248
+        },
+        {
+          "tag": "await11",
+          "status": 200,
+          "client_ms": 107.506375,
+          "start_ns": 296188074821635,
+          "end_ns": 296188182328010,
+          "id": 12,
+          "worker": 0,
+          "queue_ms": 60.165259,
+          "dispatch_to_vm_ms": 5.728989999999996,
+          "build_ms": 4.9520040000000005
+        },
+        {
+          "tag": "await12",
+          "status": 200,
+          "client_ms": 113.774787,
+          "start_ns": 296188074934015,
+          "end_ns": 296188188708802,
+          "id": 13,
+          "worker": 1,
+          "queue_ms": 60.44481900000001,
+          "dispatch_to_vm_ms": 10.232732999999982,
+          "build_ms": 4.904536
+        },
+        {
+          "tag": "await13",
+          "status": 200,
+          "client_ms": 112.049717,
+          "start_ns": 296188075040460,
+          "end_ns": 296188187090177,
+          "id": 14,
+          "worker": 0,
+          "queue_ms": 60.360225,
+          "dispatch_to_vm_ms": 10.222279,
+          "build_ms": 4.832166
+        },
+        {
+          "tag": "await14",
+          "status": 200,
+          "client_ms": 118.565265,
+          "start_ns": 296188075156888,
+          "end_ns": 296188193722153,
+          "id": 15,
+          "worker": 0,
+          "queue_ms": 70.627815,
+          "dispatch_to_vm_ms": 5.014617000000001,
+          "build_ms": 4.864358
+        },
+        {
+          "tag": "await15",
+          "status": 200,
+          "client_ms": 118.090075,
+          "start_ns": 296188075259670,
+          "end_ns": 296188193349745,
+          "id": 16,
+          "worker": 1,
+          "queue_ms": 70.693005,
+          "dispatch_to_vm_ms": 4.945262000000014,
+          "build_ms": 4.687801
+        },
+        {
+          "tag": "healthy",
+          "status": 200,
+          "client_ms": 104.111203,
+          "start_ns": 296188080876662,
+          "end_ns": 296188184987865,
+          "id": 17,
+          "worker": 1,
+          "queue_ms": 95.348481,
+          "dispatch_to_vm_ms": 8.459542999999996,
+          "build_ms": 8.032911
+        }
+      ],
+      "batch_ms": 120.319599,
+      "finite_batch_per_s": 141.2903645066171,
+      "peak_increase_bytes": 8045090,
+      "closed": {
+        "active": [
+          0,
+          0
+        ],
+        "builds": 18,
+        "connections": 0,
+        "event": "closed",
+        "inherited_sockets": 0,
+        "live_bytes": 75071,
+        "ms": 135.496287,
+        "peak_bytes": 8172195,
+        "retired": 18,
+        "sockets": 0
+      }
+    },
+    {
+      "case": "healthy-alone",
+      "sample": 1,
+      "healthy_ms": 8.350921,
+      "healthy_queue_ms": 0.05051700000000103,
+      "healthy_dispatch_to_vm_ms": 7.741527999999999,
+      "healthy_build_ms": 7.55227,
+      "build_total_ms": 7.55227,
+      "assertions": [],
+      "requests": [
+        {
+          "tag": "healthy",
+          "status": 200,
+          "client_ms": 8.350921,
+          "start_ns": 296188224979281,
+          "end_ns": 296188233330202,
+          "id": 1,
+          "worker": 0,
+          "queue_ms": 0.05051700000000103,
+          "dispatch_to_vm_ms": 7.741527999999999,
+          "build_ms": 7.55227
+        }
+      ],
+      "peak_increase_bytes": 2293053,
+      "closed": {
+        "active": [
+          0,
+          0
+        ],
+        "builds": 2,
+        "connections": 0,
+        "event": "closed",
+        "inherited_sockets": 0,
+        "live_bytes": 73055,
+        "ms": 30.38826,
+        "peak_bytes": 2420158,
+        "retired": 2,
+        "sockets": 0
+      }
+    },
+    {
+      "case": "awaiting-spare",
+      "sample": 1,
+      "healthy_ms": 8.302761,
+      "healthy_queue_ms": 0.08504700000000298,
+      "healthy_dispatch_to_vm_ms": 7.928649,
+      "healthy_build_ms": 7.761446,
+      "build_total_ms": 13.448934000000001,
+      "assertions": [
+        "healthy finishes during awaited slow request on spare worker"
+      ],
+      "requests": [
+        {
+          "tag": "slow",
+          "status": 200,
+          "client_ms": 256.936594,
+          "start_ns": 296188265907172,
+          "end_ns": 296188522843766,
+          "id": 1,
+          "worker": 0,
+          "queue_ms": 0.041660999999999504,
+          "dispatch_to_vm_ms": 5.852148999999999,
+          "build_ms": 5.687488
+        },
+        {
+          "tag": "healthy",
+          "status": 200,
+          "client_ms": 8.302761,
+          "start_ns": 296188276581579,
+          "end_ns": 296188284884340,
+          "id": 2,
+          "worker": 1,
+          "queue_ms": 0.08504700000000298,
+          "dispatch_to_vm_ms": 7.928649,
+          "build_ms": 7.761446
+        }
+      ],
+      "peak_increase_bytes": 2835294,
+      "closed": {
+        "active": [
+          0,
+          0
+        ],
+        "builds": 3,
+        "connections": 0,
+        "event": "closed",
+        "inherited_sockets": 0,
+        "live_bytes": 73055,
+        "ms": 276.25327100000004,
+        "peak_bytes": 2962399,
+        "retired": 3,
+        "sockets": 0
+      }
+    },
+    {
+      "case": "cpu-spare",
+      "sample": 1,
+      "healthy_ms": 3.866128,
+      "healthy_queue_ms": 0.025084999999997137,
+      "healthy_dispatch_to_vm_ms": 3.6975130000000007,
+      "healthy_build_ms": 3.612162,
+      "build_total_ms": 10.105053,
+      "assertions": [
+        "healthy finishes during CPU loop on spare worker"
+      ],
+      "requests": [
+        {
+          "tag": "slow",
+          "status": 500,
+          "client_ms": 67.423385,
+          "start_ns": 296188547801781,
+          "end_ns": 296188615225166,
+          "id": 1,
+          "worker": 0,
+          "queue_ms": 0.0369049999999973,
+          "dispatch_to_vm_ms": 6.633846000000002,
+          "build_ms": 6.492891
+        },
+        {
+          "tag": "healthy",
+          "status": 200,
+          "client_ms": 3.866128,
+          "start_ns": 296188558359721,
+          "end_ns": 296188562225849,
+          "id": 2,
+          "worker": 1,
+          "queue_ms": 0.025084999999997137,
+          "dispatch_to_vm_ms": 3.6975130000000007,
+          "build_ms": 3.612162
+        }
+      ],
+      "peak_increase_bytes": 2834951,
+      "closed": {
+        "active": [
+          0,
+          0
+        ],
+        "builds": 3,
+        "connections": 0,
+        "event": "closed",
+        "inherited_sockets": 0,
+        "live_bytes": 73055,
+        "ms": 86.36110199999999,
+        "peak_bytes": 2962056,
+        "retired": 3,
+        "sockets": 0
+      }
+    },
+    {
+      "case": "cpu-saturated",
+      "sample": 1,
+      "healthy_ms": 61.843939,
+      "healthy_queue_ms": 0.029485000000001094,
+      "healthy_dispatch_to_vm_ms": 61.64828,
+      "healthy_build_ms": 3.037983,
+      "build_total_ms": 10.495902000000001,
+      "assertions": [
+        "both workers busy at healthy arrival; selected worker starts it only after CPU halt"
+      ],
+      "requests": [
+        {
+          "tag": "cpu0",
+          "status": 500,
+          "client_ms": 63.281314,
+          "start_ns": 296188631297402,
+          "end_ns": 296188694578716,
+          "id": 1,
+          "worker": 0,
+          "queue_ms": 0.03250400000000031,
+          "dispatch_to_vm_ms": 3.7000979999999997,
+          "build_ms": 3.619923
+        },
+        {
+          "tag": "cpu1",
+          "status": 500,
+          "client_ms": 63.917414,
+          "start_ns": 296188636625034,
+          "end_ns": 296188700542448,
+          "id": 2,
+          "worker": 1,
+          "queue_ms": 0.03085399999999794,
+          "dispatch_to_vm_ms": 3.9370399999999997,
+          "build_ms": 3.8379960000000004
+        },
+        {
+          "tag": "healthy",
+          "status": 200,
+          "client_ms": 61.843939,
+          "start_ns": 296188641967864,
+          "end_ns": 296188703811803,
+          "id": 3,
+          "worker": 1,
+          "queue_ms": 0.029485000000001094,
+          "dispatch_to_vm_ms": 61.64828,
+          "build_ms": 3.037983
+        }
+      ],
+      "peak_increase_bytes": 2834944,
+      "closed": {
+        "active": [
+          0,
+          0
+        ],
+        "builds": 4,
+        "connections": 0,
+        "event": "closed",
+        "inherited_sockets": 0,
+        "live_bytes": 73055,
+        "ms": 84.773156,
+        "peak_bytes": 2962049,
+        "retired": 4,
+        "sockets": 0
+      }
+    },
+    {
+      "case": "mixed",
+      "sample": 1,
+      "healthy_ms": 3.544986,
+      "healthy_queue_ms": 0.029247000000001577,
+      "healthy_dispatch_to_vm_ms": 3.3297609999999978,
+      "healthy_build_ms": 3.216025,
+      "build_total_ms": 15.506004,
+      "assertions": [
+        "timer becomes due inside same-worker CPU loop and cannot complete until halt"
+      ],
+      "requests": [
+        {
+          "tag": "await0",
+          "status": 200,
+          "client_ms": 45.954712,
+          "start_ns": 296188720322115,
+          "end_ns": 296188766276827,
+          "id": 1,
+          "worker": 0,
+          "queue_ms": 0.030283999999999978,
+          "dispatch_to_vm_ms": 4.280851,
+          "build_ms": 4.185716
+        },
+        {
+          "tag": "await1",
+          "status": 200,
+          "client_ms": 68.582899,
+          "start_ns": 296188725633420,
+          "end_ns": 296188794216319,
+          "id": 2,
+          "worker": 1,
+          "queue_ms": 0.03838099999999933,
+          "dispatch_to_vm_ms": 4.900256999999998,
+          "build_ms": 4.8007670000000005
+        },
+        {
+          "tag": "slow",
+          "status": 500,
+          "client_ms": 63.060964,
+          "start_ns": 296188731005920,
+          "end_ns": 296188794066884,
+          "id": 3,
+          "worker": 1,
+          "queue_ms": 0.03393400000000213,
+          "dispatch_to_vm_ms": 3.398187,
+          "build_ms": 3.303496
+        },
+        {
+          "tag": "healthy",
+          "status": 200,
+          "client_ms": 3.544986,
+          "start_ns": 296188736351433,
+          "end_ns": 296188739896419,
+          "id": 4,
+          "worker": 0,
+          "queue_ms": 0.029247000000001577,
+          "dispatch_to_vm_ms": 3.3297609999999978,
+          "build_ms": 3.216025
+        }
+      ],
+      "blocked_await_ms": 63.44198299999999,
+      "other_await_ms": 41.356792999999996,
+      "peak_increase_bytes": 3919053,
+      "closed": {
+        "active": [
+          0,
+          0
+        ],
+        "builds": 5,
+        "connections": 0,
+        "event": "closed",
+        "inherited_sockets": 0,
+        "live_bytes": 73055,
+        "ms": 89.58809099999999,
+        "peak_bytes": 4046158,
+        "retired": 5,
+        "sockets": 0
+      }
+    },
+    {
+      "case": "awaiting-batch",
+      "sample": 1,
+      "healthy_ms": 103.15359,
+      "healthy_queue_ms": 95.806157,
+      "healthy_dispatch_to_vm_ms": 7.119039999999998,
+      "healthy_build_ms": 6.757714,
+      "build_total_ms": 115.370806,
+      "assertions": [
+        "healthy was centrally queued behind all sixteen requests"
+      ],
+      "requests": [
+        {
+          "tag": "await0",
+          "status": 200,
+          "client_ms": 51.493546,
+          "start_ns": 296188818385715,
+          "end_ns": 296188869879261,
+          "id": 1,
+          "worker": 0,
+          "queue_ms": 0.04294599999999971,
+          "dispatch_to_vm_ms": 9.384409000000002,
+          "build_ms": 9.286147999999999
+        },
+        {
+          "tag": "await1",
+          "status": 200,
+          "client_ms": 51.097968,
+          "start_ns": 296188818623871,
+          "end_ns": 296188869721839,
+          "id": 2,
+          "worker": 1,
+          "queue_ms": 0.05435000000000123,
+          "dispatch_to_vm_ms": 9.233130000000003,
+          "build_ms": 9.117582
+        },
+        {
+          "tag": "await2",
+          "status": 200,
+          "client_ms": 61.772481,
+          "start_ns": 296188818748459,
+          "end_ns": 296188880520940,
+          "id": 3,
+          "worker": 1,
+          "queue_ms": 0.05439799999999906,
+          "dispatch_to_vm_ms": 15.325786999999998,
+          "build_ms": 6.145715
+        },
+        {
+          "tag": "await3",
+          "status": 200,
+          "client_ms": 62.000053,
+          "start_ns": 296188818847955,
+          "end_ns": 296188880848008,
+          "id": 4,
+          "worker": 0,
+          "queue_ms": 0.0566040000000001,
+          "dispatch_to_vm_ms": 15.277591999999999,
+          "build_ms": 6.1846879999999995
+        },
+        {
+          "tag": "await4",
+          "status": 200,
+          "client_ms": 68.505679,
+          "start_ns": 296188818947103,
+          "end_ns": 296188887452782,
+          "id": 5,
+          "worker": 0,
+          "queue_ms": 0.05835300000000032,
+          "dispatch_to_vm_ms": 21.039936,
+          "build_ms": 5.909962999999999
+        },
+        {
+          "tag": "await5",
+          "status": 200,
+          "client_ms": 61.853903,
+          "start_ns": 296188819055703,
+          "end_ns": 296188880909606,
+          "id": 6,
+          "worker": 1,
+          "queue_ms": 0.061519000000000545,
+          "dispatch_to_vm_ms": 20.510323,
+          "build_ms": 5.73813
+        },
+        {
+          "tag": "await6",
+          "status": 200,
+          "client_ms": 68.073451,
+          "start_ns": 296188819147753,
+          "end_ns": 296188887221204,
+          "id": 7,
+          "worker": 1,
+          "queue_ms": 0.05538500000000113,
+          "dispatch_to_vm_ms": 26.311174,
+          "build_ms": 5.910754
+        },
+        {
+          "tag": "await7",
+          "status": 200,
+          "client_ms": 68.577407,
+          "start_ns": 296188819242242,
+          "end_ns": 296188887819649,
+          "id": 8,
+          "worker": 0,
+          "queue_ms": 0.0693280000000005,
+          "dispatch_to_vm_ms": 26.273256000000003,
+          "build_ms": 5.765079999999999
+        },
+        {
+          "tag": "await8",
+          "status": 200,
+          "client_ms": 102.147714,
+          "start_ns": 296188819330679,
+          "end_ns": 296188921478393,
+          "id": 9,
+          "worker": 1,
+          "queue_ms": 49.409670999999996,
+          "dispatch_to_vm_ms": 10.670696000000014,
+          "build_ms": 10.341657000000001
+        },
+        {
+          "tag": "await9",
+          "status": 200,
+          "client_ms": 102.462539,
+          "start_ns": 296188819423563,
+          "end_ns": 296188921886102,
+          "id": 10,
+          "worker": 0,
+          "queue_ms": 49.715866999999996,
+          "dispatch_to_vm_ms": 10.560897999999995,
+          "build_ms": 9.612776
+        },
+        {
+          "tag": "await10",
+          "status": 200,
+          "client_ms": 109.440348,
+          "start_ns": 296188819511379,
+          "end_ns": 296188928951727,
+          "id": 11,
+          "worker": 1,
+          "queue_ms": 59.985234000000005,
+          "dispatch_to_vm_ms": 6.524598999999995,
+          "build_ms": 6.016382
+        },
+        {
+          "tag": "await11",
+          "status": 200,
+          "client_ms": 114.87909,
+          "start_ns": 296188819602308,
+          "end_ns": 296188934481398,
+          "id": 12,
+          "worker": 1,
+          "queue_ms": 60.265963,
+          "dispatch_to_vm_ms": 12.092146,
+          "build_ms": 5.639029
+        },
+        {
+          "tag": "await12",
+          "status": 200,
+          "client_ms": 108.322895,
+          "start_ns": 296188819696413,
+          "end_ns": 296188928019308,
+          "id": 13,
+          "worker": 0,
+          "queue_ms": 60.195612000000004,
+          "dispatch_to_vm_ms": 6.299963999999989,
+          "build_ms": 5.8835
+        },
+        {
+          "tag": "await13",
+          "status": 200,
+          "client_ms": 120.404333,
+          "start_ns": 296188819787491,
+          "end_ns": 296188940191824,
+          "id": 14,
+          "worker": 1,
+          "queue_ms": 66.27709,
+          "dispatch_to_vm_ms": 11.676484000000002,
+          "build_ms": 5.788138
+        },
+        {
+          "tag": "await14",
+          "status": 200,
+          "client_ms": 114.954877,
+          "start_ns": 296188819882875,
+          "end_ns": 296188934837752,
+          "id": 15,
+          "worker": 0,
+          "queue_ms": 66.383404,
+          "dispatch_to_vm_ms": 6.752301000000003,
+          "build_ms": 6.036495
+        },
+        {
+          "tag": "await15",
+          "status": 200,
+          "client_ms": 121.593887,
+          "start_ns": 296188819977024,
+          "end_ns": 296188941570911,
+          "id": 16,
+          "worker": 0,
+          "queue_ms": 66.602586,
+          "dispatch_to_vm_ms": 11.715051999999986,
+          "build_ms": 5.237055
+        },
+        {
+          "tag": "healthy",
+          "status": 200,
+          "client_ms": 103.15359,
+          "start_ns": 296188825542223,
+          "end_ns": 296188928695813,
+          "id": 17,
+          "worker": 1,
+          "queue_ms": 95.806157,
+          "dispatch_to_vm_ms": 7.119039999999998,
+          "build_ms": 6.757714
+        }
+      ],
+      "batch_ms": 123.185196,
+      "finite_batch_per_s": 138.00359582169273,
+      "peak_increase_bytes": 8017382,
+      "closed": {
+        "active": [
+          0,
+          0
+        ],
+        "builds": 18,
+        "connections": 0,
+        "event": "closed",
+        "inherited_sockets": 0,
+        "live_bytes": 75071,
+        "ms": 140.639678,
+        "peak_bytes": 8144487,
+        "retired": 18,
+        "sockets": 0
+      }
+    },
+    {
+      "case": "healthy-alone",
+      "sample": 2,
+      "healthy_ms": 9.252922,
+      "healthy_queue_ms": 0.05233100000000057,
+      "healthy_dispatch_to_vm_ms": 8.614664,
+      "healthy_build_ms": 8.412006,
+      "build_total_ms": 8.412006,
+      "assertions": [],
+      "requests": [
+        {
+          "tag": "healthy",
+          "status": 200,
+          "client_ms": 9.252922,
+          "start_ns": 296188981051672,
+          "end_ns": 296188990304594,
+          "id": 1,
+          "worker": 0,
+          "queue_ms": 0.05233100000000057,
+          "dispatch_to_vm_ms": 8.614664,
+          "build_ms": 8.412006
+        }
+      ],
+      "peak_increase_bytes": 2293053,
+      "closed": {
+        "active": [
+          0,
+          0
+        ],
+        "builds": 2,
+        "connections": 0,
+        "event": "closed",
+        "inherited_sockets": 0,
+        "live_bytes": 73055,
+        "ms": 30.246537,
+        "peak_bytes": 2420158,
+        "retired": 2,
+        "sockets": 0
+      }
+    },
+    {
+      "case": "awaiting-spare",
+      "sample": 2,
+      "healthy_ms": 4.018472,
+      "healthy_queue_ms": 0.03204799999999963,
+      "healthy_dispatch_to_vm_ms": 3.802198999999998,
+      "healthy_build_ms": 3.714832,
+      "build_total_ms": 7.650980000000001,
+      "assertions": [
+        "healthy finishes during awaited slow request on spare worker"
+      ],
+      "requests": [
+        {
+          "tag": "slow",
+          "status": 200,
+          "client_ms": 256.099399,
+          "start_ns": 296189012707230,
+          "end_ns": 296189268806629,
+          "id": 1,
+          "worker": 0,
+          "queue_ms": 0.0356480000000019,
+          "dispatch_to_vm_ms": 4.023648999999999,
+          "build_ms": 3.936148
+        },
+        {
+          "tag": "healthy",
+          "status": 200,
+          "client_ms": 4.018472,
+          "start_ns": 296189018405282,
+          "end_ns": 296189022423754,
+          "id": 2,
+          "worker": 1,
+          "queue_ms": 0.03204799999999963,
+          "dispatch_to_vm_ms": 3.802198999999998,
+          "build_ms": 3.714832
+        }
+      ],
+      "peak_increase_bytes": 2835294,
+      "closed": {
+        "active": [
+          0,
+          0
+        ],
+        "builds": 3,
+        "connections": 0,
+        "event": "closed",
+        "inherited_sockets": 0,
+        "live_bytes": 73055,
+        "ms": 274.44876800000003,
+        "peak_bytes": 2962399,
+        "retired": 3,
+        "sockets": 0
+      }
+    },
+    {
+      "case": "cpu-spare",
+      "sample": 2,
+      "healthy_ms": 3.838139,
+      "healthy_queue_ms": 0.02282899999999799,
+      "healthy_dispatch_to_vm_ms": 3.6627250000000053,
+      "healthy_build_ms": 3.579862,
+      "build_total_ms": 11.197004,
+      "assertions": [
+        "healthy finishes during CPU loop on spare worker"
+      ],
+      "requests": [
+        {
+          "tag": "slow",
+          "status": 500,
+          "client_ms": 67.320742,
+          "start_ns": 296189307104563,
+          "end_ns": 296189374425305,
+          "id": 1,
+          "worker": 0,
+          "queue_ms": 0.05903599999999898,
+          "dispatch_to_vm_ms": 7.744645000000002,
+          "build_ms": 7.617142
+        },
+        {
+          "tag": "healthy",
+          "status": 200,
+          "client_ms": 3.838139,
+          "start_ns": 296189317956795,
+          "end_ns": 296189321794934,
+          "id": 2,
+          "worker": 1,
+          "queue_ms": 0.02282899999999799,
+          "dispatch_to_vm_ms": 3.6627250000000053,
+          "build_ms": 3.579862
+        }
+      ],
+      "peak_increase_bytes": 2834951,
+      "closed": {
+        "active": [
+          0,
+          0
+        ],
+        "builds": 3,
+        "connections": 0,
+        "event": "closed",
+        "inherited_sockets": 0,
+        "live_bytes": 73055,
+        "ms": 91.508836,
+        "peak_bytes": 2962056,
+        "retired": 3,
+        "sockets": 0
+      }
+    },
+    {
+      "case": "cpu-saturated",
+      "sample": 2,
+      "healthy_ms": 61.251153,
+      "healthy_queue_ms": 0.05999999999999517,
+      "healthy_dispatch_to_vm_ms": 61.03571399999999,
+      "healthy_build_ms": 3.045684,
+      "build_total_ms": 10.385937,
+      "assertions": [
+        "both workers busy at healthy arrival; selected worker starts it only after CPU halt"
+      ],
+      "requests": [
+        {
+          "tag": "cpu0",
+          "status": 500,
+          "client_ms": 63.997246,
+          "start_ns": 296189390291600,
+          "end_ns": 296189454288846,
+          "id": 1,
+          "worker": 0,
+          "queue_ms": 0.02584699999999973,
+          "dispatch_to_vm_ms": 3.8062430000000003,
+          "build_ms": 3.742112
+        },
+        {
+          "tag": "cpu1",
+          "status": 500,
+          "client_ms": 63.280087,
+          "start_ns": 296189395613725,
+          "end_ns": 296189458893812,
+          "id": 2,
+          "worker": 1,
+          "queue_ms": 0.026674999999999116,
+          "dispatch_to_vm_ms": 3.6641820000000003,
+          "build_ms": 3.598141
+        },
+        {
+          "tag": "healthy",
+          "status": 200,
+          "client_ms": 61.251153,
+          "start_ns": 296189400986869,
+          "end_ns": 296189462238022,
+          "id": 3,
+          "worker": 1,
+          "queue_ms": 0.05999999999999517,
+          "dispatch_to_vm_ms": 61.03571399999999,
+          "build_ms": 3.045684
+        }
+      ],
+      "peak_increase_bytes": 2834944,
+      "closed": {
+        "active": [
+          0,
+          0
+        ],
+        "builds": 4,
+        "connections": 0,
+        "event": "closed",
+        "inherited_sockets": 0,
+        "live_bytes": 73055,
+        "ms": 83.895918,
+        "peak_bytes": 2962049,
+        "retired": 4,
+        "sockets": 0
+      }
+    },
+    {
+      "case": "mixed",
+      "sample": 2,
+      "healthy_ms": 3.528717,
+      "healthy_queue_ms": 0.029281000000001,
+      "healthy_dispatch_to_vm_ms": 3.3248820000000023,
+      "healthy_build_ms": 3.213108,
+      "build_total_ms": 14.967505000000001,
+      "assertions": [
+        "timer becomes due inside same-worker CPU loop and cannot complete until halt"
+      ],
+      "requests": [
+        {
+          "tag": "await0",
+          "status": 200,
+          "client_ms": 45.914583,
+          "start_ns": 296189478295983,
+          "end_ns": 296189524210566,
+          "id": 1,
+          "worker": 0,
+          "queue_ms": 0.029261999999999233,
+          "dispatch_to_vm_ms": 4.011608000000001,
+          "build_ms": 3.920588
+        },
+        {
+          "tag": "await1",
+          "status": 200,
+          "client_ms": 68.524879,
+          "start_ns": 296189483612114,
+          "end_ns": 296189552136993,
+          "id": 2,
+          "worker": 1,
+          "queue_ms": 0.040164000000000755,
+          "dispatch_to_vm_ms": 4.6581990000000015,
+          "build_ms": 4.569626
+        },
+        {
+          "tag": "slow",
+          "status": 500,
+          "client_ms": 62.945586,
+          "start_ns": 296189488998783,
+          "end_ns": 296189551944369,
+          "id": 3,
+          "worker": 1,
+          "queue_ms": 0.03191799999999745,
+          "dispatch_to_vm_ms": 3.3492299999999986,
+          "build_ms": 3.264183
+        },
+        {
+          "tag": "healthy",
+          "status": 200,
+          "client_ms": 3.528717,
+          "start_ns": 296189494331942,
+          "end_ns": 296189497860659,
+          "id": 4,
+          "worker": 0,
+          "queue_ms": 0.029281000000001,
+          "dispatch_to_vm_ms": 3.3248820000000023,
+          "build_ms": 3.213108
+        }
+      ],
+      "blocked_await_ms": 63.65428800000001,
+      "other_await_ms": 41.64866000000001,
+      "peak_increase_bytes": 3919053,
+      "closed": {
+        "active": [
+          0,
+          0
+        ],
+        "builds": 5,
+        "connections": 0,
+        "event": "closed",
+        "inherited_sockets": 0,
+        "live_bytes": 73055,
+        "ms": 89.214288,
+        "peak_bytes": 4046158,
+        "retired": 5,
+        "sockets": 0
+      }
+    },
+    {
+      "case": "awaiting-batch",
+      "sample": 2,
+      "healthy_ms": 105.40749,
+      "healthy_queue_ms": 96.54952099999998,
+      "healthy_dispatch_to_vm_ms": 8.672087000000019,
+      "healthy_build_ms": 8.432948,
+      "build_total_ms": 104.812884,
+      "assertions": [
+        "healthy was centrally queued behind all sixteen requests"
+      ],
+      "requests": [
+        {
+          "tag": "await0",
+          "status": 200,
+          "client_ms": 50.380012,
+          "start_ns": 296189576376267,
+          "end_ns": 296189626756279,
+          "id": 1,
+          "worker": 0,
+          "queue_ms": 0.04103199999999951,
+          "dispatch_to_vm_ms": 7.9362710000000005,
+          "build_ms": 7.840319999999999
+        },
+        {
+          "tag": "await1",
+          "status": 200,
+          "client_ms": 49.564731,
+          "start_ns": 296189576595547,
+          "end_ns": 296189626160278,
+          "id": 2,
+          "worker": 1,
+          "queue_ms": 0.037185000000000024,
+          "dispatch_to_vm_ms": 7.8533409999999995,
+          "build_ms": 7.764142
+        },
+        {
+          "tag": "await2",
+          "status": 200,
+          "client_ms": 61.162261,
+          "start_ns": 296189576711225,
+          "end_ns": 296189637873486,
+          "id": 3,
+          "worker": 1,
+          "queue_ms": 0.0376000000000003,
+          "dispatch_to_vm_ms": 12.783661999999998,
+          "build_ms": 4.942365
+        },
+        {
+          "tag": "await3",
+          "status": 200,
+          "client_ms": 61.559544,
+          "start_ns": 296189576806687,
+          "end_ns": 296189638366231,
+          "id": 4,
+          "worker": 0,
+          "queue_ms": 0.04271900000000084,
+          "dispatch_to_vm_ms": 12.568010999999998,
+          "build_ms": 4.9476320000000005
+        },
+        {
+          "tag": "await4",
+          "status": 200,
+          "client_ms": 61.746247,
+          "start_ns": 296189576897832,
+          "end_ns": 296189638644079,
+          "id": 5,
+          "worker": 0,
+          "queue_ms": 0.04593500000000006,
+          "dispatch_to_vm_ms": 17.633515000000003,
+          "build_ms": 4.992805000000001
+        },
+        {
+          "tag": "await5",
+          "status": 200,
+          "client_ms": 61.303305,
+          "start_ns": 296189576985867,
+          "end_ns": 296189638289172,
+          "id": 6,
+          "worker": 1,
+          "queue_ms": 0.03835199999999972,
+          "dispatch_to_vm_ms": 17.234382,
+          "build_ms": 4.860926
+        },
+        {
+          "tag": "await6",
+          "status": 200,
+          "client_ms": 72.391266,
+          "start_ns": 296189577076753,
+          "end_ns": 296189649468019,
+          "id": 7,
+          "worker": 1,
+          "queue_ms": 0.04890799999999729,
+          "dispatch_to_vm_ms": 22.071531,
+          "build_ms": 4.900186
+        },
+        {
+          "tag": "await7",
+          "status": 200,
+          "client_ms": 72.099178,
+          "start_ns": 296189577160939,
+          "end_ns": 296189649260117,
+          "id": 8,
+          "worker": 0,
+          "queue_ms": 0.051577999999999236,
+          "dispatch_to_vm_ms": 22.081172000000002,
+          "build_ms": 4.882283999999999
+        },
+        {
+          "tag": "await8",
+          "status": 200,
+          "client_ms": 102.628953,
+          "start_ns": 296189577242683,
+          "end_ns": 296189679871636,
+          "id": 9,
+          "worker": 1,
+          "queue_ms": 48.427904,
+          "dispatch_to_vm_ms": 11.427186000000006,
+          "build_ms": 11.102030000000001
+        },
+        {
+          "tag": "await9",
+          "status": 200,
+          "client_ms": 102.354444,
+          "start_ns": 296189577325338,
+          "end_ns": 296189679679782,
+          "id": 10,
+          "worker": 0,
+          "queue_ms": 48.802488000000004,
+          "dispatch_to_vm_ms": 11.244243999999995,
+          "build_ms": 10.444662000000001
+        },
+        {
+          "tag": "await10",
+          "status": 200,
+          "client_ms": 108.090199,
+          "start_ns": 296189577400906,
+          "end_ns": 296189685491105,
+          "id": 11,
+          "worker": 1,
+          "queue_ms": 59.727939,
+          "dispatch_to_vm_ms": 6.201027999999994,
+          "build_ms": 5.1994169999999995
+        },
+        {
+          "tag": "await11",
+          "status": 200,
+          "client_ms": 111.628468,
+          "start_ns": 296189577491004,
+          "end_ns": 296189689119472,
+          "id": 12,
+          "worker": 0,
+          "queue_ms": 60.09057200000001,
+          "dispatch_to_vm_ms": 5.7324139999999915,
+          "build_ms": 5.108805
+        },
+        {
+          "tag": "await12",
+          "status": 200,
+          "client_ms": 112.816385,
+          "start_ns": 296189577572072,
+          "end_ns": 296189690388457,
+          "id": 13,
+          "worker": 1,
+          "queue_ms": 60.03999199999999,
+          "dispatch_to_vm_ms": 10.791696000000016,
+          "build_ms": 4.911823
+        },
+        {
+          "tag": "await13",
+          "status": 200,
+          "client_ms": 112.918165,
+          "start_ns": 296189577659951,
+          "end_ns": 296189690578116,
+          "id": 14,
+          "worker": 0,
+          "queue_ms": 60.080003,
+          "dispatch_to_vm_ms": 10.441552999999999,
+          "build_ms": 4.901298
+        },
+        {
+          "tag": "await14",
+          "status": 200,
+          "client_ms": 117.484184,
+          "start_ns": 296189577740345,
+          "end_ns": 296189695224529,
+          "id": 15,
+          "worker": 0,
+          "queue_ms": 70.56449900000001,
+          "dispatch_to_vm_ms": 4.951125999999988,
+          "build_ms": 4.8200780000000005
+        },
+        {
+          "tag": "await15",
+          "status": 200,
+          "client_ms": 117.169245,
+          "start_ns": 296189577823543,
+          "end_ns": 296189694992788,
+          "id": 16,
+          "worker": 1,
+          "queue_ms": 70.614935,
+          "dispatch_to_vm_ms": 5.017678000000004,
+          "build_ms": 4.761163
+        },
+        {
+          "tag": "healthy",
+          "status": 200,
+          "client_ms": 105.40749,
+          "start_ns": 296189583337505,
+          "end_ns": 296189688744995,
+          "id": 17,
+          "worker": 0,
+          "queue_ms": 96.54952099999998,
+          "dispatch_to_vm_ms": 8.672087000000019,
+          "build_ms": 8.432948
+        }
+      ],
+      "batch_ms": 118.848262,
+      "finite_batch_per_s": 143.0395338890189,
+      "peak_increase_bytes": 8044960,
+      "closed": {
+        "active": [
+          0,
+          0
+        ],
+        "builds": 18,
+        "connections": 0,
+        "event": "closed",
+        "inherited_sockets": 0,
+        "live_bytes": 75071,
+        "ms": 134.45737799999998,
+        "peak_bytes": 8172065,
+        "retired": 18,
+        "sockets": 0
+      }
+    },
+    {
+      "case": "healthy-alone",
+      "sample": 3,
+      "healthy_ms": 9.158055,
+      "healthy_queue_ms": 0.03924199999999978,
+      "healthy_dispatch_to_vm_ms": 8.677926999999997,
+      "healthy_build_ms": 8.513112,
+      "build_total_ms": 8.513112,
+      "assertions": [],
+      "requests": [
+        {
+          "tag": "healthy",
+          "status": 200,
+          "client_ms": 9.158055,
+          "start_ns": 296189734665909,
+          "end_ns": 296189743823964,
+          "id": 1,
+          "worker": 0,
+          "queue_ms": 0.03924199999999978,
+          "dispatch_to_vm_ms": 8.677926999999997,
+          "build_ms": 8.513112
+        }
+      ],
+      "peak_increase_bytes": 2293053,
+      "closed": {
+        "active": [
+          0,
+          0
+        ],
+        "builds": 2,
+        "connections": 0,
+        "event": "closed",
+        "inherited_sockets": 0,
+        "live_bytes": 73055,
+        "ms": 31.294879999999996,
+        "peak_bytes": 2420158,
+        "retired": 2,
+        "sockets": 0
+      }
+    },
+    {
+      "case": "awaiting-spare",
+      "sample": 3,
+      "healthy_ms": 8.547257,
+      "healthy_queue_ms": 0.0784359999999964,
+      "healthy_dispatch_to_vm_ms": 8.206948999999998,
+      "healthy_build_ms": 8.056162,
+      "build_total_ms": 16.350746,
+      "assertions": [
+        "healthy finishes during awaited slow request on spare worker"
+      ],
+      "requests": [
+        {
+          "tag": "slow",
+          "status": 200,
+          "client_ms": 259.843401,
+          "start_ns": 296189778890993,
+          "end_ns": 296190038734394,
+          "id": 1,
+          "worker": 0,
+          "queue_ms": 0.054527000000000214,
+          "dispatch_to_vm_ms": 8.494121,
+          "build_ms": 8.294584
+        },
+        {
+          "tag": "healthy",
+          "status": 200,
+          "client_ms": 8.547257,
+          "start_ns": 296189789554849,
+          "end_ns": 296189798102106,
+          "id": 2,
+          "worker": 1,
+          "queue_ms": 0.0784359999999964,
+          "dispatch_to_vm_ms": 8.206948999999998,
+          "build_ms": 8.056162
+        }
+      ],
+      "peak_increase_bytes": 2835294,
+      "closed": {
+        "active": [
+          0,
+          0
+        ],
+        "builds": 3,
+        "connections": 0,
+        "event": "closed",
+        "inherited_sockets": 0,
+        "live_bytes": 73055,
+        "ms": 280.008617,
+        "peak_bytes": 2962399,
+        "retired": 3,
+        "sockets": 0
+      }
+    },
+    {
+      "case": "cpu-spare",
+      "sample": 3,
+      "healthy_ms": 3.905742,
+      "healthy_queue_ms": 0.05821200000000459,
+      "healthy_dispatch_to_vm_ms": 3.6883649999999975,
+      "healthy_build_ms": 3.593594,
+      "build_total_ms": 11.311309,
+      "assertions": [
+        "healthy finishes during CPU loop on spare worker"
+      ],
+      "requests": [
+        {
+          "tag": "slow",
+          "status": 500,
+          "client_ms": 67.377734,
+          "start_ns": 296190066987222,
+          "end_ns": 296190134364956,
+          "id": 1,
+          "worker": 0,
+          "queue_ms": 0.05849500000000063,
+          "dispatch_to_vm_ms": 7.836894999999998,
+          "build_ms": 7.717715
+        },
+        {
+          "tag": "healthy",
+          "status": 200,
+          "client_ms": 3.905742,
+          "start_ns": 296190077795171,
+          "end_ns": 296190081700913,
+          "id": 2,
+          "worker": 1,
+          "queue_ms": 0.05821200000000459,
+          "dispatch_to_vm_ms": 3.6883649999999975,
+          "build_ms": 3.593594
+        }
+      ],
+      "peak_increase_bytes": 2834951,
+      "closed": {
+        "active": [
+          0,
+          0
+        ],
+        "builds": 3,
+        "connections": 0,
+        "event": "closed",
+        "inherited_sockets": 0,
+        "live_bytes": 73055,
+        "ms": 90.57335499999999,
+        "peak_bytes": 2962056,
+        "retired": 3,
+        "sockets": 0
+      }
+    },
+    {
+      "case": "cpu-saturated",
+      "sample": 3,
+      "healthy_ms": 61.566656,
+      "healthy_queue_ms": 0.0223140000000015,
+      "healthy_dispatch_to_vm_ms": 61.403572000000004,
+      "healthy_build_ms": 3.048975,
+      "build_total_ms": 12.924172,
+      "assertions": [
+        "both workers busy at healthy arrival; selected worker starts it only after CPU halt"
+      ],
+      "requests": [
+        {
+          "tag": "cpu0",
+          "status": 500,
+          "client_ms": 66.69606,
+          "start_ns": 296190159382417,
+          "end_ns": 296190226078477,
+          "id": 1,
+          "worker": 0,
+          "queue_ms": 0.05352400000000124,
+          "dispatch_to_vm_ms": 6.372705999999998,
+          "build_ms": 6.249639
+        },
+        {
+          "tag": "cpu1",
+          "status": 500,
+          "client_ms": 63.564979,
+          "start_ns": 296190169938372,
+          "end_ns": 296190233503351,
+          "id": 2,
+          "worker": 1,
+          "queue_ms": 0.0254000000000012,
+          "dispatch_to_vm_ms": 3.699864999999999,
+          "build_ms": 3.6255580000000003
+        },
+        {
+          "tag": "healthy",
+          "status": 200,
+          "client_ms": 61.566656,
+          "start_ns": 296190175241674,
+          "end_ns": 296190236808330,
+          "id": 3,
+          "worker": 1,
+          "queue_ms": 0.0223140000000015,
+          "dispatch_to_vm_ms": 61.403572000000004,
+          "build_ms": 3.048975
+        }
+      ],
+      "peak_increase_bytes": 2834944,
+      "closed": {
+        "active": [
+          0,
+          0
+        ],
+        "builds": 4,
+        "connections": 0,
+        "event": "closed",
+        "inherited_sockets": 0,
+        "live_bytes": 73055,
+        "ms": 89.498415,
+        "peak_bytes": 2962049,
+        "retired": 4,
+        "sockets": 0
+      }
+    },
+    {
+      "case": "mixed",
+      "sample": 3,
+      "healthy_ms": 3.454994,
+      "healthy_queue_ms": 0.021838999999999942,
+      "healthy_dispatch_to_vm_ms": 3.309977,
+      "healthy_build_ms": 3.2141219999999997,
+      "build_total_ms": 16.08626,
+      "assertions": [
+        "timer becomes due inside same-worker CPU loop and cannot complete until halt"
+      ],
+      "requests": [
+        {
+          "tag": "await0",
+          "status": 200,
+          "client_ms": 45.951923,
+          "start_ns": 296190253301490,
+          "end_ns": 296190299253413,
+          "id": 1,
+          "worker": 0,
+          "queue_ms": 0.02307700000000068,
+          "dispatch_to_vm_ms": 4.41912,
+          "build_ms": 4.343643
+        },
+        {
+          "tag": "await1",
+          "status": 200,
+          "client_ms": 68.741426,
+          "start_ns": 296190258621165,
+          "end_ns": 296190327362591,
+          "id": 2,
+          "worker": 1,
+          "queue_ms": 0.03246999999999822,
+          "dispatch_to_vm_ms": 5.227335000000004,
+          "build_ms": 5.1319490000000005
+        },
+        {
+          "tag": "slow",
+          "status": 500,
+          "client_ms": 63.241802,
+          "start_ns": 296190264041463,
+          "end_ns": 296190327283265,
+          "id": 3,
+          "worker": 1,
+          "queue_ms": 0.0432939999999995,
+          "dispatch_to_vm_ms": 3.466308999999999,
+          "build_ms": 3.396546
+        },
+        {
+          "tag": "healthy",
+          "status": 200,
+          "client_ms": 3.454994,
+          "start_ns": 296190269410468,
+          "end_ns": 296190272865462,
+          "id": 4,
+          "worker": 0,
+          "queue_ms": 0.021838999999999942,
+          "dispatch_to_vm_ms": 3.309977,
+          "build_ms": 3.2141219999999997
+        }
+      ],
+      "blocked_await_ms": 63.329828000000006,
+      "other_await_ms": 41.30039,
+      "peak_increase_bytes": 3919053,
+      "closed": {
+        "active": [
+          0,
+          0
+        ],
+        "builds": 5,
+        "connections": 0,
+        "event": "closed",
+        "inherited_sockets": 0,
+        "live_bytes": 73055,
+        "ms": 89.50933599999999,
+        "peak_bytes": 4046158,
+        "retired": 5,
+        "sockets": 0
+      }
+    },
+    {
+      "case": "awaiting-batch",
+      "sample": 3,
+      "healthy_ms": 104.864991,
+      "healthy_queue_ms": 96.43874600000001,
+      "healthy_dispatch_to_vm_ms": 8.255422999999993,
+      "healthy_build_ms": 7.821838,
+      "build_total_ms": 104.85736299999999,
+      "assertions": [
+        "healthy was centrally queued behind all sixteen requests"
+      ],
+      "requests": [
+        {
+          "tag": "await0",
+          "status": 200,
+          "client_ms": 49.946965,
+          "start_ns": 296190352362001,
+          "end_ns": 296190402308966,
+          "id": 1,
+          "worker": 0,
+          "queue_ms": 0.03974600000000006,
+          "dispatch_to_vm_ms": 7.934781,
+          "build_ms": 7.835386
+        },
+        {
+          "tag": "await1",
+          "status": 200,
+          "client_ms": 49.913854,
+          "start_ns": 296190352567179,
+          "end_ns": 296190402481033,
+          "id": 2,
+          "worker": 1,
+          "queue_ms": 0.046026000000000344,
+          "dispatch_to_vm_ms": 7.886467,
+          "build_ms": 7.73219
+        },
+        {
+          "tag": "await2",
+          "status": 200,
+          "client_ms": 61.90155,
+          "start_ns": 296190352681789,
+          "end_ns": 296190414583339,
+          "id": 3,
+          "worker": 1,
+          "queue_ms": 0.04852999999999952,
+          "dispatch_to_vm_ms": 12.737243,
+          "build_ms": 4.9224239999999995
+        },
+        {
+          "tag": "await3",
+          "status": 200,
+          "client_ms": 62.088809,
+          "start_ns": 296190352769234,
+          "end_ns": 296190414858043,
+          "id": 4,
+          "worker": 0,
+          "queue_ms": 0.051082999999998435,
+          "dispatch_to_vm_ms": 12.467101000000001,
+          "build_ms": 4.943409
+        },
+        {
+          "tag": "await4",
+          "status": 200,
+          "client_ms": 62.414518,
+          "start_ns": 296190352860820,
+          "end_ns": 296190415275338,
+          "id": 5,
+          "worker": 0,
+          "queue_ms": 0.05408999999999864,
+          "dispatch_to_vm_ms": 17.355739,
+          "build_ms": 5.026147
+        },
+        {
+          "tag": "await5",
+          "status": 200,
+          "client_ms": 62.142352,
+          "start_ns": 296190352944945,
+          "end_ns": 296190415087297,
+          "id": 6,
+          "worker": 1,
+          "queue_ms": 0.057501000000000246,
+          "dispatch_to_vm_ms": 17.253740999999998,
+          "build_ms": 5.009043999999999
+        },
+        {
+          "tag": "await6",
+          "status": 200,
+          "client_ms": 73.138193,
+          "start_ns": 296190353030011,
+          "end_ns": 296190426168204,
+          "id": 7,
+          "worker": 1,
+          "queue_ms": 0.054504999999998915,
+          "dispatch_to_vm_ms": 22.180457000000004,
+          "build_ms": 5.00732
+        },
+        {
+          "tag": "await7",
+          "status": 200,
+          "client_ms": 72.79073,
+          "start_ns": 296190353109512,
+          "end_ns": 296190425900242,
+          "id": 8,
+          "worker": 0,
+          "queue_ms": 0.05674499999999938,
+          "dispatch_to_vm_ms": 21.890948,
+          "build_ms": 5.0219890000000005
+        },
+        {
+          "tag": "await8",
+          "status": 200,
+          "client_ms": 102.529778,
+          "start_ns": 296190353187364,
+          "end_ns": 296190455717142,
+          "id": 9,
+          "worker": 1,
+          "queue_ms": 48.731507,
+          "dispatch_to_vm_ms": 11.626058,
+          "build_ms": 10.875421999999999
+        },
+        {
+          "tag": "await9",
+          "status": 200,
+          "client_ms": 103.157154,
+          "start_ns": 296190353271456,
+          "end_ns": 296190456428610,
+          "id": 10,
+          "worker": 0,
+          "queue_ms": 48.604334,
+          "dispatch_to_vm_ms": 11.671309999999998,
+          "build_ms": 10.826677
+        },
+        {
+          "tag": "await10",
+          "status": 200,
+          "client_ms": 111.102756,
+          "start_ns": 296190353352428,
+          "end_ns": 296190464455184,
+          "id": 11,
+          "worker": 1,
+          "queue_ms": 60.299568,
+          "dispatch_to_vm_ms": 6.024363000000008,
+          "build_ms": 5.258015
+        },
+        {
+          "tag": "await11",
+          "status": 200,
+          "client_ms": 108.164515,
+          "start_ns": 296190353436926,
+          "end_ns": 296190461601441,
+          "id": 12,
+          "worker": 0,
+          "queue_ms": 60.380808,
+          "dispatch_to_vm_ms": 5.861247000000006,
+          "build_ms": 5.112411
+        },
+        {
+          "tag": "await12",
+          "status": 200,
+          "client_ms": 113.384806,
+          "start_ns": 296190353517754,
+          "end_ns": 296190466902560,
+          "id": 13,
+          "worker": 1,
+          "queue_ms": 60.478536999999996,
+          "dispatch_to_vm_ms": 10.901898000000003,
+          "build_ms": 4.9290970000000005
+        },
+        {
+          "tag": "await13",
+          "status": 200,
+          "client_ms": 113.907122,
+          "start_ns": 296190353601884,
+          "end_ns": 296190467509006,
+          "id": 14,
+          "worker": 0,
+          "queue_ms": 60.534809,
+          "dispatch_to_vm_ms": 10.428820999999985,
+          "build_ms": 4.902338
+        },
+        {
+          "tag": "await14",
+          "status": 200,
+          "client_ms": 118.483986,
+          "start_ns": 296190353689182,
+          "end_ns": 296190472173168,
+          "id": 15,
+          "worker": 0,
+          "queue_ms": 71.00124600000001,
+          "dispatch_to_vm_ms": 5.038881999999987,
+          "build_ms": 4.882308999999999
+        },
+        {
+          "tag": "await15",
+          "status": 200,
+          "client_ms": 119.69182,
+          "start_ns": 296190353770556,
+          "end_ns": 296190473462376,
+          "id": 16,
+          "worker": 1,
+          "queue_ms": 71.151798,
+          "dispatch_to_vm_ms": 5.014218,
+          "build_ms": 4.751347
+        },
+        {
+          "tag": "healthy",
+          "status": 200,
+          "client_ms": 104.864991,
+          "start_ns": 296190359269096,
+          "end_ns": 296190464134087,
+          "id": 17,
+          "worker": 1,
+          "queue_ms": 96.43874600000001,
+          "dispatch_to_vm_ms": 8.255422999999993,
+          "build_ms": 7.821838
+        }
+      ],
+      "batch_ms": 121.100375,
+      "finite_batch_per_s": 140.37941666159168,
+      "peak_increase_bytes": 8076860,
+      "closed": {
+        "active": [
+          0,
+          0
+        ],
+        "builds": 18,
+        "connections": 0,
+        "event": "closed",
+        "inherited_sockets": 0,
+        "live_bytes": 75071,
+        "ms": 135.277337,
+        "peak_bytes": 8203965,
+        "retired": 18,
+        "sockets": 0
+      }
+    },
+    {
+      "case": "healthy-alone",
+      "sample": 4,
+      "healthy_ms": 9.410847,
+      "healthy_queue_ms": 0.04211800000000032,
+      "healthy_dispatch_to_vm_ms": 8.874595999999997,
+      "healthy_build_ms": 8.717428,
+      "build_total_ms": 8.717428,
+      "assertions": [],
+      "requests": [
+        {
+          "tag": "healthy",
+          "status": 200,
+          "client_ms": 9.410847,
+          "start_ns": 296190560940678,
+          "end_ns": 296190570351525,
+          "id": 1,
+          "worker": 0,
+          "queue_ms": 0.04211800000000032,
+          "dispatch_to_vm_ms": 8.874595999999997,
+          "build_ms": 8.717428
+        }
+      ],
+      "peak_increase_bytes": 2293053,
+      "closed": {
+        "active": [
+          0,
+          0
+        ],
+        "builds": 2,
+        "connections": 0,
+        "event": "closed",
+        "inherited_sockets": 0,
+        "live_bytes": 73055,
+        "ms": 31.395293999999996,
+        "peak_bytes": 2420158,
+        "retired": 2,
+        "sockets": 0
+      }
+    },
+    {
+      "case": "awaiting-spare",
+      "sample": 4,
+      "healthy_ms": 8.8112,
+      "healthy_queue_ms": 0.06335100000000082,
+      "healthy_dispatch_to_vm_ms": 8.497395000000001,
+      "healthy_build_ms": 8.368523,
+      "build_total_ms": 14.054559999999999,
+      "assertions": [
+        "healthy finishes during awaited slow request on spare worker"
+      ],
+      "requests": [
+        {
+          "tag": "slow",
+          "status": 200,
+          "client_ms": 257.956353,
+          "start_ns": 296190602776189,
+          "end_ns": 296190860732542,
+          "id": 1,
+          "worker": 0,
+          "queue_ms": 0.02972600000000014,
+          "dispatch_to_vm_ms": 5.850831000000001,
+          "build_ms": 5.686037
+        },
+        {
+          "tag": "healthy",
+          "status": 200,
+          "client_ms": 8.8112,
+          "start_ns": 296190613535545,
+          "end_ns": 296190622346745,
+          "id": 2,
+          "worker": 1,
+          "queue_ms": 0.06335100000000082,
+          "dispatch_to_vm_ms": 8.497395000000001,
+          "build_ms": 8.368523
+        }
+      ],
+      "peak_increase_bytes": 2835294,
+      "closed": {
+        "active": [
+          0,
+          0
+        ],
+        "builds": 3,
+        "connections": 0,
+        "event": "closed",
+        "inherited_sockets": 0,
+        "live_bytes": 73055,
+        "ms": 276.068337,
+        "peak_bytes": 2962399,
+        "retired": 3,
+        "sockets": 0
+      }
+    },
+    {
+      "case": "cpu-spare",
+      "sample": 4,
+      "healthy_ms": 3.72921,
+      "healthy_queue_ms": 0.02243999999999602,
+      "healthy_dispatch_to_vm_ms": 3.563237000000001,
+      "healthy_build_ms": 3.4839239999999996,
+      "build_total_ms": 10.029485,
+      "assertions": [
+        "healthy finishes during CPU loop on spare worker"
+      ],
+      "requests": [
+        {
+          "tag": "slow",
+          "status": 500,
+          "client_ms": 67.524925,
+          "start_ns": 296190885785836,
+          "end_ns": 296190953310761,
+          "id": 1,
+          "worker": 0,
+          "queue_ms": 0.03418800000000033,
+          "dispatch_to_vm_ms": 6.710909999999998,
+          "build_ms": 6.545561
+        },
+        {
+          "tag": "healthy",
+          "status": 200,
+          "client_ms": 3.72921,
+          "start_ns": 296190896469222,
+          "end_ns": 296190900198432,
+          "id": 2,
+          "worker": 1,
+          "queue_ms": 0.02243999999999602,
+          "dispatch_to_vm_ms": 3.563237000000001,
+          "build_ms": 3.4839239999999996
+        }
+      ],
+      "peak_increase_bytes": 2834951,
+      "closed": {
+        "active": [
+          0,
+          0
+        ],
+        "builds": 3,
+        "connections": 0,
+        "event": "closed",
+        "inherited_sockets": 0,
+        "live_bytes": 73055,
+        "ms": 86.61005300000001,
+        "peak_bytes": 2962056,
+        "retired": 3,
+        "sockets": 0
+      }
+    },
+    {
+      "case": "cpu-saturated",
+      "sample": 4,
+      "healthy_ms": 61.483864,
+      "healthy_queue_ms": 0.022133999999997656,
+      "healthy_dispatch_to_vm_ms": 61.30604100000001,
+      "healthy_build_ms": 3.042131,
+      "build_total_ms": 10.153085,
+      "assertions": [
+        "both workers busy at healthy arrival; selected worker starts it only after CPU halt"
+      ],
+      "requests": [
+        {
+          "tag": "cpu0",
+          "status": 500,
+          "client_ms": 63.242855,
+          "start_ns": 296190969283283,
+          "end_ns": 296191032526138,
+          "id": 1,
+          "worker": 0,
+          "queue_ms": 0.024701999999999558,
+          "dispatch_to_vm_ms": 3.6399540000000004,
+          "build_ms": 3.527489
+        },
+        {
+          "tag": "cpu1",
+          "status": 500,
+          "client_ms": 63.54737,
+          "start_ns": 296190974577197,
+          "end_ns": 296191038124567,
+          "id": 2,
+          "worker": 1,
+          "queue_ms": 0.024499000000000493,
+          "dispatch_to_vm_ms": 3.6447569999999985,
+          "build_ms": 3.583465
+        },
+        {
+          "tag": "healthy",
+          "status": 200,
+          "client_ms": 61.483864,
+          "start_ns": 296190979870476,
+          "end_ns": 296191041354340,
+          "id": 3,
+          "worker": 1,
+          "queue_ms": 0.022133999999997656,
+          "dispatch_to_vm_ms": 61.30604100000001,
+          "build_ms": 3.042131
+        }
+      ],
+      "peak_increase_bytes": 2834944,
+      "closed": {
+        "active": [
+          0,
+          0
+        ],
+        "builds": 4,
+        "connections": 0,
+        "event": "closed",
+        "inherited_sockets": 0,
+        "live_bytes": 73055,
+        "ms": 84.42397,
+        "peak_bytes": 2962049,
+        "retired": 4,
+        "sockets": 0
+      }
+    },
+    {
+      "case": "mixed",
+      "sample": 4,
+      "healthy_ms": 3.484193,
+      "healthy_queue_ms": 0.021492000000002065,
+      "healthy_dispatch_to_vm_ms": 3.3098849999999977,
+      "healthy_build_ms": 3.156987,
+      "build_total_ms": 15.633708,
+      "assertions": [
+        "timer becomes due inside same-worker CPU loop and cannot complete until halt"
+      ],
+      "requests": [
+        {
+          "tag": "await0",
+          "status": 200,
+          "client_ms": 46.040633,
+          "start_ns": 296191057320871,
+          "end_ns": 296191103361504,
+          "id": 1,
+          "worker": 0,
+          "queue_ms": 0.02394099999999888,
+          "dispatch_to_vm_ms": 4.319804,
+          "build_ms": 4.196580999999999
+        },
+        {
+          "tag": "await1",
+          "status": 200,
+          "client_ms": 68.693439,
+          "start_ns": 296191062630334,
+          "end_ns": 296191131323773,
+          "id": 2,
+          "worker": 1,
+          "queue_ms": 0.03020400000000123,
+          "dispatch_to_vm_ms": 4.968783,
+          "build_ms": 4.888876000000001
+        },
+        {
+          "tag": "slow",
+          "status": 500,
+          "client_ms": 62.945667,
+          "start_ns": 296191068110310,
+          "end_ns": 296191131055977,
+          "id": 3,
+          "worker": 1,
+          "queue_ms": 0.028372000000000952,
+          "dispatch_to_vm_ms": 3.4611769999999993,
+          "build_ms": 3.391264
+        },
+        {
+          "tag": "healthy",
+          "status": 200,
+          "client_ms": 3.484193,
+          "start_ns": 296191073538780,
+          "end_ns": 296191077022973,
+          "id": 4,
+          "worker": 0,
+          "queue_ms": 0.021492000000002065,
+          "dispatch_to_vm_ms": 3.3098849999999977,
+          "build_ms": 3.156987
+        }
+      ],
+      "blocked_await_ms": 63.47874399999999,
+      "other_await_ms": 41.50386,
+      "peak_increase_bytes": 3919053,
+      "closed": {
+        "active": [
+          0,
+          0
+        ],
+        "builds": 5,
+        "connections": 0,
+        "event": "closed",
+        "inherited_sockets": 0,
+        "live_bytes": 73055,
+        "ms": 89.079169,
+        "peak_bytes": 4046158,
+        "retired": 5,
+        "sockets": 0
+      }
+    },
+    {
+      "case": "awaiting-batch",
+      "sample": 4,
+      "healthy_ms": 105.706659,
+      "healthy_queue_ms": 97.00431099999999,
+      "healthy_dispatch_to_vm_ms": 8.450412000000014,
+      "healthy_build_ms": 8.012836,
+      "build_total_ms": 105.24425600000001,
+      "assertions": [
+        "healthy was centrally queued behind all sixteen requests"
+      ],
+      "requests": [
+        {
+          "tag": "await0",
+          "status": 200,
+          "client_ms": 51.235679,
+          "start_ns": 296191156371790,
+          "end_ns": 296191207607469,
+          "id": 1,
+          "worker": 0,
+          "queue_ms": 0.059755,
+          "dispatch_to_vm_ms": 8.553637000000002,
+          "build_ms": 8.434375
+        },
+        {
+          "tag": "await1",
+          "status": 200,
+          "client_ms": 51.212281,
+          "start_ns": 296191156619275,
+          "end_ns": 296191207831556,
+          "id": 2,
+          "worker": 1,
+          "queue_ms": 0.05717299999999881,
+          "dispatch_to_vm_ms": 8.395148,
+          "build_ms": 8.273577000000001
+        },
+        {
+          "tag": "await2",
+          "status": 200,
+          "client_ms": 63.389439,
+          "start_ns": 296191156758848,
+          "end_ns": 296191220148287,
+          "id": 3,
+          "worker": 1,
+          "queue_ms": 0.07271799999999828,
+          "dispatch_to_vm_ms": 13.154589,
+          "build_ms": 4.8287510000000005
+        },
+        {
+          "tag": "await3",
+          "status": 200,
+          "client_ms": 63.187623,
+          "start_ns": 296191156862214,
+          "end_ns": 296191220049837,
+          "id": 4,
+          "worker": 0,
+          "queue_ms": 0.06183799999999984,
+          "dispatch_to_vm_ms": 12.844644000000002,
+          "build_ms": 4.836876999999999
+        },
+        {
+          "tag": "await4",
+          "status": 200,
+          "client_ms": 63.471615,
+          "start_ns": 296191156961812,
+          "end_ns": 296191220433427,
+          "id": 5,
+          "worker": 0,
+          "queue_ms": 0.06077800000000089,
+          "dispatch_to_vm_ms": 17.529383000000003,
+          "build_ms": 4.866409
+        },
+        {
+          "tag": "await5",
+          "status": 200,
+          "client_ms": 63.543722,
+          "start_ns": 296191157070820,
+          "end_ns": 296191220614542,
+          "id": 6,
+          "worker": 1,
+          "queue_ms": 0.0667250000000017,
+          "dispatch_to_vm_ms": 17.404407,
+          "build_ms": 4.84806
+        },
+        {
+          "tag": "await6",
+          "status": 200,
+          "client_ms": 63.876061,
+          "start_ns": 296191157166840,
+          "end_ns": 296191221042901,
+          "id": 7,
+          "worker": 1,
+          "queue_ms": 0.06849499999999864,
+          "dispatch_to_vm_ms": 22.062320999999997,
+          "build_ms": 4.803285
+        },
+        {
+          "tag": "await7",
+          "status": 200,
+          "client_ms": 63.540361,
+          "start_ns": 296191157266945,
+          "end_ns": 296191220807306,
+          "id": 8,
+          "worker": 0,
+          "queue_ms": 0.07177199999999928,
+          "dispatch_to_vm_ms": 21.728575,
+          "build_ms": 4.8015870000000005
+        },
+        {
+          "tag": "await8",
+          "status": 200,
+          "client_ms": 104.258577,
+          "start_ns": 296191157366117,
+          "end_ns": 296191261624694,
+          "id": 9,
+          "worker": 1,
+          "queue_ms": 49.520774,
+          "dispatch_to_vm_ms": 11.824788999999996,
+          "build_ms": 11.292118
+        },
+        {
+          "tag": "await9",
+          "status": 200,
+          "client_ms": 103.25545,
+          "start_ns": 296191157463312,
+          "end_ns": 296191260718762,
+          "id": 10,
+          "worker": 0,
+          "queue_ms": 49.402501,
+          "dispatch_to_vm_ms": 11.753101999999998,
+          "build_ms": 11.157093999999999
+        },
+        {
+          "tag": "await10",
+          "status": 200,
+          "client_ms": 112.105186,
+          "start_ns": 296191157556022,
+          "end_ns": 296191269661208,
+          "id": 11,
+          "worker": 0,
+          "queue_ms": 61.423041,
+          "dispatch_to_vm_ms": 6.011787999999996,
+          "build_ms": 4.996741
+        },
+        {
+          "tag": "await11",
+          "status": 200,
+          "client_ms": 110.114914,
+          "start_ns": 296191157655266,
+          "end_ns": 296191267770180,
+          "id": 12,
+          "worker": 1,
+          "queue_ms": 61.317161,
+          "dispatch_to_vm_ms": 6.058103000000003,
+          "build_ms": 4.871793
+        },
+        {
+          "tag": "await12",
+          "status": 200,
+          "client_ms": 114.404335,
+          "start_ns": 296191157745215,
+          "end_ns": 296191272149550,
+          "id": 13,
+          "worker": 0,
+          "queue_ms": 61.39445800000001,
+          "dispatch_to_vm_ms": 10.603899999999996,
+          "build_ms": 4.787579999999999
+        },
+        {
+          "tag": "await13",
+          "status": 200,
+          "client_ms": 114.571211,
+          "start_ns": 296191157844647,
+          "end_ns": 296191272415858,
+          "id": 14,
+          "worker": 1,
+          "queue_ms": 61.419447,
+          "dispatch_to_vm_ms": 10.507511999999991,
+          "build_ms": 4.777125
+        },
+        {
+          "tag": "await14",
+          "status": 200,
+          "client_ms": 119.846231,
+          "start_ns": 296191157938721,
+          "end_ns": 296191277784952,
+          "id": 15,
+          "worker": 0,
+          "queue_ms": 61.452319,
+          "dispatch_to_vm_ms": 15.252684000000002,
+          "build_ms": 4.8735610000000005
+        },
+        {
+          "tag": "await15",
+          "status": 200,
+          "client_ms": 119.036128,
+          "start_ns": 296191158034984,
+          "end_ns": 296191277071112,
+          "id": 16,
+          "worker": 1,
+          "queue_ms": 61.541226,
+          "dispatch_to_vm_ms": 14.95258100000001,
+          "build_ms": 4.782487000000001
+        },
+        {
+          "tag": "healthy",
+          "status": 200,
+          "client_ms": 105.706659,
+          "start_ns": 296191163605083,
+          "end_ns": 296191269311742,
+          "id": 17,
+          "worker": 0,
+          "queue_ms": 97.00431099999999,
+          "dispatch_to_vm_ms": 8.450412000000014,
+          "build_ms": 8.012836
+        }
+      ],
+      "batch_ms": 121.413162,
+      "finite_batch_per_s": 140.01776841953924,
+      "peak_increase_bytes": 8057748,
+      "closed": {
+        "active": [
+          0,
+          0
+        ],
+        "builds": 18,
+        "connections": 0,
+        "event": "closed",
+        "inherited_sockets": 0,
+        "live_bytes": 75071,
+        "ms": 139.71281199999999,
+        "peak_bytes": 8184853,
+        "retired": 18,
+        "sockets": 0
+      }
+    },
+    {
+      "case": "healthy-alone",
+      "sample": 5,
+      "healthy_ms": 9.268597,
+      "healthy_queue_ms": 0.05073900000000009,
+      "healthy_dispatch_to_vm_ms": 8.6427,
+      "healthy_build_ms": 8.332206,
+      "build_total_ms": 8.332206,
+      "assertions": [],
+      "requests": [
+        {
+          "tag": "healthy",
+          "status": 200,
+          "client_ms": 9.268597,
+          "start_ns": 296191316966304,
+          "end_ns": 296191326234901,
+          "id": 1,
+          "worker": 0,
+          "queue_ms": 0.05073900000000009,
+          "dispatch_to_vm_ms": 8.6427,
+          "build_ms": 8.332206
+        }
+      ],
+      "peak_increase_bytes": 2293053,
+      "closed": {
+        "active": [
+          0,
+          0
+        ],
+        "builds": 2,
+        "connections": 0,
+        "event": "closed",
+        "inherited_sockets": 0,
+        "live_bytes": 73055,
+        "ms": 30.282599,
+        "peak_bytes": 2420158,
+        "retired": 2,
+        "sockets": 0
+      }
+    },
+    {
+      "case": "awaiting-spare",
+      "sample": 5,
+      "healthy_ms": 8.392147,
+      "healthy_queue_ms": 0.04447900000000082,
+      "healthy_dispatch_to_vm_ms": 7.912830999999999,
+      "healthy_build_ms": 7.737549,
+      "build_total_ms": 11.894158000000001,
+      "assertions": [
+        "healthy finishes during awaited slow request on spare worker"
+      ],
+      "requests": [
+        {
+          "tag": "slow",
+          "status": 200,
+          "client_ms": 255.435372,
+          "start_ns": 296191348710938,
+          "end_ns": 296191604146310,
+          "id": 1,
+          "worker": 0,
+          "queue_ms": 0.034456000000000486,
+          "dispatch_to_vm_ms": 4.328559,
+          "build_ms": 4.156609
+        },
+        {
+          "tag": "healthy",
+          "status": 200,
+          "client_ms": 8.392147,
+          "start_ns": 296191354247618,
+          "end_ns": 296191362639765,
+          "id": 2,
+          "worker": 1,
+          "queue_ms": 0.04447900000000082,
+          "dispatch_to_vm_ms": 7.912830999999999,
+          "build_ms": 7.737549
+        }
+      ],
+      "peak_increase_bytes": 2835294,
+      "closed": {
+        "active": [
+          0,
+          0
+        ],
+        "builds": 3,
+        "connections": 0,
+        "event": "closed",
+        "inherited_sockets": 0,
+        "live_bytes": 73055,
+        "ms": 273.723563,
+        "peak_bytes": 2962399,
+        "retired": 3,
+        "sockets": 0
+      }
+    },
+    {
+      "case": "cpu-spare",
+      "sample": 5,
+      "healthy_ms": 3.927243,
+      "healthy_queue_ms": 0.031996999999996945,
+      "healthy_dispatch_to_vm_ms": 3.6572850000000017,
+      "healthy_build_ms": 3.5564839999999998,
+      "build_total_ms": 11.327244,
+      "assertions": [
+        "healthy finishes during CPU loop on spare worker"
+      ],
+      "requests": [
+        {
+          "tag": "slow",
+          "status": 500,
+          "client_ms": 67.802642,
+          "start_ns": 296191640055587,
+          "end_ns": 296191707858229,
+          "id": 1,
+          "worker": 0,
+          "queue_ms": 0.05656399999999984,
+          "dispatch_to_vm_ms": 8.002954,
+          "build_ms": 7.77076
+        },
+        {
+          "tag": "healthy",
+          "status": 200,
+          "client_ms": 3.927243,
+          "start_ns": 296191650803516,
+          "end_ns": 296191654730759,
+          "id": 2,
+          "worker": 1,
+          "queue_ms": 0.031996999999996945,
+          "dispatch_to_vm_ms": 3.6572850000000017,
+          "build_ms": 3.5564839999999998
+        }
+      ],
+      "peak_increase_bytes": 2834951,
+      "closed": {
+        "active": [
+          0,
+          0
+        ],
+        "builds": 3,
+        "connections": 0,
+        "event": "closed",
+        "inherited_sockets": 0,
+        "live_bytes": 73055,
+        "ms": 90.987088,
+        "peak_bytes": 2962056,
+        "retired": 3,
+        "sockets": 0
+      }
+    },
+    {
+      "case": "cpu-saturated",
+      "sample": 5,
+      "healthy_ms": 61.250807,
+      "healthy_queue_ms": 0.029367000000000587,
+      "healthy_dispatch_to_vm_ms": 61.027375,
+      "healthy_build_ms": 3.083485,
+      "build_total_ms": 12.922166,
+      "assertions": [
+        "both workers busy at healthy arrival; selected worker starts it only after CPU halt"
+      ],
+      "requests": [
+        {
+          "tag": "cpu0",
+          "status": 500,
+          "client_ms": 66.680726,
+          "start_ns": 296191732385305,
+          "end_ns": 296191799066031,
+          "id": 1,
+          "worker": 0,
+          "queue_ms": 0.05287199999999981,
+          "dispatch_to_vm_ms": 6.476351000000001,
+          "build_ms": 6.277537
+        },
+        {
+          "tag": "cpu1",
+          "status": 500,
+          "client_ms": 63.225302,
+          "start_ns": 296191743015026,
+          "end_ns": 296191806240328,
+          "id": 2,
+          "worker": 1,
+          "queue_ms": 0.031567000000002565,
+          "dispatch_to_vm_ms": 3.642172999999996,
+          "build_ms": 3.561144
+        },
+        {
+          "tag": "healthy",
+          "status": 200,
+          "client_ms": 61.250807,
+          "start_ns": 296191748330394,
+          "end_ns": 296191809581201,
+          "id": 3,
+          "worker": 1,
+          "queue_ms": 0.029367000000000587,
+          "dispatch_to_vm_ms": 61.027375,
+          "build_ms": 3.083485
+        }
+      ],
+      "peak_increase_bytes": 2834944,
+      "closed": {
+        "active": [
+          0,
+          0
+        ],
+        "builds": 4,
+        "connections": 0,
+        "event": "closed",
+        "inherited_sockets": 0,
+        "live_bytes": 73055,
+        "ms": 89.880586,
+        "peak_bytes": 2962049,
+        "retired": 4,
+        "sockets": 0
+      }
+    },
+    {
+      "case": "mixed",
+      "sample": 5,
+      "healthy_ms": 3.56743,
+      "healthy_queue_ms": 0.031767999999999574,
+      "healthy_dispatch_to_vm_ms": 3.346654000000001,
+      "healthy_build_ms": 3.1639939999999998,
+      "build_total_ms": 15.75882,
+      "assertions": [
+        "timer becomes due inside same-worker CPU loop and cannot complete until halt"
+      ],
+      "requests": [
+        {
+          "tag": "await0",
+          "status": 200,
+          "client_ms": 45.972616,
+          "start_ns": 296191826283487,
+          "end_ns": 296191872256103,
+          "id": 1,
+          "worker": 0,
+          "queue_ms": 0.028209999999999624,
+          "dispatch_to_vm_ms": 4.508500000000001,
+          "build_ms": 4.347313000000001
+        },
+        {
+          "tag": "await1",
+          "status": 200,
+          "client_ms": 68.677534,
+          "start_ns": 296191831597647,
+          "end_ns": 296191900275181,
+          "id": 2,
+          "worker": 1,
+          "queue_ms": 0.04443099999999944,
+          "dispatch_to_vm_ms": 5.059542999999998,
+          "build_ms": 4.936687
+        },
+        {
+          "tag": "slow",
+          "status": 500,
+          "client_ms": 63.189253,
+          "start_ns": 296191836982529,
+          "end_ns": 296191900171782,
+          "id": 3,
+          "worker": 1,
+          "queue_ms": 0.03485099999999619,
+          "dispatch_to_vm_ms": 3.404350000000001,
+          "build_ms": 3.3108259999999996
+        },
+        {
+          "tag": "healthy",
+          "status": 200,
+          "client_ms": 3.56743,
+          "start_ns": 296191842337199,
+          "end_ns": 296191845904629,
+          "id": 4,
+          "worker": 0,
+          "queue_ms": 0.031767999999999574,
+          "dispatch_to_vm_ms": 3.346654000000001,
+          "build_ms": 3.1639939999999998
+        }
+      ],
+      "blocked_await_ms": 63.41939399999999,
+      "other_await_ms": 41.229866,
+      "peak_increase_bytes": 3919053,
+      "closed": {
+        "active": [
+          0,
+          0
+        ],
+        "builds": 5,
+        "connections": 0,
+        "event": "closed",
+        "inherited_sockets": 0,
+        "live_bytes": 73055,
+        "ms": 88.857913,
+        "peak_bytes": 4046158,
+        "retired": 5,
+        "sockets": 0
+      }
+    },
+    {
+      "case": "awaiting-batch",
+      "sample": 5,
+      "healthy_ms": 104.260592,
+      "healthy_queue_ms": 96.038532,
+      "healthy_dispatch_to_vm_ms": 8.037379000000001,
+      "healthy_build_ms": 7.491638999999999,
+      "build_total_ms": 113.483681,
+      "assertions": [
+        "healthy was centrally queued behind all sixteen requests"
+      ],
+      "requests": [
+        {
+          "tag": "await0",
+          "status": 200,
+          "client_ms": 50.308062,
+          "start_ns": 296191924368072,
+          "end_ns": 296191974676134,
+          "id": 1,
+          "worker": 0,
+          "queue_ms": 0.04025899999999982,
+          "dispatch_to_vm_ms": 9.102316000000002,
+          "build_ms": 8.999375
+        },
+        {
+          "tag": "await1",
+          "status": 200,
+          "client_ms": 50.767099,
+          "start_ns": 296191924595321,
+          "end_ns": 296191975362420,
+          "id": 2,
+          "worker": 1,
+          "queue_ms": 0.05028200000000016,
+          "dispatch_to_vm_ms": 8.945307999999999,
+          "build_ms": 8.824395
+        },
+        {
+          "tag": "await2",
+          "status": 200,
+          "client_ms": 62.10137,
+          "start_ns": 296191924716550,
+          "end_ns": 296191986817920,
+          "id": 3,
+          "worker": 1,
+          "queue_ms": 0.057302999999999216,
+          "dispatch_to_vm_ms": 14.793230999999999,
+          "build_ms": 5.920553
+        },
+        {
+          "tag": "await3",
+          "status": 200,
+          "client_ms": 61.388831,
+          "start_ns": 296191924820097,
+          "end_ns": 296191986208928,
+          "id": 4,
+          "worker": 0,
+          "queue_ms": 0.05962400000000034,
+          "dispatch_to_vm_ms": 14.779254000000002,
+          "build_ms": 5.947025
+        },
+        {
+          "tag": "await4",
+          "status": 200,
+          "client_ms": 61.69782,
+          "start_ns": 296191924933638,
+          "end_ns": 296191986631458,
+          "id": 5,
+          "worker": 0,
+          "queue_ms": 0.059623999999999455,
+          "dispatch_to_vm_ms": 20.244055000000003,
+          "build_ms": 5.629658
+        },
+        {
+          "tag": "await5",
+          "status": 200,
+          "client_ms": 62.208882,
+          "start_ns": 296191925042214,
+          "end_ns": 296191987251096,
+          "id": 6,
+          "worker": 1,
+          "queue_ms": 0.06419499999999978,
+          "dispatch_to_vm_ms": 19.575729000000003,
+          "build_ms": 5.371222
+        },
+        {
+          "tag": "await6",
+          "status": 200,
+          "client_ms": 73.929168,
+          "start_ns": 296191925137875,
+          "end_ns": 296191999067043,
+          "id": 7,
+          "worker": 1,
+          "queue_ms": 0.06287700000000207,
+          "dispatch_to_vm_ms": 25.044395,
+          "build_ms": 5.601713999999999
+        },
+        {
+          "tag": "await7",
+          "status": 200,
+          "client_ms": 67.445266,
+          "start_ns": 296191925229421,
+          "end_ns": 296191992674687,
+          "id": 8,
+          "worker": 0,
+          "queue_ms": 0.07126000000000055,
+          "dispatch_to_vm_ms": 25.085946999999997,
+          "build_ms": 5.415578
+        },
+        {
+          "tag": "await8",
+          "status": 200,
+          "client_ms": 102.307539,
+          "start_ns": 296191925316836,
+          "end_ns": 296192027624375,
+          "id": 9,
+          "worker": 0,
+          "queue_ms": 48.419256,
+          "dispatch_to_vm_ms": 11.35800600000001,
+          "build_ms": 11.048724
+        },
+        {
+          "tag": "await9",
+          "status": 200,
+          "client_ms": 102.494679,
+          "start_ns": 296191925407300,
+          "end_ns": 296192027901979,
+          "id": 10,
+          "worker": 1,
+          "queue_ms": 48.976184,
+          "dispatch_to_vm_ms": 11.075973999999995,
+          "build_ms": 10.223378
+        },
+        {
+          "tag": "await10",
+          "status": 200,
+          "client_ms": 110.598916,
+          "start_ns": 296191925492502,
+          "end_ns": 296192036091418,
+          "id": 11,
+          "worker": 0,
+          "queue_ms": 59.639972000000014,
+          "dispatch_to_vm_ms": 6.302003999999997,
+          "build_ms": 5.737
+        },
+        {
+          "tag": "await11",
+          "status": 200,
+          "client_ms": 113.925285,
+          "start_ns": 296191925583920,
+          "end_ns": 296192039509205,
+          "id": 12,
+          "worker": 0,
+          "queue_ms": 59.91585499999999,
+          "dispatch_to_vm_ms": 11.69843800000001,
+          "build_ms": 5.367178
+        },
+        {
+          "tag": "await12",
+          "status": 200,
+          "client_ms": 109.405467,
+          "start_ns": 296191925675027,
+          "end_ns": 296192035080494,
+          "id": 13,
+          "worker": 1,
+          "queue_ms": 59.963916,
+          "dispatch_to_vm_ms": 6.322109999999995,
+          "build_ms": 5.594145
+        },
+        {
+          "tag": "await13",
+          "status": 200,
+          "client_ms": 114.17063,
+          "start_ns": 296191925763719,
+          "end_ns": 296192039934349,
+          "id": 14,
+          "worker": 1,
+          "queue_ms": 60.24047900000001,
+          "dispatch_to_vm_ms": 11.623933999999991,
+          "build_ms": 5.643679000000001
+        },
+        {
+          "tag": "await14",
+          "status": 200,
+          "client_ms": 119.331395,
+          "start_ns": 296191925852389,
+          "end_ns": 296192045183784,
+          "id": 15,
+          "worker": 0,
+          "queue_ms": 65.514871,
+          "dispatch_to_vm_ms": 11.323581000000004,
+          "build_ms": 5.570891
+        },
+        {
+          "tag": "await15",
+          "status": 200,
+          "client_ms": 119.716994,
+          "start_ns": 296191925943389,
+          "end_ns": 296192045660383,
+          "id": 16,
+          "worker": 1,
+          "queue_ms": 71.763158,
+          "dispatch_to_vm_ms": 5.357534999999984,
+          "build_ms": 5.097527
+        },
+        {
+          "tag": "healthy",
+          "status": 200,
+          "client_ms": 104.260592,
+          "start_ns": 296191931468856,
+          "end_ns": 296192035729448,
+          "id": 17,
+          "worker": 0,
+          "queue_ms": 96.038532,
+          "dispatch_to_vm_ms": 8.037379000000001,
+          "build_ms": 7.491638999999999
+        }
+      ],
+      "batch_ms": 121.292311,
+      "finite_batch_per_s": 140.15727674609153,
+      "peak_increase_bytes": 7819717,
+      "closed": {
+        "active": [
+          0,
+          0
+        ],
+        "builds": 18,
+        "connections": 0,
+        "event": "closed",
+        "inherited_sockets": 0,
+        "live_bytes": 75071,
+        "ms": 135.70916699999998,
+        "peak_bytes": 7946822,
+        "retired": 18,
+        "sockets": 0
+      }
+    },
+    {
+      "case": "healthy-alone",
+      "sample": 6,
+      "healthy_ms": 8.600252,
+      "healthy_queue_ms": 0.04790300000000158,
+      "healthy_dispatch_to_vm_ms": 7.988940000000001,
+      "healthy_build_ms": 7.803662,
+      "build_total_ms": 7.803662,
+      "assertions": [],
+      "requests": [
+        {
+          "tag": "healthy",
+          "status": 200,
+          "client_ms": 8.600252,
+          "start_ns": 296192076997991,
+          "end_ns": 296192085598243,
+          "id": 1,
+          "worker": 0,
+          "queue_ms": 0.04790300000000158,
+          "dispatch_to_vm_ms": 7.988940000000001,
+          "build_ms": 7.803662
+        }
+      ],
+      "peak_increase_bytes": 2293053,
+      "closed": {
+        "active": [
+          0,
+          0
+        ],
+        "builds": 2,
+        "connections": 0,
+        "event": "closed",
+        "inherited_sockets": 0,
+        "live_bytes": 73055,
+        "ms": 30.751883,
+        "peak_bytes": 2420158,
+        "retired": 2,
+        "sockets": 0
+      }
+    },
+    {
+      "case": "awaiting-spare",
+      "sample": 6,
+      "healthy_ms": 9.367439,
+      "healthy_queue_ms": 0.08792000000000044,
+      "healthy_dispatch_to_vm_ms": 8.970862,
+      "healthy_build_ms": 8.805088000000001,
+      "build_total_ms": 17.042117,
+      "assertions": [
+        "healthy finishes during awaited slow request on spare worker"
+      ],
+      "requests": [
+        {
+          "tag": "slow",
+          "status": 200,
+          "client_ms": 259.751849,
+          "start_ns": 296192120958782,
+          "end_ns": 296192380710631,
+          "id": 1,
+          "worker": 0,
+          "queue_ms": 0.05619599999999991,
+          "dispatch_to_vm_ms": 8.446089999999998,
+          "build_ms": 8.237029
+        },
+        {
+          "tag": "healthy",
+          "status": 200,
+          "client_ms": 9.367439,
+          "start_ns": 296192131630278,
+          "end_ns": 296192140997717,
+          "id": 2,
+          "worker": 1,
+          "queue_ms": 0.08792000000000044,
+          "dispatch_to_vm_ms": 8.970862,
+          "build_ms": 8.805088000000001
+        }
+      ],
+      "peak_increase_bytes": 2835294,
+      "closed": {
+        "active": [
+          0,
+          0
+        ],
+        "builds": 3,
+        "connections": 0,
+        "event": "closed",
+        "inherited_sockets": 0,
+        "live_bytes": 73055,
+        "ms": 281.132934,
+        "peak_bytes": 2962399,
+        "retired": 3,
+        "sockets": 0
+      }
+    },
+    {
+      "case": "cpu-spare",
+      "sample": 6,
+      "healthy_ms": 3.838266,
+      "healthy_queue_ms": 0.022102000000000288,
+      "healthy_dispatch_to_vm_ms": 3.6219629999999974,
+      "healthy_build_ms": 3.528223,
+      "build_total_ms": 11.066318,
+      "assertions": [
+        "healthy finishes during CPU loop on spare worker"
+      ],
+      "requests": [
+        {
+          "tag": "slow",
+          "status": 500,
+          "client_ms": 67.184257,
+          "start_ns": 296192408042152,
+          "end_ns": 296192475226409,
+          "id": 1,
+          "worker": 0,
+          "queue_ms": 0.04900899999999986,
+          "dispatch_to_vm_ms": 7.638448,
+          "build_ms": 7.538095
+        },
+        {
+          "tag": "healthy",
+          "status": 200,
+          "client_ms": 3.838266,
+          "start_ns": 296192418883141,
+          "end_ns": 296192422721407,
+          "id": 2,
+          "worker": 1,
+          "queue_ms": 0.022102000000000288,
+          "dispatch_to_vm_ms": 3.6219629999999974,
+          "build_ms": 3.528223
+        }
+      ],
+      "peak_increase_bytes": 2834951,
+      "closed": {
+        "active": [
+          0,
+          0
+        ],
+        "builds": 3,
+        "connections": 0,
+        "event": "closed",
+        "inherited_sockets": 0,
+        "live_bytes": 73055,
+        "ms": 86.227698,
+        "peak_bytes": 2962056,
+        "retired": 3,
+        "sockets": 0
+      }
+    },
+    {
+      "case": "cpu-saturated",
+      "sample": 6,
+      "healthy_ms": 61.427003,
+      "healthy_queue_ms": 0.02937999999999974,
+      "healthy_dispatch_to_vm_ms": 61.234777,
+      "healthy_build_ms": 3.047748,
+      "build_total_ms": 10.115791999999999,
+      "assertions": [
+        "both workers busy at healthy arrival; selected worker starts it only after CPU halt"
+      ],
+      "requests": [
+        {
+          "tag": "cpu0",
+          "status": 500,
+          "client_ms": 63.34088,
+          "start_ns": 296192491293279,
+          "end_ns": 296192554634159,
+          "id": 1,
+          "worker": 0,
+          "queue_ms": 0.03293799999999969,
+          "dispatch_to_vm_ms": 3.586848999999999,
+          "build_ms": 3.501119
+        },
+        {
+          "tag": "cpu1",
+          "status": 500,
+          "client_ms": 63.514057,
+          "start_ns": 296192496605456,
+          "end_ns": 296192560119513,
+          "id": 2,
+          "worker": 1,
+          "queue_ms": 0.03218199999999882,
+          "dispatch_to_vm_ms": 3.66104,
+          "build_ms": 3.566925
+        },
+        {
+          "tag": "healthy",
+          "status": 200,
+          "client_ms": 61.427003,
+          "start_ns": 296192501968091,
+          "end_ns": 296192563395094,
+          "id": 3,
+          "worker": 1,
+          "queue_ms": 0.02937999999999974,
+          "dispatch_to_vm_ms": 61.234777,
+          "build_ms": 3.047748
+        }
+      ],
+      "peak_increase_bytes": 2834944,
+      "closed": {
+        "active": [
+          0,
+          0
+        ],
+        "builds": 4,
+        "connections": 0,
+        "event": "closed",
+        "inherited_sockets": 0,
+        "live_bytes": 73055,
+        "ms": 84.408569,
+        "peak_bytes": 2962049,
+        "retired": 4,
+        "sockets": 0
+      }
+    },
+    {
+      "case": "mixed",
+      "sample": 6,
+      "healthy_ms": 3.33593,
+      "healthy_queue_ms": 0.020820000000000505,
+      "healthy_dispatch_to_vm_ms": 3.194662000000001,
+      "healthy_build_ms": 3.102793,
+      "build_total_ms": 15.03334,
+      "assertions": [
+        "timer becomes due inside same-worker CPU loop and cannot complete until halt"
+      ],
+      "requests": [
+        {
+          "tag": "await0",
+          "status": 200,
+          "client_ms": 45.824844,
+          "start_ns": 296192579281381,
+          "end_ns": 296192625106225,
+          "id": 1,
+          "worker": 0,
+          "queue_ms": 0.023732000000000752,
+          "dispatch_to_vm_ms": 4.055810000000001,
+          "build_ms": 3.983981
+        },
+        {
+          "tag": "await1",
+          "status": 200,
+          "client_ms": 68.663799,
+          "start_ns": 296192584584112,
+          "end_ns": 296192653247911,
+          "id": 2,
+          "worker": 1,
+          "queue_ms": 0.02909499999999987,
+          "dispatch_to_vm_ms": 4.681533,
+          "build_ms": 4.604019
+        },
+        {
+          "tag": "slow",
+          "status": 500,
+          "client_ms": 63.066401,
+          "start_ns": 296192589974557,
+          "end_ns": 296192653040958,
+          "id": 3,
+          "worker": 1,
+          "queue_ms": 0.02600800000000092,
+          "dispatch_to_vm_ms": 3.4171419999999983,
+          "build_ms": 3.342547
+        },
+        {
+          "tag": "healthy",
+          "status": 200,
+          "client_ms": 3.33593,
+          "start_ns": 296192595331955,
+          "end_ns": 296192598667885,
+          "id": 4,
+          "worker": 0,
+          "queue_ms": 0.020820000000000505,
+          "dispatch_to_vm_ms": 3.194662000000001,
+          "build_ms": 3.102793
+        }
+      ],
+      "blocked_await_ms": 63.807204999999996,
+      "other_await_ms": 41.470406,
+      "peak_increase_bytes": 3919053,
+      "closed": {
+        "active": [
+          0,
+          0
+        ],
+        "builds": 5,
+        "connections": 0,
+        "event": "closed",
+        "inherited_sockets": 0,
+        "live_bytes": 73055,
+        "ms": 89.139625,
+        "peak_bytes": 4046158,
+        "retired": 5,
+        "sockets": 0
+      }
+    },
+    {
+      "case": "awaiting-batch",
+      "sample": 6,
+      "healthy_ms": 103.459568,
+      "healthy_queue_ms": 96.218999,
+      "healthy_dispatch_to_vm_ms": 7.073763,
+      "healthy_build_ms": 6.511198,
+      "build_total_ms": 110.126957,
+      "assertions": [
+        "healthy was centrally queued behind all sixteen requests"
+      ],
+      "requests": [
+        {
+          "tag": "await0",
+          "status": 200,
+          "client_ms": 50.410401,
+          "start_ns": 296192677365554,
+          "end_ns": 296192727775955,
+          "id": 1,
+          "worker": 0,
+          "queue_ms": 0.04339400000000104,
+          "dispatch_to_vm_ms": 8.519022,
+          "build_ms": 8.425312
+        },
+        {
+          "tag": "await1",
+          "status": 200,
+          "client_ms": 50.022589,
+          "start_ns": 296192677593628,
+          "end_ns": 296192727616217,
+          "id": 2,
+          "worker": 1,
+          "queue_ms": 0.04267200000000049,
+          "dispatch_to_vm_ms": 8.42202,
+          "build_ms": 8.303266
+        },
+        {
+          "tag": "await2",
+          "status": 200,
+          "client_ms": 61.596033,
+          "start_ns": 296192677716040,
+          "end_ns": 296192739312073,
+          "id": 3,
+          "worker": 1,
+          "queue_ms": 0.04017800000000005,
+          "dispatch_to_vm_ms": 13.973321000000002,
+          "build_ms": 5.5373410000000005
+        },
+        {
+          "tag": "await3",
+          "status": 200,
+          "client_ms": 61.746832,
+          "start_ns": 296192677817340,
+          "end_ns": 296192739564172,
+          "id": 4,
+          "worker": 0,
+          "queue_ms": 0.04606300000000019,
+          "dispatch_to_vm_ms": 13.733061,
+          "build_ms": 5.581157
+        },
+        {
+          "tag": "await4",
+          "status": 200,
+          "client_ms": 62.077625,
+          "start_ns": 296192677930708,
+          "end_ns": 296192740008333,
+          "id": 5,
+          "worker": 0,
+          "queue_ms": 0.05163900000000066,
+          "dispatch_to_vm_ms": 19.244155000000003,
+          "build_ms": 5.460481
+        },
+        {
+          "tag": "await5",
+          "status": 200,
+          "client_ms": 61.604943,
+          "start_ns": 296192678033747,
+          "end_ns": 296192739638690,
+          "id": 6,
+          "worker": 1,
+          "queue_ms": 0.05665399999999998,
+          "dispatch_to_vm_ms": 18.864538000000003,
+          "build_ms": 5.394686999999999
+        },
+        {
+          "tag": "await6",
+          "status": 200,
+          "client_ms": 75.36062,
+          "start_ns": 296192678123913,
+          "end_ns": 296192753484533,
+          "id": 7,
+          "worker": 1,
+          "queue_ms": 0.06054100000000062,
+          "dispatch_to_vm_ms": 24.190140999999997,
+          "build_ms": 5.437591
+        },
+        {
+          "tag": "await7",
+          "status": 200,
+          "client_ms": 75.211256,
+          "start_ns": 296192678209137,
+          "end_ns": 296192753420393,
+          "id": 8,
+          "worker": 0,
+          "queue_ms": 0.059972000000000136,
+          "dispatch_to_vm_ms": 24.094701000000008,
+          "build_ms": 5.409332
+        },
+        {
+          "tag": "await8",
+          "status": 200,
+          "client_ms": 102.248377,
+          "start_ns": 296192678297054,
+          "end_ns": 296192780545431,
+          "id": 9,
+          "worker": 0,
+          "queue_ms": 48.797544,
+          "dispatch_to_vm_ms": 11.287514999999992,
+          "build_ms": 10.643118999999999
+        },
+        {
+          "tag": "await9",
+          "status": 200,
+          "client_ms": 102.317883,
+          "start_ns": 296192678387345,
+          "end_ns": 296192780705228,
+          "id": 10,
+          "worker": 1,
+          "queue_ms": 48.682742,
+          "dispatch_to_vm_ms": 11.162104000000014,
+          "build_ms": 10.543945
+        },
+        {
+          "tag": "await10",
+          "status": 200,
+          "client_ms": 109.747482,
+          "start_ns": 296192678476910,
+          "end_ns": 296192788224392,
+          "id": 11,
+          "worker": 1,
+          "queue_ms": 59.96016600000001,
+          "dispatch_to_vm_ms": 6.134285999999989,
+          "build_ms": 5.513937
+        },
+        {
+          "tag": "await11",
+          "status": 200,
+          "client_ms": 108.054547,
+          "start_ns": 296192678565733,
+          "end_ns": 296192786620280,
+          "id": 12,
+          "worker": 0,
+          "queue_ms": 60.14241799999999,
+          "dispatch_to_vm_ms": 6.123931999999996,
+          "build_ms": 5.441806000000001
+        },
+        {
+          "tag": "await12",
+          "status": 200,
+          "client_ms": 112.966618,
+          "start_ns": 296192678653841,
+          "end_ns": 296192791620459,
+          "id": 13,
+          "worker": 1,
+          "queue_ms": 60.039395,
+          "dispatch_to_vm_ms": 11.058522999999994,
+          "build_ms": 5.194564
+        },
+        {
+          "tag": "await13",
+          "status": 200,
+          "client_ms": 113.657029,
+          "start_ns": 296192678749397,
+          "end_ns": 296192792406426,
+          "id": 14,
+          "worker": 0,
+          "queue_ms": 60.229775000000004,
+          "dispatch_to_vm_ms": 11.213602000000009,
+          "build_ms": 5.385752
+        },
+        {
+          "tag": "await14",
+          "status": 200,
+          "client_ms": 122.636824,
+          "start_ns": 296192678837399,
+          "end_ns": 296192801474223,
+          "id": 15,
+          "worker": 1,
+          "queue_ms": 73.06501499999999,
+          "dispatch_to_vm_ms": 5.91618600000001,
+          "build_ms": 5.733206999999999
+        },
+        {
+          "tag": "await15",
+          "status": 200,
+          "client_ms": 122.195287,
+          "start_ns": 296192678933416,
+          "end_ns": 296192801128703,
+          "id": 16,
+          "worker": 0,
+          "queue_ms": 72.955467,
+          "dispatch_to_vm_ms": 5.8370160000000055,
+          "build_ms": 5.6102620000000005
+        },
+        {
+          "tag": "healthy",
+          "status": 200,
+          "client_ms": 103.459568,
+          "start_ns": 296192684458720,
+          "end_ns": 296192787918288,
+          "id": 17,
+          "worker": 1,
+          "queue_ms": 96.218999,
+          "dispatch_to_vm_ms": 7.073763,
+          "build_ms": 6.511198
+        }
+      ],
+      "batch_ms": 124.108669,
+      "finite_batch_per_s": 136.9767328662593,
+      "peak_increase_bytes": 8063675,
+      "closed": {
+        "active": [
+          0,
+          0
+        ],
+        "builds": 18,
+        "connections": 0,
+        "event": "closed",
+        "inherited_sockets": 0,
+        "live_bytes": 75071,
+        "ms": 140.555562,
+        "peak_bytes": 8190780,
+        "retired": 18,
+        "sockets": 0
+      }
+    }
+  ]
+}
