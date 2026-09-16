@@ -9,7 +9,7 @@ from cluster import Cluster
 
 ROOT = pathlib.Path(__file__).resolve().parents[2]
 BIN = ROOT.parent/'rnx/adapters/postgres/target/release/rnx-pg'
-OUT = ROOT/'results/postgres-0052-adapter'
+OUT = pathlib.Path(os.environ.get('RNX_PG_CONTRACT_OUT', ROOT/'results/postgres-0052-adapter'))
 OUT.mkdir(exist_ok=True, parents=True)
 results = {}
 stock=subprocess.run([str(ROOT.parent/'rnx/target/release/rnx'),'eval','postgres::query("", "", [], #{}).await'],capture_output=True,text=True)
