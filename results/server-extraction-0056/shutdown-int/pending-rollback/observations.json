@@ -1,0 +1,98 @@
+{
+  "case": "pending-rollback",
+  "signal": "SIGINT",
+  "visible_at_barrier": "0",
+  "built_before_signal": 1,
+  "signal_at": 305250.203424626,
+  "shutdown_event": {
+    "active": [
+      1,
+      0
+    ],
+    "event": "shutdown",
+    "ms": 65.866061,
+    "queue": 0
+  },
+  "new_connection_refused": true,
+  "exit_code": 0,
+  "signal_to_exit_ms": 14.047011034563184,
+  "client_owned_socket_report": {
+    "active": [
+      0,
+      0
+    ],
+    "builds": 2,
+    "connections": 0,
+    "event": "closed",
+    "inherited_sockets": 0,
+    "live_bytes": 75659,
+    "ms": 71.098202,
+    "peak_bytes": 2503639,
+    "retired": 2,
+    "sockets": 0
+  },
+  "signal_to_backend_zero_ms": 23.958539008162916,
+  "rows_after": "0",
+  "observer": [
+    {
+      "at": 305250.175357325,
+      "backends": [
+        {
+          "pid": 2203376,
+          "state": "idle",
+          "query": "SELECT pg_backend_pid()"
+        },
+        {
+          "pid": 2203368,
+          "state": "idle",
+          "query": "SELECT pg_backend_pid()"
+        },
+        {
+          "pid": 2203371,
+          "state": "idle",
+          "query": "SELECT pg_backend_pid()"
+        },
+        {
+          "pid": 2203374,
+          "state": "idle",
+          "query": "SELECT pg_backend_pid()"
+        }
+      ]
+    },
+    {
+      "at": 305250.199158183,
+      "backends": [
+        {
+          "pid": 2203376,
+          "state": "idle",
+          "query": "ROLLBACK"
+        },
+        {
+          "pid": 2203368,
+          "state": "idle",
+          "query": "SELECT pg_backend_pid()"
+        },
+        {
+          "pid": 2203371,
+          "state": "idle",
+          "query": "SELECT pg_backend_pid()"
+        },
+        {
+          "pid": 2203374,
+          "state": "idle",
+          "query": "SELECT pg_backend_pid()"
+        }
+      ]
+    },
+    {
+      "at": 305250.227383165,
+      "backends": []
+    }
+  ],
+  "http_connections": [
+    {
+      "bytes": 0,
+      "end": "eof"
+    }
+  ]
+}

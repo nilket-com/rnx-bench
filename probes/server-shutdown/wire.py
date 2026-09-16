@@ -4,7 +4,7 @@ import argparse, concurrent.futures, hashlib, json, os, pathlib, signal, socket,
 HERE=pathlib.Path(__file__).resolve().parent
 LIMIT=1024*1024
 class Server:
-    def __init__(self,out, *, stdin=subprocess.DEVNULL, extra_env=None, small_send_buffer=True):
+    def __init__(self,out, *, stdin=subprocess.DEVNULL, extra_env=None, small_send_buffer=True, stderr=None):
         self.out=out;out.mkdir(parents=True,exist_ok=True)
         self.events_path=out/'events.jsonl';self.events_path.write_text('')
         build=json.loads((HERE/'build.json').read_text());self.build=build
@@ -15,7 +15,15 @@ class Server:
         self.extra_env=extra_env or {}
         self.small_send_buffer=small_send_buffer
         self.log=(out/'server.log').open('w')
-        self.p=subprocess.Popen([build['binary'],'server_http_probe::server','--exact','--ignored','--nocapture'],env=env,stdin=stdin,stdout=self.log,stderr=subprocess.STDOUT,start_new_session=True)
+        command=[build['binary'],'server_http_probe::server','--exact','--ignored','--nocapture']
+        if os.environ.get('RNX_SERVER_BINARY'):
+            binary=pathlib.Path(os.environ['RNX_SERVER_BINARY']).resolve()
+            program=pathlib.Path(os.environ['RNX_SERVER_PROGRAM']).resolve()
+            command=[str(binary),'--program',str(program),'--events',str(self.events_path.resolve())]
+            self.build={'extracted_binary':str(binary),'binary_sha256':hashlib.sha256(binary.read_bytes()).hexdigest(),
+                        'program':str(program),'program_sha256':hashlib.sha256(program.read_bytes()).hexdigest(),
+                        'prototype_reference':build}
+        self.p=subprocess.Popen(command,env=env,stdin=stdin,stdout=self.log,stderr=subprocess.STDOUT if stderr is None else stderr,start_new_session=True)
         self.samples=[];self.stop=threading.Event()
         self.monitor=threading.Thread(target=self.sample);self.monitor.start()
         try:self.wait(lambda:any(e['event']=='ready' for e in self.events()),10)

@@ -1,0 +1,78 @@
+{
+  "case": "cancel",
+  "idle_before": {
+    "backend_pids": [
+      2205517,
+      2205520,
+      2205523,
+      2205526
+    ],
+    "driver_tasks": 4,
+    "handler_leases": 0
+  },
+  "original_pid": 2205526,
+  "next_pid": 2205526,
+  "idle_after": [
+    {
+      "drivers": 2,
+      "event": "pool_state",
+      "idle": 2,
+      "leases": 0,
+      "ms": 864.9566910000001,
+      "runtime_tasks": 2,
+      "worker": 1
+    },
+    {
+      "drivers": 2,
+      "event": "pool_state",
+      "idle": 2,
+      "leases": 0,
+      "ms": 875.53364,
+      "runtime_tasks": 2,
+      "worker": 0
+    }
+  ],
+  "idle_socket_descriptors": [
+    [
+      10,
+      "socket:[3935441]"
+    ],
+    [
+      14,
+      "socket:[3920664]"
+    ],
+    [
+      15,
+      "socket:[3928565]"
+    ],
+    [
+      16,
+      "socket:[3940400]"
+    ],
+    [
+      17,
+      "socket:[3929748]"
+    ]
+  ],
+  "pool_closed": [
+    {
+      "drivers": 0,
+      "event": "pool_closed",
+      "idle": 0,
+      "leases": 0,
+      "ms": 975.235313,
+      "runtime_tasks": 0,
+      "worker": 0
+    },
+    {
+      "drivers": 0,
+      "event": "pool_closed",
+      "idle": 0,
+      "leases": 0,
+      "ms": 976.011855,
+      "runtime_tasks": 0,
+      "worker": 1
+    }
+  ],
+  "backend_count_after": 0
+}

@@ -1,0 +1,66 @@
+{
+  "case": "cpu-saturated",
+  "sample": 1,
+  "healthy_ms": 68.240059,
+  "healthy_queue_ms": 0.04626100000000122,
+  "healthy_dispatch_to_vm_ms": 67.830427,
+  "healthy_build_ms": 3.125956,
+  "build_total_ms": 12.461587999999999,
+  "assertions": [
+    "both workers busy at healthy arrival; selected worker starts it only after CPU halt"
+  ],
+  "requests": [
+    {
+      "tag": "cpu0",
+      "status": 500,
+      "client_ms": 75.783886,
+      "start_ns": 305753968524573,
+      "end_ns": 305754044308459,
+      "id": 1,
+      "worker": 0,
+      "queue_ms": 0.05053299999999972,
+      "dispatch_to_vm_ms": 3.9116570000000017,
+      "build_ms": 3.811595
+    },
+    {
+      "tag": "cpu1",
+      "status": 500,
+      "client_ms": 75.495752,
+      "start_ns": 305753973929191,
+      "end_ns": 305754049424943,
+      "id": 2,
+      "worker": 1,
+      "queue_ms": 0.07550500000000326,
+      "dispatch_to_vm_ms": 5.661657999999999,
+      "build_ms": 5.524037
+    },
+    {
+      "tag": "healthy",
+      "status": 200,
+      "client_ms": 68.240059,
+      "start_ns": 305753984563250,
+      "end_ns": 305754052803309,
+      "id": 3,
+      "worker": 1,
+      "queue_ms": 0.04626100000000122,
+      "dispatch_to_vm_ms": 67.830427,
+      "build_ms": 3.125956
+    }
+  ],
+  "peak_increase_bytes": 2837903,
+  "closed": {
+    "active": [
+      0,
+      0
+    ],
+    "builds": 4,
+    "connections": 0,
+    "event": "closed",
+    "inherited_sockets": 0,
+    "live_bytes": 75656,
+    "ms": 102.24672199999999,
+    "peak_bytes": 3048607,
+    "retired": 4,
+    "sockets": 0
+  }
+}

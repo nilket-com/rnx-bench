@@ -1,0 +1,897 @@
+{
+  "case": "queued-sql",
+  "signal": "SIGINT",
+  "built_before_signal": 4,
+  "signal_at": 305249.209111684,
+  "shutdown_event": {
+    "active": [
+      4,
+      4
+    ],
+    "event": "shutdown",
+    "ms": 122.303072,
+    "queue": 16
+  },
+  "new_connection_refused": true,
+  "exit_code": 0,
+  "signal_to_exit_ms": 773.2768909772858,
+  "client_owned_socket_report": {
+    "active": [
+      0,
+      0
+    ],
+    "builds": 5,
+    "connections": 0,
+    "event": "closed",
+    "inherited_sockets": 0,
+    "live_bytes": 77669,
+    "ms": 849.745855,
+    "peak_bytes": 5155176,
+    "retired": 5,
+    "sockets": 0
+  },
+  "signal_to_backend_zero_ms": 739.7103229886852,
+  "rows_after": "0",
+  "observer": [
+    {
+      "at": 305249.114256749,
+      "backends": [
+        {
+          "pid": 2203178,
+          "state": "idle",
+          "query": "SELECT pg_backend_pid()"
+        },
+        {
+          "pid": 2203182,
+          "state": "idle",
+          "query": "SELECT pg_backend_pid()"
+        },
+        {
+          "pid": 2203187,
+          "state": "idle",
+          "query": "SELECT pg_backend_pid()"
+        },
+        {
+          "pid": 2203190,
+          "state": "idle",
+          "query": "SELECT pg_backend_pid()"
+        }
+      ]
+    },
+    {
+      "at": 305249.136554376,
+      "backends": [
+        {
+          "pid": 2203178,
+          "state": "active",
+          "query": "INSERT INTO audit(tag) VALUES ($1)"
+        },
+        {
+          "pid": 2203182,
+          "state": "active",
+          "query": "SELECT pg_sleep(120)"
+        },
+        {
+          "pid": 2203187,
+          "state": "active",
+          "query": "SELECT pg_sleep(120)"
+        },
+        {
+          "pid": 2203190,
+          "state": "active",
+          "query": "SELECT pg_sleep(120)"
+        }
+      ]
+    },
+    {
+      "at": 305249.166569011,
+      "backends": [
+        {
+          "pid": 2203178,
+          "state": "active",
+          "query": "SELECT pg_sleep(120)"
+        },
+        {
+          "pid": 2203182,
+          "state": "active",
+          "query": "SELECT pg_sleep(120)"
+        },
+        {
+          "pid": 2203187,
+          "state": "active",
+          "query": "SELECT pg_sleep(120)"
+        },
+        {
+          "pid": 2203190,
+          "state": "active",
+          "query": "SELECT pg_sleep(120)"
+        }
+      ]
+    },
+    {
+      "at": 305249.194819348,
+      "backends": [
+        {
+          "pid": 2203178,
+          "state": "active",
+          "query": "SELECT pg_sleep(120)"
+        },
+        {
+          "pid": 2203182,
+          "state": "active",
+          "query": "SELECT pg_sleep(120)"
+        },
+        {
+          "pid": 2203187,
+          "state": "active",
+          "query": "SELECT pg_sleep(120)"
+        },
+        {
+          "pid": 2203190,
+          "state": "active",
+          "query": "SELECT pg_sleep(120)"
+        }
+      ]
+    },
+    {
+      "at": 305249.223295988,
+      "backends": [
+        {
+          "pid": 2203178,
+          "state": "active",
+          "query": "SELECT pg_sleep(120)"
+        },
+        {
+          "pid": 2203182,
+          "state": "active",
+          "query": "SELECT pg_sleep(120)"
+        },
+        {
+          "pid": 2203187,
+          "state": "active",
+          "query": "SELECT pg_sleep(120)"
+        },
+        {
+          "pid": 2203190,
+          "state": "active",
+          "query": "SELECT pg_sleep(120)"
+        }
+      ]
+    },
+    {
+      "at": 305249.250759895,
+      "backends": [
+        {
+          "pid": 2203178,
+          "state": "active",
+          "query": "SELECT pg_sleep(120)"
+        },
+        {
+          "pid": 2203182,
+          "state": "active",
+          "query": "SELECT pg_sleep(120)"
+        },
+        {
+          "pid": 2203187,
+          "state": "active",
+          "query": "SELECT pg_sleep(120)"
+        },
+        {
+          "pid": 2203190,
+          "state": "active",
+          "query": "SELECT pg_sleep(120)"
+        }
+      ]
+    },
+    {
+      "at": 305249.27965901,
+      "backends": [
+        {
+          "pid": 2203178,
+          "state": "active",
+          "query": "SELECT pg_sleep(120)"
+        },
+        {
+          "pid": 2203182,
+          "state": "active",
+          "query": "SELECT pg_sleep(120)"
+        },
+        {
+          "pid": 2203187,
+          "state": "active",
+          "query": "SELECT pg_sleep(120)"
+        },
+        {
+          "pid": 2203190,
+          "state": "active",
+          "query": "SELECT pg_sleep(120)"
+        }
+      ]
+    },
+    {
+      "at": 305249.309268439,
+      "backends": [
+        {
+          "pid": 2203178,
+          "state": "active",
+          "query": "SELECT pg_sleep(120)"
+        },
+        {
+          "pid": 2203182,
+          "state": "active",
+          "query": "SELECT pg_sleep(120)"
+        },
+        {
+          "pid": 2203187,
+          "state": "active",
+          "query": "SELECT pg_sleep(120)"
+        },
+        {
+          "pid": 2203190,
+          "state": "active",
+          "query": "SELECT pg_sleep(120)"
+        }
+      ]
+    },
+    {
+      "at": 305249.338883784,
+      "backends": [
+        {
+          "pid": 2203178,
+          "state": "active",
+          "query": "SELECT pg_sleep(120)"
+        },
+        {
+          "pid": 2203182,
+          "state": "active",
+          "query": "SELECT pg_sleep(120)"
+        },
+        {
+          "pid": 2203187,
+          "state": "active",
+          "query": "SELECT pg_sleep(120)"
+        },
+        {
+          "pid": 2203190,
+          "state": "active",
+          "query": "SELECT pg_sleep(120)"
+        }
+      ]
+    },
+    {
+      "at": 305249.3666685,
+      "backends": [
+        {
+          "pid": 2203178,
+          "state": "active",
+          "query": "SELECT pg_sleep(120)"
+        },
+        {
+          "pid": 2203182,
+          "state": "active",
+          "query": "SELECT pg_sleep(120)"
+        },
+        {
+          "pid": 2203187,
+          "state": "active",
+          "query": "SELECT pg_sleep(120)"
+        },
+        {
+          "pid": 2203190,
+          "state": "active",
+          "query": "SELECT pg_sleep(120)"
+        }
+      ]
+    },
+    {
+      "at": 305249.394219153,
+      "backends": [
+        {
+          "pid": 2203178,
+          "state": "active",
+          "query": "SELECT pg_sleep(120)"
+        },
+        {
+          "pid": 2203182,
+          "state": "active",
+          "query": "SELECT pg_sleep(120)"
+        },
+        {
+          "pid": 2203187,
+          "state": "active",
+          "query": "SELECT pg_sleep(120)"
+        },
+        {
+          "pid": 2203190,
+          "state": "active",
+          "query": "SELECT pg_sleep(120)"
+        }
+      ]
+    },
+    {
+      "at": 305249.42088006,
+      "backends": [
+        {
+          "pid": 2203178,
+          "state": "active",
+          "query": "SELECT pg_sleep(120)"
+        },
+        {
+          "pid": 2203182,
+          "state": "active",
+          "query": "SELECT pg_sleep(120)"
+        },
+        {
+          "pid": 2203187,
+          "state": "active",
+          "query": "SELECT pg_sleep(120)"
+        },
+        {
+          "pid": 2203190,
+          "state": "active",
+          "query": "SELECT pg_sleep(120)"
+        }
+      ]
+    },
+    {
+      "at": 305249.449359789,
+      "backends": [
+        {
+          "pid": 2203178,
+          "state": "active",
+          "query": "SELECT pg_sleep(120)"
+        },
+        {
+          "pid": 2203182,
+          "state": "active",
+          "query": "SELECT pg_sleep(120)"
+        },
+        {
+          "pid": 2203187,
+          "state": "active",
+          "query": "SELECT pg_sleep(120)"
+        },
+        {
+          "pid": 2203190,
+          "state": "active",
+          "query": "SELECT pg_sleep(120)"
+        }
+      ]
+    },
+    {
+      "at": 305249.476402654,
+      "backends": [
+        {
+          "pid": 2203178,
+          "state": "active",
+          "query": "SELECT pg_sleep(120)"
+        },
+        {
+          "pid": 2203182,
+          "state": "active",
+          "query": "SELECT pg_sleep(120)"
+        },
+        {
+          "pid": 2203187,
+          "state": "active",
+          "query": "SELECT pg_sleep(120)"
+        },
+        {
+          "pid": 2203190,
+          "state": "active",
+          "query": "SELECT pg_sleep(120)"
+        }
+      ]
+    },
+    {
+      "at": 305249.501202388,
+      "backends": [
+        {
+          "pid": 2203178,
+          "state": "active",
+          "query": "SELECT pg_sleep(120)"
+        },
+        {
+          "pid": 2203182,
+          "state": "active",
+          "query": "SELECT pg_sleep(120)"
+        },
+        {
+          "pid": 2203187,
+          "state": "active",
+          "query": "SELECT pg_sleep(120)"
+        },
+        {
+          "pid": 2203190,
+          "state": "active",
+          "query": "SELECT pg_sleep(120)"
+        }
+      ]
+    },
+    {
+      "at": 305249.527568966,
+      "backends": [
+        {
+          "pid": 2203178,
+          "state": "active",
+          "query": "SELECT pg_sleep(120)"
+        },
+        {
+          "pid": 2203182,
+          "state": "active",
+          "query": "SELECT pg_sleep(120)"
+        },
+        {
+          "pid": 2203187,
+          "state": "active",
+          "query": "SELECT pg_sleep(120)"
+        },
+        {
+          "pid": 2203190,
+          "state": "active",
+          "query": "SELECT pg_sleep(120)"
+        }
+      ]
+    },
+    {
+      "at": 305249.555913995,
+      "backends": [
+        {
+          "pid": 2203178,
+          "state": "active",
+          "query": "SELECT pg_sleep(120)"
+        },
+        {
+          "pid": 2203182,
+          "state": "active",
+          "query": "SELECT pg_sleep(120)"
+        },
+        {
+          "pid": 2203187,
+          "state": "active",
+          "query": "SELECT pg_sleep(120)"
+        },
+        {
+          "pid": 2203190,
+          "state": "active",
+          "query": "SELECT pg_sleep(120)"
+        }
+      ]
+    },
+    {
+      "at": 305249.584610315,
+      "backends": [
+        {
+          "pid": 2203178,
+          "state": "active",
+          "query": "SELECT pg_sleep(120)"
+        },
+        {
+          "pid": 2203182,
+          "state": "active",
+          "query": "SELECT pg_sleep(120)"
+        },
+        {
+          "pid": 2203187,
+          "state": "active",
+          "query": "SELECT pg_sleep(120)"
+        },
+        {
+          "pid": 2203190,
+          "state": "active",
+          "query": "SELECT pg_sleep(120)"
+        }
+      ]
+    },
+    {
+      "at": 305249.614179115,
+      "backends": [
+        {
+          "pid": 2203178,
+          "state": "active",
+          "query": "SELECT pg_sleep(120)"
+        },
+        {
+          "pid": 2203182,
+          "state": "active",
+          "query": "SELECT pg_sleep(120)"
+        },
+        {
+          "pid": 2203187,
+          "state": "active",
+          "query": "SELECT pg_sleep(120)"
+        },
+        {
+          "pid": 2203190,
+          "state": "active",
+          "query": "SELECT pg_sleep(120)"
+        }
+      ]
+    },
+    {
+      "at": 305249.643664509,
+      "backends": [
+        {
+          "pid": 2203178,
+          "state": "active",
+          "query": "SELECT pg_sleep(120)"
+        },
+        {
+          "pid": 2203182,
+          "state": "active",
+          "query": "SELECT pg_sleep(120)"
+        },
+        {
+          "pid": 2203187,
+          "state": "active",
+          "query": "SELECT pg_sleep(120)"
+        },
+        {
+          "pid": 2203190,
+          "state": "active",
+          "query": "SELECT pg_sleep(120)"
+        }
+      ]
+    },
+    {
+      "at": 305249.671380049,
+      "backends": [
+        {
+          "pid": 2203178,
+          "state": "active",
+          "query": "SELECT pg_sleep(120)"
+        },
+        {
+          "pid": 2203182,
+          "state": "active",
+          "query": "SELECT pg_sleep(120)"
+        },
+        {
+          "pid": 2203187,
+          "state": "active",
+          "query": "SELECT pg_sleep(120)"
+        },
+        {
+          "pid": 2203190,
+          "state": "active",
+          "query": "SELECT pg_sleep(120)"
+        }
+      ]
+    },
+    {
+      "at": 305249.698576759,
+      "backends": [
+        {
+          "pid": 2203178,
+          "state": "active",
+          "query": "SELECT pg_sleep(120)"
+        },
+        {
+          "pid": 2203182,
+          "state": "active",
+          "query": "SELECT pg_sleep(120)"
+        },
+        {
+          "pid": 2203187,
+          "state": "active",
+          "query": "SELECT pg_sleep(120)"
+        },
+        {
+          "pid": 2203190,
+          "state": "active",
+          "query": "SELECT pg_sleep(120)"
+        }
+      ]
+    },
+    {
+      "at": 305249.726950134,
+      "backends": [
+        {
+          "pid": 2203178,
+          "state": "active",
+          "query": "SELECT pg_sleep(120)"
+        },
+        {
+          "pid": 2203182,
+          "state": "active",
+          "query": "SELECT pg_sleep(120)"
+        },
+        {
+          "pid": 2203187,
+          "state": "active",
+          "query": "SELECT pg_sleep(120)"
+        },
+        {
+          "pid": 2203190,
+          "state": "active",
+          "query": "SELECT pg_sleep(120)"
+        }
+      ]
+    },
+    {
+      "at": 305249.755132533,
+      "backends": [
+        {
+          "pid": 2203178,
+          "state": "active",
+          "query": "SELECT pg_sleep(120)"
+        },
+        {
+          "pid": 2203182,
+          "state": "active",
+          "query": "SELECT pg_sleep(120)"
+        },
+        {
+          "pid": 2203187,
+          "state": "active",
+          "query": "SELECT pg_sleep(120)"
+        },
+        {
+          "pid": 2203190,
+          "state": "active",
+          "query": "SELECT pg_sleep(120)"
+        }
+      ]
+    },
+    {
+      "at": 305249.781475552,
+      "backends": [
+        {
+          "pid": 2203178,
+          "state": "active",
+          "query": "SELECT pg_sleep(120)"
+        },
+        {
+          "pid": 2203182,
+          "state": "active",
+          "query": "SELECT pg_sleep(120)"
+        },
+        {
+          "pid": 2203187,
+          "state": "active",
+          "query": "SELECT pg_sleep(120)"
+        },
+        {
+          "pid": 2203190,
+          "state": "active",
+          "query": "SELECT pg_sleep(120)"
+        }
+      ]
+    },
+    {
+      "at": 305249.809328273,
+      "backends": [
+        {
+          "pid": 2203178,
+          "state": "active",
+          "query": "SELECT pg_sleep(120)"
+        },
+        {
+          "pid": 2203182,
+          "state": "active",
+          "query": "SELECT pg_sleep(120)"
+        },
+        {
+          "pid": 2203187,
+          "state": "active",
+          "query": "SELECT pg_sleep(120)"
+        },
+        {
+          "pid": 2203190,
+          "state": "active",
+          "query": "SELECT pg_sleep(120)"
+        }
+      ]
+    },
+    {
+      "at": 305249.83726488,
+      "backends": [
+        {
+          "pid": 2203178,
+          "state": "active",
+          "query": "SELECT pg_sleep(120)"
+        },
+        {
+          "pid": 2203182,
+          "state": "active",
+          "query": "SELECT pg_sleep(120)"
+        },
+        {
+          "pid": 2203187,
+          "state": "active",
+          "query": "SELECT pg_sleep(120)"
+        },
+        {
+          "pid": 2203190,
+          "state": "active",
+          "query": "SELECT pg_sleep(120)"
+        }
+      ]
+    },
+    {
+      "at": 305249.864764135,
+      "backends": [
+        {
+          "pid": 2203178,
+          "state": "active",
+          "query": "SELECT pg_sleep(120)"
+        },
+        {
+          "pid": 2203182,
+          "state": "active",
+          "query": "SELECT pg_sleep(120)"
+        },
+        {
+          "pid": 2203187,
+          "state": "active",
+          "query": "SELECT pg_sleep(120)"
+        },
+        {
+          "pid": 2203190,
+          "state": "active",
+          "query": "SELECT pg_sleep(120)"
+        }
+      ]
+    },
+    {
+      "at": 305249.893138329,
+      "backends": [
+        {
+          "pid": 2203178,
+          "state": "active",
+          "query": "SELECT pg_sleep(120)"
+        },
+        {
+          "pid": 2203182,
+          "state": "active",
+          "query": "SELECT pg_sleep(120)"
+        },
+        {
+          "pid": 2203187,
+          "state": "active",
+          "query": "SELECT pg_sleep(120)"
+        },
+        {
+          "pid": 2203190,
+          "state": "active",
+          "query": "SELECT pg_sleep(120)"
+        }
+      ]
+    },
+    {
+      "at": 305249.919673224,
+      "backends": [
+        {
+          "pid": 2203178,
+          "state": "active",
+          "query": "SELECT pg_sleep(120)"
+        },
+        {
+          "pid": 2203182,
+          "state": "active",
+          "query": "SELECT pg_sleep(120)"
+        },
+        {
+          "pid": 2203187,
+          "state": "active",
+          "query": "SELECT pg_sleep(120)"
+        },
+        {
+          "pid": 2203190,
+          "state": "active",
+          "query": "SELECT pg_sleep(120)"
+        }
+      ]
+    },
+    {
+      "at": 305249.948822007,
+      "backends": []
+    },
+    {
+      "at": 305249.976619162,
+      "backends": []
+    },
+    {
+      "at": 305250.004518717,
+      "backends": []
+    }
+  ],
+  "http_connections": [
+    {
+      "bytes": 0,
+      "end": "eof"
+    },
+    {
+      "bytes": 0,
+      "end": "eof"
+    },
+    {
+      "bytes": 0,
+      "end": "eof"
+    },
+    {
+      "bytes": 0,
+      "end": "eof"
+    },
+    {
+      "bytes": 0,
+      "end": "eof"
+    },
+    {
+      "bytes": 0,
+      "end": "eof"
+    },
+    {
+      "bytes": 0,
+      "end": "eof"
+    },
+    {
+      "bytes": 0,
+      "end": "eof"
+    },
+    {
+      "bytes": 0,
+      "end": "eof"
+    },
+    {
+      "bytes": 0,
+      "end": "eof"
+    },
+    {
+      "bytes": 0,
+      "end": "eof"
+    },
+    {
+      "bytes": 0,
+      "end": "eof"
+    },
+    {
+      "bytes": 0,
+      "end": "eof"
+    },
+    {
+      "bytes": 0,
+      "end": "eof"
+    },
+    {
+      "bytes": 0,
+      "end": "eof"
+    },
+    {
+      "bytes": 0,
+      "end": "eof"
+    },
+    {
+      "bytes": 0,
+      "end": "eof"
+    },
+    {
+      "bytes": 0,
+      "end": "eof"
+    },
+    {
+      "bytes": 0,
+      "end": "eof"
+    },
+    {
+      "bytes": 0,
+      "end": "eof"
+    },
+    {
+      "bytes": 0,
+      "end": "eof"
+    },
+    {
+      "bytes": 0,
+      "end": "eof"
+    },
+    {
+      "bytes": 0,
+      "end": "eof"
+    },
+    {
+      "bytes": 0,
+      "end": "eof"
+    }
+  ]
+}

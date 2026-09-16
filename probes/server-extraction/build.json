@@ -1,0 +1,52 @@
+{
+  "root_base": "1aa600ead63ba35fdb76fe17f810ef556e4829b8",
+  "bench_base": "181a444c53b43f53b8e5affc5a4fff1f36185b43",
+  "commands": [
+    [
+      "build",
+      "--locked",
+      "--offline",
+      "--release",
+      "--features",
+      "test-support"
+    ],
+    [
+      "build",
+      "--locked",
+      "--offline",
+      "--release",
+      "--target-dir",
+      "target/plain"
+    ]
+  ],
+  "binaries": {
+    "test-support": {
+      "path": "/home/me/work/rnx/servers/http-postgres/target/release/rnx-http-postgres",
+      "sha256": "3bddd776c7508ce3d67fe0128e72312eb79a5ac3202b0d98140ab51c09aecaf2",
+      "bytes": 16294376
+    },
+    "default": {
+      "path": "/home/me/work/rnx/servers/http-postgres/target/plain/release/rnx-http-postgres",
+      "sha256": "259e8b0b0f4de7a5570bb5d467c8c22875f5d5d44865b1d3c896e0beb4874076",
+      "bytes": 16277720
+    }
+  },
+  "files": {
+    "Cargo.toml": "a8c7cc8ee9513a62c90a9c4ddc5e8b3007cf3ca75d7419bf7afe8155ef8a04a3",
+    "Cargo.lock": "eac67427f60c951197d7fc0f301797e7cf51959a788d412adfbf5155ff15f47c",
+    "dependency-graph.json": "9b30206f112d3adad7ac54a36778e2120c2a83759f72b7dc9f31eafa9647be44",
+    "THIRD-PARTY-NOTICES.md": "3529aa6cc402f6168a00ad29f2ab1e4e775a3855e06d6d7988e080d7c48b58c6",
+    "src/main.rs": "9ed95ec8269048c91ad533ac712f865aa22e7972db56046348707c4fe8018f08",
+    "src/memory.rs": "1cecb5bfb0232b3e742f71aea4b1c0b3fe4fec2faccffc092ad487666824a2d2",
+    "src/pool.rs": "ac435f78678da2e4435d3ded30b3cbe108d3a534cfe6dbe43e3387f61f1c9ddb",
+    "examples/app.rn": "8868a951ace7043c404218d4ed4aefd744201cdfbb5836d7c797f0687e5914d4",
+    "examples/fixture.rn": "2186ecfa8adbe9f0a995293812fa003aba38ce4abc8067f160ad6efb8f715be1"
+  },
+  "rustc": "cargo 1.98.1 (797e8a9bc 2026-08-05)\n\nrustc 1.98.1 (48a229cea 2026-09-01)\nbinary: rustc\ncommit-hash: 48a229ceaefd4985c50990b14116b6d856af0985\ncommit-date: 2026-09-01\nhost: x86_64-unknown-linux-gnu\nrelease: 1.98.1\nLLVM version: 22.1.8\n",
+  "root_unchanged_files": {
+    "Cargo.toml": "04e9f5c357d2d0cefcd31b7e6a25517be571b47824b7aa48dfafa99efa4537e5",
+    "Cargo.lock": "9991a3df21fd96a6e7cb400ff1a71ce236fc62fc0d6bd1d5b6d953aad06ca115",
+    "THIRD-PARTY-NOTICES.md": "b8646e797e931e7e5f1d4c759146d398f55069c968953afe63c795f8a48a0dec"
+  },
+  "implementation_commit": "3f8f6af3f162b8a0177b875e065ed2cfccd01567"
+}

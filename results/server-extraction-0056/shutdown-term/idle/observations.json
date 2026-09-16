@@ -1,0 +1,71 @@
+{
+  "case": "idle",
+  "signal": "SIGTERM",
+  "built_before_signal": 0,
+  "signal_at": 305248.338010623,
+  "shutdown_event": {
+    "active": [
+      0,
+      0
+    ],
+    "event": "shutdown",
+    "ms": 43.597912,
+    "queue": 0
+  },
+  "new_connection_refused": true,
+  "exit_code": 0,
+  "signal_to_exit_ms": 8.286272000987083,
+  "client_owned_socket_report": {
+    "active": [
+      0,
+      0
+    ],
+    "builds": 1,
+    "connections": 0,
+    "event": "closed",
+    "inherited_sockets": 0,
+    "live_bytes": 74784,
+    "ms": 47.353616,
+    "peak_bytes": 211221,
+    "retired": 1,
+    "sockets": 0
+  },
+  "signal_to_backend_zero_ms": 25.642831984441727,
+  "rows_after": "0",
+  "observer": [
+    {
+      "at": 305248.336090014,
+      "backends": [
+        {
+          "pid": 2202892,
+          "state": "idle",
+          "query": "SELECT pg_backend_pid()"
+        },
+        {
+          "pid": 2202896,
+          "state": "idle",
+          "query": "SELECT pg_backend_pid()"
+        },
+        {
+          "pid": 2202899,
+          "state": "idle",
+          "query": "SELECT pg_backend_pid()"
+        },
+        {
+          "pid": 2202902,
+          "state": "idle",
+          "query": "SELECT pg_backend_pid()"
+        }
+      ]
+    },
+    {
+      "at": 305248.363653455,
+      "backends": []
+    },
+    {
+      "at": 305248.390508132,
+      "backends": []
+    }
+  ],
+  "http_connections": []
+}

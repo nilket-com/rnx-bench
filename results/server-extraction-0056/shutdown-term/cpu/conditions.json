@@ -1,0 +1,73 @@
+{
+  "extracted_binary": "/home/me/work/rnx/servers/http-postgres/target/release/rnx-http-postgres",
+  "binary_sha256": "3bddd776c7508ce3d67fe0128e72312eb79a5ac3202b0d98140ab51c09aecaf2",
+  "program": "/home/me/work/rnx/servers/http-postgres/examples/fixture.rn",
+  "program_sha256": "2186ecfa8adbe9f0a995293812fa003aba38ce4abc8067f160ad6efb8f715be1",
+  "prototype_reference": {
+    "root": "032579a22ec615d510b7d326a285361c06c55e4f",
+    "pool_sha256": "5e5c8903af4e0101bc132c1fffcef11babd19289dd469ba40175807fd89bc7fc",
+    "hyper_sources": {
+      "src/server/conn/http1.rs": "9933dd08dc874732756fa29c0c8b1c60399dd05337a07e7d80711fe89fb5a06c",
+      "src/proto/h1/decode.rs": "6142b77435d19da5adc3714f83633496147d775e5bc69e8798bc611e3236a92d",
+      "src/proto/h1/io.rs": "cac4d3cb97e48fa1ba3ee9ca5901a7ff9eaa178693af3df6f2e8dc991ca7f344"
+    },
+    "builder_sha256": "06901c99f3e465e2402a7a5b603c33bacc774e5cb0b7b4fd4f00a6ec94f1360d",
+    "graph_sha256": "115a9cdbf880e737e39446cca31f414c46c2435d0f2499d7694823b1c0c45df8",
+    "binary": "/home/me/work/rnx-bench/probes/server-shutdown/target/release/deps/rnx-4c7298d47f6e156d",
+    "binary_sha256": "aad6ad323b09f9837d9b2f2ef17d0d9307a8749b12110064a0298e1d155d7a4f",
+    "probe_sha256": "a0f1cd9a613b945d22371bcf0a6431869c9a66642d64fce65dc6fbd86e86a1c6",
+    "lock_sha256": "8fa4c167eba2107b2e4940a0ea6829d6480fc5ef4914b12d552dbc7423ac8264",
+    "rustc": "rustc 1.98.1 (48a229cea 2026-09-01)\nbinary: rustc\ncommit-hash: 48a229ceaefd4985c50990b14116b6d856af0985\ncommit-date: 2026-09-01\nhost: x86_64-unknown-linux-gnu\nrelease: 1.98.1\nLLVM version: 22.1.8\n",
+    "manifest": "[package]\nname = \"rnx\"\n# 0.0.0 is not a placeholder: record 0026 keeps it there until record 0001's\n# release gates pass, so a number never says more than the ladder has shown.\nversion = \"0.0.0\"\nedition = \"2024\"\n# The toolchain rnx is built and tested with, not a floor that has been found.\n# 1.88 is measured to fail \u2014 in `rustyline`, on the unstable `file_lock` \u2014 and\n# nothing between 1.89 and 1.94 has a toolchain here to try.\n#\n# Rune states its own minimum as 1.88 from 0.14.2 (`lib.rs`, raised from 1.87),\n# which is a floor for one dependency and not for rnx: what has to compile is\n# the whole set, and that is what fails at 1.88.\nrust-version = \"1.95\"\ndescription = \"A scripting environment for Rune: a file runner, an expression evaluator, and an interactive session, on upstream Rune with no compiler fork.\"\nrepository = \"https://github.com/nilket-com/rnx\"\nreadme = \"README.md\"\nkeywords = [\"rune\", \"scripting\", \"repl\", \"interpreter\", \"cli\"]\ncategories = [\"command-line-utilities\", \"development-tools\"]\n# What a user of the crate needs, and nothing else: the records are the\n# project's reasoning rather than its product, and `journey.rn` needs a\n# program from another repository to run at all.\nexclude = [\"plans/\", \"evidence.md\", \"journey.rn\"]\n# Two independent guards, and both stay until record 0001's decision 7 is\n# settled: this says no, and the absent `license` field means crates.io would\n# refuse it anyway.\npublish = false\n\n# Deliberately independent of the product workspace and its editor/GUI hosts.\n[workspace]\n\n[features]\ndefault = [\"count-allocations\"]\n# Allocation accounting. Without it no ceiling is enforced and no figure is\n# reported; the build says so rather than reporting zero.\ncount-allocations = []\n# Only for gates that must inject what cannot be provoked. Off by default, and\n# nothing in an ordinary build reads it: record 0022 explains why the\n# delivery's failure path needs one.\ntest-support = []\n\n[dependencies]\nrune = { version = \"=0.14.2\", default-features = false, features = [\"std\"] }\nserde_json = \"1.0.149\"\njiff = { version = \"=0.2.24\", default-features = false, features = [\"std\", \"tz-system\", \"tzdb-zoneinfo\"] }\nlibc = \"0.2.177\"\nrustyline = { version = \"18.0.1\", features = [\"derive\"] }\nunicode-width = \"0.2.2\"\n# The same identifier boundaries Rune uses, including combining marks.\nunicode-ident = \"1\"\n# Record 0034 adds networking to the current-thread execution runtime.\ntokio = { version = \"1\", default-features = false, features = [\"rt\", \"time\", \"net\"] }\nreqwest = { version = \"=0.12.28\", default-features = false, features = [\"rustls-tls\", \"gzip\"] }\n\n[profile.dev]\ndebug = false\n\n[profile.dev.package.\"*\"]\nopt-level = 2\n\n[dev-dependencies]\ntokio-postgres = \"=0.7.18\"\nhyper = { version = \"=1.11.1\", default-features = false, features = [\"server\", \"http1\"] }\nhyper-util = { version = \"=0.1.20\", default-features = false, features = [\"tokio\"] }\nhttp-body-util = \"=0.1.5\"\nbytes = \"1\"\ntokio = { version = \"1\", default-features = false, features = [\"rt\", \"time\", \"net\", \"sync\", \"macros\"] }\n\nflate2 = \"1\"\nrustls = { version = \"0.23\", default-features = false, features = [\"ring\", \"std\", \"tls12\"] }\nunicode-width = \"0.2.2\"\n\n[target.\"cfg(windows)\".dependencies]\njiff = { version = \"=0.2.24\", default-features = false, features = [\"std\", \"tz-system\", \"tzdb-zoneinfo\", \"tzdb-bundle-platform\"] }\nwindows-sys = { version = \"0.61.2\", features = [\"Win32_Foundation\", \"Win32_System_JobObjects\", \"Win32_System_Threading\", \"Win32_System_Console\", \"Win32_System_Pipes\", \"Win32_System_IO\", \"Win32_System_Diagnostics_ToolHelp\", \"Win32_Storage_FileSystem\", \"Wdk_Storage_FileSystem\"] }\n",
+    "command": [
+      "cargo",
+      "test",
+      "--release",
+      "--features",
+      "test-support",
+      "--lib",
+      "--no-run",
+      "--message-format=json",
+      "--offline",
+      "--locked"
+    ]
+  },
+  "wire_sha256": "d5c40728210745617f5d6144ad2d518bcd48ec8de624ff8788063a972268e854",
+  "sample_interval_ms": 10,
+  "small_send_buffer_bytes": null,
+  "extra_env": {
+    "RNX_POOL_URL": "postgresql:///postgres?host=/tmp/rnx-pg-contract-8kj3376z/shutdown-cpu"
+  },
+  "cpu_affinity": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10,
+    11,
+    12,
+    13,
+    14,
+    15,
+    16,
+    17,
+    18,
+    19,
+    20,
+    21,
+    22,
+    23,
+    24,
+    25,
+    26,
+    27
+  ],
+  "kernel": "7.0.0-31-generic",
+  "signal": "SIGTERM"
+}

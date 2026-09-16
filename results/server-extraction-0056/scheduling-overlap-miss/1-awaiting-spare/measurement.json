@@ -1,0 +1,54 @@
+{
+  "case": "awaiting-spare",
+  "sample": 1,
+  "healthy_ms": 6.572275,
+  "healthy_queue_ms": 0.046157000000004444,
+  "healthy_dispatch_to_vm_ms": 5.847351999999997,
+  "healthy_build_ms": 5.727267,
+  "build_total_ms": 9.456381,
+  "assertions": [
+    "healthy finishes during awaited slow request on spare worker"
+  ],
+  "requests": [
+    {
+      "tag": "slow",
+      "status": 200,
+      "client_ms": 255.567004,
+      "start_ns": 305650664549873,
+      "end_ns": 305650920116877,
+      "id": 1,
+      "worker": 0,
+      "queue_ms": 0.04370999999999903,
+      "dispatch_to_vm_ms": 3.830831,
+      "build_ms": 3.729114
+    },
+    {
+      "tag": "healthy",
+      "status": 200,
+      "client_ms": 6.572275,
+      "start_ns": 305650669958127,
+      "end_ns": 305650676530402,
+      "id": 2,
+      "worker": 1,
+      "queue_ms": 0.046157000000004444,
+      "dispatch_to_vm_ms": 5.847351999999997,
+      "build_ms": 5.727267
+    }
+  ],
+  "peak_increase_bytes": 2838253,
+  "closed": {
+    "active": [
+      0,
+      0
+    ],
+    "builds": 3,
+    "connections": 0,
+    "event": "closed",
+    "inherited_sockets": 0,
+    "live_bytes": 75657,
+    "ms": 272.606684,
+    "peak_bytes": 3048958,
+    "retired": 3,
+    "sockets": 0
+  }
+}

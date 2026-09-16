@@ -1,0 +1,731 @@
+{
+  "case": "commit-deadline",
+  "signal": "SIGINT",
+  "visible_at_barrier": "1",
+  "built_before_signal": 1,
+  "signal_at": 305251.883421651,
+  "shutdown_event": {
+    "active": [
+      1,
+      0
+    ],
+    "event": "shutdown",
+    "ms": 60.695359999999994,
+    "queue": 0
+  },
+  "new_connection_refused": true,
+  "completion_failure": {
+    "category": "ambiguous commit; no retry",
+    "detail": "cleanup deadline",
+    "event": "tx_finish_error",
+    "id": 1,
+    "ms": 1247.24094,
+    "pid": 2203750,
+    "sqlstate": null
+  },
+  "exit_code": 0,
+  "signal_to_exit_ms": 1205.2616370492615,
+  "client_owned_socket_report": {
+    "active": [
+      0,
+      0
+    ],
+    "builds": 2,
+    "connections": 0,
+    "event": "closed",
+    "inherited_sockets": 0,
+    "live_bytes": 75658,
+    "ms": 1257.256438,
+    "peak_bytes": 2503630,
+    "retired": 2,
+    "sockets": 0
+  },
+  "signal_to_backend_zero_ms": 1200.3703780355863,
+  "rows_after": "1",
+  "observer": [
+    {
+      "at": 305251.85882077,
+      "backends": [
+        {
+          "pid": 2203744,
+          "state": "idle",
+          "query": "SELECT pg_backend_pid()"
+        },
+        {
+          "pid": 2203747,
+          "state": "idle",
+          "query": "SELECT pg_backend_pid()"
+        },
+        {
+          "pid": 2203750,
+          "state": "idle",
+          "query": "SELECT pg_backend_pid()"
+        },
+        {
+          "pid": 2203753,
+          "state": "idle",
+          "query": "SELECT pg_backend_pid()"
+        }
+      ]
+    },
+    {
+      "at": 305251.888673491,
+      "backends": [
+        {
+          "pid": 2203744,
+          "state": "idle",
+          "query": "SELECT pg_backend_pid()"
+        },
+        {
+          "pid": 2203750,
+          "state": "idle",
+          "query": "COMMIT"
+        }
+      ]
+    },
+    {
+      "at": 305251.918296229,
+      "backends": [
+        {
+          "pid": 2203744,
+          "state": "idle",
+          "query": "SELECT pg_backend_pid()"
+        },
+        {
+          "pid": 2203750,
+          "state": "idle",
+          "query": "COMMIT"
+        }
+      ]
+    },
+    {
+      "at": 305251.947054608,
+      "backends": [
+        {
+          "pid": 2203744,
+          "state": "idle",
+          "query": "SELECT pg_backend_pid()"
+        },
+        {
+          "pid": 2203750,
+          "state": "idle",
+          "query": "COMMIT"
+        }
+      ]
+    },
+    {
+      "at": 305251.974484339,
+      "backends": [
+        {
+          "pid": 2203744,
+          "state": "idle",
+          "query": "SELECT pg_backend_pid()"
+        },
+        {
+          "pid": 2203750,
+          "state": "idle",
+          "query": "COMMIT"
+        }
+      ]
+    },
+    {
+      "at": 305252.00254563,
+      "backends": [
+        {
+          "pid": 2203744,
+          "state": "idle",
+          "query": "SELECT pg_backend_pid()"
+        },
+        {
+          "pid": 2203750,
+          "state": "idle",
+          "query": "COMMIT"
+        }
+      ]
+    },
+    {
+      "at": 305252.02962195,
+      "backends": [
+        {
+          "pid": 2203744,
+          "state": "idle",
+          "query": "SELECT pg_backend_pid()"
+        },
+        {
+          "pid": 2203750,
+          "state": "idle",
+          "query": "COMMIT"
+        }
+      ]
+    },
+    {
+      "at": 305252.057752867,
+      "backends": [
+        {
+          "pid": 2203744,
+          "state": "idle",
+          "query": "SELECT pg_backend_pid()"
+        },
+        {
+          "pid": 2203750,
+          "state": "idle",
+          "query": "COMMIT"
+        }
+      ]
+    },
+    {
+      "at": 305252.086041937,
+      "backends": [
+        {
+          "pid": 2203744,
+          "state": "idle",
+          "query": "SELECT pg_backend_pid()"
+        },
+        {
+          "pid": 2203750,
+          "state": "idle",
+          "query": "COMMIT"
+        }
+      ]
+    },
+    {
+      "at": 305252.11174887,
+      "backends": [
+        {
+          "pid": 2203744,
+          "state": "idle",
+          "query": "SELECT pg_backend_pid()"
+        },
+        {
+          "pid": 2203750,
+          "state": "idle",
+          "query": "COMMIT"
+        }
+      ]
+    },
+    {
+      "at": 305252.14015062,
+      "backends": [
+        {
+          "pid": 2203744,
+          "state": "idle",
+          "query": "SELECT pg_backend_pid()"
+        },
+        {
+          "pid": 2203750,
+          "state": "idle",
+          "query": "COMMIT"
+        }
+      ]
+    },
+    {
+      "at": 305252.168895953,
+      "backends": [
+        {
+          "pid": 2203744,
+          "state": "idle",
+          "query": "SELECT pg_backend_pid()"
+        },
+        {
+          "pid": 2203750,
+          "state": "idle",
+          "query": "COMMIT"
+        }
+      ]
+    },
+    {
+      "at": 305252.196604317,
+      "backends": [
+        {
+          "pid": 2203744,
+          "state": "idle",
+          "query": "SELECT pg_backend_pid()"
+        },
+        {
+          "pid": 2203750,
+          "state": "idle",
+          "query": "COMMIT"
+        }
+      ]
+    },
+    {
+      "at": 305252.224758444,
+      "backends": [
+        {
+          "pid": 2203744,
+          "state": "idle",
+          "query": "SELECT pg_backend_pid()"
+        },
+        {
+          "pid": 2203750,
+          "state": "idle",
+          "query": "COMMIT"
+        }
+      ]
+    },
+    {
+      "at": 305252.252258258,
+      "backends": [
+        {
+          "pid": 2203744,
+          "state": "idle",
+          "query": "SELECT pg_backend_pid()"
+        },
+        {
+          "pid": 2203750,
+          "state": "idle",
+          "query": "COMMIT"
+        }
+      ]
+    },
+    {
+      "at": 305252.28172711,
+      "backends": [
+        {
+          "pid": 2203744,
+          "state": "idle",
+          "query": "SELECT pg_backend_pid()"
+        },
+        {
+          "pid": 2203750,
+          "state": "idle",
+          "query": "COMMIT"
+        }
+      ]
+    },
+    {
+      "at": 305252.309174888,
+      "backends": [
+        {
+          "pid": 2203744,
+          "state": "idle",
+          "query": "SELECT pg_backend_pid()"
+        },
+        {
+          "pid": 2203750,
+          "state": "idle",
+          "query": "COMMIT"
+        }
+      ]
+    },
+    {
+      "at": 305252.33611729,
+      "backends": [
+        {
+          "pid": 2203744,
+          "state": "idle",
+          "query": "SELECT pg_backend_pid()"
+        },
+        {
+          "pid": 2203750,
+          "state": "idle",
+          "query": "COMMIT"
+        }
+      ]
+    },
+    {
+      "at": 305252.363749363,
+      "backends": [
+        {
+          "pid": 2203744,
+          "state": "idle",
+          "query": "SELECT pg_backend_pid()"
+        },
+        {
+          "pid": 2203750,
+          "state": "idle",
+          "query": "COMMIT"
+        }
+      ]
+    },
+    {
+      "at": 305252.392535784,
+      "backends": [
+        {
+          "pid": 2203744,
+          "state": "idle",
+          "query": "SELECT pg_backend_pid()"
+        },
+        {
+          "pid": 2203750,
+          "state": "idle",
+          "query": "COMMIT"
+        }
+      ]
+    },
+    {
+      "at": 305252.419726886,
+      "backends": [
+        {
+          "pid": 2203744,
+          "state": "idle",
+          "query": "SELECT pg_backend_pid()"
+        },
+        {
+          "pid": 2203750,
+          "state": "idle",
+          "query": "COMMIT"
+        }
+      ]
+    },
+    {
+      "at": 305252.448767097,
+      "backends": [
+        {
+          "pid": 2203744,
+          "state": "idle",
+          "query": "SELECT pg_backend_pid()"
+        },
+        {
+          "pid": 2203750,
+          "state": "idle",
+          "query": "COMMIT"
+        }
+      ]
+    },
+    {
+      "at": 305252.47581909,
+      "backends": [
+        {
+          "pid": 2203744,
+          "state": "idle",
+          "query": "SELECT pg_backend_pid()"
+        },
+        {
+          "pid": 2203750,
+          "state": "idle",
+          "query": "COMMIT"
+        }
+      ]
+    },
+    {
+      "at": 305252.504023155,
+      "backends": [
+        {
+          "pid": 2203744,
+          "state": "idle",
+          "query": "SELECT pg_backend_pid()"
+        },
+        {
+          "pid": 2203750,
+          "state": "idle",
+          "query": "COMMIT"
+        }
+      ]
+    },
+    {
+      "at": 305252.531761595,
+      "backends": [
+        {
+          "pid": 2203744,
+          "state": "idle",
+          "query": "SELECT pg_backend_pid()"
+        },
+        {
+          "pid": 2203750,
+          "state": "idle",
+          "query": "COMMIT"
+        }
+      ]
+    },
+    {
+      "at": 305252.559210573,
+      "backends": [
+        {
+          "pid": 2203744,
+          "state": "idle",
+          "query": "SELECT pg_backend_pid()"
+        },
+        {
+          "pid": 2203750,
+          "state": "idle",
+          "query": "COMMIT"
+        }
+      ]
+    },
+    {
+      "at": 305252.587240094,
+      "backends": [
+        {
+          "pid": 2203744,
+          "state": "idle",
+          "query": "SELECT pg_backend_pid()"
+        },
+        {
+          "pid": 2203750,
+          "state": "idle",
+          "query": "COMMIT"
+        }
+      ]
+    },
+    {
+      "at": 305252.614332801,
+      "backends": [
+        {
+          "pid": 2203744,
+          "state": "idle",
+          "query": "SELECT pg_backend_pid()"
+        },
+        {
+          "pid": 2203750,
+          "state": "idle",
+          "query": "COMMIT"
+        }
+      ]
+    },
+    {
+      "at": 305252.641689804,
+      "backends": [
+        {
+          "pid": 2203744,
+          "state": "idle",
+          "query": "SELECT pg_backend_pid()"
+        },
+        {
+          "pid": 2203750,
+          "state": "idle",
+          "query": "COMMIT"
+        }
+      ]
+    },
+    {
+      "at": 305252.670237311,
+      "backends": [
+        {
+          "pid": 2203744,
+          "state": "idle",
+          "query": "SELECT pg_backend_pid()"
+        },
+        {
+          "pid": 2203750,
+          "state": "idle",
+          "query": "COMMIT"
+        }
+      ]
+    },
+    {
+      "at": 305252.698636031,
+      "backends": [
+        {
+          "pid": 2203744,
+          "state": "idle",
+          "query": "SELECT pg_backend_pid()"
+        },
+        {
+          "pid": 2203750,
+          "state": "idle",
+          "query": "COMMIT"
+        }
+      ]
+    },
+    {
+      "at": 305252.725619328,
+      "backends": [
+        {
+          "pid": 2203744,
+          "state": "idle",
+          "query": "SELECT pg_backend_pid()"
+        },
+        {
+          "pid": 2203750,
+          "state": "idle",
+          "query": "COMMIT"
+        }
+      ]
+    },
+    {
+      "at": 305252.754759467,
+      "backends": [
+        {
+          "pid": 2203744,
+          "state": "idle",
+          "query": "SELECT pg_backend_pid()"
+        },
+        {
+          "pid": 2203750,
+          "state": "idle",
+          "query": "COMMIT"
+        }
+      ]
+    },
+    {
+      "at": 305252.783286917,
+      "backends": [
+        {
+          "pid": 2203744,
+          "state": "idle",
+          "query": "SELECT pg_backend_pid()"
+        },
+        {
+          "pid": 2203750,
+          "state": "idle",
+          "query": "COMMIT"
+        }
+      ]
+    },
+    {
+      "at": 305252.812412702,
+      "backends": [
+        {
+          "pid": 2203744,
+          "state": "idle",
+          "query": "SELECT pg_backend_pid()"
+        },
+        {
+          "pid": 2203750,
+          "state": "idle",
+          "query": "COMMIT"
+        }
+      ]
+    },
+    {
+      "at": 305252.836291076,
+      "backends": [
+        {
+          "pid": 2203744,
+          "state": "idle",
+          "query": "SELECT pg_backend_pid()"
+        },
+        {
+          "pid": 2203750,
+          "state": "idle",
+          "query": "COMMIT"
+        }
+      ]
+    },
+    {
+      "at": 305252.864687263,
+      "backends": [
+        {
+          "pid": 2203744,
+          "state": "idle",
+          "query": "SELECT pg_backend_pid()"
+        },
+        {
+          "pid": 2203750,
+          "state": "idle",
+          "query": "COMMIT"
+        }
+      ]
+    },
+    {
+      "at": 305252.892964926,
+      "backends": [
+        {
+          "pid": 2203744,
+          "state": "idle",
+          "query": "SELECT pg_backend_pid()"
+        },
+        {
+          "pid": 2203750,
+          "state": "idle",
+          "query": "COMMIT"
+        }
+      ]
+    },
+    {
+      "at": 305252.920839739,
+      "backends": [
+        {
+          "pid": 2203744,
+          "state": "idle",
+          "query": "SELECT pg_backend_pid()"
+        },
+        {
+          "pid": 2203750,
+          "state": "idle",
+          "query": "COMMIT"
+        }
+      ]
+    },
+    {
+      "at": 305252.948914223,
+      "backends": [
+        {
+          "pid": 2203744,
+          "state": "idle",
+          "query": "SELECT pg_backend_pid()"
+        },
+        {
+          "pid": 2203750,
+          "state": "idle",
+          "query": "COMMIT"
+        }
+      ]
+    },
+    {
+      "at": 305252.976693202,
+      "backends": [
+        {
+          "pid": 2203744,
+          "state": "idle",
+          "query": "SELECT pg_backend_pid()"
+        },
+        {
+          "pid": 2203750,
+          "state": "idle",
+          "query": "COMMIT"
+        }
+      ]
+    },
+    {
+      "at": 305252.998930779,
+      "backends": [
+        {
+          "pid": 2203744,
+          "state": "idle",
+          "query": "SELECT pg_backend_pid()"
+        },
+        {
+          "pid": 2203750,
+          "state": "idle",
+          "query": "COMMIT"
+        }
+      ]
+    },
+    {
+      "at": 305253.025309125,
+      "backends": [
+        {
+          "pid": 2203744,
+          "state": "idle",
+          "query": "SELECT pg_backend_pid()"
+        },
+        {
+          "pid": 2203750,
+          "state": "idle",
+          "query": "COMMIT"
+        }
+      ]
+    },
+    {
+      "at": 305253.054279527,
+      "backends": [
+        {
+          "pid": 2203744,
+          "state": "idle",
+          "query": "SELECT pg_backend_pid()"
+        },
+        {
+          "pid": 2203750,
+          "state": "idle",
+          "query": "COMMIT"
+        }
+      ]
+    },
+    {
+      "at": 305253.083792029,
+      "backends": []
+    },
+    {
+      "at": 305253.111013155,
+      "backends": []
+    }
+  ],
+  "http_connections": [
+    {
+      "bytes": 0,
+      "end": "eof"
+    }
+  ]
+}

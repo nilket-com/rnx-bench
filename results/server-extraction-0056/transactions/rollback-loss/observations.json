@@ -1,0 +1,96 @@
+{
+  "case": "rollback-loss",
+  "idle_before": {
+    "backend_pids": [
+      2205291,
+      2205294,
+      2205297,
+      2205300
+    ],
+    "driver_tasks": 4,
+    "handler_leases": 0
+  },
+  "visible_while_unacknowledged": "0",
+  "barrier": {
+    "at": 305259.414201444,
+    "event": "withheld",
+    "pid": 2205297,
+    "command": "ROLLBACK",
+    "first_type": "3"
+  },
+  "status": 500,
+  "failure": {
+    "category": "rollback unacknowledged; retired",
+    "detail": "connection closed",
+    "event": "tx_finish_error",
+    "id": 1,
+    "ms": 126.125659,
+    "pid": 2205297,
+    "sqlstate": null
+  },
+  "original_pid": 2205297,
+  "next_pid": 2205328,
+  "idle_after": [
+    {
+      "drivers": 2,
+      "event": "pool_state",
+      "idle": 2,
+      "leases": 0,
+      "ms": 159.2003,
+      "runtime_tasks": 2,
+      "worker": 1
+    },
+    {
+      "drivers": 2,
+      "event": "pool_state",
+      "idle": 2,
+      "leases": 0,
+      "ms": 173.226969,
+      "runtime_tasks": 2,
+      "worker": 0
+    }
+  ],
+  "idle_socket_descriptors": [
+    [
+      13,
+      "socket:[3939359]"
+    ],
+    [
+      14,
+      "socket:[3932525]"
+    ],
+    [
+      15,
+      "socket:[3934488]"
+    ],
+    [
+      16,
+      "socket:[3938328]"
+    ],
+    [
+      17,
+      "socket:[3933495]"
+    ]
+  ],
+  "pool_closed": [
+    {
+      "drivers": 0,
+      "event": "pool_closed",
+      "idle": 0,
+      "leases": 0,
+      "ms": 238.179506,
+      "runtime_tasks": 0,
+      "worker": 1
+    },
+    {
+      "drivers": 0,
+      "event": "pool_closed",
+      "idle": 0,
+      "leases": 0,
+      "ms": 238.575482,
+      "runtime_tasks": 0,
+      "worker": 0
+    }
+  ],
+  "backend_count_after": 0
+}

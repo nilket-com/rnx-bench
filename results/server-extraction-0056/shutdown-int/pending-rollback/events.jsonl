@@ -1,0 +1,35 @@
+{"descriptors":[],"event":"socket_baseline","ms":0.015962}
+{"event":"pool_connect","ms":13.887896,"pid":2203368,"worker":1}
+{"event":"pool_connect","ms":14.091905,"pid":2203371,"worker":0}
+{"event":"pool_connect","ms":18.483106999999997,"pid":2203374,"worker":1}
+{"drivers":2,"event":"pool_ready","idle":2,"leases":0,"ms":18.566645,"runtime_tasks":2,"worker":1}
+{"event":"pool_connect","ms":19.684276,"pid":2203376,"worker":0}
+{"drivers":2,"event":"pool_ready","idle":2,"leases":0,"ms":19.804261,"runtime_tasks":2,"worker":0}
+{"address":"127.0.0.1:43669","event":"ready","live_bytes":210999,"ms":20.014843000000003,"pid":2203361}
+{"event":"request","id":1,"ms":36.402734,"path":"/db","tag":null}
+{"active":[1,0],"event":"dispatch","id":1,"ms":36.501625000000004,"queue":0,"worker":0}
+{"active":[1,0],"event":"admitted","id":1,"ms":36.603901,"path":null,"queue":0}
+{"event":"lease","id":1,"ms":36.813841,"pid":2203376,"worker":0}
+{"build_ms":12.17536,"event":"built","id":1,"ms":48.815005,"worker":0}
+{"event":"vm_start","id":1,"ms":48.893884,"worker":0}
+{"event":"db_write","id":1,"mode":"fail","ms":49.839383}
+{"event":"fault","id":1,"ms":49.995224,"origin":{"category":"vm","excerpt":"        if request.query == \"fail\" { panic(\"transaction handler failed\"); }","position":[4,38],"source":"/home/me/work/rnx/servers/http-postgres/examples/fixture.rn"}}
+{"event":"handler_error","id":1,"message":"Panicked: transaction handler failed","ms":50.191398}
+{"command":"ROLLBACK","event":"tx_finish_start","id":1,"ms":50.974785000000004,"pid":2203376}
+{"active":[1,0],"event":"shutdown","ms":65.866061,"queue":0}
+{"event":"queued_shutdown","ids":[],"ms":65.953561}
+{"drivers":2,"event":"pool_closing","idle":2,"leases":0,"ms":66.034122,"runtime_tasks":2,"worker":1}
+{"event":"request_cancel_signal","id":1,"ms":66.058544}
+{"driver_error":null,"drivers":1,"event":"pool_retire","id":0,"ms":66.206373,"pid":2203368,"reason":"shutdown","worker":1}
+{"driver_error":null,"drivers":0,"event":"pool_retire","id":0,"ms":66.340641,"pid":2203374,"reason":"shutdown","worker":1}
+{"drivers":0,"event":"pool_closed","idle":0,"leases":0,"ms":66.463109,"runtime_tasks":0,"worker":1}
+{"event":"worker_end","ms":66.571466,"tasks":0,"worker":1}
+{"command":"ROLLBACK","event":"tx_ack","id":1,"ms":67.81306400000001,"pid":2203376}
+{"drivers":2,"event":"pool_state","idle":2,"leases":0,"ms":67.953755,"runtime_tasks":2,"worker":0}
+{"event":"teardown","id":1,"ms":68.10398199999999,"worker":0}
+{"drivers":2,"event":"pool_closing","idle":2,"leases":0,"ms":68.21127100000001,"runtime_tasks":2,"worker":0}
+{"driver_error":null,"drivers":1,"event":"pool_retire","id":0,"ms":68.436213,"pid":2203371,"reason":"shutdown","worker":0}
+{"driver_error":null,"drivers":0,"event":"pool_retire","id":0,"ms":68.618229,"pid":2203376,"reason":"shutdown","worker":0}
+{"drivers":0,"event":"pool_closed","idle":0,"leases":0,"ms":68.77692,"runtime_tasks":0,"worker":0}
+{"event":"worker_end","ms":68.944187,"tasks":0,"worker":0}
+{"active":[0,0],"builds":2,"connections":0,"event":"closed","inherited_sockets":0,"live_bytes":75659,"ms":71.098202,"peak_bytes":2503639,"retired":2,"sockets":0}
