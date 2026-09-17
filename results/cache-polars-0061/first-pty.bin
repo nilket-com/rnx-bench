@@ -1,0 +1,36 @@
+[22;2t]2;rnx[?2004h[?2026h[K[1] > [6C[?2026lfs::write_new("tiny.csv", "category,value\na,1\na,2\n🦀,3\n🦀,4\nmissing,\n").unwrap();[?2004l
+[?2004h[?2026h[K[2] > [6C[?2026llet frame = polars::read_csv("tiny.csv", [("category","string"),("value","i64")]).unwrap();[?2004l
+[?2004h[?2026h[K[3] > [6C[?2026llet grouped = frame.lazy().filter(polars::col("value").gt(polars::lit(1).unwrap())).group_by([polars::col("catego[?2026h[K[3] > let grouped = frame.lazy().filter(polars::col("value").gt(polars::lit(1).unwrap())).group_by([polars::col("categor
+[?2026ly")]).unwrap();[?2004l
+[?2004h[?2026h[K[4] > [6C[?2026llet plan = grouped.agg([polars::col("value").sum().alias("total")]).unwrap().sort(["category"]).unwrap();[?2004l
+[?2004h[?2026h[K[5] > [6C[?2026llet result = plan.collect().unwrap();[?2004l
+[?2004h[?2026h[K[6] > [6C[?2026lprintln!("{}", result.preview().unwrap());[?2004l
+DataFrame: 2 rows × 2 columns
+"category": string | "total": i64
+"a" | 2
+"🦀" | 7
+
+[?2004h[?2026h[K[7] > [6C[?2026lframe.lazy().sort(["missing"]).unwrap().collect()[?2004l
+[7] Err("polars collect: not found: unable to find column \"missing\"; valid columns: [\"category\", \"value\"]\n\nResolved plan until failure:\n\n\t---> FAILED HERE RESOLVING 'sort' <---\nDF [\"category\", \"value\"]; PROJECT */2 COLUMNS: 'sort'")
+[?2004h[?2026h[K[8] > [6C[?2026lprintln!("{}", frame.preview().unwrap());[?2004l
+DataFrame: 5 rows × 2 columns
+"category": string | "value": i64
+"a" | 1
+"a" | 2
+"🦀" | 3
+"🦀" | 4
+"missing" | null
+
+[?2004h[?2026h[K[9] > [6C[?2026lresult.write_parquet_new("tiny.parquet").unwrap();[?2004l
+[?2004h[?2026h[K[10] > [7C[?2026lassert!(polars::read_parquet("tiny.parquet").unwrap().preview().unwrap() == result.preview().unwrap());[?2004l
+[?2004h[?2026h[K[11] > [7C[?2026lassert!(plan.collect().unwrap().preview().unwrap() == result.preview().unwrap());[?2004l
+[?2004h[?2026h[K[12] > [7C[?2026l:reset[?2004l
+session reset
+[?2004h[?2026h[K[1] > [6C[?2026lframe[?2004l
+error at input 1, line 1, column 1: No local variable `frame`
+  frame
+  ^
+[?2004h[?2026h[K[2] > [6C[?2026lpolars::lit(1).is_ok()[?2004l
+[2] true
+[?2004h[?2026h[K[3] > [6C[?2026l:q[?2004l
+[23;2t

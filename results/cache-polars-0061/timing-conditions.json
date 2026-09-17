@@ -1,0 +1,169 @@
+{
+  "cpu": 0,
+  "polars_threads": 1,
+  "repeats": 2,
+  "samples_per_cell_per_repeat": 20,
+  "samples": 720,
+  "seed": 61500,
+  "commands": {
+    "first": {
+      "pipeline": {
+        "default": [
+          "/home/me/work/rnx/tools/project/target/release/rnx-project",
+          "run",
+          "--manifest",
+          "/home/me/work/rnx-bench/probes/cache-polars/target/first/rnx.toml",
+          "--"
+        ],
+        "verify": [
+          "/home/me/work/rnx/tools/project/target/release/rnx-project",
+          "run",
+          "--manifest",
+          "/home/me/work/rnx-bench/probes/cache-polars/target/first/rnx.toml",
+          "--verify",
+          "--"
+        ],
+        "direct": [
+          "/home/me/work/rnx-bench/probes/cache-polars/target/cache/entries/32f310adeaedef8a148c600492a050cd1d217e571bfa5b3ac6a9bab3d75e0a14/artifacts/1fb622af7f19213435555c9355599a407ee99eb3d33108023035f3de0a3325b8",
+          "run",
+          "/home/me/work/rnx-bench/probes/cache-polars/target/first/main.rn"
+        ]
+      },
+      "eval": {
+        "default": [
+          "/home/me/work/rnx/tools/project/target/release/rnx-project",
+          "eval",
+          "--manifest",
+          "/home/me/work/rnx-bench/probes/cache-polars/target/first/rnx.toml",
+          "--color=never",
+          "--",
+          "polars::lit(1).is_ok()"
+        ],
+        "verify": [
+          "/home/me/work/rnx/tools/project/target/release/rnx-project",
+          "eval",
+          "--manifest",
+          "/home/me/work/rnx-bench/probes/cache-polars/target/first/rnx.toml",
+          "--verify",
+          "--color=never",
+          "--",
+          "polars::lit(1).is_ok()"
+        ],
+        "direct": [
+          "/home/me/work/rnx-bench/probes/cache-polars/target/cache/entries/32f310adeaedef8a148c600492a050cd1d217e571bfa5b3ac6a9bab3d75e0a14/artifacts/1fb622af7f19213435555c9355599a407ee99eb3d33108023035f3de0a3325b8",
+          "--color=never",
+          "eval",
+          "polars::lit(1).is_ok()"
+        ]
+      },
+      "session": {
+        "default": [
+          "/home/me/work/rnx/tools/project/target/release/rnx-project",
+          "session",
+          "--manifest",
+          "/home/me/work/rnx-bench/probes/cache-polars/target/first/rnx.toml",
+          "--no-splash",
+          "--color=never"
+        ],
+        "verify": [
+          "/home/me/work/rnx/tools/project/target/release/rnx-project",
+          "session",
+          "--manifest",
+          "/home/me/work/rnx-bench/probes/cache-polars/target/first/rnx.toml",
+          "--verify",
+          "--no-splash",
+          "--color=never"
+        ],
+        "direct": [
+          "/home/me/work/rnx-bench/probes/cache-polars/target/cache/entries/32f310adeaedef8a148c600492a050cd1d217e571bfa5b3ac6a9bab3d75e0a14/artifacts/1fb622af7f19213435555c9355599a407ee99eb3d33108023035f3de0a3325b8",
+          "--no-splash",
+          "--color=never",
+          "repl"
+        ]
+      }
+    },
+    "second": {
+      "pipeline": {
+        "default": [
+          "/home/me/work/rnx/tools/project/target/release/rnx-project",
+          "run",
+          "--manifest",
+          "/home/me/work/rnx-bench/probes/cache-polars/target/second/rnx.toml",
+          "--"
+        ],
+        "verify": [
+          "/home/me/work/rnx/tools/project/target/release/rnx-project",
+          "run",
+          "--manifest",
+          "/home/me/work/rnx-bench/probes/cache-polars/target/second/rnx.toml",
+          "--verify",
+          "--"
+        ],
+        "direct": [
+          "/home/me/work/rnx-bench/probes/cache-polars/target/cache/entries/32f310adeaedef8a148c600492a050cd1d217e571bfa5b3ac6a9bab3d75e0a14/artifacts/1fb622af7f19213435555c9355599a407ee99eb3d33108023035f3de0a3325b8",
+          "run",
+          "/home/me/work/rnx-bench/probes/cache-polars/target/second/main.rn"
+        ]
+      },
+      "eval": {
+        "default": [
+          "/home/me/work/rnx/tools/project/target/release/rnx-project",
+          "eval",
+          "--manifest",
+          "/home/me/work/rnx-bench/probes/cache-polars/target/second/rnx.toml",
+          "--color=never",
+          "--",
+          "polars::lit(1).is_ok()"
+        ],
+        "verify": [
+          "/home/me/work/rnx/tools/project/target/release/rnx-project",
+          "eval",
+          "--manifest",
+          "/home/me/work/rnx-bench/probes/cache-polars/target/second/rnx.toml",
+          "--verify",
+          "--color=never",
+          "--",
+          "polars::lit(1).is_ok()"
+        ],
+        "direct": [
+          "/home/me/work/rnx-bench/probes/cache-polars/target/cache/entries/32f310adeaedef8a148c600492a050cd1d217e571bfa5b3ac6a9bab3d75e0a14/artifacts/1fb622af7f19213435555c9355599a407ee99eb3d33108023035f3de0a3325b8",
+          "--color=never",
+          "eval",
+          "polars::lit(1).is_ok()"
+        ]
+      },
+      "session": {
+        "default": [
+          "/home/me/work/rnx/tools/project/target/release/rnx-project",
+          "session",
+          "--manifest",
+          "/home/me/work/rnx-bench/probes/cache-polars/target/second/rnx.toml",
+          "--no-splash",
+          "--color=never"
+        ],
+        "verify": [
+          "/home/me/work/rnx/tools/project/target/release/rnx-project",
+          "session",
+          "--manifest",
+          "/home/me/work/rnx-bench/probes/cache-polars/target/second/rnx.toml",
+          "--verify",
+          "--no-splash",
+          "--color=never"
+        ],
+        "direct": [
+          "/home/me/work/rnx-bench/probes/cache-polars/target/cache/entries/32f310adeaedef8a148c600492a050cd1d217e571bfa5b3ac6a9bab3d75e0a14/artifacts/1fb622af7f19213435555c9355599a407ee99eb3d33108023035f3de0a3325b8",
+          "--no-splash",
+          "--color=never",
+          "repl"
+        ]
+      }
+    }
+  },
+  "terminal": "xterm-256color 120x30",
+  "clock": "perf_counter_ns; no-shell spawn/capture/wait for eval and pipeline; PTY allocation/spawn through first prompt for session; quit/reap outside clock",
+  "cache": "warm after one unmeasured launch per cell; no receipt rewriting; derived maps established before measurement",
+  "outputs": "every pipeline checks exact stdout (including Parquet readback and repeated collect) and two created files; every eval true; every session exact first prompt and zero exit",
+  "tool_sha256": "5c711b2239826b547cfa0af3496e311e10956814d6e05e551da8c270a60349d5",
+  "artifact_sha256": "1fb622af7f19213435555c9355599a407ee99eb3d33108023035f3de0a3325b8",
+  "rnx_head": "3c4ed67a2e34d2e678bdabd7d9233a2d7c0cc420"
+}
