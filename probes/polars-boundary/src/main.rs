@@ -3,6 +3,7 @@ use p::{IntoLazy, NamedFrom, SerReader};
 use polars::prelude as p;
 use rnx::rune::{self, runtime::Vec as RuneVec};
 use std::{fs::File, sync::Arc};
+mod engine;
 
 #[derive(rune::Any)]
 #[rune(item = ::polars)]
@@ -42,7 +43,8 @@ fn agg(group: &LazyGroupBy, values: &RuneVec) -> Result<LazyFrame, String> {
 }
 #[rune::function(instance)]
 fn collect(plan: &LazyFrame) -> Result<DataFrame, String> {
-    plan.0.clone().collect().map(DataFrame).map_err(err)
+    let plan = plan.0.clone();
+    engine::run(move || plan.collect().map_err(err))?.map(DataFrame)
 }
 #[rune::function(instance)]
 fn gt(expr: &Expr, rhs: &Expr) -> Expr {
@@ -80,6 +82,9 @@ fn observed(frame: &DataFrame) -> Result<Vec<(String, i64)>, String> {
     Ok(rows)
 }
 fn fixture() -> Result<DataFrame, String> {
+    engine::run(fixture_frame)?.map(DataFrame)
+}
+fn fixture_frame() -> Result<p::DataFrame, String> {
     p::DataFrame::new(
         3,
         vec![
@@ -87,10 +92,14 @@ fn fixture() -> Result<DataFrame, String> {
             p::Series::new("v".into(), [1i64, 2, 3]).into(),
         ],
     )
-    .map(DataFrame)
     .map_err(err)
 }
 fn csv(path: &str, mode: &str) -> Result<Vec<String>, String> {
+    let path = path.to_owned();
+    let mode = mode.to_owned();
+    engine::run(move || csv_engine(&path, &mode))?
+}
+fn csv_engine(path: &str, mode: &str) -> Result<Vec<String>, String> {
     let schema = Arc::new(p::Schema::from_iter([
         ("k".into(), p::DataType::String),
         ("v".into(), p::DataType::Int64),
@@ -136,6 +145,32 @@ fn csv(path: &str, mode: &str) -> Result<Vec<String>, String> {
         .map(|s| s.to_string())
         .collect())
 }
+// Test-only observation helpers in this source-only probe.
+fn nested() -> Result<(usize, usize), String> {
+    engine::run(|| {
+        let inner = engine::run(|| fixture_frame()?.lazy().collect().map_err(err))??;
+        let outer = fixture_frame()?.lazy().collect().map_err(err)?;
+        Ok((inner.height(), outer.height()))
+    })?
+}
+fn overlap() -> Result<(usize, usize), String> {
+    let barrier = std::sync::Barrier::new(2);
+    std::thread::scope(|scope| {
+        let job = || {
+            engine::run(|| {
+                barrier.wait(); // Both engine workers must be alive at once.
+                fixture_frame()?
+                    .lazy()
+                    .collect()
+                    .map(|f| f.height())
+                    .map_err(err)
+            })?
+        };
+        let a = scope.spawn(job);
+        let b = scope.spawn(job);
+        Ok((a.join().unwrap()?, b.join().unwrap()?))
+    })
+}
 fn build(m: &mut rune::Module) -> Result<Vec<(String, &'static str)>, String> {
     m.ty::<DataFrame>().map_err(err)?;
     m.ty::<LazyFrame>().map_err(err)?;
@@ -143,6 +178,16 @@ fn build(m: &mut rune::Module) -> Result<Vec<(String, &'static str)>, String> {
     m.ty::<Expr>().map_err(err)?;
     m.function("fixture", fixture).build().map_err(err)?;
     m.function("csv", csv).build().map_err(err)?;
+    m.function("engine_counts", engine::counts)
+        .build()
+        .map_err(err)?;
+    m.function("nested", nested).build().map_err(err)?;
+    m.function("overlap", overlap).build().map_err(err)?;
+    m.function("engine_error", || {
+        engine::run(|| Err::<(), String>("expected engine error".into()))?
+    })
+    .build()
+    .map_err(err)?;
     m.function("col", |name: &str| Expr(p::col(name)))
         .build()
         .map_err(err)?;

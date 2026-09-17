@@ -7,6 +7,7 @@ publish = false
 [dependencies]
 rnx = { path = "../../../rnx" }
 polars = { version = "=0.55.2", default-features = false, features = ["lazy", "csv", "parquet"] }
+tokio = { version = "1", features = ["rt"] }
 [profile.dev]
 debug = false
 [profile.release]
