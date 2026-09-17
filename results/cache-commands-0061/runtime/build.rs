@@ -1,0 +1,1 @@
+use std::io::Write;fn main(){let p=std::env::var("RNX_FIXTURE_BUILD_LOG").unwrap();let mut f=std::fs::OpenOptions::new().create(true).append(true).open(p).unwrap();writeln!(f,"{}",std::env::var("OUT_DIR").unwrap()).unwrap();}
