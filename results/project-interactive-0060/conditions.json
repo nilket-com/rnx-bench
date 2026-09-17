@@ -1,0 +1,81 @@
+{
+  "cpu": 0,
+  "threads": 1,
+  "terminal": "xterm-256color",
+  "width": 120,
+  "height": 30,
+  "commands": {
+    "eval": {
+      "project": [
+        "/home/me/work/rnx/tools/project/target/release/rnx-project",
+        "eval",
+        "--manifest",
+        "/home/me/work/rnx-bench/probes/project-interactive/target/project/rnx.toml",
+        "--color=never",
+        "--",
+        "polars::lit(1).is_ok()"
+      ],
+      "verify": [
+        "/home/me/work/rnx/tools/project/target/release/rnx-project",
+        "eval",
+        "--manifest",
+        "/home/me/work/rnx-bench/probes/project-interactive/target/project/rnx.toml",
+        "--verify",
+        "--color=never",
+        "--",
+        "polars::lit(1).is_ok()"
+      ],
+      "direct": [
+        "/home/me/work/rnx-bench/probes/project-interactive/target/project/.rnx/artifacts/1fb622af7f19213435555c9355599a407ee99eb3d33108023035f3de0a3325b8",
+        "--color=never",
+        "eval",
+        "polars::lit(1).is_ok()"
+      ]
+    },
+    "session": {
+      "project": [
+        "/home/me/work/rnx/tools/project/target/release/rnx-project",
+        "session",
+        "--manifest",
+        "/home/me/work/rnx-bench/probes/project-interactive/target/project/rnx.toml",
+        "--no-splash",
+        "--color=never"
+      ],
+      "verify": [
+        "/home/me/work/rnx/tools/project/target/release/rnx-project",
+        "session",
+        "--manifest",
+        "/home/me/work/rnx-bench/probes/project-interactive/target/project/rnx.toml",
+        "--verify",
+        "--no-splash",
+        "--color=never"
+      ],
+      "direct": [
+        "/home/me/work/rnx-bench/probes/project-interactive/target/project/.rnx/artifacts/1fb622af7f19213435555c9355599a407ee99eb3d33108023035f3de0a3325b8",
+        "--no-splash",
+        "--color=never",
+        "repl"
+      ]
+    }
+  },
+  "repeats": 2,
+  "samples_per_cell": 20,
+  "seed": 60000,
+  "sample_count": 240,
+  "cache": "warm; all samples retained; explicit lock/build and receipt establishment outside timing",
+  "eval_clock": "spawn/capture/wait",
+  "session_clock": "PTY setup/spawn to full first prompt; :q and reap outside timed interval",
+  "binaries": {
+    "tool": {
+      "sha256": "e2d53190a9c8a8a7f53d83eb34e07852ba8bfe450e2f75ce0777c83481e05332",
+      "bytes": 2830488
+    },
+    "artifact": {
+      "sha256": "1fb622af7f19213435555c9355599a407ee99eb3d33108023035f3de0a3325b8",
+      "bytes": 107436336
+    }
+  },
+  "rnx_head": "9a5b510661fb9ac227f0aac0efac7d62a95a3244",
+  "source_patch": "source.patch",
+  "rustc": "rustc 1.98.1 (48a229cea 2026-09-01)\nbinary: rustc\ncommit-hash: 48a229ceaefd4985c50990b14116b6d856af0985\ncommit-date: 2026-09-01\nhost: x86_64-unknown-linux-gnu\nrelease: 1.98.1\nLLVM version: 22.1.8\n"
+}
