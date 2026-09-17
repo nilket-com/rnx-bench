@@ -1,0 +1,45 @@
+{
+  "root_base": "25dda00cd3534135006ac262dbb3782a325edb4d",
+  "bench_base": "0fbb5258c900088302e399f2f2c2ce21763b4cd4",
+  "rustc": "rustc 1.98.1 (48a229cea 2026-09-01)\nbinary: rustc\ncommit-hash: 48a229ceaefd4985c50990b14116b6d856af0985\ncommit-date: 2026-09-01\nhost: x86_64-unknown-linux-gnu\nrelease: 1.98.1\nLLVM version: 22.1.8",
+  "cargo": "cargo 1.98.1 (797e8a9bc 2026-08-05)",
+  "platform": "Linux nano 7.0.0-31-generic #31-Ubuntu SMP PREEMPT_DYNAMIC Sat Aug  1 04:26:38 UTC 2026 x86_64 GNU/Linux",
+  "source_sha256": {
+    "tools/project/src/assembly.rs": "5f564ac3010e51dcd5ee95ecede167bdf51f712147f0c6f51512cfaf00835a9b",
+    "tools/project/src/assembly_probe.rs": "b580273abb7bff8f716215e2e3f44956e11d6c66efcfc49a60493756d9b93d36",
+    "tools/project/src/commands.rs": "30267e7265e3bb549a49ffb154b8f9f17e64b280d7039f3786b898b16182fea5",
+    "tools/project/src/fingerprint.rs": "ddf5c5bd993f1e6370b06082a0548cd157f32099b2abbee77d8009c2d30d5d4e",
+    "tools/project/src/generate.rs": "d701329cb013c6fe84075263547bec49a1775ca6a5c189015938828a80a7646e",
+    "tools/project/src/graph.rs": "41a11c1436424876d7fe7a025071ffea3d83244ae834756b88970726fa633d41",
+    "tools/project/src/handshake.rs": "eb9d32d1202823957a95c7ed1663e225ee5204c78bd881aa0f2551b76297a299",
+    "tools/project/src/input.rs": "0f7484b4f28f7cc379796b64376784407df1c2a1f062fa84745e5eacf50d4f44",
+    "tools/project/src/inventory.rs": "65bb01c06ecb756730b72d44a021ceeb6c357b66f33052a58959a27f415b9a91",
+    "tools/project/src/lib.rs": "4484ddbf1f75c3a88d81790cfeb71d3f06b95a53dcfdf3fcee3832a9f51a3af3",
+    "tools/project/src/main.rs": "60ce2593e496ef939080dec74b6b9a925c939a7e9269c779076b307ead5171a7",
+    "tools/project/src/manifest.rs": "08fd545efe26d1b47cd7d70af3d6fbe5b00abd306e73a4632e72c81376dea7bc",
+    "tools/project/src/tests.rs": "8557e86a7ff273221375ce5e25f722519be7f4fbf0aa5a646051ffdd9f8d4fec",
+    "tools/project/src/wire.rs": "5cd73751da60d48b164b88f6b3cc85a72eb072effc1d33d3239c765f0b7b5579",
+    "tools/project/src/workflow.rs": "7833f5e8b5763c73c67fb4f2a849496045d5afe3fb3f8e17dc1ddefc37efefa5",
+    "tools/project/Cargo.toml": "bd5151341d02822cb3a0f40eed5224f70d76ac5460af0a6773c0da53d612a193",
+    "tools/project/Cargo.lock": "fa4e355ba7411fa82b8ddf36a3ebb69ee43a31cd6bee2318b29c5be30b1aa86c"
+  },
+  "ordinary_tool_sha256": "d7544e83e08868e32019bd075ffc31aa169c152559f8d16a6e2a2780d533be66",
+  "ordinary_tool_profile": "debug, default features, locked offline build",
+  "workflow_profile": "debug, test-support; same source hashes; executable subsequently replaced by ordinary build",
+  "checks": {
+    "default_tests": {
+      "passed": 27,
+      "ignored": 2
+    },
+    "test_support_tests": {
+      "passed": 27,
+      "ignored": 2
+    },
+    "workflow_groups": 16,
+    "postgres": "real product lock/build/run, private cluster reaped",
+    "ordinary": "override run; test hooks compiled out",
+    "windows": "type-check only; CLI deliberately refuses without Unix supervision"
+  },
+  "scope": "Gate 5 Linux; gate 6 root regression and timing remain open. Native inventories include all tracked root files; fixture locks precede final evidence edits.",
+  "implementation_commit": "e50eda337681be3b6bcf042f8333dd0cc7a6332b"
+}
