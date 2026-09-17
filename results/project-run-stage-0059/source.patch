@@ -1,0 +1,496 @@
+[1mdiff --git a/tools/project/src/fingerprint.rs b/tools/project/src/fingerprint.rs[m
+[1mindex 626ff58..02382c9 100644[m
+[1m--- a/tools/project/src/fingerprint.rs[m
+[1m+++ b/tools/project/src/fingerprint.rs[m
+[36m@@ -120,74 +120,91 @@[m [mfn hash_files(root: &Path, paths: Vec<PathBuf>, allowance: &mut Allowance) -> Re[m
+ 	tree.update(b"rnx-tree-v1\0");[m
+ 	let mut files = vec![];[m
+ 	for (name, relative) in ordered {[m
+[31m-		components_no_links(root, &relative)?;[m
+[31m-		let path = root.join(relative);[m
+[31m-		let before = regular(&path)?;[m
+[31m-		if before.len() > allowance.bytes {[m
+[31m-			return Err(fail(&path, "fingerprint exceeds byte allowance"));[m
+[31m-		}[m
+[31m-		let mut options = fs::OpenOptions::new();[m
+[31m-		options.read(true);[m
+[31m-		#[cfg(unix)][m
+[31m-		{[m
+[31m-			use std::os::unix::fs::OpenOptionsExt;[m
+[31m-			options.custom_flags(libc::O_NONBLOCK | libc::O_NOFOLLOW);[m
+[31m-		}[m
+[31m-		let mut file = options.open(&path).map_err(|e| fail(&path, e))?;[m
+[31m-		let opened = file.metadata().map_err(|e| fail(&path, e))?;[m
+[31m-		if !opened.is_file()[m
+[31m-			|| opened.len() != before.len()[m
+[31m-			|| executable(&opened) != executable(&before)[m
+[31m-		{[m
+[31m-			return Err(fail(&path, "file changed before read"));[m
+[31m-		}[m
+[32m+[m		[32mfiles.push(hash_file(root, relative, name, allowance, Some(&mut tree))?);[m
+[32m+[m	[32m}[m
+[32m+[m	[32mOk(Tree {[m
+[32m+[m		[32mroot: root.to_owned(),[m
+[32m+[m		[32msha256: format!("{:x}", tree.finalize()),[m
+[32m+[m		[32mfiles,[m
+[32m+[m	[32m})[m
+[32m+[m[32m}[m
+[32m+[m[32m/// One bounded reader; tree callers additionally include bytes in their tree digest.[m
+[32m+[m[32mfn hash_file([m
+[32m+[m	[32mroot: &Path,[m
+[32m+[m	[32mrelative: PathBuf,[m
+[32m+[m	[32mname: String,[m
+[32m+[m	[32mallowance: &mut Allowance,[m
+[32m+[m	[32mmut tree: Option<&mut Sha256>,[m
+[32m+[m[32m) -> Result<wire::File, String> {[m
+[32m+[m	[32mcomponents_no_links(root, &relative)?;[m
+[32m+[m	[32mlet path = root.join(relative);[m
+[32m+[m	[32mlet before = regular(&path)?;[m
+[32m+[m	[32mif before.len() > allowance.bytes {[m
+[32m+[m		[32mreturn Err(fail(&path, "fingerprint exceeds byte allowance"));[m
+[32m+[m	[32m}[m
+[32m+[m	[32mlet mut options = fs::OpenOptions::new();[m
+[32m+[m	[32moptions.read(true);[m
+[32m+[m	[32m#[cfg(unix)][m
+[32m+[m	[32m{[m
+[32m+[m		[32muse std::os::unix::fs::OpenOptionsExt;[m
+[32m+[m		[32moptions.custom_flags(libc::O_NONBLOCK | libc::O_NOFOLLOW);[m
+[32m+[m	[32m}[m
+[32m+[m	[32mlet mut file = options.open(&path).map_err(|e| fail(&path, e))?;[m
+[32m+[m	[32mlet opened = file.metadata().map_err(|e| fail(&path, e))?;[m
+[32m+[m	[32mif !opened.is_file()[m
+[32m+[m		[32m|| opened.len() != before.len()[m
+[32m+[m		[32m|| executable(&opened) != executable(&before)[m
+[32m+[m	[32m{[m
+[32m+[m		[32mreturn Err(fail(&path, "file changed before read"));[m
+[32m+[m	[32m}[m
+[32m+[m	[32mif let Some(tree) = tree.as_mut() {[m
+ 		tree.update((name.len() as u64).to_be_bytes());[m
+ 		tree.update(name.as_bytes());[m
+ 		tree.update([u8::from(executable(&opened))]);[m
+ 		tree.update(opened.len().to_be_bytes());[m
+[31m-		let mut content = Sha256::new();[m
+[31m-		let mut remaining = opened.len();[m
+[31m-		let mut buffer = [0u8; 16384];[m
+[31m-		while remaining > 0 {[m
+[31m-			let take = remaining.min(buffer.len() as u64) as usize;[m
+[31m-			let n = file.read(&mut buffer[..take]).map_err(|e| fail(&path, e))?;[m
+[31m-			if n == 0 {[m
+[31m-				return Err(fail(&path, "size changed during read"));[m
+[31m-			}[m
+[31m-			allowance.bytes -= n as u64;[m
+[31m-			remaining -= n as u64;[m
+[32m+[m	[32m}[m
+[32m+[m	[32m#[cfg(test)][m
+[32m+[m	[32mtests::after_open(&path);[m
+[32m+[m	[32mlet mut content = Sha256::new();[m
+[32m+[m	[32mlet mut remaining = opened.len();[m
+[32m+[m	[32mlet mut buffer = [0u8; 16384];[m
+[32m+[m	[32mwhile remaining > 0 {[m
+[32m+[m		[32mlet take = remaining.min(buffer.len() as u64) as usize;[m
+[32m+[m		[32mlet n = file.read(&mut buffer[..take]).map_err(|e| fail(&path, e))?;[m
+[32m+[m		[32mif n == 0 {[m
+[32m+[m			[32mreturn Err(fail(&path, "size changed during read"));[m
+[32m+[m		[32m}[m
+[32m+[m		[32mallowance.bytes -= n as u64;[m
+[32m+[m		[32mremaining -= n as u64;[m
+[32m+[m		[32mif let Some(tree) = tree.as_mut() {[m
+ 			tree.update(&buffer[..n]);[m
+[31m-			content.update(&buffer[..n]);[m
+ 		}[m
+[31m-		// The detection byte is charged too; never read it beyond the global allowance.[m
+[31m-		if allowance.bytes == 0 {[m
+[31m-			if file.metadata().map_err(|e| fail(&path, e))?.len() != opened.len() {[m
+[31m-				return Err(fail(&path, "size changed during read"));[m
+[31m-			}[m
+[31m-		} else {[m
+[31m-			let n = file.read(&mut buffer[..1]).map_err(|e| fail(&path, e))?;[m
+[31m-			allowance.bytes -= n as u64;[m
+[31m-			if n != 0 {[m
+[31m-				return Err(fail(&path, "size changed during read"));[m
+[31m-			}[m
+[32m+[m		[32mcontent.update(&buffer[..n]);[m
+[32m+[m	[32m}[m
+[32m+[m	[32m// The detection byte is charged too; never read it beyond the global allowance.[m
+[32m+[m	[32mif allowance.bytes == 0 {[m
+[32m+[m		[32mif file.metadata().map_err(|e| fail(&path, e))?.len() != opened.len() {[m
+[32m+[m			[32mreturn Err(fail(&path, "size changed during read"));[m
+ 		}[m
+[31m-		let after = file.metadata().map_err(|e| fail(&path, e))?;[m
+[31m-		if after.len() != opened.len() || executable(&after) != executable(&opened) {[m
+[31m-			return Err(fail(&path, "file changed during read"));[m
+[32m+[m	[32m} else {[m
+[32m+[m		[32mlet n = file.read(&mut buffer[..1]).map_err(|e| fail(&path, e))?;[m
+[32m+[m		[32mallowance.bytes -= n as u64;[m
+[32m+[m		[32mif n != 0 {[m
+[32m+[m			[32mreturn Err(fail(&path, "size changed during read"));[m
+ 		}[m
+[31m-		files.push(wire::File {[m
+[31m-			path: name,[m
+[31m-			executable: executable(&opened),[m
+[31m-			bytes: opened.len(),[m
+[31m-			sha256: format!("{:x}", content.finalize()),[m
+[31m-		});[m
+ 	}[m
+[31m-	Ok(Tree {[m
+[31m-		root: root.to_owned(),[m
+[31m-		sha256: format!("{:x}", tree.finalize()),[m
+[31m-		files,[m
+[32m+[m	[32mlet after = file.metadata().map_err(|e| fail(&path, e))?;[m
+[32m+[m	[32mif after.len() != opened.len() || executable(&after) != executable(&opened) {[m
+[32m+[m		[32mreturn Err(fail(&path, "file changed during read"));[m
+[32m+[m	[32m}[m
+[32m+[m	[32mOk(wire::File {[m
+[32m+[m		[32mpath: name,[m
+[32m+[m		[32mexecutable: executable(&opened),[m
+[32m+[m		[32mbytes: opened.len(),[m
+[32m+[m		[32msha256: format!("{:x}", content.finalize()),[m
+ 	})[m
+ }[m
+[32m+[m
+ fn root(path: &Path) -> Result<PathBuf, String> {[m
+ 	if !path.is_absolute() {[m
+ 		return Err(fail(path, "root must be absolute"));[m
+[36m@@ -242,9 +259,9 @@[m [mpub(crate) fn one(path: &Path, allowance: &mut Allowance) -> Result<wire::File,[m
+ 	allowance.entry()?;[m
+ 	let root = path.parent().ok_or("input has no parent")?;[m
+ 	let name = path.file_name().ok_or("input has no name")?;[m
+[31m-	Ok(hash_files(root, vec![PathBuf::from(name)], allowance)?[m
+[31m-		.files[m
+[31m-		.remove(0))[m
+[32m+[m	[32mlet relative = PathBuf::from(name);[m
+[32m+[m	[32mlet name = text(&relative)?;[m
+[32m+[m	[32mhash_file(root, relative, name, allowance, None)[m
+ }[m
+ [m
+ /// Git output is bounded independently from file content. Kill and reap on overflow.[m
+[1mdiff --git a/tools/project/src/fingerprint/tests.rs b/tools/project/src/fingerprint/tests.rs[m
+[1mindex 8877cba..289514b 100644[m
+[1m--- a/tools/project/src/fingerprint/tests.rs[m
+[1m+++ b/tools/project/src/fingerprint/tests.rs[m
+[36m@@ -239,3 +239,120 @@[m [mfn submodules_and_unmerged_entries_refuse() {[m
+ 			.contains("submodule")[m
+ 	);[m
+ }[m
+[32m+[m
+[32m+[m[32mtype OpenHook = Box<dyn FnOnce(&Path)>;[m
+[32m+[m[32mthread_local! {[m
+[32m+[m	[32mstatic AFTER_OPEN: std::cell::RefCell<Option<OpenHook>> = const { std::cell::RefCell::new(None) };[m
+[32m+[m[32m}[m
+[32m+[m[32mpub(super) fn after_open(path: &Path) {[m
+[32m+[m	[32mlet hook = AFTER_OPEN.with(|h| h.borrow_mut().take());[m
+[32m+[m	[32mif let Some(hook) = hook {[m
+[32m+[m		[32mhook(path);[m
+[32m+[m	[32m}[m
+[32m+[m[32m}[m
+[32m+[m[32m#[test][m
+[32m+[m[32mfn single_file_matches_tree_record_and_shared_allowance() {[m
+[32m+[m	[32mlet t = Temp::new();[m
+[32m+[m	[32mfor size in [0, 1, 16383, 16384, 16385, 32768] {[m
+[32m+[m		[32mt.write("data", vec![b'x'; size]);[m
+[32m+[m		[32mfor available in [[m
+[32m+[m			[32msize as u64,[m
+[32m+[m			[32msize as u64 + 1,[m
+[32m+[m			[32m(size as u64).saturating_sub(1),[m
+[32m+[m		[32m] {[m
+[32m+[m			[32mlet mut a = Allowance {[m
+[32m+[m				[32mentries: 1,[m
+[32m+[m				[32mbytes: available,[m
+[32m+[m			[32m};[m
+[32m+[m			[32mlet mut b = Allowance {[m
+[32m+[m				[32mentries: 1,[m
+[32m+[m				[32mbytes: available,[m
+[32m+[m			[32m};[m
+[32m+[m			[32mlet one = one(&t.0.join("data"), &mut a);[m
+[32m+[m			[32mlet tree = source(&t.0, false, &mut b).map(|mut t| t.files.remove(0));[m
+[32m+[m			[32massert_eq!(one, tree);[m
+[32m+[m			[32massert_eq!((a.entries, a.bytes), (b.entries, b.bytes));[m
+[32m+[m		[32m}[m
+[32m+[m	[32m}[m
+[32m+[m	[32massert!([m
+[32m+[m		[32mone([m
+[32m+[m			[32m&t.0.join("data"),[m
+[32m+[m			[32m&mut Allowance {[m
+[32m+[m				[32mentries: 0,[m
+[32m+[m				[32mbytes: BYTES[m
+[32m+[m			[32m}[m
+[32m+[m		[32m)[m
+[32m+[m		[32m.unwrap_err()[m
+[32m+[m		[32m.contains("entry allowance")[m
+[32m+[m	[32m);[m
+[32m+[m[32m}[m
+[32m+[m[32m#[test][m
+[32m+[m[32mfn shared_reader_refuses_early_eof_and_growth_for_single_and_tree() {[m
+[32m+[m	[32mlet t = Temp::new();[m
+[32m+[m	[32mfor single in [false, true] {[m
+[32m+[m		[32mfor grow in [false, true] {[m
+[32m+[m			[32mt.write("data", b"abc");[m
+[32m+[m			[32mAFTER_OPEN.with(|h| {[m
+[32m+[m				[32m*h.borrow_mut() = Some(Box::new(move |p| {[m
+[32m+[m					[32mfs::write([m
+[32m+[m						[32mp,[m
+[32m+[m						[32mif grow {[m
+[32m+[m							[32mb"abcd".as_slice()[m
+[32m+[m						[32m} else {[m
+[32m+[m							[32mb"".as_slice()[m
+[32m+[m						[32m},[m
+[32m+[m					[32m)[m
+[32m+[m					[32m.unwrap();[m
+[32m+[m				[32m}))[m
+[32m+[m			[32m});[m
+[32m+[m			[32mlet mut budget = Allowance {[m
+[32m+[m				[32mentries: 1,[m
+[32m+[m				[32mbytes: 10,[m
+[32m+[m			[32m};[m
+[32m+[m			[32mlet error = if single {[m
+[32m+[m				[32mone(&t.0.join("data"), &mut budget).unwrap_err()[m
+[32m+[m			[32m} else {[m
+[32m+[m				[32msource(&t.0, false, &mut budget).unwrap_err()[m
+[32m+[m			[32m};[m
+[32m+[m			[32massert!(error.contains("size changed during read"), "{error}");[m
+[32m+[m			[32massert_eq!(budget.bytes, if grow { 6 } else { 10 });[m
+[32m+[m		[32m}[m
+[32m+[m	[32m}[m
+[32m+[m[32m}[m
+[32m+[m[32m#[cfg(unix)][m
+[32m+[m[32m#[test][m
+[32m+[m[32mfn single_file_preserves_modes_and_refusals() {[m
+[32m+[m	[32muse std::os::unix::{[m
+[32m+[m		[32mffi::OsStringExt,[m
+[32m+[m		[32mfs::{PermissionsExt, symlink},[m
+[32m+[m	[32m};[m
+[32m+[m	[32mlet t = Temp::new();[m
+[32m+[m	[32mt.write("x", b"x");[m
+[32m+[m	[32mfs::set_permissions(t.0.join("x"), fs::Permissions::from_mode(0o755)).unwrap();[m
+[32m+[m	[32massert!([m
+[32m+[m		[32mone(&t.0.join("x"), &mut Allowance::default())[m
+[32m+[m			[32m.unwrap()[m
+[32m+[m			[32m.executable[m
+[32m+[m	[32m);[m
+[32m+[m	[32massert_eq!([m
+[32m+[m		[32mone(&t.0.join("x"), &mut Allowance::default()).unwrap(),[m
+[32m+[m		[32mt.source().files[0][m
+[32m+[m	[32m);[m
+[32m+[m	[32msymlink("x", t.0.join("link")).unwrap();[m
+[32m+[m	[32massert!(one(&t.0.join("link"), &mut Allowance::default()).is_err());[m
+[32m+[m	[32massert!([m
+[32m+[m		[32mCommand::new("mkfifo")[m
+[32m+[m			[32m.arg(t.0.join("fifo"))[m
+[32m+[m			[32m.status()[m
+[32m+[m			[32m.unwrap()[m
+[32m+[m			[32m.success()[m
+[32m+[m	[32m);[m
+[32m+[m	[32massert!(one(&t.0.join("fifo"), &mut Allowance::default()).is_err());[m
+[32m+[m	[32mlet name = std::ffi::OsString::from_vec(vec![255]);[m
+[32m+[m	[32mfs::write(t.0.join(&name), b"x").unwrap();[m
+[32m+[m	[32massert!([m
+[32m+[m		[32mone(&t.0.join(name), &mut Allowance::default())[m
+[32m+[m			[32m.unwrap_err()[m
+[32m+[m			[32m.contains("non-Unicode")[m
+[32m+[m	[32m);[m
+[32m+[m[32m}[m
+[1mdiff --git a/tools/project/src/lib.rs b/tools/project/src/lib.rs[m
+[1mindex 9ccbe98..91cb257 100644[m
+[1m--- a/tools/project/src/lib.rs[m
+[1m+++ b/tools/project/src/lib.rs[m
+[36m@@ -8,5 +8,7 @@[m [mmod input;[m
+ mod inventory;[m
+ mod manifest;[m
+ #[cfg(test)][m
+[32m+[m[32mmod maps;[m
+[32m+[m[32m#[cfg(test)][m
+ mod tests;[m
+ mod wire;[m
+[1mdiff --git a/tools/project/src/main.rs b/tools/project/src/main.rs[m
+[1mindex 9ecbec5..a1abe51 100644[m
+[1m--- a/tools/project/src/main.rs[m
+[1m+++ b/tools/project/src/main.rs[m
+[36m@@ -7,6 +7,7 @@[m [mmod handshake;[m
+ mod input;[m
+ mod inventory;[m
+ mod manifest;[m
+[32m+[m[32mmod maps;[m
+ mod wire;[m
+ mod workflow;[m
+ fn main() {[m
+[1mdiff --git a/tools/project/src/maps.rs b/tools/project/src/maps.rs[m
+[1mnew file mode 100644[m
+[1mindex 0000000..b001d0b[m
+[1m--- /dev/null[m
+[1m+++ b/tools/project/src/maps.rs[m
+[36m@@ -0,0 +1,49 @@[m
+[32m+[m[32m//! Reuse a validated derived map; public lock files are never repaired here.[m
+[32m+[m[32muse crate::input;[m
+[32m+[m[32muse std::{fs, io::Read, path::Path};[m
+[32m+[m
+[32m+[m[32m/// Invoke the existing atomic publisher only for missing or different maps.[m
+[32m+[m[32mpub(crate) fn ensure([m
+[32m+[m	[32mpath: &Path,[m
+[32m+[m	[32mbytes: &[u8],[m
+[32m+[m	[32mpublish: impl FnOnce() -> Result<(), String>,[m
+[32m+[m[32m) -> Result<(), String> {[m
+[32m+[m	[32mlet read = || -> Result<Option<Vec<u8>>, String> {[m
+[32m+[m		[32mmatch fs::symlink_metadata(path) {[m
+[32m+[m			[32mErr(e) if e.kind() == std::io::ErrorKind::NotFound => return Ok(None),[m
+[32m+[m			[32mErr(e) => return Err(e.to_string()),[m
+[32m+[m			[32mOk(m) if !m.is_file() => return Err("not a regular file".into()),[m
+[32m+[m			[32mOk(_) => (),[m
+[32m+[m		[32m}[m
+[32m+[m		[32mlet mut options = fs::OpenOptions::new();[m
+[32m+[m		[32moptions.read(true);[m
+[32m+[m		[32m#[cfg(unix)][m
+[32m+[m		[32m{[m
+[32m+[m			[32muse std::os::unix::fs::OpenOptionsExt;[m
+[32m+[m			[32moptions.custom_flags(libc::O_NONBLOCK | libc::O_NOFOLLOW);[m
+[32m+[m		[32m}[m
+[32m+[m		[32mlet file = options.open(path).map_err(|e| e.to_string())?;[m
+[32m+[m		[32mif !file.metadata().map_err(|e| e.to_string())?.is_file() {[m
+[32m+[m			[32mreturn Err("not a regular file".into());[m
+[32m+[m		[32m}[m
+[32m+[m		[32mlet mut current = Vec::new();[m
+[32m+[m		[32mfile.take(input::DOCUMENT_LIMIT as u64 + 1)[m
+[32m+[m			[32m.read_to_end(&mut current)[m
+[32m+[m			[32m.map_err(|e| e.to_string())?;[m
+[32m+[m		[32mif current.len() > input::DOCUMENT_LIMIT {[m
+[32m+[m			[32mreturn Err(format!("exceeds {} bytes", input::DOCUMENT_LIMIT));[m
+[32m+[m		[32m}[m
+[32m+[m		[32mOk(Some(current))[m
+[32m+[m	[32m};[m
+[32m+[m	[32mif read()[m
+[32m+[m		[32m.map_err(|e| format!("cannot reuse source map {}: {e}", path.display()))?[m
+[32m+[m		[32m.as_deref()[m
+[32m+[m		[32m== Some(bytes)[m
+[32m+[m	[32m{[m
+[32m+[m		[32mreturn Ok(());[m
+[32m+[m	[32m}[m
+[32m+[m	[32mpublish()[m
+[32m+[m[32m}[m
+[32m+[m
+[32m+[m[32m#[cfg(test)][m
+[32m+[m[32mmod tests;[m
+[1mdiff --git a/tools/project/src/maps/tests.rs b/tools/project/src/maps/tests.rs[m
+[1mnew file mode 100644[m
+[1mindex 0000000..18a8e29[m
+[1m--- /dev/null[m
+[1m+++ b/tools/project/src/maps/tests.rs[m
+[36m@@ -0,0 +1,107 @@[m
+[32m+[m[32muse super::*;[m
+[32m+[m[32muse std::{[m
+[32m+[m	[32mcell::Cell,[m
+[32m+[m	[32mpath::PathBuf,[m
+[32m+[m	[32msync::atomic::{AtomicUsize, Ordering},[m
+[32m+[m[32m};[m
+[32m+[m[32mstruct Temp(PathBuf);[m
+[32m+[m[32mimpl Temp {[m
+[32m+[m	[32mfn new() -> Self {[m
+[32m+[m		[32mstatic N: AtomicUsize = AtomicUsize::new(0);[m
+[32m+[m		[32mlet p = std::env::temp_dir().join(format!([m
+[32m+[m			[32m"rnx-map-{}-{}",[m
+[32m+[m			[32mstd::process::id(),[m
+[32m+[m			[32mN.fetch_add(1, Ordering::Relaxed)[m
+[32m+[m		[32m));[m
+[32m+[m		[32mfs::create_dir(&p).unwrap();[m
+[32m+[m		[32mSelf(p)[m
+[32m+[m	[32m}[m
+[32m+[m[32m}[m
+[32m+[m[32mimpl Drop for Temp {[m
+[32m+[m	[32mfn drop(&mut self) {[m
+[32m+[m		[32mfs::remove_dir_all(&self.0).unwrap();[m
+[32m+[m	[32m}[m
+[32m+[m[32m}[m
+[32m+[m[32m#[test][m
+[32m+[m[32mfn identical_reuses_missing_and_different_publish_and_failure_survives() {[m
+[32m+[m	[32mlet t = Temp::new();[m
+[32m+[m	[32mlet path = t.0.join("map.json");[m
+[32m+[m	[32mlet count = Cell::new(0);[m
+[32m+[m	[32mlet publish = || {[m
+[32m+[m		[32mcount.set(count.get() + 1);[m
+[32m+[m		[32mfs::write(&path, b"canonical").map_err(|e| e.to_string())[m
+[32m+[m	[32m};[m
+[32m+[m	[32mensure(&path, b"canonical", publish).unwrap();[m
+[32m+[m	[32massert_eq!(count.get(), 1);[m
+[32m+[m	[32mlet modified = fs::metadata(&path).unwrap().modified().unwrap();[m
+[32m+[m	[32mensure(&path, b"canonical", publish).unwrap();[m
+[32m+[m	[32massert_eq!(count.get(), 1);[m
+[32m+[m	[32massert_eq!(modified, fs::metadata(&path).unwrap().modified().unwrap());[m
+[32m+[m	[32m// The address is not trusted: changed bytes under the same name are repaired.[m
+[32m+[m	[32mfs::write(&path, b"corruption").unwrap();[m
+[32m+[m	[32massert_eq!([m
+[32m+[m		[32mensure(&path, b"canonical", || Err("publish failed".into())).unwrap_err(),[m
+[32m+[m		[32m"publish failed"[m
+[32m+[m	[32m);[m
+[32m+[m	[32massert_eq!(fs::read(&path).unwrap(), b"corruption");[m
+[32m+[m	[32mensure(&path, b"canonical", publish).unwrap();[m
+[32m+[m	[32massert_eq!(count.get(), 2);[m
+[32m+[m	[32massert_eq!(fs::read(&path).unwrap(), b"canonical");[m
+[32m+[m[32m}[m
+[32m+[m[32m#[test][m
+[32m+[m[32mfn oversized_and_non_regular_maps_never_publish() {[m
+[32m+[m	[32mlet t = Temp::new();[m
+[32m+[m	[32mlet path = t.0.join("map.json");[m
+[32m+[m	[32mfs::File::create(&path)[m
+[32m+[m		[32m.unwrap()[m
+[32m+[m		[32m.set_len(input::DOCUMENT_LIMIT as u64 + 1)[m
+[32m+[m		[32m.unwrap();[m
+[32m+[m	[32massert!([m
+[32m+[m		[32mensure(&path, b"canonical", || panic!("must not publish"))[m
+[32m+[m			[32m.unwrap_err()[m
+[32m+[m			[32m.contains("exceeds")[m
+[32m+[m	[32m);[m
+[32m+[m	[32mfs::remove_file(&path).unwrap();[m
+[32m+[m	[32mfs::create_dir(&path).unwrap();[m
+[32m+[m	[32massert!([m
+[32m+[m		[32mensure(&path, b"canonical", || panic!("must not publish"))[m
+[32m+[m			[32m.unwrap_err()[m
+[32m+[m			[32m.contains("regular")[m
+[32m+[m	[32m);[m
+[32m+[m[32m}[m
+[32m+[m[32m#[cfg(unix)][m
+[32m+[m[32m#[test][m
+[32m+[m[32mfn symlink_and_fifo_never_publish_or_block() {[m
+[32m+[m	[32muse std::os::unix::fs::symlink;[m
+[32m+[m	[32mlet t = Temp::new();[m
+[32m+[m	[32mlet path = t.0.join("map.json");[m
+[32m+[m	[32mlet target = t.0.join("target");[m
+[32m+[m	[32mfs::write(&target, b"canonical").unwrap();[m
+[32m+[m	[32msymlink(&target, &path).unwrap();[m
+[32m+[m	[32massert!(ensure(&path, b"canonical", || panic!("must not publish")).is_err());[m
+[32m+[m	[32massert_eq!(fs::read(&target).unwrap(), b"canonical");[m
+[32m+[m	[32mfs::remove_file(&path).unwrap();[m
+[32m+[m	[32massert!([m
+[32m+[m		[32mstd::process::Command::new("mkfifo")[m
+[32m+[m			[32m.arg(&path)[m
+[32m+[m			[32m.status()[m
+[32m+[m			[32m.unwrap()[m
+[32m+[m			[32m.success()[m
+[32m+[m	[32m);[m
+[32m+[m	[32massert!(ensure(&path, b"canonical", || panic!("must not publish")).is_err());[m
+[32m+[m[32m}[m
+[32m+[m
+[32m+[m[32m#[cfg(unix)][m
+[32m+[m[32m#[test][m
+[32m+[m[32mfn unreadable_map_refuses_without_publication() {[m
+[32m+[m	[32muse std::os::unix::fs::PermissionsExt;[m
+[32m+[m	[32m// Root bypasses mode permission checks; not evidence of readable user files.[m
+[32m+[m	[32mif unsafe { libc::geteuid() } == 0 {[m
+[32m+[m		[32mreturn;[m
+[32m+[m	[32m}[m
+[32m+[m	[32mlet t = Temp::new();[m
+[32m+[m	[32mlet path = t.0.join("map.json");[m
+[32m+[m	[32mfs::write(&path, b"canonical").unwrap();[m
+[32m+[m	[32mfs::set_permissions(&path, fs::Permissions::from_mode(0o0)).unwrap();[m
+[32m+[m	[32massert!(ensure(&path, b"canonical", || panic!("must not publish")).is_err());[m
+[32m+[m[32m}[m
+[1mdiff --git a/tools/project/src/workflow.rs b/tools/project/src/workflow.rs[m
+[1mindex 036815f..ca4d9f9 100644[m
+[1m--- a/tools/project/src/workflow.rs[m
+[1m+++ b/tools/project/src/workflow.rs[m
+[36m@@ -426,7 +426,7 @@[m [mimpl Project {[m
+ 		fs::create_dir_all(&maps).map_err(err)?;[m
+ 		let map_bytes = lock.sources.encode()?;[m
+ 		let map = maps.join(format!("{}.json", hash(&map_bytes)));[m
+[31m-		self.atomic(&map, &map_bytes)?;[m
+[32m+[m		[32mcrate::maps::ensure(&map, &map_bytes, || self.atomic(&map, &map_bytes))?;[m
+ 		let mut command = assembly::command([m
+ 			&path,[m
+ 			&digest,[m

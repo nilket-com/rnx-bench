@@ -1,0 +1,97 @@
+[
+  {
+    "name": "tests",
+    "command": [
+      "cargo",
+      "test",
+      "--locked",
+      "--offline",
+      "--manifest-path",
+      "tools/project/Cargo.toml",
+      "--",
+      "--test-threads=1"
+    ],
+    "exit": 0
+  },
+  {
+    "name": "tests-support",
+    "command": [
+      "cargo",
+      "test",
+      "--locked",
+      "--offline",
+      "--manifest-path",
+      "tools/project/Cargo.toml",
+      "--features",
+      "test-support",
+      "--",
+      "--test-threads=1"
+    ],
+    "exit": 0
+  },
+  {
+    "name": "clippy",
+    "command": [
+      "cargo",
+      "clippy",
+      "--locked",
+      "--offline",
+      "--manifest-path",
+      "tools/project/Cargo.toml",
+      "--all-targets",
+      "--",
+      "-D",
+      "warnings"
+    ],
+    "exit": 0
+  },
+  {
+    "name": "clippy-support",
+    "command": [
+      "cargo",
+      "clippy",
+      "--locked",
+      "--offline",
+      "--manifest-path",
+      "tools/project/Cargo.toml",
+      "--all-targets",
+      "--features",
+      "test-support",
+      "--",
+      "-D",
+      "warnings"
+    ],
+    "exit": 0
+  },
+  {
+    "name": "release",
+    "command": [
+      "cargo",
+      "build",
+      "--locked",
+      "--offline",
+      "--manifest-path",
+      "tools/project/Cargo.toml",
+      "--release",
+      "--bin",
+      "rnx-project"
+    ],
+    "exit": 0
+  },
+  {
+    "name": "debug-support",
+    "command": [
+      "cargo",
+      "build",
+      "--locked",
+      "--offline",
+      "--manifest-path",
+      "tools/project/Cargo.toml",
+      "--features",
+      "test-support",
+      "--bin",
+      "rnx-project"
+    ],
+    "exit": 0
+  }
+]

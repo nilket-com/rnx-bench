@@ -1,0 +1,41 @@
+{
+  "cpu": 0,
+  "threads": 1,
+  "samples_per_cell_repeat": 20,
+  "repeats": 2,
+  "commands": {
+    "after": [
+      "/home/me/work/rnx/tools/project/target/release/rnx-project",
+      "run",
+      "--manifest",
+      "/home/me/work/rnx-bench/probes/polars-cost/target/project/rnx.toml",
+      "--"
+    ],
+    "before": [
+      "/home/me/work/rnx-bench/probes/project-run-stage/target/before",
+      "run",
+      "--manifest",
+      "/home/me/work/rnx-bench/probes/polars-cost/target/project/rnx.toml",
+      "--"
+    ],
+    "direct": [
+      "/home/me/work/rnx-bench/probes/polars-cost/target/project/.rnx/artifacts/1fb622af7f19213435555c9355599a407ee99eb3d33108023035f3de0a3325b8",
+      "run",
+      "--source-map",
+      "/home/me/work/rnx-bench/probes/polars-cost/target/project/.rnx/maps/4c331c2618d5040ab57ae8b8245714cb5719415773d3f2ec8cea55020db3873b.json",
+      "/home/me/work/rnx-bench/probes/polars-cost/target/project/main.rn"
+    ]
+  },
+  "artifact_bytes": 107436336,
+  "artifact_sha256": "1fb622af7f19213435555c9355599a407ee99eb3d33108023035f3de0a3325b8",
+  "after_tool_sha256": "c77182686989017308612012840abcf3dbc9b5ee8a2dca336880af8f2a372ab5",
+  "before_tool_sha256": "ebb66e51d26b73825925da97b7846ca72d9d4e8d28574c158f08016f785350df",
+  "timer": "perf_counter_ns around no-shell spawn/capture/wait; all product tools uninstrumented",
+  "cache": "warm, pinned same CPU as gate5; no measurements discarded",
+  "uid": 1003,
+  "rustc": "rustc 1.98.1 (48a229cea 2026-09-01)\nbinary: rustc\ncommit-hash: 48a229ceaefd4985c50990b14116b6d856af0985\ncommit-date: 2026-09-01\nhost: x86_64-unknown-linux-gnu\nrelease: 1.98.1\nLLVM version: 22.1.8\n",
+  "baseline": "48831ec: tool unchanged from attribution probe",
+  "plan_commit": "6f354030e02eb0ba9c4bef3b7ba9827d25782bd6",
+  "source_patch_sha256": "1582c8fd412429b970bcae6009d47d205c3b13786abb0c099a684abb60f82683",
+  "implementation_commit": "347acd8"
+}
