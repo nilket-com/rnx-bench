@@ -1,0 +1,215 @@
+//! Isolated gate-one adapter. The imported modules are byte-identical to the
+//! accepted product; this file is prototype policy, not a public cache API.
+#![allow(dead_code)]
+mod fingerprint;
+mod generate;
+mod graph;
+mod input;
+mod inventory;
+mod manifest;
+mod wire;
+use sha2::{Digest, Sha256};
+use std::{
+	fs,
+	path::{Path, PathBuf},
+};
+fn error(e: impl std::fmt::Display) -> String {
+	e.to_string()
+}
+fn forbidden(dir: &Path, stage: bool) -> Result<(), String> {
+	for name in [
+		"Cargo.toml",
+		".cargo/config",
+		".cargo/config.toml",
+		"rust-toolchain",
+		"rust-toolchain.toml",
+	] {
+		if stage && name == "Cargo.toml" {
+			continue;
+		}
+		let p = dir.join(name);
+		match fs::symlink_metadata(&p) {
+			Ok(_) => return Err(format!("unexpected managed Cargo input {}", p.display())),
+			Err(e) if e.kind() == std::io::ErrorKind::NotFound => (),
+			Err(e) => return Err(error(e)),
+		}
+	}
+	// A .cargo symlink with absent target files must not bypass the checks.
+	if let Ok(m) = fs::symlink_metadata(dir.join(".cargo"))
+		&& !m.is_dir()
+	{
+		return Err(format!(
+			"managed .cargo is not a directory: {}",
+			dir.display()
+		));
+	}
+	Ok(())
+}
+fn root(path: &Path) -> Result<PathBuf, String> {
+	let root = path.canonicalize().map_err(error)?;
+	private_directory(&root)?;
+	Ok(root)
+}
+fn private_directory(path: &Path) -> Result<(), String> {
+	use std::os::unix::fs::MetadataExt;
+	let m = fs::symlink_metadata(path).map_err(error)?;
+	if !m.is_dir() || m.uid() != unsafe { libc::geteuid() } || m.mode() & 0o022 != 0 {
+		return Err(format!("not a private owned directory: {}", path.display()));
+	}
+	Ok(())
+}
+fn guard(root: &Path, stage: &Path, project: &Path) -> Result<(), String> {
+	// Only the selected root may have a user symlink spelling. Below it, walk
+	// lexical components rather than canonicalizing away a managed symlink.
+	let relative = stage.strip_prefix(root).map_err(error)?;
+	if relative.as_os_str().is_empty() {
+		return Err("stage must be below cache root".into());
+	}
+	let mut cursor = root.to_owned();
+	for component in relative.components() {
+		let std::path::Component::Normal(part) = component else {
+			return Err("non-normal managed path".into());
+		};
+		cursor.push(part);
+		private_directory(&cursor)?;
+		forbidden(&cursor, cursor == stage)?;
+	}
+	match fs::symlink_metadata(stage.join("src")) {
+		Ok(_) => private_directory(&stage.join("src"))?,
+		Err(e) if e.kind() == std::io::ErrorKind::NotFound => (),
+		Err(e) => return Err(error(e)),
+	}
+	for name in ["Cargo.toml", "Cargo.lock", "src/main.rs"] {
+		let path = stage.join(name);
+		match fs::symlink_metadata(&path) {
+			Ok(m) if !m.is_file() => {
+				return Err(format!("managed input is not regular: {}", path.display()));
+			}
+			Ok(_) => (),
+			Err(e) if e.kind() == std::io::ErrorKind::NotFound => (),
+			Err(e) => return Err(error(e)),
+		}
+	}
+	let cache_ancestors: Vec<_> = root.ancestors().collect();
+	for dir in project.ancestors().filter(|p| !cache_ancestors.contains(p)) {
+		for name in [
+			".cargo/config",
+			".cargo/config.toml",
+			"rust-toolchain",
+			"rust-toolchain.toml",
+		] {
+			let p = dir.join(name);
+			match fs::symlink_metadata(&p) {
+				Ok(_) => {
+					return Err(format!(
+						"project Cargo input {} is outside shared cache context {}",
+						p.display(),
+						root.display()
+					));
+				}
+				Err(e) if e.kind() == std::io::ErrorKind::NotFound => (),
+				Err(e) => return Err(error(e)),
+			}
+		}
+	}
+	Ok(())
+}
+fn policy(inv: &inventory::Inventory) -> Result<(), String> {
+	for external in &inv.external {
+		let Some(file) = &external.file else { continue };
+		if !matches!(
+			external.path.file_name().and_then(|s| s.to_str()),
+			Some("config" | "config.toml")
+		) {
+			continue;
+		}
+		let bytes = input::read(&external.path, input::MANIFEST_LIMIT)?;
+		if format!("{:x}", Sha256::digest(&bytes)) != file.sha256 {
+			return Err("config changed".into());
+		}
+		let config: toml::Value =
+			toml::from_str(std::str::from_utf8(&bytes).map_err(error)?).map_err(error)?;
+		for key in config.as_table().ok_or("config is not a table")?.keys() {
+			if !matches!(
+				key.as_str(),
+				"http" | "net" | "registry" | "registries" | "term"
+			) {
+				return Err(format!(
+					"unsupported Cargo configuration key {key} in {}",
+					external.path.display()
+				));
+			}
+		}
+	}
+	Ok(())
+}
+fn run() -> Result<(), String> {
+	let args: Vec<_> = std::env::args_os().skip(1).collect();
+	if args.len() < 4 {
+		return Err("prepare|audit|guard ROOT STAGE PROJECT [METADATA CARGO_HOME]".into());
+	}
+	let root = root(Path::new(&args[1]))?;
+	let stage = Path::new(&args[2]);
+	let project = Path::new(&args[3]);
+	guard(&root, stage, project)?;
+	match args[0].to_str() {
+		Some("prepare") if args.len() == 4 => {
+			let mut m = manifest::Manifest::read(&project.join("rnx.toml"))?;
+			let canonical = |s: &str| -> Result<String, String> {
+				project
+					.join(s)
+					.canonicalize()
+					.map_err(error)?
+					.into_os_string()
+					.into_string()
+					.map_err(|_| "non-Unicode native root".into())
+			};
+			if let Some(runtime) = &mut m.runtime {
+				runtime.path = canonical(&runtime.path)?;
+			}
+			for native in m.native.values_mut() {
+				native.path = canonical(&native.path)?;
+			}
+			let (cargo, main) = generate::wrapper(&m, project)?;
+			fs::create_dir_all(stage.join("src")).map_err(error)?;
+			fs::write(stage.join("Cargo.toml"), cargo).map_err(error)?;
+			fs::write(stage.join("src/main.rs"), main).map_err(error)?;
+			Ok(())
+		}
+		Some("preflight") if args.len() == 5 => {
+			let metadata =
+				wire::encode(&serde_json::json!({"workspace_root":stage,"packages":[]}))?;
+			let inv = inventory::native(
+				&metadata,
+				stage,
+				&root,
+				Path::new(&args[4]),
+				&mut fingerprint::Allowance::default(),
+			)?;
+			policy(&inv)?;
+			println!("{}", String::from_utf8(wire::pretty(&inv)?).map_err(error)?);
+			Ok(())
+		}
+		Some("audit") if args.len() == 6 => {
+			let metadata = input::read(Path::new(&args[4]), input::DOCUMENT_LIMIT)?;
+			let inv = inventory::native(
+				&metadata,
+				stage,
+				&root,
+				Path::new(&args[5]),
+				&mut fingerprint::Allowance::default(),
+			)?;
+			policy(&inv)?;
+			println!("{}", String::from_utf8(wire::pretty(&inv)?).map_err(error)?);
+			Ok(())
+		}
+		Some("guard") if args.len() == 4 => Ok(()),
+		_ => Err("invalid prototype arguments".into()),
+	}
+}
+fn main() {
+	if let Err(e) = run() {
+		eprintln!("{e}");
+		std::process::exit(1);
+	}
+}

@@ -1,0 +1,1 @@
+fn main(){let p=std::path::PathBuf::from(std::env::var("OUT_DIR").unwrap()).join("retained.txt");std::fs::write(&p,"cache-owned retained value").unwrap();println!("cargo:rustc-env=RETAINED_PATH={}",p.display());}

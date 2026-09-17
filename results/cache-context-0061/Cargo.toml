@@ -1,0 +1,15 @@
+[package]
+name = "rnx-project-app"
+version = "0.0.0"
+edition = "2024"
+publish = false
+
+[workspace]
+
+[dependencies.native_0]
+package = "context-adapter"
+path = "/tmp/rnx-cache-context-5s5ldxkm/native/adapter"
+
+[dependencies.rnx]
+path = "/tmp/rnx-cache-context-5s5ldxkm/native/runtime"
+features = ["project-sources"]
