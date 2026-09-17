@@ -1,0 +1,9 @@
+   Compiling rnx-project v0.0.0 (/home/me/work/rnx-bench/probes/adapter-authoring/target/tool)
+error[E0433]: cannot find `cache_storage` in `crate`
+   --> src/cache_identity.rs:199:10
+    |
+199 |         crate::cache_storage::policy(&native)?;
+    |                ^^^^^^^^^^^^^ could not find `cache_storage` in the crate root
+
+For more information about this error, try `rustc --explain E0433`.
+error: could not compile `rnx-project` (bin "rnx-adapter-authoring-probe") due to 1 previous error

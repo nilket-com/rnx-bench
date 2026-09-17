@@ -1,0 +1,33 @@
+{
+  "added": [],
+  "candidate": "# application comment stays byte-for-byte\nformat = 1\n[application]\nentry = \"main.rn\"\n[runtime]\npath = \"../../native\"\n\n[native.polars]\npath = \"../../native/./adapters/polars\"\npackage = \"rnx-polars\"\nbuilder = \"build\"\nhook = \"plain\"\n",
+  "canonical_wrapper": [
+    "[package]\nname = \"rnx-project-app\"\nversion = \"0.0.0\"\nedition = \"2024\"\npublish = false\n\n[workspace]\n\n[dependencies.native_0]\npackage = \"rnx-polars\"\npath = \"/tmp/rnx-authoring-0062-lwn6smss/native/adapters/polars\"\n\n[dependencies.rnx]\npath = \"/tmp/rnx-authoring-0062-lwn6smss/native\"\nfeatures = [\"project-sources\"]\n",
+    "fn main() -> Result<(), Box<dyn std::error::Error>> {\n    rnx::main_with(rnx::Extensions::none().with(\"polars\", native_0::build))\n}\n"
+  ],
+  "existing": [
+    "polars"
+  ],
+  "manifest": {
+    "application": {
+      "entry": "main.rn"
+    },
+    "format": 1,
+    "native": {
+      "polars": {
+        "builder": "build",
+        "hook": "plain",
+        "package": "rnx-polars",
+        "path": "../../native/./adapters/polars"
+      }
+    },
+    "runtime": {
+      "path": "../../native"
+    },
+    "sources": {}
+  },
+  "wrapper": [
+    "[package]\nname = \"rnx-project-app\"\nversion = \"0.0.0\"\nedition = \"2024\"\npublish = false\n\n[workspace]\n\n[dependencies.native_0]\npackage = \"rnx-polars\"\npath = \"/tmp/rnx-authoring-0062-lwn6smss/already-present/app/../../native/./adapters/polars\"\n\n[dependencies.rnx]\npath = \"/tmp/rnx-authoring-0062-lwn6smss/already-present/app/../../native\"\nfeatures = [\"project-sources\"]\n",
+    "fn main() -> Result<(), Box<dyn std::error::Error>> {\n    rnx::main_with(rnx::Extensions::none().with(\"polars\", native_0::build))\n}\n"
+  ]
+}

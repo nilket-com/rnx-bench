@@ -1,0 +1,19 @@
+# application comment stays byte-for-byte
+format = 1
+[application]
+entry = "main.rn"
+[runtime]
+path = "/tmp/rnx-authoring-0062-lwn6smss/native"
+
+
+[native.polars]
+path = "/tmp/rnx-authoring-0062-lwn6smss/native/adapters/polars"
+package = "rnx-polars"
+builder = "build"
+hook = "plain"
+
+[native.postgres]
+path = "/tmp/rnx-authoring-0062-lwn6smss/native/adapters/postgres"
+package = "rnx-postgres"
+builder = "build"
+hook = "lifecycle"

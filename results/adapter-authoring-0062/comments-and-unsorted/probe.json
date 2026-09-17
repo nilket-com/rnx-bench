@@ -1,0 +1,45 @@
+{
+  "added": [
+    "postgres"
+  ],
+  "candidate": "# application comment stays byte-for-byte\nformat = 1\n[application]\nentry = \"main.rn\"\n[runtime]\npath = \"../../native\"\n\n[native.z]\npath = \"../../native/adapters/z\"\npackage = \"custom-z\"\nbuilder = \"build\"\nhook = \"plain\"\n\n[native.a]\npath = \"../../native/adapters/a\"\npackage = \"custom-a\"\nbuilder = \"build\"\nhook = \"plain\"\n\n\n[native.postgres]\npath = \"../../native/adapters/postgres\"\npackage = \"rnx-postgres\"\nbuilder = \"build\"\nhook = \"lifecycle\"\n",
+  "canonical_wrapper": [
+    "[package]\nname = \"rnx-project-app\"\nversion = \"0.0.0\"\nedition = \"2024\"\npublish = false\n\n[workspace]\n\n[dependencies.native_0]\npackage = \"custom-a\"\npath = \"/tmp/rnx-authoring-0062-lwn6smss/native/adapters/a\"\n\n[dependencies.native_1]\npackage = \"rnx-postgres\"\npath = \"/tmp/rnx-authoring-0062-lwn6smss/native/adapters/postgres\"\n\n[dependencies.native_2]\npackage = \"custom-z\"\npath = \"/tmp/rnx-authoring-0062-lwn6smss/native/adapters/z\"\n\n[dependencies.rnx]\npath = \"/tmp/rnx-authoring-0062-lwn6smss/native\"\nfeatures = [\"project-sources\"]\n",
+    "fn main() -> Result<(), Box<dyn std::error::Error>> {\n    rnx::main_with(rnx::Extensions::none().with(\"a\", native_0::build).with_lifecycle(\"postgres\", native_1::build).with(\"z\", native_2::build))\n}\n"
+  ],
+  "existing": [],
+  "manifest": {
+    "application": {
+      "entry": "main.rn"
+    },
+    "format": 1,
+    "native": {
+      "a": {
+        "builder": "build",
+        "hook": "plain",
+        "package": "custom-a",
+        "path": "../../native/adapters/a"
+      },
+      "postgres": {
+        "builder": "build",
+        "hook": "lifecycle",
+        "package": "rnx-postgres",
+        "path": "../../native/adapters/postgres"
+      },
+      "z": {
+        "builder": "build",
+        "hook": "plain",
+        "package": "custom-z",
+        "path": "../../native/adapters/z"
+      }
+    },
+    "runtime": {
+      "path": "../../native"
+    },
+    "sources": {}
+  },
+  "wrapper": [
+    "[package]\nname = \"rnx-project-app\"\nversion = \"0.0.0\"\nedition = \"2024\"\npublish = false\n\n[workspace]\n\n[dependencies.native_0]\npackage = \"custom-a\"\npath = \"/tmp/rnx-authoring-0062-lwn6smss/comments-and-unsorted/app/../../native/adapters/a\"\n\n[dependencies.native_1]\npackage = \"rnx-postgres\"\npath = \"/tmp/rnx-authoring-0062-lwn6smss/comments-and-unsorted/app/../../native/adapters/postgres\"\n\n[dependencies.native_2]\npackage = \"custom-z\"\npath = \"/tmp/rnx-authoring-0062-lwn6smss/comments-and-unsorted/app/../../native/adapters/z\"\n\n[dependencies.rnx]\npath = \"/tmp/rnx-authoring-0062-lwn6smss/comments-and-unsorted/app/../../native\"\nfeatures = [\"project-sources\"]\n",
+    "fn main() -> Result<(), Box<dyn std::error::Error>> {\n    rnx::main_with(rnx::Extensions::none().with(\"a\", native_0::build).with_lifecycle(\"postgres\", native_1::build).with(\"z\", native_2::build))\n}\n"
+  ]
+}

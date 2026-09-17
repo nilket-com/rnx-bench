@@ -1,0 +1,10 @@
+native.postgres.path="../../native/adapters/postgres"
+native.postgres.package="rnx-postgres"
+native.postgres.builder="build"
+native.postgres.hook="lifecycle"
+# application comment stays byte-for-byte
+format = 1
+[application]
+entry = "main.rn"
+[runtime]
+path = "../../native"

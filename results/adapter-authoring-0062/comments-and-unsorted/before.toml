@@ -1,0 +1,18 @@
+# application comment stays byte-for-byte
+format = 1
+[application]
+entry = "main.rn"
+[runtime]
+path = "../../native"
+
+[native.z]
+path = "../../native/adapters/z"
+package = "custom-z"
+builder = "build"
+hook = "plain"
+
+[native.a]
+path = "../../native/adapters/a"
+package = "custom-a"
+builder = "build"
+hook = "plain"

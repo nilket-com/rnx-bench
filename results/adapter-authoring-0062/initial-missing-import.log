@@ -1,0 +1,21 @@
+   Compiling rnx-project v0.0.0 (/home/me/work/rnx-bench/probes/adapter-authoring/target/tool)
+error[E0433]: cannot find `cache_identity` in `crate`
+   --> src/wire.rs:184:47
+    |
+184 |     pub fn shared(&self) -> Result<Option<crate::cache_identity::Identity>, String> {
+    |                                                  ^^^^^^^^^^^^^^ could not find `cache_identity` in the crate root
+
+error[E0433]: cannot find `cache_identity` in `crate`
+   --> src/wire.rs:187:12
+    |
+187 |                 crate::cache_identity::Identity::decode(identity.as_bytes()).map(Some)
+    |                        ^^^^^^^^^^^^^^ could not find `cache_identity` in the crate root
+
+error[E0433]: cannot find `cache_identity` in `crate`
+   --> src/wire.rs:302:27
+    |
+302 |                 let identity = crate::cache_identity::Identity::decode(identity.as_bytes())?;
+    |                                       ^^^^^^^^^^^^^^ could not find `cache_identity` in the crate root
+
+For more information about this error, try `rustc --explain E0433`.
+error: could not compile `rnx-project` (bin "rnx-adapter-authoring-probe") due to 3 previous errors

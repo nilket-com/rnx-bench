@@ -1,0 +1,14 @@
+relative-both pass
+absolute-both pass
+alternate-relative pass
+no-final-newline pass
+Traceback (most recent call last):
+  File "/home/me/work/rnx-bench/probes/adapter-authoring/check.py", line 64, in <module>
+    case('comments-and-unsorted',names=('postgres',),suffix='\n'+table('z',native('polars','../../native/adapters/polars'))+'\n'+table('a',native('polars','../../native/adapters/polars')))
+    ~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/me/work/rnx-bench/probes/adapter-authoring/check.py", line 52, in case
+    p=must([TOOL,'lock','--manifest',a/'rnx.toml','--offline'],env)
+  File "/home/me/work/rnx-bench/probes/adapter-authoring/check.py", line 10, in must
+    p=call(args,env,cwd);assert p.returncode==0,(args,p.stdout,p.stderr);return p
+                                ^^^^^^^^^^^^^^^
+AssertionError: ([PosixPath('/home/me/work/rnx/tools/project/target/release/rnx-project'), 'lock', '--manifest', PosixPath('/tmp/rnx-authoring-0062-y15c_fwj/comments-and-unsorted/app/rnx.toml'), '--offline'], '', '     Locking 3 packages to latest Rust 1.98.1 compatible versions\nerror: the crate `rnx-project-app v0.0.0 (/tmp/rnx-authoring-0062-y15c_fwj/cache/resolve/3085588-0/assembly)` depends on crate `rnx-polars v0.0.0 (/tmp/rnx-authoring-0062-y15c_fwj/native/adapters/polars)` multiple times with different names\nrnx-project: "cargo" failed: exit status: 101\n')

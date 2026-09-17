@@ -1,0 +1,40 @@
+{
+  "added": [
+    "polars",
+    "postgres"
+  ],
+  "candidate": "# application comment stays byte-for-byte\nformat = 1\n[application]\nentry = \"main.rn\"\n[runtime]\npath = \"../../../../home/me/work/rnx\"\n\n\n[native.polars]\npath = \"../../../../home/me/work/rnx/adapters/polars\"\npackage = \"rnx-polars\"\nbuilder = \"build\"\nhook = \"plain\"\n\n[native.postgres]\npath = \"../../../../home/me/work/rnx/adapters/postgres\"\npackage = \"rnx-postgres\"\nbuilder = \"build\"\nhook = \"lifecycle\"\n",
+  "canonical_wrapper": [
+    "[package]\nname = \"rnx-project-app\"\nversion = \"0.0.0\"\nedition = \"2024\"\npublish = false\n\n[workspace]\n\n[dependencies.native_0]\npackage = \"rnx-polars\"\npath = \"/home/me/work/rnx/adapters/polars\"\n\n[dependencies.native_1]\npackage = \"rnx-postgres\"\npath = \"/home/me/work/rnx/adapters/postgres\"\n\n[dependencies.rnx]\npath = \"/home/me/work/rnx\"\nfeatures = [\"project-sources\"]\n",
+    "fn main() -> Result<(), Box<dyn std::error::Error>> {\n    rnx::main_with(rnx::Extensions::none().with(\"polars\", native_0::build).with_lifecycle(\"postgres\", native_1::build))\n}\n"
+  ],
+  "existing": [],
+  "manifest": {
+    "application": {
+      "entry": "main.rn"
+    },
+    "format": 1,
+    "native": {
+      "polars": {
+        "builder": "build",
+        "hook": "plain",
+        "package": "rnx-polars",
+        "path": "../../../../home/me/work/rnx/adapters/polars"
+      },
+      "postgres": {
+        "builder": "build",
+        "hook": "lifecycle",
+        "package": "rnx-postgres",
+        "path": "../../../../home/me/work/rnx/adapters/postgres"
+      }
+    },
+    "runtime": {
+      "path": "../../../../home/me/work/rnx"
+    },
+    "sources": {}
+  },
+  "wrapper": [
+    "[package]\nname = \"rnx-project-app\"\nversion = \"0.0.0\"\nedition = \"2024\"\npublish = false\n\n[workspace]\n\n[dependencies.native_0]\npackage = \"rnx-polars\"\npath = \"/tmp/rnx-authoring-0062-lwn6smss/shipped-both/app/../../../../home/me/work/rnx/adapters/polars\"\n\n[dependencies.native_1]\npackage = \"rnx-postgres\"\npath = \"/tmp/rnx-authoring-0062-lwn6smss/shipped-both/app/../../../../home/me/work/rnx/adapters/postgres\"\n\n[dependencies.rnx]\npath = \"/tmp/rnx-authoring-0062-lwn6smss/shipped-both/app/../../../../home/me/work/rnx\"\nfeatures = [\"project-sources\"]\n",
+    "fn main() -> Result<(), Box<dyn std::error::Error>> {\n    rnx::main_with(rnx::Extensions::none().with(\"polars\", native_0::build).with_lifecycle(\"postgres\", native_1::build))\n}\n"
+  ]
+}
