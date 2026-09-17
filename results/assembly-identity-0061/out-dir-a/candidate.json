@@ -1,0 +1,217 @@
+{
+  "probe_format": 1,
+  "wrapper": {
+    "package": {
+      "name": "rnx-project-app",
+      "version": "0.0.0",
+      "edition": "2024",
+      "publish": false
+    },
+    "workspace": {},
+    "dependencies": {
+      "native_0": {
+        "package": "probe-adapter",
+        "path": "@native:ca8144fc72ef3e4e3bb5844d5a326cce4adcc4c4872e0536e2447ccc260d39fc"
+      },
+      "rnx": {
+        "path": "@native:ed23f91f2668b367d409288511935749c34198883cda4404e351d27d3ef97c7a",
+        "features": [
+          "project-sources"
+        ]
+      }
+    }
+  },
+  "main": "fn main() -> Result<(), Box<dyn std::error::Error>> {\n    rnx::main_with(rnx::Extensions::none().with(\"probe\", native_0::build))\n}\n",
+  "assembly": {
+    "kind": "generated",
+    "cargo_lock_sha256": "147b3850a92d5e8fe19e1e76d053af6dcd3e5afb123c8bd36e7477103289b2d4",
+    "target": "x86_64-unknown-linux-gnu",
+    "profile": "release",
+    "features": [
+      "project-sources"
+    ],
+    "rustc": "rustc 1.98.1 (48a229cea 2026-09-01)\nbinary: rustc\ncommit-hash: 48a229ceaefd4985c50990b14116b6d856af0985\ncommit-date: 2026-09-01\nhost: x86_64-unknown-linux-gnu\nrelease: 1.98.1\nLLVM version: 22.1.8\n",
+    "cargo": "cargo 1.98.1 (797e8a9bc 2026-08-05)\n"
+  },
+  "native": {
+    "platform": "linux-x86_64",
+    "packages": [
+      {
+        "id": "path+file://@native:ca8144fc72ef3e4e3bb5844d5a326cce4adcc4c4872e0536e2447ccc260d39fc#probe-adapter@0.0.0",
+        "name": "probe-adapter",
+        "manifest": "@native:ca8144fc72ef3e4e3bb5844d5a326cce4adcc4c4872e0536e2447ccc260d39fc/Cargo.toml",
+        "root": "@native:ca8144fc72ef3e4e3bb5844d5a326cce4adcc4c4872e0536e2447ccc260d39fc"
+      },
+      {
+        "id": "path+file://@native:ed23f91f2668b367d409288511935749c34198883cda4404e351d27d3ef97c7a#rnx@0.0.0",
+        "name": "rnx",
+        "manifest": "@native:ed23f91f2668b367d409288511935749c34198883cda4404e351d27d3ef97c7a/Cargo.toml",
+        "root": "@native:ed23f91f2668b367d409288511935749c34198883cda4404e351d27d3ef97c7a"
+      }
+    ],
+    "trees": [
+      "ca8144fc72ef3e4e3bb5844d5a326cce4adcc4c4872e0536e2447ccc260d39fc",
+      "ed23f91f2668b367d409288511935749c34198883cda4404e351d27d3ef97c7a"
+    ],
+    "external": [
+      {
+        "path": "/.cargo/config",
+        "file": null
+      },
+      {
+        "path": "/.cargo/config.toml",
+        "file": null
+      },
+      {
+        "path": "/Cargo.toml",
+        "file": null
+      },
+      {
+        "path": "/home/me/.cargo/config",
+        "file": null
+      },
+      {
+        "path": "/home/me/.cargo/config.toml",
+        "file": null
+      },
+      {
+        "path": "/rust-toolchain",
+        "file": null
+      },
+      {
+        "path": "/rust-toolchain.toml",
+        "file": null
+      },
+      {
+        "path": "/tmp/.cargo/config",
+        "file": null
+      },
+      {
+        "path": "/tmp/.cargo/config.toml",
+        "file": null
+      },
+      {
+        "path": "/tmp/Cargo.toml",
+        "file": null
+      },
+      {
+        "path": "/tmp/rnx-assembly-key-yc4vxyoq/.cargo/config",
+        "file": null
+      },
+      {
+        "path": "/tmp/rnx-assembly-key-yc4vxyoq/.cargo/config.toml",
+        "file": null
+      },
+      {
+        "path": "/tmp/rnx-assembly-key-yc4vxyoq/Cargo.toml",
+        "file": null
+      },
+      {
+        "path": "/tmp/rnx-assembly-key-yc4vxyoq/native/.cargo/config",
+        "file": null
+      },
+      {
+        "path": "/tmp/rnx-assembly-key-yc4vxyoq/native/.cargo/config.toml",
+        "file": null
+      },
+      {
+        "path": "/tmp/rnx-assembly-key-yc4vxyoq/native/Cargo.toml",
+        "file": null
+      },
+      {
+        "path": "/tmp/rnx-assembly-key-yc4vxyoq/native/rust-toolchain",
+        "file": null
+      },
+      {
+        "path": "/tmp/rnx-assembly-key-yc4vxyoq/native/rust-toolchain.toml",
+        "file": null
+      },
+      {
+        "path": "/tmp/rnx-assembly-key-yc4vxyoq/rust-toolchain",
+        "file": null
+      },
+      {
+        "path": "/tmp/rnx-assembly-key-yc4vxyoq/rust-toolchain.toml",
+        "file": null
+      },
+      {
+        "path": "/tmp/rust-toolchain",
+        "file": null
+      },
+      {
+        "path": "/tmp/rust-toolchain.toml",
+        "file": null
+      },
+      {
+        "path": "@application/.cargo/config",
+        "file": null
+      },
+      {
+        "path": "@application/.cargo/config.toml",
+        "file": null
+      },
+      {
+        "path": "@application/Cargo.toml",
+        "file": null
+      },
+      {
+        "path": "@application/rust-toolchain",
+        "file": null
+      },
+      {
+        "path": "@application/rust-toolchain.toml",
+        "file": null
+      },
+      {
+        "path": "@native:ca8144fc72ef3e4e3bb5844d5a326cce4adcc4c4872e0536e2447ccc260d39fc/.cargo/config",
+        "file": null
+      },
+      {
+        "path": "@native:ca8144fc72ef3e4e3bb5844d5a326cce4adcc4c4872e0536e2447ccc260d39fc/.cargo/config.toml",
+        "file": null
+      },
+      {
+        "path": "@native:ca8144fc72ef3e4e3bb5844d5a326cce4adcc4c4872e0536e2447ccc260d39fc/rust-toolchain",
+        "file": null
+      },
+      {
+        "path": "@native:ca8144fc72ef3e4e3bb5844d5a326cce4adcc4c4872e0536e2447ccc260d39fc/rust-toolchain.toml",
+        "file": null
+      },
+      {
+        "path": "@native:ed23f91f2668b367d409288511935749c34198883cda4404e351d27d3ef97c7a/.cargo/config",
+        "file": null
+      },
+      {
+        "path": "@native:ed23f91f2668b367d409288511935749c34198883cda4404e351d27d3ef97c7a/.cargo/config.toml",
+        "file": null
+      },
+      {
+        "path": "@native:ed23f91f2668b367d409288511935749c34198883cda4404e351d27d3ef97c7a/rust-toolchain",
+        "file": null
+      },
+      {
+        "path": "@native:ed23f91f2668b367d409288511935749c34198883cda4404e351d27d3ef97c7a/rust-toolchain.toml",
+        "file": null
+      },
+      {
+        "path": "@native:ca8144fc72ef3e4e3bb5844d5a326cce4adcc4c4872e0536e2447ccc260d39fc/Cargo.toml",
+        "file": {
+          "path": "Cargo.toml",
+          "executable": false,
+          "bytes": 62,
+          "sha256": "8f5aa591e89d912bc8b6bc874eca8c90725d684efb6e11c6fbd87fa2a6a413a2"
+        }
+      },
+      {
+        "path": "@native:ed23f91f2668b367d409288511935749c34198883cda4404e351d27d3ef97c7a/Cargo.toml",
+        "file": {
+          "path": "Cargo.toml",
+          "executable": false,
+          "bytes": 82,
+          "sha256": "52a16e8fda5321c0e8cb31598c99bbac571303f2abaab6aa50bc2da7bffe101f"
+        }
+      }
+    ]
+  }
+}

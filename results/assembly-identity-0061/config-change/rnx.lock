@@ -1,0 +1,302 @@
+{
+  "format": 1,
+  "declarations": {
+    "format": 1,
+    "application": {
+      "entry": "main.rn"
+    },
+    "runtime": {
+      "path": "/tmp/rnx-assembly-key-yc4vxyoq/native/runtime"
+    },
+    "sources": {},
+    "native": {
+      "probe": {
+        "path": "/tmp/rnx-assembly-key-yc4vxyoq/native/adapter",
+        "package": "probe-adapter",
+        "builder": "build",
+        "hook": "plain"
+      }
+    }
+  },
+  "sources": {
+    "format": 1,
+    "entry": "/tmp/rnx-assembly-key-yc4vxyoq/config-change/main.rn",
+    "mounts": []
+  },
+  "inputs": {
+    "source": {
+      "packages": [
+        {
+          "manifest": "/tmp/rnx-assembly-key-yc4vxyoq/config-change/rnx.toml",
+          "root": "/tmp/rnx-assembly-key-yc4vxyoq/config-change"
+        }
+      ],
+      "trees": [
+        {
+          "root": "/tmp/rnx-assembly-key-yc4vxyoq/config-change",
+          "sha256": "e6f5a1ed1a0506ca49ff2d022d110eefb608d9d6d46a14c43b5dc12c251df3ee",
+          "files": [
+            {
+              "path": ".cargo/config.toml",
+              "executable": false,
+              "bytes": 19,
+              "sha256": "06a19562c1adf951870bd43253016dcc69ae0812cbeacd69ea775e410537d812"
+            },
+            {
+              "path": "main.rn",
+              "executable": false,
+              "bytes": 20,
+              "sha256": "3d0f8ed836b57c4b73da5e367ffa294287440fa1c4154008b1c527863df538d0"
+            },
+            {
+              "path": "rnx.toml",
+              "executable": false,
+              "bytes": 223,
+              "sha256": "7d265ef75ef59c682cf5b055f3182d9ad2dbfb1b918e2f8d7d29df7e4f99c112"
+            }
+          ]
+        }
+      ],
+      "outside_manifests": []
+    },
+    "native": {
+      "platform": "linux-x86_64",
+      "packages": [
+        {
+          "id": "path+file:///tmp/rnx-assembly-key-yc4vxyoq/native/adapter#probe-adapter@0.0.0",
+          "name": "probe-adapter",
+          "manifest": "/tmp/rnx-assembly-key-yc4vxyoq/native/adapter/Cargo.toml",
+          "root": "/tmp/rnx-assembly-key-yc4vxyoq/native/adapter"
+        },
+        {
+          "id": "path+file:///tmp/rnx-assembly-key-yc4vxyoq/native/runtime#rnx@0.0.0",
+          "name": "rnx",
+          "manifest": "/tmp/rnx-assembly-key-yc4vxyoq/native/runtime/Cargo.toml",
+          "root": "/tmp/rnx-assembly-key-yc4vxyoq/native/runtime"
+        }
+      ],
+      "trees": [
+        {
+          "root": "/tmp/rnx-assembly-key-yc4vxyoq/native/adapter",
+          "sha256": "99e54cae999a866327d964103e94e4083288e5ee9bf4d3e17b97c08470356eff",
+          "files": [
+            {
+              "path": "Cargo.toml",
+              "executable": false,
+              "bytes": 62,
+              "sha256": "8f5aa591e89d912bc8b6bc874eca8c90725d684efb6e11c6fbd87fa2a6a413a2"
+            },
+            {
+              "path": "build.rs",
+              "executable": false,
+              "bytes": 90,
+              "sha256": "06f4b3a9fd1850df4e62675d275187fb8dfc8fe7b729da8fd0f7229c17857bde"
+            },
+            {
+              "path": "src/lib.rs",
+              "executable": false,
+              "bytes": 42,
+              "sha256": "ba0eb8b27bcac272e2e4879ef60b368e8671a089c40a72a9aa5f19499a85a7f6"
+            }
+          ]
+        },
+        {
+          "root": "/tmp/rnx-assembly-key-yc4vxyoq/native/runtime",
+          "sha256": "ed23f91f2668b367d409288511935749c34198883cda4404e351d27d3ef97c7a",
+          "files": [
+            {
+              "path": "Cargo.toml",
+              "executable": false,
+              "bytes": 82,
+              "sha256": "52a16e8fda5321c0e8cb31598c99bbac571303f2abaab6aa50bc2da7bffe101f"
+            },
+            {
+              "path": "src/lib.rs",
+              "executable": false,
+              "bytes": 283,
+              "sha256": "17a36c76f893e8d04934044827aadd071a3280a2ccf1ddc25eed014e07a81844"
+            }
+          ]
+        }
+      ],
+      "external": [
+        {
+          "path": "/.cargo/config",
+          "file": null
+        },
+        {
+          "path": "/.cargo/config.toml",
+          "file": null
+        },
+        {
+          "path": "/Cargo.toml",
+          "file": null
+        },
+        {
+          "path": "/home/me/.cargo/config",
+          "file": null
+        },
+        {
+          "path": "/home/me/.cargo/config.toml",
+          "file": null
+        },
+        {
+          "path": "/rust-toolchain",
+          "file": null
+        },
+        {
+          "path": "/rust-toolchain.toml",
+          "file": null
+        },
+        {
+          "path": "/tmp/.cargo/config",
+          "file": null
+        },
+        {
+          "path": "/tmp/.cargo/config.toml",
+          "file": null
+        },
+        {
+          "path": "/tmp/Cargo.toml",
+          "file": null
+        },
+        {
+          "path": "/tmp/rnx-assembly-key-yc4vxyoq/.cargo/config",
+          "file": null
+        },
+        {
+          "path": "/tmp/rnx-assembly-key-yc4vxyoq/.cargo/config.toml",
+          "file": null
+        },
+        {
+          "path": "/tmp/rnx-assembly-key-yc4vxyoq/Cargo.toml",
+          "file": null
+        },
+        {
+          "path": "/tmp/rnx-assembly-key-yc4vxyoq/config-change/.cargo/config",
+          "file": null
+        },
+        {
+          "path": "/tmp/rnx-assembly-key-yc4vxyoq/config-change/.cargo/config.toml",
+          "file": {
+            "path": "config.toml",
+            "executable": false,
+            "bytes": 19,
+            "sha256": "06a19562c1adf951870bd43253016dcc69ae0812cbeacd69ea775e410537d812"
+          }
+        },
+        {
+          "path": "/tmp/rnx-assembly-key-yc4vxyoq/config-change/Cargo.toml",
+          "file": null
+        },
+        {
+          "path": "/tmp/rnx-assembly-key-yc4vxyoq/config-change/rust-toolchain",
+          "file": null
+        },
+        {
+          "path": "/tmp/rnx-assembly-key-yc4vxyoq/config-change/rust-toolchain.toml",
+          "file": null
+        },
+        {
+          "path": "/tmp/rnx-assembly-key-yc4vxyoq/native/.cargo/config",
+          "file": null
+        },
+        {
+          "path": "/tmp/rnx-assembly-key-yc4vxyoq/native/.cargo/config.toml",
+          "file": null
+        },
+        {
+          "path": "/tmp/rnx-assembly-key-yc4vxyoq/native/Cargo.toml",
+          "file": null
+        },
+        {
+          "path": "/tmp/rnx-assembly-key-yc4vxyoq/native/adapter/.cargo/config",
+          "file": null
+        },
+        {
+          "path": "/tmp/rnx-assembly-key-yc4vxyoq/native/adapter/.cargo/config.toml",
+          "file": null
+        },
+        {
+          "path": "/tmp/rnx-assembly-key-yc4vxyoq/native/adapter/Cargo.toml",
+          "file": {
+            "path": "Cargo.toml",
+            "executable": false,
+            "bytes": 62,
+            "sha256": "8f5aa591e89d912bc8b6bc874eca8c90725d684efb6e11c6fbd87fa2a6a413a2"
+          }
+        },
+        {
+          "path": "/tmp/rnx-assembly-key-yc4vxyoq/native/adapter/rust-toolchain",
+          "file": null
+        },
+        {
+          "path": "/tmp/rnx-assembly-key-yc4vxyoq/native/adapter/rust-toolchain.toml",
+          "file": null
+        },
+        {
+          "path": "/tmp/rnx-assembly-key-yc4vxyoq/native/runtime/.cargo/config",
+          "file": null
+        },
+        {
+          "path": "/tmp/rnx-assembly-key-yc4vxyoq/native/runtime/.cargo/config.toml",
+          "file": null
+        },
+        {
+          "path": "/tmp/rnx-assembly-key-yc4vxyoq/native/runtime/Cargo.toml",
+          "file": {
+            "path": "Cargo.toml",
+            "executable": false,
+            "bytes": 82,
+            "sha256": "52a16e8fda5321c0e8cb31598c99bbac571303f2abaab6aa50bc2da7bffe101f"
+          }
+        },
+        {
+          "path": "/tmp/rnx-assembly-key-yc4vxyoq/native/runtime/rust-toolchain",
+          "file": null
+        },
+        {
+          "path": "/tmp/rnx-assembly-key-yc4vxyoq/native/runtime/rust-toolchain.toml",
+          "file": null
+        },
+        {
+          "path": "/tmp/rnx-assembly-key-yc4vxyoq/native/rust-toolchain",
+          "file": null
+        },
+        {
+          "path": "/tmp/rnx-assembly-key-yc4vxyoq/native/rust-toolchain.toml",
+          "file": null
+        },
+        {
+          "path": "/tmp/rnx-assembly-key-yc4vxyoq/rust-toolchain",
+          "file": null
+        },
+        {
+          "path": "/tmp/rnx-assembly-key-yc4vxyoq/rust-toolchain.toml",
+          "file": null
+        },
+        {
+          "path": "/tmp/rust-toolchain",
+          "file": null
+        },
+        {
+          "path": "/tmp/rust-toolchain.toml",
+          "file": null
+        }
+      ]
+    }
+  },
+  "assembly": {
+    "kind": "generated",
+    "manifest_sha256": "0c7696f96480a74939f5e9ce44e013b12ce7055e36e43e96b365f88ad022eb71",
+    "main_sha256": "fdb03c944140dc8550473c5cf9f6f90ea987276238a376fca9eff794f57783f7",
+    "cargo_lock_sha256": "147b3850a92d5e8fe19e1e76d053af6dcd3e5afb123c8bd36e7477103289b2d4",
+    "target": "x86_64-unknown-linux-gnu",
+    "profile": "release",
+    "features": [
+      "project-sources"
+    ],
+    "rustc": "rustc 1.98.1 (48a229cea 2026-09-01)\nbinary: rustc\ncommit-hash: 48a229ceaefd4985c50990b14116b6d856af0985\ncommit-date: 2026-09-01\nhost: x86_64-unknown-linux-gnu\nrelease: 1.98.1\nLLVM version: 22.1.8\n",
+    "cargo": "cargo 1.98.1 (797e8a9bc 2026-08-05)\n"
+  }
+}

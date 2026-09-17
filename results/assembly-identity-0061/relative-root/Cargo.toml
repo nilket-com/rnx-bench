@@ -1,0 +1,15 @@
+[package]
+name = "rnx-project-app"
+version = "0.0.0"
+edition = "2024"
+publish = false
+
+[workspace]
+
+[dependencies.native_0]
+package = "probe-adapter"
+path = "/tmp/rnx-assembly-key-yc4vxyoq/relative-root/../native/adapter"
+
+[dependencies.rnx]
+path = "/tmp/rnx-assembly-key-yc4vxyoq/relative-root/../native/runtime"
+features = ["project-sources"]
