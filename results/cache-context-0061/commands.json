@@ -1,0 +1,770 @@
+[
+  {
+    "argv": [
+      "rustup",
+      "show",
+      "active-toolchain"
+    ],
+    "cwd": null,
+    "expect_success": true
+  },
+  {
+    "argv": [
+      "git",
+      "init",
+      "--quiet",
+      "/tmp/rnx-cache-context-5s5ldxkm/native"
+    ],
+    "cwd": null,
+    "expect_success": true
+  },
+  {
+    "argv": [
+      "git",
+      "-C",
+      "/tmp/rnx-cache-context-5s5ldxkm/native",
+      "add",
+      "."
+    ],
+    "cwd": null,
+    "expect_success": true
+  },
+  {
+    "argv": [
+      "/home/me/work/rnx-bench/probes/cache-context/target/tool/target/release/rnx-cache-context-probe",
+      "prepare",
+      "/tmp/rnx-cache-context-5s5ldxkm/cache-link",
+      "/tmp/rnx-cache-context-5s5ldxkm/disk/cache/resolve/one/assembly",
+      "/tmp/rnx-cache-context-5s5ldxkm/a"
+    ],
+    "cwd": null,
+    "expect_success": true
+  },
+  {
+    "argv": [
+      "/home/me/work/rnx-bench/probes/cache-context/target/tool/target/release/rnx-cache-context-probe",
+      "guard",
+      "/tmp/rnx-cache-context-5s5ldxkm/cache-link",
+      "/tmp/rnx-cache-context-5s5ldxkm/disk/cache/resolve/one/assembly",
+      "/tmp/rnx-cache-context-5s5ldxkm/a"
+    ],
+    "cwd": null,
+    "expect_success": true
+  },
+  {
+    "argv": [
+      "/home/me/work/rnx-bench/probes/cache-context/target/tool/target/release/rnx-cache-context-probe",
+      "preflight",
+      "/tmp/rnx-cache-context-5s5ldxkm/cache-link",
+      "/tmp/rnx-cache-context-5s5ldxkm/disk/cache/resolve/one/assembly",
+      "/tmp/rnx-cache-context-5s5ldxkm/a",
+      "/tmp/rnx-cache-context-5s5ldxkm/cargo-home"
+    ],
+    "cwd": null,
+    "expect_success": true
+  },
+  {
+    "argv": [
+      "cargo",
+      "metadata",
+      "--format-version",
+      "1",
+      "--manifest-path",
+      "/tmp/rnx-cache-context-5s5ldxkm/disk/cache/resolve/one/assembly/Cargo.toml"
+    ],
+    "cwd": "/tmp/rnx-cache-context-5s5ldxkm/disk/cache/resolve/one/assembly",
+    "expect_success": true
+  },
+  {
+    "argv": [
+      "/home/me/work/rnx-bench/probes/cache-context/target/tool/target/release/rnx-cache-context-probe",
+      "audit",
+      "/tmp/rnx-cache-context-5s5ldxkm/cache-link",
+      "/tmp/rnx-cache-context-5s5ldxkm/disk/cache/resolve/one/assembly",
+      "/tmp/rnx-cache-context-5s5ldxkm/a",
+      "/home/me/work/rnx-bench/results/cache-context-0061/resolve.metadata.json",
+      "/tmp/rnx-cache-context-5s5ldxkm/cargo-home"
+    ],
+    "cwd": null,
+    "expect_success": true
+  },
+  {
+    "argv": [
+      "cargo",
+      "-V"
+    ],
+    "cwd": "/tmp/rnx-cache-context-5s5ldxkm/disk/cache/resolve/one/assembly",
+    "expect_success": true
+  },
+  {
+    "argv": [
+      "rustc",
+      "-Vv"
+    ],
+    "cwd": "/tmp/rnx-cache-context-5s5ldxkm/disk/cache/resolve/one/assembly",
+    "expect_success": true
+  },
+  {
+    "argv": [
+      "rustup",
+      "show",
+      "active-toolchain"
+    ],
+    "cwd": "/tmp/rnx-cache-context-5s5ldxkm/disk/cache/resolve/one/assembly",
+    "expect_success": true
+  },
+  {
+    "argv": [
+      "/home/me/work/rnx-bench/probes/cache-context/target/tool/target/release/rnx-cache-context-probe",
+      "prepare",
+      "/tmp/rnx-cache-context-5s5ldxkm/cache-link",
+      "/tmp/rnx-cache-context-5s5ldxkm/disk/cache/entries/53cc300ca307b909cbbff0ec7c06f74489278f489f723d08e24319aab632a84d/assembly",
+      "/tmp/rnx-cache-context-5s5ldxkm/a"
+    ],
+    "cwd": null,
+    "expect_success": true
+  },
+  {
+    "argv": [
+      "/home/me/work/rnx-bench/probes/cache-context/target/tool/target/release/rnx-cache-context-probe",
+      "guard",
+      "/tmp/rnx-cache-context-5s5ldxkm/cache-link",
+      "/tmp/rnx-cache-context-5s5ldxkm/disk/cache/entries/53cc300ca307b909cbbff0ec7c06f74489278f489f723d08e24319aab632a84d/assembly",
+      "/tmp/rnx-cache-context-5s5ldxkm/a"
+    ],
+    "cwd": null,
+    "expect_success": true
+  },
+  {
+    "argv": [
+      "/home/me/work/rnx-bench/probes/cache-context/target/tool/target/release/rnx-cache-context-probe",
+      "preflight",
+      "/tmp/rnx-cache-context-5s5ldxkm/cache-link",
+      "/tmp/rnx-cache-context-5s5ldxkm/disk/cache/entries/53cc300ca307b909cbbff0ec7c06f74489278f489f723d08e24319aab632a84d/assembly",
+      "/tmp/rnx-cache-context-5s5ldxkm/a",
+      "/tmp/rnx-cache-context-5s5ldxkm/cargo-home"
+    ],
+    "cwd": null,
+    "expect_success": true
+  },
+  {
+    "argv": [
+      "cargo",
+      "metadata",
+      "--format-version",
+      "1",
+      "--manifest-path",
+      "/tmp/rnx-cache-context-5s5ldxkm/disk/cache/entries/53cc300ca307b909cbbff0ec7c06f74489278f489f723d08e24319aab632a84d/assembly/Cargo.toml"
+    ],
+    "cwd": "/tmp/rnx-cache-context-5s5ldxkm/disk/cache/entries/53cc300ca307b909cbbff0ec7c06f74489278f489f723d08e24319aab632a84d/assembly",
+    "expect_success": true
+  },
+  {
+    "argv": [
+      "/home/me/work/rnx-bench/probes/cache-context/target/tool/target/release/rnx-cache-context-probe",
+      "audit",
+      "/tmp/rnx-cache-context-5s5ldxkm/cache-link",
+      "/tmp/rnx-cache-context-5s5ldxkm/disk/cache/entries/53cc300ca307b909cbbff0ec7c06f74489278f489f723d08e24319aab632a84d/assembly",
+      "/tmp/rnx-cache-context-5s5ldxkm/a",
+      "/home/me/work/rnx-bench/results/cache-context-0061/final.metadata.json",
+      "/tmp/rnx-cache-context-5s5ldxkm/cargo-home"
+    ],
+    "cwd": null,
+    "expect_success": true
+  },
+  {
+    "argv": [
+      "cargo",
+      "-V"
+    ],
+    "cwd": "/tmp/rnx-cache-context-5s5ldxkm/disk/cache/entries/53cc300ca307b909cbbff0ec7c06f74489278f489f723d08e24319aab632a84d/assembly",
+    "expect_success": true
+  },
+  {
+    "argv": [
+      "rustc",
+      "-Vv"
+    ],
+    "cwd": "/tmp/rnx-cache-context-5s5ldxkm/disk/cache/entries/53cc300ca307b909cbbff0ec7c06f74489278f489f723d08e24319aab632a84d/assembly",
+    "expect_success": true
+  },
+  {
+    "argv": [
+      "rustup",
+      "show",
+      "active-toolchain"
+    ],
+    "cwd": "/tmp/rnx-cache-context-5s5ldxkm/disk/cache/entries/53cc300ca307b909cbbff0ec7c06f74489278f489f723d08e24319aab632a84d/assembly",
+    "expect_success": true
+  },
+  {
+    "argv": [
+      "cargo",
+      "metadata",
+      "--format-version",
+      "1",
+      "--manifest-path",
+      "/tmp/rnx-cache-context-5s5ldxkm/disk/cache/resolve/one/assembly/Cargo.toml"
+    ],
+    "cwd": "/tmp/rnx-cache-context-5s5ldxkm/disk/cache/resolve/one/assembly",
+    "expect_success": false
+  },
+  {
+    "argv": [
+      "cargo",
+      "metadata",
+      "--format-version",
+      "1",
+      "--manifest-path",
+      "/tmp/rnx-cache-context-5s5ldxkm/disk/cache/entries/53cc300ca307b909cbbff0ec7c06f74489278f489f723d08e24319aab632a84d/assembly/Cargo.toml"
+    ],
+    "cwd": "/tmp/rnx-cache-context-5s5ldxkm/disk/cache/entries/53cc300ca307b909cbbff0ec7c06f74489278f489f723d08e24319aab632a84d/assembly",
+    "expect_success": false
+  },
+  {
+    "argv": [
+      "/home/me/work/rnx-bench/probes/cache-context/target/tool/target/release/rnx-cache-context-probe",
+      "guard",
+      "/tmp/rnx-cache-context-5s5ldxkm/cache-link",
+      "/tmp/rnx-cache-context-5s5ldxkm/disk/cache/entries/53cc300ca307b909cbbff0ec7c06f74489278f489f723d08e24319aab632a84d/assembly",
+      "/tmp/rnx-cache-context-5s5ldxkm/a"
+    ],
+    "cwd": null,
+    "expect_success": true
+  },
+  {
+    "argv": [
+      "/home/me/work/rnx-bench/probes/cache-context/target/tool/target/release/rnx-cache-context-probe",
+      "audit",
+      "/tmp/rnx-cache-context-5s5ldxkm/cache-link",
+      "/tmp/rnx-cache-context-5s5ldxkm/disk/cache/entries/53cc300ca307b909cbbff0ec7c06f74489278f489f723d08e24319aab632a84d/assembly",
+      "/tmp/rnx-cache-context-5s5ldxkm/a",
+      "/home/me/work/rnx-bench/results/cache-context-0061/final.metadata.json",
+      "/tmp/rnx-cache-context-5s5ldxkm/cargo-home"
+    ],
+    "cwd": null,
+    "expect_success": true
+  },
+  {
+    "argv": [
+      "cargo",
+      "build",
+      "--locked",
+      "--release",
+      "--manifest-path",
+      "/tmp/rnx-cache-context-5s5ldxkm/disk/cache/entries/53cc300ca307b909cbbff0ec7c06f74489278f489f723d08e24319aab632a84d/assembly/Cargo.toml",
+      "--target-dir",
+      "/tmp/rnx-cache-context-5s5ldxkm/disk/cache/entries/53cc300ca307b909cbbff0ec7c06f74489278f489f723d08e24319aab632a84d/target"
+    ],
+    "cwd": "/tmp/rnx-cache-context-5s5ldxkm/disk/cache/entries/53cc300ca307b909cbbff0ec7c06f74489278f489f723d08e24319aab632a84d/assembly",
+    "expect_success": true
+  },
+  {
+    "argv": [
+      "/home/me/work/rnx-bench/probes/cache-context/target/tool/target/release/rnx-cache-context-probe",
+      "guard",
+      "/tmp/rnx-cache-context-5s5ldxkm/cache-link",
+      "/tmp/rnx-cache-context-5s5ldxkm/disk/cache/entries/53cc300ca307b909cbbff0ec7c06f74489278f489f723d08e24319aab632a84d/assembly",
+      "/tmp/rnx-cache-context-5s5ldxkm/a"
+    ],
+    "cwd": null,
+    "expect_success": true
+  },
+  {
+    "argv": [
+      "/home/me/work/rnx-bench/probes/cache-context/target/tool/target/release/rnx-cache-context-probe",
+      "preflight",
+      "/tmp/rnx-cache-context-5s5ldxkm/cache-link",
+      "/tmp/rnx-cache-context-5s5ldxkm/disk/cache/entries/53cc300ca307b909cbbff0ec7c06f74489278f489f723d08e24319aab632a84d/assembly",
+      "/tmp/rnx-cache-context-5s5ldxkm/a",
+      "/tmp/rnx-cache-context-5s5ldxkm/cargo-home"
+    ],
+    "cwd": null,
+    "expect_success": true
+  },
+  {
+    "argv": [
+      "cargo",
+      "metadata",
+      "--format-version",
+      "1",
+      "--manifest-path",
+      "/tmp/rnx-cache-context-5s5ldxkm/disk/cache/entries/53cc300ca307b909cbbff0ec7c06f74489278f489f723d08e24319aab632a84d/assembly/Cargo.toml"
+    ],
+    "cwd": "/tmp/rnx-cache-context-5s5ldxkm/disk/cache/entries/53cc300ca307b909cbbff0ec7c06f74489278f489f723d08e24319aab632a84d/assembly",
+    "expect_success": true
+  },
+  {
+    "argv": [
+      "/home/me/work/rnx-bench/probes/cache-context/target/tool/target/release/rnx-cache-context-probe",
+      "audit",
+      "/tmp/rnx-cache-context-5s5ldxkm/cache-link",
+      "/tmp/rnx-cache-context-5s5ldxkm/disk/cache/entries/53cc300ca307b909cbbff0ec7c06f74489278f489f723d08e24319aab632a84d/assembly",
+      "/tmp/rnx-cache-context-5s5ldxkm/a",
+      "/home/me/work/rnx-bench/results/cache-context-0061/post-build.metadata.json",
+      "/tmp/rnx-cache-context-5s5ldxkm/cargo-home"
+    ],
+    "cwd": null,
+    "expect_success": true
+  },
+  {
+    "argv": [
+      "/tmp/rnx-cache-context-5s5ldxkm/disk/cache/entries/53cc300ca307b909cbbff0ec7c06f74489278f489f723d08e24319aab632a84d/target/release/rnx-project-app"
+    ],
+    "cwd": "/tmp/rnx-cache-context-5s5ldxkm/a",
+    "expect_success": true
+  },
+  {
+    "argv": [
+      "/tmp/rnx-cache-context-5s5ldxkm/disk/cache/entries/53cc300ca307b909cbbff0ec7c06f74489278f489f723d08e24319aab632a84d/target/release/rnx-project-app"
+    ],
+    "cwd": "/tmp/rnx-cache-context-5s5ldxkm/b",
+    "expect_success": true
+  },
+  {
+    "argv": [
+      "/home/me/work/rnx-bench/probes/cache-context/target/tool/target/release/rnx-cache-context-probe",
+      "prepare",
+      "/tmp/rnx-cache-context-5s5ldxkm/cache-link",
+      "/tmp/rnx-cache-context-5s5ldxkm/disk/cache/resolve/two/assembly",
+      "/tmp/rnx-cache-context-5s5ldxkm/b"
+    ],
+    "cwd": null,
+    "expect_success": true
+  },
+  {
+    "argv": [
+      "/home/me/work/rnx-bench/probes/cache-context/target/tool/target/release/rnx-cache-context-probe",
+      "guard",
+      "/tmp/rnx-cache-context-5s5ldxkm/cache-link",
+      "/tmp/rnx-cache-context-5s5ldxkm/disk/cache/resolve/two/assembly",
+      "/tmp/rnx-cache-context-5s5ldxkm/a"
+    ],
+    "cwd": null,
+    "expect_success": true
+  },
+  {
+    "argv": [
+      "/home/me/work/rnx-bench/probes/cache-context/target/tool/target/release/rnx-cache-context-probe",
+      "preflight",
+      "/tmp/rnx-cache-context-5s5ldxkm/cache-link",
+      "/tmp/rnx-cache-context-5s5ldxkm/disk/cache/resolve/two/assembly",
+      "/tmp/rnx-cache-context-5s5ldxkm/a",
+      "/tmp/rnx-cache-context-5s5ldxkm/cargo-home"
+    ],
+    "cwd": null,
+    "expect_success": true
+  },
+  {
+    "argv": [
+      "cargo",
+      "metadata",
+      "--format-version",
+      "1",
+      "--manifest-path",
+      "/tmp/rnx-cache-context-5s5ldxkm/disk/cache/resolve/two/assembly/Cargo.toml"
+    ],
+    "cwd": "/tmp/rnx-cache-context-5s5ldxkm/disk/cache/resolve/two/assembly",
+    "expect_success": true
+  },
+  {
+    "argv": [
+      "/home/me/work/rnx-bench/probes/cache-context/target/tool/target/release/rnx-cache-context-probe",
+      "audit",
+      "/tmp/rnx-cache-context-5s5ldxkm/cache-link",
+      "/tmp/rnx-cache-context-5s5ldxkm/disk/cache/resolve/two/assembly",
+      "/tmp/rnx-cache-context-5s5ldxkm/b",
+      "/home/me/work/rnx-bench/results/cache-context-0061/second-project.metadata.json",
+      "/tmp/rnx-cache-context-5s5ldxkm/cargo-home"
+    ],
+    "cwd": null,
+    "expect_success": true
+  },
+  {
+    "argv": [
+      "cargo",
+      "-V"
+    ],
+    "cwd": "/tmp/rnx-cache-context-5s5ldxkm/disk/cache/resolve/two/assembly",
+    "expect_success": true
+  },
+  {
+    "argv": [
+      "rustc",
+      "-Vv"
+    ],
+    "cwd": "/tmp/rnx-cache-context-5s5ldxkm/disk/cache/resolve/two/assembly",
+    "expect_success": true
+  },
+  {
+    "argv": [
+      "rustup",
+      "show",
+      "active-toolchain"
+    ],
+    "cwd": "/tmp/rnx-cache-context-5s5ldxkm/disk/cache/resolve/two/assembly",
+    "expect_success": true
+  },
+  {
+    "argv": [
+      "/tmp/rnx-cache-context-5s5ldxkm/disk/cache/entries/53cc300ca307b909cbbff0ec7c06f74489278f489f723d08e24319aab632a84d/target/release/rnx-project-app"
+    ],
+    "cwd": "/tmp/rnx-cache-context-5s5ldxkm/b",
+    "expect_success": true
+  },
+  {
+    "argv": [
+      "/tmp/rnx-cache-context-5s5ldxkm/disk/cache/entries/53cc300ca307b909cbbff0ec7c06f74489278f489f723d08e24319aab632a84d/target/release/rnx-project-app"
+    ],
+    "cwd": "/tmp/rnx-cache-context-5s5ldxkm/b",
+    "expect_success": false
+  },
+  {
+    "argv": [
+      "/tmp/rnx-cache-context-5s5ldxkm/disk/cache/entries/53cc300ca307b909cbbff0ec7c06f74489278f489f723d08e24319aab632a84d/target/release/rnx-project-app"
+    ],
+    "cwd": "/tmp/rnx-cache-context-5s5ldxkm/a",
+    "expect_success": true
+  },
+  {
+    "argv": [
+      "/home/me/work/rnx-bench/probes/cache-context/target/tool/target/release/rnx-cache-context-probe",
+      "guard",
+      "/tmp/rnx-cache-context-5s5ldxkm/cache-link",
+      "/tmp/rnx-cache-context-5s5ldxkm/disk/cache/entries/53cc300ca307b909cbbff0ec7c06f74489278f489f723d08e24319aab632a84d/assembly",
+      "/tmp/rnx-cache-context-5s5ldxkm/a"
+    ],
+    "cwd": null,
+    "expect_success": false
+  },
+  {
+    "argv": [
+      "/home/me/work/rnx-bench/probes/cache-context/target/tool/target/release/rnx-cache-context-probe",
+      "guard",
+      "/tmp/rnx-cache-context-5s5ldxkm/cache-link",
+      "/tmp/rnx-cache-context-5s5ldxkm/disk/cache/entries/53cc300ca307b909cbbff0ec7c06f74489278f489f723d08e24319aab632a84d/assembly",
+      "/tmp/rnx-cache-context-5s5ldxkm/a"
+    ],
+    "cwd": null,
+    "expect_success": false
+  },
+  {
+    "argv": [
+      "/home/me/work/rnx-bench/probes/cache-context/target/tool/target/release/rnx-cache-context-probe",
+      "guard",
+      "/tmp/rnx-cache-context-5s5ldxkm/cache-link",
+      "/tmp/rnx-cache-context-5s5ldxkm/disk/cache/entries/53cc300ca307b909cbbff0ec7c06f74489278f489f723d08e24319aab632a84d/assembly",
+      "/tmp/rnx-cache-context-5s5ldxkm/a"
+    ],
+    "cwd": null,
+    "expect_success": false
+  },
+  {
+    "argv": [
+      "/home/me/work/rnx-bench/probes/cache-context/target/tool/target/release/rnx-cache-context-probe",
+      "guard",
+      "/tmp/rnx-cache-context-5s5ldxkm/cache-link",
+      "/tmp/rnx-cache-context-5s5ldxkm/disk/cache/entries/53cc300ca307b909cbbff0ec7c06f74489278f489f723d08e24319aab632a84d/assembly",
+      "/tmp/rnx-cache-context-5s5ldxkm/a"
+    ],
+    "cwd": null,
+    "expect_success": false
+  },
+  {
+    "argv": [
+      "/home/me/work/rnx-bench/probes/cache-context/target/tool/target/release/rnx-cache-context-probe",
+      "guard",
+      "/tmp/rnx-cache-context-5s5ldxkm/cache-link",
+      "/tmp/rnx-cache-context-5s5ldxkm/disk/cache/entries/53cc300ca307b909cbbff0ec7c06f74489278f489f723d08e24319aab632a84d/assembly",
+      "/tmp/rnx-cache-context-5s5ldxkm/a"
+    ],
+    "cwd": null,
+    "expect_success": false
+  },
+  {
+    "argv": [
+      "/home/me/work/rnx-bench/probes/cache-context/target/tool/target/release/rnx-cache-context-probe",
+      "guard",
+      "/tmp/rnx-cache-context-5s5ldxkm/cache-link",
+      "/tmp/rnx-cache-context-5s5ldxkm/disk/cache/entries/53cc300ca307b909cbbff0ec7c06f74489278f489f723d08e24319aab632a84d/assembly",
+      "/tmp/rnx-cache-context-5s5ldxkm/a"
+    ],
+    "cwd": null,
+    "expect_success": false
+  },
+  {
+    "argv": [
+      "/home/me/work/rnx-bench/probes/cache-context/target/tool/target/release/rnx-cache-context-probe",
+      "guard",
+      "/tmp/rnx-cache-context-5s5ldxkm/cache-link",
+      "/tmp/rnx-cache-context-5s5ldxkm/disk/cache/entries/53cc300ca307b909cbbff0ec7c06f74489278f489f723d08e24319aab632a84d/assembly",
+      "/tmp/rnx-cache-context-5s5ldxkm/a"
+    ],
+    "cwd": null,
+    "expect_success": false
+  },
+  {
+    "argv": [
+      "/home/me/work/rnx-bench/probes/cache-context/target/tool/target/release/rnx-cache-context-probe",
+      "guard",
+      "/tmp/rnx-cache-context-5s5ldxkm/cache-link",
+      "/tmp/rnx-cache-context-5s5ldxkm/disk/cache/entries/53cc300ca307b909cbbff0ec7c06f74489278f489f723d08e24319aab632a84d/assembly",
+      "/tmp/rnx-cache-context-5s5ldxkm/a"
+    ],
+    "cwd": null,
+    "expect_success": false
+  },
+  {
+    "argv": [
+      "/home/me/work/rnx-bench/probes/cache-context/target/tool/target/release/rnx-cache-context-probe",
+      "guard",
+      "/tmp/rnx-cache-context-5s5ldxkm/cache-link",
+      "/tmp/rnx-cache-context-5s5ldxkm/disk/cache/entries/53cc300ca307b909cbbff0ec7c06f74489278f489f723d08e24319aab632a84d/assembly",
+      "/tmp/rnx-cache-context-5s5ldxkm/a"
+    ],
+    "cwd": null,
+    "expect_success": false
+  },
+  {
+    "argv": [
+      "/home/me/work/rnx-bench/probes/cache-context/target/tool/target/release/rnx-cache-context-probe",
+      "guard",
+      "/tmp/rnx-cache-context-5s5ldxkm/cache-link",
+      "/tmp/rnx-cache-context-5s5ldxkm/disk/cache/entries/53cc300ca307b909cbbff0ec7c06f74489278f489f723d08e24319aab632a84d/assembly",
+      "/tmp/rnx-cache-context-5s5ldxkm/a"
+    ],
+    "cwd": null,
+    "expect_success": false
+  },
+  {
+    "argv": [
+      "/home/me/work/rnx-bench/probes/cache-context/target/tool/target/release/rnx-cache-context-probe",
+      "guard",
+      "/tmp/rnx-cache-context-5s5ldxkm/cache-link",
+      "/tmp/rnx-cache-context-5s5ldxkm/disk/cache/entries/53cc300ca307b909cbbff0ec7c06f74489278f489f723d08e24319aab632a84d/assembly",
+      "/tmp/rnx-cache-context-5s5ldxkm/a"
+    ],
+    "cwd": null,
+    "expect_success": false
+  },
+  {
+    "argv": [
+      "/home/me/work/rnx-bench/probes/cache-context/target/tool/target/release/rnx-cache-context-probe",
+      "guard",
+      "/tmp/rnx-cache-context-5s5ldxkm/cache-link",
+      "/tmp/rnx-cache-context-5s5ldxkm/disk/cache/entries/53cc300ca307b909cbbff0ec7c06f74489278f489f723d08e24319aab632a84d/assembly",
+      "/tmp/rnx-cache-context-5s5ldxkm/a"
+    ],
+    "cwd": null,
+    "expect_success": false
+  },
+  {
+    "argv": [
+      "/home/me/work/rnx-bench/probes/cache-context/target/tool/target/release/rnx-cache-context-probe",
+      "guard",
+      "/tmp/rnx-cache-context-5s5ldxkm/cache-link",
+      "/tmp/rnx-cache-context-5s5ldxkm/disk/cache/entries/53cc300ca307b909cbbff0ec7c06f74489278f489f723d08e24319aab632a84d/assembly",
+      "/tmp/rnx-cache-context-5s5ldxkm/a"
+    ],
+    "cwd": null,
+    "expect_success": false
+  },
+  {
+    "argv": [
+      "/home/me/work/rnx-bench/probes/cache-context/target/tool/target/release/rnx-cache-context-probe",
+      "guard",
+      "/tmp/rnx-cache-context-5s5ldxkm/cache-link",
+      "/tmp/rnx-cache-context-5s5ldxkm/disk/cache/entries/53cc300ca307b909cbbff0ec7c06f74489278f489f723d08e24319aab632a84d/assembly",
+      "/tmp/rnx-cache-context-5s5ldxkm/a"
+    ],
+    "cwd": null,
+    "expect_success": false
+  },
+  {
+    "argv": [
+      "/home/me/work/rnx-bench/probes/cache-context/target/tool/target/release/rnx-cache-context-probe",
+      "guard",
+      "/tmp/rnx-cache-context-5s5ldxkm/cache-link",
+      "/tmp/rnx-cache-context-5s5ldxkm/disk/cache/entries/53cc300ca307b909cbbff0ec7c06f74489278f489f723d08e24319aab632a84d/assembly",
+      "/tmp/rnx-cache-context-5s5ldxkm/a"
+    ],
+    "cwd": null,
+    "expect_success": false
+  },
+  {
+    "argv": [
+      "/home/me/work/rnx-bench/probes/cache-context/target/tool/target/release/rnx-cache-context-probe",
+      "guard",
+      "/tmp/rnx-cache-context-5s5ldxkm/cache-link",
+      "/tmp/rnx-cache-context-5s5ldxkm/disk/cache/entries/53cc300ca307b909cbbff0ec7c06f74489278f489f723d08e24319aab632a84d/assembly",
+      "/tmp/rnx-cache-context-5s5ldxkm/a"
+    ],
+    "cwd": null,
+    "expect_success": false
+  },
+  {
+    "argv": [
+      "/home/me/work/rnx-bench/probes/cache-context/target/tool/target/release/rnx-cache-context-probe",
+      "guard",
+      "/tmp/rnx-cache-context-5s5ldxkm/cache-link",
+      "/tmp/rnx-cache-context-5s5ldxkm/disk/cache/entries/53cc300ca307b909cbbff0ec7c06f74489278f489f723d08e24319aab632a84d/assembly",
+      "/tmp/rnx-cache-context-5s5ldxkm/a"
+    ],
+    "cwd": null,
+    "expect_success": false
+  },
+  {
+    "argv": [
+      "/home/me/work/rnx-bench/probes/cache-context/target/tool/target/release/rnx-cache-context-probe",
+      "guard",
+      "/tmp/rnx-cache-context-5s5ldxkm/cache-link",
+      "/tmp/rnx-cache-context-5s5ldxkm/disk/cache/entries/53cc300ca307b909cbbff0ec7c06f74489278f489f723d08e24319aab632a84d/assembly",
+      "/tmp/rnx-cache-context-5s5ldxkm/a"
+    ],
+    "cwd": null,
+    "expect_success": false
+  },
+  {
+    "argv": [
+      "/home/me/work/rnx-bench/probes/cache-context/target/tool/target/release/rnx-cache-context-probe",
+      "audit",
+      "/tmp/rnx-cache-context-5s5ldxkm/cache-link",
+      "/tmp/rnx-cache-context-5s5ldxkm/disk/cache/entries/53cc300ca307b909cbbff0ec7c06f74489278f489f723d08e24319aab632a84d/assembly",
+      "/tmp/rnx-cache-context-5s5ldxkm/a",
+      "/home/me/work/rnx-bench/results/cache-context-0061/post-build.metadata.json",
+      "/tmp/rnx-cache-context-5s5ldxkm/cargo-home"
+    ],
+    "cwd": null,
+    "expect_success": true
+  },
+  {
+    "argv": [
+      "/home/me/work/rnx-bench/probes/cache-context/target/tool/target/release/rnx-cache-context-probe",
+      "audit",
+      "/tmp/rnx-cache-context-5s5ldxkm/cache-link",
+      "/tmp/rnx-cache-context-5s5ldxkm/disk/cache/entries/53cc300ca307b909cbbff0ec7c06f74489278f489f723d08e24319aab632a84d/assembly",
+      "/tmp/rnx-cache-context-5s5ldxkm/a",
+      "/home/me/work/rnx-bench/results/cache-context-0061/post-build.metadata.json",
+      "/tmp/rnx-cache-context-5s5ldxkm/cargo-home"
+    ],
+    "cwd": null,
+    "expect_success": false
+  },
+  {
+    "argv": [
+      "/home/me/work/rnx-bench/probes/cache-context/target/tool/target/release/rnx-cache-context-probe",
+      "preflight",
+      "/tmp/rnx-cache-context-5s5ldxkm/cache-link",
+      "/tmp/rnx-cache-context-5s5ldxkm/disk/cache/entries/53cc300ca307b909cbbff0ec7c06f74489278f489f723d08e24319aab632a84d/assembly",
+      "/tmp/rnx-cache-context-5s5ldxkm/a",
+      "/tmp/rnx-cache-context-5s5ldxkm/cargo-home"
+    ],
+    "cwd": null,
+    "expect_success": false
+  },
+  {
+    "argv": [
+      "/home/me/work/rnx-bench/probes/cache-context/target/tool/target/release/rnx-cache-context-probe",
+      "audit",
+      "/tmp/rnx-cache-context-5s5ldxkm/cache-link",
+      "/tmp/rnx-cache-context-5s5ldxkm/disk/cache/entries/53cc300ca307b909cbbff0ec7c06f74489278f489f723d08e24319aab632a84d/assembly",
+      "/tmp/rnx-cache-context-5s5ldxkm/a",
+      "/home/me/work/rnx-bench/results/cache-context-0061/post-build.metadata.json",
+      "/tmp/rnx-cache-context-5s5ldxkm/cargo-home"
+    ],
+    "cwd": null,
+    "expect_success": true
+  },
+  {
+    "argv": [
+      "/home/me/work/rnx-bench/probes/cache-context/target/tool/target/release/rnx-cache-context-probe",
+      "audit",
+      "/tmp/rnx-cache-context-5s5ldxkm/cache-link",
+      "/tmp/rnx-cache-context-5s5ldxkm/disk/cache/entries/53cc300ca307b909cbbff0ec7c06f74489278f489f723d08e24319aab632a84d/assembly",
+      "/tmp/rnx-cache-context-5s5ldxkm/a",
+      "/home/me/work/rnx-bench/results/cache-context-0061/post-build.metadata.json",
+      "/tmp/rnx-cache-context-5s5ldxkm/cargo-home"
+    ],
+    "cwd": null,
+    "expect_success": true
+  },
+  {
+    "argv": [
+      "/home/me/work/rnx-bench/probes/cache-context/target/tool/target/release/rnx-cache-context-probe",
+      "audit",
+      "/tmp/rnx-cache-context-5s5ldxkm/cache-link",
+      "/tmp/rnx-cache-context-5s5ldxkm/disk/cache/entries/53cc300ca307b909cbbff0ec7c06f74489278f489f723d08e24319aab632a84d/assembly",
+      "/tmp/rnx-cache-context-5s5ldxkm/a",
+      "/home/me/work/rnx-bench/results/cache-context-0061/post-build.metadata.json",
+      "/tmp/rnx-cache-context-5s5ldxkm/cargo-home"
+    ],
+    "cwd": null,
+    "expect_success": true
+  },
+  {
+    "argv": [
+      "/home/me/work/rnx-bench/probes/cache-context/target/tool/target/release/rnx-cache-context-probe",
+      "guard",
+      "/tmp/rnx-cache-context-5s5ldxkm/cache-link",
+      "/tmp/rnx-cache-context-5s5ldxkm/disk/cache/entries/53cc300ca307b909cbbff0ec7c06f74489278f489f723d08e24319aab632a84d/assembly",
+      "/tmp/rnx-cache-context-5s5ldxkm/a"
+    ],
+    "cwd": null,
+    "expect_success": false
+  },
+  {
+    "argv": [
+      "/home/me/work/rnx-bench/probes/cache-context/target/tool/target/release/rnx-cache-context-probe",
+      "guard",
+      "/tmp/rnx-cache-context-5s5ldxkm/cache-link",
+      "/tmp/rnx-cache-context-5s5ldxkm/disk/cache/entries/53cc300ca307b909cbbff0ec7c06f74489278f489f723d08e24319aab632a84d/assembly",
+      "/tmp/rnx-cache-context-5s5ldxkm/a"
+    ],
+    "cwd": null,
+    "expect_success": false
+  },
+  {
+    "argv": [
+      "/home/me/work/rnx-bench/probes/cache-context/target/tool/target/release/rnx-cache-context-probe",
+      "guard",
+      "/tmp/rnx-cache-context-5s5ldxkm/cache-link",
+      "/tmp/rnx-cache-context-5s5ldxkm/disk/cache/entries/53cc300ca307b909cbbff0ec7c06f74489278f489f723d08e24319aab632a84d/assembly",
+      "/tmp/rnx-cache-context-5s5ldxkm/a"
+    ],
+    "cwd": null,
+    "expect_success": false
+  },
+  {
+    "argv": [
+      "/home/me/work/rnx-bench/probes/cache-context/target/tool/target/release/rnx-cache-context-probe",
+      "guard",
+      "/tmp/rnx-cache-context-5s5ldxkm/cache-link",
+      "/tmp/rnx-cache-context-5s5ldxkm/disk/cache/entries/link/assembly",
+      "/tmp/rnx-cache-context-5s5ldxkm/a"
+    ],
+    "cwd": null,
+    "expect_success": false
+  },
+  {
+    "argv": [
+      "/home/me/work/rnx-bench/probes/cache-context/target/tool/target/release/rnx-cache-context-probe",
+      "guard",
+      "/tmp/rnx-cache-context-5s5ldxkm/cache-link",
+      "/tmp/rnx-cache-context-5s5ldxkm/disk/cache/entries/fifo/assembly",
+      "/tmp/rnx-cache-context-5s5ldxkm/a"
+    ],
+    "cwd": null,
+    "expect_success": false
+  },
+  {
+    "argv": [
+      "/home/me/work/rnx-bench/probes/cache-context/target/tool/target/release/rnx-cache-context-probe",
+      "guard",
+      "/tmp/rnx-cache-context-5s5ldxkm/cache-link",
+      "/tmp/rnx-cache-context-5s5ldxkm/disk/cache/entries/53cc300ca307b909cbbff0ec7c06f74489278f489f723d08e24319aab632a84d/assembly",
+      "/tmp/rnx-cache-context-5s5ldxkm/a"
+    ],
+    "cwd": null,
+    "expect_success": false
+  }
+]

@@ -1,0 +1,279 @@
+{
+  "probe_format": 1,
+  "generator": "0061-context-prototype",
+  "cache_root": "/tmp/rnx-cache-context-5s5ldxkm/disk/cache",
+  "cargo_home": "/tmp/rnx-cache-context-5s5ldxkm/cargo-home",
+  "wrapper": "[package]\nname = \"rnx-project-app\"\nversion = \"0.0.0\"\nedition = \"2024\"\npublish = false\n\n[workspace]\n\n[dependencies.native_0]\npackage = \"context-adapter\"\npath = \"/tmp/rnx-cache-context-5s5ldxkm/native/adapter\"\n\n[dependencies.rnx]\npath = \"/tmp/rnx-cache-context-5s5ldxkm/native/runtime\"\nfeatures = [\"project-sources\"]\n",
+  "main": "fn main() -> Result<(), Box<dyn std::error::Error>> {\n    rnx::main_with(rnx::Extensions::none().with(\"probe\", native_0::build))\n}\n",
+  "cargo_lock_sha256": "80220eedeed2cbb7474e7ecdbf8cc9e847172faf84152ad473876f1bfa9c885a",
+  "native": {
+    "platform": "linux-x86_64",
+    "packages": [
+      {
+        "id": "path+file:///tmp/rnx-cache-context-5s5ldxkm/native/adapter#context-adapter@0.0.0",
+        "name": "context-adapter",
+        "manifest": "/tmp/rnx-cache-context-5s5ldxkm/native/adapter/Cargo.toml",
+        "root": "/tmp/rnx-cache-context-5s5ldxkm/native/adapter"
+      },
+      {
+        "id": "path+file:///tmp/rnx-cache-context-5s5ldxkm/native/runtime#rnx@0.0.0",
+        "name": "rnx",
+        "manifest": "/tmp/rnx-cache-context-5s5ldxkm/native/runtime/Cargo.toml",
+        "root": "/tmp/rnx-cache-context-5s5ldxkm/native/runtime"
+      }
+    ],
+    "trees": [
+      {
+        "root": "/tmp/rnx-cache-context-5s5ldxkm/native/adapter",
+        "sha256": "ab63354b9bf0d715e5af1b73ebecdd13db5d672115ba1cdbb23b75508c442468",
+        "files": [
+          {
+            "path": "Cargo.toml",
+            "executable": false,
+            "bytes": 64,
+            "sha256": "ffd6938dec59d05d0f103be9bcdf431789aed2b2234f044124f7d926083b7e90"
+          },
+          {
+            "path": "build.rs",
+            "executable": false,
+            "bytes": 213,
+            "sha256": "8893630fc537a3bd698e1dfd37369f579828dce721f33e9dc24bb57bdf40ce2c"
+          },
+          {
+            "path": "src/lib.rs",
+            "executable": false,
+            "bytes": 139,
+            "sha256": "84dd65a166faa1acb0211199faacb97671b216be88efc8d3fd2872efcafc6b69"
+          }
+        ]
+      },
+      {
+        "root": "/tmp/rnx-cache-context-5s5ldxkm/native/runtime",
+        "sha256": "ad7c96cf123fb4817e799ca76bcfbc46265955bb952cdcb9fea2b47197512819",
+        "files": [
+          {
+            "path": "Cargo.toml",
+            "executable": false,
+            "bytes": 82,
+            "sha256": "52a16e8fda5321c0e8cb31598c99bbac571303f2abaab6aa50bc2da7bffe101f"
+          },
+          {
+            "path": "src/lib.rs",
+            "executable": false,
+            "bytes": 272,
+            "sha256": "d17322ffd641f9dc523e7a8f1e70d881323e45305615af1d1c3d6a04d28ef032"
+          }
+        ]
+      }
+    ],
+    "external": [
+      {
+        "path": "/.cargo/config",
+        "file": null
+      },
+      {
+        "path": "/.cargo/config.toml",
+        "file": null
+      },
+      {
+        "path": "/Cargo.toml",
+        "file": null
+      },
+      {
+        "path": "/rust-toolchain",
+        "file": null
+      },
+      {
+        "path": "/rust-toolchain.toml",
+        "file": null
+      },
+      {
+        "path": "/tmp/.cargo/config",
+        "file": null
+      },
+      {
+        "path": "/tmp/.cargo/config.toml",
+        "file": null
+      },
+      {
+        "path": "/tmp/Cargo.toml",
+        "file": null
+      },
+      {
+        "path": "/tmp/rnx-cache-context-5s5ldxkm/.cargo/config",
+        "file": null
+      },
+      {
+        "path": "/tmp/rnx-cache-context-5s5ldxkm/.cargo/config.toml",
+        "file": null
+      },
+      {
+        "path": "/tmp/rnx-cache-context-5s5ldxkm/Cargo.toml",
+        "file": null
+      },
+      {
+        "path": "/tmp/rnx-cache-context-5s5ldxkm/cargo-home/config",
+        "file": null
+      },
+      {
+        "path": "/tmp/rnx-cache-context-5s5ldxkm/cargo-home/config.toml",
+        "file": {
+          "path": "config.toml",
+          "executable": false,
+          "bytes": 21,
+          "sha256": "ff7ca3097a28626ba5b4b654330f0854b5748f572a935e312b5574ec60adfac9"
+        }
+      },
+      {
+        "path": "/tmp/rnx-cache-context-5s5ldxkm/disk/.cargo/config",
+        "file": null
+      },
+      {
+        "path": "/tmp/rnx-cache-context-5s5ldxkm/disk/.cargo/config.toml",
+        "file": null
+      },
+      {
+        "path": "/tmp/rnx-cache-context-5s5ldxkm/disk/Cargo.toml",
+        "file": null
+      },
+      {
+        "path": "/tmp/rnx-cache-context-5s5ldxkm/disk/cache/.cargo/config",
+        "file": null
+      },
+      {
+        "path": "/tmp/rnx-cache-context-5s5ldxkm/disk/cache/.cargo/config.toml",
+        "file": {
+          "path": "config.toml",
+          "executable": false,
+          "bytes": 19,
+          "sha256": "06a19562c1adf951870bd43253016dcc69ae0812cbeacd69ea775e410537d812"
+        }
+      },
+      {
+        "path": "/tmp/rnx-cache-context-5s5ldxkm/disk/cache/Cargo.toml",
+        "file": null
+      },
+      {
+        "path": "/tmp/rnx-cache-context-5s5ldxkm/disk/cache/rust-toolchain",
+        "file": null
+      },
+      {
+        "path": "/tmp/rnx-cache-context-5s5ldxkm/disk/cache/rust-toolchain.toml",
+        "file": {
+          "path": "rust-toolchain.toml",
+          "executable": false,
+          "bytes": 54,
+          "sha256": "6e2584e43d627cf62d939a107369bc8224aa3d3dcf6d0142bc5425037ec1b712"
+        }
+      },
+      {
+        "path": "/tmp/rnx-cache-context-5s5ldxkm/disk/rust-toolchain",
+        "file": null
+      },
+      {
+        "path": "/tmp/rnx-cache-context-5s5ldxkm/disk/rust-toolchain.toml",
+        "file": null
+      },
+      {
+        "path": "/tmp/rnx-cache-context-5s5ldxkm/native/.cargo/config",
+        "file": null
+      },
+      {
+        "path": "/tmp/rnx-cache-context-5s5ldxkm/native/.cargo/config.toml",
+        "file": null
+      },
+      {
+        "path": "/tmp/rnx-cache-context-5s5ldxkm/native/Cargo.toml",
+        "file": null
+      },
+      {
+        "path": "/tmp/rnx-cache-context-5s5ldxkm/native/adapter/.cargo/config",
+        "file": null
+      },
+      {
+        "path": "/tmp/rnx-cache-context-5s5ldxkm/native/adapter/.cargo/config.toml",
+        "file": null
+      },
+      {
+        "path": "/tmp/rnx-cache-context-5s5ldxkm/native/adapter/Cargo.toml",
+        "file": {
+          "path": "Cargo.toml",
+          "executable": false,
+          "bytes": 64,
+          "sha256": "ffd6938dec59d05d0f103be9bcdf431789aed2b2234f044124f7d926083b7e90"
+        }
+      },
+      {
+        "path": "/tmp/rnx-cache-context-5s5ldxkm/native/adapter/rust-toolchain",
+        "file": null
+      },
+      {
+        "path": "/tmp/rnx-cache-context-5s5ldxkm/native/adapter/rust-toolchain.toml",
+        "file": null
+      },
+      {
+        "path": "/tmp/rnx-cache-context-5s5ldxkm/native/runtime/.cargo/config",
+        "file": null
+      },
+      {
+        "path": "/tmp/rnx-cache-context-5s5ldxkm/native/runtime/.cargo/config.toml",
+        "file": null
+      },
+      {
+        "path": "/tmp/rnx-cache-context-5s5ldxkm/native/runtime/Cargo.toml",
+        "file": {
+          "path": "Cargo.toml",
+          "executable": false,
+          "bytes": 82,
+          "sha256": "52a16e8fda5321c0e8cb31598c99bbac571303f2abaab6aa50bc2da7bffe101f"
+        }
+      },
+      {
+        "path": "/tmp/rnx-cache-context-5s5ldxkm/native/runtime/rust-toolchain",
+        "file": null
+      },
+      {
+        "path": "/tmp/rnx-cache-context-5s5ldxkm/native/runtime/rust-toolchain.toml",
+        "file": null
+      },
+      {
+        "path": "/tmp/rnx-cache-context-5s5ldxkm/native/rust-toolchain",
+        "file": null
+      },
+      {
+        "path": "/tmp/rnx-cache-context-5s5ldxkm/native/rust-toolchain.toml",
+        "file": null
+      },
+      {
+        "path": "/tmp/rnx-cache-context-5s5ldxkm/rust-toolchain",
+        "file": null
+      },
+      {
+        "path": "/tmp/rnx-cache-context-5s5ldxkm/rust-toolchain.toml",
+        "file": null
+      },
+      {
+        "path": "/tmp/rust-toolchain",
+        "file": null
+      },
+      {
+        "path": "/tmp/rust-toolchain.toml",
+        "file": null
+      }
+    ]
+  },
+  "toolchain": {
+    "cargo": "cargo 1.98.1 (797e8a9bc 2026-08-05)\n",
+    "rustc": "rustc 1.98.1 (48a229cea 2026-09-01)\nbinary: rustc\ncommit-hash: 48a229ceaefd4985c50990b14116b6d856af0985\ncommit-date: 2026-09-01\nhost: x86_64-unknown-linux-gnu\nrelease: 1.98.1\nLLVM version: 22.1.8\n",
+    "selected": "stable-x86_64-unknown-linux-gnu (overridden by '/tmp/rnx-cache-context-5s5ldxkm/disk/cache/rust-toolchain.toml')\n"
+  },
+  "target": "x86_64-unknown-linux-gnu",
+  "profile": "release",
+  "features": [
+    "project-sources"
+  ],
+  "selection": {
+    "RUSTUP_HOME": null,
+    "RUSTUP_TOOLCHAIN": null
+  }
+}
