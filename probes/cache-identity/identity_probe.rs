@@ -2,6 +2,7 @@
 //! accepted product; this file is prototype policy, not a public cache API.
 #![allow(dead_code)]
 mod cache_identity;
+mod cache_storage;
 mod fingerprint;
 mod generate;
 mod graph;
