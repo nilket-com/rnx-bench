@@ -1,0 +1,8 @@
+[package]
+name = "rnx-package-input-fixture"
+version = "0.0.0"
+edition = "2024"
+publish = false
+[workspace]
+[dependencies]
+rnx = { path = "../../../../rnx", features = ["project-sources", "test-support"] }
