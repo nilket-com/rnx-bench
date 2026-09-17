@@ -1,0 +1,34 @@
+[
+  {
+    "name": "root-source-feature-build",
+    "command": [
+      "cargo",
+      "build",
+      "--locked",
+      "--offline",
+      "--features",
+      "project-sources",
+      "--bin",
+      "rnx"
+    ],
+    "status": 0
+  },
+  {
+    "name": "tool-opt-in-integrations",
+    "command": [
+      "cargo",
+      "test",
+      "--locked",
+      "--offline",
+      "--manifest-path",
+      "tools/project/Cargo.toml",
+      "--features",
+      "test-support",
+      "--",
+      "--ignored",
+      "--test-threads=1",
+      "--nocapture"
+    ],
+    "status": 0
+  }
+]
