@@ -1,0 +1,76 @@
+[
+  {
+    "name": "root-default",
+    "command": [
+      "cargo",
+      "test",
+      "--locked",
+      "--",
+      "--test-threads=1"
+    ],
+    "exit": 0
+  },
+  {
+    "name": "root-test-support",
+    "command": [
+      "cargo",
+      "test",
+      "--locked",
+      "--features",
+      "test-support",
+      "--",
+      "--test-threads=1"
+    ],
+    "exit": 0
+  },
+  {
+    "name": "root-all-features",
+    "command": [
+      "cargo",
+      "test",
+      "--locked",
+      "--all-features",
+      "--",
+      "--test-threads=1"
+    ],
+    "exit": 0
+  },
+  {
+    "name": "root-format",
+    "command": [
+      "cargo",
+      "fmt",
+      "--all",
+      "--",
+      "--check"
+    ],
+    "exit": 0
+  },
+  {
+    "name": "root-notices",
+    "command": [
+      "bash",
+      "scripts/third-party-notices.sh",
+      "--check"
+    ],
+    "exit": 0
+  },
+  {
+    "name": "root-release",
+    "command": [
+      "cargo",
+      "build",
+      "--release",
+      "--locked"
+    ],
+    "exit": 0
+  },
+  {
+    "name": "root-selfcheck",
+    "command": [
+      "target/release/rnx",
+      "selfcheck"
+    ],
+    "exit": 0
+  }
+]

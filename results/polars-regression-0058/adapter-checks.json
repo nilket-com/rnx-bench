@@ -1,0 +1,81 @@
+[
+  {
+    "name": "adapter-default",
+    "command": [
+      "cargo",
+      "test",
+      "--release",
+      "--locked",
+      "--",
+      "--test-threads=1"
+    ],
+    "exit": 0
+  },
+  {
+    "name": "adapter-test-support",
+    "command": [
+      "cargo",
+      "test",
+      "--release",
+      "--locked",
+      "--features",
+      "test-support",
+      "--",
+      "--test-threads=1"
+    ],
+    "exit": 0
+  },
+  {
+    "name": "adapter-format",
+    "command": [
+      "cargo",
+      "fmt",
+      "--all",
+      "--",
+      "--check"
+    ],
+    "exit": 0
+  },
+  {
+    "name": "adapter-clippy",
+    "command": [
+      "cargo",
+      "clippy",
+      "--release",
+      "--locked",
+      "--all-targets",
+      "--",
+      "-D",
+      "warnings"
+    ],
+    "exit": 0
+  },
+  {
+    "name": "adapter-clippy-support",
+    "command": [
+      "cargo",
+      "clippy",
+      "--release",
+      "--locked",
+      "--all-targets",
+      "--features",
+      "test-support",
+      "--",
+      "-D",
+      "warnings"
+    ],
+    "exit": 0
+  },
+  {
+    "name": "adapter-windows",
+    "command": [
+      "cargo",
+      "check",
+      "--locked",
+      "--target",
+      "x86_64-pc-windows-msvc",
+      "--all-targets"
+    ],
+    "exit": 101
+  }
+]

@@ -1,0 +1,19 @@
+retained closure/function, new function, old struct field/type/method: [11,10,20,7,true,7]
+after compile failure: 11
+runtime failure: Panicked: after mutation
+shared object after failed input: [1,2]
+changed struct shape: [true,7]
+new field on old instance: Missing index by static string slot `1`
+old closure without declarations: 15
+exit status: {"code":7,"unreadable":false,"cancelled":false,"truncated":false,"stderr":"","cut_short":false,"timed_out":false,"stdout":""}
+deadline: {"code":null,"unreadable":false,"cancelled":false,"truncated":false,"stderr":"","cut_short":false,"timed_out":true,"stdout":""}
+capture cap: [true,2097152]
+interruption: {"code":null,"unreadable":false,"cancelled":true,"truncated":false,"stderr":"","cut_short":true,"timed_out":false,"stdout":""}
+session: 5
+session: (10, 20, 11, 7, true)
+session: (7, 3, 8, 9, 4, 1)
+after compile/runtime failures: (7, [1, 2], 20, 1)
+changed type declaration: refused until reset
+infinite loop: halted: 2000000 instructions exceeded
+external write before runtime failure survives; later input does not replay it
+100 incremental inputs (compile + execute): 19.367766ms
