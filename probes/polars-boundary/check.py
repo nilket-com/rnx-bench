@@ -1,8 +1,9 @@
 #!/usr/bin/env python3
 """Drive the native-boundary prototype through real rnx scripts and a held session."""
-import hashlib,json,os,pathlib,select,subprocess,tempfile,time
-HERE=pathlib.Path(__file__).resolve().parent;BENCH=HERE.parents[1];OUT=BENCH/'results/polars-boundary-0058';EXE=HERE/'target/release/rnx-polars-boundary'
-ENV={k:v for k,v in os.environ.items() if not k.startswith(('RNX_','POLARS_'))};ENV.update(TERM='xterm',NO_COLOR='1',POLARS_MAX_THREADS='2')
+import argparse,hashlib,json,os,pathlib,select,subprocess,tempfile,time
+HERE=pathlib.Path(__file__).resolve().parent;BENCH=HERE.parents[1];OUT=BENCH/'results/polars-engine-thread-0058';EXE=HERE/'target/release/rnx-polars-boundary'
+ap=argparse.ArgumentParser();ap.add_argument('--threads',type=int,default=2);options=ap.parse_args()
+ENV={k:v for k,v in os.environ.items() if not k.startswith(('RNX_','POLARS_'))};ENV.update(TERM='xterm',NO_COLOR='1',POLARS_MAX_THREADS=str(options.threads))
 results={}
 with tempfile.TemporaryDirectory(prefix='rnx-polars-boundary-') as tmp:
     d=pathlib.Path(tmp);ENV.update(RNX_CONFIG=str(d/'absent'),RNX_HISTORY=str(d/'history'))
@@ -23,13 +24,12 @@ with tempfile.TemporaryDirectory(prefix='rnx-polars-boundary-') as tmp:
 }'''
     f=d/'main.rn';f.write_text(source)
     r=subprocess.run([str(EXE),'run',str(f)],env=ENV,capture_output=True,text=True,timeout=60)
-    assert r.returncode!=0 and 'can call blocking only when running on the multi-threaded runtime' in r.stderr,(r.stdout,r.stderr)
-    results['file_run_stop']={'status':r.returncode,'stdout':r.stdout,'stderr':r.stderr}
-    traced=subprocess.run([str(EXE),'run',str(f)],env={**ENV,'RUST_BACKTRACE':'1'},capture_output=True,text=True,timeout=60)
-    (OUT/'file-run-backtrace.log').write_text(traced.stdout+traced.stderr)
+    assert r.returncode==0 and not r.stderr,(r.stdout,r.stderr)
+    results['file_run']={'status':r.returncode,'stdout':r.stdout,'stderr':r.stderr}
+    file_data=json.loads(r.stdout.splitlines()[0])
     r=subprocess.run([str(EXE),'eval',source[source.index('{'):]],env=ENV,capture_output=True,text=True,timeout=60)
     assert r.returncode==0,(r.stdout,r.stderr)
-    data=json.loads(r.stdout.splitlines()[0]);expected=[['a',2],['🦀',3]]
+    data=json.loads(r.stdout.splitlines()[0]);assert data==file_data;expected=[['a',2],['🦀',3]]
     assert data[:3]==[expected]*3 and data[3]==[['a',1],['a',2],['🦀',3]] and data[4:6]==[[['a',5],['🦀',4]]]*2 and data[6] is True and data[7]==data[3],data
     results['registration_borrow_reuse_arithmetic_failure_recovery']=data
     cases={'ordinary':'k,v\na,1\n','renamed':'x,y\na,1\n','duplicate':'k,k\na,1\n','deduplicated-spelling':'k,k_duplicated_0\na,1\n','quoted':'"k,part","v\npart"\na,1\n','reordered':'v,k\n1,a\n','short':'k\na\n','extra':'k,v,z\na,1,z\n'}
@@ -38,7 +38,7 @@ with tempfile.TemporaryDirectory(prefix='rnx-polars-boundary-') as tmp:
         path=d/(name+'.csv');path.write_text(text);csv[name]={}
         for mode in ['schema','dtypes','header','raw-header']:
             code='pub fn main(_) { let r=polars::csv('+json.dumps(str(path))+','+json.dumps(mode)+'); let o=match r { Ok(v)=>#{ok:v}, Err(e)=>#{error:e} }; println!("{}",json::stringify(o)?); 0 }'
-            f.write_text(code);r=subprocess.run([str(EXE),'eval',code[code.index('{'):]],env=ENV,capture_output=True,text=True,timeout=30)
+            f.write_text(code);r=subprocess.run([str(EXE),'run',str(f)],env=ENV,capture_output=True,text=True,timeout=30)
             assert r.returncode==0,(name,mode,r.stdout,r.stderr)
             csv[name][mode]=json.loads(r.stdout.splitlines()[0])
     assert csv['renamed']['schema']=={'ok':['k','v']}
@@ -51,16 +51,24 @@ with tempfile.TemporaryDirectory(prefix='rnx-polars-boundary-') as tmp:
     matrix={}
     for name,expr,entry,ok in [
         ('construct-file','polars::fixture()','run',True),
-        ('collect-file','polars::fixture().unwrap().lazy().collect()','run',False),
+        ('collect-file','polars::fixture().unwrap().lazy().collect()','run',True),
         ('collect-sync-eval','polars::fixture().unwrap().lazy().collect()','eval',True),
-        ('collect-async-eval','{ time::sleep(0).await; polars::fixture().unwrap().lazy().collect() }','eval',False),
+        ('collect-async-eval','{ time::sleep(0).await; polars::fixture().unwrap().lazy().collect() }','eval',True),
     ]:
         f.write_text('pub fn main(_) { '+expr+' }');args=['run',str(f)] if entry=='run' else ['eval',expr]
         r=subprocess.run([str(EXE),*args],env=ENV,capture_output=True,text=True,timeout=30)
         assert (r.returncode==0)==ok,(name,r.stdout,r.stderr)
-        if not ok:assert 'can call blocking only when running on the multi-threaded runtime' in r.stderr
+        assert not r.stderr,(name,r.stderr)
         matrix[name]={'status':r.returncode,'stdout':r.stdout,'stderr':r.stderr}
     results['runtime_matrix']=matrix
+    nested='pub fn main(_) { let n=polars::nested()?; let o=polars::overlap()?; let e=polars::engine_error(); println!("{}",json::stringify([n,o,e.is_err(),polars::engine_counts()])?); 0 }'
+    f.write_text(nested);r=subprocess.run([str(EXE),'run',str(f)],env=ENV,capture_output=True,text=True,timeout=30)
+    assert r.returncode==0 and not r.stderr,(r.stdout,r.stderr)
+    observed=json.loads(r.stdout.splitlines()[0]);assert observed[:3]==[[3,3],[3,3],True],observed
+    started,finished,joined,active,maximum,no_context=observed[3]
+    assert started==finished==joined==no_context==5 and active==0 and maximum>=2,observed
+    results['nested_overlap_error_join']=observed
+
     p=subprocess.Popen([str(EXE),'--no-splash','repl'],env=ENV,stdin=subprocess.PIPE,stdout=subprocess.PIPE,stderr=subprocess.PIPE,bufsize=0)
     pending=b''
     def until(marker):
@@ -84,9 +92,13 @@ with tempfile.TemporaryDirectory(prefix='rnx-polars-boundary-') as tmp:
         send('let a=q.collect().unwrap(); a.observed().unwrap(); "FIRST"','"FIRST"');states['first']=snapshot();time.sleep(.3);states['idle']=snapshot()
         text=send('q.collect().unwrap().observed().unwrap()','[("a", 1), ("a", 2), ("🦀", 3)]')
         states['second']=snapshot();p.stdin.write(b':reset\n');send('"RESET"','"RESET"');states['reset']=snapshot()
+        counts=send('println!("COUNTS {}",json::stringify(polars::engine_counts()).unwrap()); "JOINED"','"JOINED"')
+        line=next(l for l in counts.splitlines() if l.startswith('COUNTS ')); c=json.loads(line[7:]);assert c[0]==c[1]==c[2]==c[5] and c[3]==0 and c[0]>0,c
+        states['engine_counts']=c
         p.stdin.write(b':q\n');p.stdin.close();p.wait(timeout=15);assert p.returncode==0 and not p.stderr.read()
         states['exited']=not pathlib.Path('/proc',str(p.pid)).exists();results['ownership']=states
     finally:
         if p.poll() is None:p.kill();p.wait()
 results['binary_sha256']=hashlib.sha256(EXE.read_bytes()).hexdigest()
-(OUT/'results.json').write_text(json.dumps(results,indent=2)+'\n');print('STOP reproduced in file run; PASS synchronous registration, reuse, ADD, CSV observations and idle/reset ownership')
+results['polars_max_threads']=options.threads
+(OUT/f'results-{options.threads}.json').write_text(json.dumps(results,indent=2)+'\n');print('PASS file/async collect, reuse, ADD, CSV, nested/overlapping calls and joined ownership; threads='+str(options.threads))

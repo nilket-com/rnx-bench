@@ -1,0 +1,408 @@
+{
+  "file_run": {
+    "status": 0,
+    "stdout": "[[[\"a\",2],[\"\ud83e\udd80\",3]],[[\"a\",2],[\"\ud83e\udd80\",3]],[[\"a\",2],[\"\ud83e\udd80\",3]],[[\"a\",1],[\"a\",2],[\"\ud83e\udd80\",3]],[[\"a\",5],[\"\ud83e\udd80\",4]],[[\"a\",5],[\"\ud83e\udd80\",4]],true,[[\"a\",1],[\"a\",2],[\"\ud83e\udd80\",3]]]\n0\n",
+    "stderr": ""
+  },
+  "registration_borrow_reuse_arithmetic_failure_recovery": [
+    [
+      [
+        "a",
+        2
+      ],
+      [
+        "\ud83e\udd80",
+        3
+      ]
+    ],
+    [
+      [
+        "a",
+        2
+      ],
+      [
+        "\ud83e\udd80",
+        3
+      ]
+    ],
+    [
+      [
+        "a",
+        2
+      ],
+      [
+        "\ud83e\udd80",
+        3
+      ]
+    ],
+    [
+      [
+        "a",
+        1
+      ],
+      [
+        "a",
+        2
+      ],
+      [
+        "\ud83e\udd80",
+        3
+      ]
+    ],
+    [
+      [
+        "a",
+        5
+      ],
+      [
+        "\ud83e\udd80",
+        4
+      ]
+    ],
+    [
+      [
+        "a",
+        5
+      ],
+      [
+        "\ud83e\udd80",
+        4
+      ]
+    ],
+    true,
+    [
+      [
+        "a",
+        1
+      ],
+      [
+        "a",
+        2
+      ],
+      [
+        "\ud83e\udd80",
+        3
+      ]
+    ]
+  ],
+  "csv": {
+    "ordinary": {
+      "schema": {
+        "ok": [
+          "k",
+          "v"
+        ]
+      },
+      "dtypes": {
+        "ok": [
+          "k",
+          "v"
+        ]
+      },
+      "header": {
+        "ok": [
+          "k",
+          "v"
+        ]
+      },
+      "raw-header": {
+        "ok": [
+          "k",
+          "v"
+        ]
+      }
+    },
+    "renamed": {
+      "schema": {
+        "ok": [
+          "k",
+          "v"
+        ]
+      },
+      "dtypes": {
+        "ok": [
+          "x",
+          "y"
+        ]
+      },
+      "header": {
+        "ok": [
+          "x",
+          "y"
+        ]
+      },
+      "raw-header": {
+        "ok": [
+          "x",
+          "y"
+        ]
+      }
+    },
+    "duplicate": {
+      "schema": {
+        "ok": [
+          "k",
+          "v"
+        ]
+      },
+      "dtypes": {
+        "ok": [
+          "k",
+          "k_duplicated_0"
+        ]
+      },
+      "header": {
+        "ok": [
+          "k",
+          "k_duplicated_0"
+        ]
+      },
+      "raw-header": {
+        "ok": [
+          "k",
+          "k"
+        ]
+      }
+    },
+    "deduplicated-spelling": {
+      "schema": {
+        "ok": [
+          "k",
+          "v"
+        ]
+      },
+      "dtypes": {
+        "ok": [
+          "k",
+          "k_duplicated_0"
+        ]
+      },
+      "header": {
+        "ok": [
+          "k",
+          "k_duplicated_0"
+        ]
+      },
+      "raw-header": {
+        "ok": [
+          "k",
+          "k_duplicated_0"
+        ]
+      }
+    },
+    "quoted": {
+      "schema": {
+        "ok": [
+          "k",
+          "v"
+        ]
+      },
+      "dtypes": {
+        "ok": [
+          "k,part",
+          "v\npart"
+        ]
+      },
+      "header": {
+        "ok": [
+          "k,part",
+          "v\npart"
+        ]
+      },
+      "raw-header": {
+        "ok": [
+          "k,part",
+          "v\npart"
+        ]
+      }
+    },
+    "reordered": {
+      "schema": {
+        "error": "could not parse `a` as dtype `i64` at column 'v' (column number 2)\n\nThe current offset in the file is 2 bytes.\n\nYou might want to try:\n- increasing `infer_schema_length` (e.g. `infer_schema_length=10000`),\n- specifying correct dtype with the `schema_overrides` argument\n- setting `ignore_errors` to `True`,\n- adding `a` to the `null_values` list.\n\nOriginal error: ```invalid primitive value found during CSV parsing```"
+      },
+      "dtypes": {
+        "error": "could not parse `a` as dtype `i64` at column 'k' (column number 2)\n\nThe current offset in the file is 2 bytes.\n\nYou might want to try:\n- increasing `infer_schema_length` (e.g. `infer_schema_length=10000`),\n- specifying correct dtype with the `schema_overrides` argument\n- setting `ignore_errors` to `True`,\n- adding `a` to the `null_values` list.\n\nOriginal error: ```invalid primitive value found during CSV parsing```"
+      },
+      "header": {
+        "ok": [
+          "v",
+          "k"
+        ]
+      },
+      "raw-header": {
+        "ok": [
+          "v",
+          "k"
+        ]
+      }
+    },
+    "short": {
+      "schema": {
+        "ok": [
+          "k",
+          "v"
+        ]
+      },
+      "dtypes": {
+        "error": "The number of schema overrides must be less than or equal to the number of fields"
+      },
+      "header": {
+        "ok": [
+          "k"
+        ]
+      },
+      "raw-header": {
+        "ok": [
+          "k"
+        ]
+      }
+    },
+    "extra": {
+      "schema": {
+        "error": "provided schema does not match number of columns in file (2 != 3 in file)"
+      },
+      "dtypes": {
+        "ok": [
+          "k",
+          "v",
+          "z"
+        ]
+      },
+      "header": {
+        "ok": [
+          "k",
+          "v",
+          "z"
+        ]
+      },
+      "raw-header": {
+        "ok": [
+          "k",
+          "v",
+          "z"
+        ]
+      }
+    }
+  },
+  "runtime_matrix": {
+    "construct-file": {
+      "status": 0,
+      "stdout": "<::polars::DataFrame>\n",
+      "stderr": ""
+    },
+    "collect-file": {
+      "status": 0,
+      "stdout": "<::polars::DataFrame>\n",
+      "stderr": ""
+    },
+    "collect-sync-eval": {
+      "status": 0,
+      "stdout": "<::polars::DataFrame>\n",
+      "stderr": ""
+    },
+    "collect-async-eval": {
+      "status": 0,
+      "stdout": "<::polars::DataFrame>\n",
+      "stderr": ""
+    }
+  },
+  "nested_overlap_error_join": [
+    [
+      3,
+      3
+    ],
+    [
+      3,
+      3
+    ],
+    true,
+    [
+      5,
+      5,
+      5,
+      0,
+      2,
+      5
+    ]
+  ],
+  "ownership": {
+    "before": {
+      "tasks": 1,
+      "fds": {
+        "0": "pipe:[4741455]",
+        "1": "pipe:[4741456]",
+        "2": "pipe:[4741457]",
+        "3": "anon_inode:[eventpoll]",
+        "4": "anon_inode:[eventfd]",
+        "5": "anon_inode:[eventpoll]"
+      }
+    },
+    "first": {
+      "tasks": 2,
+      "fds": {
+        "0": "pipe:[4741455]",
+        "1": "pipe:[4741456]",
+        "2": "pipe:[4741457]",
+        "3": "anon_inode:[eventpoll]",
+        "4": "anon_inode:[eventfd]",
+        "5": "anon_inode:[eventpoll]",
+        "6": "anon_inode:[eventpoll]",
+        "7": "anon_inode:[eventfd]",
+        "8": "anon_inode:[eventpoll]"
+      }
+    },
+    "idle": {
+      "tasks": 2,
+      "fds": {
+        "0": "pipe:[4741455]",
+        "1": "pipe:[4741456]",
+        "2": "pipe:[4741457]",
+        "3": "anon_inode:[eventpoll]",
+        "4": "anon_inode:[eventfd]",
+        "5": "anon_inode:[eventpoll]",
+        "6": "anon_inode:[eventpoll]",
+        "7": "anon_inode:[eventfd]",
+        "8": "anon_inode:[eventpoll]"
+      }
+    },
+    "second": {
+      "tasks": 2,
+      "fds": {
+        "0": "pipe:[4741455]",
+        "1": "pipe:[4741456]",
+        "2": "pipe:[4741457]",
+        "3": "anon_inode:[eventpoll]",
+        "4": "anon_inode:[eventfd]",
+        "5": "anon_inode:[eventpoll]",
+        "6": "anon_inode:[eventpoll]",
+        "7": "anon_inode:[eventfd]",
+        "8": "anon_inode:[eventpoll]"
+      }
+    },
+    "reset": {
+      "tasks": 2,
+      "fds": {
+        "0": "pipe:[4741455]",
+        "1": "pipe:[4741456]",
+        "2": "pipe:[4741457]",
+        "3": "anon_inode:[eventpoll]",
+        "4": "anon_inode:[eventfd]",
+        "5": "anon_inode:[eventpoll]",
+        "6": "anon_inode:[eventpoll]",
+        "7": "anon_inode:[eventfd]",
+        "8": "anon_inode:[eventpoll]"
+      }
+    },
+    "engine_counts": [
+      3,
+      3,
+      3,
+      0,
+      1,
+      3
+    ],
+    "exited": true
+  },
+  "binary_sha256": "31af171c3defca3db69893b14422764d1dbeef56e58f404871e0f8b0de74b207",
+  "polars_max_threads": 1
+}

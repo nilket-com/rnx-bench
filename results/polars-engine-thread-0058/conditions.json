@@ -1,0 +1,35 @@
+{
+  "root_decision": "904c31241cfd36b167630a546ddc6e8d3548a545",
+  "root_stop": "17c952f",
+  "bench_stop": "2c4a278",
+  "bench_base": "2c4a278faf09ef047b2c19ab6408e52d84f1803d",
+  "rustc": "rustc 1.98.1 (48a229cea 2026-09-01)\nbinary: rustc\ncommit-hash: 48a229ceaefd4985c50990b14116b6d856af0985\ncommit-date: 2026-09-01\nhost: x86_64-unknown-linux-gnu\nrelease: 1.98.1\nLLVM version: 22.1.8",
+  "cargo": "cargo 1.98.1 (797e8a9bc 2026-08-05)",
+  "platform": "Linux nano 7.0.0-31-generic #31-Ubuntu SMP PREEMPT_DYNAMIC Sat Aug  1 04:26:38 UTC 2026 x86_64 GNU/Linux",
+  "binary_sha256": "31af171c3defca3db69893b14422764d1dbeef56e58f404871e0f8b0de74b207",
+  "source_sha256": {
+    "probes/polars-boundary/Cargo.toml": "c0373e45219485b67d24730e4a278d8f4aa5002346d4aef6da7b9a7c76ac774b",
+    "probes/polars-boundary/Cargo.lock": "d455afeb74e665dbc05e2ebe54c84c65a5cb19d33f346fda6f1f67e9884e3a5b",
+    "probes/polars-boundary/src/main.rs": "4cdce324b2a9f75e66f594c810e446f070460652799b3fc152a72cace084f0a8",
+    "probes/polars-boundary/src/engine.rs": "4250fb9551f9df1c7aeb92b9ecb3c88cc4f3245412f93290799d93754ee2c16a",
+    "probes/polars-boundary/check.py": "5fc469c3b37088324928c859a44f33811eb06463b4f420a8eba718237d7f6810"
+  },
+  "pool_sizes": [
+    1,
+    2
+  ],
+  "root_source_changed": false,
+  "performance": "not measured",
+  "checks": [
+    "locked release build",
+    "fmt check",
+    "all-targets clippy -D warnings",
+    "one joined-panic test",
+    "file/sync/async runtime controls",
+    "borrow/ADD/CSV regression",
+    "nested and overlapping engine calls",
+    "returned error joins",
+    "session idle/reset ownership"
+  ],
+  "root_evidence_commit": "ed6367d20cdde36016d738c9dd20332ae67b0c02"
+}
