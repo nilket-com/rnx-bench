@@ -1,0 +1,12 @@
+pub async fn main(args) {
+    let url = args[0];
+    let sql = "SELECT $1::bigint AS n, $2::text AS text";
+    let value = "quote ' \\ 🦀";
+    let first = postgres::query(url, sql, [42, value], #{}).await?;
+    assert!(first.rows[0].n == 42);
+    assert!(first.rows[0].text == value);
+    let again = postgres::query(url, sql, [43, value], #{}).await?;
+    assert!(again.rows[0].n == 43);
+    assert!(polars::lit(1).is_ok());
+    println!("combined: typed PostgreSQL query and Polars registered");
+}
