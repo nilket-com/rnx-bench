@@ -1,0 +1,36 @@
+{
+  "root_tested_commit": "e50eda337681be3b6bcf042f8333dd0cc7a6332b",
+  "baseline_commit": "07f67094ee7bdf23eee80f54a1ebff1881c945b9",
+  "bench_parent": "2d647445c2837c920efd25311fbe870eb5b4f818",
+  "platform": "Linux nano 7.0.0-31-generic #31-Ubuntu SMP PREEMPT_DYNAMIC Sat Aug  1 04:26:38 UTC 2026 x86_64 GNU/Linux",
+  "cpu": "Intel(R) Core(TM) i7-14700",
+  "logical_cpus": 28,
+  "timing_cpu": 4,
+  "hyperfine": "hyperfine 1.20.0",
+  "rustc": "rustc 1.98.1 (48a229cea 2026-09-01)\nbinary: rustc\ncommit-hash: 48a229ceaefd4985c50990b14116b6d856af0985\ncommit-date: 2026-09-01\nhost: x86_64-unknown-linux-gnu\nrelease: 1.98.1\nLLVM version: 22.1.8",
+  "cargo": "cargo 1.98.1 (797e8a9bc 2026-08-05)",
+  "root_configs": [
+    "default",
+    "test-support",
+    "test-support,server-runtime,project-sources"
+  ],
+  "root_test_environment": {
+    "TERM": "xterm-256color",
+    "test_threads": 1,
+    "cargo_flags": [
+      "--locked",
+      "--offline"
+    ]
+  },
+  "tool_sha256": "ebb66e51d26b73825925da97b7846ca72d9d4e8d28574c158f08016f785350df",
+  "probe_sha256": {
+    "compare.py": "c20f702bcfa9c47d1e18c8a7e9de03beab15aeb449c6a3f86965b3151e172f54",
+    "project_cost.py": "9c921fec2d1e9e61dddd8a79edee5f828da12b00bb61c72141ec42706bc102d2",
+    "startup.py": "75aec95c168b2dd67fc4c666980962f95a813c4c1d80b5c9d8fea9357b228e73",
+    "summarize.py": "0a099f1f3f06b9354a7c3ad64787363081e1f7ff2e0edab9629cab51218cf92c"
+  },
+  "windows": "tool MSVC check passed; root MSVC check blocked by missing lib.exe; no Windows execution",
+  "clippy": "tool strict clean; root same existing warnings/errors as baseline; logs retained",
+  "benchmark_interference": "startup after all builds/tests; project build after startup; run pair after first/warm build; no overlapping validation workloads",
+  "root_evidence_commit": "4f2fcb5aa0643974d3fa1f573c5da2b6e59f2825"
+}

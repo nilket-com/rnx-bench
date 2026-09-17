@@ -1,0 +1,164 @@
+{
+  "suites": {
+    "default": {
+      "passed": 375,
+      "failed": 0,
+      "ignored": 0
+    },
+    "test-support": {
+      "passed": 418,
+      "failed": 0,
+      "ignored": 0
+    },
+    "all-features": {
+      "passed": 437,
+      "failed": 0,
+      "ignored": 0
+    },
+    "tool-tests": {
+      "passed": 27,
+      "failed": 0,
+      "ignored": 2
+    },
+    "tool-tests-feature": {
+      "passed": 27,
+      "failed": 0,
+      "ignored": 2
+    }
+  },
+  "stock_medians_ms": {
+    "version": [
+      {
+        "before": 0.558133,
+        "after": 0.533382,
+        "change_percent": -4.434606088512949
+      },
+      {
+        "after": 0.5367385,
+        "before": 0.540263,
+        "change_percent": -0.6523674580713568
+      }
+    ],
+    "help": [
+      {
+        "before": 0.543927,
+        "after": 0.5377695,
+        "change_percent": -1.1320452928426095
+      },
+      {
+        "after": 0.5401785,
+        "before": 0.5424760000000001,
+        "change_percent": -0.4235210405621692
+      }
+    ],
+    "run": [
+      {
+        "before": 3.7126940000000004,
+        "after": 3.6667955,
+        "change_percent": -1.2362586305254442
+      },
+      {
+        "after": 3.6613295000000003,
+        "before": 3.7197810000000002,
+        "change_percent": -1.5713693897570824
+      }
+    ],
+    "eval": [
+      {
+        "before": 4.062266,
+        "after": 4.0105895,
+        "change_percent": -1.2721101966242543
+      },
+      {
+        "after": 4.0131595,
+        "before": 4.065619000000001,
+        "change_percent": -1.2903201209951143
+      }
+    ],
+    "json": [
+      {
+        "before": 11.656601,
+        "after": 11.470934000000002,
+        "change_percent": -1.5928056557824921
+      },
+      {
+        "after": 11.480070500000002,
+        "before": 11.653582,
+        "change_percent": -1.488911306412044
+      }
+    ]
+  },
+  "default_graph_equal": true,
+  "comparison_cases": 25,
+  "project_cost": {
+    "conditions": {
+      "first_build": "empty .rnx target; registry sources already cached; offline; no copied artifacts",
+      "warm_build": "same target immediately after first build",
+      "run_clock": "perf_counter_ns around subprocess; includes spawn/wait equally; ABBA 20 pairs, CPU 4",
+      "assembly": "real rnx, postgres and plain extensions, mapped words; no database connection in timed input"
+    },
+    "seconds": {
+      "lock": 0.7581403750227764,
+      "first-build": 37.896225316042546,
+      "warm-build": 0.550101097964216
+    },
+    "run_samples_ms": {
+      "direct": [
+        5.159282,
+        5.037912,
+        5.024761,
+        4.938567,
+        4.983514,
+        4.932579,
+        5.025886,
+        4.964953,
+        4.991974,
+        4.876517,
+        4.980778,
+        5.01465,
+        4.946549,
+        4.841348,
+        5.105151,
+        4.930537,
+        5.139195,
+        4.976093,
+        5.003893,
+        4.877104
+      ],
+      "project": [
+        45.86634,
+        45.479173,
+        45.846949,
+        45.612651,
+        45.623968,
+        45.555311,
+        46.539902,
+        46.469149,
+        45.216158,
+        45.569025,
+        45.36369,
+        45.377386,
+        45.22499,
+        45.027055,
+        45.481323,
+        46.775411,
+        45.037158,
+        45.724062,
+        45.636347,
+        45.663474
+      ]
+    },
+    "run_median_ms": {
+      "direct": 4.982146,
+      "project": 45.590838000000005
+    },
+    "verification_overhead_ms": 40.608692000000005,
+    "receipt": {
+      "format": 1,
+      "lock_sha256": "a5b54c222cd91247361364f1c69ddaa0a36c1c08fcd80228b0acd38344cdc9f4",
+      "executable_sha256": "99959f193fb52e62af3977cb46da7b7e99737be3c0fba8961533c000317dc1fe"
+    },
+    "lock_sha256": "a5b54c222cd91247361364f1c69ddaa0a36c1c08fcd80228b0acd38344cdc9f4",
+    "tool_sha256": "ebb66e51d26b73825925da97b7846ca72d9d4e8d28574c158f08016f785350df"
+  }
+}
