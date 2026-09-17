@@ -1,0 +1,25 @@
+   Compiling rnx-polars v0.0.0 (/home/me/work/rnx/adapters/polars)
+    Finished `release` profile [optimized] target(s) in 1.75s
+     Running unittests src/lib.rs (adapters/polars/target/release/deps/rnx_polars-daab3786d0990df6)
+
+running 2 tests
+test files::tests::failed_write_and_flush_leave_created_file ... partial: error="parquet: File out of specification: Invalid thrift: transport error"; retained_bytes=16; retry_refuses_existing=true
+engine-flush: error="parquet: File out of specification: underlying IO error: injected flush failure"; retained_bytes=489; retry_refuses_existing=true
+final-flush: error="injected flush failure"; retained_bytes=489; retry_refuses_existing=true
+ok
+test files::tests::header_and_data_use_same_open_file ... ok
+
+test result: ok. 2 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.01s
+
+     Running unittests src/main.rs (adapters/polars/target/release/deps/rnx_polars-5872c72fb104fc0d)
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+   Doc-tests rnx_polars
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+

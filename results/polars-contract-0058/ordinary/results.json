@@ -1,0 +1,227 @@
+{
+  "pipeline": {
+    "expected": {
+      "k": [
+        "a",
+        "🦀"
+      ],
+      "total": [
+        2,
+        7
+      ]
+    },
+    "cross_read": true,
+    "reused_after_success_and_failure": true
+  },
+  "csv": {
+    "crlf": {
+      "ok": true,
+      "rows": [
+        [
+          "a",
+          1
+        ]
+      ]
+    },
+    "quoted-comma": {
+      "ok": true,
+      "rows": [
+        [
+          "a,b",
+          2
+        ]
+      ]
+    },
+    "quoted-newline": {
+      "ok": true,
+      "rows": [
+        [
+          "a\nb",
+          2
+        ]
+      ]
+    },
+    "quoted-quote": {
+      "ok": true,
+      "rows": [
+        [
+          "a\"b",
+          2
+        ]
+      ]
+    },
+    "short-row": {
+      "ok": true,
+      "rows": [
+        [
+          "a",
+          null
+        ]
+      ]
+    },
+    "empty-fields": {
+      "ok": true,
+      "rows": [
+        [
+          null,
+          null
+        ]
+      ]
+    },
+    "quoted-empty": {
+      "ok": true,
+      "rows": [
+        [
+          "",
+          1
+        ]
+      ]
+    },
+    "header-only": {
+      "ok": true,
+      "rows": []
+    },
+    "extra-field": {
+      "error": "polars read_csv \"/tmp/rnx-polars-contract-ok3trryp/extra-field.csv\": found more fields than defined in 'Schema'\n\nConsider setting 'truncate_ragged_lines=true'."
+    },
+    "bad-int": {
+      "error": "polars read_csv \"/tmp/rnx-polars-contract-ok3trryp/bad-int.csv\": could not parse `no` as dtype `i64` at column 'v' (column number 2)\n\nThe current offset in the file is 2 bytes.\n\nYou might want to try:\n- increasing `infer_schema_length` (e.g. `infer_schema_length=10000`),\n- specifying correct dtype with the `schema_overrides` argument\n- setting `ignore_errors` to `True`,\n- adding `no` to the `null_values` list.\n\nOriginal error: ```invalid primitive value found during CSV parsing```"
+    },
+    "duplicate-header": {
+      "error": "polars read_csv \"/tmp/rnx-polars-contract-ok3trryp/duplicate-header.csv\": header names or order do not match schema"
+    },
+    "renamed-header": {
+      "error": "polars read_csv \"/tmp/rnx-polars-contract-ok3trryp/renamed-header.csv\": header names or order do not match schema"
+    },
+    "reordered-header": {
+      "error": "polars read_csv \"/tmp/rnx-polars-contract-ok3trryp/reordered-header.csv\": header names or order do not match schema"
+    },
+    "short-header": {
+      "error": "polars read_csv \"/tmp/rnx-polars-contract-ok3trryp/short-header.csv\": header arity does not match schema"
+    },
+    "extra-header": {
+      "error": "polars read_csv \"/tmp/rnx-polars-contract-ok3trryp/extra-header.csv\": header arity does not match schema"
+    },
+    "empty-file": {
+      "error": "polars read_csv \"/tmp/rnx-polars-contract-ok3trryp/empty-file.csv\": no data: empty CSV"
+    }
+  },
+  "types": {
+    "s": [
+      "🦀",
+      "null",
+      null
+    ],
+    "i": [
+      -9,
+      0,
+      null
+    ],
+    "f": [
+      1.25,
+      -0.0,
+      null
+    ],
+    "b": [
+      true,
+      false,
+      null
+    ]
+  },
+  "refusals": {
+    "schema-empty": {
+      "error": "polars read_csv: schema must not be empty"
+    },
+    "schema-duplicate": {
+      "error": "polars read_csv: schema names must be nonempty and unique"
+    },
+    "schema-empty-name": {
+      "error": "polars read_csv: schema names must be nonempty and unique"
+    },
+    "schema-dtype": {
+      "error": "polars read_csv: dtype must be string, i64, f64 or bool"
+    },
+    "schema-not-vector": {
+      "error": "polars read_csv: schema must be a vector"
+    },
+    "schema-not-tuple": {
+      "error": "polars read_csv: schema item 1 must be a (name, dtype) tuple"
+    },
+    "schema-arity": {
+      "error": "polars read_csv: schema item 1 needs two fields"
+    },
+    "schema-bad-name": {
+      "error": "polars read_csv: schema name must be a string"
+    },
+    "schema-bad-dtype": {
+      "error": "polars read_csv: dtype must be a string"
+    },
+    "lit-unit": {
+      "error": "polars lit: unsupported type ::std::tuple::Tuple"
+    },
+    "lit-vector": {
+      "error": "polars lit: unsupported type ::std::vec::Vec"
+    },
+    "lit-infinity": {
+      "error": "polars lit: float must be finite"
+    },
+    "utf8": {
+      "error": "polars read_csv \"/tmp/rnx-polars-contract-ok3trryp/invalid.csv\": invalid utf-8 sequence"
+    },
+    "missing": {
+      "error": "polars read \"/tmp/rnx-polars-contract-ok3trryp/absent\": No such file or directory (os error 2)"
+    },
+    "directory": {
+      "error": "polars read \"/tmp/rnx-polars-contract-ok3trryp\": not a regular file"
+    },
+    "fifo": {
+      "error": "polars read \"/tmp/rnx-polars-contract-ok3trryp/fifo\": not a regular file"
+    },
+    "malformed-parquet": {
+      "error": "polars read_parquet \"/tmp/rnx-polars-contract-ok3trryp/bad.parquet\": parquet: File out of specification: A Parquet file must contain a header and footer with at least 12 bytes"
+    },
+    "missing-output-parent": {
+      "error": "polars write_parquet_new \"/tmp/rnx-polars-contract-ok3trryp/absent/out\": No such file or directory (os error 2)"
+    },
+    "missing-column": {
+      "error": "polars collect: not found: unable to find column \"missing\"; valid columns: [\"k\", \"total\"]\n\nResolved plan until failure:\n\n\t---> FAILED HERE RESOLVING 'sort' <---\nDF [\"k\", \"total\"]; PROJECT */2 COLUMNS: 'sort'"
+    },
+    "i32": {
+      "error": "polars: unsupported column \"unsupported\" with dtype i32"
+    },
+    "u64": {
+      "error": "polars: unsupported column \"unsupported\" with dtype u64"
+    },
+    "date": {
+      "error": "polars: unsupported column \"unsupported\" with dtype date"
+    },
+    "null": {
+      "error": "polars: unsupported column \"unsupported\" with dtype null"
+    },
+    "unreadable": {
+      "error": "polars read \"/tmp/rnx-polars-contract-ok3trryp/unreadable.csv\": Permission denied (os error 13)"
+    },
+    "bad-keys": {
+      "error": "polars group_by: expected an expression"
+    },
+    "bad-aggregates": {
+      "error": "polars agg: expected an expression"
+    },
+    "bad-sort": {
+      "error": "polars sort: expected column names"
+    },
+    "not-vector": {
+      "error": "polars group_by: expected a vector of expressions"
+    },
+    "unsupported-collected": {
+      "error": "polars: unsupported column \"b\" with dtype u32"
+    }
+  },
+  "empty_result_and_symlink": true,
+  "conditions": {
+    "binary_sha256": "16c859d664b29227638845c93e53c993651ea50bd7da63b4c0109634edf1d27d",
+    "python_polars": "1.44.2",
+    "threads": 2,
+    "engine_provenance": "different revisions, as gate 1 recorded"
+  }
+}
