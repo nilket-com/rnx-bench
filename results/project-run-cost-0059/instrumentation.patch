@@ -1,0 +1,142 @@
+--- accepted/main.rs
++++ instrumented/main.rs
+@@ -19,3 +19,5 @@
+ 		});
+ 	}
+ }
++
++mod profile;
+--- accepted/lib.rs
++++ instrumented/lib.rs
+@@ -10,3 +10,5 @@
+ #[cfg(test)]
+ mod tests;
+ mod wire;
++
++mod profile;
+--- accepted/workflow.rs
++++ instrumented/workflow.rs
+@@ -97,7 +97,7 @@
+ 			.map_err(err)?;
+ 		Ok(())
+ 	}
+-	fn read_lock(&self) -> Result<(Lock, Vec<u8>), String> {
++	fn read_lock(&self) -> Result<(Lock, Vec<u8>), String> { crate::profile::measure("lock_pair_read_decode", || {
+ 		let bytes = input::read(&self.base.join("rnx.lock"), input::DOCUMENT_LIMIT)
+ 			.map_err(|e| format!("{e}; run lock"))?;
+ 		let lock = Lock::decode(&bytes).map_err(|e| format!("invalid rnx.lock: {e}; run lock"))?;
+@@ -114,7 +114,7 @@
+ 			}
+ 		}
+ 		Ok((lock, bytes))
+-	}
++	}) }
+ 	fn cargo(&self, operation: &str, offline: bool) -> Command {
+ 		let mut command = Command::new("cargo");
+ 		command
+@@ -154,11 +154,11 @@
+ 		Ok(())
+ 	}
+ 	fn inputs(&self, metadata: Option<&[u8]>) -> Result<Inputs, String> {
+-		self.layout(&Handoff::from_project(&self.manifest)?)?;
++		crate::profile::measure("layout_map", || self.layout(&Handoff::from_project(&self.manifest)?))?;
+ 		let mut allowance = Allowance::default();
+-		let source = inventory::sources(&self.manifest, &mut allowance)?;
++		let source = crate::profile::measure("source_inventory", || inventory::sources(&self.manifest, &mut allowance))?;
+ 		let native = metadata
+-			.map(|m| inventory::native(m, &self.stage, &self.base, &cargo_home()?, &mut allowance))
++			.map(|m| crate::profile::measure("native_inventory", || inventory::native(m, &self.stage, &self.base, &cargo_home()?, &mut allowance)))
+ 			.transpose()?;
+ 		if let Some(n) = &native {
+ 			if let Some(root) = n.trees.iter().find(|t| self.base.starts_with(&t.root)) {
+@@ -175,11 +175,11 @@
+ 		lock.inputs.native.as_ref().map(|n|wire::encode(&serde_json::json!({"workspace_root":self.stage,"packages":n.packages.iter().map(|p|serde_json::json!({"id":p.id,"name":p.name,"source":null,"manifest_path":p.manifest})).collect::<Vec<_>>()}))).transpose()
+ 	}
+ 	fn verify_inputs(&self, lock: &Lock) -> Result<(), String> {
+-		let current = Manifest::read(&self.manifest)?;
+-		if current != lock.declarations || Handoff::from_project(&self.manifest)? != lock.sources {
++		let current = crate::profile::measure("manifest_read", || Manifest::read(&self.manifest))?;
++		if current != lock.declarations || crate::profile::measure("declaration_map", || Handoff::from_project(&self.manifest))? != lock.sources {
+ 			return Err("project declarations or source map changed; run lock".into());
+ 		}
+-		let metadata = self.metadata_for(lock)?;
++		let metadata = crate::profile::measure("reconstruct_metadata", || self.metadata_for(lock))?;
+ 		if self.inputs(metadata.as_deref())? != lock.inputs {
+ 			return Err("project source or Cargo input changed; run lock".into());
+ 		}
+@@ -189,7 +189,7 @@
+ 				main_sha256,
+ 				..
+ 			} => {
+-				let (cargo, main) = generate::wrapper(&current, &self.base)?;
++				let (cargo, main) = crate::profile::measure("wrapper_identity", || generate::wrapper(&current, &self.base))?;
+ 				if hash(cargo.as_bytes()) != *manifest_sha256
+ 					|| hash(main.as_bytes()) != *main_sha256
+ 				{
+@@ -397,6 +397,7 @@
+ 	fn run(self, args: Vec<OsString>) -> Result<(), String> {
+ 		let (lock, bytes) = self.read_lock()?;
+ 		self.verify_inputs(&lock)?;
++		let receipt_start = std::time::Instant::now();
+ 		let (path, digest) = match &lock.assembly {
+ 			Assembly::Executable { path, sha256 } => (PathBuf::from(path), sha256.clone()),
+ 			Assembly::Generated { .. } => {
+@@ -422,11 +423,14 @@
+ 				)
+ 			}
+ 		};
++		crate::profile::record("receipt", receipt_start);
++		let map_start = std::time::Instant::now();
+ 		let maps = self.dot.join("maps");
+ 		fs::create_dir_all(&maps).map_err(err)?;
+ 		let map_bytes = lock.sources.encode()?;
+ 		let map = maps.join(format!("{}.json", hash(&map_bytes)));
+ 		self.atomic(&map, &map_bytes)?;
++		crate::profile::record("map_publication", map_start);
+ 		let mut command = assembly::command(
+ 			&path,
+ 			&digest,
+@@ -440,6 +444,7 @@
+ 		#[cfg(unix)]
+ 		{
+ 			use std::os::unix::process::CommandExt;
++			crate::profile::emit();
+ 			Err(command.exec().to_string())
+ 		}
+ 		#[cfg(not(unix))]
+@@ -575,7 +580,7 @@
+ 	let manifest = manifest.ok_or("--manifest is required; no upward search")?;
+ 	commands::install_signals()?;
+ 	environment()?;
+-	let project = Project::open(&manifest)?;
++	let project = crate::profile::measure("project_open", || Project::open(&manifest))?;
+ 	match command {
+ 		"lock" => project.lock(offline),
+ 		"build" => project.build(offline),
+--- accepted/assembly.rs
++++ instrumented/assembly.rs
+@@ -48,7 +48,8 @@
+ 	entry: &Path,
+ 	args: &[OsString],
+ ) -> Result<Command, String> {
+-	verify(executable, expected)?;
++	crate::profile::measure("artifact_fingerprint", || verify(executable, expected))?;
++	let map_start=std::time::Instant::now();
+ 	let mut command = Command::new(executable);
+ 	command.arg("run");
+ 	if let Some(path) = map {
+@@ -63,5 +64,6 @@
+ 		}
+ 	}
+ 	command.arg(entry).args(args);
++	crate::profile::record("command_map_check",map_start);
+ 	Ok(command)
+ }
+--- accepted/profile.rs
++++ instrumented/profile.rs
+@@ -0,0 +1,5 @@
++use std::{cell::RefCell,time::Instant};
++thread_local! {static DATA:RefCell<Vec<(&'static str,f64)>>=const{RefCell::new(Vec::new())};}
++pub fn measure<T>(name:&'static str,f:impl FnOnce()->T)->T {let t=Instant::now();let result=f();DATA.with(|d|d.borrow_mut().push((name,t.elapsed().as_secs_f64()*1000.0)));result}
++pub fn emit(){DATA.with(|d|eprintln!("PROFILE {}",serde_json::to_string(&*d.borrow()).unwrap()));}
++pub fn record(name:&'static str,t:Instant){DATA.with(|d|d.borrow_mut().push((name,t.elapsed().as_secs_f64()*1000.0)));}

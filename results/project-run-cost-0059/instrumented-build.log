@@ -1,0 +1,10 @@
+warning: function `emit` is never used
+ --> src/profile.rs:4:8
+  |
+4 | pub fn emit(){DATA.with(|d|eprintln!("PROFILE {}",serde_json::to_string(&*d.borrow()).unwrap()));}
+  |        ^^^^
+  |
+  = note: `#[warn(dead_code)]` (part of `#[warn(unused)]`) on by default
+
+warning: `rnx-project` (lib) generated 1 warning
+    Finished `release` profile [optimized] target(s) in 0.04s
