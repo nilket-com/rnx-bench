@@ -1,0 +1,12 @@
+rnx: a Rune session. :help lists the commands, :quit ends it.
+Err("polars collect: not found: unable to find column \"missing\"; valid columns: [\"category\", \"total\"]\n\nResolved plan until failure:\n\n\t---> FAILED HERE RESOLVING 'sort' <---\nDF [\"category\", \"total\"]; PROJECT */2 COLUMNS: 'sort'")
+DataFrame: 2 rows × 2 columns
+"category": string | "total": i64
+"a" | 2
+"🦀" | 7
+
+session reset
+true
+error at input 2, line 1, column 1: No local variable `f`
+  f
+  ^

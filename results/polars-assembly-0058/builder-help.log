@@ -1,0 +1,11 @@
+rnx — a Rune scripting environment
+
+  rnx                       a session, the same as `rnx repl`
+  rnx repl                  a session: line editing, history, `:help`
+  rnx run [flags] FILE ...  run a file's `main`; arguments after FILE are its
+  rnx eval SOURCE           evaluate one expression and exit
+  rnx selfcheck             assert this build's own invariants and report
+  rnx version               this build, and the Rune it is pinned to
+  rnx help                  this
+
+Flags for `run`, before the file: --budget N, --debug-source.
