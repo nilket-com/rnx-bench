@@ -1,0 +1,1 @@
+Excluded preliminary run: inherited PYTHONDONTWRITEBYTECODE=1 from correctness fixtures. One complete block was saved; the process was interrupted during the next block before it could save that partial block. No values from this run are used in the product comparison. Corrected runs use normal Python bytecode caching with a warm-up, with a per-sample journal.
