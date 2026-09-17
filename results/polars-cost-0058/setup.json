@@ -1,0 +1,24 @@
+{
+  "rust_downloads": "cached registry and crate source; no network",
+  "jobs": 2,
+  "command": [
+    "cargo",
+    "build",
+    "--release",
+    "--locked",
+    "--offline",
+    "--jobs",
+    "2",
+    "--manifest-path",
+    "/home/me/work/rnx/adapters/polars/Cargo.toml",
+    "--target-dir",
+    "/home/me/work/rnx-bench/probes/polars-cost/target/cold"
+  ],
+  "cold_seconds": 505.477011738,
+  "warm_seconds": 0.193158254,
+  "binary_bytes": 107400144,
+  "sha256": "bb2a24526f10b3a0f0255c7173117a5aeeb2d4ce6133477c094d67a830806907",
+  "python_venv_seconds": 0.613359398,
+  "python_install_seconds": 0.478748376,
+  "python_wheels": "local exact wheels verified at gate 1; no network"
+}

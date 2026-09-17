@@ -1,0 +1,157 @@
+{
+  "allocation_and_lifetime": {
+    "rows": 2000000,
+    "before": {
+      "text": "rnx: a Rune session. :help lists the commands, :quit ends it.\ntracked live allocation request bytes: 1842020 of a ceiling of 16777216.\nstartup reference point: 1833381 bytes; net change since: +8639 bytes\nsource and map storage: 0 bytes (inputs, declarations, and the source maps of 0 entries; the units themselves are held weakly and are not counted)\nThe figure counts requests through Rust's global allocator only. It excludes native allocations outside it, memory mappings, thread stacks, and child processes, it is not resident memory, and it is not the session's share of anything.\n",
+      "live": 1842020,
+      "ceiling": 16777216,
+      "owners": {
+        "threads": {
+          "2751358": "rnx-polars"
+        },
+        "fds": {
+          "0": "pipe:[4790990]",
+          "1": "pipe:[4790991]",
+          "2": "/tmp/rnx-polars-owners-8dxeupxv/session.stderr",
+          "3": "anon_inode:[eventpoll]",
+          "4": "anon_inode:[eventfd]",
+          "5": "anon_inode:[eventpoll]"
+        }
+      }
+    },
+    "after": {
+      "text": "NATIVE_RETURNED\ntracked live allocation request bytes: 33872258 of a ceiling of 16777216; evaluation is refused until :reset samples below it.\nstartup reference point: 1833381 bytes; net change since: +32038877 bytes\nsource and map storage: 177 bytes (inputs, declarations, and the source maps of 1 entries; the units themselves are held weakly and are not counted)\nThe figure counts requests through Rust's global allocator only. It excludes native allocations outside it, memory mappings, thread stacks, and child processes, it is not resident memory, and it is not the session's share of anything.\n",
+      "live": 33872258,
+      "ceiling": 16777216,
+      "owners": {
+        "threads": {
+          "2751358": "rnx-polars",
+          "2751360": "polars-0",
+          "2751361": "polars-unmap-0"
+        },
+        "fds": {
+          "0": "pipe:[4790990]",
+          "1": "pipe:[4790991]",
+          "2": "/tmp/rnx-polars-owners-8dxeupxv/session.stderr",
+          "3": "anon_inode:[eventpoll]",
+          "4": "anon_inode:[eventfd]",
+          "5": "anon_inode:[eventpoll]"
+        }
+      }
+    },
+    "reset": {
+      "text": "session reset\ntracked live allocation request bytes: 1864373 of a ceiling of 16777216.\nstartup reference point: 1833381 bytes; net change since: +30992 bytes\nsource and map storage: 0 bytes (inputs, declarations, and the source maps of 0 entries; the units themselves are held weakly and are not counted)\nThe figure counts requests through Rust's global allocator only. It excludes native allocations outside it, memory mappings, thread stacks, and child processes, it is not resident memory, and it is not the session's share of anything.\n",
+      "live": 1864373,
+      "ceiling": 16777216,
+      "owners": {
+        "threads": {
+          "2751358": "rnx-polars",
+          "2751360": "polars-0",
+          "2751361": "polars-unmap-0"
+        },
+        "fds": {
+          "0": "pipe:[4790990]",
+          "1": "pipe:[4790991]",
+          "2": "/tmp/rnx-polars-owners-8dxeupxv/session.stderr",
+          "3": "anon_inode:[eventpoll]",
+          "4": "anon_inode:[eventfd]",
+          "5": "anon_inode:[eventpoll]"
+        }
+      }
+    },
+    "stderr": "tracked live allocation request bytes 33871965 are at or above the ceiling of 16777216; :reset to continue\n",
+    "reaped": true
+  },
+  "collect": [
+    {
+      "case": "control",
+      "interrupt": false,
+      "exit": 0,
+      "start_to_exit_ms": 373.188315,
+      "signal_or_control_checkpoint_to_exit_ms": 322.401502,
+      "owner_at_checkpoint": {
+        "threads": {
+          "2751362": "rnx-polars",
+          "2751364": "polars-0",
+          "2751365": "polars-unmap-0",
+          "2751366": "rnx-polars-engi",
+          "2751367": "tokio-rt-worker"
+        },
+        "fds": {
+          "0": "/dev/null",
+          "1": "pipe:[4793752]",
+          "2": "/tmp/rnx-polars-owners-8dxeupxv/control.stderr",
+          "3": "anon_inode:[eventpoll]",
+          "4": "anon_inode:[eventfd]",
+          "5": "anon_inode:[eventpoll]",
+          "6": "anon_inode:[eventpoll]",
+          "7": "anon_inode:[eventfd]",
+          "8": "anon_inode:[eventpoll]"
+        }
+      },
+      "stdout": "COLLECT_START\nCOLLECT_RETURNED\n",
+      "stderr": "",
+      "reaped": true
+    },
+    {
+      "case": "interrupt-finish",
+      "interrupt": true,
+      "exit": 0,
+      "start_to_exit_ms": 371.905961,
+      "signal_or_control_checkpoint_to_exit_ms": 320.568336,
+      "owner_at_checkpoint": {
+        "threads": {
+          "2751369": "rnx-polars",
+          "2751371": "polars-0",
+          "2751372": "polars-unmap-0",
+          "2751373": "rnx-polars-engi",
+          "2751374": "tokio-rt-worker"
+        },
+        "fds": {
+          "0": "/dev/null",
+          "1": "pipe:[4788991]",
+          "2": "/tmp/rnx-polars-owners-8dxeupxv/interrupt-finish.stderr",
+          "3": "anon_inode:[eventpoll]",
+          "4": "anon_inode:[eventfd]",
+          "5": "anon_inode:[eventpoll]",
+          "6": "anon_inode:[eventpoll]",
+          "7": "anon_inode:[eventfd]",
+          "8": "anon_inode:[eventpoll]"
+        }
+      },
+      "stdout": "COLLECT_START\nCOLLECT_RETURNED\n",
+      "stderr": "",
+      "reaped": true
+    },
+    {
+      "case": "interrupt-await",
+      "interrupt": true,
+      "exit": 130,
+      "start_to_exit_ms": 363.035122,
+      "signal_or_control_checkpoint_to_exit_ms": 312.116953,
+      "owner_at_checkpoint": {
+        "threads": {
+          "2751430": "rnx-polars",
+          "2751436": "polars-0",
+          "2751439": "polars-unmap-0",
+          "2751440": "rnx-polars-engi",
+          "2751441": "tokio-rt-worker"
+        },
+        "fds": {
+          "0": "/dev/null",
+          "1": "pipe:[4804923]",
+          "2": "/tmp/rnx-polars-owners-8dxeupxv/interrupt-await.stderr",
+          "3": "anon_inode:[eventpoll]",
+          "4": "anon_inode:[eventfd]",
+          "5": "anon_inode:[eventpoll]",
+          "6": "anon_inode:[eventpoll]",
+          "7": "anon_inode:[eventfd]",
+          "8": "anon_inode:[eventpoll]"
+        }
+      },
+      "stdout": "COLLECT_START\nCOLLECT_RETURNED\n",
+      "stderr": "interrupted\n",
+      "reaped": true
+    }
+  ]
+}

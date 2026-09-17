@@ -1,0 +1,21 @@
+pub fn main(args) {
+    if args[0] == "init" {
+        polars::lit(1)?;
+        println!("ready");
+        return;
+    }
+    let csv = args[1] + "/tiny.csv";
+    let parquet = args[1] + "/tiny.parquet";
+    fs::write_new(csv, "category,value\na,1\na,2\n🦀,3\n🦀,4\nmissing,\n")?;
+    let frame = polars::read_csv(csv, [("category", "string"), ("value", "i64")])?;
+    let plan = frame.lazy().filter(polars::col("value").gt(polars::lit(1)?))
+        .group_by([polars::col("category")])?
+        .agg([polars::col("value").sum().alias("total")])?
+        .sort(["category"])?;
+    let result = plan.collect()?;
+    result.write_parquet_new(parquet)?;
+    let roundtrip = polars::read_parquet(parquet)?;
+    assert!(result.preview()? == roundtrip.preview()?);
+    assert!(plan.collect()?.preview()? == result.preview()?);
+    println!("{}", roundtrip.preview()?);
+}

@@ -1,0 +1,81 @@
+{
+  "cpu": 0,
+  "polars_threads": 1,
+  "samples_per_repeat_per_product_mode": 30,
+  "repeats": 2,
+  "seed": 58000,
+  "clock": "perf_counter_ns around no-shell spawn/capture/wait; harness overhead included equally",
+  "cache": "warm filesystem/process launches; normal Python pyc caching enabled, both modes warmed; no cold-cache claim",
+  "input_bytes": 6977812,
+  "input_trees": {
+    "/home/me/work/rnx-bench/probes/polars-cost/target/project": 1049,
+    "/home/me/work/rnx": 5996980,
+    "/home/me/work/rnx/adapters/polars": 979783
+  },
+  "commands": {
+    "python": [
+      "/home/me/work/rnx-bench/probes/polars-cost/target/python/bin/python",
+      "/home/me/work/rnx-bench/probes/polars-cost/main.py"
+    ],
+    "ordinary": [
+      "/home/me/work/rnx/adapters/polars/target/release/rnx-polars",
+      "run",
+      "/home/me/work/rnx-bench/probes/polars-cost/target/project/main.rn"
+    ],
+    "project": [
+      "/home/me/work/rnx/tools/project/target/release/rnx-project",
+      "run",
+      "--manifest",
+      "/home/me/work/rnx-bench/probes/polars-cost/target/project/rnx.toml",
+      "--"
+    ],
+    "generated-direct": [
+      "/home/me/work/rnx-bench/probes/polars-cost/target/project/.rnx/artifacts/1fb622af7f19213435555c9355599a407ee99eb3d33108023035f3de0a3325b8",
+      "run",
+      "--source-map",
+      "/home/me/work/rnx-bench/probes/polars-cost/target/project/.rnx/maps/4c331c2618d5040ab57ae8b8245714cb5719415773d3f2ec8cea55020db3873b.json",
+      "/home/me/work/rnx-bench/probes/polars-cost/target/project/main.rn"
+    ],
+    "aligned-direct": [
+      "/home/me/work/rnx-bench/probes/polars-cost/target/aligned/release/rnx-polars",
+      "run",
+      "--source-map",
+      "/home/me/work/rnx-bench/probes/polars-cost/target/project/.rnx/maps/4c331c2618d5040ab57ae8b8245714cb5719415773d3f2ec8cea55020db3873b.json",
+      "/home/me/work/rnx-bench/probes/polars-cost/target/project/main.rn"
+    ]
+  },
+  "binaries": {
+    "ordinary": {
+      "path": "/home/me/work/rnx/adapters/polars/target/release/rnx-polars",
+      "sha256": "bb2a24526f10b3a0f0255c7173117a5aeeb2d4ce6133477c094d67a830806907",
+      "bytes": 107400144
+    },
+    "generated": {
+      "path": "/home/me/work/rnx-bench/probes/polars-cost/target/project/.rnx/artifacts/1fb622af7f19213435555c9355599a407ee99eb3d33108023035f3de0a3325b8",
+      "sha256": "1fb622af7f19213435555c9355599a407ee99eb3d33108023035f3de0a3325b8",
+      "bytes": 107436336
+    },
+    "aligned": {
+      "path": "/home/me/work/rnx-bench/probes/polars-cost/target/aligned/release/rnx-polars",
+      "sha256": "2548720dc1ef3c567f94941b2548ef4891c259c91624e691ec3b4187a54c829c",
+      "bytes": 107436288
+    },
+    "project-tool": {
+      "path": "/home/me/work/rnx/tools/project/target/release/rnx-project",
+      "sha256": "ebb66e51d26b73825925da97b7846ca72d9d4e8d28574c158f08016f785350df",
+      "bytes": 2799064
+    },
+    "python": {
+      "path": "/usr/bin/python3.14",
+      "sha256": "52e0a13e60a981d8c4b6478be2ba5176f69da07948a056bf49cf6f077e30cb41",
+      "bytes": 7477160
+    }
+  },
+  "rustc": "rustc 1.98.1 (48a229cea 2026-09-01)\nbinary: rustc\ncommit-hash: 48a229ceaefd4985c50990b14116b6d856af0985\ncommit-date: 2026-09-01\nhost: x86_64-unknown-linux-gnu\nrelease: 1.98.1\nLLVM version: 22.1.8\n",
+  "cpu_info": "Architecture:                            x86_64\nCPU op-mode(s):                          32-bit, 64-bit\nAddress sizes:                           42 bits physical, 48 bits virtual\nByte Order:                              Little Endian\nCPU(s):                                  28\nOn-line CPU(s) list:                     0-27\nVendor ID:                               GenuineIntel\nModel name:                              Intel(R) Core(TM) i7-14700\nCPU family:                              6\nModel:                                   183\nThread(s) per core:                      2\nCore(s) per socket:                      20\nSocket(s):                               1\nStepping:                                1\nCPU(s) scaling MHz:                      25%\nCPU max MHz:                             5400.0000\nCPU min MHz:                             800.0000\nBogoMIPS:                                4224.00\nFlags:                                   fpu vme de pse tsc msr pae mce cx8 apic sep mtrr pge mca cmov pat pse36 clflush dts acpi mmx fxsr sse sse2 ss ht tm pbe syscall nx pdpe1gb rdtscp lm constant_tsc art arch_perfmon pebs bts rep_good nopl xtopology nonstop_tsc cpuid aperfmperf tsc_known_freq pni pclmulqdq dtes64 monitor ds_cpl vmx smx est tm2 ssse3 sdbg fma cx16 xtpr pdcm pcid sse4_1 sse4_2 x2apic movbe popcnt tsc_deadline_timer aes xsave avx f16c rdrand lahf_lm abm 3dnowprefetch cpuid_fault epb ssbd ibrs ibpb stibp ibrs_enhanced tpr_shadow flexpriority ept vpid ept_ad fsgsbase tsc_adjust bmi1 avx2 smep bmi2 erms invpcid rdseed adx smap clflushopt clwb intel_pt sha_ni xsaveopt xsavec xgetbv1 xsaves split_lock_detect user_shstk avx_vnni dtherm ida arat pln pts hwp hwp_notify hwp_act_window hwp_epp hwp_pkg_req hfi vnmi umip pku ospke waitpkg gfni vaes vpclmulqdq tme rdpid movdiri movdir64b fsrm md_clear serialize pconfig arch_lbr ibt flush_l1d arch_capabilities\nVirtualization:                          VT-x\nL1d cache:                               768 KiB (20 instances)\nL1i cache:                               1 MiB (20 instances)\nL2 cache:                                28 MiB (11 instances)\nL3 cache:                                33 MiB (1 instance)\nNUMA node(s):                            1\nNUMA node0 CPU(s):                       0-27\nVulnerability Gather data sampling:      Not affected\nVulnerability Ghostwrite:                Not affected\nVulnerability Indirect target selection: Not affected\nVulnerability Itlb multihit:             Not affected\nVulnerability L1tf:                      Not affected\nVulnerability Mds:                       Not affected\nVulnerability Meltdown:                  Not affected\nVulnerability Mmio stale data:           Not affected\nVulnerability Old microcode:             Not affected\nVulnerability Reg file data sampling:    Mitigation; Clear Register File\nVulnerability Retbleed:                  Not affected\nVulnerability Spec rstack overflow:      Not affected\nVulnerability Spec store bypass:         Mitigation; Speculative Store Bypass disabled via prctl\nVulnerability Spectre v1:                Mitigation; usercopy/swapgs barriers and __user pointer sanitization\nVulnerability Spectre v2:                Mitigation; Enhanced / Automatic IBRS; IBPB conditional; PBRSB-eIBRS SW sequence; BHI BHI_DIS_S\nVulnerability Srbds:                     Not affected\nVulnerability Tsa:                       Not affected\nVulnerability Tsx async abort:           Not affected\nVulnerability Vmscape:                   Mitigation; IBPB before exit to userspace\n",
+  "RUSTFLAGS": "unset; standard release portable target, no target-cpu override",
+  "allocators": "rnx counting System allocator; Python/runtime wheel own allocators; no equality claim",
+  "provenance": "gate 1 different revisions; boundary-only attribution unproved",
+  "codec": "uncompressed; row groups 512^2 default on Rust and explicitly same on Python; no fsync",
+  "root_base": "9911612"
+}

@@ -1,0 +1,21 @@
+{
+  "config": {
+    "Py_GIL_DISABLED": 0,
+    "WITH_PYMALLOC": 1,
+    "WITH_MIMALLOC": 1,
+    "CC": "x86_64-linux-gnu-gcc",
+    "CFLAGS": "-fno-strict-overflow -Wsign-compare -DNDEBUG -g -O2 -Wall"
+  },
+  "PYTHONMALLOC": "default",
+  "site_packages_bytes": 188833673,
+  "site_packages_pyc_bytes": 4340611,
+  "wheel_allocator": "stock pinned wheel; allocator implementation and complete wheel compiler flags not established by build_info, so no matching-allocator claim",
+  "rnx_allocator": "count-allocations feature: counting wrapper around Rust System; no replacement allocator in the Polars adapter",
+  "cold_build_overrides": {
+    "RUSTFLAGS": null,
+    "CARGO_ENCODED_RUSTFLAGS": null,
+    "RUSTC_WRAPPER": null,
+    "CARGO_BUILD_RUSTC_WRAPPER": null,
+    "CARGO_TARGET_DIR": null
+  }
+}

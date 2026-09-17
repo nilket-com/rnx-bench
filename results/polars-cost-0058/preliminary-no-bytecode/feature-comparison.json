@@ -1,0 +1,5164 @@
+{
+  "differences": {
+    "rnx@0.0.0": {
+      "ordinary": [
+        "count-allocations",
+        "default"
+      ],
+      "aligned": [
+        "count-allocations",
+        "default",
+        "project-sources"
+      ],
+      "generated": [
+        "count-allocations",
+        "default",
+        "project-sources"
+      ]
+    }
+  },
+  "aligned_equals_generated": true,
+  "nodes": {
+    "ordinary": {
+      "adler2@2.0.1": [],
+      "ahash@0.8.12": [
+        "std"
+      ],
+      "aho-corasick@1.1.5": [
+        "perf-literal",
+        "std"
+      ],
+      "alloc-no-stdlib@2.0.4": [],
+      "alloc-stdlib@0.2.4": [],
+      "allocator-api2@0.2.21": [
+        "alloc"
+      ],
+      "android_system_properties@0.1.6": [],
+      "anyhow@1.0.104": [
+        "std"
+      ],
+      "ar_archive_writer@0.5.3": [],
+      "argminmax@0.6.3": [
+        "float",
+        "half"
+      ],
+      "array-init-cursor@0.2.1": [],
+      "arrayvec@0.7.8": [],
+      "async-channel@2.5.0": [
+        "default",
+        "std"
+      ],
+      "async-compression@0.4.48": [
+        "gzip",
+        "tokio"
+      ],
+      "async-stream@0.3.6": [],
+      "async-stream-impl@0.3.6": [],
+      "async-trait@0.1.92": [],
+      "atoi_simd@0.18.1": [
+        "default",
+        "std"
+      ],
+      "atomic-waker@1.1.2": [],
+      "autocfg@1.5.1": [],
+      "base64@0.22.1": [
+        "alloc",
+        "default",
+        "std"
+      ],
+      "bincode@2.0.1": [
+        "alloc",
+        "bincode_derive",
+        "default",
+        "derive",
+        "serde",
+        "std"
+      ],
+      "bincode_derive@2.0.1": [],
+      "bitflags@2.13.2": [
+        "serde",
+        "serde_core",
+        "std"
+      ],
+      "blake3@1.8.7": [
+        "default",
+        "std"
+      ],
+      "block-buffer@0.12.1": [],
+      "boxcar@0.2.14": [],
+      "brotli@8.0.4": [
+        "alloc-stdlib",
+        "default",
+        "std"
+      ],
+      "brotli-decompressor@5.0.3": [
+        "alloc-stdlib",
+        "std"
+      ],
+      "bumpalo@3.20.3": [
+        "default"
+      ],
+      "bytemuck@1.25.2": [
+        "bytemuck_derive",
+        "derive",
+        "extern_crate_alloc",
+        "must_cast"
+      ],
+      "bytemuck_derive@1.12.1": [],
+      "bytes@1.12.1": [
+        "default",
+        "serde",
+        "std"
+      ],
+      "castaway@0.2.4": [
+        "alloc"
+      ],
+      "cc@1.4.6": [
+        "parallel"
+      ],
+      "cfg-if@1.0.5": [],
+      "cfg_aliases@0.2.2": [],
+      "chacha20@0.10.2": [
+        "rng"
+      ],
+      "chrono@0.4.45": [
+        "alloc",
+        "clock",
+        "iana-time-zone",
+        "now",
+        "serde",
+        "std",
+        "winapi",
+        "windows-link"
+      ],
+      "chrono-tz@0.10.4": [
+        "default",
+        "std"
+      ],
+      "clipboard-win@5.4.1": [],
+      "compact_str@0.9.1": [
+        "default",
+        "serde",
+        "std"
+      ],
+      "compression-codecs@0.4.43": [
+        "flate2",
+        "gzip",
+        "memchr"
+      ],
+      "compression-core@0.4.33": [],
+      "concurrent-queue@2.5.0": [
+        "std"
+      ],
+      "const-oid@0.10.2": [],
+      "constant_time_eq@0.4.2": [
+        "std"
+      ],
+      "core-foundation@0.10.1": [
+        "default",
+        "link"
+      ],
+      "core-foundation-sys@0.8.7": [
+        "default",
+        "link"
+      ],
+      "cpufeatures@0.3.1": [],
+      "crc32fast@1.5.2": [
+        "std"
+      ],
+      "critical-section@1.2.0": [],
+      "crossbeam-channel@0.5.17": [
+        "default",
+        "std"
+      ],
+      "crossbeam-deque@0.8.8": [
+        "default",
+        "std"
+      ],
+      "crossbeam-epoch@0.9.21": [
+        "alloc",
+        "std"
+      ],
+      "crossbeam-queue@0.3.14": [
+        "alloc",
+        "default",
+        "std"
+      ],
+      "crossbeam-utils@0.8.23": [
+        "default",
+        "std"
+      ],
+      "crunchy@0.2.4": [
+        "default",
+        "limit_128"
+      ],
+      "crypto-common@0.2.2": [],
+      "debug_unsafe@0.1.4": [],
+      "digest@0.11.3": [
+        "alloc",
+        "block-api",
+        "default",
+        "oid"
+      ],
+      "digest-io@0.1.0": [],
+      "displaydoc@0.2.7": [],
+      "dyn-clone@1.0.20": [],
+      "either@1.18.0": [
+        "default",
+        "std",
+        "use_std"
+      ],
+      "endian-type@0.2.0": [],
+      "equivalent@1.0.2": [],
+      "errno@0.3.14": [
+        "default",
+        "std"
+      ],
+      "error-code@3.4.0": [],
+      "ethnum@1.5.3": [],
+      "event-listener@5.4.2": [
+        "parking",
+        "std"
+      ],
+      "event-listener-strategy@0.5.4": [
+        "std"
+      ],
+      "fallible-streaming-iterator@0.1.9": [],
+      "fast-float2@0.2.4": [
+        "default",
+        "std"
+      ],
+      "fastrand@2.5.0": [
+        "alloc",
+        "default",
+        "std"
+      ],
+      "find-msvc-tools@0.1.12": [],
+      "flate2@1.1.10": [
+        "any_impl",
+        "any_zlib",
+        "default",
+        "miniz_oxide",
+        "runtime_detection",
+        "rust_backend",
+        "zlib-rs"
+      ],
+      "fnv@1.0.7": [
+        "default",
+        "std"
+      ],
+      "foldhash@0.1.5": [],
+      "foldhash@0.2.0": [
+        "default",
+        "std"
+      ],
+      "form_urlencoded@1.2.2": [
+        "alloc",
+        "default",
+        "std"
+      ],
+      "fs4@1.1.0": [
+        "default",
+        "sync"
+      ],
+      "futures@0.3.34": [
+        "alloc",
+        "async-await",
+        "default",
+        "executor",
+        "futures-executor",
+        "std"
+      ],
+      "futures-channel@0.3.34": [
+        "alloc",
+        "default",
+        "futures-sink",
+        "sink",
+        "std"
+      ],
+      "futures-core@0.3.34": [
+        "alloc",
+        "default",
+        "std"
+      ],
+      "futures-executor@0.3.34": [
+        "std"
+      ],
+      "futures-io@0.3.34": [
+        "std"
+      ],
+      "futures-macro@0.3.34": [],
+      "futures-sink@0.3.34": [
+        "alloc",
+        "default",
+        "std"
+      ],
+      "futures-task@0.3.34": [
+        "alloc",
+        "std"
+      ],
+      "futures-util@0.3.34": [
+        "alloc",
+        "async-await",
+        "async-await-macro",
+        "channel",
+        "default",
+        "futures-channel",
+        "futures-io",
+        "futures-macro",
+        "futures-sink",
+        "io",
+        "memchr",
+        "sink",
+        "slab",
+        "std"
+      ],
+      "generator@0.8.9": [],
+      "getrandom@0.2.17": [
+        "js",
+        "js-sys",
+        "wasm-bindgen"
+      ],
+      "getrandom@0.4.3": [
+        "std",
+        "sys_rng",
+        "wasm_js"
+      ],
+      "glob@0.3.4": [],
+      "h2@0.4.19": [],
+      "half@2.7.1": [
+        "alloc",
+        "bytemuck",
+        "default",
+        "num-traits",
+        "serde",
+        "std"
+      ],
+      "hashbrown@0.15.5": [
+        "allocator-api2",
+        "default",
+        "default-hasher",
+        "equivalent",
+        "inline-more",
+        "raw-entry"
+      ],
+      "hashbrown@0.17.1": [
+        "allocator-api2",
+        "default",
+        "default-hasher",
+        "equivalent",
+        "inline-more",
+        "raw-entry",
+        "rayon",
+        "serde"
+      ],
+      "heck@0.5.0": [],
+      "hex@0.4.3": [
+        "alloc",
+        "default",
+        "std"
+      ],
+      "home@0.5.12": [],
+      "http@1.5.0": [
+        "default",
+        "std"
+      ],
+      "http-body@1.1.0": [],
+      "http-body-util@0.1.5": [
+        "default"
+      ],
+      "httparse@1.10.1": [
+        "default",
+        "std"
+      ],
+      "humantime@2.4.0": [],
+      "hybrid-array@0.4.15": [],
+      "hyper@1.11.1": [
+        "client",
+        "default",
+        "http1",
+        "http2"
+      ],
+      "hyper-rustls@0.27.9": [
+        "http1",
+        "http2",
+        "native-tokio",
+        "ring",
+        "rustls-native-certs",
+        "tls12",
+        "webpki-roots",
+        "webpki-tokio"
+      ],
+      "hyper-util@0.1.20": [
+        "client",
+        "client-legacy",
+        "client-proxy",
+        "default",
+        "http1",
+        "http2",
+        "tokio"
+      ],
+      "iana-time-zone@0.1.65": [
+        "fallback"
+      ],
+      "iana-time-zone-haiku@0.1.2": [],
+      "icu_collections@2.3.0": [],
+      "icu_locale_core@2.3.0": [
+        "zerovec"
+      ],
+      "icu_normalizer@2.3.0": [
+        "compiled_data"
+      ],
+      "icu_normalizer_data@2.3.0": [],
+      "icu_properties@2.3.0": [
+        "compiled_data"
+      ],
+      "icu_properties_data@2.3.0": [],
+      "icu_provider@2.3.1": [
+        "baked"
+      ],
+      "idna@1.1.0": [
+        "alloc",
+        "compiled_data",
+        "std"
+      ],
+      "idna_adapter@1.2.2": [
+        "compiled_data"
+      ],
+      "indexmap@2.14.2": [
+        "default",
+        "serde",
+        "std"
+      ],
+      "ipnet@2.12.2": [
+        "default",
+        "std"
+      ],
+      "itertools@0.14.0": [
+        "default",
+        "use_alloc",
+        "use_std"
+      ],
+      "itoa@1.0.18": [],
+      "jiff@0.2.24": [
+        "alloc",
+        "std",
+        "tz-system",
+        "tzdb-bundle-platform",
+        "tzdb-zoneinfo"
+      ],
+      "jiff-static@0.2.24": [
+        "default"
+      ],
+      "jiff-tzdb@0.1.8": [],
+      "jiff-tzdb-platform@0.1.3": [],
+      "jobserver@0.1.35": [],
+      "js-sys@0.3.105": [
+        "default",
+        "std",
+        "unsafe-eval"
+      ],
+      "lazy_static@1.5.0": [],
+      "libc@0.2.189": [
+        "default",
+        "extra_traits",
+        "std"
+      ],
+      "libm@0.2.16": [
+        "arch",
+        "default"
+      ],
+      "linux-raw-sys@0.12.1": [
+        "auxvec",
+        "elf",
+        "errno",
+        "general",
+        "ioctl",
+        "no_std"
+      ],
+      "litemap@0.8.3": [],
+      "lock_api@0.4.14": [
+        "atomic_usize",
+        "default"
+      ],
+      "log@0.4.34": [
+        "alloc",
+        "std"
+      ],
+      "loom@0.7.2": [
+        "default"
+      ],
+      "lru-slab@0.1.3": [],
+      "lz4@1.28.1": [],
+      "lz4-sys@1.11.1+lz4-1.10.0": [],
+      "matchers@0.2.0": [],
+      "memchr@2.8.3": [
+        "alloc",
+        "default",
+        "std"
+      ],
+      "memmap2@0.9.11": [],
+      "miniz_oxide@0.9.1": [
+        "default",
+        "simd",
+        "simd-adler32",
+        "with-alloc"
+      ],
+      "mio@1.2.3": [
+        "net",
+        "os-ext",
+        "os-poll"
+      ],
+      "musli@0.0.124": [
+        "alloc",
+        "std"
+      ],
+      "musli-core@0.0.124": [
+        "alloc",
+        "std"
+      ],
+      "musli-macros@0.0.124": [],
+      "nibble_vec@0.1.0": [],
+      "nix@0.31.3": [
+        "fs",
+        "ioctl",
+        "poll",
+        "process",
+        "signal",
+        "term"
+      ],
+      "now@0.1.3": [],
+      "ntapi@0.4.3": [
+        "default",
+        "user"
+      ],
+      "nu-ansi-term@0.50.3": [
+        "default",
+        "std"
+      ],
+      "num@0.4.3": [
+        "alloc",
+        "num-bigint",
+        "std"
+      ],
+      "num-bigint@0.4.8": [
+        "std"
+      ],
+      "num-complex@0.4.6": [
+        "std"
+      ],
+      "num-derive@0.4.2": [],
+      "num-integer@0.1.47": [
+        "i128",
+        "std"
+      ],
+      "num-iter@0.1.46": [
+        "i128",
+        "std"
+      ],
+      "num-rational@0.4.2": [
+        "num-bigint",
+        "num-bigint-std",
+        "std"
+      ],
+      "num-traits@0.2.19": [
+        "default",
+        "i128",
+        "libm",
+        "std"
+      ],
+      "objc2-core-foundation@0.3.2": [
+        "CFArray",
+        "CFBase",
+        "CFData",
+        "CFDictionary",
+        "CFPlugInCOM",
+        "CFRunLoop",
+        "CFString",
+        "CFURL",
+        "CFUUID",
+        "alloc",
+        "bitflags",
+        "std"
+      ],
+      "objc2-io-kit@0.3.2": [
+        "alloc",
+        "libc",
+        "std"
+      ],
+      "object@0.39.1": [
+        "archive",
+        "coff",
+        "elf",
+        "macho",
+        "pe",
+        "read",
+        "read_core",
+        "std",
+        "xcoff"
+      ],
+      "object_store@0.13.2": [
+        "base64",
+        "cloud",
+        "form_urlencoded",
+        "fs",
+        "http",
+        "http-body-util",
+        "hyper",
+        "quick-xml",
+        "rand",
+        "reqwest",
+        "ring",
+        "serde",
+        "serde_json",
+        "serde_urlencoded",
+        "tokio",
+        "walkdir"
+      ],
+      "once_cell@1.21.4": [
+        "alloc",
+        "critical-section",
+        "default",
+        "portable-atomic",
+        "race",
+        "std"
+      ],
+      "openssl-probe@0.2.1": [],
+      "parking@2.2.1": [],
+      "parking_lot@0.12.5": [
+        "default"
+      ],
+      "parking_lot_core@0.9.12": [],
+      "percent-encoding@2.3.2": [
+        "alloc",
+        "default",
+        "std"
+      ],
+      "phf@0.12.1": [],
+      "phf_shared@0.12.1": [],
+      "pin-project@1.1.13": [],
+      "pin-project-internal@1.1.13": [],
+      "pin-project-lite@0.2.17": [],
+      "pkg-config@0.3.34": [],
+      "planus@1.1.1": [
+        "bytes-cache",
+        "default",
+        "hashbrown",
+        "std",
+        "string-cache",
+        "vtable-cache"
+      ],
+      "polars@0.55.2": [
+        "csv",
+        "dtype-categorical",
+        "lazy",
+        "parquet",
+        "polars-io",
+        "polars-lazy",
+        "polars-ops",
+        "polars-parquet",
+        "streaming"
+      ],
+      "polars-arrow@0.55.2": [
+        "arrow-format",
+        "atoi_simd",
+        "chrono-tz",
+        "compute",
+        "compute_aggregate",
+        "compute_arithmetics",
+        "compute_arithmetics_decimal",
+        "compute_bitwise",
+        "compute_comparison",
+        "compute_temporal",
+        "dtype-array",
+        "dtype-decimal",
+        "io_ipc",
+        "io_ipc_compression",
+        "itoa",
+        "lz4",
+        "serde",
+        "strings",
+        "temporal",
+        "timezones",
+        "zstd"
+      ],
+      "polars-arrow-format@0.2.1": [
+        "default",
+        "ipc",
+        "planus",
+        "serde"
+      ],
+      "polars-async@0.55.2": [],
+      "polars-buffer@0.55.2": [
+        "serde"
+      ],
+      "polars-compute@0.55.2": [
+        "approx_unique",
+        "cast",
+        "dtype-array",
+        "dtype-decimal",
+        "dtype-i128",
+        "gather",
+        "serde"
+      ],
+      "polars-config@0.55.2": [
+        "serde"
+      ],
+      "polars-core@0.55.2": [
+        "algorithm_group_by",
+        "chrono",
+        "chrono-tz",
+        "dtype-array",
+        "dtype-categorical",
+        "dtype-date",
+        "dtype-datetime",
+        "dtype-decimal",
+        "dtype-duration",
+        "dtype-i128",
+        "dtype-i16",
+        "dtype-i8",
+        "dtype-struct",
+        "dtype-time",
+        "lazy",
+        "partition_by",
+        "rand",
+        "rand_distr",
+        "random",
+        "regex",
+        "reinterpret",
+        "rows",
+        "serde",
+        "serde-lazy",
+        "serde_json",
+        "strings",
+        "temporal",
+        "timezones",
+        "zip_with"
+      ],
+      "polars-dtype@0.55.2": [
+        "dtype-categorical",
+        "serde"
+      ],
+      "polars-error@0.55.2": [
+        "arrow-format",
+        "object_store",
+        "regex"
+      ],
+      "polars-expr@0.55.2": [
+        "abs",
+        "arg_where",
+        "binary_encoding",
+        "concat_str",
+        "cov",
+        "cum_agg",
+        "dtype-array",
+        "dtype-categorical",
+        "dtype-date",
+        "dtype-datetime",
+        "dtype-decimal",
+        "dtype-duration",
+        "dtype-i128",
+        "dtype-i16",
+        "dtype-i8",
+        "dtype-struct",
+        "dtype-time",
+        "is_in",
+        "log",
+        "offset_by",
+        "parquet",
+        "peaks",
+        "polars-time",
+        "range",
+        "regex",
+        "rle",
+        "round_series",
+        "sign",
+        "string_normalize",
+        "string_pad",
+        "string_reverse",
+        "strings",
+        "temporal",
+        "timezones",
+        "trigonometry",
+        "unique_counts"
+      ],
+      "polars-io@0.55.2": [
+        "async",
+        "async-trait",
+        "atoi_simd",
+        "chrono",
+        "cloud",
+        "csv",
+        "dtype-categorical",
+        "fast-float2",
+        "fastrand",
+        "file_cache",
+        "futures",
+        "http",
+        "ipc",
+        "itoa",
+        "lazy",
+        "object_store",
+        "parquet",
+        "polars-parquet",
+        "rand",
+        "reqwest",
+        "serde",
+        "serde_json",
+        "simdutf8",
+        "zmij"
+      ],
+      "polars-lazy@0.55.2": [
+        "abs",
+        "binary_encoding",
+        "concat_str",
+        "cov",
+        "cross_join",
+        "csv",
+        "cum_agg",
+        "dtype-array",
+        "dtype-categorical",
+        "dtype-date",
+        "dtype-datetime",
+        "dtype-decimal",
+        "dtype-duration",
+        "dtype-i16",
+        "dtype-i8",
+        "dtype-struct",
+        "dtype-time",
+        "is_in",
+        "list_eval",
+        "log",
+        "meta",
+        "offset_by",
+        "parquet",
+        "polars-stream",
+        "polars-time",
+        "range",
+        "regex",
+        "round_series",
+        "sign",
+        "streaming",
+        "string_normalize",
+        "string_pad",
+        "string_reverse",
+        "strings",
+        "temporal",
+        "timezones",
+        "trigonometry"
+      ],
+      "polars-mem-engine@0.55.2": [
+        "cloud",
+        "csv",
+        "dtype-categorical",
+        "dtype-date",
+        "dtype-datetime",
+        "dtype-decimal",
+        "dtype-duration",
+        "dtype-i16",
+        "dtype-i8",
+        "dtype-struct",
+        "dtype-time",
+        "parquet",
+        "polars-time"
+      ],
+      "polars-ooc@0.55.2": [],
+      "polars-ops@0.55.2": [
+        "abs",
+        "base64",
+        "binary_encoding",
+        "chrono",
+        "chrono-tz",
+        "chunked_ids",
+        "cov",
+        "cross_join",
+        "cum_agg",
+        "dtype-array",
+        "dtype-categorical",
+        "dtype-decimal",
+        "dtype-duration",
+        "dtype-i128",
+        "dtype-struct",
+        "hex",
+        "iejoin",
+        "is_in",
+        "log",
+        "peaks",
+        "rle",
+        "round_series",
+        "search_sorted",
+        "semi_anti_join",
+        "string_normalize",
+        "string_pad",
+        "string_reverse",
+        "strings",
+        "timezones",
+        "unicode-normalization",
+        "unicode-reverse",
+        "unique_counts"
+      ],
+      "polars-parquet@0.55.2": [
+        "async",
+        "async-stream",
+        "brotli",
+        "compression",
+        "flate2",
+        "futures",
+        "gzip",
+        "lz4",
+        "serde",
+        "snap",
+        "snappy",
+        "zstd"
+      ],
+      "polars-parquet-format@0.1.0": [
+        "async",
+        "async-trait",
+        "futures"
+      ],
+      "polars-plan@0.55.2": [
+        "abs",
+        "arg_where",
+        "binary_encoding",
+        "chrono",
+        "chrono-tz",
+        "cloud",
+        "concat_str",
+        "cov",
+        "cross_join",
+        "cse",
+        "csv",
+        "cum_agg",
+        "dtype-array",
+        "dtype-categorical",
+        "dtype-date",
+        "dtype-datetime",
+        "dtype-decimal",
+        "dtype-duration",
+        "dtype-i128",
+        "dtype-i16",
+        "dtype-i8",
+        "dtype-struct",
+        "dtype-time",
+        "iejoin",
+        "is_in",
+        "log",
+        "meta",
+        "offset_by",
+        "parquet",
+        "peaks",
+        "polars-parquet",
+        "polars-time",
+        "range",
+        "regex",
+        "rle",
+        "round_series",
+        "semi_anti_join",
+        "sign",
+        "string_normalize",
+        "string_pad",
+        "string_reverse",
+        "strings",
+        "temporal",
+        "timezones",
+        "trigonometry",
+        "unique_counts"
+      ],
+      "polars-row@0.55.2": [],
+      "polars-schema@0.55.2": [
+        "serde"
+      ],
+      "polars-sql@0.55.2": [
+        "csv",
+        "parquet"
+      ],
+      "polars-stream@0.55.2": [
+        "cloud",
+        "cov",
+        "csv",
+        "cum_agg",
+        "dtype-array",
+        "dtype-categorical",
+        "dtype-date",
+        "dtype-datetime",
+        "dtype-decimal",
+        "dtype-duration",
+        "dtype-i16",
+        "dtype-i8",
+        "dtype-time",
+        "is_in",
+        "log",
+        "parquet",
+        "range",
+        "semi_anti_join",
+        "strings",
+        "temporal"
+      ],
+      "polars-time@0.55.2": [
+        "chrono-tz",
+        "dtype-date",
+        "dtype-datetime",
+        "dtype-duration",
+        "dtype-time",
+        "offset_by",
+        "temporal",
+        "timezones"
+      ],
+      "polars-utils@0.55.2": [
+        "async-utils",
+        "memmap",
+        "mmap",
+        "serde",
+        "sysinfo"
+      ],
+      "portable-atomic@1.15.0": [
+        "require-cas"
+      ],
+      "portable-atomic-util@0.2.8": [
+        "alloc"
+      ],
+      "potential_utf@0.1.6": [
+        "zerovec"
+      ],
+      "proc-macro2@1.0.107": [
+        "default",
+        "proc-macro"
+      ],
+      "psm@0.1.32": [],
+      "quick-xml@0.39.4": [
+        "default",
+        "overlapped-lists",
+        "serde",
+        "serialize"
+      ],
+      "quinn@0.11.12": [
+        "ring",
+        "runtime-tokio",
+        "rustls",
+        "rustls-ring"
+      ],
+      "quinn-proto@0.11.18": [
+        "ring",
+        "rustls-ring"
+      ],
+      "quinn-udp@0.5.15": [
+        "tracing"
+      ],
+      "quote@1.0.47": [
+        "default",
+        "proc-macro"
+      ],
+      "r-efi@6.0.0": [],
+      "radix_trie@0.3.0": [],
+      "rand@0.10.2": [
+        "alloc",
+        "default",
+        "std",
+        "std_rng",
+        "sys_rng",
+        "thread_rng"
+      ],
+      "rand_core@0.10.1": [],
+      "rand_distr@0.6.0": [
+        "alloc",
+        "default",
+        "std"
+      ],
+      "rand_pcg@0.10.2": [],
+      "raw-cpuid@11.6.0": [],
+      "rayon@1.12.0": [],
+      "rayon-core@1.13.0": [],
+      "recursive@0.1.1": [],
+      "recursive-proc-macro-impl@0.1.1": [],
+      "redox_syscall@0.5.18": [
+        "default",
+        "userspace"
+      ],
+      "regex@1.13.1": [
+        "default",
+        "perf",
+        "perf-backtrack",
+        "perf-cache",
+        "perf-dfa",
+        "perf-inline",
+        "perf-literal",
+        "perf-onepass",
+        "std",
+        "unicode",
+        "unicode-age",
+        "unicode-bool",
+        "unicode-case",
+        "unicode-gencat",
+        "unicode-perl",
+        "unicode-script",
+        "unicode-segment"
+      ],
+      "regex-automata@0.4.18": [
+        "alloc",
+        "dfa-build",
+        "dfa-onepass",
+        "dfa-search",
+        "hybrid",
+        "meta",
+        "nfa-backtrack",
+        "nfa-pikevm",
+        "nfa-thompson",
+        "perf-inline",
+        "perf-literal",
+        "perf-literal-multisubstring",
+        "perf-literal-substring",
+        "std",
+        "syntax",
+        "unicode",
+        "unicode-age",
+        "unicode-bool",
+        "unicode-case",
+        "unicode-gencat",
+        "unicode-perl",
+        "unicode-script",
+        "unicode-segment",
+        "unicode-word-boundary"
+      ],
+      "regex-syntax@0.8.11": [
+        "default",
+        "std",
+        "unicode",
+        "unicode-age",
+        "unicode-bool",
+        "unicode-case",
+        "unicode-gencat",
+        "unicode-perl",
+        "unicode-script",
+        "unicode-segment"
+      ],
+      "reqwest@0.12.28": [
+        "__rustls",
+        "__rustls-ring",
+        "__tls",
+        "gzip",
+        "h2",
+        "http2",
+        "json",
+        "rustls-tls",
+        "rustls-tls-native-roots",
+        "rustls-tls-native-roots-no-provider",
+        "rustls-tls-webpki-roots",
+        "rustls-tls-webpki-roots-no-provider",
+        "stream"
+      ],
+      "ring@0.17.14": [
+        "alloc",
+        "default",
+        "dev_urandom_fallback",
+        "std",
+        "wasm32_unknown_unknown_js"
+      ],
+      "rmp@0.8.15": [
+        "default",
+        "std"
+      ],
+      "rmp-serde@1.3.1": [],
+      "rnx@0.0.0": [
+        "count-allocations",
+        "default"
+      ],
+      "rune@0.14.2": [
+        "alloc",
+        "anyhow",
+        "std"
+      ],
+      "rune-alloc@0.14.2": [
+        "alloc",
+        "serde",
+        "std"
+      ],
+      "rune-alloc-macros@0.14.2": [],
+      "rune-core@0.14.2": [
+        "alloc",
+        "default",
+        "musli",
+        "std"
+      ],
+      "rune-macros@0.14.2": [],
+      "rune-tracing@0.14.2": [
+        "default"
+      ],
+      "rune-tracing-macros@0.14.2": [],
+      "rustc-hash@2.1.3": [
+        "default",
+        "std"
+      ],
+      "rustix@1.1.5": [
+        "alloc",
+        "default",
+        "fs",
+        "std"
+      ],
+      "rustls@0.23.45": [
+        "ring",
+        "std",
+        "tls12"
+      ],
+      "rustls-native-certs@0.8.4": [],
+      "rustls-pki-types@1.15.1": [
+        "alloc",
+        "default",
+        "std",
+        "web",
+        "web-time"
+      ],
+      "rustls-webpki@0.103.15": [
+        "alloc",
+        "ring",
+        "std"
+      ],
+      "rustversion@1.0.23": [],
+      "rustyline@18.0.1": [
+        "custom-bindings",
+        "default",
+        "derive",
+        "home",
+        "radix_trie",
+        "rustyline-derive",
+        "with-dirs",
+        "with-file-history"
+      ],
+      "rustyline-derive@0.12.0": [],
+      "ryu@1.0.23": [],
+      "same-file@1.0.6": [],
+      "schannel@0.1.29": [],
+      "scoped-tls@1.0.1": [],
+      "scopeguard@1.2.0": [],
+      "security-framework@3.7.0": [
+        "OSX_10_14",
+        "alpn",
+        "default",
+        "session-tickets"
+      ],
+      "security-framework-sys@2.17.0": [],
+      "serde@1.0.229": [
+        "alloc",
+        "default",
+        "derive",
+        "rc",
+        "serde_derive",
+        "std"
+      ],
+      "serde_core@1.0.229": [
+        "alloc",
+        "rc",
+        "result",
+        "std"
+      ],
+      "serde_derive@1.0.229": [
+        "default"
+      ],
+      "serde_json@1.0.151": [
+        "default",
+        "std"
+      ],
+      "serde_stacker@0.1.14": [],
+      "serde_urlencoded@0.7.1": [],
+      "sha2@0.11.0": [
+        "alloc",
+        "default",
+        "oid"
+      ],
+      "sharded-slab@0.1.7": [],
+      "shlex@2.0.1": [
+        "default",
+        "std"
+      ],
+      "signal-hook@0.4.4": [
+        "channel",
+        "default",
+        "iterator"
+      ],
+      "signal-hook-registry@1.4.8": [],
+      "simd-adler32@0.3.10": [],
+      "simdutf8@0.1.5": [
+        "default",
+        "std"
+      ],
+      "siphasher@1.0.3": [
+        "default",
+        "std"
+      ],
+      "slab@0.4.12": [
+        "default",
+        "std"
+      ],
+      "slotmap@1.1.1": [
+        "default",
+        "std"
+      ],
+      "smallvec@1.16.1": [
+        "const_generics",
+        "const_new"
+      ],
+      "snap@1.1.2": [],
+      "socket2@0.6.5": [
+        "all"
+      ],
+      "sqlparser@0.62.0": [
+        "default",
+        "recursive",
+        "recursive-protection",
+        "sqlparser_derive",
+        "std",
+        "visitor"
+      ],
+      "sqlparser_derive@0.5.0": [],
+      "stable_deref_trait@1.2.1": [],
+      "stacker@0.1.25": [],
+      "static_assertions@1.1.0": [],
+      "streaming-decompression@0.1.2": [],
+      "streaming-iterator@0.1.9": [],
+      "strength_reduce@0.2.4": [],
+      "strum_macros@0.28.0": [],
+      "subtle@2.6.1": [],
+      "syn@2.0.119": [
+        "clone-impls",
+        "default",
+        "derive",
+        "extra-traits",
+        "full",
+        "parsing",
+        "printing",
+        "proc-macro",
+        "visit-mut"
+      ],
+      "syn@3.0.6": [
+        "clone-impls",
+        "default",
+        "derive",
+        "extra-traits",
+        "fold",
+        "full",
+        "parsing",
+        "printing",
+        "proc-macro",
+        "visit",
+        "visit-mut"
+      ],
+      "sync_wrapper@1.0.2": [
+        "futures",
+        "futures-core"
+      ],
+      "synstructure@0.14.0": [
+        "default",
+        "proc-macro"
+      ],
+      "syntree@0.18.0": [
+        "alloc",
+        "std"
+      ],
+      "sysinfo@0.39.6": [
+        "system"
+      ],
+      "thiserror@2.0.20": [
+        "default",
+        "std"
+      ],
+      "thiserror-impl@2.0.20": [],
+      "thread_local@1.1.10": [],
+      "tinystr@0.8.4": [
+        "zerovec"
+      ],
+      "tinyvec@1.13.3": [
+        "alloc",
+        "default"
+      ],
+      "tokio@1.53.1": [
+        "bytes",
+        "default",
+        "fs",
+        "io-util",
+        "libc",
+        "macros",
+        "mio",
+        "net",
+        "rt",
+        "rt-multi-thread",
+        "socket2",
+        "sync",
+        "time",
+        "tokio-macros",
+        "windows-sys"
+      ],
+      "tokio-macros@2.7.2": [],
+      "tokio-rustls@0.26.5": [
+        "ring",
+        "tls12"
+      ],
+      "tokio-util@0.7.19": [
+        "codec",
+        "default",
+        "io",
+        "libc"
+      ],
+      "tower@0.5.3": [
+        "futures-core",
+        "futures-util",
+        "pin-project-lite",
+        "retry",
+        "sync_wrapper",
+        "timeout",
+        "tokio",
+        "util"
+      ],
+      "tower-http@0.6.11": [
+        "decompression-gzip",
+        "follow-redirect",
+        "futures-core",
+        "futures-util",
+        "tokio-util",
+        "tower"
+      ],
+      "tower-layer@0.3.3": [],
+      "tower-service@0.3.3": [],
+      "tracing@0.1.44": [
+        "attributes",
+        "default",
+        "std",
+        "tracing-attributes"
+      ],
+      "tracing-attributes@0.1.31": [],
+      "tracing-core@0.1.36": [
+        "default",
+        "once_cell",
+        "std"
+      ],
+      "tracing-log@0.2.0": [
+        "log-tracer",
+        "std"
+      ],
+      "tracing-subscriber@0.3.23": [
+        "alloc",
+        "ansi",
+        "default",
+        "env-filter",
+        "fmt",
+        "matchers",
+        "nu-ansi-term",
+        "once_cell",
+        "registry",
+        "sharded-slab",
+        "smallvec",
+        "std",
+        "thread_local",
+        "tracing",
+        "tracing-log"
+      ],
+      "try-lock@0.2.5": [],
+      "twox-hash@2.1.4": [
+        "xxhash64"
+      ],
+      "typenum@1.20.1": [
+        "const-generics"
+      ],
+      "unicode-ident@1.0.26": [],
+      "unicode-normalization@0.1.25": [
+        "default",
+        "std"
+      ],
+      "unicode-reverse@1.0.9": [],
+      "unicode-segmentation@1.13.3": [],
+      "unicode-width@0.2.2": [
+        "cjk",
+        "default"
+      ],
+      "untrusted@0.9.0": [],
+      "unty@0.0.4": [],
+      "url@2.5.8": [
+        "default",
+        "std"
+      ],
+      "utf8_iter@1.0.4": [],
+      "utf8parse@0.2.2": [
+        "default"
+      ],
+      "uuid@1.26.1": [
+        "default",
+        "js",
+        "rng",
+        "serde",
+        "std",
+        "v4",
+        "v7"
+      ],
+      "valuable@0.1.1": [
+        "alloc",
+        "std"
+      ],
+      "version_check@0.9.5": [],
+      "virtue@0.0.18": [],
+      "walkdir@2.5.0": [],
+      "want@0.3.1": [],
+      "wasi@0.11.1+wasi-snapshot-preview1": [
+        "default",
+        "std"
+      ],
+      "wasm-bindgen@0.2.128": [
+        "default",
+        "std"
+      ],
+      "wasm-bindgen-futures@0.4.78": [
+        "default",
+        "std"
+      ],
+      "wasm-bindgen-macro@0.2.128": [],
+      "wasm-bindgen-macro-support@0.2.128": [],
+      "wasm-bindgen-shared@0.2.128": [],
+      "wasm-streams@0.4.2": [],
+      "web-sys@0.3.105": [
+        "AbortController",
+        "AbortSignal",
+        "Blob",
+        "BlobPropertyBag",
+        "EventTarget",
+        "File",
+        "FormData",
+        "Headers",
+        "QueuingStrategy",
+        "ReadableByteStreamController",
+        "ReadableStream",
+        "ReadableStreamByobReader",
+        "ReadableStreamByobRequest",
+        "ReadableStreamDefaultController",
+        "ReadableStreamDefaultReader",
+        "ReadableStreamGetReaderOptions",
+        "ReadableStreamReadResult",
+        "ReadableStreamReaderMode",
+        "ReadableStreamType",
+        "ReadableWritablePair",
+        "Request",
+        "RequestCache",
+        "RequestCredentials",
+        "RequestInit",
+        "RequestMode",
+        "Response",
+        "ServiceWorkerGlobalScope",
+        "StreamPipeOptions",
+        "TransformStream",
+        "TransformStreamDefaultController",
+        "Transformer",
+        "UnderlyingSink",
+        "UnderlyingSource",
+        "Window",
+        "WorkerGlobalScope",
+        "WritableStream",
+        "WritableStreamDefaultController",
+        "WritableStreamDefaultWriter",
+        "default",
+        "std"
+      ],
+      "web-time@1.1.0": [],
+      "webpki-roots@1.0.9": [],
+      "winapi@0.3.9": [
+        "cfg",
+        "evntrace",
+        "in6addr",
+        "inaddr",
+        "minwinbase",
+        "ntsecapi",
+        "windef",
+        "winioctl"
+      ],
+      "winapi-i686-pc-windows-gnu@0.4.0": [],
+      "winapi-util@0.1.11": [],
+      "winapi-x86_64-pc-windows-gnu@0.4.0": [],
+      "windows@0.62.2": [
+        "Wdk",
+        "Wdk_System",
+        "Wdk_System_SystemInformation",
+        "Wdk_System_SystemServices",
+        "Wdk_System_Threading",
+        "Win32",
+        "Win32_Foundation",
+        "Win32_Security",
+        "Win32_Security_Authorization",
+        "Win32_System",
+        "Win32_System_Diagnostics",
+        "Win32_System_Diagnostics_Debug",
+        "Win32_System_Diagnostics_ToolHelp",
+        "Win32_System_Kernel",
+        "Win32_System_Memory",
+        "Win32_System_Performance",
+        "Win32_System_Power",
+        "Win32_System_ProcessStatus",
+        "Win32_System_Registry",
+        "Win32_System_RemoteDesktop",
+        "Win32_System_SystemInformation",
+        "Win32_System_SystemServices",
+        "Win32_System_Threading",
+        "Win32_UI",
+        "Win32_UI_Shell",
+        "default",
+        "std"
+      ],
+      "windows-collections@0.3.2": [
+        "std"
+      ],
+      "windows-core@0.62.2": [
+        "default",
+        "std"
+      ],
+      "windows-future@0.3.2": [
+        "std"
+      ],
+      "windows-implement@0.60.2": [],
+      "windows-interface@0.59.3": [],
+      "windows-link@0.2.1": [],
+      "windows-numerics@0.3.1": [
+        "std"
+      ],
+      "windows-result@0.4.1": [
+        "default",
+        "std"
+      ],
+      "windows-strings@0.5.1": [
+        "std"
+      ],
+      "windows-sys@0.52.0": [
+        "Win32",
+        "Win32_Foundation",
+        "Win32_System",
+        "Win32_System_Threading",
+        "default"
+      ],
+      "windows-sys@0.61.2": [
+        "Wdk",
+        "Wdk_Foundation",
+        "Wdk_Storage",
+        "Wdk_Storage_FileSystem",
+        "Wdk_System",
+        "Wdk_System_IO",
+        "Win32",
+        "Win32_Foundation",
+        "Win32_Networking",
+        "Win32_Networking_WinSock",
+        "Win32_Security",
+        "Win32_Security_Authentication",
+        "Win32_Security_Authentication_Identity",
+        "Win32_Security_Credentials",
+        "Win32_Security_Cryptography",
+        "Win32_Storage",
+        "Win32_Storage_FileSystem",
+        "Win32_System",
+        "Win32_System_Com",
+        "Win32_System_Console",
+        "Win32_System_Diagnostics",
+        "Win32_System_Diagnostics_Debug",
+        "Win32_System_Diagnostics_ToolHelp",
+        "Win32_System_IO",
+        "Win32_System_JobObjects",
+        "Win32_System_LibraryLoader",
+        "Win32_System_Memory",
+        "Win32_System_Pipes",
+        "Win32_System_SystemInformation",
+        "Win32_System_SystemServices",
+        "Win32_System_Threading",
+        "Win32_System_Time",
+        "Win32_System_WindowsProgramming",
+        "Win32_UI",
+        "Win32_UI_Input",
+        "Win32_UI_Input_KeyboardAndMouse",
+        "Win32_UI_Shell",
+        "default"
+      ],
+      "windows-targets@0.52.6": [],
+      "windows-threading@0.2.1": [],
+      "windows_aarch64_gnullvm@0.52.6": [],
+      "windows_aarch64_msvc@0.52.6": [],
+      "windows_i686_gnu@0.52.6": [],
+      "windows_i686_gnullvm@0.52.6": [],
+      "windows_i686_msvc@0.52.6": [],
+      "windows_x86_64_gnu@0.52.6": [],
+      "windows_x86_64_gnullvm@0.52.6": [],
+      "windows_x86_64_msvc@0.52.6": [],
+      "writeable@0.6.4": [],
+      "xxhash-rust@0.8.18": [
+        "xxh3"
+      ],
+      "yoke@0.8.3": [
+        "derive",
+        "zerofrom"
+      ],
+      "yoke-derive@0.8.3": [],
+      "zerocopy@0.8.57": [
+        "derive",
+        "simd",
+        "zerocopy-derive"
+      ],
+      "zerocopy-derive@0.8.57": [],
+      "zerofrom@0.1.8": [
+        "derive"
+      ],
+      "zerofrom-derive@0.1.8": [],
+      "zeroize@1.9.0": [
+        "alloc",
+        "default"
+      ],
+      "zerotrie@0.2.5": [
+        "yoke",
+        "zerofrom"
+      ],
+      "zerovec@0.11.8": [
+        "derive",
+        "yoke"
+      ],
+      "zerovec-derive@0.11.6": [],
+      "zlib-rs@0.6.8": [
+        "rust-allocator",
+        "std"
+      ],
+      "zmij@1.0.23": [],
+      "zstd@0.13.3": [
+        "arrays",
+        "default",
+        "legacy",
+        "zdict_builder"
+      ],
+      "zstd-safe@7.3.0": [
+        "arrays",
+        "legacy",
+        "std",
+        "zdict_builder"
+      ],
+      "zstd-sys@2.1.0+zstd.1.5.7": [
+        "legacy",
+        "std",
+        "zdict_builder"
+      ]
+    },
+    "aligned": {
+      "adler2@2.0.1": [],
+      "ahash@0.8.12": [
+        "std"
+      ],
+      "aho-corasick@1.1.5": [
+        "perf-literal",
+        "std"
+      ],
+      "alloc-no-stdlib@2.0.4": [],
+      "alloc-stdlib@0.2.4": [],
+      "allocator-api2@0.2.21": [
+        "alloc"
+      ],
+      "android_system_properties@0.1.6": [],
+      "anyhow@1.0.104": [
+        "std"
+      ],
+      "ar_archive_writer@0.5.3": [],
+      "argminmax@0.6.3": [
+        "float",
+        "half"
+      ],
+      "array-init-cursor@0.2.1": [],
+      "arrayvec@0.7.8": [],
+      "async-channel@2.5.0": [
+        "default",
+        "std"
+      ],
+      "async-compression@0.4.48": [
+        "gzip",
+        "tokio"
+      ],
+      "async-stream@0.3.6": [],
+      "async-stream-impl@0.3.6": [],
+      "async-trait@0.1.92": [],
+      "atoi_simd@0.18.1": [
+        "default",
+        "std"
+      ],
+      "atomic-waker@1.1.2": [],
+      "autocfg@1.5.1": [],
+      "base64@0.22.1": [
+        "alloc",
+        "default",
+        "std"
+      ],
+      "bincode@2.0.1": [
+        "alloc",
+        "bincode_derive",
+        "default",
+        "derive",
+        "serde",
+        "std"
+      ],
+      "bincode_derive@2.0.1": [],
+      "bitflags@2.13.2": [
+        "serde",
+        "serde_core",
+        "std"
+      ],
+      "blake3@1.8.7": [
+        "default",
+        "std"
+      ],
+      "block-buffer@0.12.1": [],
+      "boxcar@0.2.14": [],
+      "brotli@8.0.4": [
+        "alloc-stdlib",
+        "default",
+        "std"
+      ],
+      "brotli-decompressor@5.0.3": [
+        "alloc-stdlib",
+        "std"
+      ],
+      "bumpalo@3.20.3": [
+        "default"
+      ],
+      "bytemuck@1.25.2": [
+        "bytemuck_derive",
+        "derive",
+        "extern_crate_alloc",
+        "must_cast"
+      ],
+      "bytemuck_derive@1.12.1": [],
+      "bytes@1.12.1": [
+        "default",
+        "serde",
+        "std"
+      ],
+      "castaway@0.2.4": [
+        "alloc"
+      ],
+      "cc@1.4.6": [
+        "parallel"
+      ],
+      "cfg-if@1.0.5": [],
+      "cfg_aliases@0.2.2": [],
+      "chacha20@0.10.2": [
+        "rng"
+      ],
+      "chrono@0.4.45": [
+        "alloc",
+        "clock",
+        "iana-time-zone",
+        "now",
+        "serde",
+        "std",
+        "winapi",
+        "windows-link"
+      ],
+      "chrono-tz@0.10.4": [
+        "default",
+        "std"
+      ],
+      "clipboard-win@5.4.1": [],
+      "compact_str@0.9.1": [
+        "default",
+        "serde",
+        "std"
+      ],
+      "compression-codecs@0.4.43": [
+        "flate2",
+        "gzip",
+        "memchr"
+      ],
+      "compression-core@0.4.33": [],
+      "concurrent-queue@2.5.0": [
+        "std"
+      ],
+      "const-oid@0.10.2": [],
+      "constant_time_eq@0.4.2": [
+        "std"
+      ],
+      "core-foundation@0.10.1": [
+        "default",
+        "link"
+      ],
+      "core-foundation-sys@0.8.7": [
+        "default",
+        "link"
+      ],
+      "cpufeatures@0.3.1": [],
+      "crc32fast@1.5.2": [
+        "std"
+      ],
+      "critical-section@1.2.0": [],
+      "crossbeam-channel@0.5.17": [
+        "default",
+        "std"
+      ],
+      "crossbeam-deque@0.8.8": [
+        "default",
+        "std"
+      ],
+      "crossbeam-epoch@0.9.21": [
+        "alloc",
+        "std"
+      ],
+      "crossbeam-queue@0.3.14": [
+        "alloc",
+        "default",
+        "std"
+      ],
+      "crossbeam-utils@0.8.23": [
+        "default",
+        "std"
+      ],
+      "crunchy@0.2.4": [
+        "default",
+        "limit_128"
+      ],
+      "crypto-common@0.2.2": [],
+      "debug_unsafe@0.1.4": [],
+      "digest@0.11.3": [
+        "alloc",
+        "block-api",
+        "default",
+        "oid"
+      ],
+      "digest-io@0.1.0": [],
+      "displaydoc@0.2.7": [],
+      "dyn-clone@1.0.20": [],
+      "either@1.18.0": [
+        "default",
+        "std",
+        "use_std"
+      ],
+      "endian-type@0.2.0": [],
+      "equivalent@1.0.2": [],
+      "errno@0.3.14": [
+        "default",
+        "std"
+      ],
+      "error-code@3.4.0": [],
+      "ethnum@1.5.3": [],
+      "event-listener@5.4.2": [
+        "parking",
+        "std"
+      ],
+      "event-listener-strategy@0.5.4": [
+        "std"
+      ],
+      "fallible-streaming-iterator@0.1.9": [],
+      "fast-float2@0.2.4": [
+        "default",
+        "std"
+      ],
+      "fastrand@2.5.0": [
+        "alloc",
+        "default",
+        "std"
+      ],
+      "find-msvc-tools@0.1.12": [],
+      "flate2@1.1.10": [
+        "any_impl",
+        "any_zlib",
+        "default",
+        "miniz_oxide",
+        "runtime_detection",
+        "rust_backend",
+        "zlib-rs"
+      ],
+      "fnv@1.0.7": [
+        "default",
+        "std"
+      ],
+      "foldhash@0.1.5": [],
+      "foldhash@0.2.0": [
+        "default",
+        "std"
+      ],
+      "form_urlencoded@1.2.2": [
+        "alloc",
+        "default",
+        "std"
+      ],
+      "fs4@1.1.0": [
+        "default",
+        "sync"
+      ],
+      "futures@0.3.34": [
+        "alloc",
+        "async-await",
+        "default",
+        "executor",
+        "futures-executor",
+        "std"
+      ],
+      "futures-channel@0.3.34": [
+        "alloc",
+        "default",
+        "futures-sink",
+        "sink",
+        "std"
+      ],
+      "futures-core@0.3.34": [
+        "alloc",
+        "default",
+        "std"
+      ],
+      "futures-executor@0.3.34": [
+        "std"
+      ],
+      "futures-io@0.3.34": [
+        "std"
+      ],
+      "futures-macro@0.3.34": [],
+      "futures-sink@0.3.34": [
+        "alloc",
+        "default",
+        "std"
+      ],
+      "futures-task@0.3.34": [
+        "alloc",
+        "std"
+      ],
+      "futures-util@0.3.34": [
+        "alloc",
+        "async-await",
+        "async-await-macro",
+        "channel",
+        "default",
+        "futures-channel",
+        "futures-io",
+        "futures-macro",
+        "futures-sink",
+        "io",
+        "memchr",
+        "sink",
+        "slab",
+        "std"
+      ],
+      "generator@0.8.9": [],
+      "getrandom@0.2.17": [
+        "js",
+        "js-sys",
+        "wasm-bindgen"
+      ],
+      "getrandom@0.4.3": [
+        "std",
+        "sys_rng",
+        "wasm_js"
+      ],
+      "glob@0.3.4": [],
+      "h2@0.4.19": [],
+      "half@2.7.1": [
+        "alloc",
+        "bytemuck",
+        "default",
+        "num-traits",
+        "serde",
+        "std"
+      ],
+      "hashbrown@0.15.5": [
+        "allocator-api2",
+        "default",
+        "default-hasher",
+        "equivalent",
+        "inline-more",
+        "raw-entry"
+      ],
+      "hashbrown@0.17.1": [
+        "allocator-api2",
+        "default",
+        "default-hasher",
+        "equivalent",
+        "inline-more",
+        "raw-entry",
+        "rayon",
+        "serde"
+      ],
+      "heck@0.5.0": [],
+      "hex@0.4.3": [
+        "alloc",
+        "default",
+        "std"
+      ],
+      "home@0.5.12": [],
+      "http@1.5.0": [
+        "default",
+        "std"
+      ],
+      "http-body@1.1.0": [],
+      "http-body-util@0.1.5": [
+        "default"
+      ],
+      "httparse@1.10.1": [
+        "default",
+        "std"
+      ],
+      "humantime@2.4.0": [],
+      "hybrid-array@0.4.15": [],
+      "hyper@1.11.1": [
+        "client",
+        "default",
+        "http1",
+        "http2"
+      ],
+      "hyper-rustls@0.27.9": [
+        "http1",
+        "http2",
+        "native-tokio",
+        "ring",
+        "rustls-native-certs",
+        "tls12",
+        "webpki-roots",
+        "webpki-tokio"
+      ],
+      "hyper-util@0.1.20": [
+        "client",
+        "client-legacy",
+        "client-proxy",
+        "default",
+        "http1",
+        "http2",
+        "tokio"
+      ],
+      "iana-time-zone@0.1.65": [
+        "fallback"
+      ],
+      "iana-time-zone-haiku@0.1.2": [],
+      "icu_collections@2.3.0": [],
+      "icu_locale_core@2.3.0": [
+        "zerovec"
+      ],
+      "icu_normalizer@2.3.0": [
+        "compiled_data"
+      ],
+      "icu_normalizer_data@2.3.0": [],
+      "icu_properties@2.3.0": [
+        "compiled_data"
+      ],
+      "icu_properties_data@2.3.0": [],
+      "icu_provider@2.3.1": [
+        "baked"
+      ],
+      "idna@1.1.0": [
+        "alloc",
+        "compiled_data",
+        "std"
+      ],
+      "idna_adapter@1.2.2": [
+        "compiled_data"
+      ],
+      "indexmap@2.14.2": [
+        "default",
+        "serde",
+        "std"
+      ],
+      "ipnet@2.12.2": [
+        "default",
+        "std"
+      ],
+      "itertools@0.14.0": [
+        "default",
+        "use_alloc",
+        "use_std"
+      ],
+      "itoa@1.0.18": [],
+      "jiff@0.2.24": [
+        "alloc",
+        "std",
+        "tz-system",
+        "tzdb-bundle-platform",
+        "tzdb-zoneinfo"
+      ],
+      "jiff-static@0.2.24": [
+        "default"
+      ],
+      "jiff-tzdb@0.1.8": [],
+      "jiff-tzdb-platform@0.1.3": [],
+      "jobserver@0.1.35": [],
+      "js-sys@0.3.105": [
+        "default",
+        "std",
+        "unsafe-eval"
+      ],
+      "lazy_static@1.5.0": [],
+      "libc@0.2.189": [
+        "default",
+        "extra_traits",
+        "std"
+      ],
+      "libm@0.2.16": [
+        "arch",
+        "default"
+      ],
+      "linux-raw-sys@0.12.1": [
+        "auxvec",
+        "elf",
+        "errno",
+        "general",
+        "ioctl",
+        "no_std"
+      ],
+      "litemap@0.8.3": [],
+      "lock_api@0.4.14": [
+        "atomic_usize",
+        "default"
+      ],
+      "log@0.4.34": [
+        "alloc",
+        "std"
+      ],
+      "loom@0.7.2": [
+        "default"
+      ],
+      "lru-slab@0.1.3": [],
+      "lz4@1.28.1": [],
+      "lz4-sys@1.11.1+lz4-1.10.0": [],
+      "matchers@0.2.0": [],
+      "memchr@2.8.3": [
+        "alloc",
+        "default",
+        "std"
+      ],
+      "memmap2@0.9.11": [],
+      "miniz_oxide@0.9.1": [
+        "default",
+        "simd",
+        "simd-adler32",
+        "with-alloc"
+      ],
+      "mio@1.2.3": [
+        "net",
+        "os-ext",
+        "os-poll"
+      ],
+      "musli@0.0.124": [
+        "alloc",
+        "std"
+      ],
+      "musli-core@0.0.124": [
+        "alloc",
+        "std"
+      ],
+      "musli-macros@0.0.124": [],
+      "nibble_vec@0.1.0": [],
+      "nix@0.31.3": [
+        "fs",
+        "ioctl",
+        "poll",
+        "process",
+        "signal",
+        "term"
+      ],
+      "now@0.1.3": [],
+      "ntapi@0.4.3": [
+        "default",
+        "user"
+      ],
+      "nu-ansi-term@0.50.3": [
+        "default",
+        "std"
+      ],
+      "num@0.4.3": [
+        "alloc",
+        "num-bigint",
+        "std"
+      ],
+      "num-bigint@0.4.8": [
+        "std"
+      ],
+      "num-complex@0.4.6": [
+        "std"
+      ],
+      "num-derive@0.4.2": [],
+      "num-integer@0.1.47": [
+        "i128",
+        "std"
+      ],
+      "num-iter@0.1.46": [
+        "i128",
+        "std"
+      ],
+      "num-rational@0.4.2": [
+        "num-bigint",
+        "num-bigint-std",
+        "std"
+      ],
+      "num-traits@0.2.19": [
+        "default",
+        "i128",
+        "libm",
+        "std"
+      ],
+      "objc2-core-foundation@0.3.2": [
+        "CFArray",
+        "CFBase",
+        "CFData",
+        "CFDictionary",
+        "CFPlugInCOM",
+        "CFRunLoop",
+        "CFString",
+        "CFURL",
+        "CFUUID",
+        "alloc",
+        "bitflags",
+        "std"
+      ],
+      "objc2-io-kit@0.3.2": [
+        "alloc",
+        "libc",
+        "std"
+      ],
+      "object@0.39.1": [
+        "archive",
+        "coff",
+        "elf",
+        "macho",
+        "pe",
+        "read",
+        "read_core",
+        "std",
+        "xcoff"
+      ],
+      "object_store@0.13.2": [
+        "base64",
+        "cloud",
+        "form_urlencoded",
+        "fs",
+        "http",
+        "http-body-util",
+        "hyper",
+        "quick-xml",
+        "rand",
+        "reqwest",
+        "ring",
+        "serde",
+        "serde_json",
+        "serde_urlencoded",
+        "tokio",
+        "walkdir"
+      ],
+      "once_cell@1.21.4": [
+        "alloc",
+        "critical-section",
+        "default",
+        "portable-atomic",
+        "race",
+        "std"
+      ],
+      "openssl-probe@0.2.1": [],
+      "parking@2.2.1": [],
+      "parking_lot@0.12.5": [
+        "default"
+      ],
+      "parking_lot_core@0.9.12": [],
+      "percent-encoding@2.3.2": [
+        "alloc",
+        "default",
+        "std"
+      ],
+      "phf@0.12.1": [],
+      "phf_shared@0.12.1": [],
+      "pin-project@1.1.13": [],
+      "pin-project-internal@1.1.13": [],
+      "pin-project-lite@0.2.17": [],
+      "pkg-config@0.3.34": [],
+      "planus@1.1.1": [
+        "bytes-cache",
+        "default",
+        "hashbrown",
+        "std",
+        "string-cache",
+        "vtable-cache"
+      ],
+      "polars@0.55.2": [
+        "csv",
+        "dtype-categorical",
+        "lazy",
+        "parquet",
+        "polars-io",
+        "polars-lazy",
+        "polars-ops",
+        "polars-parquet",
+        "streaming"
+      ],
+      "polars-arrow@0.55.2": [
+        "arrow-format",
+        "atoi_simd",
+        "chrono-tz",
+        "compute",
+        "compute_aggregate",
+        "compute_arithmetics",
+        "compute_arithmetics_decimal",
+        "compute_bitwise",
+        "compute_comparison",
+        "compute_temporal",
+        "dtype-array",
+        "dtype-decimal",
+        "io_ipc",
+        "io_ipc_compression",
+        "itoa",
+        "lz4",
+        "serde",
+        "strings",
+        "temporal",
+        "timezones",
+        "zstd"
+      ],
+      "polars-arrow-format@0.2.1": [
+        "default",
+        "ipc",
+        "planus",
+        "serde"
+      ],
+      "polars-async@0.55.2": [],
+      "polars-buffer@0.55.2": [
+        "serde"
+      ],
+      "polars-compute@0.55.2": [
+        "approx_unique",
+        "cast",
+        "dtype-array",
+        "dtype-decimal",
+        "dtype-i128",
+        "gather",
+        "serde"
+      ],
+      "polars-config@0.55.2": [
+        "serde"
+      ],
+      "polars-core@0.55.2": [
+        "algorithm_group_by",
+        "chrono",
+        "chrono-tz",
+        "dtype-array",
+        "dtype-categorical",
+        "dtype-date",
+        "dtype-datetime",
+        "dtype-decimal",
+        "dtype-duration",
+        "dtype-i128",
+        "dtype-i16",
+        "dtype-i8",
+        "dtype-struct",
+        "dtype-time",
+        "lazy",
+        "partition_by",
+        "rand",
+        "rand_distr",
+        "random",
+        "regex",
+        "reinterpret",
+        "rows",
+        "serde",
+        "serde-lazy",
+        "serde_json",
+        "strings",
+        "temporal",
+        "timezones",
+        "zip_with"
+      ],
+      "polars-dtype@0.55.2": [
+        "dtype-categorical",
+        "serde"
+      ],
+      "polars-error@0.55.2": [
+        "arrow-format",
+        "object_store",
+        "regex"
+      ],
+      "polars-expr@0.55.2": [
+        "abs",
+        "arg_where",
+        "binary_encoding",
+        "concat_str",
+        "cov",
+        "cum_agg",
+        "dtype-array",
+        "dtype-categorical",
+        "dtype-date",
+        "dtype-datetime",
+        "dtype-decimal",
+        "dtype-duration",
+        "dtype-i128",
+        "dtype-i16",
+        "dtype-i8",
+        "dtype-struct",
+        "dtype-time",
+        "is_in",
+        "log",
+        "offset_by",
+        "parquet",
+        "peaks",
+        "polars-time",
+        "range",
+        "regex",
+        "rle",
+        "round_series",
+        "sign",
+        "string_normalize",
+        "string_pad",
+        "string_reverse",
+        "strings",
+        "temporal",
+        "timezones",
+        "trigonometry",
+        "unique_counts"
+      ],
+      "polars-io@0.55.2": [
+        "async",
+        "async-trait",
+        "atoi_simd",
+        "chrono",
+        "cloud",
+        "csv",
+        "dtype-categorical",
+        "fast-float2",
+        "fastrand",
+        "file_cache",
+        "futures",
+        "http",
+        "ipc",
+        "itoa",
+        "lazy",
+        "object_store",
+        "parquet",
+        "polars-parquet",
+        "rand",
+        "reqwest",
+        "serde",
+        "serde_json",
+        "simdutf8",
+        "zmij"
+      ],
+      "polars-lazy@0.55.2": [
+        "abs",
+        "binary_encoding",
+        "concat_str",
+        "cov",
+        "cross_join",
+        "csv",
+        "cum_agg",
+        "dtype-array",
+        "dtype-categorical",
+        "dtype-date",
+        "dtype-datetime",
+        "dtype-decimal",
+        "dtype-duration",
+        "dtype-i16",
+        "dtype-i8",
+        "dtype-struct",
+        "dtype-time",
+        "is_in",
+        "list_eval",
+        "log",
+        "meta",
+        "offset_by",
+        "parquet",
+        "polars-stream",
+        "polars-time",
+        "range",
+        "regex",
+        "round_series",
+        "sign",
+        "streaming",
+        "string_normalize",
+        "string_pad",
+        "string_reverse",
+        "strings",
+        "temporal",
+        "timezones",
+        "trigonometry"
+      ],
+      "polars-mem-engine@0.55.2": [
+        "cloud",
+        "csv",
+        "dtype-categorical",
+        "dtype-date",
+        "dtype-datetime",
+        "dtype-decimal",
+        "dtype-duration",
+        "dtype-i16",
+        "dtype-i8",
+        "dtype-struct",
+        "dtype-time",
+        "parquet",
+        "polars-time"
+      ],
+      "polars-ooc@0.55.2": [],
+      "polars-ops@0.55.2": [
+        "abs",
+        "base64",
+        "binary_encoding",
+        "chrono",
+        "chrono-tz",
+        "chunked_ids",
+        "cov",
+        "cross_join",
+        "cum_agg",
+        "dtype-array",
+        "dtype-categorical",
+        "dtype-decimal",
+        "dtype-duration",
+        "dtype-i128",
+        "dtype-struct",
+        "hex",
+        "iejoin",
+        "is_in",
+        "log",
+        "peaks",
+        "rle",
+        "round_series",
+        "search_sorted",
+        "semi_anti_join",
+        "string_normalize",
+        "string_pad",
+        "string_reverse",
+        "strings",
+        "timezones",
+        "unicode-normalization",
+        "unicode-reverse",
+        "unique_counts"
+      ],
+      "polars-parquet@0.55.2": [
+        "async",
+        "async-stream",
+        "brotli",
+        "compression",
+        "flate2",
+        "futures",
+        "gzip",
+        "lz4",
+        "serde",
+        "snap",
+        "snappy",
+        "zstd"
+      ],
+      "polars-parquet-format@0.1.0": [
+        "async",
+        "async-trait",
+        "futures"
+      ],
+      "polars-plan@0.55.2": [
+        "abs",
+        "arg_where",
+        "binary_encoding",
+        "chrono",
+        "chrono-tz",
+        "cloud",
+        "concat_str",
+        "cov",
+        "cross_join",
+        "cse",
+        "csv",
+        "cum_agg",
+        "dtype-array",
+        "dtype-categorical",
+        "dtype-date",
+        "dtype-datetime",
+        "dtype-decimal",
+        "dtype-duration",
+        "dtype-i128",
+        "dtype-i16",
+        "dtype-i8",
+        "dtype-struct",
+        "dtype-time",
+        "iejoin",
+        "is_in",
+        "log",
+        "meta",
+        "offset_by",
+        "parquet",
+        "peaks",
+        "polars-parquet",
+        "polars-time",
+        "range",
+        "regex",
+        "rle",
+        "round_series",
+        "semi_anti_join",
+        "sign",
+        "string_normalize",
+        "string_pad",
+        "string_reverse",
+        "strings",
+        "temporal",
+        "timezones",
+        "trigonometry",
+        "unique_counts"
+      ],
+      "polars-row@0.55.2": [],
+      "polars-schema@0.55.2": [
+        "serde"
+      ],
+      "polars-sql@0.55.2": [
+        "csv",
+        "parquet"
+      ],
+      "polars-stream@0.55.2": [
+        "cloud",
+        "cov",
+        "csv",
+        "cum_agg",
+        "dtype-array",
+        "dtype-categorical",
+        "dtype-date",
+        "dtype-datetime",
+        "dtype-decimal",
+        "dtype-duration",
+        "dtype-i16",
+        "dtype-i8",
+        "dtype-time",
+        "is_in",
+        "log",
+        "parquet",
+        "range",
+        "semi_anti_join",
+        "strings",
+        "temporal"
+      ],
+      "polars-time@0.55.2": [
+        "chrono-tz",
+        "dtype-date",
+        "dtype-datetime",
+        "dtype-duration",
+        "dtype-time",
+        "offset_by",
+        "temporal",
+        "timezones"
+      ],
+      "polars-utils@0.55.2": [
+        "async-utils",
+        "memmap",
+        "mmap",
+        "serde",
+        "sysinfo"
+      ],
+      "portable-atomic@1.15.0": [
+        "require-cas"
+      ],
+      "portable-atomic-util@0.2.8": [
+        "alloc"
+      ],
+      "potential_utf@0.1.6": [
+        "zerovec"
+      ],
+      "proc-macro2@1.0.107": [
+        "default",
+        "proc-macro"
+      ],
+      "psm@0.1.32": [],
+      "quick-xml@0.39.4": [
+        "default",
+        "overlapped-lists",
+        "serde",
+        "serialize"
+      ],
+      "quinn@0.11.12": [
+        "ring",
+        "runtime-tokio",
+        "rustls",
+        "rustls-ring"
+      ],
+      "quinn-proto@0.11.18": [
+        "ring",
+        "rustls-ring"
+      ],
+      "quinn-udp@0.5.15": [
+        "tracing"
+      ],
+      "quote@1.0.47": [
+        "default",
+        "proc-macro"
+      ],
+      "r-efi@6.0.0": [],
+      "radix_trie@0.3.0": [],
+      "rand@0.10.2": [
+        "alloc",
+        "default",
+        "std",
+        "std_rng",
+        "sys_rng",
+        "thread_rng"
+      ],
+      "rand_core@0.10.1": [],
+      "rand_distr@0.6.0": [
+        "alloc",
+        "default",
+        "std"
+      ],
+      "rand_pcg@0.10.2": [],
+      "raw-cpuid@11.6.0": [],
+      "rayon@1.12.0": [],
+      "rayon-core@1.13.0": [],
+      "recursive@0.1.1": [],
+      "recursive-proc-macro-impl@0.1.1": [],
+      "redox_syscall@0.5.18": [
+        "default",
+        "userspace"
+      ],
+      "regex@1.13.1": [
+        "default",
+        "perf",
+        "perf-backtrack",
+        "perf-cache",
+        "perf-dfa",
+        "perf-inline",
+        "perf-literal",
+        "perf-onepass",
+        "std",
+        "unicode",
+        "unicode-age",
+        "unicode-bool",
+        "unicode-case",
+        "unicode-gencat",
+        "unicode-perl",
+        "unicode-script",
+        "unicode-segment"
+      ],
+      "regex-automata@0.4.18": [
+        "alloc",
+        "dfa-build",
+        "dfa-onepass",
+        "dfa-search",
+        "hybrid",
+        "meta",
+        "nfa-backtrack",
+        "nfa-pikevm",
+        "nfa-thompson",
+        "perf-inline",
+        "perf-literal",
+        "perf-literal-multisubstring",
+        "perf-literal-substring",
+        "std",
+        "syntax",
+        "unicode",
+        "unicode-age",
+        "unicode-bool",
+        "unicode-case",
+        "unicode-gencat",
+        "unicode-perl",
+        "unicode-script",
+        "unicode-segment",
+        "unicode-word-boundary"
+      ],
+      "regex-syntax@0.8.11": [
+        "default",
+        "std",
+        "unicode",
+        "unicode-age",
+        "unicode-bool",
+        "unicode-case",
+        "unicode-gencat",
+        "unicode-perl",
+        "unicode-script",
+        "unicode-segment"
+      ],
+      "reqwest@0.12.28": [
+        "__rustls",
+        "__rustls-ring",
+        "__tls",
+        "gzip",
+        "h2",
+        "http2",
+        "json",
+        "rustls-tls",
+        "rustls-tls-native-roots",
+        "rustls-tls-native-roots-no-provider",
+        "rustls-tls-webpki-roots",
+        "rustls-tls-webpki-roots-no-provider",
+        "stream"
+      ],
+      "ring@0.17.14": [
+        "alloc",
+        "default",
+        "dev_urandom_fallback",
+        "std",
+        "wasm32_unknown_unknown_js"
+      ],
+      "rmp@0.8.15": [
+        "default",
+        "std"
+      ],
+      "rmp-serde@1.3.1": [],
+      "rnx@0.0.0": [
+        "count-allocations",
+        "default",
+        "project-sources"
+      ],
+      "rune@0.14.2": [
+        "alloc",
+        "anyhow",
+        "std"
+      ],
+      "rune-alloc@0.14.2": [
+        "alloc",
+        "serde",
+        "std"
+      ],
+      "rune-alloc-macros@0.14.2": [],
+      "rune-core@0.14.2": [
+        "alloc",
+        "default",
+        "musli",
+        "std"
+      ],
+      "rune-macros@0.14.2": [],
+      "rune-tracing@0.14.2": [
+        "default"
+      ],
+      "rune-tracing-macros@0.14.2": [],
+      "rustc-hash@2.1.3": [
+        "default",
+        "std"
+      ],
+      "rustix@1.1.5": [
+        "alloc",
+        "default",
+        "fs",
+        "std"
+      ],
+      "rustls@0.23.45": [
+        "ring",
+        "std",
+        "tls12"
+      ],
+      "rustls-native-certs@0.8.4": [],
+      "rustls-pki-types@1.15.1": [
+        "alloc",
+        "default",
+        "std",
+        "web",
+        "web-time"
+      ],
+      "rustls-webpki@0.103.15": [
+        "alloc",
+        "ring",
+        "std"
+      ],
+      "rustversion@1.0.23": [],
+      "rustyline@18.0.1": [
+        "custom-bindings",
+        "default",
+        "derive",
+        "home",
+        "radix_trie",
+        "rustyline-derive",
+        "with-dirs",
+        "with-file-history"
+      ],
+      "rustyline-derive@0.12.0": [],
+      "ryu@1.0.23": [],
+      "same-file@1.0.6": [],
+      "schannel@0.1.29": [],
+      "scoped-tls@1.0.1": [],
+      "scopeguard@1.2.0": [],
+      "security-framework@3.7.0": [
+        "OSX_10_14",
+        "alpn",
+        "default",
+        "session-tickets"
+      ],
+      "security-framework-sys@2.17.0": [],
+      "serde@1.0.229": [
+        "alloc",
+        "default",
+        "derive",
+        "rc",
+        "serde_derive",
+        "std"
+      ],
+      "serde_core@1.0.229": [
+        "alloc",
+        "rc",
+        "result",
+        "std"
+      ],
+      "serde_derive@1.0.229": [
+        "default"
+      ],
+      "serde_json@1.0.151": [
+        "default",
+        "std"
+      ],
+      "serde_stacker@0.1.14": [],
+      "serde_urlencoded@0.7.1": [],
+      "sha2@0.11.0": [
+        "alloc",
+        "default",
+        "oid"
+      ],
+      "sharded-slab@0.1.7": [],
+      "shlex@2.0.1": [
+        "default",
+        "std"
+      ],
+      "signal-hook@0.4.4": [
+        "channel",
+        "default",
+        "iterator"
+      ],
+      "signal-hook-registry@1.4.8": [],
+      "simd-adler32@0.3.10": [],
+      "simdutf8@0.1.5": [
+        "default",
+        "std"
+      ],
+      "siphasher@1.0.3": [
+        "default",
+        "std"
+      ],
+      "slab@0.4.12": [
+        "default",
+        "std"
+      ],
+      "slotmap@1.1.1": [
+        "default",
+        "std"
+      ],
+      "smallvec@1.16.1": [
+        "const_generics",
+        "const_new"
+      ],
+      "snap@1.1.2": [],
+      "socket2@0.6.5": [
+        "all"
+      ],
+      "sqlparser@0.62.0": [
+        "default",
+        "recursive",
+        "recursive-protection",
+        "sqlparser_derive",
+        "std",
+        "visitor"
+      ],
+      "sqlparser_derive@0.5.0": [],
+      "stable_deref_trait@1.2.1": [],
+      "stacker@0.1.25": [],
+      "static_assertions@1.1.0": [],
+      "streaming-decompression@0.1.2": [],
+      "streaming-iterator@0.1.9": [],
+      "strength_reduce@0.2.4": [],
+      "strum_macros@0.28.0": [],
+      "subtle@2.6.1": [],
+      "syn@2.0.119": [
+        "clone-impls",
+        "default",
+        "derive",
+        "extra-traits",
+        "full",
+        "parsing",
+        "printing",
+        "proc-macro",
+        "visit-mut"
+      ],
+      "syn@3.0.6": [
+        "clone-impls",
+        "default",
+        "derive",
+        "extra-traits",
+        "fold",
+        "full",
+        "parsing",
+        "printing",
+        "proc-macro",
+        "visit",
+        "visit-mut"
+      ],
+      "sync_wrapper@1.0.2": [
+        "futures",
+        "futures-core"
+      ],
+      "synstructure@0.14.0": [
+        "default",
+        "proc-macro"
+      ],
+      "syntree@0.18.0": [
+        "alloc",
+        "std"
+      ],
+      "sysinfo@0.39.6": [
+        "system"
+      ],
+      "thiserror@2.0.20": [
+        "default",
+        "std"
+      ],
+      "thiserror-impl@2.0.20": [],
+      "thread_local@1.1.10": [],
+      "tinystr@0.8.4": [
+        "zerovec"
+      ],
+      "tinyvec@1.13.3": [
+        "alloc",
+        "default"
+      ],
+      "tokio@1.53.1": [
+        "bytes",
+        "default",
+        "fs",
+        "io-util",
+        "libc",
+        "macros",
+        "mio",
+        "net",
+        "rt",
+        "rt-multi-thread",
+        "socket2",
+        "sync",
+        "time",
+        "tokio-macros",
+        "windows-sys"
+      ],
+      "tokio-macros@2.7.2": [],
+      "tokio-rustls@0.26.5": [
+        "ring",
+        "tls12"
+      ],
+      "tokio-util@0.7.19": [
+        "codec",
+        "default",
+        "io",
+        "libc"
+      ],
+      "tower@0.5.3": [
+        "futures-core",
+        "futures-util",
+        "pin-project-lite",
+        "retry",
+        "sync_wrapper",
+        "timeout",
+        "tokio",
+        "util"
+      ],
+      "tower-http@0.6.11": [
+        "decompression-gzip",
+        "follow-redirect",
+        "futures-core",
+        "futures-util",
+        "tokio-util",
+        "tower"
+      ],
+      "tower-layer@0.3.3": [],
+      "tower-service@0.3.3": [],
+      "tracing@0.1.44": [
+        "attributes",
+        "default",
+        "std",
+        "tracing-attributes"
+      ],
+      "tracing-attributes@0.1.31": [],
+      "tracing-core@0.1.36": [
+        "default",
+        "once_cell",
+        "std"
+      ],
+      "tracing-log@0.2.0": [
+        "log-tracer",
+        "std"
+      ],
+      "tracing-subscriber@0.3.23": [
+        "alloc",
+        "ansi",
+        "default",
+        "env-filter",
+        "fmt",
+        "matchers",
+        "nu-ansi-term",
+        "once_cell",
+        "registry",
+        "sharded-slab",
+        "smallvec",
+        "std",
+        "thread_local",
+        "tracing",
+        "tracing-log"
+      ],
+      "try-lock@0.2.5": [],
+      "twox-hash@2.1.4": [
+        "xxhash64"
+      ],
+      "typenum@1.20.1": [
+        "const-generics"
+      ],
+      "unicode-ident@1.0.26": [],
+      "unicode-normalization@0.1.25": [
+        "default",
+        "std"
+      ],
+      "unicode-reverse@1.0.9": [],
+      "unicode-segmentation@1.13.3": [],
+      "unicode-width@0.2.2": [
+        "cjk",
+        "default"
+      ],
+      "untrusted@0.9.0": [],
+      "unty@0.0.4": [],
+      "url@2.5.8": [
+        "default",
+        "std"
+      ],
+      "utf8_iter@1.0.4": [],
+      "utf8parse@0.2.2": [
+        "default"
+      ],
+      "uuid@1.26.1": [
+        "default",
+        "js",
+        "rng",
+        "serde",
+        "std",
+        "v4",
+        "v7"
+      ],
+      "valuable@0.1.1": [
+        "alloc",
+        "std"
+      ],
+      "version_check@0.9.5": [],
+      "virtue@0.0.18": [],
+      "walkdir@2.5.0": [],
+      "want@0.3.1": [],
+      "wasi@0.11.1+wasi-snapshot-preview1": [
+        "default",
+        "std"
+      ],
+      "wasm-bindgen@0.2.128": [
+        "default",
+        "std"
+      ],
+      "wasm-bindgen-futures@0.4.78": [
+        "default",
+        "std"
+      ],
+      "wasm-bindgen-macro@0.2.128": [],
+      "wasm-bindgen-macro-support@0.2.128": [],
+      "wasm-bindgen-shared@0.2.128": [],
+      "wasm-streams@0.4.2": [],
+      "web-sys@0.3.105": [
+        "AbortController",
+        "AbortSignal",
+        "Blob",
+        "BlobPropertyBag",
+        "EventTarget",
+        "File",
+        "FormData",
+        "Headers",
+        "QueuingStrategy",
+        "ReadableByteStreamController",
+        "ReadableStream",
+        "ReadableStreamByobReader",
+        "ReadableStreamByobRequest",
+        "ReadableStreamDefaultController",
+        "ReadableStreamDefaultReader",
+        "ReadableStreamGetReaderOptions",
+        "ReadableStreamReadResult",
+        "ReadableStreamReaderMode",
+        "ReadableStreamType",
+        "ReadableWritablePair",
+        "Request",
+        "RequestCache",
+        "RequestCredentials",
+        "RequestInit",
+        "RequestMode",
+        "Response",
+        "ServiceWorkerGlobalScope",
+        "StreamPipeOptions",
+        "TransformStream",
+        "TransformStreamDefaultController",
+        "Transformer",
+        "UnderlyingSink",
+        "UnderlyingSource",
+        "Window",
+        "WorkerGlobalScope",
+        "WritableStream",
+        "WritableStreamDefaultController",
+        "WritableStreamDefaultWriter",
+        "default",
+        "std"
+      ],
+      "web-time@1.1.0": [],
+      "webpki-roots@1.0.9": [],
+      "winapi@0.3.9": [
+        "cfg",
+        "evntrace",
+        "in6addr",
+        "inaddr",
+        "minwinbase",
+        "ntsecapi",
+        "windef",
+        "winioctl"
+      ],
+      "winapi-i686-pc-windows-gnu@0.4.0": [],
+      "winapi-util@0.1.11": [],
+      "winapi-x86_64-pc-windows-gnu@0.4.0": [],
+      "windows@0.62.2": [
+        "Wdk",
+        "Wdk_System",
+        "Wdk_System_SystemInformation",
+        "Wdk_System_SystemServices",
+        "Wdk_System_Threading",
+        "Win32",
+        "Win32_Foundation",
+        "Win32_Security",
+        "Win32_Security_Authorization",
+        "Win32_System",
+        "Win32_System_Diagnostics",
+        "Win32_System_Diagnostics_Debug",
+        "Win32_System_Diagnostics_ToolHelp",
+        "Win32_System_Kernel",
+        "Win32_System_Memory",
+        "Win32_System_Performance",
+        "Win32_System_Power",
+        "Win32_System_ProcessStatus",
+        "Win32_System_Registry",
+        "Win32_System_RemoteDesktop",
+        "Win32_System_SystemInformation",
+        "Win32_System_SystemServices",
+        "Win32_System_Threading",
+        "Win32_UI",
+        "Win32_UI_Shell",
+        "default",
+        "std"
+      ],
+      "windows-collections@0.3.2": [
+        "std"
+      ],
+      "windows-core@0.62.2": [
+        "default",
+        "std"
+      ],
+      "windows-future@0.3.2": [
+        "std"
+      ],
+      "windows-implement@0.60.2": [],
+      "windows-interface@0.59.3": [],
+      "windows-link@0.2.1": [],
+      "windows-numerics@0.3.1": [
+        "std"
+      ],
+      "windows-result@0.4.1": [
+        "default",
+        "std"
+      ],
+      "windows-strings@0.5.1": [
+        "std"
+      ],
+      "windows-sys@0.52.0": [
+        "Win32",
+        "Win32_Foundation",
+        "Win32_System",
+        "Win32_System_Threading",
+        "default"
+      ],
+      "windows-sys@0.61.2": [
+        "Wdk",
+        "Wdk_Foundation",
+        "Wdk_Storage",
+        "Wdk_Storage_FileSystem",
+        "Wdk_System",
+        "Wdk_System_IO",
+        "Win32",
+        "Win32_Foundation",
+        "Win32_Networking",
+        "Win32_Networking_WinSock",
+        "Win32_Security",
+        "Win32_Security_Authentication",
+        "Win32_Security_Authentication_Identity",
+        "Win32_Security_Credentials",
+        "Win32_Security_Cryptography",
+        "Win32_Storage",
+        "Win32_Storage_FileSystem",
+        "Win32_System",
+        "Win32_System_Com",
+        "Win32_System_Console",
+        "Win32_System_Diagnostics",
+        "Win32_System_Diagnostics_Debug",
+        "Win32_System_Diagnostics_ToolHelp",
+        "Win32_System_IO",
+        "Win32_System_JobObjects",
+        "Win32_System_LibraryLoader",
+        "Win32_System_Memory",
+        "Win32_System_Pipes",
+        "Win32_System_SystemInformation",
+        "Win32_System_SystemServices",
+        "Win32_System_Threading",
+        "Win32_System_Time",
+        "Win32_System_WindowsProgramming",
+        "Win32_UI",
+        "Win32_UI_Input",
+        "Win32_UI_Input_KeyboardAndMouse",
+        "Win32_UI_Shell",
+        "default"
+      ],
+      "windows-targets@0.52.6": [],
+      "windows-threading@0.2.1": [],
+      "windows_aarch64_gnullvm@0.52.6": [],
+      "windows_aarch64_msvc@0.52.6": [],
+      "windows_i686_gnu@0.52.6": [],
+      "windows_i686_gnullvm@0.52.6": [],
+      "windows_i686_msvc@0.52.6": [],
+      "windows_x86_64_gnu@0.52.6": [],
+      "windows_x86_64_gnullvm@0.52.6": [],
+      "windows_x86_64_msvc@0.52.6": [],
+      "writeable@0.6.4": [],
+      "xxhash-rust@0.8.18": [
+        "xxh3"
+      ],
+      "yoke@0.8.3": [
+        "derive",
+        "zerofrom"
+      ],
+      "yoke-derive@0.8.3": [],
+      "zerocopy@0.8.57": [
+        "derive",
+        "simd",
+        "zerocopy-derive"
+      ],
+      "zerocopy-derive@0.8.57": [],
+      "zerofrom@0.1.8": [
+        "derive"
+      ],
+      "zerofrom-derive@0.1.8": [],
+      "zeroize@1.9.0": [
+        "alloc",
+        "default"
+      ],
+      "zerotrie@0.2.5": [
+        "yoke",
+        "zerofrom"
+      ],
+      "zerovec@0.11.8": [
+        "derive",
+        "yoke"
+      ],
+      "zerovec-derive@0.11.6": [],
+      "zlib-rs@0.6.8": [
+        "rust-allocator",
+        "std"
+      ],
+      "zmij@1.0.23": [],
+      "zstd@0.13.3": [
+        "arrays",
+        "default",
+        "legacy",
+        "zdict_builder"
+      ],
+      "zstd-safe@7.3.0": [
+        "arrays",
+        "legacy",
+        "std",
+        "zdict_builder"
+      ],
+      "zstd-sys@2.1.0+zstd.1.5.7": [
+        "legacy",
+        "std",
+        "zdict_builder"
+      ]
+    },
+    "generated": {
+      "adler2@2.0.1": [],
+      "ahash@0.8.12": [
+        "std"
+      ],
+      "aho-corasick@1.1.5": [
+        "perf-literal",
+        "std"
+      ],
+      "alloc-no-stdlib@2.0.4": [],
+      "alloc-stdlib@0.2.4": [],
+      "allocator-api2@0.2.21": [
+        "alloc"
+      ],
+      "android_system_properties@0.1.6": [],
+      "anyhow@1.0.104": [
+        "std"
+      ],
+      "ar_archive_writer@0.5.3": [],
+      "argminmax@0.6.3": [
+        "float",
+        "half"
+      ],
+      "array-init-cursor@0.2.1": [],
+      "arrayvec@0.7.8": [],
+      "async-channel@2.5.0": [
+        "default",
+        "std"
+      ],
+      "async-compression@0.4.48": [
+        "gzip",
+        "tokio"
+      ],
+      "async-stream@0.3.6": [],
+      "async-stream-impl@0.3.6": [],
+      "async-trait@0.1.92": [],
+      "atoi_simd@0.18.1": [
+        "default",
+        "std"
+      ],
+      "atomic-waker@1.1.2": [],
+      "autocfg@1.5.1": [],
+      "base64@0.22.1": [
+        "alloc",
+        "default",
+        "std"
+      ],
+      "bincode@2.0.1": [
+        "alloc",
+        "bincode_derive",
+        "default",
+        "derive",
+        "serde",
+        "std"
+      ],
+      "bincode_derive@2.0.1": [],
+      "bitflags@2.13.2": [
+        "serde",
+        "serde_core",
+        "std"
+      ],
+      "blake3@1.8.7": [
+        "default",
+        "std"
+      ],
+      "block-buffer@0.12.1": [],
+      "boxcar@0.2.14": [],
+      "brotli@8.0.4": [
+        "alloc-stdlib",
+        "default",
+        "std"
+      ],
+      "brotli-decompressor@5.0.3": [
+        "alloc-stdlib",
+        "std"
+      ],
+      "bumpalo@3.20.3": [
+        "default"
+      ],
+      "bytemuck@1.25.2": [
+        "bytemuck_derive",
+        "derive",
+        "extern_crate_alloc",
+        "must_cast"
+      ],
+      "bytemuck_derive@1.12.1": [],
+      "bytes@1.12.1": [
+        "default",
+        "serde",
+        "std"
+      ],
+      "castaway@0.2.4": [
+        "alloc"
+      ],
+      "cc@1.4.6": [
+        "parallel"
+      ],
+      "cfg-if@1.0.5": [],
+      "cfg_aliases@0.2.2": [],
+      "chacha20@0.10.2": [
+        "rng"
+      ],
+      "chrono@0.4.45": [
+        "alloc",
+        "clock",
+        "iana-time-zone",
+        "now",
+        "serde",
+        "std",
+        "winapi",
+        "windows-link"
+      ],
+      "chrono-tz@0.10.4": [
+        "default",
+        "std"
+      ],
+      "clipboard-win@5.4.1": [],
+      "compact_str@0.9.1": [
+        "default",
+        "serde",
+        "std"
+      ],
+      "compression-codecs@0.4.43": [
+        "flate2",
+        "gzip",
+        "memchr"
+      ],
+      "compression-core@0.4.33": [],
+      "concurrent-queue@2.5.0": [
+        "std"
+      ],
+      "const-oid@0.10.2": [],
+      "constant_time_eq@0.4.2": [
+        "std"
+      ],
+      "core-foundation@0.10.1": [
+        "default",
+        "link"
+      ],
+      "core-foundation-sys@0.8.7": [
+        "default",
+        "link"
+      ],
+      "cpufeatures@0.3.1": [],
+      "crc32fast@1.5.2": [
+        "std"
+      ],
+      "critical-section@1.2.0": [],
+      "crossbeam-channel@0.5.17": [
+        "default",
+        "std"
+      ],
+      "crossbeam-deque@0.8.8": [
+        "default",
+        "std"
+      ],
+      "crossbeam-epoch@0.9.21": [
+        "alloc",
+        "std"
+      ],
+      "crossbeam-queue@0.3.14": [
+        "alloc",
+        "default",
+        "std"
+      ],
+      "crossbeam-utils@0.8.23": [
+        "default",
+        "std"
+      ],
+      "crunchy@0.2.4": [
+        "default",
+        "limit_128"
+      ],
+      "crypto-common@0.2.2": [],
+      "debug_unsafe@0.1.4": [],
+      "digest@0.11.3": [
+        "alloc",
+        "block-api",
+        "default",
+        "oid"
+      ],
+      "digest-io@0.1.0": [],
+      "displaydoc@0.2.7": [],
+      "dyn-clone@1.0.20": [],
+      "either@1.18.0": [
+        "default",
+        "std",
+        "use_std"
+      ],
+      "endian-type@0.2.0": [],
+      "equivalent@1.0.2": [],
+      "errno@0.3.14": [
+        "default",
+        "std"
+      ],
+      "error-code@3.4.0": [],
+      "ethnum@1.5.3": [],
+      "event-listener@5.4.2": [
+        "parking",
+        "std"
+      ],
+      "event-listener-strategy@0.5.4": [
+        "std"
+      ],
+      "fallible-streaming-iterator@0.1.9": [],
+      "fast-float2@0.2.4": [
+        "default",
+        "std"
+      ],
+      "fastrand@2.5.0": [
+        "alloc",
+        "default",
+        "std"
+      ],
+      "find-msvc-tools@0.1.12": [],
+      "flate2@1.1.10": [
+        "any_impl",
+        "any_zlib",
+        "default",
+        "miniz_oxide",
+        "runtime_detection",
+        "rust_backend",
+        "zlib-rs"
+      ],
+      "fnv@1.0.7": [
+        "default",
+        "std"
+      ],
+      "foldhash@0.1.5": [],
+      "foldhash@0.2.0": [
+        "default",
+        "std"
+      ],
+      "form_urlencoded@1.2.2": [
+        "alloc",
+        "default",
+        "std"
+      ],
+      "fs4@1.1.0": [
+        "default",
+        "sync"
+      ],
+      "futures@0.3.34": [
+        "alloc",
+        "async-await",
+        "default",
+        "executor",
+        "futures-executor",
+        "std"
+      ],
+      "futures-channel@0.3.34": [
+        "alloc",
+        "default",
+        "futures-sink",
+        "sink",
+        "std"
+      ],
+      "futures-core@0.3.34": [
+        "alloc",
+        "default",
+        "std"
+      ],
+      "futures-executor@0.3.34": [
+        "std"
+      ],
+      "futures-io@0.3.34": [
+        "std"
+      ],
+      "futures-macro@0.3.34": [],
+      "futures-sink@0.3.34": [
+        "alloc",
+        "default",
+        "std"
+      ],
+      "futures-task@0.3.34": [
+        "alloc",
+        "std"
+      ],
+      "futures-util@0.3.34": [
+        "alloc",
+        "async-await",
+        "async-await-macro",
+        "channel",
+        "default",
+        "futures-channel",
+        "futures-io",
+        "futures-macro",
+        "futures-sink",
+        "io",
+        "memchr",
+        "sink",
+        "slab",
+        "std"
+      ],
+      "generator@0.8.9": [],
+      "getrandom@0.2.17": [
+        "js",
+        "js-sys",
+        "wasm-bindgen"
+      ],
+      "getrandom@0.4.3": [
+        "std",
+        "sys_rng",
+        "wasm_js"
+      ],
+      "glob@0.3.4": [],
+      "h2@0.4.19": [],
+      "half@2.7.1": [
+        "alloc",
+        "bytemuck",
+        "default",
+        "num-traits",
+        "serde",
+        "std"
+      ],
+      "hashbrown@0.15.5": [
+        "allocator-api2",
+        "default",
+        "default-hasher",
+        "equivalent",
+        "inline-more",
+        "raw-entry"
+      ],
+      "hashbrown@0.17.1": [
+        "allocator-api2",
+        "default",
+        "default-hasher",
+        "equivalent",
+        "inline-more",
+        "raw-entry",
+        "rayon",
+        "serde"
+      ],
+      "heck@0.5.0": [],
+      "hex@0.4.3": [
+        "alloc",
+        "default",
+        "std"
+      ],
+      "home@0.5.12": [],
+      "http@1.5.0": [
+        "default",
+        "std"
+      ],
+      "http-body@1.1.0": [],
+      "http-body-util@0.1.5": [
+        "default"
+      ],
+      "httparse@1.10.1": [
+        "default",
+        "std"
+      ],
+      "humantime@2.4.0": [],
+      "hybrid-array@0.4.15": [],
+      "hyper@1.11.1": [
+        "client",
+        "default",
+        "http1",
+        "http2"
+      ],
+      "hyper-rustls@0.27.9": [
+        "http1",
+        "http2",
+        "native-tokio",
+        "ring",
+        "rustls-native-certs",
+        "tls12",
+        "webpki-roots",
+        "webpki-tokio"
+      ],
+      "hyper-util@0.1.20": [
+        "client",
+        "client-legacy",
+        "client-proxy",
+        "default",
+        "http1",
+        "http2",
+        "tokio"
+      ],
+      "iana-time-zone@0.1.65": [
+        "fallback"
+      ],
+      "iana-time-zone-haiku@0.1.2": [],
+      "icu_collections@2.3.0": [],
+      "icu_locale_core@2.3.0": [
+        "zerovec"
+      ],
+      "icu_normalizer@2.3.0": [
+        "compiled_data"
+      ],
+      "icu_normalizer_data@2.3.0": [],
+      "icu_properties@2.3.0": [
+        "compiled_data"
+      ],
+      "icu_properties_data@2.3.0": [],
+      "icu_provider@2.3.1": [
+        "baked"
+      ],
+      "idna@1.1.0": [
+        "alloc",
+        "compiled_data",
+        "std"
+      ],
+      "idna_adapter@1.2.2": [
+        "compiled_data"
+      ],
+      "indexmap@2.14.2": [
+        "default",
+        "serde",
+        "std"
+      ],
+      "ipnet@2.12.2": [
+        "default",
+        "std"
+      ],
+      "itertools@0.14.0": [
+        "default",
+        "use_alloc",
+        "use_std"
+      ],
+      "itoa@1.0.18": [],
+      "jiff@0.2.24": [
+        "alloc",
+        "std",
+        "tz-system",
+        "tzdb-bundle-platform",
+        "tzdb-zoneinfo"
+      ],
+      "jiff-static@0.2.24": [
+        "default"
+      ],
+      "jiff-tzdb@0.1.8": [],
+      "jiff-tzdb-platform@0.1.3": [],
+      "jobserver@0.1.35": [],
+      "js-sys@0.3.105": [
+        "default",
+        "std",
+        "unsafe-eval"
+      ],
+      "lazy_static@1.5.0": [],
+      "libc@0.2.189": [
+        "default",
+        "extra_traits",
+        "std"
+      ],
+      "libm@0.2.16": [
+        "arch",
+        "default"
+      ],
+      "linux-raw-sys@0.12.1": [
+        "auxvec",
+        "elf",
+        "errno",
+        "general",
+        "ioctl",
+        "no_std"
+      ],
+      "litemap@0.8.3": [],
+      "lock_api@0.4.14": [
+        "atomic_usize",
+        "default"
+      ],
+      "log@0.4.34": [
+        "alloc",
+        "std"
+      ],
+      "loom@0.7.2": [
+        "default"
+      ],
+      "lru-slab@0.1.3": [],
+      "lz4@1.28.1": [],
+      "lz4-sys@1.11.1+lz4-1.10.0": [],
+      "matchers@0.2.0": [],
+      "memchr@2.8.3": [
+        "alloc",
+        "default",
+        "std"
+      ],
+      "memmap2@0.9.11": [],
+      "miniz_oxide@0.9.1": [
+        "default",
+        "simd",
+        "simd-adler32",
+        "with-alloc"
+      ],
+      "mio@1.2.3": [
+        "net",
+        "os-ext",
+        "os-poll"
+      ],
+      "musli@0.0.124": [
+        "alloc",
+        "std"
+      ],
+      "musli-core@0.0.124": [
+        "alloc",
+        "std"
+      ],
+      "musli-macros@0.0.124": [],
+      "nibble_vec@0.1.0": [],
+      "nix@0.31.3": [
+        "fs",
+        "ioctl",
+        "poll",
+        "process",
+        "signal",
+        "term"
+      ],
+      "now@0.1.3": [],
+      "ntapi@0.4.3": [
+        "default",
+        "user"
+      ],
+      "nu-ansi-term@0.50.3": [
+        "default",
+        "std"
+      ],
+      "num@0.4.3": [
+        "alloc",
+        "num-bigint",
+        "std"
+      ],
+      "num-bigint@0.4.8": [
+        "std"
+      ],
+      "num-complex@0.4.6": [
+        "std"
+      ],
+      "num-derive@0.4.2": [],
+      "num-integer@0.1.47": [
+        "i128",
+        "std"
+      ],
+      "num-iter@0.1.46": [
+        "i128",
+        "std"
+      ],
+      "num-rational@0.4.2": [
+        "num-bigint",
+        "num-bigint-std",
+        "std"
+      ],
+      "num-traits@0.2.19": [
+        "default",
+        "i128",
+        "libm",
+        "std"
+      ],
+      "objc2-core-foundation@0.3.2": [
+        "CFArray",
+        "CFBase",
+        "CFData",
+        "CFDictionary",
+        "CFPlugInCOM",
+        "CFRunLoop",
+        "CFString",
+        "CFURL",
+        "CFUUID",
+        "alloc",
+        "bitflags",
+        "std"
+      ],
+      "objc2-io-kit@0.3.2": [
+        "alloc",
+        "libc",
+        "std"
+      ],
+      "object@0.39.1": [
+        "archive",
+        "coff",
+        "elf",
+        "macho",
+        "pe",
+        "read",
+        "read_core",
+        "std",
+        "xcoff"
+      ],
+      "object_store@0.13.2": [
+        "base64",
+        "cloud",
+        "form_urlencoded",
+        "fs",
+        "http",
+        "http-body-util",
+        "hyper",
+        "quick-xml",
+        "rand",
+        "reqwest",
+        "ring",
+        "serde",
+        "serde_json",
+        "serde_urlencoded",
+        "tokio",
+        "walkdir"
+      ],
+      "once_cell@1.21.4": [
+        "alloc",
+        "critical-section",
+        "default",
+        "portable-atomic",
+        "race",
+        "std"
+      ],
+      "openssl-probe@0.2.1": [],
+      "parking@2.2.1": [],
+      "parking_lot@0.12.5": [
+        "default"
+      ],
+      "parking_lot_core@0.9.12": [],
+      "percent-encoding@2.3.2": [
+        "alloc",
+        "default",
+        "std"
+      ],
+      "phf@0.12.1": [],
+      "phf_shared@0.12.1": [],
+      "pin-project@1.1.13": [],
+      "pin-project-internal@1.1.13": [],
+      "pin-project-lite@0.2.17": [],
+      "pkg-config@0.3.34": [],
+      "planus@1.1.1": [
+        "bytes-cache",
+        "default",
+        "hashbrown",
+        "std",
+        "string-cache",
+        "vtable-cache"
+      ],
+      "polars@0.55.2": [
+        "csv",
+        "dtype-categorical",
+        "lazy",
+        "parquet",
+        "polars-io",
+        "polars-lazy",
+        "polars-ops",
+        "polars-parquet",
+        "streaming"
+      ],
+      "polars-arrow@0.55.2": [
+        "arrow-format",
+        "atoi_simd",
+        "chrono-tz",
+        "compute",
+        "compute_aggregate",
+        "compute_arithmetics",
+        "compute_arithmetics_decimal",
+        "compute_bitwise",
+        "compute_comparison",
+        "compute_temporal",
+        "dtype-array",
+        "dtype-decimal",
+        "io_ipc",
+        "io_ipc_compression",
+        "itoa",
+        "lz4",
+        "serde",
+        "strings",
+        "temporal",
+        "timezones",
+        "zstd"
+      ],
+      "polars-arrow-format@0.2.1": [
+        "default",
+        "ipc",
+        "planus",
+        "serde"
+      ],
+      "polars-async@0.55.2": [],
+      "polars-buffer@0.55.2": [
+        "serde"
+      ],
+      "polars-compute@0.55.2": [
+        "approx_unique",
+        "cast",
+        "dtype-array",
+        "dtype-decimal",
+        "dtype-i128",
+        "gather",
+        "serde"
+      ],
+      "polars-config@0.55.2": [
+        "serde"
+      ],
+      "polars-core@0.55.2": [
+        "algorithm_group_by",
+        "chrono",
+        "chrono-tz",
+        "dtype-array",
+        "dtype-categorical",
+        "dtype-date",
+        "dtype-datetime",
+        "dtype-decimal",
+        "dtype-duration",
+        "dtype-i128",
+        "dtype-i16",
+        "dtype-i8",
+        "dtype-struct",
+        "dtype-time",
+        "lazy",
+        "partition_by",
+        "rand",
+        "rand_distr",
+        "random",
+        "regex",
+        "reinterpret",
+        "rows",
+        "serde",
+        "serde-lazy",
+        "serde_json",
+        "strings",
+        "temporal",
+        "timezones",
+        "zip_with"
+      ],
+      "polars-dtype@0.55.2": [
+        "dtype-categorical",
+        "serde"
+      ],
+      "polars-error@0.55.2": [
+        "arrow-format",
+        "object_store",
+        "regex"
+      ],
+      "polars-expr@0.55.2": [
+        "abs",
+        "arg_where",
+        "binary_encoding",
+        "concat_str",
+        "cov",
+        "cum_agg",
+        "dtype-array",
+        "dtype-categorical",
+        "dtype-date",
+        "dtype-datetime",
+        "dtype-decimal",
+        "dtype-duration",
+        "dtype-i128",
+        "dtype-i16",
+        "dtype-i8",
+        "dtype-struct",
+        "dtype-time",
+        "is_in",
+        "log",
+        "offset_by",
+        "parquet",
+        "peaks",
+        "polars-time",
+        "range",
+        "regex",
+        "rle",
+        "round_series",
+        "sign",
+        "string_normalize",
+        "string_pad",
+        "string_reverse",
+        "strings",
+        "temporal",
+        "timezones",
+        "trigonometry",
+        "unique_counts"
+      ],
+      "polars-io@0.55.2": [
+        "async",
+        "async-trait",
+        "atoi_simd",
+        "chrono",
+        "cloud",
+        "csv",
+        "dtype-categorical",
+        "fast-float2",
+        "fastrand",
+        "file_cache",
+        "futures",
+        "http",
+        "ipc",
+        "itoa",
+        "lazy",
+        "object_store",
+        "parquet",
+        "polars-parquet",
+        "rand",
+        "reqwest",
+        "serde",
+        "serde_json",
+        "simdutf8",
+        "zmij"
+      ],
+      "polars-lazy@0.55.2": [
+        "abs",
+        "binary_encoding",
+        "concat_str",
+        "cov",
+        "cross_join",
+        "csv",
+        "cum_agg",
+        "dtype-array",
+        "dtype-categorical",
+        "dtype-date",
+        "dtype-datetime",
+        "dtype-decimal",
+        "dtype-duration",
+        "dtype-i16",
+        "dtype-i8",
+        "dtype-struct",
+        "dtype-time",
+        "is_in",
+        "list_eval",
+        "log",
+        "meta",
+        "offset_by",
+        "parquet",
+        "polars-stream",
+        "polars-time",
+        "range",
+        "regex",
+        "round_series",
+        "sign",
+        "streaming",
+        "string_normalize",
+        "string_pad",
+        "string_reverse",
+        "strings",
+        "temporal",
+        "timezones",
+        "trigonometry"
+      ],
+      "polars-mem-engine@0.55.2": [
+        "cloud",
+        "csv",
+        "dtype-categorical",
+        "dtype-date",
+        "dtype-datetime",
+        "dtype-decimal",
+        "dtype-duration",
+        "dtype-i16",
+        "dtype-i8",
+        "dtype-struct",
+        "dtype-time",
+        "parquet",
+        "polars-time"
+      ],
+      "polars-ooc@0.55.2": [],
+      "polars-ops@0.55.2": [
+        "abs",
+        "base64",
+        "binary_encoding",
+        "chrono",
+        "chrono-tz",
+        "chunked_ids",
+        "cov",
+        "cross_join",
+        "cum_agg",
+        "dtype-array",
+        "dtype-categorical",
+        "dtype-decimal",
+        "dtype-duration",
+        "dtype-i128",
+        "dtype-struct",
+        "hex",
+        "iejoin",
+        "is_in",
+        "log",
+        "peaks",
+        "rle",
+        "round_series",
+        "search_sorted",
+        "semi_anti_join",
+        "string_normalize",
+        "string_pad",
+        "string_reverse",
+        "strings",
+        "timezones",
+        "unicode-normalization",
+        "unicode-reverse",
+        "unique_counts"
+      ],
+      "polars-parquet@0.55.2": [
+        "async",
+        "async-stream",
+        "brotli",
+        "compression",
+        "flate2",
+        "futures",
+        "gzip",
+        "lz4",
+        "serde",
+        "snap",
+        "snappy",
+        "zstd"
+      ],
+      "polars-parquet-format@0.1.0": [
+        "async",
+        "async-trait",
+        "futures"
+      ],
+      "polars-plan@0.55.2": [
+        "abs",
+        "arg_where",
+        "binary_encoding",
+        "chrono",
+        "chrono-tz",
+        "cloud",
+        "concat_str",
+        "cov",
+        "cross_join",
+        "cse",
+        "csv",
+        "cum_agg",
+        "dtype-array",
+        "dtype-categorical",
+        "dtype-date",
+        "dtype-datetime",
+        "dtype-decimal",
+        "dtype-duration",
+        "dtype-i128",
+        "dtype-i16",
+        "dtype-i8",
+        "dtype-struct",
+        "dtype-time",
+        "iejoin",
+        "is_in",
+        "log",
+        "meta",
+        "offset_by",
+        "parquet",
+        "peaks",
+        "polars-parquet",
+        "polars-time",
+        "range",
+        "regex",
+        "rle",
+        "round_series",
+        "semi_anti_join",
+        "sign",
+        "string_normalize",
+        "string_pad",
+        "string_reverse",
+        "strings",
+        "temporal",
+        "timezones",
+        "trigonometry",
+        "unique_counts"
+      ],
+      "polars-row@0.55.2": [],
+      "polars-schema@0.55.2": [
+        "serde"
+      ],
+      "polars-sql@0.55.2": [
+        "csv",
+        "parquet"
+      ],
+      "polars-stream@0.55.2": [
+        "cloud",
+        "cov",
+        "csv",
+        "cum_agg",
+        "dtype-array",
+        "dtype-categorical",
+        "dtype-date",
+        "dtype-datetime",
+        "dtype-decimal",
+        "dtype-duration",
+        "dtype-i16",
+        "dtype-i8",
+        "dtype-time",
+        "is_in",
+        "log",
+        "parquet",
+        "range",
+        "semi_anti_join",
+        "strings",
+        "temporal"
+      ],
+      "polars-time@0.55.2": [
+        "chrono-tz",
+        "dtype-date",
+        "dtype-datetime",
+        "dtype-duration",
+        "dtype-time",
+        "offset_by",
+        "temporal",
+        "timezones"
+      ],
+      "polars-utils@0.55.2": [
+        "async-utils",
+        "memmap",
+        "mmap",
+        "serde",
+        "sysinfo"
+      ],
+      "portable-atomic@1.15.0": [
+        "require-cas"
+      ],
+      "portable-atomic-util@0.2.8": [
+        "alloc"
+      ],
+      "potential_utf@0.1.6": [
+        "zerovec"
+      ],
+      "proc-macro2@1.0.107": [
+        "default",
+        "proc-macro"
+      ],
+      "psm@0.1.32": [],
+      "quick-xml@0.39.4": [
+        "default",
+        "overlapped-lists",
+        "serde",
+        "serialize"
+      ],
+      "quinn@0.11.12": [
+        "ring",
+        "runtime-tokio",
+        "rustls",
+        "rustls-ring"
+      ],
+      "quinn-proto@0.11.18": [
+        "ring",
+        "rustls-ring"
+      ],
+      "quinn-udp@0.5.15": [
+        "tracing"
+      ],
+      "quote@1.0.47": [
+        "default",
+        "proc-macro"
+      ],
+      "r-efi@6.0.0": [],
+      "radix_trie@0.3.0": [],
+      "rand@0.10.2": [
+        "alloc",
+        "default",
+        "std",
+        "std_rng",
+        "sys_rng",
+        "thread_rng"
+      ],
+      "rand_core@0.10.1": [],
+      "rand_distr@0.6.0": [
+        "alloc",
+        "default",
+        "std"
+      ],
+      "rand_pcg@0.10.2": [],
+      "raw-cpuid@11.6.0": [],
+      "rayon@1.12.0": [],
+      "rayon-core@1.13.0": [],
+      "recursive@0.1.1": [],
+      "recursive-proc-macro-impl@0.1.1": [],
+      "redox_syscall@0.5.18": [
+        "default",
+        "userspace"
+      ],
+      "regex@1.13.1": [
+        "default",
+        "perf",
+        "perf-backtrack",
+        "perf-cache",
+        "perf-dfa",
+        "perf-inline",
+        "perf-literal",
+        "perf-onepass",
+        "std",
+        "unicode",
+        "unicode-age",
+        "unicode-bool",
+        "unicode-case",
+        "unicode-gencat",
+        "unicode-perl",
+        "unicode-script",
+        "unicode-segment"
+      ],
+      "regex-automata@0.4.18": [
+        "alloc",
+        "dfa-build",
+        "dfa-onepass",
+        "dfa-search",
+        "hybrid",
+        "meta",
+        "nfa-backtrack",
+        "nfa-pikevm",
+        "nfa-thompson",
+        "perf-inline",
+        "perf-literal",
+        "perf-literal-multisubstring",
+        "perf-literal-substring",
+        "std",
+        "syntax",
+        "unicode",
+        "unicode-age",
+        "unicode-bool",
+        "unicode-case",
+        "unicode-gencat",
+        "unicode-perl",
+        "unicode-script",
+        "unicode-segment",
+        "unicode-word-boundary"
+      ],
+      "regex-syntax@0.8.11": [
+        "default",
+        "std",
+        "unicode",
+        "unicode-age",
+        "unicode-bool",
+        "unicode-case",
+        "unicode-gencat",
+        "unicode-perl",
+        "unicode-script",
+        "unicode-segment"
+      ],
+      "reqwest@0.12.28": [
+        "__rustls",
+        "__rustls-ring",
+        "__tls",
+        "gzip",
+        "h2",
+        "http2",
+        "json",
+        "rustls-tls",
+        "rustls-tls-native-roots",
+        "rustls-tls-native-roots-no-provider",
+        "rustls-tls-webpki-roots",
+        "rustls-tls-webpki-roots-no-provider",
+        "stream"
+      ],
+      "ring@0.17.14": [
+        "alloc",
+        "default",
+        "dev_urandom_fallback",
+        "std",
+        "wasm32_unknown_unknown_js"
+      ],
+      "rmp@0.8.15": [
+        "default",
+        "std"
+      ],
+      "rmp-serde@1.3.1": [],
+      "rnx@0.0.0": [
+        "count-allocations",
+        "default",
+        "project-sources"
+      ],
+      "rune@0.14.2": [
+        "alloc",
+        "anyhow",
+        "std"
+      ],
+      "rune-alloc@0.14.2": [
+        "alloc",
+        "serde",
+        "std"
+      ],
+      "rune-alloc-macros@0.14.2": [],
+      "rune-core@0.14.2": [
+        "alloc",
+        "default",
+        "musli",
+        "std"
+      ],
+      "rune-macros@0.14.2": [],
+      "rune-tracing@0.14.2": [
+        "default"
+      ],
+      "rune-tracing-macros@0.14.2": [],
+      "rustc-hash@2.1.3": [
+        "default",
+        "std"
+      ],
+      "rustix@1.1.5": [
+        "alloc",
+        "default",
+        "fs",
+        "std"
+      ],
+      "rustls@0.23.45": [
+        "ring",
+        "std",
+        "tls12"
+      ],
+      "rustls-native-certs@0.8.4": [],
+      "rustls-pki-types@1.15.1": [
+        "alloc",
+        "default",
+        "std",
+        "web",
+        "web-time"
+      ],
+      "rustls-webpki@0.103.15": [
+        "alloc",
+        "ring",
+        "std"
+      ],
+      "rustversion@1.0.23": [],
+      "rustyline@18.0.1": [
+        "custom-bindings",
+        "default",
+        "derive",
+        "home",
+        "radix_trie",
+        "rustyline-derive",
+        "with-dirs",
+        "with-file-history"
+      ],
+      "rustyline-derive@0.12.0": [],
+      "ryu@1.0.23": [],
+      "same-file@1.0.6": [],
+      "schannel@0.1.29": [],
+      "scoped-tls@1.0.1": [],
+      "scopeguard@1.2.0": [],
+      "security-framework@3.7.0": [
+        "OSX_10_14",
+        "alpn",
+        "default",
+        "session-tickets"
+      ],
+      "security-framework-sys@2.17.0": [],
+      "serde@1.0.229": [
+        "alloc",
+        "default",
+        "derive",
+        "rc",
+        "serde_derive",
+        "std"
+      ],
+      "serde_core@1.0.229": [
+        "alloc",
+        "rc",
+        "result",
+        "std"
+      ],
+      "serde_derive@1.0.229": [
+        "default"
+      ],
+      "serde_json@1.0.151": [
+        "default",
+        "std"
+      ],
+      "serde_stacker@0.1.14": [],
+      "serde_urlencoded@0.7.1": [],
+      "sha2@0.11.0": [
+        "alloc",
+        "default",
+        "oid"
+      ],
+      "sharded-slab@0.1.7": [],
+      "shlex@2.0.1": [
+        "default",
+        "std"
+      ],
+      "signal-hook@0.4.4": [
+        "channel",
+        "default",
+        "iterator"
+      ],
+      "signal-hook-registry@1.4.8": [],
+      "simd-adler32@0.3.10": [],
+      "simdutf8@0.1.5": [
+        "default",
+        "std"
+      ],
+      "siphasher@1.0.3": [
+        "default",
+        "std"
+      ],
+      "slab@0.4.12": [
+        "default",
+        "std"
+      ],
+      "slotmap@1.1.1": [
+        "default",
+        "std"
+      ],
+      "smallvec@1.16.1": [
+        "const_generics",
+        "const_new"
+      ],
+      "snap@1.1.2": [],
+      "socket2@0.6.5": [
+        "all"
+      ],
+      "sqlparser@0.62.0": [
+        "default",
+        "recursive",
+        "recursive-protection",
+        "sqlparser_derive",
+        "std",
+        "visitor"
+      ],
+      "sqlparser_derive@0.5.0": [],
+      "stable_deref_trait@1.2.1": [],
+      "stacker@0.1.25": [],
+      "static_assertions@1.1.0": [],
+      "streaming-decompression@0.1.2": [],
+      "streaming-iterator@0.1.9": [],
+      "strength_reduce@0.2.4": [],
+      "strum_macros@0.28.0": [],
+      "subtle@2.6.1": [],
+      "syn@2.0.119": [
+        "clone-impls",
+        "default",
+        "derive",
+        "extra-traits",
+        "full",
+        "parsing",
+        "printing",
+        "proc-macro",
+        "visit-mut"
+      ],
+      "syn@3.0.6": [
+        "clone-impls",
+        "default",
+        "derive",
+        "extra-traits",
+        "fold",
+        "full",
+        "parsing",
+        "printing",
+        "proc-macro",
+        "visit",
+        "visit-mut"
+      ],
+      "sync_wrapper@1.0.2": [
+        "futures",
+        "futures-core"
+      ],
+      "synstructure@0.14.0": [
+        "default",
+        "proc-macro"
+      ],
+      "syntree@0.18.0": [
+        "alloc",
+        "std"
+      ],
+      "sysinfo@0.39.6": [
+        "system"
+      ],
+      "thiserror@2.0.20": [
+        "default",
+        "std"
+      ],
+      "thiserror-impl@2.0.20": [],
+      "thread_local@1.1.10": [],
+      "tinystr@0.8.4": [
+        "zerovec"
+      ],
+      "tinyvec@1.13.3": [
+        "alloc",
+        "default"
+      ],
+      "tokio@1.53.1": [
+        "bytes",
+        "default",
+        "fs",
+        "io-util",
+        "libc",
+        "macros",
+        "mio",
+        "net",
+        "rt",
+        "rt-multi-thread",
+        "socket2",
+        "sync",
+        "time",
+        "tokio-macros",
+        "windows-sys"
+      ],
+      "tokio-macros@2.7.2": [],
+      "tokio-rustls@0.26.5": [
+        "ring",
+        "tls12"
+      ],
+      "tokio-util@0.7.19": [
+        "codec",
+        "default",
+        "io",
+        "libc"
+      ],
+      "tower@0.5.3": [
+        "futures-core",
+        "futures-util",
+        "pin-project-lite",
+        "retry",
+        "sync_wrapper",
+        "timeout",
+        "tokio",
+        "util"
+      ],
+      "tower-http@0.6.11": [
+        "decompression-gzip",
+        "follow-redirect",
+        "futures-core",
+        "futures-util",
+        "tokio-util",
+        "tower"
+      ],
+      "tower-layer@0.3.3": [],
+      "tower-service@0.3.3": [],
+      "tracing@0.1.44": [
+        "attributes",
+        "default",
+        "std",
+        "tracing-attributes"
+      ],
+      "tracing-attributes@0.1.31": [],
+      "tracing-core@0.1.36": [
+        "default",
+        "once_cell",
+        "std"
+      ],
+      "tracing-log@0.2.0": [
+        "log-tracer",
+        "std"
+      ],
+      "tracing-subscriber@0.3.23": [
+        "alloc",
+        "ansi",
+        "default",
+        "env-filter",
+        "fmt",
+        "matchers",
+        "nu-ansi-term",
+        "once_cell",
+        "registry",
+        "sharded-slab",
+        "smallvec",
+        "std",
+        "thread_local",
+        "tracing",
+        "tracing-log"
+      ],
+      "try-lock@0.2.5": [],
+      "twox-hash@2.1.4": [
+        "xxhash64"
+      ],
+      "typenum@1.20.1": [
+        "const-generics"
+      ],
+      "unicode-ident@1.0.26": [],
+      "unicode-normalization@0.1.25": [
+        "default",
+        "std"
+      ],
+      "unicode-reverse@1.0.9": [],
+      "unicode-segmentation@1.13.3": [],
+      "unicode-width@0.2.2": [
+        "cjk",
+        "default"
+      ],
+      "untrusted@0.9.0": [],
+      "unty@0.0.4": [],
+      "url@2.5.8": [
+        "default",
+        "std"
+      ],
+      "utf8_iter@1.0.4": [],
+      "utf8parse@0.2.2": [
+        "default"
+      ],
+      "uuid@1.26.1": [
+        "default",
+        "js",
+        "rng",
+        "serde",
+        "std",
+        "v4",
+        "v7"
+      ],
+      "valuable@0.1.1": [
+        "alloc",
+        "std"
+      ],
+      "version_check@0.9.5": [],
+      "virtue@0.0.18": [],
+      "walkdir@2.5.0": [],
+      "want@0.3.1": [],
+      "wasi@0.11.1+wasi-snapshot-preview1": [
+        "default",
+        "std"
+      ],
+      "wasm-bindgen@0.2.128": [
+        "default",
+        "std"
+      ],
+      "wasm-bindgen-futures@0.4.78": [
+        "default",
+        "std"
+      ],
+      "wasm-bindgen-macro@0.2.128": [],
+      "wasm-bindgen-macro-support@0.2.128": [],
+      "wasm-bindgen-shared@0.2.128": [],
+      "wasm-streams@0.4.2": [],
+      "web-sys@0.3.105": [
+        "AbortController",
+        "AbortSignal",
+        "Blob",
+        "BlobPropertyBag",
+        "EventTarget",
+        "File",
+        "FormData",
+        "Headers",
+        "QueuingStrategy",
+        "ReadableByteStreamController",
+        "ReadableStream",
+        "ReadableStreamByobReader",
+        "ReadableStreamByobRequest",
+        "ReadableStreamDefaultController",
+        "ReadableStreamDefaultReader",
+        "ReadableStreamGetReaderOptions",
+        "ReadableStreamReadResult",
+        "ReadableStreamReaderMode",
+        "ReadableStreamType",
+        "ReadableWritablePair",
+        "Request",
+        "RequestCache",
+        "RequestCredentials",
+        "RequestInit",
+        "RequestMode",
+        "Response",
+        "ServiceWorkerGlobalScope",
+        "StreamPipeOptions",
+        "TransformStream",
+        "TransformStreamDefaultController",
+        "Transformer",
+        "UnderlyingSink",
+        "UnderlyingSource",
+        "Window",
+        "WorkerGlobalScope",
+        "WritableStream",
+        "WritableStreamDefaultController",
+        "WritableStreamDefaultWriter",
+        "default",
+        "std"
+      ],
+      "web-time@1.1.0": [],
+      "webpki-roots@1.0.9": [],
+      "winapi@0.3.9": [
+        "cfg",
+        "evntrace",
+        "in6addr",
+        "inaddr",
+        "minwinbase",
+        "ntsecapi",
+        "windef",
+        "winioctl"
+      ],
+      "winapi-i686-pc-windows-gnu@0.4.0": [],
+      "winapi-util@0.1.11": [],
+      "winapi-x86_64-pc-windows-gnu@0.4.0": [],
+      "windows@0.62.2": [
+        "Wdk",
+        "Wdk_System",
+        "Wdk_System_SystemInformation",
+        "Wdk_System_SystemServices",
+        "Wdk_System_Threading",
+        "Win32",
+        "Win32_Foundation",
+        "Win32_Security",
+        "Win32_Security_Authorization",
+        "Win32_System",
+        "Win32_System_Diagnostics",
+        "Win32_System_Diagnostics_Debug",
+        "Win32_System_Diagnostics_ToolHelp",
+        "Win32_System_Kernel",
+        "Win32_System_Memory",
+        "Win32_System_Performance",
+        "Win32_System_Power",
+        "Win32_System_ProcessStatus",
+        "Win32_System_Registry",
+        "Win32_System_RemoteDesktop",
+        "Win32_System_SystemInformation",
+        "Win32_System_SystemServices",
+        "Win32_System_Threading",
+        "Win32_UI",
+        "Win32_UI_Shell",
+        "default",
+        "std"
+      ],
+      "windows-collections@0.3.2": [
+        "std"
+      ],
+      "windows-core@0.62.2": [
+        "default",
+        "std"
+      ],
+      "windows-future@0.3.2": [
+        "std"
+      ],
+      "windows-implement@0.60.2": [],
+      "windows-interface@0.59.3": [],
+      "windows-link@0.2.1": [],
+      "windows-numerics@0.3.1": [
+        "std"
+      ],
+      "windows-result@0.4.1": [
+        "default",
+        "std"
+      ],
+      "windows-strings@0.5.1": [
+        "std"
+      ],
+      "windows-sys@0.52.0": [
+        "Win32",
+        "Win32_Foundation",
+        "Win32_System",
+        "Win32_System_Threading",
+        "default"
+      ],
+      "windows-sys@0.61.2": [
+        "Wdk",
+        "Wdk_Foundation",
+        "Wdk_Storage",
+        "Wdk_Storage_FileSystem",
+        "Wdk_System",
+        "Wdk_System_IO",
+        "Win32",
+        "Win32_Foundation",
+        "Win32_Networking",
+        "Win32_Networking_WinSock",
+        "Win32_Security",
+        "Win32_Security_Authentication",
+        "Win32_Security_Authentication_Identity",
+        "Win32_Security_Credentials",
+        "Win32_Security_Cryptography",
+        "Win32_Storage",
+        "Win32_Storage_FileSystem",
+        "Win32_System",
+        "Win32_System_Com",
+        "Win32_System_Console",
+        "Win32_System_Diagnostics",
+        "Win32_System_Diagnostics_Debug",
+        "Win32_System_Diagnostics_ToolHelp",
+        "Win32_System_IO",
+        "Win32_System_JobObjects",
+        "Win32_System_LibraryLoader",
+        "Win32_System_Memory",
+        "Win32_System_Pipes",
+        "Win32_System_SystemInformation",
+        "Win32_System_SystemServices",
+        "Win32_System_Threading",
+        "Win32_System_Time",
+        "Win32_System_WindowsProgramming",
+        "Win32_UI",
+        "Win32_UI_Input",
+        "Win32_UI_Input_KeyboardAndMouse",
+        "Win32_UI_Shell",
+        "default"
+      ],
+      "windows-targets@0.52.6": [],
+      "windows-threading@0.2.1": [],
+      "windows_aarch64_gnullvm@0.52.6": [],
+      "windows_aarch64_msvc@0.52.6": [],
+      "windows_i686_gnu@0.52.6": [],
+      "windows_i686_gnullvm@0.52.6": [],
+      "windows_i686_msvc@0.52.6": [],
+      "windows_x86_64_gnu@0.52.6": [],
+      "windows_x86_64_gnullvm@0.52.6": [],
+      "windows_x86_64_msvc@0.52.6": [],
+      "writeable@0.6.4": [],
+      "xxhash-rust@0.8.18": [
+        "xxh3"
+      ],
+      "yoke@0.8.3": [
+        "derive",
+        "zerofrom"
+      ],
+      "yoke-derive@0.8.3": [],
+      "zerocopy@0.8.57": [
+        "derive",
+        "simd",
+        "zerocopy-derive"
+      ],
+      "zerocopy-derive@0.8.57": [],
+      "zerofrom@0.1.8": [
+        "derive"
+      ],
+      "zerofrom-derive@0.1.8": [],
+      "zeroize@1.9.0": [
+        "alloc",
+        "default"
+      ],
+      "zerotrie@0.2.5": [
+        "yoke",
+        "zerofrom"
+      ],
+      "zerovec@0.11.8": [
+        "derive",
+        "yoke"
+      ],
+      "zerovec-derive@0.11.6": [],
+      "zlib-rs@0.6.8": [
+        "rust-allocator",
+        "std"
+      ],
+      "zmij@1.0.23": [],
+      "zstd@0.13.3": [
+        "arrays",
+        "default",
+        "legacy",
+        "zdict_builder"
+      ],
+      "zstd-safe@7.3.0": [
+        "arrays",
+        "legacy",
+        "std",
+        "zdict_builder"
+      ],
+      "zstd-sys@2.1.0+zstd.1.5.7": [
+        "legacy",
+        "std",
+        "zdict_builder"
+      ]
+    }
+  }
+}
