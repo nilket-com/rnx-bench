@@ -1,0 +1,526 @@
+[1mdiff --git a/tools/project/src/assembly_probe.rs b/tools/project/src/assembly_probe.rs[m
+[1mindex 7c45da1..01fd63b 100644[m
+[1m--- a/tools/project/src/assembly_probe.rs[m
+[1m+++ b/tools/project/src/assembly_probe.rs[m
+[36m@@ -1,6 +1,7 @@[m
+ //! Test-only adapter around private core functions, not the product CLI.[m
+ mod artifact;[m
+ mod assembly;[m
+[32m+[m[32mmod cache_identity;[m
+ mod fingerprint;[m
+ mod generate;[m
+ mod graph;[m
+[1mdiff --git a/tools/project/src/cache_identity.rs b/tools/project/src/cache_identity.rs[m
+[1mnew file mode 100644[m
+[1mindex 0000000..a2b7472[m
+[1m--- /dev/null[m
+[1m+++ b/tools/project/src/cache_identity.rs[m
+[36m@@ -0,0 +1,305 @@[m
+[32m+[m[32m//! Versioned assembly identity. Private staging for 0061 gate 2; the product[m
+[32m+[m[32m//! workflow does not select or publish shared entries until later gates.[m
+[32m+[m[32m#![allow(dead_code)][m
+[32m+[m[32muse crate::{fingerprint, generate, input, inventory::Inventory, manifest::Manifest, wire};[m
+[32m+[m[32muse serde::{Deserialize, Serialize};[m
+[32m+[m[32muse sha2::{Digest, Sha256};[m
+[32m+[m[32muse std::{[m
+[32m+[m	[32mcollections::BTreeSet,[m
+[32m+[m	[32mpath::{Component, Path, PathBuf},[m
+[32m+[m[32m};[m
+[32m+[m
+[32m+[m[32m#[derive(Clone, Debug, PartialEq, Serialize, Deserialize)][m
+[32m+[m[32m#[serde(deny_unknown_fields)][m
+[32m+[m[32mpub(crate) struct Context {[m
+[32m+[m	[32mpub cache_root: PathBuf,[m
+[32m+[m	[32mpub cargo_home: PathBuf,[m
+[32m+[m	[32mpub rustup_home: Option<PathBuf>,[m
+[32m+[m	[32mpub rustup_toolchain: Option<String>,[m
+[32m+[m	[32mpub rustc: String,[m
+[32m+[m	[32mpub cargo: String,[m
+[32m+[m	[32mpub target: String,[m
+[32m+[m	[32mpub profile: String,[m
+[32m+[m	[32mpub features: Vec<String>,[m
+[32m+[m[32m}[m
+[32m+[m[32m#[derive(Clone, Debug, PartialEq, Serialize, Deserialize)][m
+[32m+[m[32m#[serde(deny_unknown_fields)][m
+[32m+[m[32mstruct Document {[m
+[32m+[m	[32mformat: u32,[m
+[32m+[m	[32mgenerator: u32,[m
+[32m+[m	[32mcontext: Context,[m
+[32m+[m	[32mmanifest: String,[m
+[32m+[m	[32mmain: String,[m
+[32m+[m	[32mcargo_lock_sha256: String,[m
+[32m+[m	[32mnative: Inventory,[m
+[32m+[m[32m}[m
+[32m+[m[32m/// Construction requires a live verified inventory. Decoding validates shape[m
+[32m+[m[32m/// and canonical encoding, not the truth of filesystem or compiler observations.[m
+[32m+[m[32m#[derive(Clone, Debug)][m
+[32m+[m[32mpub(crate) struct Identity {[m
+[32m+[m	[32mdocument: Document,[m
+[32m+[m	[32mbytes: Vec<u8>,[m
+[32m+[m	[32mkey: String,[m
+[32m+[m[32m}[m
+[32m+[m[32mfn digest(bytes: &[u8]) -> String {[m
+[32m+[m	[32mformat!("{:x}", Sha256::digest(bytes))[m
+[32m+[m[32m}[m
+[32m+[m[32mfn valid_digest(s: &str) -> bool {[m
+[32m+[m	[32ms.len() == 64[m
+[32m+[m		[32m&& s.bytes()[m
+[32m+[m			[32m.all(|c| c.is_ascii_digit() || (b'a'..=b'f').contains(&c))[m
+[32m+[m[32m}[m
+[32m+[m[32mfn path(p: &Path) -> Result<(), String> {[m
+[32m+[m	[32mif !p.is_absolute()[m
+[32m+[m		[32m|| p.to_str().is_none()[m
+[32m+[m		[32m|| p.components().collect::<PathBuf>().as_os_str() != p.as_os_str()[m
+[32m+[m		[32m|| p.components()[m
+[32m+[m			[32m.any(|c| matches!(c, Component::ParentDir | Component::CurDir))[m
+[32m+[m	[32m{[m
+[32m+[m		[32mreturn Err("assembly identity requires normalized absolute Unicode paths".into());[m
+[32m+[m	[32m}[m
+[32m+[m	[32mOk(())[m
+[32m+[m[32m}[m
+[32m+[m[32mfn directory(p: &Path) -> Result<PathBuf, String> {[m
+[32m+[m	[32mif !p.is_absolute() || p.to_str().is_none() {[m
+[32m+[m		[32mreturn Err("assembly directory requires an absolute Unicode path".into());[m
+[32m+[m	[32m}[m
+[32m+[m	[32mlet p = p[m
+[32m+[m		[32m.canonicalize()[m
+[32m+[m		[32m.map_err(|e| format!("assembly directory {}: {e}", p.display()))?;[m
+[32m+[m	[32mif !p.is_dir() {[m
+[32m+[m		[32mreturn Err(format!([m
+[32m+[m			[32m"assembly directory is not a directory: {}",[m
+[32m+[m			[32mp.display()[m
+[32m+[m		[32m));[m
+[32m+[m	[32m}[m
+[32m+[m	[32mpath(&p)?;[m
+[32m+[m	[32mOk(p)[m
+[32m+[m[32m}[m
+[32m+[m[32mfn nonempty(s: &str) -> Result<(), String> {[m
+[32m+[m	[32mif s.is_empty() || s.contains('\0') {[m
+[32m+[m		[32mErr("empty or NUL assembly identity field".into())[m
+[32m+[m	[32m} else {[m
+[32m+[m		[32mOk(())[m
+[32m+[m	[32m}[m
+[32m+[m[32m}[m
+[32m+[m[32mfn relative(s: &str) -> Result<(), String> {[m
+[32m+[m	[32mif s.is_empty()[m
+[32m+[m		[32m|| s.contains(['\\', '\0'])[m
+[32m+[m		[32m|| s.split('/').any(|p| p.is_empty() || p == "." || p == "..")[m
+[32m+[m		[32m|| Path::new(s).is_absolute()[m
+[32m+[m	[32m{[m
+[32m+[m		[32mErr("invalid relative inventory path".into())[m
+[32m+[m	[32m} else {[m
+[32m+[m		[32mOk(())[m
+[32m+[m	[32m}[m
+[32m+[m[32m}[m
+[32m+[m[32mimpl Identity {[m
+[32m+[m	[32mpub(crate) fn create([m
+[32m+[m		[32mmanifest: &Manifest,[m
+[32m+[m		[32mbase: &Path,[m
+[32m+[m		[32mmut context: Context,[m
+[32m+[m		[32mmut native: Inventory,[m
+[32m+[m		[32mcargo_lock: &[u8],[m
+[32m+[m	[32m) -> Result<Self, String> {[m
+[32m+[m		[32mif cargo_lock.is_empty() || cargo_lock.len() > input::DOCUMENT_LIMIT {[m
+[32m+[m			[32mreturn Err("Cargo lock is empty or exceeds document allowance".into());[m
+[32m+[m		[32m}[m
+[32m+[m		[32mcontext.cache_root = directory(&context.cache_root)?;[m
+[32m+[m		[32mcontext.cargo_home = directory(&context.cargo_home)?;[m
+[32m+[m		[32mcontext.rustup_home = context.rustup_home.as_deref().map(directory).transpose()?;[m
+[32m+[m		[32mcontext.features.sort();[m
+[32m+[m		[32m// The inventory owns canonical native roots. Refuse a caller handing[m
+[32m+[m		[32m// over a lexical or symlink alias rather than silently rewriting IDs.[m
+[32m+[m		[32mfor tree in &native.trees {[m
+[32m+[m			[32mif directory(&tree.root)? != tree.root {[m
+[32m+[m				[32mreturn Err("native inventory root is not canonical".into());[m
+[32m+[m			[32m}[m
+[32m+[m			[32mif context.cache_root.starts_with(&tree.root)[m
+[32m+[m				[32m|| tree.root.starts_with(&context.cache_root)[m
+[32m+[m			[32m{[m
+[32m+[m				[32mreturn Err("native inputs and assembly cache must not contain one another".into());[m
+[32m+[m			[32m}[m
+[32m+[m		[32m}[m
+[32m+[m		[32mfor tree in &mut native.trees {[m
+[32m+[m			[32mtree.files.sort_by(|a, b| a.path.cmp(&b.path));[m
+[32m+[m		[32m}[m
+[32m+[m		[32mnative.trees.sort_by(|a, b| a.root.cmp(&b.root));[m
+[32m+[m		[32mnative.packages.sort_by(|a, b| a.id.cmp(&b.id));[m
+[32m+[m		[32mnative.external.sort_by(|a, b| a.path.cmp(&b.path));[m
+[32m+[m		[32mlet (manifest, main) = generate::canonical_wrapper(manifest, base)?;[m
+[32m+[m		[32mSelf::from_document(Document {[m
+[32m+[m			[32mformat: 1,[m
+[32m+[m			[32mgenerator: 1,[m
+[32m+[m			[32mcontext,[m
+[32m+[m			[32mmanifest,[m
+[32m+[m			[32mmain,[m
+[32m+[m			[32mcargo_lock_sha256: digest(cargo_lock),[m
+[32m+[m			[32mnative,[m
+[32m+[m		[32m})[m
+[32m+[m	[32m}[m
+[32m+[m	[32mfn from_document(document: Document) -> Result<Self, String> {[m
+[32m+[m		[32mdocument.validate()?;[m
+[32m+[m		[32mlet bytes = wire::encode(&document)?;[m
+[32m+[m		[32mlet key = digest(&bytes);[m
+[32m+[m		[32mOk(Self {[m
+[32m+[m			[32mdocument,[m
+[32m+[m			[32mbytes,[m
+[32m+[m			[32mkey,[m
+[32m+[m		[32m})[m
+[32m+[m	[32m}[m
+[32m+[m	[32mpub(crate) fn decode(bytes: &[u8]) -> Result<Self, String> {[m
+[32m+[m		[32mif bytes.len() > input::DOCUMENT_LIMIT {[m
+[32m+[m			[32mreturn Err("assembly identity exceeds document allowance".into());[m
+[32m+[m		[32m}[m
+[32m+[m		[32mlet doc: Document =[m
+[32m+[m			[32mserde_json::from_slice(bytes).map_err(|e| format!("assembly identity: {e}"))?;[m
+[32m+[m		[32mlet identity = Self::from_document(doc)?;[m
+[32m+[m		[32mif identity.bytes != bytes {[m
+[32m+[m			[32mreturn Err("assembly identity is not canonically encoded".into());[m
+[32m+[m		[32m}[m
+[32m+[m		[32mOk(identity)[m
+[32m+[m	[32m}[m
+[32m+[m	[32mpub(crate) fn key(&self) -> &str {[m
+[32m+[m		[32m&self.key[m
+[32m+[m	[32m}[m
+[32m+[m	[32mpub(crate) fn bytes(&self) -> &[u8] {[m
+[32m+[m		[32m&self.bytes[m
+[32m+[m	[32m}[m
+[32m+[m[32m}[m
+[32m+[m[32mfn strictly_sorted<T: Ord>(values: impl IntoIterator<Item = T>) -> Result<(), String> {[m
+[32m+[m	[32mlet mut previous = None;[m
+[32m+[m	[32mfor value in values {[m
+[32m+[m		[32mif previous.as_ref().is_some_and(|p| p >= &value) {[m
+[32m+[m			[32mreturn Err("assembly identity collection is unsorted or duplicated".into());[m
+[32m+[m		[32m}[m
+[32m+[m		[32mprevious = Some(value);[m
+[32m+[m	[32m}[m
+[32m+[m	[32mOk(())[m
+[32m+[m[32m}[m
+[32m+[m[32mimpl Document {[m
+[32m+[m	[32mfn validate(&self) -> Result<(), String> {[m
+[32m+[m		[32mif self.format != 1 || self.generator != 1 {[m
+[32m+[m			[32mreturn Err("unsupported assembly identity/generator version".into());[m
+[32m+[m		[32m}[m
+[32m+[m		[32mlet c = &self.context;[m
+[32m+[m		[32mfor p in [&c.cache_root, &c.cargo_home] {[m
+[32m+[m			[32mpath(p)?;[m
+[32m+[m		[32m}[m
+[32m+[m		[32mif let Some(p) = &c.rustup_home {[m
+[32m+[m			[32mpath(p)?;[m
+[32m+[m		[32m}[m
+[32m+[m		[32mif let Some(s) = &c.rustup_toolchain {[m
+[32m+[m			[32mnonempty(s)?;[m
+[32m+[m		[32m}[m
+[32m+[m		[32mfor s in [[m
+[32m+[m			[32m&c.rustc,[m
+[32m+[m			[32m&c.cargo,[m
+[32m+[m			[32m&c.target,[m
+[32m+[m			[32m&c.profile,[m
+[32m+[m			[32m&self.manifest,[m
+[32m+[m			[32m&self.main,[m
+[32m+[m			[32m&self.native.platform,[m
+[32m+[m		[32m] {[m
+[32m+[m			[32mnonempty(s)?;[m
+[32m+[m		[32m}[m
+[32m+[m		[32mstrictly_sorted(c.features.iter())?;[m
+[32m+[m		[32mfor f in &c.features {[m
+[32m+[m			[32mnonempty(f)?;[m
+[32m+[m		[32m}[m
+[32m+[m		[32mif !valid_digest(&self.cargo_lock_sha256) {[m
+[32m+[m			[32mreturn Err("invalid Cargo lock digest".into());[m
+[32m+[m		[32m}[m
+[32m+[m		[32mlet n = &self.native;[m
+[32m+[m		[32mif n.trees.is_empty()[m
+[32m+[m			[32m|| n.packages.is_empty()[m
+[32m+[m			[32m|| n.trees.len() > fingerprint::ENTRIES[m
+[32m+[m			[32m|| n.packages.len() > fingerprint::ENTRIES[m
+[32m+[m			[32m|| n.external.len() > fingerprint::ENTRIES[m
+[32m+[m		[32m{[m
+[32m+[m			[32mreturn Err("invalid assembly inventory counts".into());[m
+[32m+[m		[32m}[m
+[32m+[m		[32mstrictly_sorted(n.trees.iter().map(|t| &t.root))?;[m
+[32m+[m		[32mstrictly_sorted(n.packages.iter().map(|p| &p.id))?;[m
+[32m+[m		[32mstrictly_sorted(n.external.iter().map(|e| &e.path))?;[m
+[32m+[m		[32mlet mut entries = 0usize;[m
+[32m+[m		[32mlet mut bytes = 0u64;[m
+[32m+[m		[32mlet mut file = |f: &wire::File| -> Result<(), String> {[m
+[32m+[m			[32mrelative(&f.path)?;[m
+[32m+[m			[32mif !valid_digest(&f.sha256) {[m
+[32m+[m				[32mreturn Err("invalid inventory digest".into());[m
+[32m+[m			[32m}[m
+[32m+[m			[32mentries += 1;[m
+[32m+[m			[32mbytes = bytes[m
+[32m+[m				[32m.checked_add(f.bytes)[m
+[32m+[m				[32m.ok_or("inventory size overflow")?;[m
+[32m+[m			[32mif entries > fingerprint::ENTRIES || bytes > fingerprint::BYTES {[m
+[32m+[m				[32mreturn Err("assembly inventory exceeds shared allowance".into());[m
+[32m+[m			[32m}[m
+[32m+[m			[32mOk(())[m
+[32m+[m		[32m};[m
+[32m+[m		[32mfor t in &n.trees {[m
+[32m+[m			[32mpath(&t.root)?;[m
+[32m+[m			[32mif !valid_digest(&t.sha256) {[m
+[32m+[m				[32mreturn Err("invalid native tree digest".into());[m
+[32m+[m			[32m}[m
+[32m+[m			[32mif c.cache_root.starts_with(&t.root) || t.root.starts_with(&c.cache_root) {[m
+[32m+[m				[32mreturn Err("native inputs overlap assembly cache".into());[m
+[32m+[m			[32m}[m
+[32m+[m			[32mstrictly_sorted(t.files.iter().map(|f| &f.path))?;[m
+[32m+[m			[32mfor f in &t.files {[m
+[32m+[m				[32mfile(f)?;[m
+[32m+[m			[32m}[m
+[32m+[m		[32m}[m
+[32m+[m		[32mlet mut associations = BTreeSet::new();[m
+[32m+[m		[32mfor p in &n.packages {[m
+[32m+[m			[32mpath(&p.root)?;[m
+[32m+[m			[32mpath(&p.manifest)?;[m
+[32m+[m			[32mnonempty(&p.id)?;[m
+[32m+[m			[32mnonempty(&p.name)?;[m
+[32m+[m			[32mif p.manifest != p.root.join("Cargo.toml")[m
+[32m+[m				[32m|| !n.trees.iter().any(|t| t.root == p.root)[m
+[32m+[m				[32m|| !associations.insert((&p.root, &p.name))[m
+[32m+[m			[32m{[m
+[32m+[m				[32mreturn Err("invalid native package association".into());[m
+[32m+[m			[32m}[m
+[32m+[m		[32m}[m
+[32m+[m		[32mlet wrapper: toml::Value =[m
+[32m+[m			[32mtoml::from_str(&self.manifest).map_err(|e| format!("assembly manifest: {e}"))?;[m
+[32m+[m		[32mlet dependencies = wrapper[m
+[32m+[m			[32m.get("dependencies")[m
+[32m+[m			[32m.and_then(toml::Value::as_table)[m
+[32m+[m			[32m.ok_or("assembly manifest has no dependencies")?;[m
+[32m+[m		[32mif !dependencies.contains_key("rnx") {[m
+[32m+[m			[32mreturn Err("assembly manifest has no rnx dependency".into());[m
+[32m+[m		[32m}[m
+[32m+[m		[32mfor (alias, dependency) in dependencies {[m
+[32m+[m			[32mlet root = dependency[m
+[32m+[m				[32m.get("path")[m
+[32m+[m				[32m.and_then(toml::Value::as_str)[m
+[32m+[m				[32m.ok_or("assembly dependency needs a path")?;[m
+[32m+[m			[32mlet name = dependency[m
+[32m+[m				[32m.get("package")[m
+[32m+[m				[32m.and_then(toml::Value::as_str)[m
+[32m+[m				[32m.unwrap_or(alias);[m
+[32m+[m			[32mpath(Path::new(root))?;[m
+[32m+[m			[32mif !n[m
+[32m+[m				[32m.packages[m
+[32m+[m				[32m.iter()[m
+[32m+[m				[32m.any(|p| p.root == Path::new(root) && p.name == name)[m
+[32m+[m			[32m{[m
+[32m+[m				[32mreturn Err("assembly dependency missing from native inventory".into());[m
+[32m+[m			[32m}[m
+[32m+[m		[32m}[m
+[32m+[m		[32mfor e in &n.external {[m
+[32m+[m			[32mpath(&e.path)?;[m
+[32m+[m			[32mif let Some(f) = &e.file {[m
+[32m+[m				[32mfile(f)?;[m
+[32m+[m			[32m}[m
+[32m+[m		[32m}[m
+[32m+[m		[32mOk(())[m
+[32m+[m	[32m}[m
+[32m+[m[32m}[m
+[32m+[m
+[32m+[m[32m#[cfg(test)][m
+[32m+[m[32mmod tests;[m
+[1mdiff --git a/tools/project/src/cache_identity/tests.rs b/tools/project/src/cache_identity/tests.rs[m
+[1mnew file mode 100644[m
+[1mindex 0000000..87f3a13[m
+[1m--- /dev/null[m
+[1m+++ b/tools/project/src/cache_identity/tests.rs[m
+[36m@@ -0,0 +1,142 @@[m
+[32m+[m[32m//! Synthetic document tests pin persisted identity and refusal contracts.[m
+[32m+[m[32m//! Real filesystem/Cargo projections are exercised by the external gate fixture.[m
+[32m+[m[32muse super::*;[m
+[32m+[m[32muse crate::inventory::{Association, External};[m
+[32m+[m[32mfn document() -> Document {[m
+[32m+[m	[32mlet base = std::env::temp_dir().join("rnx-identity-shape");[m
+[32m+[m	[32mlet native = base.join("native");[m
+[32m+[m	[32mDocument {[m
+[32m+[m		[32mformat: 1,[m
+[32m+[m		[32mgenerator: 1,[m
+[32m+[m		[32mcontext: Context {[m
+[32m+[m			[32mcache_root: base.join("cache"),[m
+[32m+[m			[32mcargo_home: base.join("cargo"),[m
+[32m+[m			[32mrustup_home: None,[m
+[32m+[m			[32mrustup_toolchain: None,[m
+[32m+[m			[32mrustc: "rustc fixture".into(),[m
+[32m+[m			[32mcargo: "cargo fixture".into(),[m
+[32m+[m			[32mtarget: "fixture-target".into(),[m
+[32m+[m			[32mprofile: "release".into(),[m
+[32m+[m			[32mfeatures: vec!["project-sources".into()],[m
+[32m+[m		[32m},[m
+[32m+[m		[32mmanifest: format!([m
+[32m+[m			[32m"[dependencies.rnx]\npath={}\n",[m
+[32m+[m			[32mtoml::Value::String(native.to_str().unwrap().into())[m
+[32m+[m		[32m),[m
+[32m+[m		[32mmain: "fn main(){rnx::main_with(rnx::Extensions::none())}".into(),[m
+[32m+[m		[32mcargo_lock_sha256: "a".repeat(64),[m
+[32m+[m		[32mnative: Inventory {[m
+[32m+[m			[32mplatform: "fixture-platform".into(),[m
+[32m+[m			[32mpackages: vec![Association {[m
+[32m+[m				[32mid: "fixture-package-id".into(),[m
+[32m+[m				[32mname: "rnx".into(),[m
+[32m+[m				[32mmanifest: native.join("Cargo.toml"),[m
+[32m+[m				[32mroot: native.clone(),[m
+[32m+[m			[32m}],[m
+[32m+[m			[32mtrees: vec![fingerprint::Tree {[m
+[32m+[m				[32mroot: native.clone(),[m
+[32m+[m				[32msha256: "b".repeat(64),[m
+[32m+[m				[32mfiles: vec![wire::File {[m
+[32m+[m					[32mpath: "Cargo.toml".into(),[m
+[32m+[m					[32mbytes: 0,[m
+[32m+[m					[32mexecutable: false,[m
+[32m+[m					[32msha256: "c".repeat(64),[m
+[32m+[m				[32m}],[m
+[32m+[m			[32m}],[m
+[32m+[m			[32mexternal: vec![External {[m
+[32m+[m				[32mpath: base.join("config.toml"),[m
+[32m+[m				[32mfile: None,[m
+[32m+[m			[32m}],[m
+[32m+[m		[32m},[m
+[32m+[m	[32m}[m
+[32m+[m[32m}[m
+[32m+[m[32m#[test][m
+[32m+[m[32mfn persisted_identity_is_strict_and_canonical() {[m
+[32m+[m	[32mlet good = Identity::from_document(document()).unwrap();[m
+[32m+[m	[32mlet again = Identity::decode(good.bytes()).unwrap();[m
+[32m+[m	[32massert_eq!(good.key(), again.key());[m
+[32m+[m	[32massert_eq!(good.bytes(), again.bytes());[m
+[32m+[m	[32mlet mut value: serde_json::Value = serde_json::from_slice(good.bytes()).unwrap();[m
+[32m+[m	[32mvalue["unknown"] = true.into();[m
+[32m+[m	[32massert!(Identity::decode(&serde_json::to_vec(&value).unwrap()).is_err());[m
+[32m+[m	[32mvalue.as_object_mut().unwrap().remove("unknown");[m
+[32m+[m	[32mvalue["context"]["unknown"] = true.into();[m
+[32m+[m	[32massert!(Identity::decode(&serde_json::to_vec(&value).unwrap()).is_err());[m
+[32m+[m	[32mlet mut spaced = good.bytes().to_vec();[m
+[32m+[m	[32mspaced.push(b'\n');[m
+[32m+[m	[32massert!(Identity::decode(&spaced).is_err());[m
+[32m+[m	[32mlet duplicate = String::from_utf8(good.bytes().to_vec()).unwrap().replacen([m
+[32m+[m		[32m"\"format\":1",[m
+[32m+[m		[32m"\"format\":1,\"format\":1",[m
+[32m+[m		[32m1,[m
+[32m+[m	[32m);[m
+[32m+[m	[32massert!(Identity::decode(duplicate.as_bytes()).is_err());[m
+[32m+[m	[32mfor mutate in [[m
+[32m+[m		[32m|d: &mut Document| d.format = 2,[m
+[32m+[m		[32m|d: &mut Document| d.generator = 2,[m
+[32m+[m		[32m|d: &mut Document| d.cargo_lock_sha256 = "Z".repeat(64),[m
+[32m+[m		[32m|d: &mut Document| d.context.features.push("project-sources".into()),[m
+[32m+[m	[32m] {[m
+[32m+[m		[32mlet mut d = document();[m
+[32m+[m		[32mmutate(&mut d);[m
+[32m+[m		[32massert!(Identity::from_document(d).is_err());[m
+[32m+[m	[32m}[m
+[32m+[m[32m}[m
+[32m+[m[32m#[test][m
+[32m+[m[32mfn build_context_changes_cannot_reuse_a_key() {[m
+[32m+[m	[32mlet baseline = Identity::from_document(document()).unwrap();[m
+[32m+[m	[32mlet changes: Vec<fn(&mut Document)> = vec![[m
+[32m+[m		[32m|d| d.context.cache_root.push("other"),[m
+[32m+[m		[32m|d| d.context.cargo_home.push("other"),[m
+[32m+[m		[32m|d| d.context.rustup_home = Some(d.context.cargo_home.join("rustup")),[m
+[32m+[m		[32m|d| d.context.rustup_toolchain = Some("fixture-toolchain".into()),[m
+[32m+[m		[32m|d| d.context.rustc.push_str(" changed"),[m
+[32m+[m		[32m|d| d.context.cargo.push_str(" changed"),[m
+[32m+[m		[32m|d| d.context.target = "another-target".into(),[m
+[32m+[m		[32m|d| d.context.profile = "debug".into(),[m
+[32m+[m		[32m|d| d.context.features.push("second-feature".into()),[m
+[32m+[m		[32m|d| d.cargo_lock_sha256 = "d".repeat(64),[m
+[32m+[m		[32m|d| d.main.push_str("\n// different generated registration\n"),[m
+[32m+[m		[32m|d| d.native.trees[0].sha256 = "e".repeat(64),[m
+[32m+[m		[32m|d| {[m
+[32m+[m			[32md.native.external[0].file = Some(wire::File {[m
+[32m+[m				[32mpath: "config.toml".into(),[m
+[32m+[m				[32mbytes: 3,[m
+[32m+[m				[32mexecutable: false,[m
+[32m+[m				[32msha256: "f".repeat(64),[m
+[32m+[m			[32m})[m
+[32m+[m		[32m},[m
+[32m+[m	[32m];[m
+[32m+[m	[32mfor mutate in changes {[m
+[32m+[m		[32mlet mut doc = document();[m
+[32m+[m		[32mmutate(&mut doc);[m
+[32m+[m		[32massert_ne!(baseline.key(), Identity::from_document(doc).unwrap().key());[m
+[32m+[m	[32m}[m
+[32m+[m[32m}[m
+[32m+[m[32m#[test][m
+[32m+[m[32mfn inventory_associations_and_bounds_are_not_optional() {[m
+[32m+[m	[32mlet mut doc = document();[m
+[32m+[m	[32mdoc.native.packages[0].root.push("missing");[m
+[32m+[m	[32massert!(Identity::from_document(doc).is_err());[m
+[32m+[m	[32mlet mut doc = document();[m
+[32m+[m	[32mdoc.native.packages[0].name = "not-rnx".into();[m
+[32m+[m	[32massert!(Identity::from_document(doc).is_err());[m
+[32m+[m	[32mlet mut doc = document();[m
+[32m+[m	[32mdoc.native.trees.push(doc.native.trees[0].clone());[m
+[32m+[m	[32massert!(Identity::from_document(doc).is_err());[m
+[32m+[m	[32mlet mut doc = document();[m
+[32m+[m	[32mdoc.native.trees[0].files[0].path = "../escape".into();[m
+[32m+[m	[32massert!(Identity::from_document(doc).is_err());[m
+[32m+[m	[32mlet mut doc = document();[m
+[32m+[m	[32mdoc.native.trees[0].files[0].bytes = fingerprint::BYTES;[m
+[32m+[m	[32massert!(Identity::from_document(doc.clone()).is_ok());[m
+[32m+[m	[32mdoc.native.trees[0].files[0].bytes += 1;[m
+[32m+[m	[32massert!(Identity::from_document(doc).is_err());[m
+[32m+[m	[32mlet mut doc = document();[m
+[32m+[m	[32mdoc.main = "x".repeat(input::DOCUMENT_LIMIT);[m
+[32m+[m	[32massert!(Identity::from_document(doc).is_err());[m
+[32m+[m	[32massert!(Identity::decode(&vec![b' '; input::DOCUMENT_LIMIT + 1]).is_err());[m
+[32m+[m	[32mlet mut doc = document();[m
+[32m+[m	[32mdoc.context.cache_root = doc.native.trees[0].root.join("cache");[m
+[32m+[m	[32massert!(Identity::from_document(doc).is_err());[m
+[32m+[m[32m}[m
+[1mdiff --git a/tools/project/src/generate.rs b/tools/project/src/generate.rs[m
+[1mindex f9fcbf1..ef710c5 100644[m
+[1m--- a/tools/project/src/generate.rs[m
+[1m+++ b/tools/project/src/generate.rs[m
+[36m@@ -74,3 +74,27 @@[m [mpub(crate) fn wrapper(manifest: &Manifest, base: &Path) -> Result<(String, Strin[m
+ 	};[m
+ 	Ok((toml::to_string(&cargo).map_err(|e| e.to_string())?, main))[m
+ }[m
+[32m+[m
+[32m+[m[32m/// Shared assembly generation resolves native locations without changing the[m
+[32m+[m[32m/// legacy per-project wrapper or normalizing paths inside native source bytes.[m
+[32m+[m[32mpub(crate) fn canonical_wrapper([m
+[32m+[m	[32mmanifest: &Manifest,[m
+[32m+[m	[32mbase: &Path,[m
+[32m+[m[32m) -> Result<(String, String), String> {[m
+[32m+[m	[32mlet mut manifest = manifest.clone();[m
+[32m+[m	[32mlet canonical = |path: &str| -> Result<String, String> {[m
+[32m+[m		[32mbase.join(path)[m
+[32m+[m			[32m.canonicalize()[m
+[32m+[m			[32m.map_err(|e| format!("native path {path}: {e}"))?[m
+[32m+[m			[32m.into_os_string()[m
+[32m+[m			[32m.into_string()[m
+[32m+[m			[32m.map_err(|_| "native path is not Unicode".into())[m
+[32m+[m	[32m};[m
+[32m+[m	[32mif let Some(runtime) = &mut manifest.runtime {[m
+[32m+[m		[32mruntime.path = canonical(&runtime.path)?;[m
+[32m+[m	[32m}[m
+[32m+[m	[32mfor native in manifest.native.values_mut() {[m
+[32m+[m		[32mnative.path = canonical(&native.path)?;[m
+[32m+[m	[32m}[m
+[32m+[m	[32mwrapper(&manifest, base)[m
+[32m+[m[32m}[m
+[1mdiff --git a/tools/project/src/lib.rs b/tools/project/src/lib.rs[m
+[1mindex fdae343..9d264d1 100644[m
+[1m--- a/tools/project/src/lib.rs[m
+[1m+++ b/tools/project/src/lib.rs[m
+[36m@@ -1,6 +1,7 @@[m
+ //! Private implementation for record 0057. Product commands follow input gates.[m
+ mod artifact;[m
+ mod assembly;[m
+[32m+[m[32mmod cache_identity;[m
+ mod fingerprint;[m
+ mod generate;[m
+ mod graph;[m
+[1mdiff --git a/tools/project/src/main.rs b/tools/project/src/main.rs[m
+[1mindex ec4e229..5d3011d 100644[m
+[1m--- a/tools/project/src/main.rs[m
+[1m+++ b/tools/project/src/main.rs[m
+[36m@@ -1,5 +1,6 @@[m
+ mod artifact;[m
+ mod assembly;[m
+[32m+[m[32mmod cache_identity;[m
+ mod commands;[m
+ mod fingerprint;[m
+ mod generate;[m

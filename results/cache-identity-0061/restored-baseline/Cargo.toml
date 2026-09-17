@@ -1,0 +1,15 @@
+[package]
+name = "rnx-project-app"
+version = "0.0.0"
+edition = "2024"
+publish = false
+
+[workspace]
+
+[dependencies.native_0]
+package = "identity-adapter"
+path = "/tmp/rnx-cache-identity-7csferkf/native/adapter"
+
+[dependencies.rnx]
+path = "/tmp/rnx-cache-identity-7csferkf/native/runtime"
+features = ["project-sources"]
