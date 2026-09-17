@@ -197,3 +197,7 @@ tokio current-thread runtime.
 - `package-loader/` — record 0057 gate 1: alias mounts through the real bounded
   loader, distinct diamond types, source attribution, read accounting, and
   private graph expansion with exact limits. Results: `results/package-loader-0057/`.
+
+- `package-inputs/` — record 0057 gate 2: bounded manifests/locks/source maps,
+  explicit runner handoff, generated-wrapper validation and capability exchange.
+  Results: `results/package-inputs-0057/`.
