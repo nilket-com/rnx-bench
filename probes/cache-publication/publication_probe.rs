@@ -1,8 +1,11 @@
 //! Isolated gate-one adapter. The imported modules are byte-identical to the
 //! accepted product; this file is prototype policy, not a public cache API.
 #![allow(dead_code)]
+mod artifact;
+mod cache_entry;
 mod cache_identity;
 mod cache_storage;
+mod commands;
 mod fingerprint;
 mod generate;
 mod graph;
@@ -247,9 +250,82 @@ fn run() -> Result<(), String> {
 		_ => Err("invalid prototype arguments".into()),
 	}
 }
+
+fn entry_run(args: &[std::ffi::OsString]) -> Result<(), String> {
+	use std::io::Write;
+	commands::install_signals()?;
+	let identity = cache_identity::Identity::decode(&input::read(
+		Path::new(&args[1]),
+		input::DOCUMENT_LIMIT,
+	)?)?;
+	if args[0] == "ready-check" {
+		let (path, digest) = cache_entry::ready(&identity)?;
+		artifact::check(&path, &digest, None, true)?;
+		return Ok(());
+	}
+	let project = Path::new(&args[3]);
+	let guard = fs::OpenOptions::new()
+		.read(true)
+		.write(true)
+		.create(true)
+		.truncate(false)
+		.open(project.join("fixture-project.lock"))
+		.map_err(error)?;
+	guard.try_lock().map_err(error)?;
+	let read_project = || -> Result<Vec<Vec<u8>>, String> {
+		["rnx.toml", "main.rn", "fixture-locked"]
+			.iter()
+			.map(|n| input::read(&project.join(n), input::DOCUMENT_LIMIT))
+			.collect()
+	};
+	let before = read_project()?;
+	let receipt = project.join("fixture-receipt.json");
+	if receipt.exists() {
+		fs::remove_file(&receipt).map_err(error)?;
+	}
+	let lock = input::read(Path::new(&args[2]), input::DOCUMENT_LIMIT)?;
+	let entry = cache_entry::acquire(&identity, &lock, project, true, || {
+		if read_project()? != before {
+			Err("project sources/lock changed".into())
+		} else {
+			Ok(())
+		}
+	})?;
+	if std::env::var_os("RNX_FIXTURE_ATTACH_FAIL").is_some() {
+		return Err("injected attachment publication failure".into());
+	}
+	let bytes = wire::pretty(
+		&serde_json::json!({"key":identity.key(),"path":entry.artifact.path(),"digest":entry.digest,"hit":entry.hit}),
+	)?;
+	let temp = project.join("fixture-receipt.new");
+	let mut f = fs::File::create(&temp).map_err(error)?;
+	f.write_all(&bytes).map_err(error)?;
+	f.sync_all().map_err(error)?;
+	drop(f);
+	commands::check()?;
+	fs::rename(&temp, &receipt).map_err(error)?;
+	fs::File::open(project)
+		.and_then(|f| f.sync_all())
+		.map_err(error)?;
+	println!("{}", String::from_utf8(bytes).map_err(error)?);
+	Ok(())
+}
 fn main() {
-	if let Err(e) = run() {
+	let args: Vec<_> = std::env::args_os().skip(1).collect();
+	let result = if args
+		.first()
+		.is_some_and(|a| a == "entry" || a == "ready-check")
+	{
+		entry_run(&args)
+	} else {
+		run()
+	};
+	if let Err(e) = result {
 		eprintln!("{e}");
-		std::process::exit(1);
+		std::process::exit(if commands::interrupted() {
+			commands::signal_status()
+		} else {
+			1
+		});
 	}
 }
