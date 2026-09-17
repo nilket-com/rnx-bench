@@ -1,0 +1,647 @@
+[1mdiff --git a/tools/project/src/artifact.rs b/tools/project/src/artifact.rs[m
+[1mnew file mode 100644[m
+[1mindex 0000000..7d0f1d5[m
+[1m--- /dev/null[m
+[1m+++ b/tools/project/src/artifact.rs[m
+[36m@@ -0,0 +1,342 @@[m
+[32m+[m[32m//! Private validated artifact capability and versioned receipt.[m
+[32m+[m[32m#![allow(dead_code)] // Also built by the isolated assembly probe/library tests.[m
+[32m+[m[32muse crate::fingerprint;[m
+[32m+[m[32muse serde::{Deserialize, Serialize};[m
+[32m+[m[32muse std::{[m
+[32m+[m	[32mfs,[m
+[32m+[m	[32mpath::{Path, PathBuf},[m
+[32m+[m[32m};[m
+[32m+[m
+[32m+[m[32m#[derive(Clone, Debug, PartialEq, Eq, Serialize, Deserialize)][m
+[32m+[m[32m#[serde(deny_unknown_fields)][m
+[32m+[m[32mpub(crate) struct Stamp {[m
+[32m+[m	[32mbytes: u64,[m
+[32m+[m	[32mmtime_seconds: i64,[m
+[32m+[m	[32mmtime_nanoseconds: u32,[m
+[32m+[m	[32mexecutable: bool,[m
+[32m+[m	[32m#[cfg(unix)][m
+[32m+[m	[32mdevice: u64,[m
+[32m+[m	[32m#[cfg(unix)][m
+[32m+[m	[32minode: u64,[m
+[32m+[m[32m}[m
+[32m+[m[32mimpl Stamp {[m
+[32m+[m	[32mfn from_metadata(m: &fs::Metadata) -> Result<Self, String> {[m
+[32m+[m		[32mif !m.is_file() || m.len() > fingerprint::BYTES {[m
+[32m+[m			[32mreturn Err("artifact must be a bounded regular file".into());[m
+[32m+[m		[32m}[m
+[32m+[m		[32m#[cfg(unix)][m
+[32m+[m		[32m{[m
+[32m+[m			[32muse std::os::unix::fs::MetadataExt;[m
+[32m+[m			[32mlet ns = u32::try_from(m.mtime_nsec()).map_err(|_| "invalid artifact mtime")?;[m
+[32m+[m			[32mif ns >= 1_000_000_000 {[m
+[32m+[m				[32mreturn Err("invalid artifact mtime".into());[m
+[32m+[m			[32m}[m
+[32m+[m			[32mOk(Self {[m
+[32m+[m				[32mbytes: m.len(),[m
+[32m+[m				[32mmtime_seconds: m.mtime(),[m
+[32m+[m				[32mmtime_nanoseconds: ns,[m
+[32m+[m				[32mexecutable: m.mode() & 0o111 != 0,[m
+[32m+[m				[32mdevice: m.dev(),[m
+[32m+[m				[32minode: m.ino(),[m
+[32m+[m			[32m})[m
+[32m+[m		[32m}[m
+[32m+[m		[32m#[cfg(not(unix))][m
+[32m+[m		[32m{[m
+[32m+[m			[32muse std::time::UNIX_EPOCH;[m
+[32m+[m			[32mlet time = m.modified().map_err(|e| e.to_string())?;[m
+[32m+[m			[32mlet (sec, ns) = match time.duration_since(UNIX_EPOCH) {[m
+[32m+[m				[32mOk(d) => ([m
+[32m+[m					[32mi64::try_from(d.as_secs()).map_err(|_| "mtime out of range")?,[m
+[32m+[m					[32md.subsec_nanos(),[m
+[32m+[m				[32m),[m
+[32m+[m				[32mErr(e) => {[m
+[32m+[m					[32mlet d = e.duration();[m
+[32m+[m					[32mlet s = i64::try_from(d.as_secs()).map_err(|_| "mtime out of range")?;[m
+[32m+[m					[32mif d.subsec_nanos() == 0 {[m
+[32m+[m						[32m(-s, 0)[m
+[32m+[m					[32m} else {[m
+[32m+[m						[32m([m
+[32m+[m							[32ms.checked_neg()[m
+[32m+[m								[32m.and_then(|v| v.checked_sub(1))[m
+[32m+[m								[32m.ok_or("mtime out of range")?,[m
+[32m+[m							[32m1_000_000_000 - d.subsec_nanos(),[m
+[32m+[m						[32m)[m
+[32m+[m					[32m}[m
+[32m+[m				[32m}[m
+[32m+[m			[32m};[m
+[32m+[m			[32mOk(Self {[m
+[32m+[m				[32mbytes: m.len(),[m
+[32m+[m				[32mmtime_seconds: sec,[m
+[32m+[m				[32mmtime_nanoseconds: ns,[m
+[32m+[m				[32mexecutable: false,[m
+[32m+[m			[32m})[m
+[32m+[m		[32m}[m
+[32m+[m	[32m}[m
+[32m+[m[32m}[m
+[32m+[m[32m#[derive(Serialize, Deserialize)][m
+[32m+[m[32m#[serde(deny_unknown_fields)][m
+[32m+[m[32mpub(crate) struct Receipt {[m
+[32m+[m	[32mpub format: u32,[m
+[32m+[m	[32mpub lock_sha256: String,[m
+[32m+[m	[32mpub executable_sha256: String,[m
+[32m+[m	[32m#[serde(default, skip_serializing_if = "Option::is_none")][m
+[32m+[m	[32mpub stamp: Option<Stamp>,[m
+[32m+[m[32m}[m
+[32m+[m[32mpub(crate) fn digest_valid(s: &str) -> bool {[m
+[32m+[m	[32ms.len() == 64[m
+[32m+[m		[32m&& s.bytes()[m
+[32m+[m			[32m.all(|b| b.is_ascii_digit() || (b'a'..=b'f').contains(&b))[m
+[32m+[m[32m}[m
+[32m+[m[32mimpl Receipt {[m
+[32m+[m	[32mpub fn decode(bytes: &[u8]) -> Result<Self, String> {[m
+[32m+[m		[32mlet r: Self = serde_json::from_slice(bytes).map_err(|e| format!("invalid receipt: {e}"))?;[m
+[32m+[m		[32mif !digest_valid(&r.lock_sha256) || !digest_valid(&r.executable_sha256) {[m
+[32m+[m			[32mreturn Err("invalid receipt digest".into());[m
+[32m+[m		[32m}[m
+[32m+[m		[32mmatch (r.format, &r.stamp) {[m
+[32m+[m			[32m(1, None) => (),[m
+[32m+[m			[32m(2, Some(s))[m
+[32m+[m				[32mif s.bytes <= fingerprint::BYTES && s.mtime_nanoseconds < 1_000_000_000 => {}[m
+[32m+[m			[32m_ => return Err("invalid receipt version or stamp".into()),[m
+[32m+[m		[32m}[m
+[32m+[m		[32mOk(r)[m
+[32m+[m	[32m}[m
+[32m+[m[32m}[m
+[32m+[m[32mpub(crate) struct Checked {[m
+[32m+[m	[32mpath: PathBuf,[m
+[32m+[m	[32mstamp: Stamp,[m
+[32m+[m[32m}[m
+[32m+[m[32mimpl Checked {[m
+[32m+[m	[32mpub fn path(&self) -> &Path {[m
+[32m+[m		[32m&self.path[m
+[32m+[m	[32m}[m
+[32m+[m	[32mpub fn recheck(&self) -> Result<(), String> {[m
+[32m+[m		[32mif inspect(&self.path)? != self.stamp {[m
+[32m+[m			[32mreturn Err("artifact changed before receipt publication".into());[m
+[32m+[m		[32m}[m
+[32m+[m		[32mOk(())[m
+[32m+[m	[32m}[m
+[32m+[m	[32mpub fn stamp(&self) -> Stamp {[m
+[32m+[m		[32mself.stamp.clone()[m
+[32m+[m	[32m}[m
+[32m+[m[32m}[m
+[32m+[m[32mfn inspect(path: &Path) -> Result<Stamp, String> {[m
+[32m+[m	[32mlet name = path[m
+[32m+[m		[32m.file_name()[m
+[32m+[m		[32m.and_then(|s| s.to_str())[m
+[32m+[m		[32m.ok_or("artifact has no Unicode filename")?;[m
+[32m+[m	[32mif name.contains('\\') {[m
+[32m+[m		[32mreturn Err("artifact filename contains backslash".into());[m
+[32m+[m	[32m}[m
+[32m+[m	[32mlet meta = fs::symlink_metadata(path).map_err(|e| e.to_string())?;[m
+[32m+[m	[32mif !meta.is_file() {[m
+[32m+[m		[32mreturn Err("artifact is not a regular file".into());[m
+[32m+[m	[32m}[m
+[32m+[m	[32mlet mut o = fs::OpenOptions::new();[m
+[32m+[m	[32mo.read(true);[m
+[32m+[m	[32m#[cfg(unix)][m
+[32m+[m	[32m{[m
+[32m+[m		[32muse std::os::unix::fs::OpenOptionsExt;[m
+[32m+[m		[32mo.custom_flags(libc::O_NOFOLLOW | libc::O_NONBLOCK);[m
+[32m+[m	[32m}[m
+[32m+[m	[32mlet f = o.open(path).map_err(|e| e.to_string())?;[m
+[32m+[m	[32mStamp::from_metadata(&f.metadata().map_err(|e| e.to_string())?)[m
+[32m+[m[32m}[m
+[32m+[m[32m/// A matching stamp permits no payload read; all other paths retain the known digest.[m
+[32m+[m[32mpub(crate) fn check([m
+[32m+[m	[32mpath: &Path,[m
+[32m+[m	[32mexpected: &str,[m
+[32m+[m	[32mprevious: Option<&Stamp>,[m
+[32m+[m	[32mforce: bool,[m
+[32m+[m[32m) -> Result<Checked, String> {[m
+[32m+[m	[32mlet work = || -> Result<Checked, String> {[m
+[32m+[m		[32mif !digest_valid(expected) {[m
+[32m+[m			[32mreturn Err("invalid executable digest".into());[m
+[32m+[m		[32m}[m
+[32m+[m		[32mlet initial = inspect(path)?;[m
+[32m+[m		[32mif !force && previous == Some(&initial) {[m
+[32m+[m			[32mreturn Ok(Checked {[m
+[32m+[m				[32mpath: path.to_owned(),[m
+[32m+[m				[32mstamp: initial,[m
+[32m+[m			[32m});[m
+[32m+[m		[32m}[m
+[32m+[m		[32mlet (file, before, after) =[m
+[32m+[m			[32mfingerprint::one_observed(path, &mut fingerprint::Allowance::default())?;[m
+[32m+[m		[32mif file.sha256 != expected {[m
+[32m+[m			[32mreturn Err("hash mismatch; run build (or relock an intended override)".into());[m
+[32m+[m		[32m}[m
+[32m+[m		[32mlet before = Stamp::from_metadata(&before)?;[m
+[32m+[m		[32mlet after = Stamp::from_metadata(&after)?;[m
+[32m+[m		[32mif initial != before || before != after || after != inspect(path)? {[m
+[32m+[m			[32mreturn Err("changed during artifact verification".into());[m
+[32m+[m		[32m}[m
+[32m+[m		[32m#[cfg(feature = "test-support")][m
+[32m+[m		[32mpause("artifact-hashed")?;[m
+[32m+[m		[32m// A pause hook tests the hash-to-stamp boundary. No fresh metadata is trusted.[m
+[32m+[m		[32mif after != inspect(path)? {[m
+[32m+[m			[32mreturn Err("changed after artifact verification".into());[m
+[32m+[m		[32m}[m
+[32m+[m		[32mOk(Checked {[m
+[32m+[m			[32mpath: path.to_owned(),[m
+[32m+[m			[32mstamp: after,[m
+[32m+[m		[32m})[m
+[32m+[m	[32m};[m
+[32m+[m	[32mwork().map_err(|e| format!("executable {}: {e}", path.display()))[m
+[32m+[m[32m}[m
+[32m+[m[32m#[cfg(feature = "test-support")][m
+[32m+[m[32mpub(crate) fn observed_read(path: &Path, n: usize) {[m
+[32m+[m	[32mif std::env::var_os("RNX_PROJECT_COUNT_ARTIFACT").as_deref() == Some(path.as_os_str())[m
+[32m+[m		[32m&& let Some(out) = std::env::var_os("RNX_PROJECT_READ_LOG")[m
+[32m+[m	[32m{[m
+[32m+[m		[32muse std::io::Write;[m
+[32m+[m		[32mif let Ok(mut f) = fs::OpenOptions::new().create(true).append(true).open(out) {[m
+[32m+[m			[32mlet _ = writeln!(f, "{n}");[m
+[32m+[m		[32m}[m
+[32m+[m	[32m}[m
+[32m+[m[32m}[m
+[32m+[m[32m#[cfg(feature = "test-support")][m
+[32m+[m[32mfn pause(name: &str) -> Result<(), String> {[m
+[32m+[m	[32mif std::env::var("RNX_PROJECT_PAUSE").ok().as_deref() == Some(name) {[m
+[32m+[m		[32mlet p =[m
+[32m+[m			[32mPathBuf::from(std::env::var_os("RNX_PROJECT_PAUSE_FILE").ok_or("pause file missing")?);[m
+[32m+[m		[32mfs::write(&p, name).map_err(|e| e.to_string())?;[m
+[32m+[m		[32mwhile p.exists() {[m
+[32m+[m			[32mstd::thread::sleep(std::time::Duration::from_millis(10));[m
+[32m+[m		[32m}[m
+[32m+[m	[32m}[m
+[32m+[m	[32mOk(())[m
+[32m+[m[32m}[m
+[32m+[m
+[32m+[m[32m#[cfg(test)][m
+[32m+[m[32mmod tests {[m
+[32m+[m	[32muse super::*;[m
+[32m+[m	[32muse std::{[m
+[32m+[m		[32msync::atomic::{AtomicUsize, Ordering},[m
+[32m+[m		[32mtime::{Duration, UNIX_EPOCH},[m
+[32m+[m	[32m};[m
+[32m+[m	[32mstruct Temp(PathBuf);[m
+[32m+[m	[32mimpl Temp {[m
+[32m+[m		[32mfn new() -> Self {[m
+[32m+[m			[32mstatic N: AtomicUsize = AtomicUsize::new(0);[m
+[32m+[m			[32mlet p = std::env::temp_dir().join(format!([m
+[32m+[m				[32m"rnx-stamp-{}-{}",[m
+[32m+[m				[32mstd::process::id(),[m
+[32m+[m				[32mN.fetch_add(1, Ordering::Relaxed)[m
+[32m+[m			[32m));[m
+[32m+[m			[32mfs::create_dir(&p).unwrap();[m
+[32m+[m			[32mSelf(p)[m
+[32m+[m		[32m}[m
+[32m+[m	[32m}[m
+[32m+[m	[32mimpl Drop for Temp {[m
+[32m+[m		[32mfn drop(&mut self) {[m
+[32m+[m			[32mfs::remove_dir_all(&self.0).unwrap();[m
+[32m+[m		[32m}[m
+[32m+[m	[32m}[m
+[32m+[m	[32mfn set_time(p: &Path, t: std::time::SystemTime) {[m
+[32m+[m		[32mfs::File::options()[m
+[32m+[m			[32m.write(true)[m
+[32m+[m			[32m.open(p)[m
+[32m+[m			[32m.unwrap()[m
+[32m+[m			[32m.set_times(fs::FileTimes::new().set_modified(t))[m
+[32m+[m			[32m.unwrap();[m
+[32m+[m	[32m}[m
+[32m+[m	[32m#[test][m
+[32m+[m	[32mfn metadata_default_and_explicit_hash_have_the_documented_difference() {[m
+[32m+[m		[32mlet t = Temp::new();[m
+[32m+[m		[32mlet p = t.0.join("inert");[m
+[32m+[m		[32mfs::write(&p, b"first").unwrap();[m
+[32m+[m		[32mlet digest = crate::assembly::executable_hash(&p).unwrap();[m
+[32m+[m		[32mlet original = check(&p, &digest, None, false).unwrap();[m
+[32m+[m		[32mlet stamp = original.stamp();[m
+[32m+[m		[32mlet time = fs::metadata(&p).unwrap().modified().unwrap();[m
+[32m+[m		[32massert_eq!([m
+[32m+[m			[32mcheck(&p, &digest, Some(&stamp), false).unwrap().stamp(),[m
+[32m+[m			[32mstamp[m
+[32m+[m		[32m);[m
+[32m+[m		[32mfs::write(&p, b"other").unwrap();[m
+[32m+[m		[32mset_time(&p, time);[m
+[32m+[m		[32massert_eq!(inspect(&p).unwrap(), stamp);[m
+[32m+[m		[32m// Inert bytes are checked, never executed. This is the intentional miss.[m
+[32m+[m		[32massert!(check(&p, &digest, Some(&stamp), false).is_ok());[m
+[32m+[m		[32massert!(check(&p, &digest, Some(&stamp), true).is_err());[m
+[32m+[m		[32mset_time(&p, time + Duration::from_secs(1));[m
+[32m+[m		[32massert!(check(&p, &digest, Some(&stamp), false).is_err());[m
+[32m+[m		[32mfs::write(&p, b"first").unwrap();[m
+[32m+[m		[32mset_time(&p, time + Duration::from_secs(2));[m
+[32m+[m		[32mlet fresh = check(&p, &digest, Some(&stamp), false).unwrap();[m
+[32m+[m		[32massert_ne!(fresh.stamp(), stamp);[m
+[32m+[m		[32mfs::write(&p, b"longer").unwrap();[m
+[32m+[m		[32massert!(fresh.recheck().is_err());[m
+[32m+[m		[32massert!(check(&p, &digest, Some(&fresh.stamp()), false).is_err());[m
+[32m+[m	[32m}[m
+[32m+[m	[32m#[cfg(unix)][m
+[32m+[m	[32m#[test][m
+[32m+[m	[32mfn replacement_mode_and_pre_epoch_time_are_observed() {[m
+[32m+[m		[32muse std::os::unix::fs::{PermissionsExt, symlink};[m
+[32m+[m		[32mlet t = Temp::new();[m
+[32m+[m		[32mlet p = t.0.join("inert");[m
+[32m+[m		[32mfs::write(&p, b"first").unwrap();[m
+[32m+[m		[32mset_time(&p, UNIX_EPOCH - Duration::from_nanos(1));[m
+[32m+[m		[32mlet digest = crate::assembly::executable_hash(&p).unwrap();[m
+[32m+[m		[32mlet old = check(&p, &digest, None, true).unwrap().stamp();[m
+[32m+[m		[32massert_eq!([m
+[32m+[m			[32m(old.mtime_seconds, old.mtime_nanoseconds),[m
+[32m+[m			[32m(-1, 999_999_999)[m
+[32m+[m		[32m);[m
+[32m+[m		[32mlet held = fs::File::open(&p).unwrap();[m
+[32m+[m		[32mlet replacement = t.0.join("new");[m
+[32m+[m		[32mfs::write(&replacement, b"other").unwrap();[m
+[32m+[m		[32mset_time(&replacement, UNIX_EPOCH - Duration::from_nanos(1));[m
+[32m+[m		[32mfs::rename(&replacement, &p).unwrap();[m
+[32m+[m		[32massert_ne!(old.inode, inspect(&p).unwrap().inode);[m
+[32m+[m		[32massert!(check(&p, &digest, Some(&old), false).is_err());[m
+[32m+[m		[32mdrop(held);[m
+[32m+[m		[32mfs::write(&replacement, b"first").unwrap();[m
+[32m+[m		[32mfs::rename(&replacement, &p).unwrap();[m
+[32m+[m		[32mlet fresh = check(&p, &digest, Some(&old), false).unwrap().stamp();[m
+[32m+[m		[32massert_ne!(old, fresh);[m
+[32m+[m		[32mfs::set_permissions(&p, fs::Permissions::from_mode(0o755)).unwrap();[m
+[32m+[m		[32massert!([m
+[32m+[m			[32mcheck(&p, &digest, Some(&fresh), false)[m
+[32m+[m				[32m.unwrap()[m
+[32m+[m				[32m.stamp()[m
+[32m+[m				[32m.executable[m
+[32m+[m		[32m);[m
+[32m+[m		[32mlet link = t.0.join("link");[m
+[32m+[m		[32msymlink(&p, &link).unwrap();[m
+[32m+[m		[32massert!(check(&link, &digest, None, true).is_err());[m
+[32m+[m		[32mfs::File::options()[m
+[32m+[m			[32m.write(true)[m
+[32m+[m			[32m.open(&p)[m
+[32m+[m			[32m.unwrap()[m
+[32m+[m			[32m.set_len(fingerprint::BYTES + 1)[m
+[32m+[m			[32m.unwrap();[m
+[32m+[m		[32massert!(check(&p, &digest, None, true).is_err());[m
+[32m+[m	[32m}[m
+[32m+[m	[32m#[test][m
+[32m+[m	[32mfn receipt_versions_and_fields_are_validated() {[m
+[32m+[m		[32mlet t = Temp::new();[m
+[32m+[m		[32mlet p = t.0.join("inert");[m
+[32m+[m		[32mfs::write(&p, b"data").unwrap();[m
+[32m+[m		[32mlet digest = crate::assembly::executable_hash(&p).unwrap();[m
+[32m+[m		[32mlet stamp = check(&p, &digest, None, true).unwrap().stamp();[m
+[32m+[m		[32mlet legacy =[m
+[32m+[m			[32mserde_json::json!({"format":1,"lock_sha256":digest,"executable_sha256":digest});[m
+[32m+[m		[32massert!(Receipt::decode(&serde_json::to_vec(&legacy).unwrap()).is_ok());[m
+[32m+[m		[32mlet current = serde_json::json!({"format":2,"lock_sha256":digest,"executable_sha256":digest,"stamp":stamp});[m
+[32m+[m		[32massert!(Receipt::decode(&serde_json::to_vec(&current).unwrap()).is_ok());[m
+[32m+[m		[32mfor (key, value) in [[m
+[32m+[m			[32m("format", serde_json::json!(99)),[m
+[32m+[m			[32m("stamp", serde_json::Value::Null),[m
+[32m+[m			[32m("lock_sha256", serde_json::json!("bad")),[m
+[32m+[m			[32m("unexpected", serde_json::json!(true)),[m
+[32m+[m		[32m] {[m
+[32m+[m			[32mlet mut bad = current.clone();[m
+[32m+[m			[32mbad[key] = value;[m
+[32m+[m			[32massert!(Receipt::decode(&serde_json::to_vec(&bad).unwrap()).is_err());[m
+[32m+[m		[32m}[m
+[32m+[m		[32mlet mut bad = current.clone();[m
+[32m+[m		[32mbad["stamp"]["mtime_nanoseconds"] = serde_json::json!(1_000_000_000u32);[m
+[32m+[m		[32massert!(Receipt::decode(&serde_json::to_vec(&bad).unwrap()).is_err());[m
+[32m+[m	[32m}[m
+[32m+[m[32m}[m
+[1mdiff --git a/tools/project/src/assembly.rs b/tools/project/src/assembly.rs[m
+[1mindex b679aea..f0fda1b 100644[m
+[1m--- a/tools/project/src/assembly.rs[m
+[1m+++ b/tools/project/src/assembly.rs[m
+[36m@@ -48,7 +48,16 @@[m [mpub(crate) fn command([m
+ 	entry: &Path,[m
+ 	args: &[OsString],[m
+ ) -> Result<Command, String> {[m
+[31m-	verify(executable, expected)?;[m
+[32m+[m	[32mlet checked = crate::artifact::check(executable, expected, None, true)?;[m
+[32m+[m	[32mcommand_checked(&checked, map, entry, args)[m
+[32m+[m[32m}[m
+[32m+[m[32mpub(crate) fn command_checked([m
+[32m+[m	[32mchecked: &crate::artifact::Checked,[m
+[32m+[m	[32mmap: Option<&Path>,[m
+[32m+[m	[32mentry: &Path,[m
+[32m+[m	[32margs: &[OsString],[m
+[32m+[m[32m) -> Result<Command, String> {[m
+[32m+[m	[32mlet executable = checked.path();[m
+ 	let mut command = Command::new(executable);[m
+ 	command.arg("run");[m
+ 	if let Some(path) = map {[m
+[1mdiff --git a/tools/project/src/assembly_probe.rs b/tools/project/src/assembly_probe.rs[m
+[1mindex 06d7ac4..7c45da1 100644[m
+[1m--- a/tools/project/src/assembly_probe.rs[m
+[1m+++ b/tools/project/src/assembly_probe.rs[m
+[36m@@ -1,4 +1,5 @@[m
+ //! Test-only adapter around private core functions, not the product CLI.[m
+[32m+[m[32mmod artifact;[m
+ mod assembly;[m
+ mod fingerprint;[m
+ mod generate;[m
+[1mdiff --git a/tools/project/src/fingerprint.rs b/tools/project/src/fingerprint.rs[m
+[1mindex 02382c9..8afb8f8 100644[m
+[1m--- a/tools/project/src/fingerprint.rs[m
+[1m+++ b/tools/project/src/fingerprint.rs[m
+[36m@@ -120,7 +120,7 @@[m [mfn hash_files(root: &Path, paths: Vec<PathBuf>, allowance: &mut Allowance) -> Re[m
+ 	tree.update(b"rnx-tree-v1\0");[m
+ 	let mut files = vec![];[m
+ 	for (name, relative) in ordered {[m
+[31m-		files.push(hash_file(root, relative, name, allowance, Some(&mut tree))?);[m
+[32m+[m		[32mfiles.push(hash_file(root, relative, name, allowance, Some(&mut tree))?.0);[m
+ 	}[m
+ 	Ok(Tree {[m
+ 		root: root.to_owned(),[m
+[36m@@ -135,7 +135,7 @@[m [mfn hash_file([m
+ 	name: String,[m
+ 	allowance: &mut Allowance,[m
+ 	mut tree: Option<&mut Sha256>,[m
+[31m-) -> Result<wire::File, String> {[m
+[32m+[m[32m) -> Result<(wire::File, fs::Metadata, fs::Metadata), String> {[m
+ 	components_no_links(root, &relative)?;[m
+ 	let path = root.join(relative);[m
+ 	let before = regular(&path)?;[m
+[36m@@ -180,6 +180,8 @@[m [mfn hash_file([m
+ 			tree.update(&buffer[..n]);[m
+ 		}[m
+ 		content.update(&buffer[..n]);[m
+[32m+[m		[32m#[cfg(feature = "test-support")][m
+[32m+[m		[32mcrate::artifact::observed_read(&path, n);[m
+ 	}[m
+ 	// The detection byte is charged too; never read it beyond the global allowance.[m
+ 	if allowance.bytes == 0 {[m
+[36m@@ -197,12 +199,16 @@[m [mfn hash_file([m
+ 	if after.len() != opened.len() || executable(&after) != executable(&opened) {[m
+ 		return Err(fail(&path, "file changed during read"));[m
+ 	}[m
+[31m-	Ok(wire::File {[m
+[31m-		path: name,[m
+[31m-		executable: executable(&opened),[m
+[31m-		bytes: opened.len(),[m
+[31m-		sha256: format!("{:x}", content.finalize()),[m
+[31m-	})[m
+[32m+[m	[32mOk(([m
+[32m+[m		[32mwire::File {[m
+[32m+[m			[32mpath: name,[m
+[32m+[m			[32mexecutable: executable(&opened),[m
+[32m+[m			[32mbytes: opened.len(),[m
+[32m+[m			[32msha256: format!("{:x}", content.finalize()),[m
+[32m+[m		[32m},[m
+[32m+[m		[32mopened,[m
+[32m+[m		[32mafter,[m
+[32m+[m	[32m))[m
+ }[m
+ [m
+ fn root(path: &Path) -> Result<PathBuf, String> {[m
+[36m@@ -256,6 +262,12 @@[m [mpub(crate) fn source([m
+ 	hash_files(&root, paths, allowance)[m
+ }[m
+ pub(crate) fn one(path: &Path, allowance: &mut Allowance) -> Result<wire::File, String> {[m
+[32m+[m	[32mOk(one_observed(path, allowance)?.0)[m
+[32m+[m[32m}[m
+[32m+[m[32mpub(crate) fn one_observed([m
+[32m+[m	[32mpath: &Path,[m
+[32m+[m	[32mallowance: &mut Allowance,[m
+[32m+[m[32m) -> Result<(wire::File, fs::Metadata, fs::Metadata), String> {[m
+ 	allowance.entry()?;[m
+ 	let root = path.parent().ok_or("input has no parent")?;[m
+ 	let name = path.file_name().ok_or("input has no name")?;[m
+[1mdiff --git a/tools/project/src/lib.rs b/tools/project/src/lib.rs[m
+[1mindex 91cb257..fdae343 100644[m
+[1m--- a/tools/project/src/lib.rs[m
+[1m+++ b/tools/project/src/lib.rs[m
+[36m@@ -1,4 +1,5 @@[m
+ //! Private implementation for record 0057. Product commands follow input gates.[m
+[32m+[m[32mmod artifact;[m
+ mod assembly;[m
+ mod fingerprint;[m
+ mod generate;[m
+[1mdiff --git a/tools/project/src/main.rs b/tools/project/src/main.rs[m
+[1mindex a1abe51..ec4e229 100644[m
+[1m--- a/tools/project/src/main.rs[m
+[1m+++ b/tools/project/src/main.rs[m
+[36m@@ -1,3 +1,4 @@[m
+[32m+[m[32mmod artifact;[m
+ mod assembly;[m
+ mod commands;[m
+ mod fingerprint;[m
+[1mdiff --git a/tools/project/src/workflow.rs b/tools/project/src/workflow.rs[m
+[1mindex ca4d9f9..7a385d2 100644[m
+[1m--- a/tools/project/src/workflow.rs[m
+[1m+++ b/tools/project/src/workflow.rs[m
+[36m@@ -1,3 +1,4 @@[m
+[32m+[m[32muse crate::artifact::{self, Receipt};[m
+ use crate::{[m
+ 	assembly, commands,[m
+ 	fingerprint::Allowance,[m
+[36m@@ -5,7 +6,6 @@[m [muse crate::{[m
+ 	manifest::Manifest,[m
+ 	wire::{self, Assembly, Handoff, Inputs, Lock},[m
+ };[m
+[31m-use serde::{Deserialize, Serialize};[m
+ use sha2::{Digest, Sha256};[m
+ use std::{[m
+ 	ffi::OsString,[m
+[36m@@ -20,13 +20,6 @@[m [mfn hash(bytes: &[u8]) -> String {[m
+ fn err(e: impl std::fmt::Display) -> String {[m
+ 	e.to_string()[m
+ }[m
+[31m-#[derive(Serialize, Deserialize)][m
+[31m-#[serde(deny_unknown_fields)][m
+[31m-struct Receipt {[m
+[31m-	format: u32,[m
+[31m-	lock_sha256: String,[m
+[31m-	executable_sha256: String,[m
+[31m-}[m
+ struct Project {[m
+ 	manifest: PathBuf,[m
+ 	base: PathBuf,[m
+[36m@@ -196,7 +189,7 @@[m [mimpl Project {[m
+ 					return Err("generated assembly changed; run lock".into());[m
+ 				}[m
+ 			}[m
+[31m-			Assembly::Executable { path, sha256 } => assembly::verify(Path::new(path), sha256)?,[m
+[32m+[m			[32mAssembly::Executable { .. } => (),[m
+ 		}[m
+ 		commands::check()[m
+ 	}[m
+[36m@@ -383,10 +376,12 @@[m [mimpl Project {[m
+ 		File::open(&temp).and_then(|f| f.sync_all()).map_err(err)?;[m
+ 		fs::rename(temp, &artifact).map_err(err)?;[m
+ 		self.verify_inputs(&lock)?;[m
+[32m+[m		[32mlet checked = artifact::check(&artifact, &digest, None, true)?;[m
+ 		self.atomic([m
+ 			&receipt,[m
+ 			&wire::pretty(&Receipt {[m
+[31m-				format: 1,[m
+[32m+[m				[32mformat: 2,[m
+[32m+[m				[32mstamp: Some(checked.stamp()),[m
+ 				lock_sha256: hash(&bytes),[m
+ 				executable_sha256: digest,[m
+ 			})?,[m
+[36m@@ -394,46 +389,62 @@[m [mimpl Project {[m
+ 		eprintln!("built {}", artifact.display());[m
+ 		Ok(())[m
+ 	}[m
+[31m-	fn run(self, args: Vec<OsString>) -> Result<(), String> {[m
+[32m+[m	[32mfn run(self, args: Vec<OsString>, verify: bool) -> Result<(), String> {[m
+ 		let (lock, bytes) = self.read_lock()?;[m
+ 		self.verify_inputs(&lock)?;[m
+[31m-		let (path, digest) = match &lock.assembly {[m
+[31m-			Assembly::Executable { path, sha256 } => (PathBuf::from(path), sha256.clone()),[m
+[32m+[m		[32mlet lock_digest = hash(&bytes);[m
+[32m+[m		[32mlet receipt_path = self.dot.join("receipt.json");[m
+[32m+[m		[32mlet receipt = match fs::symlink_metadata(&receipt_path) {[m
+[32m+[m			[32mErr(e) if e.kind() == std::io::ErrorKind::NotFound => None,[m
+[32m+[m			[32mErr(e) => return Err(err(e)),[m
+[32m+[m			[32mOk(m) if !m.is_file() => return Err("receipt is not a regular file".into()),[m
+[32m+[m			[32mOk(_) => Some(Receipt::decode(&input::read([m
+[32m+[m				[32m&receipt_path,[m
+[32m+[m				[32minput::DOCUMENT_LIMIT,[m
+[32m+[m			[32m)?)?),[m
+[32m+[m		[32m};[m
+[32m+[m		[32mlet (path, digest, stamp) = match &lock.assembly {[m
+[32m+[m			[32mAssembly::Executable { path, sha256 } => {[m
+[32m+[m				[32mlet stamp = receipt[m
+[32m+[m					[32m.as_ref()[m
+[32m+[m					[32m.filter(|r| r.lock_sha256 == lock_digest && r.executable_sha256 == *sha256)[m
+[32m+[m					[32m.and_then(|r| r.stamp.as_ref());[m
+[32m+[m				[32m(PathBuf::from(path), sha256.clone(), stamp)[m
+[32m+[m			[32m}[m
+ 			Assembly::Generated { .. } => {[m
+[31m-				let receipt: Receipt = serde_json::from_slice([m
+[31m-					&input::read(&self.dot.join("receipt.json"), input::DOCUMENT_LIMIT)[m
+[31m-						.map_err(|e| format!("{e}; run build"))?,[m
+[31m-				)[m
+[31m-				.map_err(|e| format!("invalid receipt: {e}; run build"))?;[m
+[31m-				if receipt.format != 1 || receipt.lock_sha256 != hash(&bytes) {[m
+[32m+[m				[32mlet r = receipt.as_ref().ok_or("missing receipt; run build")?;[m
+[32m+[m				[32mif r.lock_sha256 != lock_digest {[m
+ 					return Err("build receipt does not match lock; run build".into());[m
+ 				}[m
+[31m-				if receipt.executable_sha256.len() != 64[m
+[31m-					|| !receipt[m
+[31m-						.executable_sha256[m
+[31m-						.bytes()[m
+[31m-						.all(|b| b.is_ascii_digit() || (b'a'..=b'f').contains(&b))[m
+[31m-				{[m
+[31m-					return Err("invalid executable digest; run build".into());[m
+[31m-				}[m
+ 				([m
+[31m-					self.dot.join("artifacts").join(&receipt.executable_sha256),[m
+[31m-					receipt.executable_sha256,[m
+[32m+[m					[32mself.dot.join("artifacts").join(&r.executable_sha256),[m
+[32m+[m					[32mr.executable_sha256.clone(),[m
+[32m+[m					[32mr.stamp.as_ref(),[m
+ 				)[m
+ 			}[m
+ 		};[m
+[32m+[m		[32mlet checked = artifact::check(&path, &digest, stamp, verify)?;[m
+[32m+[m		[32mif stamp != Some(&checked.stamp()) {[m
+[32m+[m			[32mfault("before-receipt-refresh")?;[m
+[32m+[m			[32mchecked.recheck()?;[m
+[32m+[m			[32mself.atomic([m
+[32m+[m				[32m&receipt_path,[m
+[32m+[m				[32m&wire::pretty(&Receipt {[m
+[32m+[m					[32mformat: 2,[m
+[32m+[m					[32mlock_sha256: lock_digest,[m
+[32m+[m					[32mexecutable_sha256: digest,[m
+[32m+[m					[32mstamp: Some(checked.stamp()),[m
+[32m+[m				[32m})?,[m
+[32m+[m			[32m)?;[m
+[32m+[m		[32m}[m
+[32m+[m
+ 		let maps = self.dot.join("maps");[m
+ 		fs::create_dir_all(&maps).map_err(err)?;[m
+ 		let map_bytes = lock.sources.encode()?;[m
+ 		let map = maps.join(format!("{}.json", hash(&map_bytes)));[m
+ 		crate::maps::ensure(&map, &map_bytes, || self.atomic(&map, &map_bytes))?;[m
+[31m-		let mut command = assembly::command([m
+[31m-			&path,[m
+[31m-			&digest,[m
+[31m-			Some(&map),[m
+[31m-			Path::new(&lock.sources.entry),[m
+[31m-			&args,[m
+[31m-		)?;[m
+[32m+[m		[32mlet mut command =[m
+[32m+[m			[32massembly::command_checked(&checked, Some(&map), Path::new(&lock.sources.entry), &args)?;[m
+ 		commands::check()?;[m
+ 		// Advisory lock descriptors are close-on-exec; the script is not a project[m
+ 		// writer. The immutable map/artifact outlive this process without a parent.[m
+[36m@@ -546,6 +557,12 @@[m [mfn fault(name: &str) -> Result<(), String> {[m
+ 	Ok(())[m
+ }[m
+ pub(crate) fn cli(args: Vec<OsString>) -> Result<(), String> {[m
+[32m+[m	[32mif args.len() == 1 && matches!(args[0].to_str(), Some("--help" | "help")) {[m
+[32m+[m		[32mprintln!([m
+[32m+[m			[32m"rnx-project lock|build|run --manifest FILE [-- script arguments]\nrun checks your sources, trusts your build output unless you ask it to verify.\nUse run --verify for a full artifact hash. Changed metadata triggers a full check.\nlock/build accept --offline; run never builds."[m
+[32m+[m		[32m);[m
+[32m+[m		[32mreturn Ok(());[m
+[32m+[m	[32m}[m
+ 	let command = args[m
+ 		.first()[m
+ 		.and_then(|a| a.to_str())[m
+[36m@@ -555,6 +572,7 @@[m [mpub(crate) fn cli(args: Vec<OsString>) -> Result<(), String> {[m
+ 	}[m
+ 	let mut manifest = None;[m
+ 	let mut offline = false;[m
+[32m+[m	[32mlet mut verify = false;[m
+ 	let mut script = vec![];[m
+ 	let mut n = 1;[m
+ 	while n < args.len() {[m
+[36m@@ -564,6 +582,7 @@[m [mpub(crate) fn cli(args: Vec<OsString>) -> Result<(), String> {[m
+ 				manifest = Some(PathBuf::from(args.get(n).ok_or("--manifest needs a path")?));[m
+ 			}[m
+ 			Some("--offline") if command != "run" && !offline => offline = true,[m
+[32m+[m			[32mSome("--verify") if command == "run" && !verify => verify = true,[m
+ 			Some("--") if command == "run" => {[m
+ 				script = args[n + 1..].to_vec();[m
+ 				break;[m
+[36m@@ -579,7 +598,7 @@[m [mpub(crate) fn cli(args: Vec<OsString>) -> Result<(), String> {[m
+ 	match command {[m
+ 		"lock" => project.lock(offline),[m
+ 		"build" => project.build(offline),[m
+[31m-		"run" => project.run(script),[m
+[32m+[m		[32m"run" => project.run(script, verify),[m
+ 		_ => unreachable!(),[m
+ 	}[m
+ }[m
