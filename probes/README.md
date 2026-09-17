@@ -193,3 +193,7 @@ tokio current-thread runtime.
 - `package-boundary/` — step-five source-root mapping and namespace behavior,
   deterministic Cargo wrapper generation, local-source lock counterexample,
   and an existing-executable override. Results: `results/package-boundary/`.
+
+- `package-loader/` — record 0057 gate 1: alias mounts through the real bounded
+  loader, distinct diamond types, source attribution, read accounting, and
+  private graph expansion with exact limits. Results: `results/package-loader-0057/`.

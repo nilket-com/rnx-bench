@@ -1,0 +1,20 @@
+   Compiling rnx-project v0.0.0 (/home/me/work/rnx/tools/project)
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 0.22s
+     Running unittests src/lib.rs (tools/project/target/debug/deps/rnx_project-3fd35bf0da612091)
+
+running 6 tests
+test graph::tests::lexical_back_edge_is_detected_by_canonical_identity ... ok
+test graph::tests::cycle_names_edge_and_does_not_reread_ancestor ... ok
+test graph::tests::diamond_expands_twice_but_reads_each_manifest_once ... ok
+test graph::tests::depth_16_passes_17_refuses_before_read ... ok
+test graph::tests::exactly_64_manifests_then_refuse_before_the_next_read ... ok
+test graph::tests::mounts_256_can_share_one_manifest_and_257_refuses ... ok
+
+test result: ok. 6 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+   Doc-tests rnx_project
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
