@@ -1,0 +1,734 @@
+[
+  {
+    "args": [
+      "/home/me/work/rnx/tools/project/target/debug/rnx-project",
+      "adapters"
+    ],
+    "status": 0,
+    "stdout": "NAME      PACKAGE       HOOK       PATH BELOW RUNTIME\npolars    rnx-polars    plain      adapters/polars\npostgres  rnx-postgres  lifecycle  adapters/postgres\n",
+    "stderr": ""
+  },
+  {
+    "args": [
+      "/home/me/work/rnx/tools/project/target/debug/rnx-project",
+      "adapters"
+    ],
+    "status": 0,
+    "stdout": "NAME      PACKAGE       HOOK       PATH BELOW RUNTIME\npolars    rnx-polars    plain      adapters/polars\npostgres  rnx-postgres  lifecycle  adapters/postgres\n",
+    "stderr": ""
+  },
+  {
+    "args": [
+      "/home/me/work/rnx/tools/project/target/debug/rnx-project",
+      "adapters",
+      "extra"
+    ],
+    "status": 1,
+    "stdout": "",
+    "stderr": "rnx-project: adapters takes no arguments\n"
+  },
+  {
+    "args": [
+      "strace",
+      "-f",
+      "-e",
+      "trace=execve,network",
+      "-o",
+      "/home/me/work/rnx-bench/results/adapter-commands-0062/listing.strace",
+      "/home/me/work/rnx/tools/project/target/debug/rnx-project",
+      "adapters"
+    ],
+    "status": 0,
+    "stdout": "NAME      PACKAGE       HOOK       PATH BELOW RUNTIME\npolars    rnx-polars    plain      adapters/polars\npostgres  rnx-postgres  lifecycle  adapters/postgres\n",
+    "stderr": ""
+  },
+  {
+    "args": [
+      "strace",
+      "-f",
+      "-e",
+      "trace=execve,network",
+      "-o",
+      "/home/me/work/rnx-bench/results/adapter-commands-0062/add.strace",
+      "/home/me/work/rnx/tools/project/target/debug/rnx-project",
+      "add",
+      "polars",
+      "--manifest",
+      "/tmp/rnx-add-contracts-hfjeyh8i/app/rnx.toml"
+    ],
+    "status": 0,
+    "stdout": "added polars\nNext:\n  rnx-project lock --manifest '/tmp/rnx-add-contracts-hfjeyh8i/app/rnx.toml'\n  rnx-project build --manifest '/tmp/rnx-add-contracts-hfjeyh8i/app/rnx.toml'\n  rnx-project session --manifest '/tmp/rnx-add-contracts-hfjeyh8i/app/rnx.toml'\n",
+    "stderr": ""
+  },
+  {
+    "args": [
+      "/home/me/work/rnx/tools/project/target/debug/rnx-project",
+      "add",
+      "--manifest",
+      "/tmp/rnx-add-contracts-hfjeyh8i/app/rnx.toml",
+      "polars"
+    ],
+    "status": 0,
+    "stdout": "already present: polars\nNext:\n  rnx-project lock --manifest '/tmp/rnx-add-contracts-hfjeyh8i/app/rnx.toml'\n  rnx-project build --manifest '/tmp/rnx-add-contracts-hfjeyh8i/app/rnx.toml'\n  rnx-project session --manifest '/tmp/rnx-add-contracts-hfjeyh8i/app/rnx.toml'\n",
+    "stderr": ""
+  },
+  {
+    "args": [
+      "/home/me/work/rnx/tools/project/target/debug/rnx-project",
+      "add",
+      "--manifest",
+      "/tmp/rnx-add-contracts-hfjeyh8i/clean/rnx.toml"
+    ],
+    "status": 1,
+    "stdout": "",
+    "stderr": "rnx-project: add needs 1 to 32 distinct adapter names\n"
+  },
+  {
+    "args": [
+      "/home/me/work/rnx/tools/project/target/debug/rnx-project",
+      "add",
+      "--manifest",
+      "/tmp/rnx-add-contracts-hfjeyh8i/clean/rnx.toml",
+      "Polars"
+    ],
+    "status": 1,
+    "stdout": "",
+    "stderr": "rnx-project: unknown adapter Polars; available: polars, postgres\n"
+  },
+  {
+    "args": [
+      "/home/me/work/rnx/tools/project/target/debug/rnx-project",
+      "add",
+      "--manifest",
+      "/tmp/rnx-add-contracts-hfjeyh8i/clean/rnx.toml",
+      "unknown"
+    ],
+    "status": 1,
+    "stdout": "",
+    "stderr": "rnx-project: unknown adapter unknown; available: polars, postgres\n"
+  },
+  {
+    "args": [
+      "/home/me/work/rnx/tools/project/target/debug/rnx-project",
+      "add",
+      "--manifest",
+      "/tmp/rnx-add-contracts-hfjeyh8i/clean/rnx.toml",
+      "polars",
+      "polars"
+    ],
+    "status": 1,
+    "stdout": "",
+    "stderr": "rnx-project: duplicate adapter polars\n"
+  },
+  {
+    "args": [
+      "/home/me/work/rnx/tools/project/target/debug/rnx-project",
+      "add",
+      "--manifest",
+      "/tmp/rnx-add-contracts-hfjeyh8i/clean/rnx.toml",
+      "polars",
+      "polars",
+      "polars",
+      "polars",
+      "polars",
+      "polars",
+      "polars",
+      "polars",
+      "polars",
+      "polars",
+      "polars",
+      "polars",
+      "polars",
+      "polars",
+      "polars",
+      "polars",
+      "polars",
+      "polars",
+      "polars",
+      "polars",
+      "polars",
+      "polars",
+      "polars",
+      "polars",
+      "polars",
+      "polars",
+      "polars",
+      "polars",
+      "polars",
+      "polars",
+      "polars",
+      "polars",
+      "polars"
+    ],
+    "status": 1,
+    "stdout": "",
+    "stderr": "rnx-project: add needs 1 to 32 distinct adapter names\n"
+  },
+  {
+    "args": [
+      "/home/me/work/rnx/tools/project/target/debug/rnx-project",
+      "add",
+      "--manifest",
+      "/tmp/rnx-add-contracts-hfjeyh8i/clean/rnx.toml",
+      "--force",
+      "polars"
+    ],
+    "status": 1,
+    "stdout": "",
+    "stderr": "rnx-project: unexpected or duplicate add option \"--force\"\n"
+  },
+  {
+    "args": [
+      "/home/me/work/rnx/tools/project/target/debug/rnx-project",
+      "add",
+      "--manifest",
+      "/tmp/rnx-add-contracts-hfjeyh8i/clean/rnx.toml",
+      "--offline",
+      "polars"
+    ],
+    "status": 1,
+    "stdout": "",
+    "stderr": "rnx-project: unexpected or duplicate add option \"--offline\"\n"
+  },
+  {
+    "args": [
+      "/home/me/work/rnx/tools/project/target/debug/rnx-project",
+      "add",
+      "--manifest",
+      "/tmp/rnx-add-contracts-hfjeyh8i/clean/rnx.toml",
+      "--verify",
+      "polars"
+    ],
+    "status": 1,
+    "stdout": "",
+    "stderr": "rnx-project: unexpected or duplicate add option \"--verify\"\n"
+  },
+  {
+    "args": [
+      "/home/me/work/rnx/tools/project/target/debug/rnx-project",
+      "add",
+      "--manifest",
+      "/tmp/rnx-add-contracts-hfjeyh8i/clean/rnx.toml",
+      "--manifest",
+      "/tmp/rnx-add-contracts-hfjeyh8i/clean/rnx.toml",
+      "polars"
+    ],
+    "status": 1,
+    "stdout": "",
+    "stderr": "rnx-project: unexpected or duplicate add option \"--manifest\"\n"
+  },
+  {
+    "args": [
+      "/home/me/work/rnx/tools/project/target/debug/rnx-project",
+      "add",
+      "polars"
+    ],
+    "status": 1,
+    "stdout": "",
+    "stderr": "rnx-project: --manifest is required; no upward search\n"
+  },
+  {
+    "args": [
+      "/home/me/work/rnx/tools/project/target/debug/rnx-project",
+      "add",
+      "--manifest"
+    ],
+    "status": 1,
+    "stdout": "",
+    "stderr": "rnx-project: --manifest needs a path\n"
+  },
+  {
+    "args": [
+      "/home/me/work/rnx/tools/project/target/debug/rnx-project",
+      "add",
+      "--manifest",
+      "/tmp/rnx-add-contracts-hfjeyh8i/clean/rnx.toml",
+      "--"
+    ],
+    "status": 1,
+    "stdout": "",
+    "stderr": "rnx-project: unexpected or duplicate add option \"--\"\n"
+  },
+  {
+    "args": [
+      "/home/me/work/rnx/tools/project/target/debug/rnx-project",
+      "add",
+      "--manifest",
+      "/tmp/rnx-add-contracts-hfjeyh8i/app/rnx.toml",
+      "polars"
+    ],
+    "status": 1,
+    "stdout": "",
+    "stderr": "rnx-project: manifest /tmp/rnx-add-contracts-hfjeyh8i/app/rnx.toml: add requires an application with a runtime path\n"
+  },
+  {
+    "args": [
+      "/home/me/work/rnx/tools/project/target/debug/rnx-project",
+      "add",
+      "--manifest",
+      "/tmp/rnx-add-contracts-hfjeyh8i/app/rnx.toml",
+      "polars"
+    ],
+    "status": 1,
+    "stdout": "",
+    "stderr": "rnx-project: manifest /tmp/rnx-add-contracts-hfjeyh8i/app/rnx.toml: add requires an application with a runtime path\n"
+  },
+  {
+    "args": [
+      "/home/me/work/rnx/tools/project/target/debug/rnx-project",
+      "add",
+      "--manifest",
+      "/tmp/rnx-add-contracts-hfjeyh8i/app/rnx.toml",
+      "polars"
+    ],
+    "status": 1,
+    "stdout": "",
+    "stderr": "rnx-project: manifest /tmp/rnx-add-contracts-hfjeyh8i/app/rnx.toml: TOML parse error at line 2, column 1\n  |\n2 | wrong=true\n  | ^^^^^\nunknown field `wrong`, expected one of `format`, `application`, `source`, `runtime`, `executable`, `sources`, `native`\n\n"
+  },
+  {
+    "args": [
+      "/home/me/work/rnx/tools/project/target/debug/rnx-project",
+      "add",
+      "--manifest",
+      "/tmp/rnx-add-contracts-hfjeyh8i/app/rnx.toml",
+      "polars"
+    ],
+    "status": 1,
+    "stdout": "",
+    "stderr": "rnx-project: manifest /tmp/rnx-add-contracts-hfjeyh8i/app/rnx.toml: /tmp/rnx-add-contracts-hfjeyh8i/runtime/adapters/polars/Cargo.toml: expected explicit package.name rnx-polars\n"
+  },
+  {
+    "args": [
+      "/home/me/work/rnx/tools/project/target/debug/rnx-project",
+      "add",
+      "--manifest",
+      "/tmp/rnx-add-contracts-hfjeyh8i/app/rnx.toml",
+      "polars"
+    ],
+    "status": 1,
+    "stdout": "",
+    "stderr": "rnx-project: manifest /tmp/rnx-add-contracts-hfjeyh8i/app/rnx.toml: /tmp/rnx-add-contracts-hfjeyh8i/runtime/adapters/polars/Cargo.toml: expected explicit package.name rnx-polars\n"
+  },
+  {
+    "args": [
+      "/home/me/work/rnx/tools/project/target/debug/rnx-project",
+      "add",
+      "--manifest",
+      "/tmp/rnx-add-contracts-hfjeyh8i/app/rnx.toml",
+      "polars"
+    ],
+    "status": 1,
+    "stdout": "",
+    "stderr": "rnx-project: manifest /tmp/rnx-add-contracts-hfjeyh8i/app/rnx.toml: polars: requires direct rnx path dependency\n"
+  },
+  {
+    "args": [
+      "/home/me/work/rnx/tools/project/target/debug/rnx-project",
+      "add",
+      "--manifest",
+      "/tmp/rnx-add-contracts-hfjeyh8i/app/rnx.toml",
+      "polars"
+    ],
+    "status": 1,
+    "stdout": "",
+    "stderr": "rnx-project: manifest /tmp/rnx-add-contracts-hfjeyh8i/app/rnx.toml: polars: requires direct rnx path dependency\n"
+  },
+  {
+    "args": [
+      "/home/me/work/rnx/tools/project/target/debug/rnx-project",
+      "add",
+      "--manifest",
+      "/tmp/rnx-add-contracts-hfjeyh8i/app/rnx.toml",
+      "polars"
+    ],
+    "status": 1,
+    "stdout": "",
+    "stderr": "rnx-project: manifest /tmp/rnx-add-contracts-hfjeyh8i/app/rnx.toml: polars: adapter depends on a different runtime\n"
+  },
+  {
+    "args": [
+      "/home/me/work/rnx/tools/project/target/debug/rnx-project",
+      "add",
+      "--manifest",
+      "/tmp/rnx-add-contracts-hfjeyh8i/app/rnx.toml",
+      "polars"
+    ],
+    "status": 1,
+    "stdout": "",
+    "stderr": "rnx-project: manifest /tmp/rnx-add-contracts-hfjeyh8i/app/rnx.toml: /tmp/rnx-add-contracts-hfjeyh8i/runtime/adapters/polars/Cargo.toml: TOML parse error at line 1, column 5\n  |\n1 | [bad\n  |     ^\nunclosed table, expected `]`\n\n"
+  },
+  {
+    "args": [
+      "/home/me/work/rnx/tools/project/target/debug/rnx-project",
+      "add",
+      "--manifest",
+      "/tmp/rnx-add-contracts-hfjeyh8i/app/rnx.toml",
+      "polars"
+    ],
+    "status": 1,
+    "stdout": "",
+    "stderr": "rnx-project: manifest /tmp/rnx-add-contracts-hfjeyh8i/app/rnx.toml: cannot read /tmp/rnx-add-contracts-hfjeyh8i/runtime/adapters/polars/Cargo.toml: exceeds 1048576 bytes\n"
+  },
+  {
+    "args": [
+      "/home/me/work/rnx/tools/project/target/debug/rnx-project",
+      "add",
+      "--manifest",
+      "/tmp/rnx-add-contracts-hfjeyh8i/app/rnx.toml",
+      "polars"
+    ],
+    "status": 1,
+    "stdout": "",
+    "stderr": "rnx-project: manifest /tmp/rnx-add-contracts-hfjeyh8i/app/rnx.toml: cannot read /tmp/rnx-add-contracts-hfjeyh8i/runtime/adapters/polars/Cargo.toml: not a regular file\n"
+  },
+  {
+    "args": [
+      "/home/me/work/rnx/tools/project/target/debug/rnx-project",
+      "add",
+      "--manifest",
+      "/tmp/rnx-add-contracts-hfjeyh8i/app/rnx.toml",
+      "polars"
+    ],
+    "status": 1,
+    "stdout": "",
+    "stderr": "rnx-project: manifest /tmp/rnx-add-contracts-hfjeyh8i/app/rnx.toml: not a regular manifest\n"
+  },
+  {
+    "args": [
+      "/home/me/work/rnx/tools/project/target/debug/rnx-project",
+      "add",
+      "--manifest",
+      "/tmp/rnx-add-contracts-hfjeyh8i/app/rnx.toml",
+      "polars"
+    ],
+    "status": 1,
+    "stdout": "",
+    "stderr": "rnx-project: manifest /tmp/rnx-add-contracts-hfjeyh8i/app/rnx.toml: cannot read /tmp/rnx-add-contracts-hfjeyh8i/runtime/adapters/polars/Cargo.toml: No such file or directory (os error 2)\n"
+  },
+  {
+    "args": [
+      "/home/me/work/rnx/tools/project/target/debug/rnx-project",
+      "add",
+      "--manifest",
+      "/tmp/rnx-add-contracts-hfjeyh8i/app/rnx.toml",
+      "polars"
+    ],
+    "status": 1,
+    "stdout": "",
+    "stderr": "rnx-project: manifest /tmp/rnx-add-contracts-hfjeyh8i/app/rnx.toml: /tmp/rnx-add-contracts-hfjeyh8i/runtime/Cargo.toml: expected explicit package.name rnx\n"
+  },
+  {
+    "args": [
+      "/home/me/work/rnx/tools/project/target/debug/rnx-project",
+      "add",
+      "--manifest",
+      "/tmp/rnx-add-contracts-hfjeyh8i/app/rnx.toml",
+      "polars"
+    ],
+    "status": 1,
+    "stdout": "",
+    "stderr": "rnx-project: manifest /tmp/rnx-add-contracts-hfjeyh8i/app/rnx.toml: manifest exceeds 1048576 bytes\n"
+  },
+  {
+    "args": [
+      "/home/me/work/rnx/tools/project/target/debug/rnx-project",
+      "add",
+      "--manifest",
+      "/tmp/rnx-add-contracts-hfjeyh8i/app/rnx.toml",
+      "polars"
+    ],
+    "status": 1,
+    "stdout": "",
+    "stderr": "rnx-project: manifest /tmp/rnx-add-contracts-hfjeyh8i/app/rnx.toml: candidate manifest exceeds 1048576 bytes\n"
+  },
+  {
+    "args": [
+      "/home/me/work/rnx/tools/project/target/debug/rnx-project",
+      "add",
+      "--manifest",
+      "/tmp/rnx-add-contracts-hfjeyh8i/app/rnx.toml",
+      "postgres"
+    ],
+    "status": 0,
+    "stdout": "added postgres\nNext:\n  rnx-project lock --manifest '/tmp/rnx-add-contracts-hfjeyh8i/app/rnx.toml'\n  rnx-project build --manifest '/tmp/rnx-add-contracts-hfjeyh8i/app/rnx.toml'\n  rnx-project session --manifest '/tmp/rnx-add-contracts-hfjeyh8i/app/rnx.toml'\n",
+    "stderr": ""
+  },
+  {
+    "args": [
+      "/home/me/work/rnx/tools/project/target/debug/rnx-project",
+      "add",
+      "--manifest",
+      "/tmp/rnx-add-contracts-hfjeyh8i/app/rnx.toml",
+      "polars",
+      "postgres"
+    ],
+    "status": 1,
+    "stdout": "",
+    "stderr": "rnx-project: manifest /tmp/rnx-add-contracts-hfjeyh8i/app/rnx.toml: native namespace postgres already has a different declaration\n"
+  },
+  {
+    "args": [
+      "/home/me/work/rnx/tools/project/target/debug/rnx-project",
+      "add",
+      "--manifest",
+      "/tmp/rnx-add-contracts-hfjeyh8i/app/rnx.toml",
+      "polars"
+    ],
+    "status": 1,
+    "stdout": "",
+    "stderr": "rnx-project: manifest /tmp/rnx-add-contracts-hfjeyh8i/app/rnx.toml: cannot append native tables; use explicit table layout: TOML parse error at line 10, column 2\n   |\n10 | [native.polars]\n   |  ^^^^^^\ncannot extend value of type inline table with a dotted key\n\n"
+  },
+  {
+    "args": [
+      "/home/me/work/rnx/tools/project/target/debug/rnx-project",
+      "add",
+      "--manifest",
+      "/tmp/rnx-add-contracts-hfjeyh8i/app/rnx.toml",
+      "postgres",
+      "polars"
+    ],
+    "status": 0,
+    "stdout": "added polars\nadded postgres\nNext:\n  rnx-project lock --manifest '/tmp/rnx-add-contracts-hfjeyh8i/app/rnx.toml'\n  rnx-project build --manifest '/tmp/rnx-add-contracts-hfjeyh8i/app/rnx.toml'\n  rnx-project session --manifest '/tmp/rnx-add-contracts-hfjeyh8i/app/rnx.toml'\n",
+    "stderr": ""
+  },
+  {
+    "args": [
+      "/home/me/work/rnx/tools/project/target/debug/rnx-project",
+      "add",
+      "--manifest",
+      "/tmp/rnx-add-contracts-hfjeyh8i/app/rnx.toml",
+      "polars"
+    ],
+    "status": 1,
+    "stdout": "",
+    "stderr": "rnx-project: manifest /tmp/rnx-add-contracts-hfjeyh8i/app/rnx.toml: cannot append native tables; use explicit table layout: TOML parse error at line 8, column 2\n  |\n8 | [native.n0]\n  |  ^^^^^^\ntoo many or duplicate declarations\n\n"
+  },
+  {
+    "args": [
+      "/home/me/work/rnx/tools/project/target/debug/rnx-project",
+      "add",
+      "--manifest",
+      "/tmp/rnx-add-contracts-hfjeyh8i/app/rnx.toml",
+      "polars"
+    ],
+    "status": 1,
+    "stdout": "",
+    "stderr": "rnx-project: manifest /tmp/rnx-add-contracts-hfjeyh8i/app/rnx.toml: invalid or reserved native name `std`\n"
+  },
+  {
+    "args": [
+      "/home/me/work/rnx/tools/project/target/debug/rnx-project",
+      "add",
+      "--manifest",
+      "/tmp/rnx-add-contracts-hfjeyh8i/app/rnx.toml",
+      "polars"
+    ],
+    "status": 1,
+    "stdout": "",
+    "stderr": "rnx-project: manifest /tmp/rnx-add-contracts-hfjeyh8i/app/rnx.toml: invalid utf-8 sequence of 1 bytes from index 0\n"
+  },
+  {
+    "args": [
+      "/home/me/work/rnx/tools/project/target/debug/rnx-project",
+      "add",
+      "--manifest",
+      "/tmp/rnx-add-contracts-hfjeyh8i/app/rnx.toml",
+      "polars"
+    ],
+    "status": 0,
+    "stdout": "added polars\nNext:\n  rnx-project lock --manifest '/tmp/rnx-add-contracts-hfjeyh8i/app/rnx.toml'\n  rnx-project build --manifest '/tmp/rnx-add-contracts-hfjeyh8i/app/rnx.toml'\n  rnx-project session --manifest '/tmp/rnx-add-contracts-hfjeyh8i/app/rnx.toml'\n",
+    "stderr": ""
+  },
+  {
+    "args": [
+      "/home/me/work/rnx/tools/project/target/debug/rnx-project",
+      "add",
+      "--manifest",
+      "/tmp/rnx-add-contracts-hfjeyh8i/app/rnx.toml",
+      "polars"
+    ],
+    "status": 0,
+    "stdout": "added polars\nNext:\n  rnx-project lock --manifest '/tmp/rnx-add-contracts-hfjeyh8i/app/rnx.toml'\n  rnx-project build --manifest '/tmp/rnx-add-contracts-hfjeyh8i/app/rnx.toml'\n  rnx-project session --manifest '/tmp/rnx-add-contracts-hfjeyh8i/app/rnx.toml'\n",
+    "stderr": ""
+  },
+  {
+    "args": [
+      "/home/me/work/rnx/tools/project/target/debug/rnx-project",
+      "add",
+      "--manifest",
+      "/tmp/rnx-add-contracts-hfjeyh8i/app/rnx.toml",
+      "polars"
+    ],
+    "status": 0,
+    "stdout": "added polars\nNext:\n  rnx-project lock --manifest '/tmp/rnx-add-contracts-hfjeyh8i/app/rnx.toml'\n  rnx-project build --manifest '/tmp/rnx-add-contracts-hfjeyh8i/app/rnx.toml'\n  rnx-project session --manifest '/tmp/rnx-add-contracts-hfjeyh8i/app/rnx.toml'\n",
+    "stderr": ""
+  },
+  {
+    "args": [
+      "/home/me/work/rnx/tools/project/target/debug/rnx-project",
+      "add",
+      "--manifest",
+      "/tmp/rnx-add-contracts-hfjeyh8i/app/rnx.toml",
+      "polars"
+    ],
+    "status": 0,
+    "stdout": "added polars\nNext:\n  rnx-project lock --manifest '/tmp/rnx-add-contracts-hfjeyh8i/app/rnx.toml'\n  rnx-project build --manifest '/tmp/rnx-add-contracts-hfjeyh8i/app/rnx.toml'\n  rnx-project session --manifest '/tmp/rnx-add-contracts-hfjeyh8i/app/rnx.toml'\n",
+    "stderr": ""
+  },
+  {
+    "args": [
+      "/home/me/work/rnx/tools/project/target/debug/rnx-project",
+      "add",
+      "--manifest",
+      "/tmp/rnx-add-contracts-hfjeyh8i/app/rnx.toml",
+      "polars"
+    ],
+    "status": 0,
+    "stdout": "added polars\nNext:\n  rnx-project lock --manifest '/tmp/rnx-add-contracts-hfjeyh8i/app/rnx.toml'\n  rnx-project build --manifest '/tmp/rnx-add-contracts-hfjeyh8i/app/rnx.toml'\n  rnx-project session --manifest '/tmp/rnx-add-contracts-hfjeyh8i/app/rnx.toml'\n",
+    "stderr": ""
+  },
+  {
+    "args": [
+      "/home/me/work/rnx/tools/project/target/debug/rnx-project",
+      "add",
+      "--manifest",
+      "/tmp/rnx-add-contracts-hfjeyh8i/app/rnx.toml",
+      "polars"
+    ],
+    "status": 0,
+    "stdout": "added polars\nNext:\n  rnx-project lock --manifest '/tmp/rnx-add-contracts-hfjeyh8i/app/rnx.toml'\n  rnx-project build --manifest '/tmp/rnx-add-contracts-hfjeyh8i/app/rnx.toml'\n  rnx-project session --manifest '/tmp/rnx-add-contracts-hfjeyh8i/app/rnx.toml'\n",
+    "stderr": ""
+  },
+  {
+    "args": [
+      "/home/me/work/rnx/tools/project/target/debug/rnx-project",
+      "add",
+      "--manifest",
+      "/tmp/rnx-add-contracts-hfjeyh8i/manifest-link",
+      "polars"
+    ],
+    "status": 0,
+    "stdout": "added polars\nNext:\n  rnx-project lock --manifest '/tmp/rnx-add-contracts-hfjeyh8i/app/rnx.toml'\n  rnx-project build --manifest '/tmp/rnx-add-contracts-hfjeyh8i/app/rnx.toml'\n  rnx-project session --manifest '/tmp/rnx-add-contracts-hfjeyh8i/app/rnx.toml'\n",
+    "stderr": ""
+  },
+  {
+    "args": [
+      "/home/me/work/rnx/tools/project/target/debug/rnx-project",
+      "add",
+      "--manifest",
+      "/tmp/rnx-add-contracts-hfjeyh8i/app/rnx.toml",
+      "polars"
+    ],
+    "status": 1,
+    "stdout": "",
+    "stderr": "rnx-project: cannot create private add temporary /tmp/rnx-add-contracts-hfjeyh8i/app/.rnx/add-manifest.new: File exists (os error 17)\n"
+  },
+  {
+    "args": [
+      "/home/me/work/rnx/tools/project/target/debug/rnx-project",
+      "add",
+      "--manifest",
+      "/tmp/rnx-add-contracts-hfjeyh8i/app/rnx.toml",
+      "polars"
+    ],
+    "status": 1,
+    "stdout": "",
+    "stderr": "rnx-project: cannot create private add temporary /tmp/rnx-add-contracts-hfjeyh8i/app/.rnx/add-manifest.new: File exists (os error 17)\n"
+  },
+  {
+    "args": [
+      "/home/me/work/rnx/tools/project/target/debug/rnx-project",
+      "add",
+      "--manifest",
+      "/tmp/rnx-add-contracts-hfjeyh8i/app/rnx.toml",
+      "polars"
+    ],
+    "status": 1,
+    "stdout": "",
+    "stderr": "rnx-project: cannot create private add temporary /tmp/rnx-add-contracts-hfjeyh8i/app/.rnx/add-manifest.new: File exists (os error 17)\n"
+  },
+  {
+    "args": [
+      "/home/me/work/rnx/tools/project/target/debug/rnx-project",
+      "add",
+      "--manifest",
+      "/tmp/rnx-add-contracts-hfjeyh8i/app/rnx.toml",
+      "postgres"
+    ],
+    "status": 1,
+    "stdout": "",
+    "stderr": "rnx-project: another project command is active\n"
+  },
+  {
+    "args": [
+      "/home/me/work/rnx/tools/project/target/debug/rnx-project",
+      "add",
+      "--manifest",
+      "/tmp/rnx-add-contracts-hfjeyh8i/app/rnx.toml",
+      "polars"
+    ],
+    "status": 1,
+    "stdout": "",
+    "stderr": "rnx-project: injected failure at after-add-temp\n"
+  },
+  {
+    "args": [
+      "/home/me/work/rnx/tools/project/target/debug/rnx-project",
+      "add",
+      "--manifest",
+      "/tmp/rnx-add-contracts-hfjeyh8i/app/rnx.toml",
+      "polars"
+    ],
+    "status": 1,
+    "stdout": "",
+    "stderr": "rnx-project: injected failure at before-add-rename\n"
+  },
+  {
+    "args": [
+      "/home/me/work/rnx/tools/project/target/debug/rnx-project",
+      "add",
+      "--manifest",
+      "/tmp/rnx-add-contracts-hfjeyh8i/app/rnx.toml",
+      "polars"
+    ],
+    "status": 1,
+    "stdout": "",
+    "stderr": "rnx-project: manifest /tmp/rnx-add-contracts-hfjeyh8i/app/rnx.toml was replaced; durability not confirmed: injected failure at after-add-rename\n"
+  },
+  {
+    "args": [
+      "/home/me/work/rnx/tools/project/target/debug/rnx-project",
+      "add",
+      "--manifest",
+      "/tmp/rnx-add-contracts-hfjeyh8i/app/rnx.toml",
+      "polars"
+    ],
+    "status": 1,
+    "stdout": "",
+    "stderr": "rnx-project: manifest /tmp/rnx-add-contracts-hfjeyh8i/app/rnx.toml was replaced; durability not confirmed: injected failure at add-directory-sync\n"
+  },
+  {
+    "args": [
+      "/home/me/work/rnx/tools/project/target/debug/rnx-project",
+      "add",
+      "--manifest",
+      "/tmp/rnx-add-contracts-hfjeyh8i/app/rnx.toml",
+      "polars"
+    ],
+    "status": 0,
+    "stdout": "added polars\nNext:\n  rnx-project lock --manifest '/tmp/rnx-add-contracts-hfjeyh8i/app/rnx.toml'\n  rnx-project build --manifest '/tmp/rnx-add-contracts-hfjeyh8i/app/rnx.toml'\n  rnx-project session --manifest '/tmp/rnx-add-contracts-hfjeyh8i/app/rnx.toml'\n",
+    "stderr": ""
+  },
+  {
+    "args": [
+      "/home/me/work/rnx/tools/project/target/debug/rnx-project",
+      "add",
+      "--manifest",
+      "/tmp/rnx-add-contracts-hfjeyh8i/app/rnx.toml",
+      "polars"
+    ],
+    "status": 0,
+    "stdout": "already present: polars\nNext:\n  rnx-project lock --manifest '/tmp/rnx-add-contracts-hfjeyh8i/app/rnx.toml'\n  rnx-project build --manifest '/tmp/rnx-add-contracts-hfjeyh8i/app/rnx.toml'\n  rnx-project session --manifest '/tmp/rnx-add-contracts-hfjeyh8i/app/rnx.toml'\n",
+    "stderr": ""
+  }
+]

@@ -1,0 +1,200 @@
+[
+  {
+    "name": "root-fmt",
+    "command": [
+      "cargo",
+      "fmt",
+      "--all",
+      "--",
+      "--check"
+    ],
+    "status": 0,
+    "seconds": 0.5171500419965014
+  },
+  {
+    "name": "tool-fmt",
+    "command": [
+      "cargo",
+      "fmt",
+      "--manifest-path",
+      "tools/project/Cargo.toml",
+      "--all",
+      "--",
+      "--check"
+    ],
+    "status": 0,
+    "seconds": 0.42037220299243927
+  },
+  {
+    "name": "root-default",
+    "command": [
+      "cargo",
+      "test",
+      "--locked",
+      "--offline",
+      "--",
+      "--test-threads=1"
+    ],
+    "status": 0,
+    "seconds": 58.04230492498027
+  },
+  {
+    "name": "root-support",
+    "command": [
+      "cargo",
+      "test",
+      "--locked",
+      "--offline",
+      "--features",
+      "test-support",
+      "--",
+      "--test-threads=1"
+    ],
+    "status": 0,
+    "seconds": 94.82485498901224
+  },
+  {
+    "name": "root-combined",
+    "command": [
+      "cargo",
+      "test",
+      "--locked",
+      "--offline",
+      "--features",
+      "test-support,server-runtime,project-sources",
+      "--",
+      "--test-threads=1"
+    ],
+    "status": 0,
+    "seconds": 118.66821828304091
+  },
+  {
+    "name": "root-notices",
+    "command": [
+      "bash",
+      "scripts/third-party-notices.sh",
+      "--check"
+    ],
+    "status": 0,
+    "seconds": 18.369555505982134
+  },
+  {
+    "name": "root-release",
+    "command": [
+      "cargo",
+      "build",
+      "--locked",
+      "--offline",
+      "--release",
+      "--bin",
+      "rnx"
+    ],
+    "status": 0,
+    "seconds": 0.21452551300171763
+  },
+  {
+    "name": "root-selfcheck",
+    "command": [
+      "/home/me/work/rnx/target/release/rnx",
+      "selfcheck"
+    ],
+    "status": 0,
+    "seconds": 0.2645482440129854
+  },
+  {
+    "name": "tool-default",
+    "command": [
+      "cargo",
+      "test",
+      "--locked",
+      "--offline",
+      "--manifest-path",
+      "tools/project/Cargo.toml",
+      "--",
+      "--test-threads=1"
+    ],
+    "status": 0,
+    "seconds": 7.386389863037039
+  },
+  {
+    "name": "tool-support",
+    "command": [
+      "cargo",
+      "test",
+      "--locked",
+      "--offline",
+      "--manifest-path",
+      "tools/project/Cargo.toml",
+      "--features",
+      "test-support",
+      "--",
+      "--test-threads=1"
+    ],
+    "status": 0,
+    "seconds": 7.487349689006805
+  },
+  {
+    "name": "tool-clippy-default",
+    "command": [
+      "cargo",
+      "clippy",
+      "--locked",
+      "--offline",
+      "--manifest-path",
+      "tools/project/Cargo.toml",
+      "--all-targets",
+      "--",
+      "-D",
+      "warnings"
+    ],
+    "status": 0,
+    "seconds": 1.7674217249732465
+  },
+  {
+    "name": "tool-clippy-support",
+    "command": [
+      "cargo",
+      "clippy",
+      "--locked",
+      "--offline",
+      "--manifest-path",
+      "tools/project/Cargo.toml",
+      "--all-targets",
+      "--features",
+      "test-support",
+      "--",
+      "-D",
+      "warnings"
+    ],
+    "status": 0,
+    "seconds": 0.36431414901744574
+  },
+  {
+    "name": "tool-notices",
+    "command": [
+      "python3",
+      "tools/project/scripts/notices.py",
+      "--check"
+    ],
+    "status": 0,
+    "seconds": 0.16409951500827447
+  },
+  {
+    "name": "tool-windows",
+    "command": [
+      "cargo",
+      "check",
+      "--locked",
+      "--offline",
+      "--manifest-path",
+      "tools/project/Cargo.toml",
+      "--all-targets",
+      "--features",
+      "test-support",
+      "--target",
+      "x86_64-pc-windows-msvc"
+    ],
+    "status": 0,
+    "seconds": 1.718869129952509
+  }
+]

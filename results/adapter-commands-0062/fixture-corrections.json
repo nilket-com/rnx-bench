@@ -1,0 +1,23 @@
+[
+  {
+    "fixture": "setup.py",
+    "finding": "The existing stale-declaration refusal says project declarations or source map changed; run lock, not the literal word stale.",
+    "correction": "Assert the existing full diagnostic. Fresh base build and old-artifact preservation rerun.",
+    "retained_log": "setup-assertion-correction.log"
+  },
+  {
+    "fixture": "setup.py",
+    "finding": "A global cache-entry count included the separately building combined application.",
+    "correction": "Check absence of this Polars key before build and equality of both consumers' artifact paths after attachment. Resume from explicit first lock, preserving completed old-build/add checks.",
+    "retained_log": "setup-concurrent-count-correction.log",
+    "resume": "setup-resume.py"
+  },
+  {
+    "fixture": "postgres.py",
+    "finding": "The test indexed named row objects as arrays.",
+    "correction": "Use the existing adapter's n and text fields, explicitly relock for the script change, attach the unchanged combined artifact and execute on a fresh private cluster.",
+    "retained_log": "postgres-row-shape-correction.log",
+    "original_query_output": "real/combined-query-original-fixture.log",
+    "resume": "postgres-resume.py"
+  }
+]

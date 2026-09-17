@@ -1,0 +1,19 @@
+pub fn main(args) {
+    println!("consumer-2");
+    let csv = args[0] + "/tiny.csv";
+    let parquet = args[0] + "/tiny.parquet";
+    fs::write_new(csv, "category,value\na,1\na,2\n🦀,3\n🦀,4\nmissing,\n")?;
+    let schema = [("category", "string"), ("value", "i64")];
+    let frame = polars::read_csv(csv, schema)?;
+    let grouped = frame.lazy()
+        .filter(polars::col("value").gt(polars::lit(1)?))
+        .group_by([polars::col("category")])?;
+    let plan = grouped.agg([polars::col("value").sum().alias("total")])?
+        .sort(["category"])?;
+    let result = plan.collect()?;
+    result.write_parquet_new(parquet)?;
+    let roundtrip = polars::read_parquet(parquet)?;
+    assert!(result.preview()? == roundtrip.preview()?);
+    assert!(plan.collect()?.preview()? == result.preview()?);
+    println!("{}", roundtrip.preview()?);
+}

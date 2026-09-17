@@ -1,0 +1,544 @@
+diff --git a/tools/project/README.md b/tools/project/README.md
+index e9fbe48..217ddb4 100644
+--- a/tools/project/README.md
++++ b/tools/project/README.md
+@@ -57,6 +57,67 @@ opaque. Opening a session releases the project command lock, and verification
+ runs once before launch, not again between inputs. Rebuilding a project does not
+ change an already-running session.
+ 
++## Add a known adapter
++
++The tool ships a small catalogue of adapter declarations:
++
++```text
++$ rnx-project adapters
++NAME      PACKAGE       HOOK       PATH BELOW RUNTIME
++polars    rnx-polars    plain      adapters/polars
++postgres  rnx-postgres  lifecycle  adapters/postgres
++```
++
++In an existing application with a `[runtime]` path, add a name, then explicitly
++lock, build and open the new executable:
++
++```sh
++rnx-project add --manifest app/rnx.toml polars
++rnx-project lock --manifest app/rnx.toml --offline
++rnx-project build --manifest app/rnx.toml --offline
++rnx-project session --manifest app/rnx.toml
++```
++
++Use `--offline` only when the needed Cargo dependency sources are already cached;
++omit it from lock/build when they need to be fetched. `add` itself never fetches,
++builds, invokes Cargo or starts a builder. Both `polars` and `postgres` can be
++given in one add command, before or after `--manifest`. Names are case-sensitive.
++Custom adapters still use explicit native tables; there is no registry lookup.
++
++The adapter must exist under the project's declared runtime checkout, at the
++listed path. Listing a name does not claim that its sources are installed. Add
++checks the shipped Cargo layouts and their direct dependency on that runtime;
++compilation and startup remain separate checks. A prebuilt executable override
++or a source-only manifest cannot gain adapters with add.
++
++For `[runtime] path = "../rnx"`, add writes a normal `[native.polars]` table with
++`path = "../rnx/adapters/polars"`, package, builder and hook. Relative paths stay
++relative, absolute paths stay absolute. No catalogue selector remains in your
++manifest or lock, so future catalogue changes cannot reinterpret it. Moving a
++relative source layout still requires relocking its canonical build identity.
++
++Add preserves existing text and appends missing tables in name order. An
++equivalent existing declaration is a no-op that does not touch the manifest;
++a different declaration under the same name refuses. A closed inline `native`
++table may need to be rewritten as explicit tables by you before appending. All
++names and the whole candidate are validated before one manifest replacement.
++The original and candidate are each limited to 1 MiB, with at most 32 requested
++names and the existing limit of 256 declarations per table.
++
++The project command lock excludes other tool writers. Add rechecks bytes and
++file identity before replacing the manifest, but cannot prevent an arbitrary
++editor from racing the final rename. Before-rename failure leaves the original;
++after-rename failure can leave the complete new file and reports that replacement
++happened without confirmed durability. Ordinary permission bits are preserved;
++other filesystem attributes are not copied. A stale `.rnx/add-manifest.new`
++refuses rather than being followed or overwritten; remove it only when no project
++command owns it. No lockfile, receipt or cache entry is updated by add: after an
++addition, old launch refuses until explicit lock/build. An already running
++session keeps its executable and bindings; add does not load into that process.
++
++Listing is platform-independent. Manifest mutation retains the tool's existing
++Unix supervision requirement; Linux is exercised and Windows add refuses.
++
+ ## Files you commit
+ 
+ The generated form writes exactly **rnx.lock** and **rnx.Cargo.lock** beside
+diff --git a/tools/project/src/catalogue.rs b/tools/project/src/catalogue.rs
+new file mode 100644
+index 0000000..58ef602
+--- /dev/null
++++ b/tools/project/src/catalogue.rs
+@@ -0,0 +1,186 @@
++//! The shipped catalogue authors ordinary native tables, never resolves builds.
++use crate::input;
++use crate::manifest::{Hook, Manifest, Native};
++use std::{
++	collections::BTreeMap,
++	path::{Path, PathBuf},
++};
++fn error(e: impl std::fmt::Display) -> String {
++	e.to_string()
++}
++fn canonical(path: &Path) -> Result<PathBuf, String> {
++	path.canonicalize()
++		.map_err(|e| format!("{}: {e}", path.display()))
++}
++fn cargo(root: &Path, expected: &str) -> Result<toml::Value, String> {
++	let path = root.join("Cargo.toml");
++	let bytes = input::read(&path, input::MANIFEST_LIMIT)?;
++	let text = std::str::from_utf8(&bytes).map_err(|e| format!("{}: {e}", path.display()))?;
++	let value: toml::Value =
++		toml::from_str(text).map_err(|e| format!("{}: {e}", path.display()))?;
++	if value
++		.get("package")
++		.and_then(|p| p.get("name"))
++		.and_then(|p| p.as_str())
++		!= Some(expected)
++	{
++		return Err(format!(
++			"{}: expected explicit package.name {expected}",
++			path.display()
++		));
++	}
++	Ok(value)
++}
++
++#[derive(Clone, Copy)]
++pub(crate) struct Entry {
++	pub name: &'static str,
++	package: &'static str,
++	hook: Hook,
++}
++const ENTRIES: [Entry; 2] = [
++	Entry {
++		name: "polars",
++		package: "rnx-polars",
++		hook: Hook::Plain,
++	},
++	Entry {
++		name: "postgres",
++		package: "rnx-postgres",
++		hook: Hook::Lifecycle,
++	},
++];
++pub(crate) fn listing() -> String {
++	let mut text = String::from("NAME      PACKAGE       HOOK       PATH BELOW RUNTIME\n");
++	for e in ENTRIES {
++		let hook = match e.hook {
++			Hook::Plain => "plain",
++			Hook::Lifecycle => "lifecycle",
++		};
++		text += &format!(
++			"{:<9} {:<13} {:<10} adapters/{}\n",
++			e.name, e.package, hook, e.name
++		);
++	}
++	text
++}
++pub(crate) fn select(names: &[String]) -> Result<Vec<Entry>, String> {
++	if names.is_empty() || names.len() > 32 {
++		return Err("add needs 1 to 32 distinct adapter names".into());
++	}
++	let mut entries = BTreeMap::new();
++	for name in names {
++		let entry = ENTRIES
++			.iter()
++			.find(|e| e.name == name)
++			.ok_or_else(|| format!("unknown adapter {name}; available: polars, postgres"))?;
++		if entries.insert(entry.name, *entry).is_some() {
++			return Err(format!("duplicate adapter {name}"));
++		}
++	}
++	Ok(entries.into_values().collect())
++}
++pub(crate) struct Candidate {
++	pub bytes: Vec<u8>,
++	pub added: Vec<String>,
++	pub existing: Vec<String>,
++}
++pub(crate) fn author(raw: Vec<u8>, base: &Path, entries: &[Entry]) -> Result<Candidate, String> {
++	let original = Manifest::parse(&raw)?;
++	let runtime = original
++		.runtime
++		.as_ref()
++		.ok_or("add requires an application with a runtime path")?;
++	let root = canonical(&base.join(&runtime.path))?;
++	cargo(&root, "rnx")?;
++	let mut additions = BTreeMap::new();
++	let mut existing = Vec::new();
++	for entry in entries {
++		let name = entry.name.to_owned();
++		let package = entry.package;
++		let hook = entry.hook;
++		let suffix = Path::new("adapters").join(&name);
++		let adapter = canonical(&root.join(&suffix))?;
++		let value = cargo(&adapter, package)?;
++		let dep = value
++			.get("dependencies")
++			.and_then(|v| v.get("rnx"))
++			.ok_or_else(|| format!("{name}: missing dependencies.rnx"))?;
++		if [
++			"workspace",
++			"git",
++			"branch",
++			"tag",
++			"rev",
++			"registry",
++			"registry-index",
++		]
++		.iter()
++		.any(|key| dep.get(key).is_some())
++			|| dep
++				.get("package")
++				.is_some_and(|v| v.as_str() != Some("rnx"))
++		{
++			return Err(format!("{name}: requires direct rnx path dependency"));
++		}
++		let dep = dep
++			.get("path")
++			.and_then(|v| v.as_str())
++			.ok_or_else(|| format!("{name}: requires direct rnx path dependency"))?;
++		if canonical(&adapter.join(dep))? != root {
++			return Err(format!("{name}: adapter depends on a different runtime"));
++		}
++		let written = Path::new(&runtime.path).join(suffix);
++		if canonical(&base.join(&written))? != adapter {
++			return Err(format!(
++				"{name}: written path does not reach validated adapter"
++			));
++		}
++		let native = Native {
++			path: written.to_str().ok_or("non-Unicode adapter path")?.into(),
++			package: package.into(),
++			builder: "build".into(),
++			hook,
++		};
++		if let Some(old) = original.native.get(&name) {
++			if canonical(&base.join(&old.path))? != adapter
++				|| old.package != native.package
++				|| old.builder != native.builder
++				|| old.hook != native.hook
++			{
++				return Err(format!(
++					"native namespace {name} already has a different declaration"
++				));
++			}
++			existing.push(name);
++		} else {
++			additions.insert(name, native);
++		}
++	}
++	#[derive(serde::Serialize)]
++	struct Tables<'a> {
++		native: &'a BTreeMap<String, Native>,
++	}
++	let mut candidate = String::from_utf8(raw).map_err(error)?;
++	if !additions.is_empty() {
++		let append = toml::to_string(&Tables { native: &additions }).map_err(error)?;
++		if candidate.len() + 2 + append.len() > input::MANIFEST_LIMIT {
++			return Err("candidate manifest exceeds 1048576 bytes".into());
++		}
++		candidate.push_str("\n\n");
++		candidate.push_str(&append);
++	}
++	let parsed = Manifest::parse(candidate.as_bytes())
++		.map_err(|e| format!("cannot append native tables; use explicit table layout: {e}"))?;
++	let mut expected = original;
++	expected.native.extend(additions.clone());
++	if parsed != expected {
++		return Err("append changed unrelated manifest meaning".into());
++	}
++
++	Ok(Candidate {
++		bytes: candidate.into_bytes(),
++		added: additions.into_keys().collect(),
++		existing,
++	})
++}
+diff --git a/tools/project/src/lib.rs b/tools/project/src/lib.rs
+index cda1059..ddc97d1 100644
+--- a/tools/project/src/lib.rs
++++ b/tools/project/src/lib.rs
+@@ -5,6 +5,8 @@ mod cache_entry;
+ mod cache_identity;
+ mod cache_storage;
+ #[allow(dead_code)]
++mod catalogue;
++#[allow(dead_code)]
+ mod commands;
+ mod fingerprint;
+ mod generate;
+diff --git a/tools/project/src/main.rs b/tools/project/src/main.rs
+index b2236a3..8de2d2b 100644
+--- a/tools/project/src/main.rs
++++ b/tools/project/src/main.rs
+@@ -3,6 +3,7 @@ mod assembly;
+ mod cache_entry;
+ mod cache_identity;
+ mod cache_storage;
++mod catalogue;
+ mod commands;
+ mod fingerprint;
+ mod generate;
+diff --git a/tools/project/src/workflow.rs b/tools/project/src/workflow.rs
+index 876335e..382ed73 100644
+--- a/tools/project/src/workflow.rs
++++ b/tools/project/src/workflow.rs
+@@ -1,3 +1,4 @@
++mod add;
+ mod shared;
+ use crate::artifact::{self, Receipt};
+ use crate::{
+@@ -598,18 +599,45 @@ enum Launch {
+ }
+ 
+ pub(crate) fn cli(args: Vec<OsString>) -> Result<(), String> {
++	if args.first().and_then(|s| s.to_str()) == Some("adapters") {
++		if args.len() != 1 {
++			return Err("adapters takes no arguments".into());
++		}
++		print!("{}", crate::catalogue::listing());
++		return Ok(());
++	}
++	if args.first().and_then(|s| s.to_str()) == Some("add") {
++		let mut manifest = None;
++		let mut names = Vec::new();
++		let mut n = 1;
++		while n < args.len() {
++			match args[n].to_str() {
++				Some("--manifest") if manifest.is_none() => {
++					n += 1;
++					manifest = Some(PathBuf::from(args.get(n).ok_or("--manifest needs a path")?));
++				}
++				Some(s) if !s.starts_with('-') => names.push(s.to_owned()),
++				_ => return Err(format!("unexpected or duplicate add option {:?}", args[n])),
++			}
++			n += 1;
++		}
++		let entries = crate::catalogue::select(&names)?;
++		let manifest = manifest.ok_or("--manifest is required; no upward search")?;
++		commands::install_signals()?;
++		return Project::open(&manifest)?.add(&entries);
++	}
+ 	if args.len() == 1 && matches!(args[0].to_str(), Some("--help" | "help")) {
+ 		println!(
+-			"rnx-project lock|build|run|session|eval --manifest FILE\nrun [--verify] [-- script arguments]\nsession [--verify] [--color=auto|always|never] [--no-splash]\neval [--verify] [--color=auto|always|never] -- SOURCE\nLaunch checks your sources, trusts your build output unless you ask it to verify.\nUse --verify for a full artifact hash. Changed metadata triggers a full check.\nlock/build accept --offline; run/session/eval never build."
++			"rnx-project adapters\nrnx-project add --manifest FILE NAME [NAME...]\nrnx-project lock|build|run|session|eval --manifest FILE\nrun [--verify] [-- script arguments]\nsession [--verify] [--color=auto|always|never] [--no-splash]\neval [--verify] [--color=auto|always|never] -- SOURCE\nLaunch checks your sources, trusts your build output unless you ask it to verify.\nUse --verify for a full artifact hash. Changed metadata triggers a full check.\nlock/build accept --offline; run/session/eval never build."
+ 		);
+ 		return Ok(());
+ 	}
+ 	let command = args
+ 		.first()
+ 		.and_then(|a| a.to_str())
+-		.ok_or("expected lock, build, run, session or eval")?;
++		.ok_or("expected adapters, add, lock, build, run, session or eval")?;
+ 	if !matches!(command, "lock" | "build" | "run" | "session" | "eval") {
+-		return Err("expected lock, build, run, session or eval".into());
++		return Err("expected adapters, add, lock, build, run, session or eval".into());
+ 	}
+ 	let launch = matches!(command, "run" | "session" | "eval");
+ 	let interactive = matches!(command, "session" | "eval");
+diff --git a/tools/project/src/workflow/add.rs b/tools/project/src/workflow/add.rs
+new file mode 100644
+index 0000000..1dd8aed
+--- /dev/null
++++ b/tools/project/src/workflow/add.rs
+@@ -0,0 +1,191 @@
++//! A single manifest replacement; no lock, receipt, build or cache publication.
++use super::{Project, commands, err, fault};
++use crate::{catalogue, input};
++use std::{
++	fs::{self, File, Metadata, OpenOptions},
++	io::{Read, Write},
++	path::{Path, PathBuf},
++};
++
++#[derive(PartialEq)]
++struct Identity {
++	len: u64,
++	modified: std::time::SystemTime,
++	#[cfg(unix)]
++	device: u64,
++	#[cfg(unix)]
++	inode: u64,
++	#[cfg(unix)]
++	mode: u32,
++}
++fn identity(m: &Metadata) -> Result<Identity, String> {
++	#[cfg(unix)]
++	use std::os::unix::fs::MetadataExt;
++	Ok(Identity {
++		len: m.len(),
++		modified: m.modified().map_err(err)?,
++		#[cfg(unix)]
++		device: m.dev(),
++		#[cfg(unix)]
++		inode: m.ino(),
++		#[cfg(unix)]
++		mode: m.mode(),
++	})
++}
++struct Snapshot {
++	bytes: Vec<u8>,
++	identity: Identity,
++	metadata: Metadata,
++}
++impl Snapshot {
++	fn read(path: &Path) -> Result<Self, String> {
++		let read = || {
++			let mut options = OpenOptions::new();
++			options.read(true);
++			#[cfg(unix)]
++			{
++				use std::os::unix::fs::OpenOptionsExt;
++				options.custom_flags(libc::O_NONBLOCK | libc::O_NOFOLLOW);
++			}
++			let mut file = options.open(path).map_err(err)?;
++			let metadata = file.metadata().map_err(err)?;
++			if !metadata.is_file() {
++				return Err("not a regular manifest".into());
++			}
++			let before = identity(&metadata)?;
++			let mut bytes = Vec::new();
++			(&mut file)
++				.take(input::MANIFEST_LIMIT as u64 + 1)
++				.read_to_end(&mut bytes)
++				.map_err(err)?;
++			if bytes.len() > input::MANIFEST_LIMIT {
++				return Err("manifest exceeds 1048576 bytes".into());
++			}
++			if before != identity(&file.metadata().map_err(err)?)? {
++				return Err("manifest changed while reading".into());
++			}
++			Ok(Self {
++				bytes,
++				identity: before,
++				metadata,
++			})
++		};
++		read().map_err(|e: String| format!("manifest {}: {e}", path.display()))
++	}
++	fn recheck(&self, path: &Path) -> Result<(), String> {
++		let now = Self::read(path)?;
++		if now.identity != self.identity || now.bytes != self.bytes {
++			return Err(format!(
++				"manifest {} changed before publication; retry add",
++				path.display()
++			));
++		}
++		Ok(())
++	}
++}
++struct Temporary {
++	path: PathBuf,
++	file: File,
++	unpublished: bool,
++}
++impl Drop for Temporary {
++	fn drop(&mut self) {
++		if self.unpublished {
++			let _ = fs::remove_file(&self.path);
++		}
++	}
++}
++impl Temporary {
++	fn create(path: PathBuf) -> Result<Self, String> {
++		let mut options = OpenOptions::new();
++		options.write(true).create_new(true);
++		#[cfg(unix)]
++		{
++			use std::os::unix::fs::OpenOptionsExt;
++			options
++				.mode(0o600)
++				.custom_flags(libc::O_NOFOLLOW | libc::O_NONBLOCK);
++		}
++		let file = options.open(&path).map_err(|e| {
++			format!(
++				"cannot create private add temporary {}: {e}",
++				path.display()
++			)
++		})?;
++		Ok(Self {
++			path,
++			file,
++			unpublished: true,
++		})
++	}
++	fn recheck(&self) -> Result<(), String> {
++		let path = fs::symlink_metadata(&self.path).map_err(err)?;
++		if !path.is_file() || identity(&path)? != identity(&self.file.metadata().map_err(err)?)? {
++			return Err("add temporary was replaced".into());
++		}
++		Ok(())
++	}
++}
++fn shell_word(path: &Path) -> Result<String, String> {
++	let s = path.to_str().ok_or("manifest path is not Unicode")?;
++	Ok(format!("'{}'", s.replace('\'', "'\\''")))
++}
++impl Project {
++	pub(super) fn add(&self, entries: &[catalogue::Entry]) -> Result<(), String> {
++		let original = Snapshot::read(&self.manifest)?;
++		let candidate = catalogue::author(original.bytes.clone(), &self.base, entries)
++			.map_err(|e| format!("manifest {}: {e}", self.manifest.display()))?;
++		let word = shell_word(&self.manifest)?;
++		if !candidate.added.is_empty() {
++			commands::check()?;
++			let mut temp = Temporary::create(self.dot.join("add-manifest.new"))?;
++			temp.file.write_all(&candidate.bytes).map_err(err)?;
++			#[cfg(unix)]
++			{
++				use std::os::unix::fs::{MetadataExt, PermissionsExt};
++				temp.file
++					.set_permissions(fs::Permissions::from_mode(original.metadata.mode() & 0o777))
++					.map_err(err)?;
++			}
++			#[cfg(not(unix))]
++			temp.file
++				.set_permissions(original.metadata.permissions())
++				.map_err(err)?;
++			temp.file.sync_all().map_err(err)?;
++			fault("after-add-temp")?;
++			fault("before-add-rename")?;
++			original.recheck(&self.manifest)?;
++			temp.recheck()?;
++			commands::check()?;
++			fs::rename(&temp.path, &self.manifest).map_err(err)?;
++			temp.unpublished = false;
++			let finish = || {
++				fault("after-add-rename")?;
++				fault("add-directory-sync")?;
++				File::open(&self.base)
++					.and_then(|f| f.sync_all())
++					.map_err(err)?;
++				commands::check()
++			};
++			finish().map_err(|e| {
++				format!(
++					"manifest {} was replaced; durability not confirmed: {e}",
++					self.manifest.display()
++				)
++			})?;
++		} else {
++			original.recheck(&self.manifest)?;
++			commands::check()?;
++		}
++		for name in candidate.added {
++			println!("added {name}");
++		}
++		for name in candidate.existing {
++			println!("already present: {name}");
++		}
++		println!(
++			"Next:\n  rnx-project lock --manifest {word}\n  rnx-project build --manifest {word}\n  rnx-project session --manifest {word}"
++		);
++		Ok(())
++	}
++}

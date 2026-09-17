@@ -1,0 +1,1258 @@
+diff --git a/tools/project/README.md b/tools/project/README.md
+index 66e75ec..217ddb4 100644
+--- a/tools/project/README.md
++++ b/tools/project/README.md
+@@ -57,6 +57,67 @@ opaque. Opening a session releases the project command lock, and verification
+ runs once before launch, not again between inputs. Rebuilding a project does not
+ change an already-running session.
+ 
++## Add a known adapter
++
++The tool ships a small catalogue of adapter declarations:
++
++```text
++$ rnx-project adapters
++NAME      PACKAGE       HOOK       PATH BELOW RUNTIME
++polars    rnx-polars    plain      adapters/polars
++postgres  rnx-postgres  lifecycle  adapters/postgres
++```
++
++In an existing application with a `[runtime]` path, add a name, then explicitly
++lock, build and open the new executable:
++
++```sh
++rnx-project add --manifest app/rnx.toml polars
++rnx-project lock --manifest app/rnx.toml --offline
++rnx-project build --manifest app/rnx.toml --offline
++rnx-project session --manifest app/rnx.toml
++```
++
++Use `--offline` only when the needed Cargo dependency sources are already cached;
++omit it from lock/build when they need to be fetched. `add` itself never fetches,
++builds, invokes Cargo or starts a builder. Both `polars` and `postgres` can be
++given in one add command, before or after `--manifest`. Names are case-sensitive.
++Custom adapters still use explicit native tables; there is no registry lookup.
++
++The adapter must exist under the project's declared runtime checkout, at the
++listed path. Listing a name does not claim that its sources are installed. Add
++checks the shipped Cargo layouts and their direct dependency on that runtime;
++compilation and startup remain separate checks. A prebuilt executable override
++or a source-only manifest cannot gain adapters with add.
++
++For `[runtime] path = "../rnx"`, add writes a normal `[native.polars]` table with
++`path = "../rnx/adapters/polars"`, package, builder and hook. Relative paths stay
++relative, absolute paths stay absolute. No catalogue selector remains in your
++manifest or lock, so future catalogue changes cannot reinterpret it. Moving a
++relative source layout still requires relocking its canonical build identity.
++
++Add preserves existing text and appends missing tables in name order. An
++equivalent existing declaration is a no-op that does not touch the manifest;
++a different declaration under the same name refuses. A closed inline `native`
++table may need to be rewritten as explicit tables by you before appending. All
++names and the whole candidate are validated before one manifest replacement.
++The original and candidate are each limited to 1 MiB, with at most 32 requested
++names and the existing limit of 256 declarations per table.
++
++The project command lock excludes other tool writers. Add rechecks bytes and
++file identity before replacing the manifest, but cannot prevent an arbitrary
++editor from racing the final rename. Before-rename failure leaves the original;
++after-rename failure can leave the complete new file and reports that replacement
++happened without confirmed durability. Ordinary permission bits are preserved;
++other filesystem attributes are not copied. A stale `.rnx/add-manifest.new`
++refuses rather than being followed or overwritten; remove it only when no project
++command owns it. No lockfile, receipt or cache entry is updated by add: after an
++addition, old launch refuses until explicit lock/build. An already running
++session keeps its executable and bindings; add does not load into that process.
++
++Listing is platform-independent. Manifest mutation retains the tool's existing
++Unix supervision requirement; Linux is exercised and Windows add refuses.
++
+ ## Files you commit
+ 
+ The generated form writes exactly **rnx.lock** and **rnx.Cargo.lock** beside
+@@ -65,13 +126,69 @@ Cargo's own lockfile. Source and native inventories are separate, with package
+ associations separated from shared tree hashes. No generated wrapper, receipt,
+ source map or executable is written beside the manifest.
+ 
+-Everything else is under `.rnx/`, which contains its own `.gitignore` with `*`.
+-That keeps it ignored without modifying your repository's .gitignore. It holds
+-assembly sources, Cargo's target cache, content-addressed executable artifacts
+-and maps, the command lock and receipt.json. An executable override writes only
+-rnx.lock and removes an obsolete generated-form rnx.Cargo.lock after publication.
+-An override's first run verifies its locked binary hash and establishes a private
+-receipt. Later runs use the same metadata/`--verify` policy; no Cargo is needed.
++Project-local state is under `.rnx/`, which contains its own `.gitignore` with
++`*`: command lock, derived source maps and receipt.json. New generated projects
++build their assembly, target tree and executable in the shared cache described
++below. Legacy format-1 projects keep those outputs under their own `.rnx/`.
++An executable override writes only rnx.lock and removes an obsolete generated-form
++rnx.Cargo.lock after publication. Its first launch verifies the locked binary and
++establishes a private version-2 receipt; no Cargo is needed.
++
++## Shared assemblies and existing projects
++
++An explicit `lock` now writes format 2 for generated projects. `build` reports
++`built shared assembly` or `attached shared assembly`, naming its key and artifact.
++Two projects with the same installed native dependencies and build context share
++that artifact; application scripts and source mounts stay project-specific.
++A ready hit skips compilation, but fully hashes the artifact before publishing
++the project's receipt. Launch never builds, attaches or repairs a missing cache.
++
++Existing format-1 generated locks remain local. Their version-1/2 receipts retain
++the prior migration and metadata-check rules. Launch and build do not upgrade
++those locks. Only an explicit relock selects the shared policy, after which an
++explicit build is required. The old local binary is never promoted into the
++cache: it was compiled at a different location. A valid existing shared entry may
++be reused instead of compiling again. Old local files are left in place.
++Format compatibility does not waive stale-input checks: updating a fingerprinted
++rnx checkout still requires relocking/rebuilding, just as before.
++
++To select a private root before locking:
++
++```sh
++export RNX_PROJECT_CACHE="$HOME/.cache/rnx/assemblies"
++rnx-project lock --manifest app/rnx.toml --offline
++rnx-project build --manifest app/rnx.toml --offline
++rnx-project session --manifest app/rnx.toml
++```
++
++Without that override, selection uses `$XDG_CACHE_HOME/rnx/assemblies`, then
++`$HOME/.cache/rnx/assemblies`; relative paths refuse. A user symlink to the root
++is allowed and canonicalized. That canonical root is part of the locked identity.
++An explicit different selection requires relock. Managed descendants refuse
++symlinks, special files and group/other-writable directories. Cargo's child gets
++a private umask so its target directories follow that policy too.
++
++Cargo resolves and builds from the cache, not the application's working directory.
++A project-local Cargo config or toolchain file outside that search chain refuses
++rather than being silently ignored. Canonical native paths, the locked graph,
++allowed external inputs and toolchain selection participate in the shared key.
++Moving a native package or the cache creates a different identity even when its
++source bytes are identical.
++
++The cache retains entire `entries/<key>/` directories: assembly sources, target
++outputs (including files embedded through OUT_DIR), digest-addressed artifacts
++and readiness. There is **no automatic eviction**. Disk use grows with distinct
++assemblies and includes full Cargo targets, not just the executable. Remove a
++whole entry only after all its sessions, kernels and other consumers have stopped;
++the tool does not track that condition. Missing entries require an explicit build.
++Never delete only a retained auxiliary build-output directory from a live entry.
++
++This is trusted, non-hermetic reuse. Build scripts and proc macros can observe
++unrecorded external state; a hit reuses their earlier output rather than rerunning
++them. Choose a fresh private root and relock/build when a fresh build is required.
++Auxiliary outputs are retained, not recursively authenticated on each launch.
++Shared startup and real Polars disk/attachment costs are measured in 0061 gate 5;
++this integration does not claim that attachment is instantaneous.
+ 
+ The command lock is an OS advisory file lock, released even if a process dies.
+ The two public files cannot be replaced with one filesystem rename. Publication
+@@ -82,22 +199,26 @@ interruption between replacements can leave a mismatched pair, which build/run
+ recover. A normal publication failure attempts to restore the old JSON first and then
+ the old Cargo bytes. There is no claim of an atomic snapshot against an editor or git.
+ 
+-Build removes an old receipt before attempting work. After Cargo succeeds it
+-rechecks inputs and the lock, copies and verifies the executable, and publishes
+-receipt.json atomically. The version-2 receipt contains the exact project-lock digest, executable digest
+-and artifact metadata stamp. Build always fully hashes and verifies the installed
+-artifact before publishing. Failed/interrupted builds publish no receipt.
+-Run still rechecks the lock pair, declarations, source/native contents and
+-generated wrapper identity on every launch. Identical derived maps are compared
+-and reused; missing or different regular maps are published from the lock.
+-
+-A valid old version-1 receipt is fully checked once and migrated before launch.
+-A missing generated-build receipt asks for build. An override without a receipt
+-can establish one by checking its already-locked digest. Malformed receipts
+-refuse; default run never makes changed contents trusted by changing the digest.
+-Receipt refresh is atomic and an interrupted or failed refresh does not publish
+-partial metadata. A harmless touch or identical replacement costs one full check,
+-then subsequent launches become fast again.
++Build removes an old receipt before attempting work. A shared build rechecks
++project and assembly inputs before attachment and publishes a version-3 receipt
++binding the project-lock digest, assembly key, executable digest and metadata
++stamp. A local build publishes version 2. The shared ready document is committed
++last under a per-key lock, after full artifact verification; a waiting builder
++re-inspects readiness rather than treating lock release as success. A failed
++project attachment can leave a valid shared entry without a project receipt.
++
++All launch modes recheck lock pairs, declarations, source/native contents and
++generated wrapper identity. Shared launches additionally validate the small ready
++binding, but do not scan Cargo's target tree. Identical derived maps are compared
++and reused; only run publishes or reads them. Missing generated receipts require
++build even if a shared entry is already ready. Old local receipts are never
++interpreted as shared attachments.
++
++A valid local version-1 receipt is fully checked once and migrated before launch.
++Overrides without a usable receipt check their already-locked digest to establish
++one. Malformed receipts refuse; launch never makes changed contents trusted by
++changing the digest. Receipt refresh is atomic. A harmless touch or identical
++replacement costs one full check, then subsequent launches become fast again.
+ 
+ This is trusted local build output, not a content-authentication boundary. The
+ default can miss a same-size in-place edit if its mtime is restored or the
+@@ -107,13 +228,31 @@ content check. Neither mode makes verify-then-execute atomic against concurrent
+ replacement. Source edits, including same-size/restored-mtime edits, still use
+ content fingerprints and are refused until the project is refreshed.
+ 
+-On the measured small Polars application, the old project launch took about
+-155 ms, the new default 29 ms, explicit `--verify` 95 ms, and generated-direct
++In the 0059 per-project measurements on the small Polars application, the old
++project launch took about
++155 ms, the metadata default 29 ms, explicit `--verify` 95 ms, and generated-direct
+ 11 ms. These are whole CLI runs on one pinned Linux host, not notebook timings
+ or universal latency bounds. Native input checks remain about 17 ms. Legacy
+ migration and metadata-mismatch refresh each took about 98 ms on this example;
+ they are separate first-use costs, not part of the warm default number.
+ 
++The 0061 shared-cache measurement used two different applications with the same
++Polars extension. A fresh entry with an empty Cargo target took 106 seconds to
++build on that host, with dependency sources already cached and Cargo offline.
++The second application attached to the existing entry without compilation:
++566 ms for its first attachment, and a 315 ms median across ten subsequent
++pinned measurements. Attachment includes a full executable hash, input checks,
++tool-version checks and receipt publication; it is not free.
++
++Everyday shared launches of the tiny pipeline took about 31 ms, versus 11 ms
++direct and 97 ms with `--verify`. Eval and first prompt each added about 20 ms
++over direct, within the same 25 ms gate. These are single-host measurements,
++not latency promises. The complete retained entry occupied **1,570,058,240 bytes
++(about 1.46 GiB)** on disk, including its assembly, Cargo target and 107 MB
++artifact. Two applications shared that one entry. Distinct assembly keys retain
++additional whole entries; there is no automatic eviction. Do not keep only the
++executable: trusted build scripts can make it depend on retained build outputs.
++
+ ## Inputs and build policy
+ 
+ Source trees include regular files recursively, excluding `.git` directories and
+diff --git a/tools/project/src/artifact.rs b/tools/project/src/artifact.rs
+index 7d0f1d5..f521433 100644
+--- a/tools/project/src/artifact.rs
++++ b/tools/project/src/artifact.rs
+@@ -77,6 +77,8 @@ impl Stamp {
+ #[serde(deny_unknown_fields)]
+ pub(crate) struct Receipt {
+ 	pub format: u32,
++	#[serde(default, skip_serializing_if = "Option::is_none")]
++	pub assembly_key: Option<String>,
+ 	pub lock_sha256: String,
+ 	pub executable_sha256: String,
+ 	#[serde(default, skip_serializing_if = "Option::is_none")]
+@@ -93,9 +95,14 @@ impl Receipt {
+ 		if !digest_valid(&r.lock_sha256) || !digest_valid(&r.executable_sha256) {
+ 			return Err("invalid receipt digest".into());
+ 		}
++		if r.assembly_key.as_ref().is_some_and(|k| !digest_valid(k))
++			|| (r.format == 3) != r.assembly_key.is_some()
++		{
++			return Err("invalid receipt assembly binding".into());
++		}
+ 		match (r.format, &r.stamp) {
+ 			(1, None) => (),
+-			(2, Some(s))
++			(2 | 3, Some(s))
+ 				if s.bytes <= fingerprint::BYTES && s.mtime_nanoseconds < 1_000_000_000 => {}
+ 			_ => return Err("invalid receipt version or stamp".into()),
+ 		}
+diff --git a/tools/project/src/cache_entry.rs b/tools/project/src/cache_entry.rs
+index fb91804..da7183c 100644
+--- a/tools/project/src/cache_entry.rs
++++ b/tools/project/src/cache_entry.rs
+@@ -127,7 +127,7 @@ fn version(program: &str, arg: &str, cwd: &Path) -> Result<String, String> {
+ 	command.arg(arg).current_dir(cwd);
+ 	String::from_utf8(commands::run(command, true)?).map_err(err)
+ }
+-fn environment(identity: &Identity) -> Result<(), String> {
++pub(crate) fn environment(identity: &Identity) -> Result<(), String> {
+ 	let c = identity.context();
+ 	for (key, _) in std::env::vars_os() {
+ 		let s = key.to_string_lossy();
+@@ -277,6 +277,19 @@ pub(crate) fn acquire(
+ 			if offline {
+ 				command.arg("--offline");
+ 			}
++			#[cfg(unix)]
++			{
++				use std::os::unix::process::CommandExt;
++				// Cargo creates descendants too. Set its mask in the child,
++				// not the host, so a user's group-writable umask cannot make
++				// tool-managed target directories fail the ownership policy.
++				unsafe {
++					command.pre_exec(|| {
++						libc::umask(0o077);
++						Ok(())
++					});
++				}
++			}
+ 			commands::run(command, false)?;
+ 			fault("after-build")?;
+ 			validate(identity, &stage, project)?;
+diff --git a/tools/project/src/cache_identity.rs b/tools/project/src/cache_identity.rs
+index 4bec472..a9801d9 100644
+--- a/tools/project/src/cache_identity.rs
++++ b/tools/project/src/cache_identity.rs
+@@ -160,6 +160,9 @@ impl Identity {
+ 		}
+ 		Ok(identity)
+ 	}
++	pub(crate) fn native(&self) -> &Inventory {
++		&self.document.native
++	}
+ 	pub(crate) fn context(&self) -> &Context {
+ 		&self.document.context
+ 	}
+diff --git a/tools/project/src/cache_storage.rs b/tools/project/src/cache_storage.rs
+index 353d5fc..707be40 100644
+--- a/tools/project/src/cache_storage.rs
++++ b/tools/project/src/cache_storage.rs
+@@ -90,6 +90,9 @@ pub(crate) fn guard(root: &Path, stage: &Path, project: &Path) -> Result<(), Str
+ 			Err(e) => return Err(error(e)),
+ 		}
+ 	}
++	project_context(root, project)
++}
++pub(crate) fn project_context(root: &Path, project: &Path) -> Result<(), String> {
+ 	let cache_ancestors: Vec<_> = root.ancestors().collect();
+ 	for dir in project.ancestors().filter(|p| !cache_ancestors.contains(p)) {
+ 		for name in [
+diff --git a/tools/project/src/catalogue.rs b/tools/project/src/catalogue.rs
+new file mode 100644
+index 0000000..58ef602
+--- /dev/null
++++ b/tools/project/src/catalogue.rs
+@@ -0,0 +1,186 @@
++//! The shipped catalogue authors ordinary native tables, never resolves builds.
++use crate::input;
++use crate::manifest::{Hook, Manifest, Native};
++use std::{
++	collections::BTreeMap,
++	path::{Path, PathBuf},
++};
++fn error(e: impl std::fmt::Display) -> String {
++	e.to_string()
++}
++fn canonical(path: &Path) -> Result<PathBuf, String> {
++	path.canonicalize()
++		.map_err(|e| format!("{}: {e}", path.display()))
++}
++fn cargo(root: &Path, expected: &str) -> Result<toml::Value, String> {
++	let path = root.join("Cargo.toml");
++	let bytes = input::read(&path, input::MANIFEST_LIMIT)?;
++	let text = std::str::from_utf8(&bytes).map_err(|e| format!("{}: {e}", path.display()))?;
++	let value: toml::Value =
++		toml::from_str(text).map_err(|e| format!("{}: {e}", path.display()))?;
++	if value
++		.get("package")
++		.and_then(|p| p.get("name"))
++		.and_then(|p| p.as_str())
++		!= Some(expected)
++	{
++		return Err(format!(
++			"{}: expected explicit package.name {expected}",
++			path.display()
++		));
++	}
++	Ok(value)
++}
++
++#[derive(Clone, Copy)]
++pub(crate) struct Entry {
++	pub name: &'static str,
++	package: &'static str,
++	hook: Hook,
++}
++const ENTRIES: [Entry; 2] = [
++	Entry {
++		name: "polars",
++		package: "rnx-polars",
++		hook: Hook::Plain,
++	},
++	Entry {
++		name: "postgres",
++		package: "rnx-postgres",
++		hook: Hook::Lifecycle,
++	},
++];
++pub(crate) fn listing() -> String {
++	let mut text = String::from("NAME      PACKAGE       HOOK       PATH BELOW RUNTIME\n");
++	for e in ENTRIES {
++		let hook = match e.hook {
++			Hook::Plain => "plain",
++			Hook::Lifecycle => "lifecycle",
++		};
++		text += &format!(
++			"{:<9} {:<13} {:<10} adapters/{}\n",
++			e.name, e.package, hook, e.name
++		);
++	}
++	text
++}
++pub(crate) fn select(names: &[String]) -> Result<Vec<Entry>, String> {
++	if names.is_empty() || names.len() > 32 {
++		return Err("add needs 1 to 32 distinct adapter names".into());
++	}
++	let mut entries = BTreeMap::new();
++	for name in names {
++		let entry = ENTRIES
++			.iter()
++			.find(|e| e.name == name)
++			.ok_or_else(|| format!("unknown adapter {name}; available: polars, postgres"))?;
++		if entries.insert(entry.name, *entry).is_some() {
++			return Err(format!("duplicate adapter {name}"));
++		}
++	}
++	Ok(entries.into_values().collect())
++}
++pub(crate) struct Candidate {
++	pub bytes: Vec<u8>,
++	pub added: Vec<String>,
++	pub existing: Vec<String>,
++}
++pub(crate) fn author(raw: Vec<u8>, base: &Path, entries: &[Entry]) -> Result<Candidate, String> {
++	let original = Manifest::parse(&raw)?;
++	let runtime = original
++		.runtime
++		.as_ref()
++		.ok_or("add requires an application with a runtime path")?;
++	let root = canonical(&base.join(&runtime.path))?;
++	cargo(&root, "rnx")?;
++	let mut additions = BTreeMap::new();
++	let mut existing = Vec::new();
++	for entry in entries {
++		let name = entry.name.to_owned();
++		let package = entry.package;
++		let hook = entry.hook;
++		let suffix = Path::new("adapters").join(&name);
++		let adapter = canonical(&root.join(&suffix))?;
++		let value = cargo(&adapter, package)?;
++		let dep = value
++			.get("dependencies")
++			.and_then(|v| v.get("rnx"))
++			.ok_or_else(|| format!("{name}: missing dependencies.rnx"))?;
++		if [
++			"workspace",
++			"git",
++			"branch",
++			"tag",
++			"rev",
++			"registry",
++			"registry-index",
++		]
++		.iter()
++		.any(|key| dep.get(key).is_some())
++			|| dep
++				.get("package")
++				.is_some_and(|v| v.as_str() != Some("rnx"))
++		{
++			return Err(format!("{name}: requires direct rnx path dependency"));
++		}
++		let dep = dep
++			.get("path")
++			.and_then(|v| v.as_str())
++			.ok_or_else(|| format!("{name}: requires direct rnx path dependency"))?;
++		if canonical(&adapter.join(dep))? != root {
++			return Err(format!("{name}: adapter depends on a different runtime"));
++		}
++		let written = Path::new(&runtime.path).join(suffix);
++		if canonical(&base.join(&written))? != adapter {
++			return Err(format!(
++				"{name}: written path does not reach validated adapter"
++			));
++		}
++		let native = Native {
++			path: written.to_str().ok_or("non-Unicode adapter path")?.into(),
++			package: package.into(),
++			builder: "build".into(),
++			hook,
++		};
++		if let Some(old) = original.native.get(&name) {
++			if canonical(&base.join(&old.path))? != adapter
++				|| old.package != native.package
++				|| old.builder != native.builder
++				|| old.hook != native.hook
++			{
++				return Err(format!(
++					"native namespace {name} already has a different declaration"
++				));
++			}
++			existing.push(name);
++		} else {
++			additions.insert(name, native);
++		}
++	}
++	#[derive(serde::Serialize)]
++	struct Tables<'a> {
++		native: &'a BTreeMap<String, Native>,
++	}
++	let mut candidate = String::from_utf8(raw).map_err(error)?;
++	if !additions.is_empty() {
++		let append = toml::to_string(&Tables { native: &additions }).map_err(error)?;
++		if candidate.len() + 2 + append.len() > input::MANIFEST_LIMIT {
++			return Err("candidate manifest exceeds 1048576 bytes".into());
++		}
++		candidate.push_str("\n\n");
++		candidate.push_str(&append);
++	}
++	let parsed = Manifest::parse(candidate.as_bytes())
++		.map_err(|e| format!("cannot append native tables; use explicit table layout: {e}"))?;
++	let mut expected = original;
++	expected.native.extend(additions.clone());
++	if parsed != expected {
++		return Err("append changed unrelated manifest meaning".into());
++	}
++
++	Ok(Candidate {
++		bytes: candidate.into_bytes(),
++		added: additions.into_keys().collect(),
++		existing,
++	})
++}
+diff --git a/tools/project/src/lib.rs b/tools/project/src/lib.rs
+index cda1059..ddc97d1 100644
+--- a/tools/project/src/lib.rs
++++ b/tools/project/src/lib.rs
+@@ -5,6 +5,8 @@ mod cache_entry;
+ mod cache_identity;
+ mod cache_storage;
+ #[allow(dead_code)]
++mod catalogue;
++#[allow(dead_code)]
+ mod commands;
+ mod fingerprint;
+ mod generate;
+diff --git a/tools/project/src/main.rs b/tools/project/src/main.rs
+index b2236a3..8de2d2b 100644
+--- a/tools/project/src/main.rs
++++ b/tools/project/src/main.rs
+@@ -3,6 +3,7 @@ mod assembly;
+ mod cache_entry;
+ mod cache_identity;
+ mod cache_storage;
++mod catalogue;
+ mod commands;
+ mod fingerprint;
+ mod generate;
+diff --git a/tools/project/src/wire.rs b/tools/project/src/wire.rs
+index 0dc6ff3..8405e65 100644
+--- a/tools/project/src/wire.rs
++++ b/tools/project/src/wire.rs
+@@ -147,6 +147,9 @@ pub(crate) struct Lock {
+ #[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
+ #[serde(tag = "kind", rename_all = "lowercase", deny_unknown_fields)]
+ pub(crate) enum Assembly {
++	Shared {
++		identity: String,
++	},
+ 	Generated {
+ 		manifest_sha256: String,
+ 		main_sha256: String,
+@@ -178,8 +181,23 @@ pub(crate) struct File {
+ 	pub sha256: String,
+ }
+ impl Lock {
++	pub fn shared(&self) -> Result<Option<crate::cache_identity::Identity>, String> {
++		match &self.assembly {
++			Assembly::Shared { identity } => {
++				crate::cache_identity::Identity::decode(identity.as_bytes()).map(Some)
++			}
++			_ => Ok(None),
++		}
++	}
+ 	pub fn validate(&self) -> Result<(), String> {
+-		version(self.format)?;
++		if self.format
++			!= if matches!(self.assembly, Assembly::Shared { .. }) {
++				2
++			} else {
++				1
++			} {
++			return Err("unsupported lock format for assembly kind".into());
++		}
+ 		self.declarations.validate()?;
+ 		self.sources.validate()?;
+ 		if self.declarations.application.is_none() {
+@@ -280,6 +298,14 @@ impl Lock {
+ 			}
+ 		}
+ 		match &self.assembly {
++			Assembly::Shared { identity } => {
++				let identity = crate::cache_identity::Identity::decode(identity.as_bytes())?;
++				if self.declarations.runtime.is_none()
++					|| self.inputs.native.as_ref() != Some(identity.native())
++				{
++					return Err("shared identity and native inventory disagree".into());
++				}
++			}
+ 			Assembly::Generated {
+ 				manifest_sha256,
+ 				main_sha256,
+diff --git a/tools/project/src/workflow.rs b/tools/project/src/workflow.rs
+index 5d2ba80..382ed73 100644
+--- a/tools/project/src/workflow.rs
++++ b/tools/project/src/workflow.rs
+@@ -1,3 +1,5 @@
++mod add;
++mod shared;
+ use crate::artifact::{self, Receipt};
+ use crate::{
+ 	assembly, commands,
+@@ -94,7 +96,7 @@ impl Project {
+ 		let bytes = input::read(&self.base.join("rnx.lock"), input::DOCUMENT_LIMIT)
+ 			.map_err(|e| format!("{e}; run lock"))?;
+ 		let lock = Lock::decode(&bytes).map_err(|e| format!("invalid rnx.lock: {e}; run lock"))?;
+-		if matches!(lock.assembly, Assembly::Generated { .. }) != lock.inputs.native.is_some() {
++		if !matches!(lock.assembly, Assembly::Executable { .. }) != lock.inputs.native.is_some() {
+ 			return Err("lock assembly and native inventory disagree; run lock".into());
+ 		}
+ 		if let Assembly::Generated {
+@@ -106,6 +108,14 @@ impl Project {
+ 				return Err("lock pair mismatch; run lock (run/build never repair it)".into());
+ 			}
+ 		}
++		if let Some(identity) = lock.shared()? {
++			identity
++				.check_lock(&input::read(
++					&self.base.join("rnx.Cargo.lock"),
++					input::DOCUMENT_LIMIT,
++				)?)
++				.map_err(|e| format!("lock pair mismatch: {e}; run lock"))?;
++		}
+ 		Ok((lock, bytes))
+ 	}
+ 	fn cargo(&self, operation: &str, offline: bool) -> Command {
+@@ -172,6 +182,9 @@ impl Project {
+ 		if current != lock.declarations || Handoff::from_project(&self.manifest)? != lock.sources {
+ 			return Err("project declarations or source map changed; run lock".into());
+ 		}
++		if let Some(identity) = lock.shared()? {
++			return self.verify_shared(lock, &identity);
++		}
+ 		let metadata = self.metadata_for(lock)?;
+ 		if self.inputs(metadata.as_deref())? != lock.inputs {
+ 			return Err("project source or Cargo input changed; run lock".into());
+@@ -190,6 +203,7 @@ impl Project {
+ 				}
+ 			}
+ 			Assembly::Executable { .. } => (),
++			Assembly::Shared { .. } => unreachable!(),
+ 		}
+ 		commands::check()
+ 	}
+@@ -216,45 +230,17 @@ impl Project {
+ 				None,
+ 			)
+ 		} else {
+-			self.generate()?;
+-			preflight(&self.base, &self.stage)?;
+-			// Resolution may update only the private Cargo lock. A published pair is
+-			// untouched until both new documents and the post-resolution check are ready.
+-			if let Ok(old) = input::read(&self.base.join("rnx.Cargo.lock"), input::DOCUMENT_LIMIT) {
+-				fs::write(self.stage.join("Cargo.lock"), old).map_err(err)?;
+-			}
+-			let mut cmd = self.cargo("metadata", offline);
+-			cmd.args(["--format-version", "1"]);
+-			let metadata = commands::run(cmd, true)?;
+-			let inputs = self.inputs(Some(&metadata))?;
+-			let mut confirm = self.cargo("metadata", offline);
+-			confirm.args(["--locked", "--format-version", "1"]);
+-			if commands::run(confirm, true)? != metadata {
+-				return Err("Cargo graph changed during lock; retry lock".into());
+-			}
+-			let cargo_bytes = input::read(&self.stage.join("Cargo.lock"), input::DOCUMENT_LIMIT)?;
+-			let (rustc, cargo, target) = versions(&self.base)?;
+-			let (manifest, main) = generate::wrapper(&declarations, &self.base)?;
+-			(
+-				inputs,
+-				Assembly::Generated {
+-					manifest_sha256: hash(manifest.as_bytes()),
+-					main_sha256: hash(main.as_bytes()),
+-					cargo_lock_sha256: hash(&cargo_bytes),
+-					target,
+-					profile: "release".into(),
+-					features: vec!["project-sources".into()],
+-					rustc,
+-					cargo,
+-				},
+-				Some(cargo_bytes),
+-			)
++			self.resolve_shared(&declarations, offline)?
+ 		};
+ 		if inputs.source != before_source {
+ 			return Err("source changed during lock; retry lock".into());
+ 		}
+ 		let lock = Lock {
+-			format: 1,
++			format: if matches!(assembly, Assembly::Shared { .. }) {
++				2
++			} else {
++				1
++			},
+ 			declarations,
+ 			sources,
+ 			inputs,
+@@ -323,6 +309,9 @@ impl Project {
+ 		}
+ 		let (lock, bytes) = self.read_lock()?;
+ 		self.verify_inputs(&lock)?;
++		if let Some(identity) = lock.shared()? {
++			return self.build_shared(&lock, &bytes, &identity, offline);
++		}
+ 		let Assembly::Generated {
+ 			target,
+ 			profile,
+@@ -381,6 +370,7 @@ impl Project {
+ 			&receipt,
+ 			&wire::pretty(&Receipt {
+ 				format: 2,
++				assembly_key: None,
+ 				stamp: Some(checked.stamp()),
+ 				lock_sha256: hash(&bytes),
+ 				executable_sha256: digest,
+@@ -403,11 +393,38 @@ impl Project {
+ 				input::DOCUMENT_LIMIT,
+ 			)?)?),
+ 		};
++		let identity = lock.shared()?;
++		if receipt.as_ref().is_some_and(|r| r.format == 3)
++			&& matches!(lock.assembly, Assembly::Generated { .. })
++		{
++			return Err("shared receipt cannot be used with a local lock; run build".into());
++		}
+ 		let (path, digest, stamp) = match &lock.assembly {
++			Assembly::Shared { .. } => {
++				let identity = identity.as_ref().unwrap();
++				let r = receipt
++					.as_ref()
++					.ok_or("missing receipt; run build to attach shared assembly")?;
++				if r.format != 3
++					|| r.lock_sha256 != lock_digest
++					|| r.assembly_key.as_deref() != Some(identity.key())
++				{
++					return Err("shared receipt does not match lock; run build".into());
++				}
++				let (path, digest) = crate::cache_entry::ready(identity)?;
++				if r.executable_sha256 != digest {
++					return Err("shared receipt does not match ready artifact; run build".into());
++				}
++				(path, digest, r.stamp.as_ref())
++			}
+ 			Assembly::Executable { path, sha256 } => {
+ 				let stamp = receipt
+ 					.as_ref()
+-					.filter(|r| r.lock_sha256 == lock_digest && r.executable_sha256 == *sha256)
++					.filter(|r| {
++						r.format != 3
++							&& r.lock_sha256 == lock_digest
++							&& r.executable_sha256 == *sha256
++					})
+ 					.and_then(|r| r.stamp.as_ref());
+ 				(PathBuf::from(path), sha256.clone(), stamp)
+ 			}
+@@ -430,7 +447,8 @@ impl Project {
+ 			self.atomic(
+ 				&receipt_path,
+ 				&wire::pretty(&Receipt {
+-					format: 2,
++					format: if identity.is_some() { 3 } else { 2 },
++					assembly_key: identity.as_ref().map(|i| i.key().to_owned()),
+ 					lock_sha256: lock_digest,
+ 					executable_sha256: digest,
+ 					stamp: Some(checked.stamp()),
+@@ -581,18 +599,45 @@ enum Launch {
+ }
+ 
+ pub(crate) fn cli(args: Vec<OsString>) -> Result<(), String> {
++	if args.first().and_then(|s| s.to_str()) == Some("adapters") {
++		if args.len() != 1 {
++			return Err("adapters takes no arguments".into());
++		}
++		print!("{}", crate::catalogue::listing());
++		return Ok(());
++	}
++	if args.first().and_then(|s| s.to_str()) == Some("add") {
++		let mut manifest = None;
++		let mut names = Vec::new();
++		let mut n = 1;
++		while n < args.len() {
++			match args[n].to_str() {
++				Some("--manifest") if manifest.is_none() => {
++					n += 1;
++					manifest = Some(PathBuf::from(args.get(n).ok_or("--manifest needs a path")?));
++				}
++				Some(s) if !s.starts_with('-') => names.push(s.to_owned()),
++				_ => return Err(format!("unexpected or duplicate add option {:?}", args[n])),
++			}
++			n += 1;
++		}
++		let entries = crate::catalogue::select(&names)?;
++		let manifest = manifest.ok_or("--manifest is required; no upward search")?;
++		commands::install_signals()?;
++		return Project::open(&manifest)?.add(&entries);
++	}
+ 	if args.len() == 1 && matches!(args[0].to_str(), Some("--help" | "help")) {
+ 		println!(
+-			"rnx-project lock|build|run|session|eval --manifest FILE\nrun [--verify] [-- script arguments]\nsession [--verify] [--color=auto|always|never] [--no-splash]\neval [--verify] [--color=auto|always|never] -- SOURCE\nLaunch checks your sources, trusts your build output unless you ask it to verify.\nUse --verify for a full artifact hash. Changed metadata triggers a full check.\nlock/build accept --offline; run/session/eval never build."
++			"rnx-project adapters\nrnx-project add --manifest FILE NAME [NAME...]\nrnx-project lock|build|run|session|eval --manifest FILE\nrun [--verify] [-- script arguments]\nsession [--verify] [--color=auto|always|never] [--no-splash]\neval [--verify] [--color=auto|always|never] -- SOURCE\nLaunch checks your sources, trusts your build output unless you ask it to verify.\nUse --verify for a full artifact hash. Changed metadata triggers a full check.\nlock/build accept --offline; run/session/eval never build."
+ 		);
+ 		return Ok(());
+ 	}
+ 	let command = args
+ 		.first()
+ 		.and_then(|a| a.to_str())
+-		.ok_or("expected lock, build, run, session or eval")?;
++		.ok_or("expected adapters, add, lock, build, run, session or eval")?;
+ 	if !matches!(command, "lock" | "build" | "run" | "session" | "eval") {
+-		return Err("expected lock, build, run, session or eval".into());
++		return Err("expected adapters, add, lock, build, run, session or eval".into());
+ 	}
+ 	let launch = matches!(command, "run" | "session" | "eval");
+ 	let interactive = matches!(command, "session" | "eval");
+diff --git a/tools/project/src/workflow/add.rs b/tools/project/src/workflow/add.rs
+new file mode 100644
+index 0000000..1dd8aed
+--- /dev/null
++++ b/tools/project/src/workflow/add.rs
+@@ -0,0 +1,191 @@
++//! A single manifest replacement; no lock, receipt, build or cache publication.
++use super::{Project, commands, err, fault};
++use crate::{catalogue, input};
++use std::{
++	fs::{self, File, Metadata, OpenOptions},
++	io::{Read, Write},
++	path::{Path, PathBuf},
++};
++
++#[derive(PartialEq)]
++struct Identity {
++	len: u64,
++	modified: std::time::SystemTime,
++	#[cfg(unix)]
++	device: u64,
++	#[cfg(unix)]
++	inode: u64,
++	#[cfg(unix)]
++	mode: u32,
++}
++fn identity(m: &Metadata) -> Result<Identity, String> {
++	#[cfg(unix)]
++	use std::os::unix::fs::MetadataExt;
++	Ok(Identity {
++		len: m.len(),
++		modified: m.modified().map_err(err)?,
++		#[cfg(unix)]
++		device: m.dev(),
++		#[cfg(unix)]
++		inode: m.ino(),
++		#[cfg(unix)]
++		mode: m.mode(),
++	})
++}
++struct Snapshot {
++	bytes: Vec<u8>,
++	identity: Identity,
++	metadata: Metadata,
++}
++impl Snapshot {
++	fn read(path: &Path) -> Result<Self, String> {
++		let read = || {
++			let mut options = OpenOptions::new();
++			options.read(true);
++			#[cfg(unix)]
++			{
++				use std::os::unix::fs::OpenOptionsExt;
++				options.custom_flags(libc::O_NONBLOCK | libc::O_NOFOLLOW);
++			}
++			let mut file = options.open(path).map_err(err)?;
++			let metadata = file.metadata().map_err(err)?;
++			if !metadata.is_file() {
++				return Err("not a regular manifest".into());
++			}
++			let before = identity(&metadata)?;
++			let mut bytes = Vec::new();
++			(&mut file)
++				.take(input::MANIFEST_LIMIT as u64 + 1)
++				.read_to_end(&mut bytes)
++				.map_err(err)?;
++			if bytes.len() > input::MANIFEST_LIMIT {
++				return Err("manifest exceeds 1048576 bytes".into());
++			}
++			if before != identity(&file.metadata().map_err(err)?)? {
++				return Err("manifest changed while reading".into());
++			}
++			Ok(Self {
++				bytes,
++				identity: before,
++				metadata,
++			})
++		};
++		read().map_err(|e: String| format!("manifest {}: {e}", path.display()))
++	}
++	fn recheck(&self, path: &Path) -> Result<(), String> {
++		let now = Self::read(path)?;
++		if now.identity != self.identity || now.bytes != self.bytes {
++			return Err(format!(
++				"manifest {} changed before publication; retry add",
++				path.display()
++			));
++		}
++		Ok(())
++	}
++}
++struct Temporary {
++	path: PathBuf,
++	file: File,
++	unpublished: bool,
++}
++impl Drop for Temporary {
++	fn drop(&mut self) {
++		if self.unpublished {
++			let _ = fs::remove_file(&self.path);
++		}
++	}
++}
++impl Temporary {
++	fn create(path: PathBuf) -> Result<Self, String> {
++		let mut options = OpenOptions::new();
++		options.write(true).create_new(true);
++		#[cfg(unix)]
++		{
++			use std::os::unix::fs::OpenOptionsExt;
++			options
++				.mode(0o600)
++				.custom_flags(libc::O_NOFOLLOW | libc::O_NONBLOCK);
++		}
++		let file = options.open(&path).map_err(|e| {
++			format!(
++				"cannot create private add temporary {}: {e}",
++				path.display()
++			)
++		})?;
++		Ok(Self {
++			path,
++			file,
++			unpublished: true,
++		})
++	}
++	fn recheck(&self) -> Result<(), String> {
++		let path = fs::symlink_metadata(&self.path).map_err(err)?;
++		if !path.is_file() || identity(&path)? != identity(&self.file.metadata().map_err(err)?)? {
++			return Err("add temporary was replaced".into());
++		}
++		Ok(())
++	}
++}
++fn shell_word(path: &Path) -> Result<String, String> {
++	let s = path.to_str().ok_or("manifest path is not Unicode")?;
++	Ok(format!("'{}'", s.replace('\'', "'\\''")))
++}
++impl Project {
++	pub(super) fn add(&self, entries: &[catalogue::Entry]) -> Result<(), String> {
++		let original = Snapshot::read(&self.manifest)?;
++		let candidate = catalogue::author(original.bytes.clone(), &self.base, entries)
++			.map_err(|e| format!("manifest {}: {e}", self.manifest.display()))?;
++		let word = shell_word(&self.manifest)?;
++		if !candidate.added.is_empty() {
++			commands::check()?;
++			let mut temp = Temporary::create(self.dot.join("add-manifest.new"))?;
++			temp.file.write_all(&candidate.bytes).map_err(err)?;
++			#[cfg(unix)]
++			{
++				use std::os::unix::fs::{MetadataExt, PermissionsExt};
++				temp.file
++					.set_permissions(fs::Permissions::from_mode(original.metadata.mode() & 0o777))
++					.map_err(err)?;
++			}
++			#[cfg(not(unix))]
++			temp.file
++				.set_permissions(original.metadata.permissions())
++				.map_err(err)?;
++			temp.file.sync_all().map_err(err)?;
++			fault("after-add-temp")?;
++			fault("before-add-rename")?;
++			original.recheck(&self.manifest)?;
++			temp.recheck()?;
++			commands::check()?;
++			fs::rename(&temp.path, &self.manifest).map_err(err)?;
++			temp.unpublished = false;
++			let finish = || {
++				fault("after-add-rename")?;
++				fault("add-directory-sync")?;
++				File::open(&self.base)
++					.and_then(|f| f.sync_all())
++					.map_err(err)?;
++				commands::check()
++			};
++			finish().map_err(|e| {
++				format!(
++					"manifest {} was replaced; durability not confirmed: {e}",
++					self.manifest.display()
++				)
++			})?;
++		} else {
++			original.recheck(&self.manifest)?;
++			commands::check()?;
++		}
++		for name in candidate.added {
++			println!("added {name}");
++		}
++		for name in candidate.existing {
++			println!("already present: {name}");
++		}
++		println!(
++			"Next:\n  rnx-project lock --manifest {word}\n  rnx-project build --manifest {word}\n  rnx-project session --manifest {word}"
++		);
++		Ok(())
++	}
++}
+diff --git a/tools/project/src/workflow/shared.rs b/tools/project/src/workflow/shared.rs
+new file mode 100644
+index 0000000..7b0bbdb
+--- /dev/null
++++ b/tools/project/src/workflow/shared.rs
+@@ -0,0 +1,247 @@
++//! Shared assemblies are selected only by an explicit format-two lock.
++use super::*;
++use crate::{
++	cache_entry,
++	cache_identity::{Context, Identity},
++	cache_storage as storage,
++};
++
++struct Resolver(PathBuf);
++impl Drop for Resolver {
++	fn drop(&mut self) {
++		let _ = fs::remove_dir_all(&self.0);
++	}
++}
++fn selected_root() -> Result<PathBuf, String> {
++	let root = if let Some(p) = std::env::var_os("RNX_PROJECT_CACHE") {
++		PathBuf::from(p)
++	} else if let Some(p) = std::env::var_os("XDG_CACHE_HOME") {
++		PathBuf::from(p).join("rnx/assemblies")
++	} else {
++		PathBuf::from(std::env::var_os("HOME").ok_or("no HOME or cache selection")?)
++			.join(".cache/rnx/assemblies")
++	};
++	if !root.is_absolute() || root.to_str().is_none() {
++		return Err("cache root must be an absolute Unicode path".into());
++	}
++	let mut builder = fs::DirBuilder::new();
++	builder.recursive(true);
++	#[cfg(unix)]
++	{
++		use std::os::unix::fs::DirBuilderExt;
++		builder.mode(0o700);
++	}
++	builder.create(&root).map_err(err)?;
++	storage::root(&root)
++}
++fn resolver(root: &Path) -> Result<Resolver, String> {
++	storage::directory(&root.join("resolve"))?;
++	for n in 0..1000 {
++		let dir = root
++			.join("resolve")
++			.join(format!("{}-{n}", std::process::id()));
++		let builder = fs::DirBuilder::new();
++		#[cfg(unix)]
++		let builder = {
++			let mut builder = builder;
++			use std::os::unix::fs::DirBuilderExt;
++			builder.mode(0o700);
++			builder
++		};
++		match builder.create(&dir) {
++			Ok(()) => return Ok(Resolver(dir)),
++			Err(e) if e.kind() == std::io::ErrorKind::AlreadyExists => (),
++			Err(e) => return Err(err(e)),
++		}
++	}
++	Err("cannot allocate private cache resolver".into())
++}
++fn compatible_layout(root: &Path, inputs: &Inputs, project: &Path) -> Result<(), String> {
++	for tree in inputs
++		.source
++		.trees
++		.iter()
++		.chain(inputs.native.iter().flat_map(|n| n.trees.iter()))
++	{
++		if root.starts_with(&tree.root) || tree.root.starts_with(root) {
++			return Err(format!(
++				"cache and fingerprinted root {} must not contain one another",
++				tree.root.display()
++			));
++		}
++	}
++	if let Some(n) = &inputs.native
++		&& n.trees.iter().any(|t| project.starts_with(&t.root))
++	{
++		return Err("project lock would be inside native package root; move the project".into());
++	}
++	Ok(())
++}
++impl Project {
++	fn shared_inputs(
++		&self,
++		metadata: &[u8],
++		stage: &Path,
++		root: &Path,
++		home: &Path,
++	) -> Result<Inputs, String> {
++		self.layout(&Handoff::from_project(&self.manifest)?)?;
++		let mut allowance = Allowance::default();
++		let source = inventory::sources(&self.manifest, &mut allowance)?;
++		let native = inventory::native(metadata, stage, root, home, &mut allowance)?;
++		storage::policy(&native)?;
++		let inputs = Inputs {
++			source,
++			native: Some(native),
++		};
++		compatible_layout(root, &inputs, &self.base)?;
++		Ok(inputs)
++	}
++	pub(super) fn verify_shared(&self, lock: &Lock, identity: &Identity) -> Result<(), String> {
++		let c = identity.context();
++		if storage::root(&c.cache_root)? != c.cache_root {
++			return Err("cache root moved; run lock".into());
++		}
++		storage::project_context(&c.cache_root, &self.base)?;
++		cache_entry::environment(identity)?;
++		let stage = c
++			.cache_root
++			.join("entries")
++			.join(identity.key())
++			.join("assembly");
++		// A launch never calls Cargo. The graph associations were resolved by lock.
++		let metadata = wire::encode(
++			&serde_json::json!({"workspace_root":stage,"packages":identity.native().packages.iter().map(|p|serde_json::json!({"id":p.id,"name":p.name,"source":null,"manifest_path":p.manifest})).collect::<Vec<_>>()}),
++		)?;
++		if self.shared_inputs(&metadata, &stage, &c.cache_root, &c.cargo_home)? != lock.inputs {
++			return Err("project source or Cargo input changed; run lock".into());
++		}
++		let (manifest, main) = generate::canonical_wrapper(&lock.declarations, &self.base)?;
++		if identity.wrapper() != (manifest.as_str(), main.as_str()) {
++			return Err("generated shared assembly changed; run lock".into());
++		}
++		commands::check()
++	}
++	pub(super) fn resolve_shared(
++		&self,
++		declarations: &Manifest,
++		offline: bool,
++	) -> Result<(Inputs, Assembly, Option<Vec<u8>>), String> {
++		let root = selected_root()?;
++		let source = inventory::sources(&self.manifest, &mut Allowance::default())?;
++		compatible_layout(
++			&root,
++			&Inputs {
++				source,
++				native: None,
++			},
++			&self.base,
++		)?;
++		storage::project_context(&root, &self.base)?;
++		let resolver = resolver(&root)?;
++		let stage = resolver.0.join("assembly");
++		storage::directory(&stage)?;
++		storage::directory(&stage.join("src"))?;
++		storage::guard(&root, &stage, &self.base)?;
++		let home = cargo_home()?.canonicalize().map_err(err)?;
++		let empty = wire::encode(&serde_json::json!({"workspace_root":stage,"packages":[]}))?;
++		storage::policy(&inventory::native(
++			&empty,
++			&stage,
++			&root,
++			&home,
++			&mut Allowance::default(),
++		)?)?;
++		let (manifest, main) = generate::canonical_wrapper(declarations, &self.base)?;
++		fs::write(stage.join("Cargo.toml"), &manifest).map_err(err)?;
++		fs::write(stage.join("src/main.rs"), &main).map_err(err)?;
++		if let Ok(old) = input::read(&self.base.join("rnx.Cargo.lock"), input::DOCUMENT_LIMIT) {
++			fs::write(stage.join("Cargo.lock"), old).map_err(err)?;
++		}
++		let metadata = |locked: bool| -> Result<Vec<u8>, String> {
++			storage::guard(&root, &stage, &self.base)?;
++			let mut cmd = Command::new("cargo");
++			cmd.current_dir(&stage)
++				.args(["metadata", "--format-version", "1"]);
++			if locked {
++				cmd.arg("--locked");
++			}
++			if offline {
++				cmd.arg("--offline");
++			}
++			commands::run(cmd, true)
++		};
++		let graph = metadata(false)?;
++		let inputs = self.shared_inputs(&graph, &stage, &root, &home)?;
++		if metadata(true)? != graph {
++			return Err("Cargo graph changed during lock; retry lock".into());
++		}
++		let lock = input::read(&stage.join("Cargo.lock"), input::DOCUMENT_LIMIT)?;
++		let (rustc, cargo, target) = versions(&stage)?;
++		let context = Context {
++			cache_root: root,
++			cargo_home: home,
++			rustup_home: std::env::var_os("RUSTUP_HOME").map(PathBuf::from),
++			rustup_toolchain: std::env::var("RUSTUP_TOOLCHAIN").ok(),
++			rustc,
++			cargo,
++			target,
++			profile: "release".into(),
++			features: vec!["project-sources".into()],
++		};
++		let identity = Identity::create(
++			declarations,
++			&self.base,
++			context,
++			inputs.native.clone().unwrap(),
++			&lock,
++		)?;
++		identity.revalidate(&stage)?;
++		Ok((
++			inputs,
++			Assembly::Shared {
++				identity: String::from_utf8(identity.bytes().to_vec()).map_err(err)?,
++			},
++			Some(lock),
++		))
++	}
++	pub(super) fn build_shared(
++		&self,
++		lock: &Lock,
++		bytes: &[u8],
++		identity: &Identity,
++		offline: bool,
++	) -> Result<(), String> {
++		let cargo = input::read(&self.base.join("rnx.Cargo.lock"), input::DOCUMENT_LIMIT)?;
++		let recheck = || -> Result<(), String> {
++			self.verify_inputs(lock)?;
++			if self.read_lock()?.1 != bytes {
++				return Err("lock changed during build; no receipt published".into());
++			}
++			Ok(())
++		};
++		let entry = cache_entry::acquire(identity, &cargo, &self.base, offline, recheck)?;
++		fault("after-build")?;
++		recheck()?;
++		fault("before-shared-receipt")?;
++		recheck()?;
++		entry.artifact.recheck()?;
++		self.atomic(
++			&self.dot.join("receipt.json"),
++			&wire::pretty(&Receipt {
++				format: 3,
++				assembly_key: Some(identity.key().into()),
++				lock_sha256: hash(bytes),
++				executable_sha256: entry.digest.clone(),
++				stamp: Some(entry.artifact.stamp()),
++			})?,
++		)?;
++		eprintln!(
++			"{} shared assembly {}: {}",
++			if entry.hit { "attached" } else { "built" },
++			identity.key(),
++			entry.artifact.path().display()
++		);
++		Ok(())
++	}
++}
