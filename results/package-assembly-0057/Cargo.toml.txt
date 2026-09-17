@@ -1,0 +1,19 @@
+[package]
+name = "rnx-project-app"
+version = "0.0.0"
+edition = "2024"
+publish = false
+
+[workspace]
+
+[dependencies.native_0]
+package = "gate-four-plain"
+path = "/home/me/work/rnx-bench/probes/package-assembly/target/project/../plain"
+
+[dependencies.native_1]
+package = "rnx-postgres"
+path = "/home/me/work/rnx/adapters/postgres"
+
+[dependencies.rnx]
+path = "/home/me/work/rnx"
+features = ["project-sources"]

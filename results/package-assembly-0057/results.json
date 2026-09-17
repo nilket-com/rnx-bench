@@ -1,0 +1,63 @@
+{
+  "binary": "/home/me/work/rnx-bench/probes/package-boundary/target/native/generated-a/target/release/rnx-project-app",
+  "sha256": "f0073f2c94e8c255c50558e0a8dcaac467cad19c01c8b92681fd63b99d18c42b",
+  "locked_build": true,
+  "scope": "assembly primitives; no product lock/receipt yet",
+  "mapped_query_and_arguments": [
+    "quotes ' ; SELECT 99; \\ emoji \ud83e\udd80",
+    42,
+    "--color=never"
+  ],
+  "old_override": {
+    "sha256": "8132775a5496c99e6d77c6f49fb2938c8d5978404123c6530924ed7e3ba90d4d",
+    "query": 42,
+    "mapped_refusal": "executable /home/me/work/rnx/adapters/postgres/target/release/rnx-pg: capability command failed\n"
+  },
+  "source_capable_override_and_tamper_refusal": true,
+  "session_reset_and_module_refusal": {
+    "stdout": "rnx: a Rune session. :help lists the commands, :quit ends it.\n42\nsession reset\n42\n",
+    "stderr": "refused: a session accepts fn, struct, and enum declarations; modules, imports, macro declarations, and impl blocks work in files (input 2, line 1, column 1)\n"
+  },
+  "notebook": {
+    "before": {
+      "execution_count": 1,
+      "payload": [],
+      "status": "ok",
+      "user_expressions": {}
+    },
+    "after": {
+      "execution_count": 1,
+      "payload": [],
+      "status": "ok",
+      "user_expressions": {}
+    },
+    "binding_lost": {
+      "ename": "CompileError",
+      "evalue": "error at input 2, line 1, column 1: No local variable `saved`\n  saved\n  ^",
+      "execution_count": 2,
+      "status": "error",
+      "traceback": [
+        "error at input 2, line 1, column 1: No local variable `saved`",
+        "  saved",
+        "  ^"
+      ]
+    },
+    "modules_refused": true,
+    "owned_pids": [
+      2554824,
+      2554829,
+      2554834,
+      2554837
+    ],
+    "all_reaped": true
+  },
+  "postmaster": 2554765,
+  "exit_status": 7,
+  "interrupt": {
+    "status": 130,
+    "child_reaped": true,
+    "stdout": "",
+    "stderr": "interrupted\n"
+  },
+  "postmaster_reaped": true
+}

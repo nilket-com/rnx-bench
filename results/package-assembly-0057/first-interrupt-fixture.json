@@ -1,0 +1,6 @@
+{
+  "fixture": "synchronous main returning process::run(...).unwrap() immediately",
+  "observed_status": 0,
+  "observed_reply": {"cancelled": true, "code": null, "cut_short": true, "stderr": "", "stdout": "", "timed_out": false, "truncated": false, "unreadable": false},
+  "correction": "Keep the input pending on an awaited sleep after the synchronous supervisor returns, so the driver observes the interrupt before the input finishes. No root or supervisor change. The first fixture incorrectly assumed cancellation of a subprocess necessarily changes a successfully returned script's status."
+}

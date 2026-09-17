@@ -1,0 +1,17 @@
+format=1
+[application]
+entry="main.rn"
+[runtime]
+path="/home/me/work/rnx"
+[sources.words]
+path="../words"
+[native.local]
+path="../plain"
+package="gate-four-plain"
+builder="build"
+hook="plain"
+[native.postgres]
+path="/home/me/work/rnx/adapters/postgres"
+package="rnx-postgres"
+builder="build"
+hook="lifecycle"
