@@ -1,0 +1,176 @@
+{
+  "root_baseline_status": 101,
+  "prototype_status": 101,
+  "identical_existing_diagnostics": [
+    [
+      {
+        "code": "clippy::clone_on_copy",
+        "explanation": null
+      },
+      "using `clone` on type `Kind` which implements the `Copy` trait",
+      [
+        [
+          "src/complete.rs",
+          161
+        ]
+      ]
+    ],
+    [
+      {
+        "code": "clippy::collapsible_if",
+        "explanation": null
+      },
+      "this `if` statement can be collapsed",
+      [
+        [
+          "src/complete.rs",
+          181
+        ]
+      ]
+    ],
+    [
+      {
+        "code": "clippy::drop_non_drop",
+        "explanation": null
+      },
+      "call to `std::mem::drop` with a value that does not implement `Drop`. Dropping such a type only extends its contained lifetimes",
+      [
+        [
+          "src/host.rs",
+          1130
+        ]
+      ]
+    ],
+    [
+      {
+        "code": "clippy::needless_late_init",
+        "explanation": null
+      },
+      "unneeded late initialization",
+      [
+        [
+          "src/presentation.rs",
+          270
+        ]
+      ]
+    ],
+    [
+      {
+        "code": "clippy::if_same_then_else",
+        "explanation": null
+      },
+      "this `if` has identical blocks",
+      [
+        [
+          "src/presentation.rs",
+          314
+        ]
+      ]
+    ],
+    [
+      {
+        "code": "clippy::if_same_then_else",
+        "explanation": null
+      },
+      "this `if` has identical blocks",
+      [
+        [
+          "src/presentation.rs",
+          317
+        ]
+      ]
+    ],
+    [
+      {
+        "code": "clippy::doc_lazy_continuation",
+        "explanation": null
+      },
+      "doc list item without indentation",
+      [
+        [
+          "src/session.rs",
+          180
+        ]
+      ]
+    ],
+    [
+      {
+        "code": "clippy::doc_lazy_continuation",
+        "explanation": null
+      },
+      "doc list item without indentation",
+      [
+        [
+          "src/session.rs",
+          181
+        ]
+      ]
+    ],
+    [
+      {
+        "code": "clippy::collapsible_if",
+        "explanation": null
+      },
+      "this `if` statement can be collapsed",
+      [
+        [
+          "src/session.rs",
+          631
+        ]
+      ]
+    ],
+    [
+      {
+        "code": "clippy::manual_strip",
+        "explanation": null
+      },
+      "stripping a prefix manually",
+      [
+        [
+          "src/session.rs",
+          1554
+        ]
+      ]
+    ],
+    [
+      {
+        "code": "clippy::manual_pattern_char_comparison",
+        "explanation": null
+      },
+      "this manual char comparison can be written more succinctly",
+      [
+        [
+          "src/session.rs",
+          1557
+        ]
+      ]
+    ],
+    [
+      {
+        "code": "clippy::manual_is_multiple_of",
+        "explanation": null
+      },
+      "manual implementation of `.is_multiple_of()`",
+      [
+        [
+          "src/text.rs",
+          72
+        ]
+      ]
+    ],
+    [
+      {
+        "code": "clippy::collapsible_if",
+        "explanation": null
+      },
+      "this `if` statement can be collapsed",
+      [
+        [
+          "src/time.rs",
+          175
+        ]
+      ]
+    ]
+  ],
+  "new_diagnostics": 0
+}

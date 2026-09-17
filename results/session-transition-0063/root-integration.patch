@@ -1,0 +1,54 @@
+--- a/src/lib.rs
++++ b/src/lib.rs
+@@ -5,6 +5,9 @@
+ //! REPL and worker behavior is retained; only serving contexts load extensions.
+ //! With the default `count-allocations` feature this library supplies the
+ //! process's global allocator. The executable must not supply a second one.
++mod dep_transition;
++#[allow(dead_code)]
++mod dep_wire;
+ pub use rune;
+ mod extensions;
+ mod lifecycle;
+@@ -126,7 +129,8 @@
+ /// across session resets. As with the stock executable, some dispatch paths
+ /// exit the process; ordinary returns preserve Rust's `Termination` behavior.
+ pub fn main_with(extensions: Extensions) -> std::result::Result<(), Box<dyn std::error::Error>> {
+-	main_inner(extensions)
++	dep_transition::installed(extensions.names());
++	dep_transition::finish(main_inner(extensions))
+ }
+ fn main_inner(extensions: Extensions) -> Result<()> {
+ 	#[cfg(feature = "test-support")]
+--- a/src/repl.rs
++++ b/src/repl.rs
+@@ -239,6 +239,17 @@
+ 		None => (trimmed, None),
+ 	};
+ 	match command {
++		":dep" => {
++			match crate::dep_transition::describe_and_prepare(input) {
++				Ok(true) => {
++					println!("restart is beginning");
++					return Outcome::Quit;
++				}
++				Ok(false) => println!("dependency preparation declined"),
++				Err(e) => eprintln!("dependency preparation refused: {e}"),
++			}
++			return Outcome::Continue;
++		}
+ 		":quit" | ":q" => return Outcome::Quit,
+ 		":clear" => {
+ 			crate::terminal::clear();
+--- a/src/extensions.rs
++++ b/src/extensions.rs
+@@ -27,6 +27,9 @@
+ }
+ 
+ impl Extensions {
++	pub(crate) fn names(&self) -> Vec<String> {
++		self.builders.iter().map(|e| e.name.to_owned()).collect()
++	}
+ 	/// No native extensions; this is the stock rnx executable.
+ 	pub fn none() -> Self {
+ 		Self {

@@ -1,0 +1,20 @@
+
+[1] >
+let held = 42; let value = fixture::value(); let q = fixture::pending(false);
+
+[2] >
+let timer = time::sleep(5); select { _ = q => (), _ = timer => () };
+
+[3] >
+:dep --offline polars
+dependency preparation refused: custom executable needs a project association
+
+[3] >
+held
+[3] 42
+
+[4] >
+let timer2 = time::sleep(5); select { _ = q => (), _ = timer2 => () };
+
+[5] >
+:q

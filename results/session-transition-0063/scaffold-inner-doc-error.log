@@ -1,0 +1,92 @@
+error[E0753]: expected outer doc comment
+ --> /home/me/work/rnx-bench/probes/session-transition/target/root/src/lib.rs:3:1
+  |
+3 | //! Assemble the rnx executable with trusted native Rune extensions.
+  | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  |
+  = note: inner doc comments like this (starting with `//!` or `/*!`) can only appear before items
+help: you might have meant to write a regular comment
+  |
+3 - //! Assemble the rnx executable with trusted native Rune extensions.
+3 + // Assemble the rnx executable with trusted native Rune extensions.
+  |
+
+error[E0753]: expected outer doc comment
+ --> /home/me/work/rnx-bench/probes/session-transition/target/root/src/lib.rs:4:1
+  |
+4 | //!
+  | ^^^
+  |
+  = note: inner doc comments like this (starting with `//!` or `/*!`) can only appear before items
+help: you might have meant to write a regular comment
+  |
+4 - //!
+4 + //
+  |
+
+error[E0753]: expected outer doc comment
+ --> /home/me/work/rnx-bench/probes/session-transition/target/root/src/lib.rs:5:1
+  |
+5 | //! Call [`main_with`] once from your executable's `main`. Use [`rune`] for
+  | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  |
+  = note: inner doc comments like this (starting with `//!` or `/*!`) can only appear before items
+help: you might have meant to write a regular comment
+  |
+5 - //! Call [`main_with`] once from your executable's `main`. Use [`rune`] for
+5 + // Call [`main_with`] once from your executable's `main`. Use [`rune`] for
+  |
+
+error[E0753]: expected outer doc comment
+ --> /home/me/work/rnx-bench/probes/session-transition/target/root/src/lib.rs:6:1
+  |
+6 | //! adapter types so they share rnx's pinned Rune version. All normal CLI,
+  | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  |
+  = note: inner doc comments like this (starting with `//!` or `/*!`) can only appear before items
+help: you might have meant to write a regular comment
+  |
+6 - //! adapter types so they share rnx's pinned Rune version. All normal CLI,
+6 + // adapter types so they share rnx's pinned Rune version. All normal CLI,
+  |
+
+error[E0753]: expected outer doc comment
+ --> /home/me/work/rnx-bench/probes/session-transition/target/root/src/lib.rs:7:1
+  |
+7 | //! REPL and worker behavior is retained; only serving contexts load extensions.
+  | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  |
+  = note: inner doc comments like this (starting with `//!` or `/*!`) can only appear before items
+help: you might have meant to write a regular comment
+  |
+7 - //! REPL and worker behavior is retained; only serving contexts load extensions.
+7 + // REPL and worker behavior is retained; only serving contexts load extensions.
+  |
+
+error[E0753]: expected outer doc comment
+ --> /home/me/work/rnx-bench/probes/session-transition/target/root/src/lib.rs:8:1
+  |
+8 | //! With the default `count-allocations` feature this library supplies the
+  | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  |
+  = note: inner doc comments like this (starting with `//!` or `/*!`) can only appear before items
+help: you might have meant to write a regular comment
+  |
+8 - //! With the default `count-allocations` feature this library supplies the
+8 + // With the default `count-allocations` feature this library supplies the
+  |
+
+error[E0753]: expected outer doc comment
+  --> /home/me/work/rnx-bench/probes/session-transition/target/root/src/lib.rs:9:1
+   |
+ 9 | //! process's global allocator. The executable must not supply a second one.
+   | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+10 | pub use rune;
+   | ------------- the inner doc comment doesn't annotate this `use` import
+   |
+help: to annotate the `use` import, change the doc comment from inner to outer style
+   |
+ 9 - //! process's global allocator. The executable must not supply a second one.
+ 9 + /// process's global allocator. The executable must not supply a second one.
+   |
+

@@ -1,0 +1,11 @@
+[22;2t]2;rnx[?2004h[?2026h[K[1] > [6C[?2026llet held = 42; let value = fixture::value(); let q = fixture::pending(false);[?2004l
+[?2004h[?2026h[K[2] > [6C[?2026llet timer = time::sleep(5); select { _ = q => (), _ = timer => () };[?2004l
+[?2004h[?2026h[K[3] > [6C[?2026l:dep --offline polars[?2004l
+project: /tmp/rnx-dep-gate1-9pk27w1_/app/rnx.toml
+Additions: polars
+Already declared: 
+Cargo mode: offline
+Polars precedent: about 100 seconds with cached registry sources, about 1.5 GB retained; a hit skips compilation.
+Bindings will be lost. Saved history remains available with up-arrow; nothing is replayed. Continue? [y/N]
+restart is beginning
+[23;2tError: "dependency restart exec failed after cleanup: No such file or directory (os error 2)"

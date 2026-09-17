@@ -1,0 +1,51 @@
+[
+  {
+    "args": [
+      "version"
+    ],
+    "status_stdout_stderr_equal": true
+  },
+  {
+    "args": [
+      "--color=never",
+      "eval",
+      "42"
+    ],
+    "status_stdout_stderr_equal": true
+  },
+  {
+    "args": [
+      "--color=never",
+      "eval",
+      ""
+    ],
+    "status_stdout_stderr_equal": true
+  },
+  {
+    "args": [
+      "--color=never",
+      "eval"
+    ],
+    "status_stdout_stderr_equal": true
+  },
+  {
+    "args": [
+      "run"
+    ],
+    "status_stdout_stderr_equal": true
+  },
+  {
+    "args": [
+      "run",
+      "/tmp/rnx-dep-baseline-8ji6sxmn/main.rn"
+    ],
+    "status_stdout_stderr_equal": true
+  },
+  {
+    "args": [
+      "--color=never",
+      "repl"
+    ],
+    "status_stdout_stderr_equal": true
+  }
+]

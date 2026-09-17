@@ -1,0 +1,31 @@
+
+[1] >
+let held = 42; let value = fixture::value(); let q = fixture::pending(false);
+
+[2] >
+let timer = time::sleep(5); select { _ = q => (), _ = timer => () };
+
+[3] >
+:dep --offline polars
+project: /tmp/rnx-dep-gate1-9pk27w1_/app/rnx.toml
+Additions: polars
+Already declared:
+Cargo mode: offline
+Polars precedent: about 100 seconds with cached registry sources, about 1.5 GB retained; a hit skips compilation.
+Bindings will be lost. Saved history remains available with up-arrow; nothing is replayed. Continue? [y/N]
+dependency preparation refused: TOML parse error at line 1, column 8
+  |
+1 | changed
+  |        ^
+key with no value, expected `=`
+
+
+[3] >
+held
+[3] 42
+
+[4] >
+let timer2 = time::sleep(5); select { _ = q => (), _ = timer2 => () };
+
+[5] >
+:q
