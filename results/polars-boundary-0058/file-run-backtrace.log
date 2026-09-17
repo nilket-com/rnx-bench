@@ -1,0 +1,29 @@
+
+thread 'main' (2693335) panicked at /home/me/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/polars-async-0.55.2/src/lib.rs:81:13:
+can call blocking only when running on the multi-threaded runtime
+stack backtrace:
+   0: __rustc::rust_begin_unwind
+   1: core::panicking::panic_fmt
+   2: tokio::runtime::scheduler::multi_thread::worker::block_in_place::<<polars_async::RuntimeManager>::block_in_place_on<polars_plan::plans::conversion::dsl_to_ir::fetch_metadata::{closure#0}>::{closure#1}, core::result::Result<(), polars_error::PolarsError>>
+   3: polars_plan::plans::conversion::dsl_to_ir::to_alp_impl::{closure#0}
+   4: polars_plan::plans::conversion::dsl_to_ir::to_alp_impl
+   5: polars_plan::plans::conversion::dsl_to_ir::to_alp
+   6: <polars_lazy::frame::LazyFrame>::optimize_with_scratch
+   7: <polars_lazy::frame::LazyFrame>::to_alp_optimized
+   8: <polars_lazy::frame::LazyFrame>::collect_with_engine
+   9: <polars_lazy::frame::LazyFrame>::collect
+  10: <rune::function_meta::AssociatedFunctionData>::from_instance_function::<rnx_polars_boundary::__rune_fn__collect, (rune::function::Ref<rnx_polars_boundary::LazyFrame>,), rune::function::Plain>::{closure#0}
+  11: <rune::runtime::vm::Vm>::run
+  12: <rnx::execute::Settled<rnx::execute::drive_async<(rune::runtime::value::Value,)>::{closure#0}> as core::future::future::Future>::poll
+  13: <rune::runtime::budget::Budget<rnx::execute::Settled<rnx::execute::drive_async<(rune::runtime::value::Value,)>::{closure#0}>> as core::future::future::Future>::poll
+  14: rnx::execute::drive_async::<(rune::runtime::value::Value,)>::{closure#1}
+  15: <tokio::runtime::scheduler::current_thread::Context>::enter::<core::task::poll::Poll<core::option::Option<rune::runtime::vm_error::VmResult<rune::runtime::generator_state::GeneratorState>>>, <tokio::runtime::scheduler::current_thread::CoreGuard>::block_on<core::pin::Pin<&mut rnx::execute::drive_async<(rune::runtime::value::Value,)>::{closure#1}>>::{closure#0}::{closure#0}>
+  16: <tokio::runtime::context::scoped::Scoped<tokio::runtime::scheduler::Context>>::set::<<tokio::runtime::scheduler::current_thread::CoreGuard>::enter<<tokio::runtime::scheduler::current_thread::CoreGuard>::block_on<core::pin::Pin<&mut rnx::execute::drive_async<(rune::runtime::value::Value,)>::{closure#1}>>::{closure#0}, core::option::Option<core::option::Option<rune::runtime::vm_error::VmResult<rune::runtime::generator_state::GeneratorState>>>>::{closure#0}, (alloc::boxed::Box<tokio::runtime::scheduler::current_thread::Core>, core::option::Option<core::option::Option<rune::runtime::vm_error::VmResult<rune::runtime::generator_state::GeneratorState>>>)>
+  17: <tokio::runtime::scheduler::current_thread::CoreGuard>::block_on::<core::pin::Pin<&mut rnx::execute::drive_async<(rune::runtime::value::Value,)>::{closure#1}>>
+  18: tokio::runtime::context::runtime::enter_runtime::<<tokio::runtime::scheduler::current_thread::CurrentThread>::block_on<rnx::execute::drive_async<(rune::runtime::value::Value,)>::{closure#1}>::{closure#0}, core::option::Option<rune::runtime::vm_error::VmResult<rune::runtime::generator_state::GeneratorState>>>
+  19: <tokio::runtime::runtime::Runtime>::block_on::<rnx::execute::drive_async<(rune::runtime::value::Value,)>::{closure#1}>
+  20: rnx::execute::drive_async::<(rune::runtime::value::Value,)>
+  21: rnx::runner::run
+  22: rnx::main_inner
+  23: rnx_polars_boundary::main
+note: Some details are omitted, run with `RUST_BACKTRACE=full` for a verbose backtrace.

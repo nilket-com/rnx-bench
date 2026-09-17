@@ -1,0 +1,13 @@
+[package]
+name = "rnx-polars-boundary"
+version = "0.0.0"
+edition = "2024"
+publish = false
+[workspace]
+[dependencies]
+rnx = { path = "../../../rnx" }
+polars = { version = "=0.55.2", default-features = false, features = ["lazy", "csv", "parquet"] }
+[profile.dev]
+debug = false
+[profile.release]
+debug = false

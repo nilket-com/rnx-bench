@@ -1,0 +1,28 @@
+{
+  "root_plan_commit": "e1556c9083014795609a64203c36ff2cb7ad96c3",
+  "bench_base": "d4649eab6ea779fdd8f32a9fb91f8af908f60feb",
+  "rustc": "rustc 1.98.1 (48a229cea 2026-09-01)\nbinary: rustc\ncommit-hash: 48a229ceaefd4985c50990b14116b6d856af0985\ncommit-date: 2026-09-01\nhost: x86_64-unknown-linux-gnu\nrelease: 1.98.1\nLLVM version: 22.1.8",
+  "cargo": "cargo 1.98.1 (797e8a9bc 2026-08-05)",
+  "python": "Python 3.14.4",
+  "platform": "Linux nano 7.0.0-31-generic #31-Ubuntu SMP PREEMPT_DYNAMIC Sat Aug  1 04:26:38 UTC 2026 x86_64 GNU/Linux",
+  "features": [
+    "lazy",
+    "csv",
+    "parquet"
+  ],
+  "polars": "=0.55.2",
+  "polars_default_features": false,
+  "POLARS_MAX_THREADS": "2",
+  "native_binary_sha256": "85484db82385a19c1d583ce270e641431c0c32c0cc32dad34665b94a4c6964c1",
+  "source_sha256": {
+    "probes/polars-boundary/Cargo.toml": "17240b8351e2f6842075e5080ace9d86d25fe33c02038c96097f4f096ce25ee7",
+    "probes/polars-boundary/Cargo.lock": "fbaf540ff46eb5de80b8f76c93342e339d3f30b085cfe13bb1bb75a6500d3565",
+    "probes/polars-boundary/src/main.rs": "68d0eedd6442e208a14f6df801fcc3f868b85a888b93c7729d033a821015fa00",
+    "probes/polars-boundary/check.py": "5d28c82c561bff43af5af8b759c47a1cea67a1dfdcdfa8901250256faea3e4b9",
+    "probes/polars-boundary/provenance.py": "29d38c920f00428c6a86ed81c5b2e57903697731647a1970cba55f56df91f175"
+  },
+  "gate": "stopped: current-thread runtime rejects Polars collect block_in_place; sync controls only pass",
+  "performance": "not measured",
+  "product_adapter": "not implemented",
+  "root_evidence_commit": "17c952f52da17777e579d2b21ec4c03d59c7a082"
+}
