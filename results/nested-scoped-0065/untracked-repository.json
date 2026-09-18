@@ -1,0 +1,126 @@
+[
+  {
+    "roots": [
+      "/home/me/work/rnx-bench/probes/nested-scoped/target/untracked",
+      "/home/me/work/rnx-bench/probes/nested-scoped/target/untracked/a"
+    ],
+    "oracle": {
+      "answer": {
+        "Err": "fingerprint /home/me/work/rnx-bench/probes/nested-scoped/target/untracked: untracked non-ignored native file"
+      },
+      "events": [
+        {
+          "args": [
+            "rev-parse",
+            "--show-superproject-working-tree"
+          ],
+          "git": "/home/me/work/rnx-bench/probes/nested-scoped/target/untracked"
+        },
+        {
+          "args": [
+            "ls-files",
+            "--others",
+            "--exclude-standard",
+            "-z",
+            "--",
+            "."
+          ],
+          "git": "/home/me/work/rnx-bench/probes/nested-scoped/target/untracked"
+        }
+      ],
+      "remaining_bytes": 536870912,
+      "repeated": null
+    },
+    "candidate": {
+      "answer": {
+        "Err": "fingerprint /home/me/work/rnx-bench/probes/nested-scoped/target/untracked: untracked non-ignored native file"
+      },
+      "events": [
+        {
+          "args": [
+            "rev-parse",
+            "--path-format=absolute",
+            "--show-toplevel",
+            "--absolute-git-dir",
+            "--git-path",
+            "index",
+            "--show-superproject-working-tree"
+          ],
+          "git": "/home/me/work/rnx-bench/probes/nested-scoped/target/untracked"
+        },
+        {
+          "args": [
+            "ls-files",
+            "--others",
+            "--exclude-standard",
+            "-z",
+            "--",
+            "."
+          ],
+          "git": "/home/me/work/rnx-bench/probes/nested-scoped/target/untracked"
+        }
+      ],
+      "remaining_bytes": 536870912,
+      "repeated": null
+    }
+  },
+  {
+    "roots": [
+      "/home/me/work/rnx-bench/probes/nested-scoped/target/untracked/a"
+    ],
+    "oracle": {
+      "answer": {
+        "Err": "fingerprint /home/me/work/rnx-bench/probes/nested-scoped/target/untracked/a: untracked non-ignored native file"
+      },
+      "events": [
+        {
+          "args": [
+            "rev-parse",
+            "--show-superproject-working-tree"
+          ],
+          "git": "/home/me/work/rnx-bench/probes/nested-scoped/target/untracked/a"
+        },
+        {
+          "args": [
+            "ls-files",
+            "--others",
+            "--exclude-standard",
+            "-z",
+            "--",
+            "."
+          ],
+          "git": "/home/me/work/rnx-bench/probes/nested-scoped/target/untracked/a"
+        }
+      ],
+      "remaining_bytes": 536870912,
+      "repeated": null
+    },
+    "candidate": {
+      "answer": {
+        "Err": "fingerprint /home/me/work/rnx-bench/probes/nested-scoped/target/untracked/a: untracked non-ignored native file"
+      },
+      "events": [
+        {
+          "args": [
+            "rev-parse",
+            "--show-superproject-working-tree"
+          ],
+          "git": "/home/me/work/rnx-bench/probes/nested-scoped/target/untracked/a"
+        },
+        {
+          "args": [
+            "ls-files",
+            "--others",
+            "--exclude-standard",
+            "-z",
+            "--",
+            "."
+          ],
+          "git": "/home/me/work/rnx-bench/probes/nested-scoped/target/untracked/a"
+        }
+      ],
+      "remaining_bytes": 536870912,
+      "repeated": null
+    }
+  }
+]

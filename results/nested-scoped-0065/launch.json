@@ -1,0 +1,42 @@
+{
+  "cases": [
+    {
+      "verify": false,
+      "expected_success": true,
+      "status": 0,
+      "stdout": "42\n",
+      "stderr": ""
+    },
+    {
+      "verify": true,
+      "expected_success": true,
+      "status": 0,
+      "stdout": "42\n",
+      "stderr": ""
+    },
+    {
+      "verify": false,
+      "expected_success": false,
+      "status": 1,
+      "stdout": "",
+      "stderr": "rnx-project: project source or Cargo input changed; run lock\n"
+    },
+    {
+      "verify": true,
+      "expected_success": false,
+      "status": 1,
+      "stdout": "",
+      "stderr": "rnx-project: project source or Cargo input changed; run lock\n"
+    },
+    {
+      "verify": false,
+      "expected_success": true,
+      "status": 0,
+      "stdout": "42\n",
+      "stderr": ""
+    }
+  ],
+  "files_restored": true,
+  "lock_pair_receipt_unchanged": true,
+  "tool_sha256": "a71eb908239755dc0b7941f69223616ca3e4714484c3e776ae4e69e6aad68d41"
+}
