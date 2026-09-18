@@ -1,0 +1,217 @@
+[1mdiff --git a/tools/project/README.md b/tools/project/README.md[m
+[1mindex b6eb6d3..47ae438 100644[m
+[1m--- a/tools/project/README.md[m
+[1m+++ b/tools/project/README.md[m
+[36m@@ -129,28 +129,40 @@[m [msource map or executable is written beside the manifest.[m
+ Project-local state is under `.rnx/`, which contains its own `.gitignore` with[m
+ `*`: command lock, derived source maps and receipt.json. New generated projects[m
+ build their assembly, target tree and executable in the shared cache described[m
+[31m-below. Legacy format-1 projects keep those outputs under their own `.rnx/`.[m
+[32m+[m[32mbelow. Old local artifacts are retained under their project’s `.rnx/`.[m
+ An executable override writes only rnx.lock and removes an obsolete generated-form[m
+[31m-rnx.Cargo.lock after publication. Its first launch verifies the locked binary and[m
+[31m-establishes a private version-2 receipt; no Cargo is needed.[m
+[32m+[m[32mrnx.Cargo.lock after publication. Run `build` to verify the locked binary and publish receipt 4; no Cargo is[m
+[32m+[m[32mneeded for that override build. Launch refuses a missing or mismatched receipt.[m
+ [m
+ ## Shared assemblies and existing projects[m
+ [m
+[31m-An explicit `lock` now writes format 2 for generated projects. `build` reports[m
+[32m+[m[32mAn explicit `lock` now writes format 3 for generated and override projects. `build` reports[m
+ `built shared assembly` or `attached shared assembly`, naming its key and artifact.[m
+ Two projects with the same installed native dependencies and build context share[m
+ that artifact; application scripts and source mounts stay project-specific.[m
+ A ready hit skips compilation, but fully hashes the artifact before publishing[m
+ the project's receipt. Launch never builds, attaches or repairs a missing cache.[m
+ [m
+[31m-Existing format-1 generated locks remain local. Their version-1/2 receipts retain[m
+[31m-the prior migration and metadata-check rules. Launch and build do not upgrade[m
+[31m-those locks. Only an explicit relock selects the shared policy, after which an[m
+[31m-explicit build is required. The old local binary is never promoted into the[m
+[31m-cache: it was compiled at a different location. A valid existing shared entry may[m
+[31m-be reused instead of compiling again. Old local files are left in place.[m
+[31m-Format compatibility does not waive stale-input checks: updating a fingerprinted[m
+[31m-rnx checkout still requires relocking/rebuilding, just as before.[m
+[32m+[m[32mLocks 1–2 and receipts 1–3 are no longer accepted by this tool. A refusal names[m
+[32m+[m[32mthe manifest and prints shell-quoted commands using the current tool's path:[m
+[32m+[m
+[32m+[m[32m```sh[m
+[32m+[m[32mrnx-project lock --manifest path/to/rnx.toml[m
+[32m+[m[32mrnx-project build --manifest path/to/rnx.toml[m
+[32m+[m[32m```[m
+[32m+[m
+[32m+[m[32mRefusing an old lock or receipt does not rewrite it, refresh its stamp or execute[m
+[32m+[m[32mits artifact. Explicit lock and build publish the current formats. Overrides[m
+[32m+[m[32mkeep their declared executable path but also require both commands. A generated[m
+[32m+[m[32massembly receives a new BLAKE3 key and is built at that key's retained location;[m
+[32m+[m[32man old binary is never promoted, because its build location can affect behavior.[m
+[32m+[m[32mA second consumer can attach to a ready entry under the new key without compiling.[m
+[32m+[m
+[32m+[m[32mRelocking reclaims no disk space. Old local binaries, shared entries and runtime[m
+[32m+[m[32minstallations stay: older tools, live sessions and kernels can still reference[m
+[32m+[m[32mthem. A new Polars assembly can occupy another approximately 1.5 GB. Removal is[m
+[32m+[m[32mthe record immediately after 0065; a superseded key is not proof of no users.[m
+[32m+[m[32mInstalled-runtime migration is the separate gate 3 checkpoint of 0065.[m
+ [m
+ To select a private root before locking:[m
+ [m
+[36m@@ -199,10 +211,12 @@[m [minterruption between replacements can leave a mismatched pair, which build/run[m
+ recover. A normal publication failure attempts to restore the old JSON first and then[m
+ the old Cargo bytes. There is no claim of an atomic snapshot against an editor or git.[m
+ [m
+[31m-Build removes an old receipt before attempting work. A shared build rechecks[m
+[31m-project and assembly inputs before attachment and publishes a version-3 receipt[m
+[32m+[m[32mBuild first validates the lock, preserving the receipt on a format refusal, then[m
+[32m+[m[32mremoves the old receipt before attempting work. A shared build rechecks[m
+[32m+[m[32mproject and assembly inputs before attachment and publishes a version-4 receipt[m
+ binding the project-lock digest, assembly key, executable digest and metadata[m
+[31m-stamp. A local build publishes version 2. The shared ready document is committed[m
+[32m+[m[32mstamp. Override build publishes version 4 without an assembly key. The shared[m
+[32m+[m[32mready document (version 2) is committed[m
+ last under a per-key lock, after full artifact verification; a waiting builder[m
+ re-inspects readiness rather than treating lock release as success. A failed[m
+ project attachment can leave a valid shared entry without a project receipt.[m
+[36m@@ -214,9 +228,7 @@[m [mand reused; only run publishes or reads them. Missing generated receipts require[m
+ build even if a shared entry is already ready. Old local receipts are never[m
+ interpreted as shared attachments.[m
+ [m
+[31m-A valid local version-1 receipt is fully checked once and migrated before launch.[m
+[31m-Overrides without a usable receipt check their already-locked digest to establish[m
+[31m-one. Malformed receipts refuse; launch never makes changed contents trusted by[m
+[32m+[m[32mOld receipts require explicit lock and build. Malformed receipts refuse; launch never makes changed contents trusted by[m
+ changing the digest. Receipt refresh is atomic. A harmless touch or identical[m
+ replacement costs one full check, then subsequent launches become fast again.[m
+ [m
+[36m@@ -287,7 +299,9 @@[m [mManifests are capped at 1 MiB, JSON control files and captured tool output at[m
+ 16 MiB. Fingerprinting has a shared per-snapshot allowance of 100,000 entries and[m
+ 512 MiB; compilation retains its separate 8 MiB source allowance. Native Git[m
+ inventory output also has a 16 MiB cap. Tree hashes use the record's versioned[m
+[31m-SHA-256 framing with sorted paths, content lengths, bytes and executable mode.[m
+[32m+[m[32msingle-core BLAKE3 framing: sorted names, executable mode, content lengths and[m
+[32m+[m[32mraw per-file BLAKE3 digests. Each reader hashes content once, with the unchanged[m
+[32m+[m[32m16 KiB buffer. Nested roots are still inventoried independently at this checkpoint.[m
+ [m
+ ## Platform and validation[m
+ [m
+[1mdiff --git a/tools/project/src/workflow.rs b/tools/project/src/workflow.rs[m
+[1mindex 85add81..6334011 100644[m
+[1m--- a/tools/project/src/workflow.rs[m
+[1m+++ b/tools/project/src/workflow.rs[m
+[36m@@ -94,10 +94,36 @@[m [mimpl Project {[m
+ 			.map_err(err)?;[m
+ 		Ok(())[m
+ 	}[m
+[32m+[m	[32mfn recovery(&self, reason: impl std::fmt::Display) -> String {[m
+[32m+[m		[32mlet commands = (|| {[m
+[32m+[m			[32mlet tool = add::shell_word(&std::env::current_exe().map_err(err)?)?;[m
+[32m+[m			[32mlet manifest = add::shell_word(&self.manifest)?;[m
+[32m+[m			[32mOk::<_, String>(format!([m
+[32m+[m				[32m"{tool} lock --manifest {manifest}\n{tool} build --manifest {manifest}"[m
+[32m+[m			[32m))[m
+[32m+[m		[32m})();[m
+[32m+[m		[32mformat!([m
+[32m+[m			[32m"{reason}; project {}\n{}\nRelocking retains old assemblies and runtimes; a new Polars assembly can use another approximately 1.5 GB.",[m
+[32m+[m			[32mself.manifest.display(),[m
+[32m+[m			[32mcommands.unwrap_or_else(|e| format!("cannot render recovery commands: {e}"))[m
+[32m+[m		[32m)[m
+[32m+[m	[32m}[m
+[32m+[m	[32mfn format_refusal(&self, kind: &str, bytes: &[u8], error: String) -> String {[m
+[32m+[m		[32m// Inspect only the envelope of a refused document. This neither validates[m
+[32m+[m		[32m// legacy content nor turns an unknown/corrupt document into a migration.[m
+[32m+[m		[32m#[derive(serde::Deserialize)][m
+[32m+[m		[32mstruct Envelope {[m
+[32m+[m			[32mformat: u32,[m
+[32m+[m		[32m}[m
+[32m+[m		[32mlet version = serde_json::from_slice::<Envelope>(bytes)[m
+[32m+[m			[32m.map(|e| format!(" (envelope format {})", e.format))[m
+[32m+[m			[32m.unwrap_or_default();[m
+[32m+[m		[32mself.recovery(format!("invalid or unsupported {kind}{version}: {error}"))[m
+[32m+[m	[32m}[m
+ 	fn read_lock(&self) -> Result<(Lock, Vec<u8>), String> {[m
+ 		let bytes = input::read(&self.base.join("rnx.lock"), input::DOCUMENT_LIMIT)[m
+[31m-			.map_err(|e| format!("{e}; run lock"))?;[m
+[31m-		let lock = Lock::decode(&bytes).map_err(|e| format!("invalid rnx.lock: {e}; run lock"))?;[m
+[32m+[m			[32m.map_err(|e| self.recovery(e))?;[m
+[32m+[m		[32mlet lock = Lock::decode(&bytes).map_err(|e| self.format_refusal("rnx.lock", &bytes, e))?;[m
+ 		if !matches!(lock.assembly, Assembly::Executable { .. }) != lock.inputs.native.is_some() {[m
+ 			return Err("lock assembly and native inventory disagree; run lock".into());[m
+ 		}[m
+[36m@@ -301,12 +327,34 @@[m [mimpl Project {[m
+ 		Ok(())[m
+ 	}[m
+ 	fn build(&self, offline: bool) -> Result<(), String> {[m
+[32m+[m		[32m// Refusing an old or invalid lock must preserve the old receipt too.[m
+[32m+[m		[32mlet (lock, bytes) = self.read_lock()?;[m
+ 		let receipt = self.dot.join("receipt.json");[m
+ 		if receipt.exists() {[m
+ 			fs::remove_file(&receipt).map_err(err)?;[m
+ 		}[m
+[31m-		let (lock, bytes) = self.read_lock()?;[m
+ 		self.verify_inputs(&lock)?;[m
+[32m+[m		[32mif let Assembly::Executable { path, blake3 } = &lock.assembly {[m
+[32m+[m			[32mlet checked = artifact::check(Path::new(path), blake3, None, true)?;[m
+[32m+[m			[32mfault("after-build")?;[m
+[32m+[m			[32mself.verify_inputs(&lock)?;[m
+[32m+[m			[32mif self.read_lock()?.1 != bytes {[m
+[32m+[m				[32mreturn Err("lock changed during build; no receipt published".into());[m
+[32m+[m			[32m}[m
+[32m+[m			[32mchecked.recheck()?;[m
+[32m+[m			[32mself.atomic([m
+[32m+[m				[32m&receipt,[m
+[32m+[m				[32m&wire::pretty(&Receipt {[m
+[32m+[m					[32mformat: 4,[m
+[32m+[m					[32massembly_key: None,[m
+[32m+[m					[32mlock_blake3: hash(&bytes),[m
+[32m+[m					[32mexecutable_blake3: blake3.clone(),[m
+[32m+[m					[32mstamp: Some(checked.stamp()),[m
+[32m+[m				[32m})?,[m
+[32m+[m			[32m)?;[m
+[32m+[m			[32meprintln!("verified {path}");[m
+[32m+[m			[32mreturn Ok(());[m
+[32m+[m		[32m}[m
+ 		if let Some(identity) = lock.shared()? {[m
+ 			return self.build_shared(&lock, &bytes, &identity, offline);[m
+ 		}[m
+[36m@@ -390,10 +438,13 @@[m [mimpl Project {[m
+ 			Err(e) if e.kind() == std::io::ErrorKind::NotFound => None,[m
+ 			Err(e) => return Err(err(e)),[m
+ 			Ok(m) if !m.is_file() => return Err("receipt is not a regular file".into()),[m
+[31m-			Ok(_) => Some(Receipt::decode(&input::read([m
+[31m-				&receipt_path,[m
+[31m-				input::DOCUMENT_LIMIT,[m
+[31m-			)?)?),[m
+[32m+[m			[32mOk(_) => {[m
+[32m+[m				[32mlet bytes = input::read(&receipt_path, input::DOCUMENT_LIMIT)?;[m
+[32m+[m				[32mSome([m
+[32m+[m					[32mReceipt::decode(&bytes)[m
+[32m+[m						[32m.map_err(|e| self.format_refusal("receipt", &bytes, e))?,[m
+[32m+[m				[32m)[m
+[32m+[m			[32m}[m
+ 		};[m
+ 		let identity = lock.shared()?;[m
+ 		if receipt.as_ref().is_some_and(|r| r.assembly_key.is_some())[m
+[36m@@ -420,15 +471,16 @@[m [mimpl Project {[m
+ 				(path, digest, r.stamp.as_ref())[m
+ 			}[m
+ 			Assembly::Executable { path, blake3 } => {[m
+[31m-				let stamp = receipt[m
+[32m+[m				[32mlet r = receipt[m
+ 					.as_ref()[m
+[31m-					.filter(|r| {[m
+[31m-						r.assembly_key.is_none()[m
+[31m-							&& r.lock_blake3 == lock_digest[m
+[31m-							&& r.executable_blake3 == *blake3[m
+[31m-					})[m
+[31m-					.and_then(|r| r.stamp.as_ref());[m
+[31m-				(PathBuf::from(path), blake3.clone(), stamp)[m
+[32m+[m					[32m.ok_or_else(|| self.recovery("missing override receipt"))?;[m
+[32m+[m				[32mif r.assembly_key.is_some()[m
+[32m+[m					[32m|| r.lock_blake3 != lock_digest[m
+[32m+[m					[32m|| r.executable_blake3 != *blake3[m
+[32m+[m				[32m{[m
+[32m+[m					[32mreturn Err(self.recovery("override receipt does not match lock"));[m
+[32m+[m				[32m}[m
+[32m+[m				[32m(PathBuf::from(path), blake3.clone(), r.stamp.as_ref())[m
+ 			}[m
+ 			Assembly::Generated { .. } => {[m
+ 				let r = receipt.as_ref().ok_or("missing receipt; run build")?;[m
