@@ -1,0 +1,196 @@
+{
+  "root-tests": {
+    "passed": 376,
+    "ignored": 0
+  },
+  "root-support-tests": {
+    "passed": 419,
+    "ignored": 0
+  },
+  "root-combined-tests": {
+    "passed": 438,
+    "ignored": 0
+  },
+  "tool-tests": {
+    "passed": 40,
+    "ignored": 2
+  },
+  "tool-support-tests": {
+    "passed": 40,
+    "ignored": 2
+  },
+  "root_clippy": {
+    "existing_diagnostics": [
+      {
+        "code": {
+          "code": "clippy::clone_on_copy",
+          "explanation": null
+        },
+        "message": "using `clone` on type `Kind` which implements the `Copy` trait",
+        "locations": [
+          [
+            "src/complete.rs",
+            161
+          ]
+        ]
+      },
+      {
+        "code": {
+          "code": "clippy::collapsible_if",
+          "explanation": null
+        },
+        "message": "this `if` statement can be collapsed",
+        "locations": [
+          [
+            "src/complete.rs",
+            181
+          ]
+        ]
+      },
+      {
+        "code": {
+          "code": "clippy::drop_non_drop",
+          "explanation": null
+        },
+        "message": "call to `std::mem::drop` with a value that does not implement `Drop`. Dropping such a type only extends its contained lifetimes",
+        "locations": [
+          [
+            "src/host.rs",
+            1130
+          ]
+        ]
+      },
+      {
+        "code": {
+          "code": "clippy::needless_late_init",
+          "explanation": null
+        },
+        "message": "unneeded late initialization",
+        "locations": [
+          [
+            "src/presentation.rs",
+            270
+          ]
+        ]
+      },
+      {
+        "code": {
+          "code": "clippy::if_same_then_else",
+          "explanation": null
+        },
+        "message": "this `if` has identical blocks",
+        "locations": [
+          [
+            "src/presentation.rs",
+            314
+          ]
+        ]
+      },
+      {
+        "code": {
+          "code": "clippy::if_same_then_else",
+          "explanation": null
+        },
+        "message": "this `if` has identical blocks",
+        "locations": [
+          [
+            "src/presentation.rs",
+            317
+          ]
+        ]
+      },
+      {
+        "code": {
+          "code": "clippy::doc_lazy_continuation",
+          "explanation": null
+        },
+        "message": "doc list item without indentation",
+        "locations": [
+          [
+            "src/session.rs",
+            180
+          ]
+        ]
+      },
+      {
+        "code": {
+          "code": "clippy::doc_lazy_continuation",
+          "explanation": null
+        },
+        "message": "doc list item without indentation",
+        "locations": [
+          [
+            "src/session.rs",
+            181
+          ]
+        ]
+      },
+      {
+        "code": {
+          "code": "clippy::collapsible_if",
+          "explanation": null
+        },
+        "message": "this `if` statement can be collapsed",
+        "locations": [
+          [
+            "src/session.rs",
+            631
+          ]
+        ]
+      },
+      {
+        "code": {
+          "code": "clippy::manual_strip",
+          "explanation": null
+        },
+        "message": "stripping a prefix manually",
+        "locations": [
+          [
+            "src/session.rs",
+            1554
+          ]
+        ]
+      },
+      {
+        "code": {
+          "code": "clippy::manual_pattern_char_comparison",
+          "explanation": null
+        },
+        "message": "this manual char comparison can be written more succinctly",
+        "locations": [
+          [
+            "src/session.rs",
+            1557
+          ]
+        ]
+      },
+      {
+        "code": {
+          "code": "clippy::manual_is_multiple_of",
+          "explanation": null
+        },
+        "message": "manual implementation of `.is_multiple_of()`",
+        "locations": [
+          [
+            "src/text.rs",
+            72
+          ]
+        ]
+      },
+      {
+        "code": {
+          "code": "clippy::collapsible_if",
+          "explanation": null
+        },
+        "message": "this `if` statement can be collapsed",
+        "locations": [
+          [
+            "src/time.rs",
+            175
+          ]
+        ]
+      }
+    ],
+    "new_diagnostics": 0
+  }
+}

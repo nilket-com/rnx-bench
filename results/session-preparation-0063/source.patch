@@ -1,0 +1,1309 @@
+diff --git a/src/dep_transition.rs b/src/dep_transition.rs
+new file mode 100644
+index 0000000..29e839b
+--- /dev/null
++++ b/src/dep_transition.rs
+@@ -0,0 +1,331 @@
++//! Preparation runs outside the session VM and never polls or drains its runtime.
++use std::cell::RefCell;
++thread_local! {static INSTALLED:RefCell<Vec<String>>=const{RefCell::new(Vec::new())};}
++pub(crate) fn installed(mut names: Vec<String>) {
++	names.sort();
++	INSTALLED.with(|v| *v.borrow_mut() = names);
++}
++#[cfg(not(unix))]
++pub(crate) fn prepare(_: &str, _: impl FnOnce() -> bool) -> Result<(), String> {
++	Err("dependency transitions are not supported on this platform".into())
++}
++#[cfg(unix)]
++pub(crate) fn prepare(input: &str, consent: impl FnOnce() -> bool) -> Result<(), String> {
++	unix::prepare(input, consent)
++}
++#[cfg(unix)]
++mod unix {
++	use super::*;
++	use crate::dep_wire as wire;
++	use std::{
++		io::{IsTerminal, Read, Write},
++		os::{
++			fd::AsRawFd,
++			unix::{net::UnixStream, process::CommandExt},
++		},
++		path::PathBuf,
++		process::{Child, Command, Stdio},
++		time::{Duration, Instant},
++	};
++	fn err(e: impl std::fmt::Display) -> String {
++		e.to_string()
++	}
++	fn nonblock(fd: i32) -> Result<(), String> {
++		unsafe {
++			let flags = libc::fcntl(fd, libc::F_GETFL);
++			if flags < 0 || libc::fcntl(fd, libc::F_SETFL, flags | libc::O_NONBLOCK) < 0 {
++				return Err(err(std::io::Error::last_os_error()));
++			}
++		}
++		Ok(())
++	}
++	struct Helper {
++		child: Child,
++		socket: UnixStream,
++		output: Vec<Box<dyn Read>>,
++		frame: Vec<u8>,
++		eof: bool,
++		total: usize,
++		deadline: Instant,
++		done: bool,
++	}
++	impl Helper {
++		fn spawn(tool: PathBuf) -> Result<Self, String> {
++			let (parent, child) = UnixStream::pair().map_err(err)?;
++			let fd = child.as_raw_fd();
++			let mut command = Command::new(tool);
++			command
++				.env("RNX_INTERNAL_DEP_FD", fd.to_string())
++				.stdin(Stdio::null())
++				.stdout(Stdio::piped())
++				.stderr(Stdio::piped())
++				.process_group(0);
++			unsafe {
++				command.pre_exec(move || {
++					if libc::fcntl(fd, libc::F_SETFD, 0) < 0 {
++						return Err(std::io::Error::last_os_error());
++					}
++					Ok(())
++				});
++			}
++			let spawned = command.spawn().map_err(err)?;
++			drop(child);
++			let mut h = Self {
++				child: spawned,
++				socket: parent,
++				output: Vec::new(),
++				frame: Vec::new(),
++				eof: false,
++				total: 0,
++				deadline: Instant::now() + Duration::from_secs(5),
++				done: false,
++			};
++			h.socket.set_nonblocking(true).map_err(err)?;
++			let out = h.child.stdout.take().unwrap();
++			let errors = h.child.stderr.take().unwrap();
++			nonblock(out.as_raw_fd())?;
++			nonblock(errors.as_raw_fd())?;
++			h.output.push(Box::new(out));
++			h.output.push(Box::new(errors));
++			Ok(h)
++		}
++		fn check(&self) -> Result<(), String> {
++			if crate::host::interrupted() {
++				return Err("interrupted; old session unchanged".into());
++			}
++			if Instant::now() >= self.deadline {
++				return Err("dependency tool response deadline exceeded".into());
++			}
++			Ok(())
++		}
++		fn output(&mut self) -> Result<(), String> {
++			let mut b = [0; 4096];
++			for stream in &mut self.output {
++				// Bound work per stream so a writer cannot starve cancellation.
++				for _ in 0..16 {
++					match stream.read(&mut b) {
++						Ok(0) => break,
++						Ok(n) => {
++							self.total += n;
++							if self.total > 8 * 1024 * 1024 {
++								return Err("preparation output exceeds 8 MiB".into());
++							}
++							eprint!(
++								"{}",
++								crate::format::terminal_safe(&String::from_utf8_lossy(&b[..n]))
++							);
++						}
++						Err(e)
++							if matches!(
++								e.kind(),
++								std::io::ErrorKind::WouldBlock | std::io::ErrorKind::Interrupted
++							) =>
++						{
++							break;
++						}
++						Err(e) => return Err(err(e)),
++					}
++				}
++			}
++			Ok(())
++		}
++		fn send(&mut self, kind: u8, f: &wire::Fields) -> Result<(), String> {
++			let bytes = wire::encode(kind, f)?;
++			let mut at = 0;
++			while at < bytes.len() {
++				self.check()?;
++				self.output()?;
++				match self.socket.write(&bytes[at..]) {
++					Ok(0) => return Err("tool closed control channel".into()),
++					Ok(n) => at += n,
++					Err(e) if e.kind() == std::io::ErrorKind::WouldBlock => {
++						std::thread::sleep(Duration::from_millis(10))
++					}
++					Err(e) => return Err(err(e)),
++				}
++			}
++			Ok(())
++		}
++		fn receive(&mut self) -> Result<(u8, wire::Fields), String> {
++			loop {
++				self.check()?;
++				self.output()?;
++				if self.frame.len() >= 4 {
++					let size = u32::from_be_bytes(self.frame[..4].try_into().unwrap()) as usize;
++					if !(2..=wire::LIMIT).contains(&size) {
++						return Err("tool frame length refused".into());
++					}
++					if self.frame.len() >= size + 4 {
++						let result = wire::decode(&self.frame[4..size + 4])?;
++						self.frame.drain(..size + 4);
++						return Ok(result);
++					}
++				}
++				let mut b = [0; 4096];
++				match self.socket.read(&mut b) {
++					Ok(0) => return Err("tool closed or truncated transition protocol".into()),
++					Ok(n) => {
++						if self.frame.len() + n > wire::LIMIT + 4 {
++							return Err("tool control buffer exceeded".into());
++						}
++						self.frame.extend_from_slice(&b[..n]);
++					}
++					Err(e) if e.kind() == std::io::ErrorKind::WouldBlock => {
++						std::thread::sleep(Duration::from_millis(10))
++					}
++					Err(e) => return Err(err(e)),
++				}
++			}
++		}
++		fn finish(&mut self) -> Result<(), String> {
++			if !self.frame.is_empty() {
++				return Err("trailing tool control data".into());
++			}
++			loop {
++				self.check()?;
++				self.output()?;
++				let mut b = [0];
++				match self.socket.read(&mut b) {
++					Ok(0) => self.eof = true,
++					Ok(_) => return Err("trailing tool control data".into()),
++					Err(e) if e.kind() == std::io::ErrorKind::WouldBlock => (),
++					Err(e) => return Err(err(e)),
++				}
++				if let Some(status) = self.child.try_wait().map_err(err)? {
++					self.done = true;
++					self.output()?;
++					if !self.eof {
++						continue;
++					}
++					return if status.success() {
++						Ok(())
++					} else {
++						Err(format!("preparation tool failed: {status}"))
++					};
++				}
++				std::thread::sleep(Duration::from_millis(10));
++			}
++		}
++	}
++	impl Drop for Helper {
++		fn drop(&mut self) {
++			if !self.done {
++				// Give the tool its signal-handler path so it reaps the Cargo group.
++				unsafe {
++					libc::kill(self.child.id() as i32, libc::SIGTERM);
++				}
++				let until = Instant::now() + Duration::from_secs(5);
++				while Instant::now() < until {
++					let _ = self.output();
++					if self.child.try_wait().ok().flatten().is_some() {
++						self.done = true;
++						break;
++					}
++					std::thread::sleep(Duration::from_millis(10));
++				}
++				if !self.done {
++					unsafe {
++						libc::kill(-(self.child.id() as i32), libc::SIGKILL);
++					}
++					let _ = self.child.kill();
++					let _ = self.child.wait();
++				}
++			}
++		}
++	}
++	pub(super) fn prepare(input: &str, consent: impl FnOnce() -> bool) -> Result<(), String> {
++		if !std::io::stdin().is_terminal() || !std::io::stdout().is_terminal() {
++			return Err(":dep requires a terminal; use rnx-project add, lock, build and session --manifest FILE".into());
++		}
++		let association = std::env::var("RNX_INTERNAL_SESSION_V1").unwrap_or_default();
++		let installed = INSTALLED.with(|v| v.borrow().join("\n"));
++		let tool = if !association.is_empty() {
++			PathBuf::from(&wire::capsule(&association)?[&2])
++		} else if let Some(path) = std::env::var_os("RNX_PROJECT_TOOL") {
++			PathBuf::from(path)
++		} else {
++			std::env::split_paths(&std::env::var_os("PATH").unwrap_or_default())
++				.map(|p| p.join("rnx-project"))
++				.find(|p| p.is_file())
++				.ok_or("cannot locate rnx-project; set RNX_PROJECT_TOOL to its absolute path")?
++				.canonicalize()
++				.map_err(err)?
++		};
++		if !tool.is_absolute() {
++			return Err("RNX_PROJECT_TOOL must be absolute".into());
++		}
++		let mut offline = false;
++		let mut names = Vec::new();
++		for word in input.split_whitespace().skip(1) {
++			if word == "--offline" && !offline {
++				offline = true
++			} else if word.starts_with('-') {
++				return Err("unknown or duplicate :dep option".into());
++			} else {
++				names.push(word)
++			}
++		}
++		crate::host::clear_interrupt();
++		let mut helper = Helper::spawn(tool)?;
++		helper.send(
++			1,
++			&wire::Fields::from([
++				(1, names.join("\n")),
++				(2, association),
++				(
++					3,
++					std::env::current_exe()
++						.map_err(err)?
++						.to_str()
++						.ok_or("executable path is not Unicode")?
++						.into(),
++				),
++				(4, installed),
++				(5, if offline { "offline" } else { "online" }.into()),
++			]),
++		)?;
++		let (kind, description) = helper.receive()?;
++		if kind == 8 {
++			wire::exact(&description, &[1])?;
++			helper.finish()?;
++			return Err(description[&1].clone());
++		}
++		if kind != 2 {
++			return Err("incompatible tool transition protocol".into());
++		}
++		wire::exact(&description, &[1, 2, 3, 4, 5, 6, 7])?;
++		helper.deadline = Instant::now() + Duration::from_secs(1800);
++		if description[&5].is_empty() {
++			helper.send(3, &wire::Fields::new())?;
++			helper
++				.socket
++				.shutdown(std::net::Shutdown::Write)
++				.map_err(err)?;
++			helper.finish()?;
++			println!("already installed; session unchanged");
++			return Ok(());
++		}
++		println!("{}", crate::format::terminal_safe(&description[&2]));
++		if description[&5].is_empty() || !consent() {
++			helper.send(3, &wire::Fields::new())?;
++			helper
++				.socket
++				.shutdown(std::net::Shutdown::Write)
++				.map_err(err)?;
++			helper.finish()?;
++			return Ok(());
++		}
++		helper.send(4, &wire::Fields::from([(1, description[&1].clone())]))?;
++		helper
++			.socket
++			.shutdown(std::net::Shutdown::Write)
++			.map_err(err)?;
++		let (kind, result) = helper.receive()?;
++		if kind != 8 {
++			return Err("unprobed replacement refused; startup gate not enabled".into());
++		}
++		wire::exact(&result, &[1])?;
++		helper.finish()?;
++		Err(result[&1].clone())
++	}
++}
+diff --git a/src/dep_wire.rs b/src/dep_wire.rs
+new file mode 100644
+index 0000000..17a343a
+--- /dev/null
++++ b/src/dep_wire.rs
+@@ -0,0 +1,117 @@
++//! Private dependency transition protocol: network-order bounded TLV, no dependency.
++#![allow(dead_code)] // Shared framing operations are split between the two endpoints.
++use std::collections::BTreeMap;
++use std::io::{Read, Write};
++pub const LIMIT: usize = 65536;
++pub type Fields = BTreeMap<u8, String>;
++pub fn encode(kind: u8, fields: &Fields) -> Result<Vec<u8>, String> {
++	let mut body = vec![1, kind];
++	for (tag, text) in fields {
++		if *tag == 0 || *tag > 12 {
++			return Err("unknown field".into());
++		}
++		if body.len() + 5 + text.len() > LIMIT {
++			return Err("frame exceeds 65536 bytes".into());
++		}
++		body.push(*tag);
++		body.extend((text.len() as u32).to_be_bytes());
++		body.extend(text.as_bytes());
++	}
++	let mut out = (body.len() as u32).to_be_bytes().to_vec();
++	out.extend(body);
++	Ok(out)
++}
++pub fn decode(body: &[u8]) -> Result<(u8, Fields), String> {
++	if body.len() < 2 || body.len() > LIMIT || body[0] != 1 {
++		return Err("bad frame/version".into());
++	}
++	if ![1, 2, 3, 4, 5, 6, 7, 8].contains(&body[1]) {
++		return Err("unknown message".into());
++	}
++	let kind = body[1];
++	let mut at = 2;
++	let mut fields = Fields::new();
++	while at < body.len() {
++		if body.len() - at < 5 {
++			return Err("truncated field".into());
++		}
++		let tag = body[at];
++		let len = u32::from_be_bytes(body[at + 1..at + 5].try_into().unwrap()) as usize;
++		at += 5;
++		if tag == 0 || tag > 12 || len > body.len() - at {
++			return Err("unknown/truncated field".into());
++		}
++		let s = std::str::from_utf8(&body[at..at + len]).map_err(|_| "non-UTF-8 field")?;
++		if fields.insert(tag, s.to_owned()).is_some() {
++			return Err("duplicate field".into());
++		}
++		at += len;
++	}
++	Ok((kind, fields))
++}
++pub fn read(r: &mut impl Read) -> Result<(u8, Fields), String> {
++	let mut len = [0; 4];
++	r.read_exact(&mut len).map_err(|e| e.to_string())?;
++	let len = u32::from_be_bytes(len) as usize;
++	if !(2..=LIMIT).contains(&len) {
++		return Err("frame length refused".into());
++	}
++	let mut b = vec![0; len];
++	r.read_exact(&mut b).map_err(|e| e.to_string())?;
++	decode(&b)
++}
++pub fn write(w: &mut impl Write, kind: u8, f: &Fields) -> Result<(), String> {
++	w.write_all(&encode(kind, f)?).map_err(|e| e.to_string())
++}
++pub fn exact(f: &Fields, keys: &[u8]) -> Result<(), String> {
++	if f.keys().copied().collect::<Vec<_>>() != keys {
++		return Err("unexpected message fields".into());
++	}
++	Ok(())
++}
++pub fn hex(bytes: &[u8]) -> String {
++	bytes.iter().map(|b| format!("{b:02x}")).collect()
++}
++pub fn unhex(s: &str) -> Result<Vec<u8>, String> {
++	if s.len() > 32768 || !s.len().is_multiple_of(2) {
++		return Err("association length refused".into());
++	}
++	s.as_bytes()
++		.as_chunks::<2>()
++		.0
++		.iter()
++		.map(|c| {
++			let t = std::str::from_utf8(c).map_err(|_| "association encoding")?;
++			u8::from_str_radix(t, 16).map_err(|_| "association encoding".into())
++		})
++		.collect()
++}
++pub fn capsule(s: &str) -> Result<Fields, String> {
++	let raw = unhex(s)?;
++	let mut r = std::io::Cursor::new(&raw);
++	let (k, f) = read(&mut r)?;
++	if k != 7 || r.position() != raw.len() as u64 {
++		return Err("bad association/trailing bytes".into());
++	}
++	exact(&f, &[1, 2, 3, 4, 5, 6])?;
++	Ok(f)
++}
++#[cfg(test)]
++mod tests {
++	use super::*;
++	#[test]
++	fn framing() {
++		let f = Fields::from([(1, "🦀".into())]);
++		let b = encode(2, &f).unwrap();
++		assert_eq!(read(&mut &b[..]).unwrap(), (2, f));
++		for cut in 0..b.len() {
++			assert!(read(&mut &b[..cut]).is_err());
++		}
++		assert!(read(&mut &[0xff, 0xff, 0xff, 0xff][..]).is_err());
++		assert!(decode(&[2, 1]).is_err());
++		assert!(decode(&[1, 99]).is_err());
++		assert!(decode(&[1, 1, 13, 0, 0, 0, 0]).is_err());
++		assert!(decode(&[1, 1, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0]).is_err());
++		assert!(encode(2, &Fields::from([(1, "x".repeat(LIMIT))])).is_err());
++	}
++}
+diff --git a/src/extensions.rs b/src/extensions.rs
+index 12d2aa9..b3abc99 100644
+--- a/src/extensions.rs
++++ b/src/extensions.rs
+@@ -27,6 +27,9 @@ pub struct Extensions {
+ }
+ 
+ impl Extensions {
++	pub(crate) fn names(&self) -> Vec<String> {
++		self.builders.iter().map(|e| e.name.to_owned()).collect()
++	}
+ 	/// No native extensions; this is the stock rnx executable.
+ 	pub fn none() -> Self {
+ 		Self {
+diff --git a/src/inspect.rs b/src/inspect.rs
+index 9d7d1ca..21030a1 100644
+--- a/src/inspect.rs
++++ b/src/inspect.rs
+@@ -303,7 +303,7 @@ mod tests {
+ 		names.extend(crate::fs::install(&mut context).unwrap());
+ 		names
+ 	}
+-	const COMMANDS: [(&str, &str); 8] = crate::repl::COMMANDS;
++	const COMMANDS: [(&str, &str); 9] = crate::repl::COMMANDS;
+ 
+ 	#[test]
+ 	fn vars_lists_bindings_in_name_order_with_type_and_value() {
+@@ -572,7 +572,7 @@ mod budget_tests {
+ 		names.extend(crate::fs::install(&mut context).unwrap());
+ 		names
+ 	}
+-	const COMMANDS: [(&str, &str); 8] = crate::repl::COMMANDS;
++	const COMMANDS: [(&str, &str); 9] = crate::repl::COMMANDS;
+ 
+ 	#[test]
+ 	fn an_oversized_unknown_name_is_bounded_and_escaped() {
+diff --git a/src/lib.rs b/src/lib.rs
+index 145198d..bc07d02 100644
+--- a/src/lib.rs
++++ b/src/lib.rs
+@@ -6,6 +6,9 @@
+ //! With the default `count-allocations` feature this library supplies the
+ //! process's global allocator. The executable must not supply a second one.
+ pub use rune;
++mod dep_transition;
++#[cfg(unix)]
++mod dep_wire;
+ mod extensions;
+ mod lifecycle;
+ pub use extensions::Extensions;
+@@ -234,6 +237,9 @@ fn serve(
+ 	splash: bool,
+ 	lifecycle: &lifecycle::Lifecycle,
+ ) -> Result<()> {
++	if args.is_empty() || args.first().is_some_and(|a| a == "repl") {
++		dep_transition::installed(extensions.names());
++	}
+ 	let mut extensions = Some(extensions);
+ 	let mut context = Context::with_default_modules()?;
+ 	let mut host_functions = install_core(&mut context)?;
+diff --git a/src/repl.rs b/src/repl.rs
+index 04250c1..0a468d6 100644
+--- a/src/repl.rs
++++ b/src/repl.rs
+@@ -49,7 +49,11 @@ impl rustyline::Prompt for NumberedPrompt {
+ /// The session's commands and their one-line descriptions, which are what
+ /// `:help` shows: the description lives with the command, not in a second
+ /// catalogue.
+-pub const COMMANDS: [(&str, &str); 8] = [
++pub const COMMANDS: [(&str, &str); 9] = [
++	(
++		":dep",
++		"prepare native dependencies and restart after confirmation",
++	),
+ 	(":quit", "(:q) end the session"),
+ 	(":clear", "clear the screen, keeping session state"),
+ 	(
+@@ -376,14 +380,29 @@ pub fn run(
+ 		if let Some(path) = &history {
+ 			let _ = editor.append_history(path);
+ 		}
+-		let outcome = handle(
+-			&mut session,
+-			&host,
+-			&input,
+-			&limits,
+-			&inspect_limits,
+-			&prompt,
+-		);
++		let outcome = if input.split_whitespace().next() == Some(":dep") {
++			let answer = crate::dep_transition::prepare(&input, || {
++				editor
++					.readline("Continue? [y/N] ")
++					.is_ok_and(|line| matches!(line.trim(), "y" | "Y" | "yes"))
++			});
++			if let Err(error) = answer {
++				eprintln!(
++					"dependency preparation refused: {}",
++					crate::format::terminal_safe(&error)
++				);
++			}
++			Outcome::Continue
++		} else {
++			handle(
++				&mut session,
++				&host,
++				&input,
++				&limits,
++				&inspect_limits,
++				&prompt,
++			)
++		};
+ 		// The input buffer is disposable too, and the record excludes it from
+ 		// the sample, so it goes before the sample rather than at the end of
+ 		// the iteration.
+diff --git a/tools/project/src/commands.rs b/tools/project/src/commands.rs
+index 0afa86e..c410b5d 100644
+--- a/tools/project/src/commands.rs
++++ b/tools/project/src/commands.rs
+@@ -5,6 +5,11 @@ use std::{
+ 	sync::atomic::{AtomicI32, Ordering},
+ 	time::Duration,
+ };
++static DEADLINE: std::sync::OnceLock<std::time::Instant> = std::sync::OnceLock::new();
++#[allow(dead_code)]
++pub(crate) fn preparation_deadline() {
++	let _ = DEADLINE.set(std::time::Instant::now() + Duration::from_secs(1800));
++}
+ static INTERRUPTED: AtomicI32 = AtomicI32::new(0);
+ #[cfg(unix)]
+ extern "C" fn interrupt(signal: libc::c_int) {
+@@ -39,7 +44,12 @@ pub(crate) fn signal_status() -> i32 {
+ 	128 + INTERRUPTED.load(Ordering::Relaxed)
+ }
+ pub(crate) fn check() -> Result<(), String> {
+-	if interrupted() {
++	if DEADLINE
++		.get()
++		.is_some_and(|d| std::time::Instant::now() >= *d)
++	{
++		Err("preparation exceeded its 30-minute deadline".into())
++	} else if interrupted() {
+ 		Err("interrupted".into())
+ 	} else {
+ 		Ok(())
+@@ -47,6 +57,9 @@ pub(crate) fn check() -> Result<(), String> {
+ }
+ pub(crate) fn run(mut command: Command, capture: bool) -> Result<Vec<u8>, String> {
+ 	check()?;
++	command
++		.env_remove("RNX_INTERNAL_DEP_FD")
++		.env_remove("RNX_INTERNAL_SESSION_V1");
+ 	command.stdin(Stdio::null()).stderr(Stdio::inherit());
+ 	if capture {
+ 		command.stdout(Stdio::piped());
+@@ -83,11 +96,11 @@ pub(crate) fn run(mut command: Command, capture: bool) -> Result<Vec<u8>, String
+ 	};
+ 	let mut captured = None;
+ 	let result = loop {
+-		if interrupted() {
++		if let Err(error) = check() {
+ 			kill();
+ 			let _ = child.kill();
+ 			let _ = child.wait();
+-			break Err("interrupted".into());
++			break Err(error);
+ 		}
+ 		match child.try_wait() {
+ 			Ok(Some(status)) => {
+diff --git a/tools/project/src/dep_wire.rs b/tools/project/src/dep_wire.rs
+new file mode 100644
+index 0000000..17a343a
+--- /dev/null
++++ b/tools/project/src/dep_wire.rs
+@@ -0,0 +1,117 @@
++//! Private dependency transition protocol: network-order bounded TLV, no dependency.
++#![allow(dead_code)] // Shared framing operations are split between the two endpoints.
++use std::collections::BTreeMap;
++use std::io::{Read, Write};
++pub const LIMIT: usize = 65536;
++pub type Fields = BTreeMap<u8, String>;
++pub fn encode(kind: u8, fields: &Fields) -> Result<Vec<u8>, String> {
++	let mut body = vec![1, kind];
++	for (tag, text) in fields {
++		if *tag == 0 || *tag > 12 {
++			return Err("unknown field".into());
++		}
++		if body.len() + 5 + text.len() > LIMIT {
++			return Err("frame exceeds 65536 bytes".into());
++		}
++		body.push(*tag);
++		body.extend((text.len() as u32).to_be_bytes());
++		body.extend(text.as_bytes());
++	}
++	let mut out = (body.len() as u32).to_be_bytes().to_vec();
++	out.extend(body);
++	Ok(out)
++}
++pub fn decode(body: &[u8]) -> Result<(u8, Fields), String> {
++	if body.len() < 2 || body.len() > LIMIT || body[0] != 1 {
++		return Err("bad frame/version".into());
++	}
++	if ![1, 2, 3, 4, 5, 6, 7, 8].contains(&body[1]) {
++		return Err("unknown message".into());
++	}
++	let kind = body[1];
++	let mut at = 2;
++	let mut fields = Fields::new();
++	while at < body.len() {
++		if body.len() - at < 5 {
++			return Err("truncated field".into());
++		}
++		let tag = body[at];
++		let len = u32::from_be_bytes(body[at + 1..at + 5].try_into().unwrap()) as usize;
++		at += 5;
++		if tag == 0 || tag > 12 || len > body.len() - at {
++			return Err("unknown/truncated field".into());
++		}
++		let s = std::str::from_utf8(&body[at..at + len]).map_err(|_| "non-UTF-8 field")?;
++		if fields.insert(tag, s.to_owned()).is_some() {
++			return Err("duplicate field".into());
++		}
++		at += len;
++	}
++	Ok((kind, fields))
++}
++pub fn read(r: &mut impl Read) -> Result<(u8, Fields), String> {
++	let mut len = [0; 4];
++	r.read_exact(&mut len).map_err(|e| e.to_string())?;
++	let len = u32::from_be_bytes(len) as usize;
++	if !(2..=LIMIT).contains(&len) {
++		return Err("frame length refused".into());
++	}
++	let mut b = vec![0; len];
++	r.read_exact(&mut b).map_err(|e| e.to_string())?;
++	decode(&b)
++}
++pub fn write(w: &mut impl Write, kind: u8, f: &Fields) -> Result<(), String> {
++	w.write_all(&encode(kind, f)?).map_err(|e| e.to_string())
++}
++pub fn exact(f: &Fields, keys: &[u8]) -> Result<(), String> {
++	if f.keys().copied().collect::<Vec<_>>() != keys {
++		return Err("unexpected message fields".into());
++	}
++	Ok(())
++}
++pub fn hex(bytes: &[u8]) -> String {
++	bytes.iter().map(|b| format!("{b:02x}")).collect()
++}
++pub fn unhex(s: &str) -> Result<Vec<u8>, String> {
++	if s.len() > 32768 || !s.len().is_multiple_of(2) {
++		return Err("association length refused".into());
++	}
++	s.as_bytes()
++		.as_chunks::<2>()
++		.0
++		.iter()
++		.map(|c| {
++			let t = std::str::from_utf8(c).map_err(|_| "association encoding")?;
++			u8::from_str_radix(t, 16).map_err(|_| "association encoding".into())
++		})
++		.collect()
++}
++pub fn capsule(s: &str) -> Result<Fields, String> {
++	let raw = unhex(s)?;
++	let mut r = std::io::Cursor::new(&raw);
++	let (k, f) = read(&mut r)?;
++	if k != 7 || r.position() != raw.len() as u64 {
++		return Err("bad association/trailing bytes".into());
++	}
++	exact(&f, &[1, 2, 3, 4, 5, 6])?;
++	Ok(f)
++}
++#[cfg(test)]
++mod tests {
++	use super::*;
++	#[test]
++	fn framing() {
++		let f = Fields::from([(1, "🦀".into())]);
++		let b = encode(2, &f).unwrap();
++		assert_eq!(read(&mut &b[..]).unwrap(), (2, f));
++		for cut in 0..b.len() {
++			assert!(read(&mut &b[..cut]).is_err());
++		}
++		assert!(read(&mut &[0xff, 0xff, 0xff, 0xff][..]).is_err());
++		assert!(decode(&[2, 1]).is_err());
++		assert!(decode(&[1, 99]).is_err());
++		assert!(decode(&[1, 1, 13, 0, 0, 0, 0]).is_err());
++		assert!(decode(&[1, 1, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0]).is_err());
++		assert!(encode(2, &Fields::from([(1, "x".repeat(LIMIT))])).is_err());
++	}
++}
+diff --git a/tools/project/src/main.rs b/tools/project/src/main.rs
+index 8de2d2b..fcc0443 100644
+--- a/tools/project/src/main.rs
++++ b/tools/project/src/main.rs
+@@ -5,6 +5,7 @@ mod cache_identity;
+ mod cache_storage;
+ mod catalogue;
+ mod commands;
++mod dep_wire;
+ mod fingerprint;
+ mod generate;
+ mod graph;
+diff --git a/tools/project/src/workflow.rs b/tools/project/src/workflow.rs
+index 382ed73..e65bd67 100644
+--- a/tools/project/src/workflow.rs
++++ b/tools/project/src/workflow.rs
+@@ -1,5 +1,6 @@
+ mod add;
+ mod shared;
++mod transition;
+ use crate::artifact::{self, Receipt};
+ use crate::{
+ 	assembly, commands,
+@@ -27,7 +28,7 @@ struct Project {
+ 	base: PathBuf,
+ 	dot: PathBuf,
+ 	stage: PathBuf,
+-	_guard: File,
++	_guard: Option<File>,
+ }
+ impl Project {
+ 	fn open(path: &Path) -> Result<Self, String> {
+@@ -74,7 +75,7 @@ impl Project {
+ 			base,
+ 			dot: dot.clone(),
+ 			stage: dot.join("assembly"),
+-			_guard: guard,
++			_guard: Some(guard),
+ 		})
+ 	}
+ 	fn atomic(&self, destination: &Path, bytes: &[u8]) -> Result<(), String> {
+@@ -379,10 +380,14 @@ impl Project {
+ 		eprintln!("built {}", artifact.display());
+ 		Ok(())
+ 	}
+-	fn launch(self, mode: Launch, verify: bool) -> Result<(), String> {
+-		let (lock, bytes) = self.read_lock()?;
+-		self.verify_inputs(&lock)?;
+-		let lock_digest = hash(&bytes);
++	fn checked_artifact(
++		&self,
++		lock: &Lock,
++		bytes: &[u8],
++		verify: bool,
++		refresh: bool,
++	) -> Result<(artifact::Checked, String), String> {
++		let lock_digest = hash(bytes);
+ 		let receipt_path = self.dot.join("receipt.json");
+ 		let receipt = match fs::symlink_metadata(&receipt_path) {
+ 			Err(e) if e.kind() == std::io::ErrorKind::NotFound => None,
+@@ -441,7 +446,7 @@ impl Project {
+ 			}
+ 		};
+ 		let checked = artifact::check(&path, &digest, stamp, verify)?;
+-		if stamp != Some(&checked.stamp()) {
++		if refresh && stamp != Some(&checked.stamp()) {
+ 			fault("before-receipt-refresh")?;
+ 			checked.recheck()?;
+ 			self.atomic(
+@@ -450,12 +455,19 @@ impl Project {
+ 					format: if identity.is_some() { 3 } else { 2 },
+ 					assembly_key: identity.as_ref().map(|i| i.key().to_owned()),
+ 					lock_sha256: lock_digest,
+-					executable_sha256: digest,
++					executable_sha256: digest.clone(),
+ 					stamp: Some(checked.stamp()),
+ 				})?,
+ 			)?;
+ 		}
+ 
++		Ok((checked, digest))
++	}
++	fn launch(self, mode: Launch, verify: bool) -> Result<(), String> {
++		let (lock, bytes) = self.read_lock()?;
++		self.verify_inputs(&lock)?;
++		let (checked, digest) = self.checked_artifact(&lock, &bytes, verify, true)?;
++
+ 		let mut command = match mode {
+ 			Launch::Run(args) => {
+ 				let maps = self.dot.join("maps");
+@@ -463,16 +475,27 @@ impl Project {
+ 				let map_bytes = lock.sources.encode()?;
+ 				let map = maps.join(format!("{}.json", hash(&map_bytes)));
+ 				crate::maps::ensure(&map, &map_bytes, || self.atomic(&map, &map_bytes))?;
+-				assembly::command_checked(
++				let mut command = assembly::command_checked(
+ 					&checked,
+ 					Some(&map),
+ 					Path::new(&lock.sources.entry),
+ 					&args,
+-				)?
++				)?;
++				command.env_remove(transition::CARRIER);
++				command
++			}
++			Launch::Session { flags } => {
++				let mut command = assembly::interactive_checked(&checked, &flags, None);
++				command.env(
++					transition::CARRIER,
++					transition::association(&self, &lock, &checked, &digest)?,
++				);
++				command
+ 			}
+-			Launch::Session { flags } => assembly::interactive_checked(&checked, &flags, None),
+ 			Launch::Eval { flags, source } => {
+-				assembly::interactive_checked(&checked, &flags, Some(&source))
++				let mut command = assembly::interactive_checked(&checked, &flags, Some(&source));
++				command.env_remove(transition::CARRIER);
++				command
+ 			}
+ 		};
+ 		commands::check()?;
+@@ -599,6 +622,9 @@ enum Launch {
+ }
+ 
+ pub(crate) fn cli(args: Vec<OsString>) -> Result<(), String> {
++	if std::env::var_os("RNX_INTERNAL_DEP_FD").is_some() {
++		return transition::serve(args);
++	}
+ 	if args.first().and_then(|s| s.to_str()) == Some("adapters") {
+ 		if args.len() != 1 {
+ 			return Err("adapters takes no arguments".into());
+diff --git a/tools/project/src/workflow/transition.rs b/tools/project/src/workflow/transition.rs
+new file mode 100644
+index 0000000..47f7dd8
+--- /dev/null
++++ b/tools/project/src/workflow/transition.rs
+@@ -0,0 +1,419 @@
++//! Private describe/prepare protocol. No public CLI spelling and no Rune execution.
++use super::*;
++use crate::{catalogue, dep_wire as protocol};
++use std::io::Read;
++pub(super) const CARRIER: &str = "RNX_INTERNAL_SESSION_V1";
++fn text(p: &Path) -> Result<String, String> {
++	p.to_str()
++		.map(str::to_owned)
++		.ok_or("non-Unicode transition path".into())
++}
++fn recipe(m: &Manifest) -> Result<String, String> {
++	Ok(hash(&wire::encode(&(
++		&m.runtime,
++		&m.executable,
++		&m.native,
++	))?))
++}
++fn roster(m: &Manifest) -> String {
++	m.native.keys().cloned().collect::<Vec<_>>().join("\n")
++}
++pub(super) fn association(
++	p: &Project,
++	lock: &Lock,
++	checked: &artifact::Checked,
++	digest: &str,
++) -> Result<String, String> {
++	let fields = protocol::Fields::from([
++		(1, text(&p.manifest)?),
++		(
++			2,
++			text(
++				&std::env::current_exe()
++					.map_err(err)?
++					.canonicalize()
++					.map_err(err)?,
++			)?,
++		),
++		(3, recipe(&lock.declarations)?),
++		(4, roster(&lock.declarations)),
++		(5, digest.into()),
++		(6, text(checked.path())?),
++	]);
++	let encoded = protocol::hex(&protocol::encode(7, &fields)?);
++	protocol::capsule(&encoded)?;
++	Ok(encoded)
++}
++impl Project {
++	// Describe must not create a command lock, .rnx, map or receipt refresh.
++	fn inspect(path: &Path) -> Result<Self, String> {
++		let manifest = path.canonicalize().map_err(err)?;
++		let base = manifest
++			.parent()
++			.ok_or("manifest has no parent")?
++			.to_owned();
++		let dot = base.join(".rnx");
++		Ok(Self {
++			manifest,
++			base,
++			dot: dot.clone(),
++			stage: dot.join("assembly"),
++			_guard: None,
++		})
++	}
++}
++fn validate_association(
++	p: &Project,
++	capsule: &str,
++	executable: &str,
++	installed: &str,
++) -> Result<(), String> {
++	let a = protocol::capsule(capsule)?;
++	let (lock, bytes) = p.read_lock()?;
++	let current = Manifest::read(&p.manifest)?;
++	if a[&1] != text(&p.manifest)?
++		|| a[&3] != recipe(&current)?
++		|| a[&3] != recipe(&lock.declarations)?
++	{
++		return Err("session association declarations changed; reopen the project session".into());
++	}
++	if a[&4] != installed || a[&4] != roster(&current) {
++		return Err(
++			"session association extension roster mismatch; reopen the project session".into(),
++		);
++	}
++	// Source bytes may be stale; preparation resolves them. The lock pair,
++	// receipt binding, ready document and artifact still have to be valid.
++	let (checked, digest) = p.checked_artifact(&lock, &bytes, false, false)?;
++	if a[&5] != digest
++		|| a[&6] != text(checked.path())?
++		|| Path::new(executable).canonicalize().map_err(err)?
++			!= checked.path().canonicalize().map_err(err)?
++	{
++		return Err("session association executable mismatch; reopen the project session".into());
++	}
++	Ok(())
++}
++struct Description {
++	manifest: PathBuf,
++	original: Vec<u8>,
++	candidate: catalogue::Candidate,
++	entries: Vec<catalogue::Entry>,
++	scratch: bool,
++	offline: bool,
++}
++impl Description {
++	fn fields(&self) -> Result<protocol::Fields, String> {
++		let mut notice = format!(
++			"Project: {}\n{}\n",
++			self.manifest.display(),
++			if self.offline {
++				"Offline: Cargo may not fetch sources."
++			} else {
++				"Online: Cargo may fetch sources."
++			}
++		);
++		if self.candidate.added.iter().any(|n| n == "polars") {
++			notice.push_str("A first Polars build took about 100 seconds with registry sources cached; its retained shared entry is about 1.5 GB. A reusable entry avoids compilation.\n");
++		}
++		notice.push_str("This prepares a new executable and restarts the session on success.\nExisting bindings and declarations will be lost. Saved history remains available with up-arrow; nothing is replayed.");
++		Ok(protocol::Fields::from([
++			(1, hash(&self.candidate.bytes)),
++			(2, notice),
++			(3, text(&self.manifest)?),
++			(4, if self.scratch { "scratch" } else { "project" }.into()),
++			(5, self.candidate.added.join("\n")),
++			(6, self.candidate.existing.join("\n")),
++			(7, if self.offline { "offline" } else { "online" }.into()),
++		]))
++	}
++}
++fn state_root() -> Result<PathBuf, String> {
++	let path = if let Some(p) = std::env::var_os("XDG_STATE_HOME") {
++		PathBuf::from(p)
++	} else {
++		PathBuf::from(std::env::var_os("HOME").ok_or("HOME is missing")?).join(".local/state")
++	};
++	if !path.is_absolute() {
++		return Err("state root must be absolute".into());
++	}
++	// Resolve the user's existing prefix without creating anything in describe.
++	let mut cursor = path.clone();
++	let mut rest = Vec::new();
++	while !cursor.try_exists().map_err(err)? {
++		rest.push(
++			cursor
++				.file_name()
++				.ok_or("state root has no parent")?
++				.to_owned(),
++		);
++		cursor.pop();
++	}
++	let mut canonical = cursor.canonicalize().map_err(err)?;
++	if !canonical.is_dir() {
++		return Err("state root is not a directory".into());
++	}
++	for part in rest.into_iter().rev() {
++		canonical.push(part)
++	}
++	Ok(canonical)
++}
++fn scratch_path() -> Result<PathBuf, String> {
++	let base = state_root()?.join("rnx/sessions");
++	for p in [base.parent().unwrap(), base.as_path()] {
++		match fs::symlink_metadata(p) {
++			Ok(_) => crate::cache_storage::private_directory(p)?,
++			Err(e) if e.kind() == std::io::ErrorKind::NotFound => (),
++			Err(e) => return Err(err(e)),
++		}
++	}
++	let nonce = std::time::SystemTime::now()
++		.duration_since(std::time::UNIX_EPOCH)
++		.map_err(err)?
++		.as_nanos();
++	Ok(base
++		.join(format!("session-{}-{nonce}", std::process::id()))
++		.join("rnx.toml"))
++}
++fn describe(request: &protocol::Fields, proposed: Option<&Path>) -> Result<Description, String> {
++	protocol::exact(request, &[1, 2, 3, 4, 5])?;
++	let entries = catalogue::select(&request[&1].lines().map(str::to_owned).collect::<Vec<_>>())?;
++	let offline = match request[&5].as_str() {
++		"offline" => true,
++		"online" => false,
++		_ => return Err("invalid offline mode".into()),
++	};
++	let scratch = request[&2].is_empty();
++	let (manifest, original) = if scratch {
++		if !request[&4].is_empty() {
++			return Err("custom executable needs a project association; open it through rnx-project session".into());
++		}
++		let runtime = PathBuf::from(
++			std::env::var_os("RNX_DEP_RUNTIME")
++				.ok_or("scratch runtime missing; export RNX_DEP_RUNTIME=/absolute/path/to/rnx")?,
++		);
++		if !runtime.is_absolute() {
++			return Err(
++				"RNX_DEP_RUNTIME must be absolute; export RNX_DEP_RUNTIME=/absolute/path/to/rnx"
++					.into(),
++			);
++		}
++		let runtime = runtime.canonicalize().map_err(err)?;
++		let selected = scratch_path()?;
++		let manifest = match proposed {
++			Some(p)
++				if p.parent().and_then(Path::parent)
++					== selected.parent().and_then(Path::parent) =>
++			{
++				p.to_owned()
++			}
++			Some(_) => return Err("scratch state root changed; request a new description".into()),
++			None => selected,
++		};
++		let parent = manifest.parent().unwrap();
++		if parent.starts_with(&runtime) || runtime.starts_with(parent) {
++			return Err("scratch and native root must not contain one another".into());
++		}
++		if fs::symlink_metadata(parent).is_ok() {
++			return Err(
++				"proposed scratch directory is already occupied; request a new description".into(),
++			);
++		}
++		let raw = format!(
++			"format = 1\n[application]\nentry = \"entry.rn\"\n[runtime]\npath = {}\n",
++			toml::Value::String(text(&runtime)?)
++		);
++		(manifest, raw.into_bytes())
++	} else {
++		let a = protocol::capsule(&request[&2])?;
++		if a[&2]
++			!= text(
++				&std::env::current_exe()
++					.map_err(err)?
++					.canonicalize()
++					.map_err(err)?,
++			)? {
++			return Err("session association tool mismatch".into());
++		}
++		let p = Project::inspect(Path::new(&a[&1]))?;
++		validate_association(&p, &request[&2], &request[&3], &request[&4])?;
++		let raw = input::read(&p.manifest, input::MANIFEST_LIMIT)?;
++		(p.manifest, raw)
++	};
++	let candidate = catalogue::author(original.clone(), manifest.parent().unwrap(), &entries)?;
++	Ok(Description {
++		manifest,
++		original,
++		candidate,
++		entries,
++		scratch,
++		offline,
++	})
++}
++fn private_dir(path: &Path) -> Result<(), String> {
++	match fs::symlink_metadata(path) {
++		Ok(_) => crate::cache_storage::private_directory(path),
++		Err(e) if e.kind() == std::io::ErrorKind::NotFound => {
++			if let Some(parent) = path.parent() {
++				private_dir(parent)?;
++			}
++			let mut b = fs::DirBuilder::new();
++			#[cfg(unix)]
++			{
++				use std::os::unix::fs::DirBuilderExt;
++				b.mode(0o700);
++			}
++			b.create(path).map_err(err)
++		}
++		Err(e) => Err(err(e)),
++	}
++}
++fn create_scratch(d: &Description) -> Result<(), String> {
++	let parent = d.manifest.parent().unwrap();
++	// Existing ancestors above the selected user root need not be private.
++	let root = state_root()?;
++	if !root.exists() {
++		let mut directories = fs::DirBuilder::new();
++		directories.recursive(true);
++		#[cfg(unix)]
++		{
++			use std::os::unix::fs::DirBuilderExt;
++			directories.mode(0o700);
++		}
++		directories.create(&root).map_err(err)?;
++	}
++	private_dir(&root.join("rnx"))?;
++	private_dir(&root.join("rnx/sessions"))?;
++	let mut b = fs::DirBuilder::new();
++	#[cfg(unix)]
++	{
++		use std::os::unix::fs::DirBuilderExt;
++		b.mode(0o700);
++	}
++	b.create(parent)
++		.map_err(|e| format!("scratch allocation refused: {e}"))?;
++	for (path, bytes) in [
++		(d.manifest.clone(), d.original.as_slice()),
++		(
++			parent.join("entry.rn"),
++			b"pub fn main(_) { () }\n".as_slice(),
++		),
++	] {
++		let mut options = OpenOptions::new();
++		options.create_new(true).write(true);
++		#[cfg(unix)]
++		{
++			use std::os::unix::fs::OpenOptionsExt;
++			options
++				.mode(0o600)
++				.custom_flags(libc::O_NOFOLLOW | libc::O_NONBLOCK);
++		}
++		let mut f = options.open(path).map_err(err)?;
++		f.write_all(bytes).map_err(err)?;
++		f.sync_all().map_err(err)?;
++	}
++	File::open(parent).and_then(|f| f.sync_all()).map_err(err)
++}
++#[cfg(unix)]
++pub(super) fn serve(args: Vec<OsString>) -> Result<(), String> {
++	use std::os::fd::{AsRawFd, FromRawFd};
++	use std::os::unix::net::UnixStream;
++	if !args.is_empty() {
++		return Err("private transition takes no arguments".into());
++	}
++	let fd = std::env::var("RNX_INTERNAL_DEP_FD")
++		.map_err(err)?
++		.parse::<i32>()
++		.map_err(err)?;
++	if fd < 3 {
++		return Err("invalid transition descriptor".into());
++	}
++	let mut socket = unsafe { UnixStream::from_raw_fd(fd) };
++	if unsafe { libc::fcntl(socket.as_raw_fd(), libc::F_SETFD, libc::FD_CLOEXEC) } < 0 {
++		return Err(err(std::io::Error::last_os_error()));
++	}
++	socket
++		.set_read_timeout(Some(std::time::Duration::from_secs(1800)))
++		.map_err(err)?;
++	socket
++		.set_write_timeout(Some(std::time::Duration::from_secs(5)))
++		.map_err(err)?;
++	commands::install_signals()?;
++	commands::preparation_deadline();
++	let outcome = (|| {
++		let (kind, request) = protocol::read(&mut socket)?;
++		if kind != 1 {
++			return Err("expected describe request".into());
++		}
++		let description = describe(&request, None)?;
++		let fields = description.fields()?;
++		protocol::write(&mut socket, 2, &fields)?;
++		let (kind, answer) = protocol::read(&mut socket)?;
++		if kind == 3 {
++			protocol::exact(&answer, &[])?;
++			return Ok(());
++		}
++		if kind != 4 {
++			return Err("expected consent or decline".into());
++		}
++		protocol::exact(&answer, &[1])?;
++		if answer[&1] != fields[&1] {
++			return Err("consent description mismatch".into());
++		}
++		// Confirmation is one message; extra bytes are never another command.
++		let mut tail = [0];
++		if socket.read(&mut tail).map_err(err)? != 0 {
++			return Err("trailing consent data".into());
++		}
++		environment()?;
++		let fresh = describe(&request, Some(&description.manifest))?;
++		if fresh.original != description.original || fresh.fields()? != fields {
++			return Err("description changed; request consent again".into());
++		}
++		if fresh.candidate.added.is_empty() {
++			return Ok(());
++		}
++		if fresh.scratch {
++			create_scratch(&fresh)?;
++		}
++		let p = Project::open(&fresh.manifest)?;
++		if input::read(&p.manifest, input::MANIFEST_LIMIT)? != fresh.original {
++			return Err("manifest changed before authoring; request consent again".into());
++		}
++		if !fresh.scratch {
++			validate_association(&p, &request[&2], &request[&3], &request[&4])?;
++		}
++		let mut phase = "author";
++		let prepare = (|| {
++			eprintln!("dependency phase: author");
++			fault("dep-author")?;
++			p.add(&fresh.entries)?;
++			phase = "resolve";
++			eprintln!("dependency phase: resolve");
++			fault("dep-resolve")?;
++			p.lock(fresh.offline)?;
++			phase = "build/attach";
++			eprintln!("dependency phase: build/attach");
++			fault("dep-build")?;
++			p.build(fresh.offline)?;
++			let (lock, bytes) = p.read_lock()?;
++			p.verify_inputs(&lock)?;
++			let (checked, digest) = p.checked_artifact(&lock, &bytes, false, true)?;
++			checked.recheck()?;
++			let _replacement = association(&p, &lock, &checked, &digest)?;
++			// Gate 2 cannot advertise readiness before gate 3's real startup
++			// proof exists. No version-only or unprobed success fallback.
++			phase = "startup check";
++			Err::<(),String>("startup checking is not enabled yet; prepared artifact retained; old session unchanged".into())
++		})();
++		prepare.map_err(|e|format!("{phase}: {e}; project files may have been published; retry with rnx-project lock/build/session --manifest {:?}",p.manifest))
++	})();
++	if let Err(e) = outcome {
++		protocol::write(&mut socket, 8, &protocol::Fields::from([(1, e)]))?;
++	}
++	Ok(())
++}
++#[cfg(not(unix))]
++pub(super) fn serve(_: Vec<OsString>) -> Result<(), String> {
++	Err("dependency transitions require Unix supervision".into())
++}
