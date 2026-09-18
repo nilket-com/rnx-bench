@@ -1,7 +1,7 @@
 """Freeze ordinary product binaries; keep projects, cache and user state private."""
 from pathlib import Path
 import json, os, shutil
-H=Path(__file__).resolve().parent;B=H.parents[1];R=B.parent/'rnx';W=H/'target'
+H=Path(__file__).resolve().parent;B=H.parents[1];R=B.parent/'rnx';W=Path(os.environ.get('RNX_DOGFOOD_TARGET', H/'target'))
 (W/'bin').mkdir(parents=True,exist_ok=True)
 for src,name in [(R/'target/debug/rnx','rnx'),(R/'tools/project/target/debug/rnx-project','rnx-project')]:
  shutil.copy2(src,W/'bin'/name)

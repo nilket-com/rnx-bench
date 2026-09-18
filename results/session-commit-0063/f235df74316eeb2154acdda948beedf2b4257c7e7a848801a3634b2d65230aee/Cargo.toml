@@ -1,0 +1,19 @@
+[package]
+name = "rnx-project-app"
+version = "0.0.0"
+edition = "2024"
+publish = false
+
+[workspace]
+
+[dependencies.native_0]
+package = "rnx-fixture"
+path = "/home/me/work/rnx-bench/probes/session-commit/target/native/adapters/fixture"
+
+[dependencies.native_1]
+package = "rnx-postgres"
+path = "/home/me/work/rnx-bench/probes/session-commit/target/native/adapters/postgres"
+
+[dependencies.rnx]
+path = "/home/me/work/rnx-bench/probes/session-commit/target/native"
+features = ["project-sources"]
