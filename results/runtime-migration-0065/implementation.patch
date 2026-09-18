@@ -1,0 +1,328 @@
+[1mdiff --git a/tools/project/README.md b/tools/project/README.md[m
+[1mindex 47ae438..0f90512 100644[m
+[1m--- a/tools/project/README.md[m
+[1m+++ b/tools/project/README.md[m
+[36m@@ -162,7 +162,26 @@[m [mRelocking reclaims no disk space. Old local binaries, shared entries and runtime[m
+ installations stay: older tools, live sessions and kernels can still reference[m
+ them. A new Polars assembly can occupy another approximately 1.5 GB. Removal is[m
+ the record immediately after 0065; a superseded key is not proof of no users.[m
+[31m-Installed-runtime migration is the separate gate 3 checkpoint of 0065.[m
+[32m+[m[32mFor an installed runtime from the SHA-256 format, `runtime show`, `runtime select`[m
+[32m+[m[32mand stock `:dep` print the exact command for its retained source, for example:[m
+[32m+[m
+[32m+[m[32m```sh[m
+[32m+[m[32mrnx-project runtime install --from '/your/data/rnx/runtimes/entries/OLD_ID/source'[m
+[32m+[m[32m```[m
+[32m+[m
+[32m+[m[32mThat explicit command authenticates the old source against its recorded SHA-256[m
+[32m+[m[32midentity and checks its Git administration/objects before importing it under a[m
+[32m+[m[32mnew BLAKE3 ID. It works after the original checkout is gone. Corrupt content is[m
+[32m+[m[32mrefused; only validated Git permission drift may be tightened. The old entry and[m
+[32m+[m[32mits provenance stay in place. The new document records the original source[m
+[32m+[m[32mprovenance, the new installing tool/time, and `migrated_from` outside its identity.[m
+[32m+[m[32mRepeating the migration reselects the new entry without rewriting its provenance.[m
+[32m+[m
+[32m+[m[32mMigrating the default does not retarget an existing project or scratch. An old[m
+[32m+[m[32mproject still names its old retained source; explicit relock/build uses that path[m
+[32m+[m[32mwith new identities. An older tool, live session, or kernelspec may keep using its[m
+[32m+[m[32mold artifact and retained build outputs. Migration removes none of them. It is[m
+[32m+[m[32mnot a runtime-code upgrade or a launcher/runtime compatibility check.[m
+ [m
+ To select a private root before locking:[m
+ [m
+[1mdiff --git a/tools/project/src/runtime_install/unix.rs b/tools/project/src/runtime_install/unix.rs[m
+[1mindex d467ba8..4fd6a3f 100644[m
+[1m--- a/tools/project/src/runtime_install/unix.rs[m
+[1m+++ b/tools/project/src/runtime_install/unix.rs[m
+[36m@@ -1,3 +1,4 @@[m
+[32m+[m[32mmod legacy;[m
+ use super::{[m
+ 	git, hooks, layout,[m
+ 	storage::{self, err},[m
+[36m@@ -127,7 +128,18 @@[m [mfn metadata(entry: &Path, id: &str) -> Result<Installation, String> {[m
+ 	}[m
+ 	storage::dir(entry)?;[m
+ 	let p = entry.join("installation.json");[m
+[31m-	decode_installation(&storage::read(&p, DOCUMENT)?, id, &p)[m
+[32m+[m	[32mlet bytes = storage::read(&p, DOCUMENT)?;[m
+[32m+[m	[32mif legacy::is_old(&bytes) {[m
+[32m+[m		[32mlegacy::decode(&bytes, id, &p)?;[m
+[32m+[m		[32mreturn Err(legacy::recovery([m
+[32m+[m			[32mentry[m
+[32m+[m				[32m.parent()[m
+[32m+[m				[32m.and_then(Path::parent)[m
+[32m+[m				[32m.ok_or("invalid installation path")?,[m
+[32m+[m			[32mid,[m
+[32m+[m		[32m));[m
+[32m+[m	[32m}[m
+[32m+[m	[32mdecode_installation(&bytes, id, &p)[m
+ }[m
+ fn decode_installation(bytes: &[u8], id: &str, p: &Path) -> Result<Installation, String> {[m
+ 	let d: Installation =[m
+[36m@@ -204,7 +216,19 @@[m [mfn current() -> Result<(PathBuf, Installation), String> {[m
+ 	if !storage::exists(&root.join("current.json"))? {[m
+ 		return Err(INSTALL_HELP.into());[m
+ 	}[m
+[31m-	let c = decode_current(&storage::read(&root.join("current.json"), DOCUMENT)?)?;[m
+[32m+[m	[32mlet bytes = storage::read(&root.join("current.json"), DOCUMENT)?;[m
+[32m+[m	[32mif legacy::is_old(&bytes) {[m
+[32m+[m		[32mlet c: Current = serde_json::from_slice(&bytes).map_err(err)?;[m
+[32m+[m		[32mif !digest(&c.id) {[m
+[32m+[m			[32mreturn Err("invalid current runtime document".into());[m
+[32m+[m		[32m}[m
+[32m+[m		[32mlet p = root.join("entries").join(&c.id).join("installation.json");[m
+[32m+[m		[32mstorage::dir(&root.join("entries"))?;[m
+[32m+[m		[32mstorage::dir(p.parent().unwrap())?;[m
+[32m+[m		[32mlegacy::decode(&storage::read(&p, DOCUMENT)?, &c.id, &p)?;[m
+[32m+[m		[32mreturn Err(legacy::recovery(&root, &c.id));[m
+[32m+[m	[32m}[m
+[32m+[m	[32mlet c = decode_current(&bytes)?;[m
+ 	storage::dir(&root.join("entries"))?;[m
+ 	let entry = root.join("entries").join(&c.id);[m
+ 	if !storage::exists(&entry)? {[m
+[36m@@ -409,19 +433,58 @@[m [mfn install(source: &Path) -> Result<Installation, String> {[m
+ 		return Err("runtime source and store must not contain one another".into());[m
+ 	}[m
+ 	git::top(&source)?;[m
+[32m+[m	[32mlet initial = if own_installation {[m
+[32m+[m		[32mNone[m
+[32m+[m	[32m} else {[m
+[32m+[m		[32mSome(git::inventory(&source)?)[m
+[32m+[m	[32m};[m
+[32m+[m	[32mif let Some(tree) = &initial {[m
+[32m+[m		[32mlayout::validate(&source, tree)?;[m
+[32m+[m	[32m}[m
+[32m+[m	[32mstorage::create_root(&root)?;[m
+[32m+[m	[32mlet _lock = storage::lock(&root)?;[m
+[32m+[m	[32mlet imported = if own_installation {[m
+[32m+[m		[32mlet old_id = source[m
+[32m+[m			[32m.parent()[m
+[32m+[m			[32m.and_then(Path::file_name)[m
+[32m+[m			[32m.and_then(|s| s.to_str())[m
+[32m+[m			[32m.ok_or("invalid installed source path")?;[m
+[32m+[m		[32mlet bytes = storage::read([m
+[32m+[m			[32m&source.parent().unwrap().join("installation.json"),[m
+[32m+[m			[32mDOCUMENT,[m
+[32m+[m		[32m)?;[m
+[32m+[m		[32mif legacy::is_old(&bytes) {[m
+[32m+[m			[32mSome(legacy::authenticate(&root, old_id, true)?)[m
+[32m+[m		[32m} else {[m
+[32m+[m			[32mvalidate_inner(&root, old_id, true)?;[m
+[32m+[m			[32mNone[m
+[32m+[m		[32m}[m
+[32m+[m	[32m} else {[m
+[32m+[m		[32mNone[m
+[32m+[m	[32m};[m
+ 	let before = git::inventory(&source)?;[m
+[32m+[m	[32mif initial.as_ref().is_some_and(|t| t != &before) {[m
+[32m+[m		[32mreturn Err("source changed while waiting for installation lock".into());[m
+[32m+[m	[32m}[m
+ 	layout::validate(&source, &before)?;[m
+ 	let id = identity(&before.blake3);[m
+[31m-	if own_installation && source != root.join("entries").join(&id).join("source") {[m
+[32m+[m	[32mif own_installation[m
+[32m+[m		[32m&& imported.is_none()[m
+[32m+[m		[32m&& source != root.join("entries").join(&id).join("source")[m
+[32m+[m	[32m{[m
+ 		return Err("installed source does not match its containing identity".into());[m
+ 	}[m
+[31m-	storage::create_root(&root)?;[m
+[31m-	let _lock = storage::lock(&root)?;[m
+[32m+[m	[32mlet authenticate_again = || -> Result<(), String> {[m
+[32m+[m		[32mif let Some(old) = &imported[m
+[32m+[m			[32m&& &legacy::authenticate(&root, &old.id, false)? != old[m
+[32m+[m		[32m{[m
+[32m+[m			[32mreturn Err("legacy installation changed during migration".into());[m
+[32m+[m		[32m}[m
+[32m+[m		[32mOk(())[m
+[32m+[m	[32m};[m
+[32m+[m	[32mauthenticate_again()?;[m
+ 	storage::reclaim(&root)?;[m
+ 	storage::mkdir(&root.join("entries"))?;[m
+[31m-	if git::inventory(&source)? != before {[m
+[31m-		return Err("source changed while waiting for installation lock".into());[m
+[31m-	}[m
+ 	let entry = root.join("entries").join(&id);[m
+ 	let mut published = false;[m
+ 	let mut selected = false;[m
+[36m@@ -446,7 +509,11 @@[m [mfn install(source: &Path) -> Result<Installation, String> {[m
+ 			}[m
+ 			layout::validate(&temp.0.join("source"), &copied)?;[m
+ 			git::administration(&temp.0.join("source"))?;[m
+[31m-			let (source_commit, dirty_tracked) = git::provenance(&source, &before)?;[m
+[32m+[m			[32mlet (source_commit, dirty_tracked) = if let Some(old) = &imported {[m
+[32m+[m				[32m(old.source_commit.clone(), old.dirty_tracked)[m
+[32m+[m			[32m} else {[m
+[32m+[m				[32mgit::provenance(&source, &before)?[m
+[32m+[m			[32m};[m
+ 			if git::inventory(&source)? != before {[m
+ 				return Err("source changed during installation".into());[m
+ 			}[m
+[36m@@ -457,11 +524,16 @@[m [mfn install(source: &Path) -> Result<Installation, String> {[m
+ 				files: before.files.len() as u64,[m
+ 				bytes: before.files.iter().map(|f| f.bytes).sum(),[m
+ 				layout: "rnx-shipped-v1".into(),[m
+[31m-				source_path: source.clone(),[m
+[32m+[m				[32msource_path: imported[m
+[32m+[m					[32m.as_ref()[m
+[32m+[m					[32m.map_or_else(|| source.clone(), |old| old.source_path.clone()),[m
+ 				source_commit,[m
+ 				dirty_tracked,[m
+ 				installed_utc: utc()?,[m
+[31m-				migrated_from: None,[m
+[32m+[m				[32mmigrated_from: imported.as_ref().map(|old| Migration {[m
+[32m+[m					[32mformat: 1,[m
+[32m+[m					[32mid: old.id.clone(),[m
+[32m+[m				[32m}),[m
+ 				tool_version: env!("CARGO_PKG_VERSION").into(),[m
+ 				tool_blake3: fingerprint::one([m
+ 					&std::env::current_exe().map_err(err)?,[m
+[36m@@ -474,6 +546,10 @@[m [mfn install(source: &Path) -> Result<Installation, String> {[m
+ 			hooks::point("after-document")?;[m
+ 			storage::walk(&temp.0, true)?;[m
+ 			hooks::point("before-entry-rename")?;[m
+[32m+[m			[32mauthenticate_again()?;[m
+[32m+[m			[32mif git::inventory(&source)? != before {[m
+[32m+[m				[32mreturn Err("source changed before publication".into());[m
+[32m+[m			[32m}[m
+ 			fs::rename(&temp.0, &entry).map_err(err)?;[m
+ 			published = true;[m
+ 			hooks::point("after-entry-rename")?;[m
+[36m@@ -485,6 +561,7 @@[m [mfn install(source: &Path) -> Result<Installation, String> {[m
+ 		if git::inventory(&source)? != before {[m
+ 			return Err("source changed before selection".into());[m
+ 		}[m
+[32m+[m		[32mauthenticate_again()?;[m
+ 		select_inner(&root, &id, &mut selected)?;[m
+ 		Ok(doc)[m
+ 	})();[m
+[1mdiff --git a/tools/project/src/runtime_install/unix/legacy.rs b/tools/project/src/runtime_install/unix/legacy.rs[m
+[1mnew file mode 100644[m
+[1mindex 0000000..df822bc[m
+[1m--- /dev/null[m
+[1m+++ b/tools/project/src/runtime_install/unix/legacy.rs[m
+[36m@@ -0,0 +1,124 @@[m
+[32m+[m[32m//! Authentication for explicit imports of retained installation-1 sources only.[m
+[32m+[m[32muse super::{DOCUMENT, digest, err, git, hooks, layout, storage, timestamp};[m
+[32m+[m[32muse crate::{commands, fingerprint};[m
+[32m+[m[32muse serde::{Deserialize, Serialize};[m
+[32m+[m[32muse sha2::{Digest, Sha256};[m
+[32m+[m[32muse std::{[m
+[32m+[m	[32mfs,[m
+[32m+[m	[32mpath::{Path, PathBuf},[m
+[32m+[m[32m};[m
+[32m+[m[32mfn identity(tree: &str) -> String {[m
+[32m+[m	[32mformat!([m
+[32m+[m		[32m"{:x}",[m
+[32m+[m		[32mSha256::digest(format!("rnx-installed-runtime-v1\n{tree}\n").as_bytes())[m
+[32m+[m	[32m)[m
+[32m+[m[32m}[m
+[32m+[m[32m#[derive(Clone, PartialEq, Eq, Serialize, Deserialize)][m
+[32m+[m[32m#[serde(deny_unknown_fields)][m
+[32m+[m[32mpub(super) struct Installation {[m
+[32m+[m	[32mpub format: u32,[m
+[32m+[m	[32mpub id: String,[m
+[32m+[m	[32mpub tree_sha256: String,[m
+[32m+[m	[32mpub files: u64,[m
+[32m+[m	[32mpub bytes: u64,[m
+[32m+[m	[32mpub layout: String,[m
+[32m+[m	[32mpub source_path: PathBuf,[m
+[32m+[m	[32mpub source_commit: Option<String>,[m
+[32m+[m	[32mpub dirty_tracked: bool,[m
+[32m+[m	[32mpub installed_utc: String,[m
+[32m+[m	[32mpub tool_version: String,[m
+[32m+[m	[32mpub tool_sha256: String,[m
+[32m+[m[32m}[m
+[32m+[m
+[32m+[m[32mpub(super) fn decode(bytes: &[u8], id: &str, path: &Path) -> Result<Installation, String> {[m
+[32m+[m	[32mlet d: Installation =[m
+[32m+[m		[32mserde_json::from_slice(bytes).map_err(|e| format!("{}: {e}", path.display()))?;[m
+[32m+[m	[32mif d.format != 1[m
+[32m+[m		[32m|| d.layout != "rnx-shipped-v1"[m
+[32m+[m		[32m|| d.id != id[m
+[32m+[m		[32m|| !digest(&d.tree_sha256)[m
+[32m+[m		[32m|| identity(&d.tree_sha256) != d.id[m
+[32m+[m		[32m|| !digest(&d.tool_sha256)[m
+[32m+[m		[32m|| d.files == 0[m
+[32m+[m		[32m|| d.files > 100000[m
+[32m+[m		[32m|| d.bytes > 512 * 1024 * 1024[m
+[32m+[m		[32m|| !d.source_path.is_absolute()[m
+[32m+[m		[32m|| d.source_path.to_str().is_none()[m
+[32m+[m		[32m|| d.tool_version.is_empty()[m
+[32m+[m		[32m|| !timestamp(&d.installed_utc)[m
+[32m+[m		[32m|| d.source_commit.as_ref().is_some_and(|c| {[m
+[32m+[m			[32m!matches!(c.len(), 40 | 64) || !c.bytes().all(|b| b.is_ascii_hexdigit())[m
+[32m+[m		[32m}) || (d.source_commit.is_none() && !d.dirty_tracked)[m
+[32m+[m	[32m{[m
+[32m+[m		[32mreturn Err(format!([m
+[32m+[m			[32m"invalid runtime installation document: {}",[m
+[32m+[m			[32mpath.display()[m
+[32m+[m		[32m));[m
+[32m+[m	[32m}[m
+[32m+[m	[32mOk(d)[m
+[32m+[m[32m}[m
+[32m+[m[32mpub(super) fn is_old(bytes: &[u8]) -> bool {[m
+[32m+[m	[32m#[derive(Deserialize)][m
+[32m+[m	[32mstruct Envelope {[m
+[32m+[m		[32mformat: u32,[m
+[32m+[m	[32m}[m
+[32m+[m	[32mserde_json::from_slice::<Envelope>(bytes).is_ok_and(|v| v.format == 1)[m
+[32m+[m[32m}[m
+[32m+[m[32mpub(super) fn recovery(root: &Path, id: &str) -> String {[m
+[32m+[m	[32mlet source = root.join("entries").join(id).join("source");[m
+[32m+[m	[32mlet quote = |s: &str| format!("'{}'", s.replace('\'', "'\\''"));[m
+[32m+[m	[32mformat!([m
+[32m+[m		[32m"runtime installation {id} uses format 1; authenticate and reinstall with:\nrnx-project runtime install --from {}\nOld runtime and assembly entries are retained; migrating reclaims no disk space.",[m
+[32m+[m		[32mquote(&source.to_string_lossy())[m
+[32m+[m	[32m)[m
+[32m+[m[32m}[m
+[32m+[m[32mpub(super) fn authenticate(root: &Path, id: &str, repair: bool) -> Result<Installation, String> {[m
+[32m+[m	[32mstorage::dir(root)?;[m
+[32m+[m	[32mstorage::dir(&root.join("entries"))?;[m
+[32m+[m	[32mlet entry = root.join("entries").join(id);[m
+[32m+[m	[32mstorage::dir(&entry)?;[m
+[32m+[m	[32mlet path = entry.join("installation.json");[m
+[32m+[m	[32mlet doc = decode(&storage::read(&path, DOCUMENT)?, id, &path)?;[m
+[32m+[m	[32mlet source = entry.join("source");[m
+[32m+[m	[32mlet admin = source.join(".git");[m
+[32m+[m	[32mstorage::walk_admin(&entry, false, repair.then_some(admin.as_path()))?;[m
+[32m+[m	[32mfor item in fs::read_dir(&entry).map_err(err)? {[m
+[32m+[m		[32mlet item = item.map_err(err)?;[m
+[32m+[m		[32mif item.file_name() != "source" && item.file_name() != "installation.json" {[m
+[32m+[m			[32mreturn Err("unexpected installed entry member".into());[m
+[32m+[m		[32m}[m
+[32m+[m	[32m}[m
+[32m+[m	[32mgit::administration_drift(&source, repair)?;[m
+[32m+[m	[32mlet tree = fingerprint::legacy::native_using([m
+[32m+[m		[32m&source,[m
+[32m+[m		[32m&mut fingerprint::legacy::Allowance::bounded([m
+[32m+[m			[32mhooks::limit("RNX_INSTALL_SOURCE_FILES", 100000) as usize,[m
+[32m+[m			[32mhooks::limit("RNX_INSTALL_SOURCE_BYTES", 512 * 1024 * 1024),[m
+[32m+[m		[32m),[m
+[32m+[m		[32m|root, args, limit| {[m
+[32m+[m			[32mlet mut c = git::command(root);[m
+[32m+[m			[32mc.args(args);[m
+[32m+[m			[32mlet b = git::run(c)?;[m
+[32m+[m			[32mif b.len() > limit {[m
+[32m+[m				[32mreturn Err("Git inventory output exceeds allowance".into());[m
+[32m+[m			[32m}[m
+[32m+[m			[32mOk(b)[m
+[32m+[m		[32m},[m
+[32m+[m	[32m)?;[m
+[32m+[m	[32mif tree.sha256 != doc.tree_sha256[m
+[32m+[m		[32m|| tree.files.len() as u64 != doc.files[m
+[32m+[m		[32m|| tree.files.iter().map(|f| f.bytes).sum::<u64>() != doc.bytes[m
+[32m+[m	[32m{[m
+[32m+[m		[32mreturn Err(format!([m
+[32m+[m			[32m"cannot authenticate legacy runtime {id}: source fingerprint differs"[m
+[32m+[m		[32m));[m
+[32m+[m	[32m}[m
+[32m+[m	[32mlet current = git::inventory(&source)?;[m
+[32m+[m	[32mlayout::validate(&source, &current)?;[m
+[32m+[m	[32mif repair {[m
+[32m+[m		[32mgit::tighten(&source)?;[m
+[32m+[m		[32mstorage::walk(&entry, false)?;[m
+[32m+[m	[32m}[m
+[32m+[m	[32mcommands::check()?;[m
+[32m+[m	[32mOk(doc)[m
+[32m+[m[32m}[m

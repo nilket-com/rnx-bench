@@ -1,0 +1,91 @@
+PASS install and same-ID validate/reselect
+PASS dirty snapshot, retained installations and explicit selection
+PASS same-ID at different source preserves original provenance
+PASS same-ID reinstall from installed source preserves entry
+PASS publication after-snapshot
+PASS publication copy-chunk
+PASS publication after-copy
+PASS publication git-step
+PASS publication after-index
+PASS publication before-document
+PASS publication after-document
+PASS publication before-entry-rename
+PASS publication after-entry-rename
+PASS publication after-entry-sync
+PASS publication before-current-write
+PASS publication after-current-write
+PASS publication before-current-rename
+PASS publication after-current-rename
+PASS publication after-current-sync
+PASS metadata unknown field
+PASS metadata wrong format
+PASS metadata invalid ID
+PASS metadata bad time
+PASS metadata bad tool digest
+PASS corrupt same-ID source refuses, never overwrites
+PASS current oversized
+PASS current unknown
+PASS current traversal
+PASS source refusal missing
+PASS source refusal untracked
+PASS source refusal unmerged
+PASS source refusal symlink
+PASS source refusal fifo
+PASS source refusal nonunicode
+PASS source refusal backslash
+PASS source refusal bad-layout
+PASS source refusal absolute-path
+PASS source refusal dependency-escape
+PASS source refusal target-escape
+PASS source refusal build-escape
+PASS source refusal dev-escape
+PASS source refusal patch-escape
+PASS source refusal replace-escape
+PASS source refusal workspace-escape
+PASS source refusal inheritance
+PASS source refusal glob
+PASS allowance RNX_INSTALL_SOURCE_FILES
+PASS allowance RNX_INSTALL_SOURCE_BYTES
+PASS allowance RNX_INSTALL_COPY_BYTES
+PASS allowance RNX_INSTALL_RETAINED_FILES
+PASS allowance RNX_INSTALL_RETAINED_BYTES
+PASS user symlink root allowed
+PASS managed symlink entries
+PASS managed symlink lock
+PASS managed symlink current
+PASS managed FIFO lock
+PASS managed FIFO current
+PASS source mutation after-snapshot
+PASS source mutation copy-chunk
+PASS interrupt-copy-chunk-2
+PASS interrupt-copy-chunk-15
+PASS interrupt-git-step-2
+PASS interrupt-git-step-15
+PASS interrupt-after-entry-rename-2
+PASS interrupt-after-entry-rename-15
+PASS concurrent same-ID installer reuses publication
+PASS killed lock waiter cannot damage writer
+PASS killed copying writer stage reclaimed by retry
+PASS Git fail failure is bounded and reaped
+PASS Git stdout failure is bounded and reaped
+PASS Git stderr failure is bounded and reaped
+PASS interrupt active Git 2
+PASS interrupt active Git 15
+PASS writer lock close-on-exec on every observed Git child
+PASS hostile filter positive control, raw provenance and Git routing
+PASS exact source allowances and one-under refusals
+PASS exact retained allowances and one-under refusals
+PASS copy read limited to allowance plus one detection byte
+PASS selector waits, revalidates, selects after publication
+PASS store refusal empty-data
+PASS store refusal relative-data
+PASS store refusal source-containment
+PASS store refusal cache-containment
+PASS store refusal scratch-containment
+PASS uncommitted index installs without synthetic commit
+PASS linked worktree installs independent Git administration
+PASS oversized installation metadata refused unchanged
+PASS corrupt independent Git object refused unchanged
+PASS relative source accepted, nested Git root refused
+PASS filesystem monitor positive control, no hook or optional source-index writes
+PASS installer matrix 90

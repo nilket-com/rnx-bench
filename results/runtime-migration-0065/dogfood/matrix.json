@@ -1,0 +1,80 @@
+{
+  "first_scratch": {
+    "artifact": "/home/me/work/rnx-bench/probes/runtime-migration/target/real/new/cache/entries/8908623d3458cb5e546efeb692a4264515ff6c846b04e19455e772a0695f86c4/artifacts/4fe2f0847d882abc021a3421584ecc2ecd5b16640fc688b930f8d4bcf0b5bf4c",
+    "assembly_key": "8908623d3458cb5e546efeb692a4264515ff6c846b04e19455e772a0695f86c4",
+    "sha256": "b2542feaf64f5a707f0cc83579eba70d96669542703960a4aa6574d032b09428",
+    "seconds": 112.60127598099643,
+    "command": "'/home/me/work/rnx-bench/probes/runtime-migration/target/real/new/bin/rnx-project' session --manifest '/home/me/work/rnx-bench/probes/runtime-migration/target/real/new/state '\\'' private/rnx/sessions/session-737814-1789764178189141394/rnx.toml'",
+    "manifest": "/home/me/work/rnx-bench/probes/runtime-migration/target/real/new/state ' private/rnx/sessions/session-737814-1789764178189141394/rnx.toml",
+    "cold_target": true,
+    "decline_wrote_nothing": true
+  },
+  "second_scratch": {
+    "artifact": "/home/me/work/rnx-bench/probes/runtime-migration/target/real/new/cache/entries/8908623d3458cb5e546efeb692a4264515ff6c846b04e19455e772a0695f86c4/artifacts/4fe2f0847d882abc021a3421584ecc2ecd5b16640fc688b930f8d4bcf0b5bf4c",
+    "assembly_key": "8908623d3458cb5e546efeb692a4264515ff6c846b04e19455e772a0695f86c4",
+    "sha256": "b2542feaf64f5a707f0cc83579eba70d96669542703960a4aa6574d032b09428",
+    "seconds": 2.0119605630170554,
+    "compilation_trapped": true
+  },
+  "printed_command_reopens": true,
+  "absolute": {
+    "identity": {
+      "artifact": "/home/me/work/rnx-bench/probes/runtime-migration/target/real/new/cache/entries/e66d1c0e8dd1af12303ddf87732cb54f77f93f61a0c7816ce744f57fc0ea4685/artifacts/7bc1f4df425fdf60ebb65f8e72f6f0d7d5c3266c00e56b260476a425a6d21618",
+      "assembly_key": "e66d1c0e8dd1af12303ddf87732cb54f77f93f61a0c7816ce744f57fc0ea4685",
+      "sha256": "d9570185bdc627465d6c6dbdc78a839d224c3a611cfa28a439edb47b337a9f2e"
+    },
+    "seconds": 116.6150409700349,
+    "typed_query": true,
+    "polars_live": true,
+    "declaration": {
+      "polars": {
+        "path": "/home/me/work/rnx-bench/probes/runtime-migration/target/real/data ' private/rnx/runtimes/entries/442b4f457ecefa68f57689994d2985e45e60d3cc43b6861081c51b3344f6ef6d/source/adapters/polars",
+        "package": "rnx-polars",
+        "builder": "build",
+        "hook": "plain"
+      },
+      "postgres": {
+        "path": "/home/me/work/rnx-bench/probes/runtime-migration/target/real/data ' private/rnx/runtimes/entries/442b4f457ecefa68f57689994d2985e45e60d3cc43b6861081c51b3344f6ef6d/source/adapters/postgres",
+        "package": "rnx-postgres",
+        "builder": "build",
+        "hook": "lifecycle"
+      }
+    },
+    "no_backend_after_quit": true
+  },
+  "relative": {
+    "identity": {
+      "artifact": "/home/me/work/rnx-bench/probes/runtime-migration/target/real/new/cache/entries/e66d1c0e8dd1af12303ddf87732cb54f77f93f61a0c7816ce744f57fc0ea4685/artifacts/7bc1f4df425fdf60ebb65f8e72f6f0d7d5c3266c00e56b260476a425a6d21618",
+      "assembly_key": "e66d1c0e8dd1af12303ddf87732cb54f77f93f61a0c7816ce744f57fc0ea4685",
+      "sha256": "d9570185bdc627465d6c6dbdc78a839d224c3a611cfa28a439edb47b337a9f2e"
+    },
+    "seconds": 1.8105940759996884,
+    "typed_query": true,
+    "polars_live": true,
+    "declaration": {
+      "polars": {
+        "path": "../../data ' private/rnx/runtimes/entries/442b4f457ecefa68f57689994d2985e45e60d3cc43b6861081c51b3344f6ef6d/source/adapters/polars",
+        "package": "rnx-polars",
+        "builder": "build",
+        "hook": "plain"
+      },
+      "postgres": {
+        "path": "../../data ' private/rnx/runtimes/entries/442b4f457ecefa68f57689994d2985e45e60d3cc43b6861081c51b3344f6ef6d/source/adapters/postgres",
+        "package": "rnx-postgres",
+        "builder": "build",
+        "hook": "lifecycle"
+      }
+    },
+    "no_backend_after_quit": true
+  },
+  "cleanup": {
+    "session_pids": [
+      737812,
+      749409,
+      750023,
+      771118
+    ],
+    "postmaster": 749739,
+    "all_gone": true
+  }
+}
