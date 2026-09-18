@@ -1,0 +1,67 @@
+{
+  "default": {
+    "passed": 376,
+    "failed": 0,
+    "ignored": 0
+  },
+  "feature": {
+    "passed": 419,
+    "failed": 0,
+    "ignored": 0
+  },
+  "combined": {
+    "passed": 438,
+    "failed": 0,
+    "ignored": 0
+  },
+  "tool": {
+    "passed": 40,
+    "failed": 0,
+    "ignored": 2
+  },
+  "tool-feature": {
+    "passed": 40,
+    "failed": 0,
+    "ignored": 2
+  },
+  "root_clippy": {
+    "production_diagnostics_match_gate2": true,
+    "existing_production": 13,
+    "additional_all_targets_in_unchanged_test_code": [
+      {
+        "code": {
+          "code": "clippy::manual_dangling_ptr",
+          "explanation": null
+        },
+        "message": "manual creation of a dangling pointer",
+        "locations": [
+          [
+            "src/memory.rs",
+            137
+          ]
+        ]
+      },
+      {
+        "code": {
+          "code": "clippy::items_after_test_module",
+          "explanation": null
+        },
+        "message": "items after a test module",
+        "locations": [
+          [
+            "src/worker.rs",
+            288
+          ],
+          [
+            "src/worker.rs",
+            328
+          ]
+        ]
+      }
+    ],
+    "new_production": 0
+  },
+  "tool_strict_clippy_both": true,
+  "root_and_tool_format": true,
+  "root_and_tool_notices": true
+}
