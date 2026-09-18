@@ -1,0 +1,42 @@
+[package]
+name = "rnx-project"
+version = "0.0.0"
+edition = "2024"
+publish = false
+[workspace]
+
+[dependencies]
+sha2 = "=0.10.9" # Legacy installation verification only.
+blake3 = "=1.8.7"
+rune = { version = "=0.14.2", default-features = false, features = ["std"] }
+serde = { version = "1", features = ["derive"] }
+serde_json = "1"
+toml = "=0.9.12"
+tokio = { version = "1", default-features = false, features = ["rt", "time", "process", "io-util", "macros"] }
+
+[target.'cfg(unix)'.dependencies]
+libc = "0.2"
+
+[profile.dev]
+debug = false
+[profile.dev.package."*"]
+opt-level = 2
+
+[features]
+test-support = []
+
+[[bin]]
+name = "rnx-project-assembly-probe"
+path = "src/assembly_probe.rs"
+test = false
+required-features = ["test-support"]
+
+[[bin]]
+name = "rnx-project"
+path = "src/main.rs"
+test = false
+
+[[bin]]
+name="nested-probe"
+path="src/nested_probe.rs"
+test=false
