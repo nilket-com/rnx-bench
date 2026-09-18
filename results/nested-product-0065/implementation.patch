@@ -1,0 +1,559 @@
+[1mdiff --git a/tools/project/README.md b/tools/project/README.md[m
+[1mindex 0f90512..d2d47f8 100644[m
+[1m--- a/tools/project/README.md[m
+[1m+++ b/tools/project/README.md[m
+[36m@@ -293,6 +293,15 @@[m [muntracked non-ignored files, submodules, symlinks, special files and non-Unicode[m
+ names refuse. Ancestor workspace, config and toolchain candidates are recorded,[m
+ including absence. Shared native roots are hashed once with each association kept.[m
+ [m
+[32m+[m[32mOn Unix, overlapping native roots can reuse file observations within a single[m
+[32m+[m[32minventory when they share a proven Git worktree. Each represented file is still[m
+[32m+[m[32mcharged to each root. An intervening repository, inherited `GIT_*` variable, or[m
+[32m+[m[32mexhaustion of the 4096-entry descendant-discovery budget takes the independent[m
+[32m+[m[32mpath; an ignored build directory can therefore prevent reuse. No observation is[m
+[32m+[m[32mcached across commands. Every command reads source contents anew, but this is not[m
+[32m+[m[32man atomic snapshot: a same-size edit with restored metadata after the shared read[m
+[32m+[m[32mmay be missed until the next command, as recorded in 0065.[m
+[32m+[m
+ A native rnx path dependency covers the whole tracked repository, including plans[m
+ and nested adapters. A plan edit therefore invalidates a project's build identity.[m
+ Narrowing that input set would be a separate root decision. A project whose[m
+[1mdiff --git a/tools/project/src/assembly_probe.rs b/tools/project/src/assembly_probe.rs[m
+[1mindex ad5e8c9..5eec6c2 100644[m
+[1m--- a/tools/project/src/assembly_probe.rs[m
+[1m+++ b/tools/project/src/assembly_probe.rs[m
+[36m@@ -18,6 +18,47 @@[m [muse std::{ffi::OsString, path::Path};[m
+ fn run() -> Result<(), String> {[m
+ 	let args: Vec<OsString> = std::env::args_os().skip(1).collect();[m
+ 	match args.first().and_then(|a| a.to_str()) {[m
+[32m+[m		[32mSome("nested-inventory") if args.len() == 2 => {[m
+[32m+[m			[32m#[derive(serde::Deserialize)][m
+[32m+[m			[32mstruct Config {[m
+[32m+[m				[32mroots: Vec<std::path::PathBuf>,[m
+[32m+[m				[32mcandidate: bool,[m
+[32m+[m				[32mentries: usize,[m
+[32m+[m				[32mbytes: u64,[m
+[32m+[m				[32m#[serde(default)][m
+[32m+[m				[32mrepeat: bool,[m
+[32m+[m			[32m}[m
+[32m+[m			[32mlet c: Config =[m
+[32m+[m				[32mserde_json::from_slice(&std::fs::read(&args[1]).map_err(|e| e.to_string())?)[m
+[32m+[m					[32m.map_err(|e| e.to_string())?;[m
+[32m+[m			[32mlet mut a = fingerprint::Allowance::bounded(c.entries, c.bytes);[m
+[32m+[m			[32mlet roots = c.roots.clone();[m
+[32m+[m			[32mlet answer = if c.candidate {[m
+[32m+[m				[32mfingerprint::many(c.roots, &mut a)[m
+[32m+[m			[32m} else {[m
+[32m+[m				[32mc.roots[m
+[32m+[m					[32m.into_iter()[m
+[32m+[m					[32m.collect::<std::collections::BTreeSet<_>>()[m
+[32m+[m					[32m.into_iter()[m
+[32m+[m					[32m.map(|p| {[m
+[32m+[m						[32mlet tree = fingerprint::native(&p, &mut a)?;[m
+[32m+[m						[32mfingerprint::trace::between(&p)?;[m
+[32m+[m						[32mOk(tree)[m
+[32m+[m					[32m})[m
+[32m+[m					[32m.collect::<Result<Vec<_>, String>>()[m
+[32m+[m			[32m};[m
+[32m+[m			[32mlet repeated = if c.repeat {[m
+[32m+[m				[32mSome(fingerprint::many([m
+[32m+[m					[32mroots,[m
+[32m+[m					[32m&mut fingerprint::Allowance::bounded(c.entries, c.bytes),[m
+[32m+[m				[32m))[m
+[32m+[m			[32m} else {[m
+[32m+[m				[32mNone[m
+[32m+[m			[32m};[m
+[32m+[m			[32mprintln!("{}",serde_json::to_string(&serde_json::json!({"answer":answer,"repeated":repeated,"events":fingerprint::trace::take(),"remaining_bytes":a.remaining_bytes()})).map_err(|e|e.to_string())?);[m
+[32m+[m			[32mOk(())[m
+[32m+[m		[32m}[m
+[32m+[m
+ 		Some(version @ ("fingerprint-v1" | "fingerprint-v2")) if args.len() == 5 => {[m
+ 			let mode = args[1].to_str().ok_or("mode is not Unicode")?;[m
+ 			let path = Path::new(&args[2]);[m
+[1mdiff --git a/tools/project/src/fingerprint.rs b/tools/project/src/fingerprint.rs[m
+[1mindex 2194165..c57c72f 100644[m
+[1m--- a/tools/project/src/fingerprint.rs[m
+[1m+++ b/tools/project/src/fingerprint.rs[m
+[36m@@ -146,6 +146,8 @@[m [mfn hash_file([m
+ ) -> Result<(wire::File, fs::Metadata, fs::Metadata), String> {[m
+ 	components_no_links(root, &relative)?;[m
+ 	let path = root.join(relative);[m
+[32m+[m	[32m#[cfg(unix)][m
+[32m+[m	[32mreuse::before_read(&path)?;[m
+ 	let before = regular(&path)?;[m
+ 	if before.len() > allowance.bytes {[m
+ 		return Err(fail(&path, "fingerprint exceeds byte allowance"));[m
+[36m@@ -173,6 +175,8 @@[m [mfn hash_file([m
+ 	}[m
+ 	#[cfg(test)][m
+ 	tests::after_open(&path);[m
+[32m+[m	[32m#[cfg(feature = "test-support")][m
+[32m+[m	[32mtrace::event(serde_json::json!({"read":path}));[m
+ 	let mut content = blake3::Hasher::new();[m
+ 	let mut remaining = opened.len();[m
+ 	let mut buffer = [0u8; 16384];[m
+[36m@@ -204,6 +208,8 @@[m [mfn hash_file([m
+ 	if after.len() != opened.len() || executable(&after) != executable(&opened) {[m
+ 		return Err(fail(&path, "file changed during read"));[m
+ 	}[m
+[32m+[m	[32m#[cfg(unix)][m
+[32m+[m	[32mreuse::after_read(&path, &after);[m
+ 	let digest = content.finalize();[m
+ 	if let Some(tree) = tree.as_mut() {[m
+ 		tree.update(digest.as_bytes());[m
+[36m@@ -287,6 +293,8 @@[m [mpub(crate) fn one_observed([m
+ [m
+ /// Git output is bounded independently from file content. Kill and reap on overflow.[m
+ fn git(root: &Path, args: &[&str], limit: usize) -> Result<Vec<u8>, String> {[m
+[32m+[m	[32m#[cfg(feature = "test-support")][m
+[32m+[m	[32mtrace::event(serde_json::json!({"git":root,"args":args}));[m
+ 	let mut child = Command::new("git")[m
+ 		.arg("-C")[m
+ 		.arg(root)[m
+[36m@@ -386,3 +394,21 @@[m [mpub(crate) fn native_using([m
+ pub(crate) mod legacy;[m
+ #[cfg(test)][m
+ mod tests;[m
+[32m+[m
+[32m+[m[32m#[cfg(unix)][m
+[32m+[m[32mmod reuse;[m
+[32m+[m[32m#[cfg(feature = "test-support")][m
+[32m+[m[32mpub(crate) mod trace;[m
+[32m+[m[32mpub(crate) fn many(roots: Vec<PathBuf>, allowance: &mut Allowance) -> Result<Vec<Tree>, String> {[m
+[32m+[m	[32m#[cfg(unix)][m
+[32m+[m	[32m{[m
+[32m+[m		[32mreuse::many(roots, allowance)[m
+[32m+[m	[32m}[m
+[32m+[m	[32m#[cfg(not(unix))][m
+[32m+[m	[32m{[m
+[32m+[m		[32mroots[m
+[32m+[m			[32m.into_iter()[m
+[32m+[m			[32m.map(|root| native(&root, allowance))[m
+[32m+[m			[32m.collect()[m
+[32m+[m	[32m}[m
+[32m+[m[32m}[m
+[1mdiff --git a/tools/project/src/fingerprint/reuse.rs b/tools/project/src/fingerprint/reuse.rs[m
+[1mnew file mode 100644[m
+[1mindex 0000000..9452cb7[m
+[1m--- /dev/null[m
+[1m+++ b/tools/project/src/fingerprint/reuse.rs[m
+[36m@@ -0,0 +1,308 @@[m
+[32m+[m[32m//! Invocation-local nested-root reuse, proved by record 0065 gate 4.[m
+[32m+[m[32muse super::*;[m
+[32m+[m[32muse std::collections::BTreeSet;[m
+[32m+[m[32muse std::os::unix::fs::MetadataExt;[m
+[32m+[m
+[32m+[m[32m#[derive(Clone, Debug, PartialEq, Eq)][m
+[32m+[m[32mstruct Stamp {[m
+[32m+[m	[32mdev: u64,[m
+[32m+[m	[32mino: u64,[m
+[32m+[m	[32mmode: u32,[m
+[32m+[m	[32mlen: u64,[m
+[32m+[m	[32msec: i64,[m
+[32m+[m	[32mnano: i64,[m
+[32m+[m[32m}[m
+[32m+[m[32mfn stamp(m: &fs::Metadata) -> Stamp {[m
+[32m+[m	[32mStamp {[m
+[32m+[m		[32mdev: m.dev(),[m
+[32m+[m		[32mino: m.ino(),[m
+[32m+[m		[32mmode: m.mode(),[m
+[32m+[m		[32mlen: m.len(),[m
+[32m+[m		[32msec: m.mtime(),[m
+[32m+[m		[32mnano: m.mtime_nsec(),[m
+[32m+[m	[32m}[m
+[32m+[m[32m}[m
+[32m+[m[32mfn observed(p: &Path) -> Result<Option<Stamp>, String> {[m
+[32m+[m	[32mmatch fs::symlink_metadata(p) {[m
+[32m+[m		[32mOk(m) => Ok(Some(stamp(&m))),[m
+[32m+[m		[32mErr(e) if e.kind() == std::io::ErrorKind::NotFound => Ok(None),[m
+[32m+[m		[32mErr(e) => Err(fail(p, e)),[m
+[32m+[m	[32m}[m
+[32m+[m[32m}[m
+[32m+[m[32m#[derive(Default)][m
+[32m+[m[32mstruct State {[m
+[32m+[m	[32mfiles: BTreeMap<PathBuf, Stamp>,[m
+[32m+[m	[32mboundaries: BTreeMap<PathBuf, Option<Stamp>>,[m
+[32m+[m[32m}[m
+[32m+[m[32mthread_local! { static ACTIVE:std::cell::Cell<bool>=const {std::cell::Cell::new(false)}; static STATE: std::cell::RefCell<State> = std::cell::RefCell::new(State::default()); }[m
+[32m+[m[32m// Called by the bounded reader before opening each file, including all parent[m
+[32m+[m[32m// directory boundaries. A nested repository anywhere on a represented path[m
+[32m+[m[32m// makes reuse ineligible, even when independent scoped Git would ignore it.[m
+[32m+[m[32mpub(super) fn before_read(p: &Path) -> Result<(), String> {[m
+[32m+[m	[32mif !ACTIVE.with(|a| a.get()) {[m
+[32m+[m		[32mreturn Ok(());[m
+[32m+[m	[32m}[m
+[32m+[m	[32mSTATE.with(|s| {[m
+[32m+[m		[32mlet mut s = s.borrow_mut();[m
+[32m+[m		[32mfor dir in p.parent().unwrap().ancestors() {[m
+[32m+[m			[32mfor q in [dir.to_path_buf(), dir.join(".git")] {[m
+[32m+[m				[32mlet value = observed(&q)?;[m
+[32m+[m				[32mif let Some(old) = s.boundaries.get(&q) {[m
+[32m+[m					[32mif old != &value {[m
+[32m+[m						[32mreturn Err(fail(&q, "boundary changed during observation"));[m
+[32m+[m					[32m}[m
+[32m+[m				[32m} else {[m
+[32m+[m					[32ms.boundaries.insert(q, value);[m
+[32m+[m				[32m}[m
+[32m+[m			[32m}[m
+[32m+[m			[32mif observed(&dir.join(".git"))?.is_some() {[m
+[32m+[m				[32mbreak;[m
+[32m+[m			[32m}[m
+[32m+[m		[32m}[m
+[32m+[m		[32mOk(())[m
+[32m+[m	[32m})[m
+[32m+[m[32m}[m
+[32m+[m[32mpub(super) fn after_read(p: &Path, m: &fs::Metadata) {[m
+[32m+[m	[32mif !ACTIVE.with(|a| a.get()) {[m
+[32m+[m		[32mreturn;[m
+[32m+[m	[32m}[m
+[32m+[m	[32mSTATE.with(|s| {[m
+[32m+[m		[32ms.borrow_mut().files.insert(p.to_owned(), stamp(m));[m
+[32m+[m	[32m});[m
+[32m+[m[32m}[m
+[32m+[m[32mstruct Observation {[m
+[32m+[m	[32mtree: Tree,[m
+[32m+[m	[32mtop: PathBuf,[m
+[32m+[m	[32mgitdir: PathBuf,[m
+[32m+[m	[32mindex: PathBuf,[m
+[32m+[m	[32madmin: Vec<(PathBuf, Option<Stamp>)>,[m
+[32m+[m	[32mfiles: BTreeMap<PathBuf, Stamp>,[m
+[32m+[m	[32mboundaries: BTreeMap<PathBuf, Option<Stamp>>,[m
+[32m+[m	[32meligible: bool,[m
+[32m+[m[32m}[m
+[32m+[m[32mfn check(items: impl IntoIterator<Item = (PathBuf, Option<Stamp>)>) -> Result<(), String> {[m
+[32m+[m	[32mfor (p, old) in items {[m
+[32m+[m		[32mif observed(&p)? != old {[m
+[32m+[m			[32mreturn Err(fail(&p, "observation changed before reuse"));[m
+[32m+[m		[32m}[m
+[32m+[m	[32m}[m
+[32m+[m	[32mOk(())[m
+[32m+[m[32m}[m
+[32m+[m[32mfn independent(p: &Path, a: &mut Allowance, plain: bool) -> Result<Observation, String> {[m
+[32m+[m	[32mSTATE.with(|s| *s.borrow_mut() = State::default());[m
+[32m+[m	[32mlet info = std::cell::RefCell::new(None);[m
+[32m+[m	[32mlet tree = native_using(p, a, |r, args, limit| {[m
+[32m+[m		[32mif plain || args[0] != "rev-parse" {[m
+[32m+[m			[32mreturn git(r, args, limit);[m
+[32m+[m		[32m}[m
+[32m+[m		[32mlet Ok(bytes) = git([m
+[32m+[m			[32mr,[m
+[32m+[m			[32m&[[m
+[32m+[m				[32m"rev-parse",[m
+[32m+[m				[32m"--path-format=absolute",[m
+[32m+[m				[32m"--show-toplevel",[m
+[32m+[m				[32m"--absolute-git-dir",[m
+[32m+[m				[32m"--git-path",[m
+[32m+[m				[32m"index",[m
+[32m+[m				[32m"--show-superproject-working-tree",[m
+[32m+[m			[32m],[m
+[32m+[m			[32mlimit,[m
+[32m+[m		[32m) else {[m
+[32m+[m			[32mreturn git(r, args, limit);[m
+[32m+[m		[32m};[m
+[32m+[m		[32mlet Ok(reply) = std::str::from_utf8(&bytes) else {[m
+[32m+[m			[32mreturn git(r, args, limit);[m
+[32m+[m		[32m};[m
+[32m+[m		[32mlet lines = reply.lines().collect::<Vec<_>>();[m
+[32m+[m		[32mif !(3..=4).contains(&lines.len()) {[m
+[32m+[m			[32mreturn git(r, args, limit);[m
+[32m+[m		[32m}[m
+[32m+[m		[32mlet top = PathBuf::from(lines[0]);[m
+[32m+[m		[32mlet gd = PathBuf::from(lines[1]);[m
+[32m+[m		[32mlet idx = PathBuf::from(lines[2]);[m
+[32m+[m		[32mlet mut admin = vec![];[m
+[32m+[m		[32mfor q in [[m
+[32m+[m			[32mgd.clone(),[m
+[32m+[m			[32midx.clone(),[m
+[32m+[m			[32mgd.join("config"),[m
+[32m+[m			[32mgd.join("commondir"),[m
+[32m+[m			[32mgd.join("objects/info/alternates"),[m
+[32m+[m		[32m] {[m
+[32m+[m			[32madmin.push((q.clone(), observed(&q)?));[m
+[32m+[m		[32m}[m
+[32m+[m		[32m*info.borrow_mut() = Some((top, gd, idx, admin));[m
+[32m+[m		[32mOk(if lines.len() == 4 {[m
+[32m+[m			[32mlines[3].as_bytes().to_vec()[m
+[32m+[m		[32m} else {[m
+[32m+[m			[32mvec![][m
+[32m+[m		[32m})[m
+[32m+[m	[32m})?;[m
+[32m+[m	[32mlet (top, gitdir, index, admin) = info.into_inner().unwrap_or_default();[m
+[32m+[m	[32mlet eligible = !plain[m
+[32m+[m		[32m&& top.is_absolute()[m
+[32m+[m		[32m&& gitdir == top.join(".git")[m
+[32m+[m		[32m&& index == gitdir.join("index")[m
+[32m+[m		[32m&& observed(&gitdir)?.is_some_and(|s| s.mode & libc::S_IFMT == libc::S_IFDIR)[m
+[32m+[m		[32m&& !gitdir.join("commondir").exists();[m
+[32m+[m	[32mlet (files, boundaries) = STATE.with(|s| {[m
+[32m+[m		[32mlet s = s.take();[m
+[32m+[m		[32m(s.files, s.boundaries)[m
+[32m+[m	[32m});[m
+[32m+[m	[32mOk(Observation {[m
+[32m+[m		[32mtree,[m
+[32m+[m		[32mtop,[m
+[32m+[m		[32mgitdir,[m
+[32m+[m		[32mindex,[m
+[32m+[m		[32madmin,[m
+[32m+[m		[32mfiles,[m
+[32m+[m		[32mboundaries,[m
+[32m+[m		[32meligible,[m
+[32m+[m	[32m})[m
+[32m+[m[32m}[m
+[32m+[m[32mfn can_reuse(parent: &Observation, child: &Path) -> Result<bool, String> {[m
+[32m+[m	[32mif !parent.eligible || child == parent.tree.root || !child.starts_with(&parent.tree.root) {[m
+[32m+[m		[32mreturn Ok(false);[m
+[32m+[m	[32m}[m
+[32m+[m	[32mcheck(parent.admin.clone())?;[m
+[32m+[m	[32mcheck([m
+[32m+[m		[32mparent[m
+[32m+[m			[32m.boundaries[m
+[32m+[m			[32m.iter()[m
+[32m+[m			[32m.map(|(p, s)| (p.clone(), s.clone())),[m
+[32m+[m	[32m)?;[m
+[32m+[m	[32m// Same discovery root follows from a checked enclosing --show-toplevel and[m
+[32m+[m	[32m// no intervening .git entry; oracle independently verifies child discovery.[m
+[32m+[m	[32mfor dir in child.ancestors().take_while(|p| *p != parent.top) {[m
+[32m+[m		[32mif observed(&dir.join(".git"))?.is_some() {[m
+[32m+[m			[32mreturn Ok(false);[m
+[32m+[m		[32m}[m
+[32m+[m	[32m}[m
+[32m+[m	[32m// Inspect descendants too, including ignored directories: a nested repository[m
+[32m+[m	[32m// need not contain a file in the parent's index. This discovery is bounded;[m
+[32m+[m	[32m// exhaustion or unusual entries means independent fallback, never refusal.[m
+[32m+[m	[32mlet mut pending = vec![child.to_path_buf()];[m
+[32m+[m	[32mlet mut budget = 4096usize;[m
+[32m+[m	[32mwhile let Some(dir) = pending.pop() {[m
+[32m+[m		[32mif observed(&dir.join(".git"))?.is_some() {[m
+[32m+[m			[32mreturn Ok(false);[m
+[32m+[m		[32m}[m
+[32m+[m		[32mlet Ok(entries) = fs::read_dir(&dir) else {[m
+[32m+[m			[32mreturn Ok(false);[m
+[32m+[m		[32m};[m
+[32m+[m		[32mfor entry in entries {[m
+[32m+[m			[32mif budget == 0 {[m
+[32m+[m				[32mreturn Ok(false);[m
+[32m+[m			[32m}[m
+[32m+[m			[32mbudget -= 1;[m
+[32m+[m			[32mlet Ok(entry) = entry else { return Ok(false) };[m
+[32m+[m			[32mlet Ok(ty) = entry.file_type() else {[m
+[32m+[m				[32mreturn Ok(false);[m
+[32m+[m			[32m};[m
+[32m+[m			[32mif ty.is_dir() {[m
+[32m+[m				[32mpending.push(entry.path());[m
+[32m+[m			[32m} else if !ty.is_file() {[m
+[32m+[m				[32mreturn Ok(false);[m
+[32m+[m			[32m}[m
+[32m+[m		[32m}[m
+[32m+[m	[32m}[m
+[32m+[m	[32mfor (p, m) in &parent.boundaries {[m
+[32m+[m		[32mif p.starts_with(child) && p.file_name().is_some_and(|n| n == ".git") && m.is_some() {[m
+[32m+[m			[32mreturn Ok(false);[m
+[32m+[m		[32m}[m
+[32m+[m	[32m}[m
+[32m+[m	[32mOk(true)[m
+[32m+[m[32m}[m
+[32m+[m[32mfn derive(parent: &Observation, child: &Path, a: &mut Allowance) -> Result<Tree, String> {[m
+[32m+[m	[32mcheck(parent.admin.clone())?;[m
+[32m+[m	[32mcheck([m
+[32m+[m		[32mparent[m
+[32m+[m			[32m.boundaries[m
+[32m+[m			[32m.iter()[m
+[32m+[m			[32m.map(|(p, s)| (p.clone(), s.clone())),[m
+[32m+[m	[32m)?;[m
+[32m+[m	[32mlet mut files = vec![];[m
+[32m+[m	[32mlet prefix = child.strip_prefix(&parent.tree.root).unwrap();[m
+[32m+[m	[32mlet selected = parent[m
+[32m+[m		[32m.tree[m
+[32m+[m		[32m.files[m
+[32m+[m		[32m.iter()[m
+[32m+[m		[32m.filter_map(|f| Path::new(&f.path).strip_prefix(prefix).ok().map(|r| (f, r)))[m
+[32m+[m		[32m.collect::<Vec<_>>();[m
+[32m+[m	[32mfor _ in &selected {[m
+[32m+[m		[32ma.entry()?;[m
+[32m+[m	[32m}[m
+[32m+[m	[32mfor (f, relative) in selected {[m
+[32m+[m		[32mlet p = parent.tree.root.join(&f.path);[m
+[32m+[m		[32mlet old = parent[m
+[32m+[m			[32m.files[m
+[32m+[m			[32m.get(&p)[m
+[32m+[m			[32m.ok_or("missing validated file observation")?;[m
+[32m+[m		[32mif observed(&p)?.as_ref() != Some(old) {[m
+[32m+[m			[32mreturn Err(fail(&p, "file observation changed before reuse"));[m
+[32m+[m		[32m}[m
+[32m+[m		[32mif f.bytes > a.bytes {[m
+[32m+[m			[32mreturn Err(fail(&p, "fingerprint exceeds byte allowance"));[m
+[32m+[m		[32m}[m
+[32m+[m		[32ma.charge_bytes(f.bytes)?;[m
+[32m+[m		[32mlet mut f = f.clone();[m
+[32m+[m		[32mf.path = text(relative)?;[m
+[32m+[m		[32mfiles.push(f);[m
+[32m+[m	[32m}[m
+[32m+[m	[32mif files.is_empty() {[m
+[32m+[m		[32mreturn Err(fail(child, "native root has no tracked files"));[m
+[32m+[m	[32m}[m
+[32m+[m	[32mlet mut tree = blake3::Hasher::new();[m
+[32m+[m	[32mtree.update(b"rnx-tree-v2\0");[m
+[32m+[m	[32mfor f in &files {[m
+[32m+[m		[32mtree.update(&(f.path.len() as u64).to_be_bytes());[m
+[32m+[m		[32mtree.update(f.path.as_bytes());[m
+[32m+[m		[32mtree.update(&[u8::from(f.executable)]);[m
+[32m+[m		[32mtree.update(&f.bytes.to_be_bytes());[m
+[32m+[m		[32mlet h = blake3::Hash::from_hex(&f.blake3).map_err(|e| e.to_string())?;[m
+[32m+[m		[32mtree.update(h.as_bytes());[m
+[32m+[m	[32m}[m
+[32m+[m	[32m#[cfg(feature = "test-support")][m
+[32m+[m	[32msuper::trace::event([m
+[32m+[m		[32mserde_json::json!({"reuse":child,"parent":parent.tree.root,"top":parent.top,"gitdir":parent.gitdir,"index":parent.index}),[m
+[32m+[m	[32m);[m
+[32m+[m	[32mOk(Tree {[m
+[32m+[m		[32mroot: child.to_owned(),[m
+[32m+[m		[32mblake3: tree.finalize().to_hex().to_string(),[m
+[32m+[m		[32mfiles,[m
+[32m+[m	[32m})[m
+[32m+[m[32m}[m
+[32m+[m[32mpub(crate) fn many(roots: Vec<PathBuf>, a: &mut Allowance) -> Result<Vec<Tree>, String> {[m
+[32m+[m	[32mstruct Active;[m
+[32m+[m	[32mimpl Drop for Active {[m
+[32m+[m		[32mfn drop(&mut self) {[m
+[32m+[m			[32mACTIVE.with(|a| a.set(false));[m
+[32m+[m			[32mSTATE.with(|s| *s.borrow_mut() = State::default());[m
+[32m+[m		[32m}[m
+[32m+[m	[32m}[m
+[32m+[m	[32mACTIVE.with(|a| a.set(true));[m
+[32m+[m	[32mlet _active = Active;[m
+[32m+[m	[32mlet plain = std::env::vars_os().any(|(k, _)| k.to_string_lossy().starts_with("GIT_"));[m
+[32m+[m	[32mlet roots = roots.into_iter().collect::<BTreeSet<_>>();[m
+[32m+[m	[32mlet mut observations = vec![];[m
+[32m+[m	[32mlet mut trees = vec![];[m
+[32m+[m	[32mfor p in roots {[m
+[32m+[m		[32mlet p = root(&p)?;[m
+[32m+[m		[32mlet mut reused = None;[m
+[32m+[m		[32mfor parent in &observations {[m
+[32m+[m			[32mif can_reuse(parent, &p)? {[m
+[32m+[m				[32mreused = Some(derive(parent, &p, a)?);[m
+[32m+[m				[32mbreak;[m
+[32m+[m			[32m}[m
+[32m+[m		[32m}[m
+[32m+[m		[32mif let Some(tree) = reused {[m
+[32m+[m			[32mtrees.push(tree);[m
+[32m+[m		[32m} else {[m
+[32m+[m			[32mlet o = independent(&p, a, plain)?;[m
+[32m+[m			[32mtrees.push(o.tree.clone());[m
+[32m+[m			[32mobservations.push(o);[m
+[32m+[m		[32m}[m
+[32m+[m		[32m#[cfg(feature = "test-support")][m
+[32m+[m		[32msuper::trace::between(&p)?;[m
+[32m+[m	[32m}[m
+[32m+[m	[32mOk(trees)[m
+[32m+[m[32m}[m
+[1mdiff --git a/tools/project/src/fingerprint/tests.rs b/tools/project/src/fingerprint/tests.rs[m
+[1mindex 0785f49..70f94f9 100644[m
+[1m--- a/tools/project/src/fingerprint/tests.rs[m
+[1m+++ b/tools/project/src/fingerprint/tests.rs[m
+[36m@@ -434,3 +434,58 @@[m [mfn duplicate_framed_names_refuse() {[m
+ 		.contains("duplicate")[m
+ 	);[m
+ }[m
+[32m+[m
+[32m+[m[32m#[cfg(all(unix, feature = "test-support"))][m
+[32m+[m[32m#[test][m
+[32m+[m[32mfn nested_observations_end_after_each_call() {[m
+[32m+[m	[32m// The test runner may inherit even harmless GIT_PAGER. Production correctly[m
+[32m+[m	[32m// falls back for every GIT_* variable; isolate this eligibility test without[m
+[32m+[m	[32m// mutating the process environment shared by other tests.[m
+[32m+[m	[32mlet routing = std::env::vars_os()[m
+[32m+[m		[32m.filter(|(k, _)| k.to_string_lossy().starts_with("GIT_"))[m
+[32m+[m		[32m.collect::<Vec<_>>();[m
+[32m+[m	[32mif !routing.is_empty() {[m
+[32m+[m		[32mlet mut child = Command::new(std::env::current_exe().unwrap());[m
+[32m+[m		[32mchild.args([[m
+[32m+[m			[32m"fingerprint::tests::nested_observations_end_after_each_call",[m
+[32m+[m			[32m"--exact",[m
+[32m+[m			[32m"--test-threads=1",[m
+[32m+[m		[32m]);[m
+[32m+[m		[32mfor (key, _) in routing {[m
+[32m+[m			[32mchild.env_remove(key);[m
+[32m+[m		[32m}[m
+[32m+[m		[32massert!(child.status().unwrap().success());[m
+[32m+[m		[32mreturn;[m
+[32m+[m	[32m}[m
+[32m+[m	[32mlet t = Temp::new();[m
+[32m+[m	[32mt.write("base", b"runtime");[m
+[32m+[m	[32mt.write("adapter/lib.rs", b"adapter");[m
+[32m+[m	[32mt.init();[m
+[32m+[m	[32mlet roots = vec![t.0.clone(), t.0.join("adapter")];[m
+[32m+[m	[32mtrace::take();[m
+[32m+[m	[32mlet first = many(roots.clone(), &mut Allowance::default()).unwrap();[m
+[32m+[m	[32mlet events = trace::take();[m
+[32m+[m	[32massert_eq!(events.iter().filter(|e| e.get("read").is_some()).count(), 2);[m
+[32m+[m	[32massert_eq!(events.iter().filter(|e| e.get("git").is_some()).count(), 3);[m
+[32m+[m	[32massert_eq!([m
+[32m+[m		[32mfirst,[m
+[32m+[m		[32mmany(roots.clone(), &mut Allowance::default()).unwrap()[m
+[32m+[m	[32m);[m
+[32m+[m	[32mlet again = trace::take();[m
+[32m+[m	[32massert_eq!(events, again);[m
+[32m+[m	[32mt.write("adapter/lib.rs", b"changed");[m
+[32m+[m	[32mlet changed = many(roots, &mut Allowance::default()).unwrap();[m
+[32m+[m	[32massert_ne!(first[0].blake3, changed[0].blake3);[m
+[32m+[m	[32massert_ne!(first[1].blake3, changed[1].blake3);[m
+[32m+[m	[32m// A failed call cannot retain a partial observation either.[m
+[32m+[m	[32massert!(many(vec![t.0.clone()], &mut Allowance::bounded(1, 100)).is_err());[m
+[32m+[m	[32mtrace::take();[m
+[32m+[m	[32massert!(many(vec![t.0.clone()], &mut Allowance::default()).is_ok());[m
+[32m+[m	[32massert_eq!([m
+[32m+[m		[32mtrace::take()[m
+[32m+[m			[32m.iter()[m
+[32m+[m			[32m.filter(|e| e.get("read").is_some())[m
+[32m+[m			[32m.count(),[m
+[32m+[m		[32m2[m
+[32m+[m	[32m);[m
+[32m+[m[32m}[m
+[1mdiff --git a/tools/project/src/fingerprint/trace.rs b/tools/project/src/fingerprint/trace.rs[m
+[1mnew file mode 100644[m
+[1mindex 0000000..774fdab[m
+[1m--- /dev/null[m
+[1m+++ b/tools/project/src/fingerprint/trace.rs[m
+[36m@@ -0,0 +1,26 @@[m
+[32m+[m[32m#![allow(dead_code)][m
+[32m+[m[32muse std::{io::Write, path::Path};[m
+[32m+[m[32mthread_local! {static EVENTS:std::cell::RefCell<Vec<serde_json::Value>>=const {std::cell::RefCell::new(vec![])};}[m
+[32m+[m[32mpub(crate) fn event(v: serde_json::Value) {[m
+[32m+[m	[32mEVENTS.with(|e| e.borrow_mut().push(v));[m
+[32m+[m[32m}[m
+[32m+[m[32mpub(crate) fn take() -> Vec<serde_json::Value> {[m
+[32m+[m	[32mEVENTS.with(|e| e.take())[m
+[32m+[m[32m}[m
+[32m+[m[32mpub(crate) fn between(root: &Path) -> Result<(), String> {[m
+[32m+[m	[32mif std::env::var_os("NESTED_PAUSE_ROOT").is_some_and(|p| Path::new(&p) == root) {[m
+[32m+[m		[32mlet marker = std::env::var_os("NESTED_PAUSE").ok_or("missing marker")?;[m
+[32m+[m		[32mlet marker = Path::new(&marker);[m
+[32m+[m		[32mstd::fs::File::create(marker)[m
+[32m+[m			[32m.and_then(|mut f| f.write_all(b"ready"))[m
+[32m+[m			[32m.map_err(|e| e.to_string())?;[m
+[32m+[m		[32mlet start = std::time::Instant::now();[m
+[32m+[m		[32mwhile !marker.with_extension("release").exists() {[m
+[32m+[m			[32mif start.elapsed().as_secs() > 15 {[m
+[32m+[m				[32mreturn Err("pause timed out".into());[m
+[32m+[m			[32m}[m
+[32m+[m			[32mstd::thread::sleep(std::time::Duration::from_millis(5));[m
+[32m+[m		[32m}[m
+[32m+[m	[32m}[m
+[32m+[m	[32mOk(())[m
+[32m+[m[32m}[m
+[1mdiff --git a/tools/project/src/inventory.rs b/tools/project/src/inventory.rs[m
+[1mindex 56d4bce..b121d46 100644[m
+[1m--- a/tools/project/src/inventory.rs[m
+[1m+++ b/tools/project/src/inventory.rs[m
+[36m@@ -132,10 +132,7 @@[m [mpub(crate) fn native([m
+ 	if packages.windows(2).any(|p| p[0].id == p[1].id) {[m
+ 		return Err("duplicate Cargo package identity".into());[m
+ 	}[m
+[31m-	let mut trees = vec![];[m
+[31m-	for root in roots {[m
+[31m-		trees.push(fingerprint::native(&root, allowance)?);[m
+[31m-	}[m
+[32m+[m	[32mlet trees = fingerprint::many(roots.into_iter().collect(), allowance)?;[m
+ 	// Inspect all ancestor manifests, not just metadata.workspace_root (which is[m
+ 	// the generated wrapper's workspace). Explicit workspace redirects are followed.[m
+ 	let mut external = BTreeMap::new();[m
