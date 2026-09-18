@@ -1,0 +1,10 @@
+[22;2t]2;rnx[?2004h[?2026h[K[1] > [6C[?2026llet held = 42; let q = http::get("http://127.0.0.1:36905/");[?2004l
+[?2004h[?2026h[K[2] > [6C[?2026llet timer = time::sleep(20); select { _ = q => (), _ = timer => () };[?2004l
+[?2004h[?2026h[K[3] > [6C[?2026l:dep --offline polars[?2004l
+dependency preparation refused: RNX_DEP_RUNTIME override /home/me/work/rnx-bench/probes/runtime-final/target/discovery/missing: No such file or directory (os error 2)
+[?2004h[?2026h[K[3] > [6C[?2026lheld[?2004l
+[3] 42
+[?2004h[?2026h[K[4] > [6C[?2026lq.await[?2004l
+[4] Ok({"body": "73", "headers": {"connection": ["close"], "content-length": ["2"]}, "status": 200, "url": "http://127.0.0.1:36905/"})
+[?2004h[?2026h[K[5] > [6C[?2026l:q[?2004l
+[23;2t

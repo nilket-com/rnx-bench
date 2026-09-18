@@ -1,0 +1,335 @@
+[
+  {
+    "name": "install and same-ID validate/reselect",
+    "id": "a35fc02aa2a09c865c942a6c4ec1019b48c3cf2e2783ff8cee4f56d303a1a437",
+    "no_source_write": true,
+    "entry_byte_inode_mtime_identity": true
+  },
+  {
+    "name": "dirty snapshot, retained installations and explicit selection",
+    "id": "1f9582f5186501653e5a97298ba24559a6c4f4db2e4de28261843298a7edfcb3"
+  },
+  {
+    "name": "same-ID at different source preserves original provenance"
+  },
+  {
+    "name": "same-ID reinstall from installed source preserves entry"
+  },
+  {
+    "name": "publication after-snapshot",
+    "error": "rnx-project: injected installer failure: after-snapshot"
+  },
+  {
+    "name": "publication copy-chunk",
+    "error": "rnx-project: injected installer failure: copy-chunk"
+  },
+  {
+    "name": "publication after-copy",
+    "error": "rnx-project: injected installer failure: after-copy"
+  },
+  {
+    "name": "publication git-step",
+    "error": "rnx-project: injected installer failure: git-step"
+  },
+  {
+    "name": "publication after-index",
+    "error": "rnx-project: injected installer failure: after-index"
+  },
+  {
+    "name": "publication before-document",
+    "error": "rnx-project: injected installer failure: before-document"
+  },
+  {
+    "name": "publication after-document",
+    "error": "rnx-project: injected installer failure: after-document"
+  },
+  {
+    "name": "publication before-entry-rename",
+    "error": "rnx-project: injected installer failure: before-entry-rename"
+  },
+  {
+    "name": "publication after-entry-rename",
+    "error": "rnx-project: runtime ae07fc65607e33c6ab3983616806fe791bc9b221d7792723ff86d5045518940d installed but not selected: injected installer failure: after-entry-rename"
+  },
+  {
+    "name": "publication after-entry-sync",
+    "error": "rnx-project: runtime 9ff890bed8b8eca6a2053e3b37dc71136342510f7fe43b0be46a56b1ba3eaa7c installed but not selected: injected installer failure: after-entry-sync"
+  },
+  {
+    "name": "publication before-current-write",
+    "error": "rnx-project: runtime d42f60bd3e4b058d8ab86e55c702f6deb25b218f4e65b6175087f8471676de1a installed but not selected: injected installer failure: before-current-write"
+  },
+  {
+    "name": "publication after-current-write",
+    "error": "rnx-project: runtime 161abab9332bad00d221c49b417c4fb8bbcaa2da43b58ce65c6994e5d4252094 installed but not selected: injected installer failure: after-current-write"
+  },
+  {
+    "name": "publication before-current-rename",
+    "error": "rnx-project: runtime 2570c39877bc650d10cebc89a616e8ea8d0686b3bf29ebd515dc22a458ce955b installed but not selected: injected installer failure: before-current-rename"
+  },
+  {
+    "name": "publication after-current-rename",
+    "error": "rnx-project: runtime d0e9efc33641cf7b72d2d3846c3c8f828ddb52184040b4b1c4afcc61214e1c87: selection may already have changed: injected installer failure: after-current-rename"
+  },
+  {
+    "name": "publication after-current-sync",
+    "error": "rnx-project: runtime e5563ef993b7baf39b16d68b488873245040faa74f781c2c78133e1a17bdc452: selection may already have changed: injected installer failure: after-current-sync"
+  },
+  {
+    "name": "metadata unknown field"
+  },
+  {
+    "name": "metadata wrong format"
+  },
+  {
+    "name": "metadata invalid ID"
+  },
+  {
+    "name": "metadata bad time"
+  },
+  {
+    "name": "metadata bad tool digest"
+  },
+  {
+    "name": "corrupt same-ID source refuses, never overwrites"
+  },
+  {
+    "name": "current oversized"
+  },
+  {
+    "name": "current unknown"
+  },
+  {
+    "name": "current traversal"
+  },
+  {
+    "name": "source refusal missing",
+    "error": "rnx-project: fingerprint /home/me/work/rnx-bench/probes/runtime-final/target/publication/invalid-missing/src/lib.rs: No such file or directory (os error 2)"
+  },
+  {
+    "name": "source refusal untracked",
+    "error": "rnx-project: fingerprint /home/me/work/rnx-bench/probes/runtime-final/target/publication/invalid-untracked: untracked non-ignored native file"
+  },
+  {
+    "name": "source refusal unmerged",
+    "error": "rnx-project: fingerprint /home/me/work/rnx-bench/probes/runtime-final/target/publication/invalid-unmerged: unmerged Git index"
+  },
+  {
+    "name": "source refusal symlink",
+    "error": "rnx-project: fingerprint /home/me/work/rnx-bench/probes/runtime-final/target/publication/invalid-symlink/src/lib.rs: symlink refused"
+  },
+  {
+    "name": "source refusal fifo",
+    "error": "rnx-project: fingerprint /home/me/work/rnx-bench/probes/runtime-final/target/publication/invalid-fifo/src/lib.rs: not a regular file (symlinks and special files are refused)"
+  },
+  {
+    "name": "source refusal nonunicode",
+    "error": "rnx-project: fingerprint /home/me/work/rnx-bench/probes/runtime-final/target/publication/invalid-nonunicode: non-Unicode tracked name"
+  },
+  {
+    "name": "source refusal backslash",
+    "error": "rnx-project: fingerprint bad\\name: backslash in inventory name is unsupported"
+  },
+  {
+    "name": "source refusal bad-layout",
+    "error": "rnx-project: /home/me/work/rnx-bench/probes/runtime-final/target/publication/invalid-bad-layout/Cargo.toml: expected explicit package.name rnx"
+  },
+  {
+    "name": "source refusal absolute-path",
+    "error": "rnx-project: /home/me/work/rnx-bench/probes/runtime-final/target/publication/invalid-absolute-path/Cargo.toml: lib.path: unsupported or non-relative source path"
+  },
+  {
+    "name": "source refusal dependency-escape",
+    "error": "rnx-project: /home/me/work/rnx-bench/probes/runtime-final/target/publication/invalid-dependency-escape/Cargo.toml: dependencies.x.path: path escapes installed snapshot"
+  },
+  {
+    "name": "source refusal target-escape",
+    "error": "rnx-project: /home/me/work/rnx-bench/probes/runtime-final/target/publication/invalid-target-escape/Cargo.toml: bin.path: path escapes installed snapshot"
+  },
+  {
+    "name": "source refusal build-escape",
+    "error": "rnx-project: /home/me/work/rnx-bench/probes/runtime-final/target/publication/invalid-build-escape/Cargo.toml: target.cfg(unix).build-dependencies.x.path: path escapes installed snapshot"
+  },
+  {
+    "name": "source refusal dev-escape",
+    "error": "rnx-project: /home/me/work/rnx-bench/probes/runtime-final/target/publication/invalid-dev-escape/Cargo.toml: dev-dependencies.x.path: path escapes installed snapshot"
+  },
+  {
+    "name": "source refusal patch-escape",
+    "error": "rnx-project: /home/me/work/rnx-bench/probes/runtime-final/target/publication/invalid-patch-escape/Cargo.toml: patch.crates-io.x.path: path escapes installed snapshot"
+  },
+  {
+    "name": "source refusal replace-escape",
+    "error": "rnx-project: /home/me/work/rnx-bench/probes/runtime-final/target/publication/invalid-replace-escape/Cargo.toml: replace.x:1.0.0.path: path escapes installed snapshot"
+  },
+  {
+    "name": "source refusal workspace-escape",
+    "error": "rnx-project: /home/me/work/rnx-bench/probes/runtime-final/target/publication/invalid-workspace-escape/Cargo.toml: workspace.members: path escapes installed snapshot"
+  },
+  {
+    "name": "source refusal inheritance",
+    "error": "rnx-project: /home/me/work/rnx-bench/probes/runtime-final/target/publication/invalid-inheritance/Cargo.toml: dependencies.x.workspace: workspace inheritance is unsupported by the installed layout"
+  },
+  {
+    "name": "source refusal glob",
+    "error": "rnx-project: /home/me/work/rnx-bench/probes/runtime-final/target/publication/invalid-glob/Cargo.toml: workspace.members: unsupported or non-relative source path"
+  },
+  {
+    "name": "allowance RNX_INSTALL_SOURCE_FILES"
+  },
+  {
+    "name": "allowance RNX_INSTALL_SOURCE_BYTES"
+  },
+  {
+    "name": "allowance RNX_INSTALL_COPY_BYTES"
+  },
+  {
+    "name": "allowance RNX_INSTALL_RETAINED_FILES"
+  },
+  {
+    "name": "allowance RNX_INSTALL_RETAINED_BYTES"
+  },
+  {
+    "name": "user symlink root allowed"
+  },
+  {
+    "name": "managed symlink entries"
+  },
+  {
+    "name": "managed symlink lock"
+  },
+  {
+    "name": "managed symlink current"
+  },
+  {
+    "name": "managed FIFO lock"
+  },
+  {
+    "name": "managed FIFO current"
+  },
+  {
+    "name": "source mutation after-snapshot"
+  },
+  {
+    "name": "source mutation copy-chunk"
+  },
+  {
+    "name": "interrupt-copy-chunk-2",
+    "signal_status": 130
+  },
+  {
+    "name": "interrupt-copy-chunk-15",
+    "signal_status": 143
+  },
+  {
+    "name": "interrupt-git-step-2",
+    "signal_status": 130
+  },
+  {
+    "name": "interrupt-git-step-15",
+    "signal_status": 143
+  },
+  {
+    "name": "interrupt-after-entry-rename-2",
+    "signal_status": 130
+  },
+  {
+    "name": "interrupt-after-entry-rename-15",
+    "signal_status": 143
+  },
+  {
+    "name": "concurrent same-ID installer reuses publication"
+  },
+  {
+    "name": "killed lock waiter cannot damage writer"
+  },
+  {
+    "name": "killed copying writer stage reclaimed by retry"
+  },
+  {
+    "name": "Git fail failure is bounded and reaped",
+    "error": "rnx-project: Git prerequisite/operation failed (install Git if missing): \"git\" failed: exit status: 7: injected Git failure\n\n"
+  },
+  {
+    "name": "Git stdout failure is bounded and reaped",
+    "error": "rnx-project: Git prerequisite/operation failed (install Git if missing): command output exceeds 16 MiB\n"
+  },
+  {
+    "name": "Git stderr failure is bounded and reaped",
+    "error": "rnx-project: Git prerequisite/operation failed (install Git if missing): command stderr exceeds 16 MiB\n"
+  },
+  {
+    "name": "interrupt active Git 2",
+    "children": [
+      265347,
+      265350
+    ],
+    "no_live_child": true
+  },
+  {
+    "name": "interrupt active Git 15",
+    "children": [
+      265384,
+      265387
+    ],
+    "no_live_child": true
+  },
+  {
+    "name": "writer lock close-on-exec on every observed Git child",
+    "execs": 45
+  },
+  {
+    "name": "hostile filter positive control, raw provenance and Git routing"
+  },
+  {
+    "name": "exact source allowances and one-under refusals",
+    "files": 8,
+    "bytes": 301
+  },
+  {
+    "name": "exact retained allowances and one-under refusals",
+    "entries": 40,
+    "bytes": 2104
+  },
+  {
+    "name": "copy read limited to allowance plus one detection byte",
+    "read_bytes": 2,
+    "allowance": 1
+  },
+  {
+    "name": "selector waits, revalidates, selects after publication"
+  },
+  {
+    "name": "store refusal empty-data"
+  },
+  {
+    "name": "store refusal relative-data"
+  },
+  {
+    "name": "store refusal source-containment"
+  },
+  {
+    "name": "store refusal cache-containment"
+  },
+  {
+    "name": "store refusal scratch-containment"
+  },
+  {
+    "name": "uncommitted index installs without synthetic commit"
+  },
+  {
+    "name": "linked worktree installs independent Git administration"
+  },
+  {
+    "name": "oversized installation metadata refused unchanged"
+  },
+  {
+    "name": "corrupt independent Git object refused unchanged"
+  },
+  {
+    "name": "relative source accepted, nested Git root refused"
+  },
+  {
+    "name": "filesystem monitor positive control, no hook or optional source-index writes"
+  }
+]

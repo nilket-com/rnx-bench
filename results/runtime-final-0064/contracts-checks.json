@@ -1,0 +1,206 @@
+[
+  {
+    "name": "root-build-default",
+    "command": [
+      "cargo",
+      "build",
+      "--locked",
+      "--offline",
+      "--manifest-path",
+      "/home/me/work/rnx/Cargo.toml"
+    ],
+    "status": 0,
+    "seconds": 0.11426919803489
+  },
+  {
+    "name": "tool-build-test-support",
+    "command": [
+      "cargo",
+      "build",
+      "--locked",
+      "--offline",
+      "--manifest-path",
+      "/home/me/work/rnx/tools/project/Cargo.toml",
+      "--features",
+      "test-support"
+    ],
+    "status": 0,
+    "seconds": 0.6161545250215568
+  },
+  {
+    "name": "session-preparation-setup.py",
+    "command": [
+      "/usr/bin/python3",
+      "-c",
+      "import sys;sys.dont_write_bytecode=True;exec(compile(open(sys.argv[1]).read(),sys.argv[2],\"exec\"),{\"__name__\":\"__main__\",\"__file__\":sys.argv[2]})",
+      "/home/me/work/rnx-bench/results/runtime-final-0064/scripts/session-preparation-setup.py",
+      "/home/me/work/rnx-bench/probes/session-preparation/setup.py"
+    ],
+    "status": 0,
+    "seconds": 38.64185605302919
+  },
+  {
+    "name": "session-preparation-check.py",
+    "command": [
+      "/usr/bin/python3",
+      "-c",
+      "import sys;sys.dont_write_bytecode=True;exec(compile(open(sys.argv[1]).read(),sys.argv[2],\"exec\"),{\"__name__\":\"__main__\",\"__file__\":sys.argv[2]})",
+      "/home/me/work/rnx-bench/results/runtime-final-0064/scripts/session-preparation-check.py",
+      "/home/me/work/rnx-bench/probes/session-preparation/check.py"
+    ],
+    "status": 0,
+    "seconds": 53.93465108296368
+  },
+  {
+    "name": "session-startup-setup.py",
+    "command": [
+      "/usr/bin/python3",
+      "-c",
+      "import sys;sys.dont_write_bytecode=True;exec(compile(open(sys.argv[1]).read(),sys.argv[2],\"exec\"),{\"__name__\":\"__main__\",\"__file__\":sys.argv[2]})",
+      "/home/me/work/rnx-bench/results/runtime-final-0064/scripts/session-startup-setup.py",
+      "/home/me/work/rnx-bench/probes/session-startup/setup.py"
+    ],
+    "status": 0,
+    "seconds": 38.53446827898733
+  },
+  {
+    "name": "session-startup-check.py",
+    "command": [
+      "/usr/bin/python3",
+      "-c",
+      "import sys;sys.dont_write_bytecode=True;exec(compile(open(sys.argv[1]).read(),sys.argv[2],\"exec\"),{\"__name__\":\"__main__\",\"__file__\":sys.argv[2]})",
+      "/home/me/work/rnx-bench/results/runtime-final-0064/scripts/session-startup-check.py",
+      "/home/me/work/rnx-bench/probes/session-startup/check.py"
+    ],
+    "status": 0,
+    "seconds": 62.17151799198473
+  },
+  {
+    "name": "root-build-test-support",
+    "command": [
+      "cargo",
+      "build",
+      "--locked",
+      "--offline",
+      "--manifest-path",
+      "/home/me/work/rnx/Cargo.toml",
+      "--features",
+      "test-support"
+    ],
+    "status": 0,
+    "seconds": 0.11478634603554383
+  },
+  {
+    "name": "session-commit-setup.py",
+    "command": [
+      "/usr/bin/python3",
+      "-c",
+      "import sys;sys.dont_write_bytecode=True;exec(compile(open(sys.argv[1]).read(),sys.argv[2],\"exec\"),{\"__name__\":\"__main__\",\"__file__\":sys.argv[2]})",
+      "/home/me/work/rnx-bench/results/runtime-final-0064/scripts/session-commit-setup.py",
+      "/home/me/work/rnx-bench/probes/session-commit/setup.py"
+    ],
+    "status": 0,
+    "seconds": 41.23578015703242
+  },
+  {
+    "name": "session-commit-check.py",
+    "command": [
+      "/usr/bin/python3",
+      "-c",
+      "import sys;sys.dont_write_bytecode=True;exec(compile(open(sys.argv[1]).read(),sys.argv[2],\"exec\"),{\"__name__\":\"__main__\",\"__file__\":sys.argv[2]})",
+      "/home/me/work/rnx-bench/results/runtime-final-0064/scripts/session-commit-check.py",
+      "/home/me/work/rnx-bench/probes/session-commit/check.py"
+    ],
+    "status": 0,
+    "seconds": 139.83121258200845
+  },
+  {
+    "name": "root-build-default",
+    "command": [
+      "cargo",
+      "build",
+      "--locked",
+      "--offline",
+      "--manifest-path",
+      "/home/me/work/rnx/Cargo.toml"
+    ],
+    "status": 0,
+    "seconds": 0.11527586099691689
+  },
+  {
+    "name": "runtime-discovery-check.py",
+    "command": [
+      "/usr/bin/python3",
+      "-c",
+      "import sys;sys.dont_write_bytecode=True;exec(compile(open(sys.argv[1]).read(),sys.argv[2],\"exec\"),{\"__name__\":\"__main__\",\"__file__\":sys.argv[2]})",
+      "/home/me/work/rnx-bench/results/runtime-final-0064/scripts/runtime-discovery-check.py",
+      "/home/me/work/rnx-bench/probes/runtime-discovery/check.py"
+    ],
+    "status": 0,
+    "seconds": 2.069784127001185
+  },
+  {
+    "name": "runtime-discovery-reopen.py",
+    "command": [
+      "/usr/bin/python3",
+      "-c",
+      "import sys;sys.dont_write_bytecode=True;exec(compile(open(sys.argv[1]).read(),sys.argv[2],\"exec\"),{\"__name__\":\"__main__\",\"__file__\":sys.argv[2]})",
+      "/home/me/work/rnx-bench/results/runtime-final-0064/scripts/runtime-discovery-reopen.py",
+      "/home/me/work/rnx-bench/probes/runtime-discovery/reopen.py"
+    ],
+    "status": 0,
+    "seconds": 42.44170310499612
+  },
+  {
+    "name": "runtime-publication-check.py",
+    "command": [
+      "/usr/bin/python3",
+      "-c",
+      "import sys;sys.dont_write_bytecode=True;exec(compile(open(sys.argv[1]).read(),sys.argv[2],\"exec\"),{\"__name__\":\"__main__\",\"__file__\":sys.argv[2]})",
+      "/home/me/work/rnx-bench/results/runtime-final-0064/scripts/runtime-publication-check.py",
+      "/home/me/work/rnx-bench/probes/runtime-publication/check.py"
+    ],
+    "status": 0,
+    "seconds": 18.803826747986022
+  },
+  {
+    "name": "runtime-installed-journey-repair.py",
+    "command": [
+      "/usr/bin/python3",
+      "-c",
+      "import sys;sys.dont_write_bytecode=True;exec(compile(open(sys.argv[1]).read(),sys.argv[2],\"exec\"),{\"__name__\":\"__main__\",\"__file__\":sys.argv[2]})",
+      "/home/me/work/rnx-bench/results/runtime-final-0064/scripts/runtime-installed-journey-repair.py",
+      "/home/me/work/rnx-bench/probes/runtime-installed-journey/repair.py"
+    ],
+    "status": 0,
+    "seconds": 1.4177653199876659
+  },
+  {
+    "name": "tool-release",
+    "command": [
+      "cargo",
+      "build",
+      "--locked",
+      "--offline",
+      "--release",
+      "--manifest-path",
+      "/home/me/work/rnx/tools/project/Cargo.toml",
+      "--bin",
+      "rnx-project"
+    ],
+    "status": 0,
+    "seconds": 4.878478141035885
+  },
+  {
+    "name": "runtime-installed-journey-repair.py",
+    "command": [
+      "/usr/bin/python3",
+      "-c",
+      "import sys;sys.dont_write_bytecode=True;exec(compile(open(sys.argv[1]).read(),sys.argv[2],\"exec\"),{\"__name__\":\"__main__\",\"__file__\":sys.argv[2]})",
+      "/home/me/work/rnx-bench/results/runtime-final-0064/scripts/runtime-installed-journey-repair.py",
+      "/home/me/work/rnx-bench/probes/runtime-installed-journey/repair.py"
+    ],
+    "status": 0,
+    "seconds": 1.3679442610009573
+  }
+]

@@ -1,0 +1,35 @@
+[22;2t]2;rnx[?2004h[?2026h[K[1] > [6C[?2026llet held = 42; let value = fixture::value(); let q = fixture::pending(false);[?2004l
+[?2004h[?2026h[K[2] > [6C[?2026llet timer = time::sleep(5); select { _ = q => (), _ = timer => () };[?2004l
+[?2004h[?2026h[K[3] > [6C[?2026l:dep --offline polars[?2004l
+Project: /home/me/work/rnx-bench/probes/runtime-final/target/startup/project/rnx.toml
+Adding: polars
+Already declared: (none)
+Offline: Cargo may not fetch sources.
+A first Polars build took about 100 seconds with registry sources cached; its retained shared entry is about 1.5 GB. A reusable entry avoids compilation.
+This prepares a new executable and restarts the session on success.
+Existing bindings and declarations will be lost. Saved history remains available with up-arrow; nothing is replayed.
+[?2004h[?2026h[KContinue? [y/N] [16C[?2026ly[?2004l
+added polars
+Next:
+  rnx-project lock --manifest '/home/me/work/rnx-bench/probes/runtime-final/target/startup/project/rnx.toml'
+  rnx-project build --manifest '/home/me/work/rnx-bench/probes/runtime-final/target/startup/project/rnx.toml'
+  rnx-project session --manifest '/home/me/work/rnx-bench/probes/runtime-final/target/startup/project/rnx.toml'
+dependency phase: author
+dependency phase: resolve
+     Locking 1 package to latest Rust 1.98.1 compatible version
+      Adding rnx-polars v0.0.0 (/home/me/work/rnx-bench/probes/runtime-final/target/startup/native/adapters/polars)
+locked /home/me/work/rnx-bench/probes/runtime-final/target/startup/project/rnx.toml
+dependency phase: build/attach
+attached shared assembly c512746655abe1177f9d3c5b0e7da3ed8b035c43d61dcc4823daf080f1fa80e6: /home/me/work/rnx-bench/probes/runtime-final/target/startup/cache/entries/c512746655abe1177f9d3c5b0e7da3ed8b035c43d61dcc4823daf080f1fa80e6/artifacts/22159f5de051ce094cb75861a342e3efd66d577603d8922b9912c168851c6249
+dependency phase: startup check
+restart is beginning
+[23;2t[22;2t]2;rnx[?2004h[?2026h[K[1] > [6C[?2026lpolars::answer()[?2004l
+[1] 73
+[?2004h[?2026h[K[2] > [6C[?2026lheld[?2004l
+error at input 2, line 1, column 1: No local variable `held`
+  held
+  ^
+[?2004h[?2026h[K[3] > [6C[?2026l:dep polars[?2004l
+already installed; session unchanged
+[?2004h[?2026h[K[3] > [6C[?2026l:q[?2004l
+[23;2t

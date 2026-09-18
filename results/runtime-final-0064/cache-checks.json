@@ -1,0 +1,42 @@
+[
+  {
+    "name": "root-build-default",
+    "command": [
+      "cargo",
+      "build",
+      "--locked",
+      "--offline",
+      "--manifest-path",
+      "/home/me/work/rnx/Cargo.toml"
+    ],
+    "status": 0,
+    "seconds": 0.16446959704626352
+  },
+  {
+    "name": "tool-build-test-support",
+    "command": [
+      "cargo",
+      "build",
+      "--locked",
+      "--offline",
+      "--manifest-path",
+      "/home/me/work/rnx/tools/project/Cargo.toml",
+      "--features",
+      "test-support"
+    ],
+    "status": 0,
+    "seconds": 0.11504489299841225
+  },
+  {
+    "name": "cache",
+    "command": [
+      "/usr/bin/python3",
+      "-c",
+      "import sys;exec(compile(open(sys.argv[1]).read(),sys.argv[2],\"exec\"),{\"__file__\":sys.argv[2],\"__name__\":\"__main__\"})",
+      "/home/me/work/rnx-bench/results/runtime-final-0064/scripts/cache.py",
+      "/home/me/work/rnx-bench/probes/session-final/cache.py"
+    ],
+    "status": 0,
+    "seconds": 83.8956053960137
+  }
+]

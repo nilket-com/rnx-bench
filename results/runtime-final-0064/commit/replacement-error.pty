@@ -1,0 +1,31 @@
+[22;2t]2;rnx[?2004h[?2026h[K[1] > [6C[?2026llet held = 42; let value = fixture::value(); let q = fixture::pending(false);[?2004l
+[?2004h[?2026h[K[2] > [6C[?2026llet h = http::get("http://127.0.0.1:53927/hold"); let p = postgres::query("postgresql:///postgres?host=/tmp/rnx-p[?2026h[K[2] > let h = http::get("http://127.0.0.1:53927/hold"); let p = postgres::query("postgresql:///postgres?host=/tmp/rnx-pg
+[?2026l-contract-cbivpd5s&application_name=rnx-pg-fixture", "SELECT 1 AS n FROM pg_sleep(12)", [], #{timeout_ms:15000});[?2004l
+[?2004h[?2026h[K[3] > [6C[?2026llet timer = time::sleep(40); select { _ = q => (), _ = timer => () };[?2004l
+[?2004h[?2026h[K[4] > [6C[?2026llet timer = time::sleep(40); select { _ = h => (), _ = timer => () };[?2004l
+[?2004h[?2026h[K[5] > [6C[?2026llet timer = time::sleep(40); select { _ = p => (), _ = timer => () }; fs::write_new("/home/me/work/rnx-bench/prob[?2026h[K[5] > let timer = time::sleep(40); select { _ = p => (), _ = timer => () }; fs::write_new("/home/me/work/rnx-bench/probe
+[?2026ls/runtime-final/target/commit/replacement-error/started", "ready").unwrap(); time::sleep(700).await;[?2004l
+[?2004h[?2026h[K[6] > [6C[?2026l:dep --offline polars[?2004l
+Project: /home/me/work/rnx-bench/probes/runtime-final/target/commit/project/rnx.toml
+Adding: polars
+Already declared: (none)
+Offline: Cargo may not fetch sources.
+A first Polars build took about 100 seconds with registry sources cached; its retained shared entry is about 1.5 GB. A reusable entry avoids compilation.
+This prepares a new executable and restarts the session on success.
+Existing bindings and declarations will be lost. Saved history remains available with up-arrow; nothing is replayed.
+[?2004h[?2026h[KContinue? [y/N] [16C[?2026ly[?2004l
+dependency phase: author
+added polars
+Next:
+  rnx-project lock --manifest '/home/me/work/rnx-bench/probes/runtime-final/target/commit/project/rnx.toml'
+  rnx-project build --manifest '/home/me/work/rnx-bench/probes/runtime-final/target/commit/project/rnx.toml'
+  rnx-project session --manifest '/home/me/work/rnx-bench/probes/runtime-final/target/commit/project/rnx.toml'
+dependency phase: resolve
+     Locking 1 package to latest Rust 1.98.1 compatible version
+      Adding rnx-polars v0.0.1 (/home/me/work/rnx-bench/probes/runtime-final/target/commit/native/adapters/polars)
+locked /home/me/work/rnx-bench/probes/runtime-final/target/commit/project/rnx.toml
+dependency phase: build/attach
+attached shared assembly 32a013645df45a4eb3e3d28adc2a29b53d9802a67e44688cd76cb452dea9ffbb: /home/me/work/rnx-bench/probes/runtime-final/target/commit/cache/entries/32a013645df45a4eb3e3d28adc2a29b53d9802a67e44688cd76cb452dea9ffbb/artifacts/61a3239311a34fa5f73b8813feb2109fe49e7597b03890abd40a758b8474fa2c
+dependency phase: startup check
+restart is beginning
+[23;2terror: extension `polars` could not be installed: replacement-only builder refusal

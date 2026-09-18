@@ -1,0 +1,88 @@
+[
+  {
+    "name": "absent store and F2 actionable errors, no discovery mutation"
+  },
+  {
+    "name": "selected runtime notice and decline are read-only",
+    "notice": "New scratch project: /home/me/work/rnx-bench/probes/runtime-final/target/discovery/state/rnx/sessions/session-257528-1789750164353318299/rnx.toml\nAdding: polars\nAlready declared: (none)\nOffline: Cargo may not fetch sources.\nRuntime: installation db2f5cbe3b8d348b768394ca4e6539874302dcff9f9ae020fd2f22e205372f54 at /home/me/work/rnx-bench/probes/runtime-final/target/discovery/data/rnx/runtimes/entries/db2f5cbe3b8d348b768394ca4e6539874302dcff9f9ae020fd2f22e205372f54/source (installed from /home/me/work/rnx-bench/probes/runtime-final/target/discovery/source-a, be77fc2f8e0831c0d4296961d90ca25f588547a2, clean tracked snapshot, 2026-09-18T16:49:23Z)\nA first Polars build took about 100 seconds with registry sources cached; its retained shared entry is about 1.5 GB. A reusable entry avoids compilation.\nThis prepares a new executable and restarts the session on success.\nExisting bindings and declarations will be lost. Saved history remains available with up-arrow; nothing is replayed."
+  },
+  {
+    "name": "dirty provenance and multiple selections"
+  },
+  {
+    "name": "invalid overrides refuse despite valid default"
+  },
+  {
+    "name": "valid override takes precedence"
+  },
+  {
+    "name": "selection changed across consent refuses before scratch"
+  },
+  {
+    "name": "complete unselected entries are not discovered"
+  },
+  {
+    "name": "corrupt source revalidated before scratch",
+    "error": "corrupt installed runtime db2f5cbe3b8d348b768394ca4e6539874302dcff9f9ae020fd2f22e205372f54: source fingerprint differs"
+  },
+  {
+    "name": "deleted selected entry refuses"
+  },
+  {
+    "name": "missing Git actionable before scratch",
+    "error": "cannot check installed runtime integrity at /home/me/work/rnx-bench/probes/runtime-final/target/discovery/data/rnx/runtimes/entries/db2f5cbe3b8d348b768394ca4e6539874302dcff9f9ae020fd2f22e205372f54/source: \"git\": No such file or directory (os error 2); Git is required (install Git if missing)"
+  },
+  {
+    "name": "validated source selected in newly created scratch",
+    "manifest": "format = 1\n[application]\nentry = \"entry.rn\"\n[runtime]\npath = \"/home/me/work/rnx-bench/probes/runtime-final/target/discovery/data/rnx/runtimes/entries/db2f5cbe3b8d348b768394ca4e6539874302dcff9f9ae020fd2f22e205372f54/source\"\n"
+  },
+  {
+    "name": "conflicting cwd ignored"
+  },
+  {
+    "name": "current document unknown field"
+  },
+  {
+    "name": "current document wrong version"
+  },
+  {
+    "name": "current document oversized"
+  },
+  {
+    "name": "managed symlink entry"
+  },
+  {
+    "name": "managed symlink source"
+  },
+  {
+    "name": "describe needs no Git"
+  },
+  {
+    "name": "pending survives selection change",
+    "pending_request_returned_original_value": true
+  },
+  {
+    "name": "pending survives corrupt source",
+    "pending_request_returned_original_value": true
+  },
+  {
+    "name": "pending survives deleted entry",
+    "pending_request_returned_original_value": true
+  },
+  {
+    "name": "pending survives missing Git",
+    "pending_request_returned_original_value": true
+  },
+  {
+    "name": "pending survives invalid override",
+    "pending_request_returned_original_value": true
+  },
+  {
+    "name": "pending survives decline",
+    "pending_request_returned_original_value": true
+  },
+  {
+    "name": "matrix complete",
+    "groups": 24
+  }
+]

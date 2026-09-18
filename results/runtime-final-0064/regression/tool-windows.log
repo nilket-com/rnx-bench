@@ -1,0 +1,113 @@
+    Checking rnx-project v0.0.0 (/home/me/work/rnx/tools/project)
+warning: unused import: `UNIX_EPOCH`
+   --> src/artifact.rs:222:20
+    |
+222 |         time::{Duration, UNIX_EPOCH},
+    |                          ^^^^^^^^^^
+    |
+    = note: `#[warn(unused_imports)]` (part of `#[warn(unused)]`) on by default
+
+warning: `rnx-project` (lib test) generated 1 warning (run `cargo fix --lib -p rnx-project --tests` to apply 1 suggestion)
+warning: unused import: `std::io::Read`
+ --> src/workflow/transition.rs:4:5
+  |
+4 | use std::io::Read;
+  |     ^^^^^^^^^^^^^
+  |
+  = note: `#[warn(unused_imports)]` (part of `#[warn(unused)]`) on by default
+
+warning: unused import: `std::io::Read`
+ --> src/workflow/transition.rs:4:5
+  |
+4 | use std::io::Read;
+  |     ^^^^^^^^^^^^^
+
+warning: variable does not need to be mutable
+   --> src/workflow/transition.rs:286:8
+    |
+286 |             let mut b = fs::DirBuilder::new();
+    |                 ----^
+    |                 |
+    |                 help: remove this `mut`
+    |
+    = note: `#[warn(unused_mut)]` (part of `#[warn(unused)]`) on by default
+
+warning: variable does not need to be mutable
+   --> src/workflow/transition.rs:313:6
+    |
+313 |     let mut b = fs::DirBuilder::new();
+    |         ----^
+    |         |
+    |         help: remove this `mut`
+
+warning: `rnx-project` (bin "rnx-project-assembly-probe" test) generated 1 warning (1 duplicate)
+warning: function `flags` is never used
+ --> src/workflow/startup.rs:2:15
+  |
+2 | pub(super) fn flags(text: &str) -> Result<Vec<String>, String> {
+  |               ^^^^^
+  |
+  = note: `#[warn(dead_code)]` (part of `#[warn(unused)]`) on by default
+
+warning: associated function `inspect` is never used
+  --> src/workflow/transition.rs:49:5
+   |
+47 | impl Project {
+   | ------------ associated function in this implementation
+48 |     // Describe must not create a command lock, .rnx, map or receipt refresh.
+49 |     fn inspect(path: &Path) -> Result<Self, String> {
+   |        ^^^^^^^
+
+warning: function `validate_association` is never used
+  --> src/workflow/transition.rs:65:4
+   |
+65 | fn validate_association(
+   |    ^^^^^^^^^^^^^^^^^^^^
+
+warning: struct `Description` is never constructed
+  --> src/workflow/transition.rs:97:8
+   |
+97 | struct Description {
+   |        ^^^^^^^^^^^
+
+warning: method `fields` is never used
+   --> src/workflow/transition.rs:107:5
+    |
+106 | impl Description {
+    | ---------------- method in this implementation
+107 |     fn fields(&self) -> Result<protocol::Fields, String> {
+    |        ^^^^^^
+
+warning: function `state_root` is never used
+   --> src/workflow/transition.rs:151:4
+    |
+151 | fn state_root() -> Result<PathBuf, String> {
+    |    ^^^^^^^^^^
+
+warning: function `scratch_path` is never used
+   --> src/workflow/transition.rs:181:4
+    |
+181 | fn scratch_path() -> Result<PathBuf, String> {
+    |    ^^^^^^^^^^^^
+
+warning: function `describe` is never used
+   --> src/workflow/transition.rs:198:4
+    |
+198 | fn describe(request: &protocol::Fields, proposed: Option<&Path>) -> Result<Description, String> {
+    |    ^^^^^^^^
+
+warning: function `private_dir` is never used
+   --> src/workflow/transition.rs:279:4
+    |
+279 | fn private_dir(path: &Path) -> Result<(), String> {
+    |    ^^^^^^^^^^^
+
+warning: function `create_scratch` is never used
+   --> src/workflow/transition.rs:297:4
+    |
+297 | fn create_scratch(d: &Description) -> Result<(), String> {
+    |    ^^^^^^^^^^^^^^
+
+warning: `rnx-project` (bin "rnx-project") generated 13 warnings (run `cargo fix --bin "rnx-project" -p rnx-project` to apply 2 suggestions)
+warning: `rnx-project` (bin "rnx-project" test) generated 14 warnings (13 duplicates)
+    Finished `dev` profile [unoptimized] target(s) in 0.72s
