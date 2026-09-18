@@ -1,0 +1,92 @@
+[
+  {
+    "cwd": "/home/me/work/rnx",
+    "command": [
+      "cargo",
+      "fmt",
+      "--check"
+    ],
+    "status": 0
+  },
+  {
+    "cwd": "/home/me/work/rnx",
+    "command": [
+      "cargo",
+      "test",
+      "--locked",
+      "--",
+      "--test-threads=1"
+    ],
+    "status": 0
+  },
+  {
+    "cwd": "/home/me/work/rnx/tools/project",
+    "command": [
+      "cargo",
+      "fmt",
+      "--check"
+    ],
+    "status": 0
+  },
+  {
+    "cwd": "/home/me/work/rnx/tools/project",
+    "command": [
+      "cargo",
+      "clippy",
+      "--locked",
+      "--all-targets",
+      "--",
+      "-D",
+      "warnings"
+    ],
+    "status": 0
+  },
+  {
+    "cwd": "/home/me/work/rnx/tools/project",
+    "command": [
+      "cargo",
+      "test",
+      "--locked",
+      "--",
+      "--test-threads=1"
+    ],
+    "status": 0
+  },
+  {
+    "cwd": "/home/me/work/rnx/tools/project",
+    "command": [
+      "cargo",
+      "clippy",
+      "--locked",
+      "--all-targets",
+      "--features",
+      "test-support",
+      "--",
+      "-D",
+      "warnings"
+    ],
+    "status": 0
+  },
+  {
+    "cwd": "/home/me/work/rnx/tools/project",
+    "command": [
+      "cargo",
+      "test",
+      "--locked",
+      "--features",
+      "test-support",
+      "--",
+      "--test-threads=1"
+    ],
+    "status": 0
+  },
+  {
+    "cwd": "/home/me/work/rnx",
+    "command": [
+      "python3",
+      "tools/project/scripts/notices.py",
+      "--check"
+    ],
+    "status": 0
+  }
+]

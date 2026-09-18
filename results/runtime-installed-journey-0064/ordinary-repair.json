@@ -1,0 +1,42 @@
+[
+  {
+    "case": "status drift install",
+    "index_before": "0664",
+    "index_after": "0600",
+    "bytes_inode_mtime_unchanged": true
+  },
+  {
+    "case": "status drift select",
+    "index_before": "0664",
+    "index_after": "0600",
+    "bytes_inode_mtime_unchanged": true
+  },
+  {
+    "case": "blob corruption install",
+    "refused": true,
+    "no_permission_or_content_write": true,
+    "error": "rnx-project: runtime 85cfacf4d2eb09978b9b3a3764ada5d9a5a686fa8df6e0735418124dc1a1d4c2 installed but not selected: Git prerequisite/operation failed (install Git if missing): \"git\" failed: exit status: 3: error: inflate: data stream error (incorrect header check)\nerror: unable to unpack header of .git/objects/73/fbbcd3eca3dbd0f3117652470f35d15de6579c\nerror: 73fbbcd3eca3dbd0f3117652470f35d15de6579c: object corrupt or missing: .git/objects/73/fbbcd3eca3dbd0f3117652470f35d15de6579c\nnotice: No default references"
+  },
+  {
+    "case": "blob corruption select",
+    "refused": true,
+    "no_permission_or_content_write": true,
+    "error": "rnx-project: Git prerequisite/operation failed (install Git if missing): \"git\" failed: exit status: 3: error: inflate: data stream error (incorrect header check)\nerror: unable to unpack header of .git/objects/73/fbbcd3eca3dbd0f3117652470f35d15de6579c\nerror: 73fbbcd3eca3dbd0f3117652470f35d15de6579c: object corrupt or missing: .git/objects/73/fbbcd3eca3dbd0f3117652470f35d15de6579c\nnotice: No default references"
+  },
+  {
+    "case": "source corruption install",
+    "refused": true,
+    "no_permission_or_content_write": true,
+    "error": "rnx-project: runtime 85cfacf4d2eb09978b9b3a3764ada5d9a5a686fa8df6e0735418124dc1a1d4c2 installed but not selected: corrupt installed runtime 85cfacf4d2eb09978b9b3a3764ada5d9a5a686fa8df6e0735418124dc1a1d4c2: source fingerprint differs"
+  },
+  {
+    "case": "source corruption select",
+    "refused": true,
+    "no_permission_or_content_write": true,
+    "error": "rnx-project: corrupt installed runtime 85cfacf4d2eb09978b9b3a3764ada5d9a5a686fa8df6e0735418124dc1a1d4c2: source fingerprint differs"
+  },
+  {
+    "case": "source permissions stay strict",
+    "refused": true
+  }
+]
