@@ -1,0 +1,1 @@
+fn main(){let out=std::env::var("OUT_DIR").unwrap();std::fs::write(format!("{out}/retained.txt"),"retained").unwrap();if let Ok(p)=std::env::var("RNX_BUILD_HOLD"){std::fs::write(&p,std::process::id().to_string()).unwrap();while std::path::Path::new(&p).exists(){std::thread::sleep(std::time::Duration::from_millis(10));}}}
