@@ -1,0 +1,19 @@
+[22;2t]2;rnx[?2004h[?2026h[K[1] > [6C[?2026llet held = 42; let q = http::get("http://127.0.0.1:46703/");[?2004l
+[?2004h[?2026h[K[2] > [6C[?2026llet timer = time::sleep(20); select { _ = q => (), _ = timer => () };[?2004l
+[?2004h[?2026h[K[3] > [6C[?2026l:dep --offline polars[?2004l
+New scratch project: /home/me/work/rnx-bench/probes/runtime-discovery/target/state/rnx/sessions/session-4141479-1789742107718100044/rnx.toml
+Adding: polars
+Already declared: (none)
+Offline: Cargo may not fetch sources.
+Runtime: installation db2f5cbe3b8d348b768394ca4e6539874302dcff9f9ae020fd2f22e205372f54 at /home/me/work/rnx-bench/probes/runtime-discovery/target/data/rnx/runtimes/entries/db2f5cbe3b8d348b768394ca4e6539874302dcff9f9ae020fd2f22e205372f54/source (installed from /home/me/work/rnx-bench/probes/runtime-discovery/target/source-a, 4584d43a8762bebf672593970074651e3679333a, clean tracked snapshot, 2026-09-18T14:35:06Z)
+A first Polars build took about 100 seconds with registry sources cached; its retained shared entry is about 1.5 GB. A reusable entry avoids compilation.
+This prepares a new executable and restarts the session on success.
+Existing bindings and declarations will be lost. Saved history remains available with up-arrow; nothing is replayed.
+[?2004h[?2026h[KContinue? [y/N] [16C[?2026ly[?2004l
+dependency preparation refused: selected runtime installation db2f5cbe3b8d348b768394ca4e6539874302dcff9f9ae020fd2f22e205372f54 is missing; run rnx-project runtime install --from /path/to/rnx
+[?2004h[?2026h[K[3] > [6C[?2026lheld[?2004l
+[3] 42
+[?2004h[?2026h[K[4] > [6C[?2026lq.await[?2004l
+[4] Ok({"body": "73", "headers": {"connection": ["close"], "content-length": ["2"]}, "status": 200, "url": "http://127.0.0.1:46703/"})
+[?2004h[?2026h[K[5] > [6C[?2026l:q[?2004l
+[23;2t

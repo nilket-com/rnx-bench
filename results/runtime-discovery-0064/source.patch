@@ -1,0 +1,288 @@
+diff --git a/README.md b/README.md
+index 6e92f6e..72f3264 100644
+--- a/README.md
++++ b/README.md
+@@ -293,8 +293,10 @@ Script output, colon-command output, and diagnostics do not get result markers.
+ 
+ On Linux, `:dep polars` or `:dep polars postgres` prepares another executable
+ and restarts this session after you consent. Put `rnx-project` on PATH (or set
+-`RNX_PROJECT_TOOL` to its absolute path). A stock session also needs
+-`export RNX_DEP_RUNTIME=/absolute/path/to/rnx` pointing at a source checkout.
++`RNX_PROJECT_TOOL` to its absolute path). For a stock session, first run
++`rnx-project runtime install --from /path/to/rnx` to retain a buildable source
++snapshot. `RNX_DEP_RUNTIME` remains an explicit override. The notice names the
++selected runtime before consent; changing the default does not change old projects.
+ A session opened with `rnx-project session --manifest ...` edits that project;
+ a stock session creates a retained scratch project under your user state directory.
+ The replacement prints a command to reopen that scratch session later.
+diff --git a/tools/project/README.md b/tools/project/README.md
+index 39dc295..6f524ef 100644
+--- a/tools/project/README.md
++++ b/tools/project/README.md
+@@ -322,8 +322,8 @@ startup before replacement. Already-installed names are a no-op. Use
+ `:dep --offline polars` to forbid source downloads. This is a restart with binding
+ loss, not dynamic loading; saved history is reloaded but never replayed.
+ 
+-For a stock session, select the source checkout with `RNX_DEP_RUNTIME` and locate
+-this tool through PATH or `RNX_PROJECT_TOOL`. A retained scratch project is created
++For a stock session, install a runtime as shown below and locate this tool through
++PATH or `RNX_PROJECT_TOOL`. `RNX_DEP_RUNTIME` remains an explicit override. A retained scratch project is created
+ only after consent. Its successful replacement prints the quoted command to
+ reopen it. Projects and scratch consumers reuse the same shared assembly when
+ their native inputs match. The working directory stays the caller's directory.
+@@ -348,8 +348,16 @@ Installation copies tracked working-tree bytes, including both shipped adapters,
+ and builds an independent Git index. Dirty tracked edits are supported; untracked
+ non-ignored files, conflicts, symlinks and escaping Cargo paths are refused.
+ No source file is rewritten. Git, Rust/Cargo and native build tools remain needed
+-for assembly. For the current `:dep` workflow, set `RNX_DEP_RUNTIME` to the installed
+-source path printed by `runtime show`.
++for assembly. The installed index intentionally has an unborn HEAD: `git status`
++shows every file as added. No commit is needed to make it usable.
++
++A stock session's `:dep` uses this selected installation without an environment
++variable. `RNX_DEP_RUNTIME`, when present, is an explicit absolute-path override;
++an invalid override refuses rather than falling back. Project sessions always use
++their declared runtime. Before consent the notice identifies the runtime and its
++provenance. Preparation rechecks the selection and the installed source contents
++before creating a scratch. Changing the default does not retarget an old scratch.
++Discovery does not search the working directory and does not install anything.
+ 
+ An identical reinstall validates and reselects the existing installation without
+ changing its original provenance. A different snapshot remains beside earlier
+diff --git a/tools/project/src/runtime_install.rs b/tools/project/src/runtime_install.rs
+index cab3457..5997cec 100644
+--- a/tools/project/src/runtime_install.rs
++++ b/tools/project/src/runtime_install.rs
+@@ -1,4 +1,4 @@
+-//! Retained source installation; session discovery is integrated in gate three.
++//! Retained source installation; tool-owned session discovery.
+ #![allow(dead_code)] // Also compiled in the private library for checks.
+ #[cfg(unix)]
+ mod git;
+@@ -12,8 +12,23 @@ mod storage;
+ mod unix;
+ #[cfg(unix)]
+ #[allow(unused_imports)]
+-pub(crate) use unix::cli;
++pub(crate) use unix::{Selection, cli};
+ #[cfg(not(unix))]
+ pub(crate) fn cli(_: &[std::ffi::OsString]) -> Result<(), String> {
+ 	Err("runtime installation commands require Unix in this release".into())
+ }
++
++#[cfg(not(unix))]
++pub(crate) struct Selection {
++	pub source: std::path::PathBuf,
++	pub notice: String,
++}
++#[cfg(not(unix))]
++impl Selection {
++	pub(crate) fn discover() -> Result<Self, String> {
++		Err("dependency transitions require Unix supervision".into())
++	}
++	pub(crate) fn validate(&self) -> Result<(), String> {
++		Err("dependency transitions require Unix supervision".into())
++	}
++}
+diff --git a/tools/project/src/runtime_install/unix.rs b/tools/project/src/runtime_install/unix.rs
+index 90e309f..e6708bf 100644
+--- a/tools/project/src/runtime_install/unix.rs
++++ b/tools/project/src/runtime_install/unix.rs
+@@ -25,7 +25,7 @@ fn digest(s: &str) -> bool {
+ fn identity(tree: &str) -> String {
+ 	hash(format!("rnx-installed-runtime-v1\n{tree}\n").as_bytes())
+ }
+-#[derive(Serialize, Deserialize)]
++#[derive(Clone, PartialEq, Eq, Serialize, Deserialize)]
+ #[serde(deny_unknown_fields)]
+ pub(super) struct Installation {
+ 	pub format: u32,
+@@ -171,6 +171,88 @@ fn validate(root: &Path, id: &str) -> Result<Installation, String> {
+ 	}
+ 	Ok(d)
+ }
++const INSTALL_HELP: &str = "no runtime is installed; run rnx-project runtime install --from /path/to/rnx; or open an existing project with rnx-project session --manifest /path/to/rnx.toml";
++
++fn current() -> Result<(PathBuf, Installation), String> {
++	let root = storage::selected()?;
++	if !storage::exists(&root)? {
++		return Err(INSTALL_HELP.into());
++	}
++	storage::dir(&root)?;
++	if !storage::exists(&root.join("current.json"))? {
++		return Err(INSTALL_HELP.into());
++	}
++	let c: Current = serde_json::from_slice(&storage::read(&root.join("current.json"), DOCUMENT)?)
++		.map_err(err)?;
++	if c.format != 1 || !digest(&c.id) {
++		return Err("invalid current runtime document".into());
++	}
++	storage::dir(&root.join("entries"))?;
++	let entry = root.join("entries").join(&c.id);
++	if !storage::exists(&entry)? {
++		return Err(format!(
++			"selected runtime installation {} is missing; run rnx-project runtime install --from /path/to/rnx",
++			c.id
++		));
++	}
++	let d = metadata(&entry, &c.id)?;
++	storage::dir(&entry.join("source"))?;
++	Ok((root, d))
++}
++
++/// A description-time selection. No Git, writer lock, or mutation here.
++pub(crate) struct Selection {
++	pub source: PathBuf,
++	pub notice: String,
++	installed: Option<(PathBuf, Installation)>,
++}
++impl Selection {
++	pub(crate) fn discover() -> Result<Self, String> {
++		if let Some(path) = std::env::var_os("RNX_DEP_RUNTIME") {
++			let path = PathBuf::from(path);
++			if !path.is_absolute() || path.to_str().is_none() {
++				return Err("RNX_DEP_RUNTIME must be an absolute Unicode path; export RNX_DEP_RUNTIME=/absolute/path/to/rnx".into());
++			}
++			let source = path
++				.canonicalize()
++				.map_err(|e| format!("RNX_DEP_RUNTIME override {}: {e}", path.display()))?;
++			return Ok(Self {
++				notice: format!("Runtime: override {}", source.display()),
++				source,
++				installed: None,
++			});
++		}
++		let (root, d) = current()?;
++		let source = root.join("entries").join(&d.id).join("source");
++		let notice = format!(
++			"Runtime: installation {} at {} (installed from {}, {}, {}, {})",
++			d.id,
++			source.display(),
++			d.source_path.display(),
++			d.source_commit.as_deref().unwrap_or("no source commit"),
++			if d.dirty_tracked {
++				"dirty tracked snapshot"
++			} else {
++				"clean tracked snapshot"
++			},
++			d.installed_utc
++		);
++		Ok(Self {
++			source,
++			notice,
++			installed: Some((root, d)),
++		})
++	}
++	pub(crate) fn validate(&self) -> Result<(), String> {
++		if let Some((root, expected)) = &self.installed {
++			let found = validate(root, &expected.id)?;
++			if &found != expected {
++				return Err("runtime installation changed; request consent again".into());
++			}
++		}
++		Ok(())
++	}
++}
+ struct Temp(PathBuf);
+ impl Drop for Temp {
+ 	fn drop(&mut self) {
+@@ -426,6 +508,9 @@ pub(crate) fn cli(args: &[OsString]) -> Result<(), String> {
+ 				.ok_or("installation ID must be a full lowercase SHA-256 digest")?;
+ 			commands::install_signals()?;
+ 			let root = storage::selected()?;
++			if !storage::exists(&root.join("entries").join(id))? {
++				return Err(format!("unknown installation ID: {id}"));
++			}
+ 			storage::dir(&root)?;
+ 			let _lock = storage::lock(&root)?;
+ 			storage::reclaim(&root)?;
+@@ -441,17 +526,7 @@ pub(crate) fn cli(args: &[OsString]) -> Result<(), String> {
+ 			Ok(())
+ 		}
+ 		"show" if args.len() == 1 => {
+-			let root = storage::selected()?;
+-			storage::dir(&root)?;
+-			let c: Current =
+-				serde_json::from_slice(&storage::read(&root.join("current.json"), DOCUMENT)?)
+-					.map_err(err)?;
+-			if c.format != 1 || !digest(&c.id) {
+-				return Err("invalid current runtime document".into());
+-			}
+-			storage::dir(&root.join("entries"))?;
+-			let d = metadata(&root.join("entries").join(&c.id), &c.id)?;
+-			storage::dir(&root.join("entries").join(&c.id).join("source"))?;
++			let (root, d) = current()?;
+ 			println!(
+ 				"Selected runtime {}\nSource: {}",
+ 				d.id,
+diff --git a/tools/project/src/workflow/transition.rs b/tools/project/src/workflow/transition.rs
+index 199b4b3..29fa922 100644
+--- a/tools/project/src/workflow/transition.rs
++++ b/tools/project/src/workflow/transition.rs
+@@ -101,6 +101,7 @@ struct Description {
+ 	entries: Vec<catalogue::Entry>,
+ 	scratch: bool,
+ 	offline: bool,
++	runtime: Option<crate::runtime_install::Selection>,
+ }
+ impl Description {
+ 	fn fields(&self) -> Result<protocol::Fields, String> {
+@@ -128,6 +129,10 @@ impl Description {
+ 				"Online: Cargo may fetch sources."
+ 			}
+ 		);
++		if let Some(runtime) = &self.runtime {
++			notice.push_str(&runtime.notice);
++			notice.push('\n');
++		}
+ 		if self.candidate.added.iter().any(|n| n == "polars") {
+ 			notice.push_str("A first Polars build took about 100 seconds with registry sources cached; its retained shared entry is about 1.5 GB. A reusable entry avoids compilation.\n");
+ 		}
+@@ -207,21 +212,18 @@ fn describe(request: &protocol::Fields, proposed: Option<&Path>) -> Result<Descr
+ 		_ => return Err("invalid offline mode".into()),
+ 	};
+ 	let scratch = request[&2].is_empty();
++	let mut selection = None;
+ 	let (manifest, original) = if scratch {
+ 		if !request[&4].is_empty() {
+ 			return Err("custom executable needs a project association; open it through rnx-project session".into());
+ 		}
+-		let runtime = PathBuf::from(
+-			std::env::var_os("RNX_DEP_RUNTIME")
+-				.ok_or("scratch runtime missing; export RNX_DEP_RUNTIME=/absolute/path/to/rnx")?,
+-		);
+-		if !runtime.is_absolute() {
+-			return Err(
+-				"RNX_DEP_RUNTIME must be absolute; export RNX_DEP_RUNTIME=/absolute/path/to/rnx"
+-					.into(),
+-			);
+-		}
+-		let runtime = runtime.canonicalize().map_err(err)?;
++		let runtime = {
++			let runtime = crate::runtime_install::Selection::discover()?;
++			let path = runtime.source.clone();
++			selection = Some(runtime);
++			path
++		};
++
+ 		let selected = scratch_path()?;
+ 		let manifest = match proposed {
+ 			Some(p)
+@@ -271,6 +273,7 @@ fn describe(request: &protocol::Fields, proposed: Option<&Path>) -> Result<Descr
+ 		entries,
+ 		scratch,
+ 		offline,
++		runtime: selection,
+ 	})
+ }
+ fn private_dir(path: &Path) -> Result<(), String> {
+@@ -396,6 +399,9 @@ pub(super) fn serve(args: Vec<OsString>) -> Result<(), String> {
+ 		if fresh.candidate.added.is_empty() {
+ 			return Ok(());
+ 		}
++		if let Some(runtime) = &fresh.runtime {
++			runtime.validate()?;
++		}
+ 		if fresh.scratch {
+ 			create_scratch(&fresh)?;
+ 		}
