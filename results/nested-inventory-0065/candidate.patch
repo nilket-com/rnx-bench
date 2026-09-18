@@ -1,0 +1,490 @@
+--- a/tools/project/src/fingerprint.rs
++++ b/tools/project/src/fingerprint.rs
+@@ -146,6 +146,7 @@
+ ) -> Result<(wire::File, fs::Metadata, fs::Metadata), String> {
+ 	components_no_links(root, &relative)?;
+ 	let path = root.join(relative);
++	candidate::before_read(&path)?;
+ 	let before = regular(&path)?;
+ 	if before.len() > allowance.bytes {
+ 		return Err(fail(&path, "fingerprint exceeds byte allowance"));
+@@ -173,6 +174,7 @@
+ 	}
+ 	#[cfg(test)]
+ 	tests::after_open(&path);
++	crate::trace::event(serde_json::json!({"read":path}));
+ 	let mut content = blake3::Hasher::new();
+ 	let mut remaining = opened.len();
+ 	let mut buffer = [0u8; 16384];
+@@ -204,6 +206,7 @@
+ 	if after.len() != opened.len() || executable(&after) != executable(&opened) {
+ 		return Err(fail(&path, "file changed during read"));
+ 	}
++	candidate::after_read(&path, &after);
+ 	let digest = content.finalize();
+ 	if let Some(tree) = tree.as_mut() {
+ 		tree.update(digest.as_bytes());
+@@ -287,6 +290,7 @@
+ 
+ /// Git output is bounded independently from file content. Kill and reap on overflow.
+ fn git(root: &Path, args: &[&str], limit: usize) -> Result<Vec<u8>, String> {
++	crate::trace::event(serde_json::json!({"git":root,"args":args}));
+ 	let mut child = Command::new("git")
+ 		.arg("-C")
+ 		.arg(root)
+@@ -386,3 +390,5 @@
+ pub(crate) mod legacy;
+ #[cfg(test)]
+ mod tests;
++
++pub(crate) mod candidate;
+--- a/tools/project/src/fingerprint/candidate.rs
++++ b/tools/project/src/fingerprint/candidate.rs
+@@ -0,0 +1,303 @@
++//! Gate-4 candidate only. Observations never outlive this function call.
++use super::*;
++use std::collections::BTreeSet;
++use std::os::unix::fs::MetadataExt;
++
++#[derive(Clone, Debug, PartialEq, Eq, serde::Serialize)]
++struct Stamp {
++	dev: u64,
++	ino: u64,
++	mode: u32,
++	len: u64,
++	sec: i64,
++	nano: i64,
++}
++fn stamp(m: &fs::Metadata) -> Stamp {
++	Stamp {
++		dev: m.dev(),
++		ino: m.ino(),
++		mode: m.mode(),
++		len: m.len(),
++		sec: m.mtime(),
++		nano: m.mtime_nsec(),
++	}
++}
++fn observed(p: &Path) -> Result<Option<Stamp>, String> {
++	match fs::symlink_metadata(p) {
++		Ok(m) => Ok(Some(stamp(&m))),
++		Err(e) if e.kind() == std::io::ErrorKind::NotFound => Ok(None),
++		Err(e) => Err(fail(p, e)),
++	}
++}
++#[derive(Default)]
++struct State {
++	files: BTreeMap<PathBuf, Stamp>,
++	boundaries: BTreeMap<PathBuf, Option<Stamp>>,
++}
++thread_local! { static ACTIVE:std::cell::Cell<bool>=const {std::cell::Cell::new(false)}; static STATE: std::cell::RefCell<State> = std::cell::RefCell::new(State::default()); }
++// Called by the isolated reader before opening each file, including all parent
++// directory boundaries. A nested repository anywhere on a represented path
++// makes reuse ineligible, even when independent scoped Git would ignore it.
++pub(super) fn before_read(p: &Path) -> Result<(), String> {
++	if !ACTIVE.with(|a| a.get()) {
++		return Ok(());
++	}
++	STATE.with(|s| {
++		let mut s = s.borrow_mut();
++		for dir in p.parent().unwrap().ancestors() {
++			for q in [dir.to_path_buf(), dir.join(".git")] {
++				let value = observed(&q)?;
++				if let Some(old) = s.boundaries.get(&q) {
++					if old != &value {
++						return Err(fail(&q, "boundary changed during observation"));
++					}
++				} else {
++					s.boundaries.insert(q, value);
++				}
++			}
++			if observed(&dir.join(".git"))?.is_some() {
++				break;
++			}
++		}
++		Ok(())
++	})
++}
++pub(super) fn after_read(p: &Path, m: &fs::Metadata) {
++	STATE.with(|s| {
++		s.borrow_mut().files.insert(p.to_owned(), stamp(m));
++	});
++}
++struct Observation {
++	tree: Tree,
++	top: PathBuf,
++	gitdir: PathBuf,
++	index: PathBuf,
++	admin: Vec<(PathBuf, Option<Stamp>)>,
++	files: BTreeMap<PathBuf, Stamp>,
++	boundaries: BTreeMap<PathBuf, Option<Stamp>>,
++	eligible: bool,
++}
++fn check(items: impl IntoIterator<Item = (PathBuf, Option<Stamp>)>) -> Result<(), String> {
++	for (p, old) in items {
++		if observed(&p)? != old {
++			return Err(fail(&p, "observation changed before reuse"));
++		}
++	}
++	Ok(())
++}
++fn independent(p: &Path, a: &mut Allowance, plain: bool) -> Result<Observation, String> {
++	STATE.with(|s| *s.borrow_mut() = State::default());
++	let info = std::cell::RefCell::new(None);
++	let tree = native_using(p, a, |r, args, limit| {
++		if plain || args[0] != "rev-parse" {
++			return git(r, args, limit);
++		}
++		let Ok(bytes) = git(
++			r,
++			&[
++				"rev-parse",
++				"--path-format=absolute",
++				"--show-toplevel",
++				"--absolute-git-dir",
++				"--git-path",
++				"index",
++				"--show-superproject-working-tree",
++			],
++			limit,
++		) else {
++			return git(r, args, limit);
++		};
++		let Ok(reply) = std::str::from_utf8(&bytes) else {
++			return git(r, args, limit);
++		};
++		let lines = reply.lines().collect::<Vec<_>>();
++		if !(3..=4).contains(&lines.len()) {
++			return git(r, args, limit);
++		}
++		let top = PathBuf::from(lines[0]);
++		let gd = PathBuf::from(lines[1]);
++		let idx = PathBuf::from(lines[2]);
++		let mut admin = vec![];
++		for q in [
++			gd.clone(),
++			idx.clone(),
++			gd.join("config"),
++			gd.join("commondir"),
++			gd.join("objects/info/alternates"),
++		] {
++			admin.push((q.clone(), observed(&q)?));
++		}
++		*info.borrow_mut() = Some((top, gd, idx, admin));
++		Ok(if lines.len() == 4 {
++			lines[3].as_bytes().to_vec()
++		} else {
++			vec![]
++		})
++	})?;
++	let (top, gitdir, index, admin) = info.into_inner().unwrap_or_default();
++	let eligible = !plain
++		&& top.is_absolute()
++		&& gitdir == top.join(".git")
++		&& index == gitdir.join("index")
++		&& observed(&gitdir)?.is_some_and(|s| s.mode & libc::S_IFMT == libc::S_IFDIR)
++		&& !gitdir.join("commondir").exists();
++	let (files, boundaries) = STATE.with(|s| {
++		let s = s.take();
++		(s.files, s.boundaries)
++	});
++	Ok(Observation {
++		tree,
++		top,
++		gitdir,
++		index,
++		admin,
++		files,
++		boundaries,
++		eligible,
++	})
++}
++fn can_reuse(parent: &Observation, child: &Path) -> Result<bool, String> {
++	if !parent.eligible || child == parent.tree.root || !child.starts_with(&parent.tree.root) {
++		return Ok(false);
++	}
++	check(parent.admin.clone())?;
++	check(
++		parent
++			.boundaries
++			.iter()
++			.map(|(p, s)| (p.clone(), s.clone())),
++	)?;
++	// Same discovery root follows from a checked enclosing --show-toplevel and
++	// no intervening .git entry; oracle independently verifies child discovery.
++	for dir in child.ancestors().take_while(|p| *p != parent.top) {
++		if observed(&dir.join(".git"))?.is_some() {
++			return Ok(false);
++		}
++	}
++	// Inspect descendants too, including ignored directories: a nested repository
++	// need not contain a file in the parent's index. This discovery is bounded;
++	// exhaustion or unusual entries means independent fallback, never refusal.
++	let mut pending = vec![child.to_path_buf()];
++	let mut budget = 4096usize;
++	while let Some(dir) = pending.pop() {
++		if observed(&dir.join(".git"))?.is_some() {
++			return Ok(false);
++		}
++		let Ok(entries) = fs::read_dir(&dir) else {
++			return Ok(false);
++		};
++		for entry in entries {
++			if budget == 0 {
++				return Ok(false);
++			}
++			budget -= 1;
++			let Ok(entry) = entry else { return Ok(false) };
++			let Ok(ty) = entry.file_type() else {
++				return Ok(false);
++			};
++			if ty.is_dir() {
++				pending.push(entry.path());
++			} else if !ty.is_file() {
++				return Ok(false);
++			}
++		}
++	}
++	for (p, m) in &parent.boundaries {
++		if p.starts_with(child) && p.file_name().is_some_and(|n| n == ".git") && m.is_some() {
++			return Ok(false);
++		}
++	}
++	Ok(true)
++}
++fn derive(parent: &Observation, child: &Path, a: &mut Allowance) -> Result<Tree, String> {
++	check(parent.admin.clone())?;
++	check(
++		parent
++			.boundaries
++			.iter()
++			.map(|(p, s)| (p.clone(), s.clone())),
++	)?;
++	let mut files = vec![];
++	let prefix = child.strip_prefix(&parent.tree.root).unwrap();
++	let selected = parent
++		.tree
++		.files
++		.iter()
++		.filter_map(|f| Path::new(&f.path).strip_prefix(prefix).ok().map(|r| (f, r)))
++		.collect::<Vec<_>>();
++	for _ in &selected {
++		a.entry()?;
++	}
++	for (f, relative) in selected {
++		let p = parent.tree.root.join(&f.path);
++		let old = parent
++			.files
++			.get(&p)
++			.ok_or("missing validated file observation")?;
++		if observed(&p)?.as_ref() != Some(old) {
++			return Err(fail(&p, "file observation changed before reuse"));
++		}
++		if f.bytes > a.bytes {
++			return Err(fail(&p, "fingerprint exceeds byte allowance"));
++		}
++		a.charge_bytes(f.bytes)?;
++		let mut f = f.clone();
++		f.path = text(relative)?;
++		files.push(f);
++	}
++	if files.is_empty() {
++		return Err(fail(child, "native root has no tracked files"));
++	}
++	let mut tree = blake3::Hasher::new();
++	tree.update(b"rnx-tree-v2\0");
++	for f in &files {
++		tree.update(&(f.path.len() as u64).to_be_bytes());
++		tree.update(f.path.as_bytes());
++		tree.update(&[u8::from(f.executable)]);
++		tree.update(&f.bytes.to_be_bytes());
++		let h = blake3::Hash::from_hex(&f.blake3).map_err(|e| e.to_string())?;
++		tree.update(h.as_bytes());
++	}
++	crate::trace::event(
++		serde_json::json!({"reuse":child,"parent":parent.tree.root,"top":parent.top,"gitdir":parent.gitdir,"index":parent.index}),
++	);
++	Ok(Tree {
++		root: child.to_owned(),
++		blake3: tree.finalize().to_hex().to_string(),
++		files,
++	})
++}
++pub(crate) fn many(roots: Vec<PathBuf>, a: &mut Allowance) -> Result<Vec<Tree>, String> {
++	struct Active;
++	impl Drop for Active {
++		fn drop(&mut self) {
++			ACTIVE.with(|a| a.set(false));
++			STATE.with(|s| *s.borrow_mut() = State::default());
++		}
++	}
++	ACTIVE.with(|a| a.set(true));
++	let _active = Active;
++	let plain = std::env::vars_os().any(|(k, _)| k.to_string_lossy().starts_with("GIT_"));
++	let roots = roots.into_iter().collect::<BTreeSet<_>>();
++	let mut observations = vec![];
++	let mut trees = vec![];
++	for p in roots {
++		let p = root(&p)?;
++		let mut reused = None;
++		for parent in &observations {
++			if can_reuse(parent, &p)? {
++				reused = Some(derive(parent, &p, a)?);
++				break;
++			}
++		}
++		if let Some(tree) = reused {
++			trees.push(tree);
++		} else {
++			let o = independent(&p, a, plain)?;
++			trees.push(o.tree.clone());
++			observations.push(o);
++		}
++		crate::trace::between(&p)?;
++	}
++	Ok(trees)
++}
+--- a/tools/project/src/inventory.rs
++++ b/tools/project/src/inventory.rs
+@@ -132,10 +132,7 @@
+ 	if packages.windows(2).any(|p| p[0].id == p[1].id) {
+ 		return Err("duplicate Cargo package identity".into());
+ 	}
+-	let mut trees = vec![];
+-	for root in roots {
+-		trees.push(fingerprint::native(&root, allowance)?);
+-	}
++	let trees = fingerprint::candidate::many(roots.into_iter().collect(), allowance)?;
+ 	// Inspect all ancestor manifests, not just metadata.workspace_root (which is
+ 	// the generated wrapper's workspace). Explicit workspace redirects are followed.
+ 	let mut external = BTreeMap::new();
+--- a/tools/project/src/trace.rs
++++ b/tools/project/src/trace.rs
+@@ -0,0 +1,26 @@
++#![allow(dead_code)]
++use std::{io::Write, path::Path};
++thread_local! {static EVENTS:std::cell::RefCell<Vec<serde_json::Value>>=const {std::cell::RefCell::new(vec![])};}
++pub(crate) fn event(v: serde_json::Value) {
++	EVENTS.with(|e| e.borrow_mut().push(v));
++}
++pub(crate) fn take() -> Vec<serde_json::Value> {
++	EVENTS.with(|e| e.take())
++}
++pub(crate) fn between(root: &Path) -> Result<(), String> {
++	if std::env::var_os("NESTED_PAUSE_ROOT").is_some_and(|p| Path::new(&p) == root) {
++		let marker = std::env::var_os("NESTED_PAUSE").ok_or("missing marker")?;
++		let marker = Path::new(&marker);
++		std::fs::File::create(marker)
++			.and_then(|mut f| f.write_all(b"ready"))
++			.map_err(|e| e.to_string())?;
++		let start = std::time::Instant::now();
++		while !marker.with_extension("release").exists() {
++			if start.elapsed().as_secs() > 15 {
++				return Err("pause timed out".into());
++			}
++			std::thread::sleep(std::time::Duration::from_millis(5));
++		}
++	}
++	Ok(())
++}
+--- a/tools/project/src/nested_probe.rs
++++ b/tools/project/src/nested_probe.rs
+@@ -0,0 +1,63 @@
++//! Test-only adapter around private core functions, not the product CLI.
++mod artifact;
++mod assembly;
++mod cache_entry;
++mod cache_identity;
++mod cache_storage;
++#[allow(dead_code)]
++mod commands;
++mod fingerprint;
++mod generate;
++mod graph;
++mod handshake;
++mod input;
++mod inventory;
++mod manifest;
++mod wire;
++
++mod trace;
++use std::path::PathBuf;
++#[derive(serde::Deserialize)]
++struct Config {
++	roots: Vec<PathBuf>,
++	candidate: bool,
++	entries: usize,
++	bytes: u64,
++	#[serde(default)]
++	repeat: bool,
++}
++fn main() -> Result<(), Box<dyn std::error::Error>> {
++	let c: Config =
++		serde_json::from_slice(&std::fs::read(std::env::args_os().nth(1).ok_or("config")?)?)?;
++	let mut a = fingerprint::Allowance::bounded(c.entries, c.bytes);
++	let roots = c.roots.clone();
++	let answer = if c.candidate {
++		fingerprint::candidate::many(c.roots, &mut a)
++	} else {
++		(c.roots
++			.into_iter()
++			.collect::<std::collections::BTreeSet<_>>())
++		.into_iter()
++		.map(|p| {
++			let t = fingerprint::native(&p, &mut a)?;
++			trace::between(&p)?;
++			Ok(t)
++		})
++		.collect::<Result<Vec<_>, String>>()
++	};
++	let repeated = if c.repeat {
++		Some(fingerprint::candidate::many(
++			roots,
++			&mut fingerprint::Allowance::bounded(c.entries, c.bytes),
++		))
++	} else {
++		None
++	};
++	println!(
++		"{}",
++		serde_json::to_string(
++			&serde_json::json!({"answer":answer,"repeated":repeated,"events":trace::take(),"remaining_bytes":a.remaining_bytes()})
++		)?
++	);
++	Ok(())
++}
+--- a/tools/project/src/main.rs
++++ b/tools/project/src/main.rs
+@@ -27,3 +27,5 @@
+ 		});
+ 	}
+ }
++
++mod trace;
+--- a/tools/project/src/lib.rs
++++ b/tools/project/src/lib.rs
+@@ -21,3 +21,5 @@
+ #[cfg(test)]
+ mod tests;
+ mod wire;
++
++mod trace;
+--- a/tools/project/src/assembly_probe.rs
++++ b/tools/project/src/assembly_probe.rs
+@@ -95,3 +95,5 @@
+ 		std::process::exit(1);
+ 	}
+ }
++
++mod trace;
+--- a/tools/project/Cargo.toml
++++ b/tools/project/Cargo.toml
+@@ -35,3 +35,8 @@
+ name = "rnx-project"
+ path = "src/main.rs"
+ test = false
++
++[[bin]]
++name="nested-probe"
++path="src/nested_probe.rs"
++test=false
