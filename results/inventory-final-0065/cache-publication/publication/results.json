@@ -1,0 +1,305 @@
+{
+  "same-key": {
+    "builds": 1,
+    "outputs": [
+      "retained\nsource=app-a\n",
+      "retained\nsource=app-b\n"
+    ],
+    "builder": {
+      "status": 0,
+      "stdout": "{\n  \"digest\": \"c8dee3ec9867e25b302cc3587f524419ff744b59172fc2af88e7276ab4ccaefa\",\n  \"hit\": false,\n  \"key\": \"4e42c204cd755659e1b843f97abb9fbb79196bcc7f0f4cd2565a58654aabbff8\",\n  \"path\": \"/tmp/rnx-cache-publication-b7qlrwvn/cache/entries/4e42c204cd755659e1b843f97abb9fbb79196bcc7f0f4cd2565a58654aabbff8/artifacts/c8dee3ec9867e25b302cc3587f524419ff744b59172fc2af88e7276ab4ccaefa\"\n}\n",
+      "stderr": "   Compiling publication-adapter v0.0.0 (/tmp/rnx-cache-publication-b7qlrwvn/native/adapter)\n   Compiling rnx v0.0.0 (/tmp/rnx-cache-publication-b7qlrwvn/native/runtime)\n   Compiling rnx-project-app v0.0.0 (/tmp/rnx-cache-publication-b7qlrwvn/cache/entries/4e42c204cd755659e1b843f97abb9fbb79196bcc7f0f4cd2565a58654aabbff8/assembly)\n    Finished `release` profile [optimized] target(s) in 0.34s\n"
+    },
+    "waiter": {
+      "status": 0,
+      "stdout": "{\n  \"digest\": \"c8dee3ec9867e25b302cc3587f524419ff744b59172fc2af88e7276ab4ccaefa\",\n  \"hit\": true,\n  \"key\": \"4e42c204cd755659e1b843f97abb9fbb79196bcc7f0f4cd2565a58654aabbff8\",\n  \"path\": \"/tmp/rnx-cache-publication-b7qlrwvn/cache/entries/4e42c204cd755659e1b843f97abb9fbb79196bcc7f0f4cd2565a58654aabbff8/artifacts/c8dee3ec9867e25b302cc3587f524419ff744b59172fc2af88e7276ab4ccaefa\"\n}\n",
+      "stderr": ""
+    }
+  },
+  "hit-compiler-trap": {
+    "status": 0,
+    "stdout": "{\n  \"digest\": \"c8dee3ec9867e25b302cc3587f524419ff744b59172fc2af88e7276ab4ccaefa\",\n  \"hit\": true,\n  \"key\": \"4e42c204cd755659e1b843f97abb9fbb79196bcc7f0f4cd2565a58654aabbff8\",\n  \"path\": \"/tmp/rnx-cache-publication-b7qlrwvn/cache/entries/4e42c204cd755659e1b843f97abb9fbb79196bcc7f0f4cd2565a58654aabbff8/artifacts/c8dee3ec9867e25b302cc3587f524419ff744b59172fc2af88e7276ab4ccaefa\"\n}\n",
+    "stderr": ""
+  },
+  "miss-compiler-trap": {
+    "status": 1,
+    "stdout": "",
+    "stderr": "cache entry /tmp/rnx-cache-publication-b7qlrwvn/cache/entries/4e42c204cd755659e1b843f97abb9fbb79196bcc7f0f4cd2565a58654aabbff8: \"cargo\" failed: exit status: 93\n"
+  },
+  "builder-SIGTERM": {
+    "builder": {
+      "status": 143,
+      "stdout": "",
+      "stderr": "   Compiling publication-adapter v0.0.0 (/tmp/rnx-cache-publication-b7qlrwvn/native/adapter)\n   Compiling rnx v0.0.0 (/tmp/rnx-cache-publication-b7qlrwvn/native/runtime)\ncache entry /tmp/rnx-cache-publication-b7qlrwvn/cache/entries/4e42c204cd755659e1b843f97abb9fbb79196bcc7f0f4cd2565a58654aabbff8: interrupted\n"
+    },
+    "waiter": {
+      "status": 0,
+      "stdout": "{\n  \"digest\": \"c8dee3ec9867e25b302cc3587f524419ff744b59172fc2af88e7276ab4ccaefa\",\n  \"hit\": false,\n  \"key\": \"4e42c204cd755659e1b843f97abb9fbb79196bcc7f0f4cd2565a58654aabbff8\",\n  \"path\": \"/tmp/rnx-cache-publication-b7qlrwvn/cache/entries/4e42c204cd755659e1b843f97abb9fbb79196bcc7f0f4cd2565a58654aabbff8/artifacts/c8dee3ec9867e25b302cc3587f524419ff744b59172fc2af88e7276ab4ccaefa\"\n}\n",
+      "stderr": "   Compiling publication-adapter v0.0.0 (/tmp/rnx-cache-publication-b7qlrwvn/native/adapter)\n   Compiling rnx v0.0.0 (/tmp/rnx-cache-publication-b7qlrwvn/native/runtime)\n   Compiling rnx-project-app v0.0.0 (/tmp/rnx-cache-publication-b7qlrwvn/cache/entries/4e42c204cd755659e1b843f97abb9fbb79196bcc7f0f4cd2565a58654aabbff8/assembly)\n    Finished `release` profile [optimized] target(s) in 0.30s\n"
+    },
+    "child_pid": 1194114,
+    "builds": 2
+  },
+  "builder-SIGINT": {
+    "builder": {
+      "status": 130,
+      "stdout": "",
+      "stderr": "   Compiling publication-adapter v0.0.0 (/tmp/rnx-cache-publication-b7qlrwvn/native/adapter)\n   Compiling rnx v0.0.0 (/tmp/rnx-cache-publication-b7qlrwvn/native/runtime)\ncache entry /tmp/rnx-cache-publication-b7qlrwvn/cache/entries/4e42c204cd755659e1b843f97abb9fbb79196bcc7f0f4cd2565a58654aabbff8: interrupted\n"
+    },
+    "waiter": {
+      "status": 0,
+      "stdout": "{\n  \"digest\": \"c8dee3ec9867e25b302cc3587f524419ff744b59172fc2af88e7276ab4ccaefa\",\n  \"hit\": false,\n  \"key\": \"4e42c204cd755659e1b843f97abb9fbb79196bcc7f0f4cd2565a58654aabbff8\",\n  \"path\": \"/tmp/rnx-cache-publication-b7qlrwvn/cache/entries/4e42c204cd755659e1b843f97abb9fbb79196bcc7f0f4cd2565a58654aabbff8/artifacts/c8dee3ec9867e25b302cc3587f524419ff744b59172fc2af88e7276ab4ccaefa\"\n}\n",
+      "stderr": "   Compiling publication-adapter v0.0.0 (/tmp/rnx-cache-publication-b7qlrwvn/native/adapter)\n   Compiling rnx v0.0.0 (/tmp/rnx-cache-publication-b7qlrwvn/native/runtime)\n   Compiling rnx-project-app v0.0.0 (/tmp/rnx-cache-publication-b7qlrwvn/cache/entries/4e42c204cd755659e1b843f97abb9fbb79196bcc7f0f4cd2565a58654aabbff8/assembly)\n    Finished `release` profile [optimized] target(s) in 0.32s\n"
+    },
+    "child_pid": 1194361,
+    "builds": 2
+  },
+  "waiter-SIGTERM": {
+    "waiter": {
+      "status": 143,
+      "stdout": "",
+      "stderr": "interrupted\n"
+    },
+    "builder": {
+      "status": 0,
+      "stdout": "{\n  \"digest\": \"c8dee3ec9867e25b302cc3587f524419ff744b59172fc2af88e7276ab4ccaefa\",\n  \"hit\": false,\n  \"key\": \"4e42c204cd755659e1b843f97abb9fbb79196bcc7f0f4cd2565a58654aabbff8\",\n  \"path\": \"/tmp/rnx-cache-publication-b7qlrwvn/cache/entries/4e42c204cd755659e1b843f97abb9fbb79196bcc7f0f4cd2565a58654aabbff8/artifacts/c8dee3ec9867e25b302cc3587f524419ff744b59172fc2af88e7276ab4ccaefa\"\n}\n",
+      "stderr": "   Compiling publication-adapter v0.0.0 (/tmp/rnx-cache-publication-b7qlrwvn/native/adapter)\n   Compiling rnx v0.0.0 (/tmp/rnx-cache-publication-b7qlrwvn/native/runtime)\n   Compiling rnx-project-app v0.0.0 (/tmp/rnx-cache-publication-b7qlrwvn/cache/entries/4e42c204cd755659e1b843f97abb9fbb79196bcc7f0f4cd2565a58654aabbff8/assembly)\n    Finished `release` profile [optimized] target(s) in 0.36s\n"
+    },
+    "next": {
+      "status": 0,
+      "stdout": "{\n  \"digest\": \"c8dee3ec9867e25b302cc3587f524419ff744b59172fc2af88e7276ab4ccaefa\",\n  \"hit\": true,\n  \"key\": \"4e42c204cd755659e1b843f97abb9fbb79196bcc7f0f4cd2565a58654aabbff8\",\n  \"path\": \"/tmp/rnx-cache-publication-b7qlrwvn/cache/entries/4e42c204cd755659e1b843f97abb9fbb79196bcc7f0f4cd2565a58654aabbff8/artifacts/c8dee3ec9867e25b302cc3587f524419ff744b59172fc2af88e7276ab4ccaefa\"\n}\n",
+      "stderr": ""
+    },
+    "builds": 1
+  },
+  "waiter-SIGKILL": {
+    "waiter": {
+      "status": -9,
+      "stdout": "",
+      "stderr": ""
+    },
+    "builder": {
+      "status": 0,
+      "stdout": "{\n  \"digest\": \"c8dee3ec9867e25b302cc3587f524419ff744b59172fc2af88e7276ab4ccaefa\",\n  \"hit\": false,\n  \"key\": \"4e42c204cd755659e1b843f97abb9fbb79196bcc7f0f4cd2565a58654aabbff8\",\n  \"path\": \"/tmp/rnx-cache-publication-b7qlrwvn/cache/entries/4e42c204cd755659e1b843f97abb9fbb79196bcc7f0f4cd2565a58654aabbff8/artifacts/c8dee3ec9867e25b302cc3587f524419ff744b59172fc2af88e7276ab4ccaefa\"\n}\n",
+      "stderr": "   Compiling publication-adapter v0.0.0 (/tmp/rnx-cache-publication-b7qlrwvn/native/adapter)\n   Compiling rnx v0.0.0 (/tmp/rnx-cache-publication-b7qlrwvn/native/runtime)\n   Compiling rnx-project-app v0.0.0 (/tmp/rnx-cache-publication-b7qlrwvn/cache/entries/4e42c204cd755659e1b843f97abb9fbb79196bcc7f0f4cd2565a58654aabbff8/assembly)\n    Finished `release` profile [optimized] target(s) in 0.33s\n"
+    },
+    "next": {
+      "status": 0,
+      "stdout": "{\n  \"digest\": \"c8dee3ec9867e25b302cc3587f524419ff744b59172fc2af88e7276ab4ccaefa\",\n  \"hit\": true,\n  \"key\": \"4e42c204cd755659e1b843f97abb9fbb79196bcc7f0f4cd2565a58654aabbff8\",\n  \"path\": \"/tmp/rnx-cache-publication-b7qlrwvn/cache/entries/4e42c204cd755659e1b843f97abb9fbb79196bcc7f0f4cd2565a58654aabbff8/artifacts/c8dee3ec9867e25b302cc3587f524419ff744b59172fc2af88e7276ab4ccaefa\"\n}\n",
+      "stderr": ""
+    },
+    "builds": 1
+  },
+  "two-keys": {
+    "builds": 2,
+    "a": {
+      "status": 0,
+      "stdout": "{\n  \"digest\": \"c8dee3ec9867e25b302cc3587f524419ff744b59172fc2af88e7276ab4ccaefa\",\n  \"hit\": false,\n  \"key\": \"4e42c204cd755659e1b843f97abb9fbb79196bcc7f0f4cd2565a58654aabbff8\",\n  \"path\": \"/tmp/rnx-cache-publication-b7qlrwvn/cache/entries/4e42c204cd755659e1b843f97abb9fbb79196bcc7f0f4cd2565a58654aabbff8/artifacts/c8dee3ec9867e25b302cc3587f524419ff744b59172fc2af88e7276ab4ccaefa\"\n}\n",
+      "stderr": "   Compiling publication-adapter v0.0.0 (/tmp/rnx-cache-publication-b7qlrwvn/native/adapter)\n   Compiling rnx v0.0.0 (/tmp/rnx-cache-publication-b7qlrwvn/native/runtime)\n   Compiling rnx-project-app v0.0.0 (/tmp/rnx-cache-publication-b7qlrwvn/cache/entries/4e42c204cd755659e1b843f97abb9fbb79196bcc7f0f4cd2565a58654aabbff8/assembly)\n    Finished `release` profile [optimized] target(s) in 0.69s\n"
+    },
+    "b": {
+      "status": 0,
+      "stdout": "{\n  \"digest\": \"9c7b021d4b636cf0da65272a0a77c8d6ac78b14cab7f261c07f4922833042bba\",\n  \"hit\": false,\n  \"key\": \"eb84b1e99c334c2197df64302bc3e984721f477ae921fb772c6b62666696bc8c\",\n  \"path\": \"/tmp/rnx-cache-publication-b7qlrwvn/cache/entries/eb84b1e99c334c2197df64302bc3e984721f477ae921fb772c6b62666696bc8c/artifacts/9c7b021d4b636cf0da65272a0a77c8d6ac78b14cab7f261c07f4922833042bba\"\n}\n",
+      "stderr": "   Compiling publication-adapter v0.0.0 (/tmp/rnx-cache-publication-b7qlrwvn/native/adapter)\n   Compiling rnx v0.0.0 (/tmp/rnx-cache-publication-b7qlrwvn/native/runtime)\n   Compiling rnx-project-app v0.0.0 (/tmp/rnx-cache-publication-b7qlrwvn/cache/entries/eb84b1e99c334c2197df64302bc3e984721f477ae921fb772c6b62666696bc8c/assembly)\n    Finished `release` profile [optimized] target(s) in 0.32s\n"
+    }
+  },
+  "failure-before-build": {
+    "failed": {
+      "status": 1,
+      "stdout": "",
+      "stderr": "cache entry /tmp/rnx-cache-publication-b7qlrwvn/cache/entries/4e42c204cd755659e1b843f97abb9fbb79196bcc7f0f4cd2565a58654aabbff8: injected failure at before-build\n"
+    },
+    "retry": {
+      "status": 0,
+      "stdout": "{\n  \"digest\": \"c8dee3ec9867e25b302cc3587f524419ff744b59172fc2af88e7276ab4ccaefa\",\n  \"hit\": false,\n  \"key\": \"4e42c204cd755659e1b843f97abb9fbb79196bcc7f0f4cd2565a58654aabbff8\",\n  \"path\": \"/tmp/rnx-cache-publication-b7qlrwvn/cache/entries/4e42c204cd755659e1b843f97abb9fbb79196bcc7f0f4cd2565a58654aabbff8/artifacts/c8dee3ec9867e25b302cc3587f524419ff744b59172fc2af88e7276ab4ccaefa\"\n}\n",
+      "stderr": "   Compiling publication-adapter v0.0.0 (/tmp/rnx-cache-publication-b7qlrwvn/native/adapter)\n   Compiling rnx v0.0.0 (/tmp/rnx-cache-publication-b7qlrwvn/native/runtime)\n   Compiling rnx-project-app v0.0.0 (/tmp/rnx-cache-publication-b7qlrwvn/cache/entries/4e42c204cd755659e1b843f97abb9fbb79196bcc7f0f4cd2565a58654aabbff8/assembly)\n    Finished `release` profile [optimized] target(s) in 0.38s\n"
+    },
+    "ready_after_failure": false
+  },
+  "failure-after-build": {
+    "failed": {
+      "status": 1,
+      "stdout": "",
+      "stderr": "   Compiling publication-adapter v0.0.0 (/tmp/rnx-cache-publication-b7qlrwvn/native/adapter)\n   Compiling rnx v0.0.0 (/tmp/rnx-cache-publication-b7qlrwvn/native/runtime)\n   Compiling rnx-project-app v0.0.0 (/tmp/rnx-cache-publication-b7qlrwvn/cache/entries/4e42c204cd755659e1b843f97abb9fbb79196bcc7f0f4cd2565a58654aabbff8/assembly)\n    Finished `release` profile [optimized] target(s) in 0.38s\ncache entry /tmp/rnx-cache-publication-b7qlrwvn/cache/entries/4e42c204cd755659e1b843f97abb9fbb79196bcc7f0f4cd2565a58654aabbff8: injected failure at after-build\n"
+    },
+    "retry": {
+      "status": 0,
+      "stdout": "{\n  \"digest\": \"c8dee3ec9867e25b302cc3587f524419ff744b59172fc2af88e7276ab4ccaefa\",\n  \"hit\": false,\n  \"key\": \"4e42c204cd755659e1b843f97abb9fbb79196bcc7f0f4cd2565a58654aabbff8\",\n  \"path\": \"/tmp/rnx-cache-publication-b7qlrwvn/cache/entries/4e42c204cd755659e1b843f97abb9fbb79196bcc7f0f4cd2565a58654aabbff8/artifacts/c8dee3ec9867e25b302cc3587f524419ff744b59172fc2af88e7276ab4ccaefa\"\n}\n",
+      "stderr": "   Compiling publication-adapter v0.0.0 (/tmp/rnx-cache-publication-b7qlrwvn/native/adapter)\n   Compiling rnx v0.0.0 (/tmp/rnx-cache-publication-b7qlrwvn/native/runtime)\n   Compiling rnx-project-app v0.0.0 (/tmp/rnx-cache-publication-b7qlrwvn/cache/entries/4e42c204cd755659e1b843f97abb9fbb79196bcc7f0f4cd2565a58654aabbff8/assembly)\n    Finished `release` profile [optimized] target(s) in 0.30s\n"
+    },
+    "ready_after_failure": false
+  },
+  "failure-before-ready": {
+    "failed": {
+      "status": 1,
+      "stdout": "",
+      "stderr": "   Compiling publication-adapter v0.0.0 (/tmp/rnx-cache-publication-b7qlrwvn/native/adapter)\n   Compiling rnx v0.0.0 (/tmp/rnx-cache-publication-b7qlrwvn/native/runtime)\n   Compiling rnx-project-app v0.0.0 (/tmp/rnx-cache-publication-b7qlrwvn/cache/entries/4e42c204cd755659e1b843f97abb9fbb79196bcc7f0f4cd2565a58654aabbff8/assembly)\n    Finished `release` profile [optimized] target(s) in 0.30s\ncache entry /tmp/rnx-cache-publication-b7qlrwvn/cache/entries/4e42c204cd755659e1b843f97abb9fbb79196bcc7f0f4cd2565a58654aabbff8: injected failure at before-ready\n"
+    },
+    "retry": {
+      "status": 0,
+      "stdout": "{\n  \"digest\": \"c8dee3ec9867e25b302cc3587f524419ff744b59172fc2af88e7276ab4ccaefa\",\n  \"hit\": false,\n  \"key\": \"4e42c204cd755659e1b843f97abb9fbb79196bcc7f0f4cd2565a58654aabbff8\",\n  \"path\": \"/tmp/rnx-cache-publication-b7qlrwvn/cache/entries/4e42c204cd755659e1b843f97abb9fbb79196bcc7f0f4cd2565a58654aabbff8/artifacts/c8dee3ec9867e25b302cc3587f524419ff744b59172fc2af88e7276ab4ccaefa\"\n}\n",
+      "stderr": "   Compiling publication-adapter v0.0.0 (/tmp/rnx-cache-publication-b7qlrwvn/native/adapter)\n   Compiling rnx v0.0.0 (/tmp/rnx-cache-publication-b7qlrwvn/native/runtime)\n   Compiling rnx-project-app v0.0.0 (/tmp/rnx-cache-publication-b7qlrwvn/cache/entries/4e42c204cd755659e1b843f97abb9fbb79196bcc7f0f4cd2565a58654aabbff8/assembly)\n    Finished `release` profile [optimized] target(s) in 0.29s\n"
+    },
+    "ready_after_failure": false
+  },
+  "failure-ready-written": {
+    "failed": {
+      "status": 1,
+      "stdout": "",
+      "stderr": "   Compiling publication-adapter v0.0.0 (/tmp/rnx-cache-publication-b7qlrwvn/native/adapter)\n   Compiling rnx v0.0.0 (/tmp/rnx-cache-publication-b7qlrwvn/native/runtime)\n   Compiling rnx-project-app v0.0.0 (/tmp/rnx-cache-publication-b7qlrwvn/cache/entries/4e42c204cd755659e1b843f97abb9fbb79196bcc7f0f4cd2565a58654aabbff8/assembly)\n    Finished `release` profile [optimized] target(s) in 0.28s\ncache entry /tmp/rnx-cache-publication-b7qlrwvn/cache/entries/4e42c204cd755659e1b843f97abb9fbb79196bcc7f0f4cd2565a58654aabbff8: injected failure at ready-written\n"
+    },
+    "retry": {
+      "status": 0,
+      "stdout": "{\n  \"digest\": \"c8dee3ec9867e25b302cc3587f524419ff744b59172fc2af88e7276ab4ccaefa\",\n  \"hit\": false,\n  \"key\": \"4e42c204cd755659e1b843f97abb9fbb79196bcc7f0f4cd2565a58654aabbff8\",\n  \"path\": \"/tmp/rnx-cache-publication-b7qlrwvn/cache/entries/4e42c204cd755659e1b843f97abb9fbb79196bcc7f0f4cd2565a58654aabbff8/artifacts/c8dee3ec9867e25b302cc3587f524419ff744b59172fc2af88e7276ab4ccaefa\"\n}\n",
+      "stderr": "   Compiling publication-adapter v0.0.0 (/tmp/rnx-cache-publication-b7qlrwvn/native/adapter)\n   Compiling rnx v0.0.0 (/tmp/rnx-cache-publication-b7qlrwvn/native/runtime)\n   Compiling rnx-project-app v0.0.0 (/tmp/rnx-cache-publication-b7qlrwvn/cache/entries/4e42c204cd755659e1b843f97abb9fbb79196bcc7f0f4cd2565a58654aabbff8/assembly)\n    Finished `release` profile [optimized] target(s) in 0.28s\n"
+    },
+    "ready_after_failure": false
+  },
+  "failure-after-ready": {
+    "failed": {
+      "status": 1,
+      "stdout": "",
+      "stderr": "   Compiling publication-adapter v0.0.0 (/tmp/rnx-cache-publication-b7qlrwvn/native/adapter)\n   Compiling rnx v0.0.0 (/tmp/rnx-cache-publication-b7qlrwvn/native/runtime)\n   Compiling rnx-project-app v0.0.0 (/tmp/rnx-cache-publication-b7qlrwvn/cache/entries/4e42c204cd755659e1b843f97abb9fbb79196bcc7f0f4cd2565a58654aabbff8/assembly)\n    Finished `release` profile [optimized] target(s) in 0.28s\ncache entry /tmp/rnx-cache-publication-b7qlrwvn/cache/entries/4e42c204cd755659e1b843f97abb9fbb79196bcc7f0f4cd2565a58654aabbff8: injected failure at after-ready\n"
+    },
+    "retry": {
+      "status": 0,
+      "stdout": "{\n  \"digest\": \"c8dee3ec9867e25b302cc3587f524419ff744b59172fc2af88e7276ab4ccaefa\",\n  \"hit\": true,\n  \"key\": \"4e42c204cd755659e1b843f97abb9fbb79196bcc7f0f4cd2565a58654aabbff8\",\n  \"path\": \"/tmp/rnx-cache-publication-b7qlrwvn/cache/entries/4e42c204cd755659e1b843f97abb9fbb79196bcc7f0f4cd2565a58654aabbff8/artifacts/c8dee3ec9867e25b302cc3587f524419ff744b59172fc2af88e7276ab4ccaefa\"\n}\n",
+      "stderr": ""
+    },
+    "ready_after_failure": true
+  },
+  "failure-before-attach": {
+    "failed": {
+      "status": 1,
+      "stdout": "",
+      "stderr": "   Compiling publication-adapter v0.0.0 (/tmp/rnx-cache-publication-b7qlrwvn/native/adapter)\n   Compiling rnx v0.0.0 (/tmp/rnx-cache-publication-b7qlrwvn/native/runtime)\n   Compiling rnx-project-app v0.0.0 (/tmp/rnx-cache-publication-b7qlrwvn/cache/entries/4e42c204cd755659e1b843f97abb9fbb79196bcc7f0f4cd2565a58654aabbff8/assembly)\n    Finished `release` profile [optimized] target(s) in 0.30s\ncache entry /tmp/rnx-cache-publication-b7qlrwvn/cache/entries/4e42c204cd755659e1b843f97abb9fbb79196bcc7f0f4cd2565a58654aabbff8: injected failure at before-attach\n"
+    },
+    "retry": {
+      "status": 0,
+      "stdout": "{\n  \"digest\": \"c8dee3ec9867e25b302cc3587f524419ff744b59172fc2af88e7276ab4ccaefa\",\n  \"hit\": true,\n  \"key\": \"4e42c204cd755659e1b843f97abb9fbb79196bcc7f0f4cd2565a58654aabbff8\",\n  \"path\": \"/tmp/rnx-cache-publication-b7qlrwvn/cache/entries/4e42c204cd755659e1b843f97abb9fbb79196bcc7f0f4cd2565a58654aabbff8/artifacts/c8dee3ec9867e25b302cc3587f524419ff744b59172fc2af88e7276ab4ccaefa\"\n}\n",
+      "stderr": ""
+    },
+    "ready_after_failure": true
+  },
+  "attachment-failure": {
+    "failed": {
+      "status": 1,
+      "stdout": "",
+      "stderr": "   Compiling publication-adapter v0.0.0 (/tmp/rnx-cache-publication-b7qlrwvn/native/adapter)\n   Compiling rnx v0.0.0 (/tmp/rnx-cache-publication-b7qlrwvn/native/runtime)\n   Compiling rnx-project-app v0.0.0 (/tmp/rnx-cache-publication-b7qlrwvn/cache/entries/4e42c204cd755659e1b843f97abb9fbb79196bcc7f0f4cd2565a58654aabbff8/assembly)\n    Finished `release` profile [optimized] target(s) in 0.28s\ninjected attachment publication failure\n"
+    },
+    "retry": {
+      "status": 0,
+      "stdout": "{\n  \"digest\": \"c8dee3ec9867e25b302cc3587f524419ff744b59172fc2af88e7276ab4ccaefa\",\n  \"hit\": true,\n  \"key\": \"4e42c204cd755659e1b843f97abb9fbb79196bcc7f0f4cd2565a58654aabbff8\",\n  \"path\": \"/tmp/rnx-cache-publication-b7qlrwvn/cache/entries/4e42c204cd755659e1b843f97abb9fbb79196bcc7f0f4cd2565a58654aabbff8/artifacts/c8dee3ec9867e25b302cc3587f524419ff744b59172fc2af88e7276ab4ccaefa\"\n}\n",
+      "stderr": ""
+    }
+  },
+  "edit-native": {
+    "status": 1,
+    "stdout": "",
+    "stderr": "   Compiling publication-adapter v0.0.0 (/tmp/rnx-cache-publication-b7qlrwvn/native/adapter)\n   Compiling rnx v0.0.0 (/tmp/rnx-cache-publication-b7qlrwvn/native/runtime)\n   Compiling rnx-project-app v0.0.0 (/tmp/rnx-cache-publication-b7qlrwvn/cache/entries/4e42c204cd755659e1b843f97abb9fbb79196bcc7f0f4cd2565a58654aabbff8/assembly)\n    Finished `release` profile [optimized] target(s) in 0.31s\ncache entry /tmp/rnx-cache-publication-b7qlrwvn/cache/entries/4e42c204cd755659e1b843f97abb9fbb79196bcc7f0f4cd2565a58654aabbff8: assembly native/context inputs changed; run lock\n"
+  },
+  "edit-config": {
+    "status": 1,
+    "stdout": "",
+    "stderr": "   Compiling publication-adapter v0.0.0 (/tmp/rnx-cache-publication-b7qlrwvn/native/adapter)\n   Compiling rnx v0.0.0 (/tmp/rnx-cache-publication-b7qlrwvn/native/runtime)\n   Compiling rnx-project-app v0.0.0 (/tmp/rnx-cache-publication-b7qlrwvn/cache/entries/4e42c204cd755659e1b843f97abb9fbb79196bcc7f0f4cd2565a58654aabbff8/assembly)\n    Finished `release` profile [optimized] target(s) in 0.31s\ncache entry /tmp/rnx-cache-publication-b7qlrwvn/cache/entries/4e42c204cd755659e1b843f97abb9fbb79196bcc7f0f4cd2565a58654aabbff8: assembly native/context inputs changed; run lock\n"
+  },
+  "edit-config-managed": {
+    "status": 1,
+    "stdout": "",
+    "stderr": "   Compiling publication-adapter v0.0.0 (/tmp/rnx-cache-publication-b7qlrwvn/native/adapter)\n   Compiling rnx v0.0.0 (/tmp/rnx-cache-publication-b7qlrwvn/native/runtime)\n   Compiling rnx-project-app v0.0.0 (/tmp/rnx-cache-publication-b7qlrwvn/cache/entries/4e42c204cd755659e1b843f97abb9fbb79196bcc7f0f4cd2565a58654aabbff8/assembly)\n    Finished `release` profile [optimized] target(s) in 0.33s\ncache entry /tmp/rnx-cache-publication-b7qlrwvn/cache/entries/4e42c204cd755659e1b843f97abb9fbb79196bcc7f0f4cd2565a58654aabbff8: unexpected managed Cargo input /tmp/rnx-cache-publication-b7qlrwvn/cache/entries/4e42c204cd755659e1b843f97abb9fbb79196bcc7f0f4cd2565a58654aabbff8/assembly/.cargo/config.toml\n"
+  },
+  "edit-source": {
+    "status": 1,
+    "stdout": "",
+    "stderr": "   Compiling publication-adapter v0.0.0 (/tmp/rnx-cache-publication-b7qlrwvn/native/adapter)\n   Compiling rnx v0.0.0 (/tmp/rnx-cache-publication-b7qlrwvn/native/runtime)\n   Compiling rnx-project-app v0.0.0 (/tmp/rnx-cache-publication-b7qlrwvn/cache/entries/4e42c204cd755659e1b843f97abb9fbb79196bcc7f0f4cd2565a58654aabbff8/assembly)\n    Finished `release` profile [optimized] target(s) in 0.27s\ncache entry /tmp/rnx-cache-publication-b7qlrwvn/cache/entries/4e42c204cd755659e1b843f97abb9fbb79196bcc7f0f4cd2565a58654aabbff8: project sources/lock changed\n"
+  },
+  "edit-lock": {
+    "status": 1,
+    "stdout": "",
+    "stderr": "   Compiling publication-adapter v0.0.0 (/tmp/rnx-cache-publication-b7qlrwvn/native/adapter)\n   Compiling rnx v0.0.0 (/tmp/rnx-cache-publication-b7qlrwvn/native/runtime)\n   Compiling rnx-project-app v0.0.0 (/tmp/rnx-cache-publication-b7qlrwvn/cache/entries/4e42c204cd755659e1b843f97abb9fbb79196bcc7f0f4cd2565a58654aabbff8/assembly)\n    Finished `release` profile [optimized] target(s) in 0.35s\ncache entry /tmp/rnx-cache-publication-b7qlrwvn/cache/entries/4e42c204cd755659e1b843f97abb9fbb79196bcc7f0f4cd2565a58654aabbff8: project sources/lock changed\n"
+  },
+  "waiter-revalidation": {
+    "status": 1,
+    "stdout": "",
+    "stderr": "project sources/lock changed\n"
+  },
+  "ready-malformed": {
+    "status": 1,
+    "stdout": "",
+    "stderr": "cache entry /tmp/rnx-cache-publication-b7qlrwvn/cache/entries/4e42c204cd755659e1b843f97abb9fbb79196bcc7f0f4cd2565a58654aabbff8: cache ready /tmp/rnx-cache-publication-b7qlrwvn/cache/entries/4e42c204cd755659e1b843f97abb9fbb79196bcc7f0f4cd2565a58654aabbff8/ready.json: EOF while parsing an object at line 1 column 1\n"
+  },
+  "ready-unknown": {
+    "status": 1,
+    "stdout": "",
+    "stderr": "cache entry /tmp/rnx-cache-publication-b7qlrwvn/cache/entries/4e42c204cd755659e1b843f97abb9fbb79196bcc7f0f4cd2565a58654aabbff8: cache ready /tmp/rnx-cache-publication-b7qlrwvn/cache/entries/4e42c204cd755659e1b843f97abb9fbb79196bcc7f0f4cd2565a58654aabbff8/ready.json: unknown field `extra`, expected one of `format`, `key`, `identity`, `executable_blake3`, `artifact` at line 1 column 6315\n"
+  },
+  "ready-wrong-key": {
+    "status": 1,
+    "stdout": "",
+    "stderr": "cache entry /tmp/rnx-cache-publication-b7qlrwvn/cache/entries/4e42c204cd755659e1b843f97abb9fbb79196bcc7f0f4cd2565a58654aabbff8: cache ready binding invalid: /tmp/rnx-cache-publication-b7qlrwvn/cache/entries/4e42c204cd755659e1b843f97abb9fbb79196bcc7f0f4cd2565a58654aabbff8/ready.json\n"
+  },
+  "ready-wrong-version": {
+    "status": 1,
+    "stdout": "",
+    "stderr": "cache entry /tmp/rnx-cache-publication-b7qlrwvn/cache/entries/4e42c204cd755659e1b843f97abb9fbb79196bcc7f0f4cd2565a58654aabbff8: cache ready binding invalid: /tmp/rnx-cache-publication-b7qlrwvn/cache/entries/4e42c204cd755659e1b843f97abb9fbb79196bcc7f0f4cd2565a58654aabbff8/ready.json\n"
+  },
+  "ready-wrong-path": {
+    "status": 1,
+    "stdout": "",
+    "stderr": "cache entry /tmp/rnx-cache-publication-b7qlrwvn/cache/entries/4e42c204cd755659e1b843f97abb9fbb79196bcc7f0f4cd2565a58654aabbff8: cache ready binding invalid: /tmp/rnx-cache-publication-b7qlrwvn/cache/entries/4e42c204cd755659e1b843f97abb9fbb79196bcc7f0f4cd2565a58654aabbff8/ready.json\n"
+  },
+  "corrupt-artifact": {
+    "status": 1,
+    "stdout": "",
+    "stderr": "cache entry /tmp/rnx-cache-publication-b7qlrwvn/cache/entries/4e42c204cd755659e1b843f97abb9fbb79196bcc7f0f4cd2565a58654aabbff8: executable /tmp/rnx-cache-publication-b7qlrwvn/cache/entries/4e42c204cd755659e1b843f97abb9fbb79196bcc7f0f4cd2565a58654aabbff8/artifacts/c8dee3ec9867e25b302cc3587f524419ff744b59172fc2af88e7276ab4ccaefa: hash mismatch; run build (or relock an intended override)\n"
+  },
+  "relative-root": {
+    "status": 1,
+    "stdout": "",
+    "stderr": "cache selection requires an absolute Unicode path\n"
+  },
+  "root-symlink": {
+    "status": 0,
+    "stdout": "{\n  \"digest\": \"c8dee3ec9867e25b302cc3587f524419ff744b59172fc2af88e7276ab4ccaefa\",\n  \"hit\": true,\n  \"key\": \"4e42c204cd755659e1b843f97abb9fbb79196bcc7f0f4cd2565a58654aabbff8\",\n  \"path\": \"/tmp/rnx-cache-publication-b7qlrwvn/cache/entries/4e42c204cd755659e1b843f97abb9fbb79196bcc7f0f4cd2565a58654aabbff8/artifacts/c8dee3ec9867e25b302cc3587f524419ff744b59172fc2af88e7276ab4ccaefa\"\n}\n",
+    "stderr": ""
+  },
+  "ready-symlink": {
+    "status": 1,
+    "stdout": "",
+    "stderr": "cache entry /tmp/rnx-cache-publication-b7qlrwvn/cache/entries/4e42c204cd755659e1b843f97abb9fbb79196bcc7f0f4cd2565a58654aabbff8: cache ready /tmp/rnx-cache-publication-b7qlrwvn/cache/entries/4e42c204cd755659e1b843f97abb9fbb79196bcc7f0f4cd2565a58654aabbff8/ready.json: cache file /tmp/rnx-cache-publication-b7qlrwvn/cache/entries/4e42c204cd755659e1b843f97abb9fbb79196bcc7f0f4cd2565a58654aabbff8/ready.json: Too many levels of symbolic links (os error 40); run build\n"
+  },
+  "ready-fifo": {
+    "status": 1,
+    "stdout": "",
+    "stderr": "cache entry /tmp/rnx-cache-publication-b7qlrwvn/cache/entries/4e42c204cd755659e1b843f97abb9fbb79196bcc7f0f4cd2565a58654aabbff8: cache ready /tmp/rnx-cache-publication-b7qlrwvn/cache/entries/4e42c204cd755659e1b843f97abb9fbb79196bcc7f0f4cd2565a58654aabbff8/ready.json: not a regular cache file: /tmp/rnx-cache-publication-b7qlrwvn/cache/entries/4e42c204cd755659e1b843f97abb9fbb79196bcc7f0f4cd2565a58654aabbff8/ready.json; run build\n"
+  },
+  "writable-entry": {
+    "status": 1,
+    "stdout": "",
+    "stderr": "not a private owned directory: /tmp/rnx-cache-publication-b7qlrwvn/cache/entries/4e42c204cd755659e1b843f97abb9fbb79196bcc7f0f4cd2565a58654aabbff8\n"
+  },
+  "entry-symlink": {
+    "status": 1,
+    "stdout": "",
+    "stderr": "not a private owned directory: /tmp/rnx-cache-publication-b7qlrwvn/cache/entries/4e42c204cd755659e1b843f97abb9fbb79196bcc7f0f4cd2565a58654aabbff8\n"
+  },
+  "lock-symlink": {
+    "status": 1,
+    "stdout": "",
+    "stderr": "Too many levels of symbolic links (os error 40)\n"
+  },
+  "lock-fifo": {
+    "status": 1,
+    "stdout": "",
+    "stderr": "not a regular cache file: /tmp/rnx-cache-publication-b7qlrwvn/cache/locks/4e42c204cd755659e1b843f97abb9fbb79196bcc7f0f4cd2565a58654aabbff8.lock\n"
+  },
+  "artifact-symlink": {
+    "status": 1,
+    "stdout": "",
+    "stderr": "cache entry /tmp/rnx-cache-publication-b7qlrwvn/cache/entries/4e42c204cd755659e1b843f97abb9fbb79196bcc7f0f4cd2565a58654aabbff8: executable /tmp/rnx-cache-publication-b7qlrwvn/cache/entries/4e42c204cd755659e1b843f97abb9fbb79196bcc7f0f4cd2565a58654aabbff8/artifacts/c8dee3ec9867e25b302cc3587f524419ff744b59172fc2af88e7276ab4ccaefa: artifact is not a regular file\n"
+  },
+  "missing-entry": {
+    "status": 1,
+    "stderr": "cache directory /tmp/rnx-cache-publication-b7qlrwvn/cache/entries/4e42c204cd755659e1b843f97abb9fbb79196bcc7f0f4cd2565a58654aabbff8: No such file or directory (os error 2); run build\n"
+  }
+}

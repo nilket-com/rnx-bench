@@ -1,0 +1,37 @@
+[22;2t]2;rnx[?2004h[?2026h[K[1] > [6C[?2026llet held = 42;[?2004l
+[?2004h[?2026h[K[2] > [6C[?2026l:dep --offline polars[?2004l
+New scratch project: /home/me/work/rnx-bench/probes/inventory-final/target/installed/state ' private/rnx/sessions/session-1125129-1789773795650760139/rnx.toml
+Adding: polars
+Already declared: (none)
+Offline: Cargo may not fetch sources.
+Runtime: installation b626021f98283100eede418c15d0936d0328a8253b1df5b5d99c7b6f0ea7d50f at /home/me/work/rnx-bench/probes/inventory-final/target/installed/data/rnx/runtimes/entries/b626021f98283100eede418c15d0936d0328a8253b1df5b5d99c7b6f0ea7d50f/source (installed from /home/me/work/rnx-bench/probes/inventory-final/target/installed/original, 0c056927db1cf3bf7330b0e81218b385b940eee9, clean tracked snapshot, 2026-09-18T23:21:18Z)
+A first Polars build took about 100 seconds with registry sources cached; its retained shared entry is about 1.5 GB. A reusable entry avoids compilation.
+This prepares a new executable and restarts the session on success.
+Existing bindings and declarations will be lost. Saved history remains available with up-arrow; nothing is replayed.
+[?2004h[?2026h[KContinue? [y/N] [16C[?2026ly[?2004l
+added polars
+Next:
+  rnx-project lock --manifest '/home/me/work/rnx-bench/probes/inventory-final/target/installed/state '\'' private/rnx/sessions/session-1125129-1789773795650760139/rnx.toml'
+  rnx-project build --manifest '/home/me/work/rnx-bench/probes/inventory-final/target/installed/state '\'' private/rnx/sessions/session-1125129-1789773795650760139/rnx.toml'
+  rnx-project session --manifest '/home/me/work/rnx-bench/probes/inventory-final/target/installed/state '\'' private/rnx/sessions/session-1125129-1789773795650760139/rnx.toml'
+dependency phase: author
+dependency phase: resolve
+     Locking 385 packages to latest Rust 1.98.1 compatible versions
+      Adding jiff v0.2.24 (available: v0.2.37)
+locked /home/me/work/rnx-bench/probes/inventory-final/target/installed/state ' private/rnx/sessions/session-1125129-1789773795650760139/rnx.toml
+dependency phase: build/attach
+attached shared assembly 8a37c7a813db292ac59af5461fd91e7a2b059065c74a7bddcece2dda0278c571: /home/me/work/rnx-bench/probes/inventory-final/target/installed/cache/entries/8a37c7a813db292ac59af5461fd91e7a2b059065c74a7bddcece2dda0278c571/artifacts/4590c9cff07d6a40019af159abaae8ef60c01ba026e5d769e61b4341035fda31
+dependency phase: startup check
+restart is beginning
+[23;2t[22;2t]2;rnxReopen this scratch session:
+  '/home/me/work/rnx-bench/probes/inventory-final/target/installed/bin/rnx-project' session --manifest '/home/me/work/rnx-bench/probes/inventory-final/target/installed/state '\'' private/rnx/sessions/session-1125129-1789773795650760139/rnx.toml'
+[?2004h[?2026h[K[1] > [6C[?2026lheld[?2004l
+error at input 1, line 1, column 1: No local variable `held`
+  held
+  ^
+[?2004h[?2026h[K[2] > [6C[?2026lfs::absolute(".").unwrap()[?2004l
+[2] "/home/me/work/rnx-bench/probes/inventory-final/target/installed/cwd"
+[?2004h[?2026h[K[3] > [6C[?2026lpolars::lit(1).is_ok()[?2004l
+[3] true
+[?2004h[?2026h[K[4] > [6C[?2026l:q[?2004l
+[23;2t

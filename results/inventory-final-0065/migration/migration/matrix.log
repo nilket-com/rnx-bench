@@ -1,0 +1,30 @@
+PASS old discovery and select refuse with exact quoted recovery, unchanged old payloads
+PASS authentication refuses source
+PASS authentication refuses blob
+PASS authentication refuses metadata
+PASS authentication refuses id
+PASS authentication refuses mixed
+PASS authentication refuses unknown
+PASS migration publication after-snapshot
+PASS migration publication copy-chunk
+PASS migration publication after-copy
+PASS migration publication git-step
+PASS migration publication after-index
+PASS migration publication before-document
+PASS migration publication after-document
+PASS migration publication before-entry-rename
+PASS migration publication after-entry-rename
+PASS migration publication after-entry-sync
+PASS migration publication before-current-write
+PASS migration publication after-current-write
+PASS migration publication before-current-rename
+PASS migration publication after-current-rename
+PASS migration publication after-current-sync
+PASS migration interruption copy-chunk SIGINT
+PASS migration interruption copy-chunk SIGTERM
+PASS migration interruption git-step SIGINT
+PASS migration interruption git-step SIGTERM
+PASS late source change refuses before publication
+PASS late provenance change refuses before publication
+PASS only exact owned retained source qualifies
+PASS authenticated migration preserves old provenance, repairs administration, publishes new ID and reselects without rewrite

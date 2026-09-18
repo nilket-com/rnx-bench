@@ -1,0 +1,33 @@
+[22;2t]2;rnx[?2004h[?2026h[K[1] > [6C[?2026llet held = 42; let value = fixture::value(); let q = fixture::pending(false);[?2004l
+[?2004h[?2026h[K[2] > [6C[?2026llet timer = time::sleep(5); select { _ = q => (), _ = timer => () };[?2004l
+[?2004h[?2026h[K[3] > [6C[?2026l:dep --offline polars[?2004l
+Project: /home/me/work/rnx-bench/probes/inventory-final/target/startup/project/rnx.toml
+Adding: polars
+Already declared: (none)
+Offline: Cargo may not fetch sources.
+A first Polars build took about 100 seconds with registry sources cached; its retained shared entry is about 1.5 GB. A reusable entry avoids compilation.
+This prepares a new executable and restarts the session on success.
+Existing bindings and declarations will be lost. Saved history remains available with up-arrow; nothing is replayed.
+[?2004h[?2026h[KContinue? [y/N] [16C[?2026ly[?2004l
+added polars
+Next:
+  rnx-project lock --manifest '/home/me/work/rnx-bench/probes/inventory-final/target/startup/project/rnx.toml'
+  rnx-project build --manifest '/home/me/work/rnx-bench/probes/inventory-final/target/startup/project/rnx.toml'
+  rnx-project session --manifest '/home/me/work/rnx-bench/probes/inventory-final/target/startup/project/rnx.toml'
+dependency phase: author
+dependency phase: resolve
+     Locking 1 package to latest Rust 1.98.1 compatible version
+      Adding rnx-polars v0.0.0 (/home/me/work/rnx-bench/probes/inventory-final/target/startup/native/adapters/polars)
+locked /home/me/work/rnx-bench/probes/inventory-final/target/startup/project/rnx.toml
+dependency phase: build/attach
+attached shared assembly 831f757990f1cf1be80f8d0fa0cce342ffa4c3589ad8e5c11d3a1414eb215133: /home/me/work/rnx-bench/probes/inventory-final/target/startup/cache/entries/831f757990f1cf1be80f8d0fa0cce342ffa4c3589ad8e5c11d3a1414eb215133/artifacts/6fda1d9ca35613e972e41dd2fc2491d8df72c35ad19eca6559d41f97de131808
+dependency phase: startup check
+dependency preparation refused: startup check: startup readiness missing or malformed: failed to fill whole buffer
+probe stdout (tail): \u{0}\u{0}\u{0}\u{9}\u{1}\u{6}\u{1}\u{0}\u{0}\u{0}\u{2}42
+probe stderr (tail): ; project files may have been published; retry with rnx-project lock/build/session --manifest "/home/me/work/rnx-bench/probes/inventory-final/target/startup/project/rnx.toml"
+[?2004h[?2026h[K[3] > [6C[?2026lheld[?2004l
+[3] 42
+[?2004h[?2026h[K[4] > [6C[?2026lq.await[?2004l
+[4] Ok(73)
+[?2004h[?2026h[K[5] > [6C[?2026l:q[?2004l
+[23;2t

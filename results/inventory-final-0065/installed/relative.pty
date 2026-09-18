@@ -1,0 +1,92 @@
+[22;2t]2;rnx[?2004h[?2026h[K[1] > [6C[?2026llet held = 42;[?2004l
+[?2004h[?2026h[K[2] > [6C[?2026lpolars::lit(1).is_ok()[?2004l
+[2] true
+[?2004h[?2026h[K[3] > [6C[?2026llet history_marker = 93817;[?2004l
+[?2004h[?2026h[K[4] > [6C[?2026l:dep --offline polars postgres[?2004l
+Project: /home/me/work/rnx-bench/probes/inventory-final/target/installed/relative-project/rnx.toml
+Adding: postgres
+Already declared: polars
+Offline: Cargo may not fetch sources.
+This prepares a new executable and restarts the session on success.
+Existing bindings and declarations will be lost. Saved history remains available with up-arrow; nothing is replayed.
+[?2004h[?2026h[KContinue? [y/N] [16C[?2026ly[?2004l
+dependency phase: author
+added postgres
+already present: polars
+Next:
+  rnx-project lock --manifest '/home/me/work/rnx-bench/probes/inventory-final/target/installed/relative-project/rnx.toml'
+  rnx-project build --manifest '/home/me/work/rnx-bench/probes/inventory-final/target/installed/relative-project/rnx.toml'
+  rnx-project session --manifest '/home/me/work/rnx-bench/probes/inventory-final/target/installed/relative-project/rnx.toml'
+dependency phase: resolve
+     Locking 22 packages to latest Rust 1.98.1 compatible versions
+      Adding byteorder v1.5.0
+      Adding cmov v0.5.4
+      Adding ctutils v0.4.2
+      Adding fallible-iterator v0.2.0
+      Adding hmac v0.13.0
+      Adding libredox v0.1.24
+      Adding md-5 v0.11.0
+      Adding objc2-system-configuration v0.3.2
+      Adding phf v0.13.1
+      Adding phf_shared v0.13.1
+      Adding postgres-protocol v0.6.12
+      Adding postgres-types v0.2.14
+      Adding rnx-postgres v0.0.0 (/home/me/work/rnx-bench/probes/inventory-final/target/installed/data/rnx/runtimes/entries/b626021f98283100eede418c15d0936d0328a8253b1df5b5d99c7b6f0ea7d50f/source/adapters/postgres)
+      Adding stringprep v0.1.5
+      Adding tokio-postgres v0.7.18
+      Adding unicode-bidi v0.3.18
+      Adding unicode-properties v0.1.4
+      Adding wasi v0.14.7+wasi-0.2.4
+      Adding wasip2 v1.0.4+wasi-0.2.12
+      Adding wasite v1.0.2
+      Adding whoami v2.1.3
+      Adding wit-bindgen v0.57.1
+locked /home/me/work/rnx-bench/probes/inventory-final/target/installed/relative-project/rnx.toml
+dependency phase: build/attach
+attached shared assembly 059dab97e44f42141f1af42a9907fc37a37cf3a3ee592f7dbdbdcf25d26ba9e4: /home/me/work/rnx-bench/probes/inventory-final/target/installed/cache/entries/059dab97e44f42141f1af42a9907fc37a37cf3a3ee592f7dbdbdcf25d26ba9e4/artifacts/855f2919a2dded463b359c2af7ee837c8eebc83a817d8a70f460191bd61e38a6
+dependency phase: startup check
+restart is beginning
+[23;2t[22;2t]2;rnx[?2004h[?2026h[K[1] > [6C[?2026l[?2026h[K[1] > :dep --offline polars postgres[36C[?2026l[?2026h[K[1] > let history_marker = 93817;[33C[?2026l[?2004l
+[?2004h[?2026h[K[1] > [6C[?2026lhistory_marker[?2004l
+error at input 1, line 1, column 1: No local variable `history_marker`
+  history_marker
+  ^
+[?2004h[?2026h[K[2] > [6C[?2026lheld[?2004l
+error at input 2, line 1, column 1: No local variable `held`
+  held
+  ^
+[?2004h[?2026h[K[3] > [6C[?2026lfs::absolute(".").unwrap()[?2004l
+[3] "/home/me/work/rnx-bench/probes/inventory-final/target/installed/cwd"
+[?2004h[?2026h[K[4] > [6C[?2026lfs::write_new("relative.csv", "category,value\na,1\na,2\n🦀,3\n🦀,4\nmissing,\n").unwrap();[?2004l
+[?2004h[?2026h[K[5] > [6C[?2026llet frame = polars::read_csv("relative.csv", [("category","string"),("value","i64")]).unwrap();[?2004l
+[?2004h[?2026h[K[6] > [6C[?2026llet grouped = frame.lazy().filter(polars::col("value").gt(polars::lit(1).unwrap())).group_by([polars::col("catego[?2026h[K[6] > let grouped = frame.lazy().filter(polars::col("value").gt(polars::lit(1).unwrap())).group_by([polars::col("categor
+[?2026ly")]).unwrap();[?2004l
+[?2004h[?2026h[K[7] > [6C[?2026llet plan = grouped.agg([polars::col("value").sum().alias("total")]).unwrap().sort(["category"]).unwrap();[?2004l
+[?2004h[?2026h[K[8] > [6C[?2026llet result = plan.collect().unwrap();[?2004l
+[?2004h[?2026h[K[9] > [6C[?2026lprintln!("{}", result.preview().unwrap());[?2004l
+DataFrame: 2 rows × 2 columns
+"category": string | "total": i64
+"a" | 2
+"🦀" | 7
+
+[?2004h[?2026h[K[10] > [7C[?2026lframe.lazy().sort(["missing"]).unwrap().collect()[?2004l
+[10] Err("polars collect: not found: unable to find column \"missing\"; valid columns: [\"category\", \"value\"]\n\nResolved plan until failure:\n\n\t---> FAILED HERE RESOLVING 'sort' <---\nDF [\"category\", \"value\"]; PROJECT */2 COLUMNS: 'sort'")
+[?2004h[?2026h[K[11] > [7C[?2026lprintln!("{}", frame.preview().unwrap());[?2004l
+DataFrame: 5 rows × 2 columns
+"category": string | "value": i64
+"a" | 1
+"a" | 2
+"🦀" | 3
+"🦀" | 4
+"missing" | null
+
+[?2004h[?2026h[K[12] > [7C[?2026lresult.write_parquet_new("relative.parquet").unwrap();[?2004l
+[?2004h[?2026h[K[13] > [7C[?2026lassert!(polars::read_parquet("relative.parquet").unwrap().preview().unwrap() == result.preview().unwrap());[?2004l
+[?2004h[?2026h[K[14] > [7C[?2026lassert!(plan.collect().unwrap().preview().unwrap() == result.preview().unwrap());[?2004l
+[?2004h[?2026h[K[15] > [7C[?2026llet answer = postgres::query("postgresql:///postgres?host=/tmp/rnx-pg-contract-er23fmuu&application_name=rnx-pg-[?2026h[K[15] > let answer = postgres::query("postgresql:///postgres?host=/tmp/rnx-pg-contract-er23fmuu&application_name=rnx-pg-f
+[?2026lixture", "SELECT $1::text AS value, $2::int8 AS n", ["quote ' SQL ; \\ and 🦀", 42], #{}).await.unwrap();[?2004l
+[?2004h[?2026h[K[16] > [7C[?2026lassert!(answer.rows[0].value == "quote ' SQL ; \\ and 🦀" && answer.rows[0].n == 42);[?2004l
+[?2004h[?2026h[K[17] > [7C[?2026l:dep postgres[?2004l
+already installed; session unchanged
+[?2004h[?2026h[K[17] > [7C[?2026l:q[?2004l
+[23;2t
