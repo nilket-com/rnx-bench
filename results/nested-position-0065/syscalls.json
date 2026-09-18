@@ -1,0 +1,214 @@
+{
+  "cpu": 0,
+  "scope": "diagnostic counts only; successful execs include tool and final artifact, PATH search failures excluded",
+  "rows": [
+    {
+      "count": 0,
+      "version": "format",
+      "tool": "/home/me/work/rnx-bench/probes/nested-position/target/format",
+      "sha256": "920e06033ed60ab9b50b50c175bfca6239d7ceec8ddd248788b5d79179510ede",
+      "statx": 2734,
+      "enoent": 61,
+      "successful_execs": [
+        "1032785 execve(\"/home/me/work/rnx-bench/probes/nested-position/target/format\", [\"/home/me/work/rnx-bench/probes/n\"..., \"eval\", \"--manifest\", \"/home/me/work/rnx-bench/probes/i\"..., \"--\", \"42\"], 0x7ffe6e2f3820 /* 39 vars */) = 0",
+        "1032786 execve(\"/usr/bin/git\", [\"git\", \"-C\", \"/home/me/work/rnx-bench/probes/n\"..., \"rev-parse\", \"--show-superproject-working-tree\"], 0x7ffc2c477fc0 /* 39 vars */) = 0",
+        "1032787 execve(\"/usr/lib/git-core/git\", [\"/usr/lib/git-core/git\", \"--literal-pathspecs\", \"-C\", \"..\", \"ls-files\", \"-z\", \"--stage\", \"--full-name\", \"--\", \"s\"], 0x5ae4ff06fc60 /* 40 vars */) = 0",
+        "1032788 execve(\"/usr/bin/git\", [\"git\", \"-C\", \"/home/me/work/rnx-bench/probes/n\"..., \"ls-files\", \"--others\", \"--exclude-standard\", \"-z\", \"--\", \".\"], 0x7ffc2c477fc0 /* 39 vars */) = 0",
+        "1032789 execve(\"/usr/bin/git\", [\"git\", \"-C\", \"/home/me/work/rnx-bench/probes/n\"..., \"ls-files\", \"--stage\", \"-z\", \"--\", \".\"], 0x7ffc2c477fc0 /* 39 vars */) = 0",
+        "1032785 execve(\"/home/me/work/rnx-bench/probes/native-inventory/target/cache/entries/cfc9e52a2ed1831d57bb1f78dd7bee81d48ef5823ab69aaa477ba8275a41bf39/artifacts/0736d547863ebe7f41d52084a66196eb60300855d357cef083152024769a119a\", [\"/home/me/work/rnx-bench/probes/n\"..., \"eval\", \"42\"], 0x56cfdbabd3c0 /* 39 vars */) = 0"
+      ]
+    },
+    {
+      "count": 0,
+      "version": "F2",
+      "tool": "/home/me/work/rnx-bench/probes/nested-directory/target/reuse",
+      "sha256": "f88d30fa501b1821a7d186387590c80f31fa03017e23e694851849a50d5863ff",
+      "statx": 2734,
+      "enoent": 61,
+      "successful_execs": [
+        "1032792 execve(\"/home/me/work/rnx-bench/probes/nested-directory/target/reuse\", [\"/home/me/work/rnx-bench/probes/n\"..., \"eval\", \"--manifest\", \"/home/me/work/rnx-bench/probes/i\"..., \"--\", \"42\"], 0x7fffef5887b0 /* 39 vars */) = 0",
+        "1032793 execve(\"/usr/bin/git\", [\"git\", \"-C\", \"/home/me/work/rnx-bench/probes/n\"..., \"rev-parse\", \"--show-superproject-working-tree\"], 0x7fff31ce4ad0 /* 39 vars */) = 0",
+        "1032794 execve(\"/usr/lib/git-core/git\", [\"/usr/lib/git-core/git\", \"--literal-pathspecs\", \"-C\", \"..\", \"ls-files\", \"-z\", \"--stage\", \"--full-name\", \"--\", \"s\"], 0x626aca57cc60 /* 40 vars */) = 0",
+        "1032795 execve(\"/usr/bin/git\", [\"git\", \"-C\", \"/home/me/work/rnx-bench/probes/n\"..., \"ls-files\", \"--others\", \"--exclude-standard\", \"-z\", \"--\", \".\"], 0x7fff31ce4ad0 /* 39 vars */) = 0",
+        "1032796 execve(\"/usr/bin/git\", [\"git\", \"-C\", \"/home/me/work/rnx-bench/probes/n\"..., \"ls-files\", \"--stage\", \"-z\", \"--\", \".\"], 0x7fff31ce4ad0 /* 39 vars */) = 0",
+        "1032792 execve(\"/home/me/work/rnx-bench/probes/native-inventory/target/cache/entries/cfc9e52a2ed1831d57bb1f78dd7bee81d48ef5823ab69aaa477ba8275a41bf39/artifacts/0736d547863ebe7f41d52084a66196eb60300855d357cef083152024769a119a\", [\"/home/me/work/rnx-bench/probes/n\"..., \"eval\", \"42\"], 0x64f2060443c0 /* 39 vars */) = 0"
+      ]
+    },
+    {
+      "count": 0,
+      "version": "F3-F4",
+      "tool": "/home/me/work/rnx-bench/probes/nested-scoped/target/reuse",
+      "sha256": "a71eb908239755dc0b7941f69223616ca3e4714484c3e776ae4e69e6aad68d41",
+      "statx": 2734,
+      "enoent": 61,
+      "successful_execs": [
+        "1032799 execve(\"/home/me/work/rnx-bench/probes/nested-scoped/target/reuse\", [\"/home/me/work/rnx-bench/probes/n\"..., \"eval\", \"--manifest\", \"/home/me/work/rnx-bench/probes/i\"..., \"--\", \"42\"], 0x7ffcee855990 /* 39 vars */) = 0",
+        "1032800 execve(\"/usr/bin/git\", [\"git\", \"-C\", \"/home/me/work/rnx-bench/probes/n\"..., \"rev-parse\", \"--show-superproject-working-tree\"], 0x7fff53184c30 /* 39 vars */) = 0",
+        "1032801 execve(\"/usr/lib/git-core/git\", [\"/usr/lib/git-core/git\", \"--literal-pathspecs\", \"-C\", \"..\", \"ls-files\", \"-z\", \"--stage\", \"--full-name\", \"--\", \"s\"], 0x61ec1a836c60 /* 40 vars */) = 0",
+        "1032802 execve(\"/usr/bin/git\", [\"git\", \"-C\", \"/home/me/work/rnx-bench/probes/n\"..., \"ls-files\", \"--others\", \"--exclude-standard\", \"-z\", \"--\", \".\"], 0x7fff53184c30 /* 39 vars */) = 0",
+        "1032803 execve(\"/usr/bin/git\", [\"git\", \"-C\", \"/home/me/work/rnx-bench/probes/n\"..., \"ls-files\", \"--stage\", \"-z\", \"--\", \".\"], 0x7fff53184c30 /* 39 vars */) = 0",
+        "1032799 execve(\"/home/me/work/rnx-bench/probes/native-inventory/target/cache/entries/cfc9e52a2ed1831d57bb1f78dd7bee81d48ef5823ab69aaa477ba8275a41bf39/artifacts/0736d547863ebe7f41d52084a66196eb60300855d357cef083152024769a119a\", [\"/home/me/work/rnx-bench/probes/n\"..., \"eval\", \"42\"], 0x650c614793c0 /* 39 vars */) = 0"
+      ]
+    },
+    {
+      "count": 0,
+      "version": "F5",
+      "tool": "/home/me/work/rnx-bench/probes/nested-position/target/reuse",
+      "sha256": "4a99bacdfff9ae4509c40ccbf6f7528d569d3972bfd388b3d5a2fd47c5cf2bb6",
+      "statx": 2734,
+      "enoent": 61,
+      "successful_execs": [
+        "1032806 execve(\"/home/me/work/rnx-bench/probes/nested-position/target/reuse\", [\"/home/me/work/rnx-bench/probes/n\"..., \"eval\", \"--manifest\", \"/home/me/work/rnx-bench/probes/i\"..., \"--\", \"42\"], 0x7ffda9acbdd0 /* 39 vars */) = 0",
+        "1032807 execve(\"/usr/bin/git\", [\"git\", \"-C\", \"/home/me/work/rnx-bench/probes/n\"..., \"rev-parse\", \"--show-superproject-working-tree\"], 0x7fff97b8bea0 /* 39 vars */) = 0",
+        "1032808 execve(\"/usr/lib/git-core/git\", [\"/usr/lib/git-core/git\", \"--literal-pathspecs\", \"-C\", \"..\", \"ls-files\", \"-z\", \"--stage\", \"--full-name\", \"--\", \"s\"], 0x651fa5402c60 /* 40 vars */) = 0",
+        "1032809 execve(\"/usr/bin/git\", [\"git\", \"-C\", \"/home/me/work/rnx-bench/probes/n\"..., \"ls-files\", \"--others\", \"--exclude-standard\", \"-z\", \"--\", \".\"], 0x7fff97b8bea0 /* 39 vars */) = 0",
+        "1032810 execve(\"/usr/bin/git\", [\"git\", \"-C\", \"/home/me/work/rnx-bench/probes/n\"..., \"ls-files\", \"--stage\", \"-z\", \"--\", \".\"], 0x7fff97b8bea0 /* 39 vars */) = 0",
+        "1032806 execve(\"/home/me/work/rnx-bench/probes/native-inventory/target/cache/entries/cfc9e52a2ed1831d57bb1f78dd7bee81d48ef5823ab69aaa477ba8275a41bf39/artifacts/0736d547863ebe7f41d52084a66196eb60300855d357cef083152024769a119a\", [\"/home/me/work/rnx-bench/probes/n\"..., \"eval\", \"42\"], 0x5bee9cab03c0 /* 39 vars */) = 0"
+      ]
+    },
+    {
+      "count": 1,
+      "version": "format",
+      "tool": "/home/me/work/rnx-bench/probes/nested-position/target/format",
+      "sha256": "920e06033ed60ab9b50b50c175bfca6239d7ceec8ddd248788b5d79179510ede",
+      "statx": 2883,
+      "enoent": 70,
+      "successful_execs": [
+        "1032813 execve(\"/home/me/work/rnx-bench/probes/nested-position/target/format\", [\"/home/me/work/rnx-bench/probes/n\"..., \"eval\", \"--manifest\", \"/home/me/work/rnx-bench/probes/i\"..., \"--\", \"42\"], 0x7ffd5d3247a0 /* 39 vars */) = 0",
+        "1032814 execve(\"/usr/bin/git\", [\"git\", \"-C\", \"/home/me/work/rnx-bench/probes/n\"..., \"rev-parse\", \"--show-superproject-working-tree\"], 0x7ffd0abf4ea0 /* 39 vars */) = 0",
+        "1032815 execve(\"/usr/lib/git-core/git\", [\"/usr/lib/git-core/git\", \"--literal-pathspecs\", \"-C\", \"..\", \"ls-files\", \"-z\", \"--stage\", \"--full-name\", \"--\", \"s\"], 0x56549acc8c60 /* 40 vars */) = 0",
+        "1032816 execve(\"/usr/bin/git\", [\"git\", \"-C\", \"/home/me/work/rnx-bench/probes/n\"..., \"ls-files\", \"--others\", \"--exclude-standard\", \"-z\", \"--\", \".\"], 0x7ffd0abf4ea0 /* 39 vars */) = 0",
+        "1032817 execve(\"/usr/bin/git\", [\"git\", \"-C\", \"/home/me/work/rnx-bench/probes/n\"..., \"ls-files\", \"--stage\", \"-z\", \"--\", \".\"], 0x7ffd0abf4ea0 /* 39 vars */) = 0",
+        "1032818 execve(\"/usr/bin/git\", [\"git\", \"-C\", \"/home/me/work/rnx-bench/probes/n\"..., \"rev-parse\", \"--show-superproject-working-tree\"], 0x7ffd0abf4ea0 /* 39 vars */) = 0",
+        "1032819 execve(\"/usr/lib/git-core/git\", [\"/usr/lib/git-core/git\", \"--literal-pathspecs\", \"-C\", \"..\", \"ls-files\", \"-z\", \"--stage\", \"--full-name\", \"--\", \"s\"], 0x648e9692bed0 /* 40 vars */) = 0",
+        "1032820 execve(\"/usr/bin/git\", [\"git\", \"-C\", \"/home/me/work/rnx-bench/probes/n\"..., \"ls-files\", \"--others\", \"--exclude-standard\", \"-z\", \"--\", \".\"], 0x7ffd0abf4ea0 /* 39 vars */) = 0",
+        "1032821 execve(\"/usr/bin/git\", [\"git\", \"-C\", \"/home/me/work/rnx-bench/probes/n\"..., \"ls-files\", \"--stage\", \"-z\", \"--\", \".\"], 0x7ffd0abf4ea0 /* 39 vars */) = 0",
+        "1032813 execve(\"/home/me/work/rnx-bench/probes/native-inventory/target/cache/entries/695c2a4fffca2572b4d9dde75efa6f4211268bc88cd8f5c12ada0d172fa56009/artifacts/87e2cfab17c1678f652a818890b5b01efa220abe252bf73a6a63ba579425ba27\", [\"/home/me/work/rnx-bench/probes/n\"..., \"eval\", \"42\"], 0x5e56dc1f9610 /* 39 vars */) = 0"
+      ]
+    },
+    {
+      "count": 1,
+      "version": "F2",
+      "tool": "/home/me/work/rnx-bench/probes/nested-directory/target/reuse",
+      "sha256": "f88d30fa501b1821a7d186387590c80f31fa03017e23e694851849a50d5863ff",
+      "statx": 3334,
+      "enoent": 351,
+      "successful_execs": [
+        "1032824 execve(\"/home/me/work/rnx-bench/probes/nested-directory/target/reuse\", [\"/home/me/work/rnx-bench/probes/n\"..., \"eval\", \"--manifest\", \"/home/me/work/rnx-bench/probes/i\"..., \"--\", \"42\"], 0x7ffd47dfdf70 /* 39 vars */) = 0",
+        "1032825 execve(\"/usr/bin/git\", [\"git\", \"-C\", \"/home/me/work/rnx-bench/probes/n\"..., \"rev-parse\", \"--path-format=absolute\", \"--show-toplevel\", \"--absolute-git-dir\", \"--git-path\", \"index\", \"--show-superproject-working-tree\"], 0x7ffcc96921d0 /* 39 vars */) = 0",
+        "1032826 execve(\"/usr/lib/git-core/git\", [\"/usr/lib/git-core/git\", \"--literal-pathspecs\", \"-C\", \"..\", \"ls-files\", \"-z\", \"--stage\", \"--full-name\", \"--\", \"s\"], 0x5adb64527e70 /* 40 vars */) = 0",
+        "1032827 execve(\"/usr/bin/git\", [\"git\", \"-C\", \"/home/me/work/rnx-bench/probes/n\"..., \"ls-files\", \"--others\", \"--exclude-standard\", \"-z\", \"--\", \".\"], 0x7ffcc96921d0 /* 39 vars */) = 0",
+        "1032828 execve(\"/usr/bin/git\", [\"git\", \"-C\", \"/home/me/work/rnx-bench/probes/n\"..., \"ls-files\", \"--stage\", \"-z\", \"--\", \".\"], 0x7ffcc96921d0 /* 39 vars */) = 0",
+        "1032824 execve(\"/home/me/work/rnx-bench/probes/native-inventory/target/cache/entries/695c2a4fffca2572b4d9dde75efa6f4211268bc88cd8f5c12ada0d172fa56009/artifacts/87e2cfab17c1678f652a818890b5b01efa220abe252bf73a6a63ba579425ba27\", [\"/home/me/work/rnx-bench/probes/n\"..., \"eval\", \"42\"], 0x63639f90b470 /* 39 vars */) = 0"
+      ]
+    },
+    {
+      "count": 1,
+      "version": "F3-F4",
+      "tool": "/home/me/work/rnx-bench/probes/nested-scoped/target/reuse",
+      "sha256": "a71eb908239755dc0b7941f69223616ca3e4714484c3e776ae4e69e6aad68d41",
+      "statx": 3142,
+      "enoent": 251,
+      "successful_execs": [
+        "1032831 execve(\"/home/me/work/rnx-bench/probes/nested-scoped/target/reuse\", [\"/home/me/work/rnx-bench/probes/n\"..., \"eval\", \"--manifest\", \"/home/me/work/rnx-bench/probes/i\"..., \"--\", \"42\"], 0x7ffe9e1c8530 /* 39 vars */) = 0",
+        "1032832 execve(\"/usr/bin/git\", [\"git\", \"-C\", \"/home/me/work/rnx-bench/probes/n\"..., \"rev-parse\", \"--path-format=absolute\", \"--show-toplevel\", \"--absolute-git-dir\", \"--git-path\", \"index\", \"--show-superproject-working-tree\"], 0x7ffde2f1eb00 /* 39 vars */) = 0",
+        "1032833 execve(\"/usr/lib/git-core/git\", [\"/usr/lib/git-core/git\", \"--literal-pathspecs\", \"-C\", \"..\", \"ls-files\", \"-z\", \"--stage\", \"--full-name\", \"--\", \"s\"], 0x6194fa999e70 /* 40 vars */) = 0",
+        "1032834 execve(\"/usr/bin/git\", [\"git\", \"-C\", \"/home/me/work/rnx-bench/probes/n\"..., \"ls-files\", \"--others\", \"--exclude-standard\", \"-z\", \"--\", \".\"], 0x7ffde2f1eb00 /* 39 vars */) = 0",
+        "1032835 execve(\"/usr/bin/git\", [\"git\", \"-C\", \"/home/me/work/rnx-bench/probes/n\"..., \"ls-files\", \"--stage\", \"-z\", \"--\", \".\"], 0x7ffde2f1eb00 /* 39 vars */) = 0",
+        "1032831 execve(\"/home/me/work/rnx-bench/probes/native-inventory/target/cache/entries/695c2a4fffca2572b4d9dde75efa6f4211268bc88cd8f5c12ada0d172fa56009/artifacts/87e2cfab17c1678f652a818890b5b01efa220abe252bf73a6a63ba579425ba27\", [\"/home/me/work/rnx-bench/probes/n\"..., \"eval\", \"42\"], 0x58581b0da920 /* 39 vars */) = 0"
+      ]
+    },
+    {
+      "count": 1,
+      "version": "F5",
+      "tool": "/home/me/work/rnx-bench/probes/nested-position/target/reuse",
+      "sha256": "4a99bacdfff9ae4509c40ccbf6f7528d569d3972bfd388b3d5a2fd47c5cf2bb6",
+      "statx": 3142,
+      "enoent": 251,
+      "successful_execs": [
+        "1032838 execve(\"/home/me/work/rnx-bench/probes/nested-position/target/reuse\", [\"/home/me/work/rnx-bench/probes/n\"..., \"eval\", \"--manifest\", \"/home/me/work/rnx-bench/probes/i\"..., \"--\", \"42\"], 0x7ffcd222a0c0 /* 39 vars */) = 0",
+        "1032839 execve(\"/usr/bin/git\", [\"git\", \"-C\", \"/home/me/work/rnx-bench/probes/n\"..., \"rev-parse\", \"--path-format=absolute\", \"--show-toplevel\", \"--absolute-git-dir\", \"--git-path\", \"index\", \"--show-superproject-working-tree\"], 0x7fff00a8aae0 /* 39 vars */) = 0",
+        "1032840 execve(\"/usr/lib/git-core/git\", [\"/usr/lib/git-core/git\", \"--literal-pathspecs\", \"-C\", \"..\", \"ls-files\", \"-z\", \"--stage\", \"--full-name\", \"--\", \"s\"], 0x5f604ae16e70 /* 40 vars */) = 0",
+        "1032841 execve(\"/usr/bin/git\", [\"git\", \"-C\", \"/home/me/work/rnx-bench/probes/n\"..., \"ls-files\", \"--others\", \"--exclude-standard\", \"-z\", \"--\", \".\"], 0x7fff00a8aae0 /* 39 vars */) = 0",
+        "1032842 execve(\"/usr/bin/git\", [\"git\", \"-C\", \"/home/me/work/rnx-bench/probes/n\"..., \"ls-files\", \"--stage\", \"-z\", \"--\", \".\"], 0x7fff00a8aae0 /* 39 vars */) = 0",
+        "1032838 execve(\"/home/me/work/rnx-bench/probes/native-inventory/target/cache/entries/695c2a4fffca2572b4d9dde75efa6f4211268bc88cd8f5c12ada0d172fa56009/artifacts/87e2cfab17c1678f652a818890b5b01efa220abe252bf73a6a63ba579425ba27\", [\"/home/me/work/rnx-bench/probes/n\"..., \"eval\", \"42\"], 0x5e5e22d77f80 /* 39 vars */) = 0"
+      ]
+    },
+    {
+      "count": 3,
+      "version": "format",
+      "tool": "/home/me/work/rnx-bench/probes/nested-position/target/format",
+      "sha256": "920e06033ed60ab9b50b50c175bfca6239d7ceec8ddd248788b5d79179510ede",
+      "statx": 3147,
+      "enoent": 78,
+      "successful_execs": [
+        "1032845 execve(\"/home/me/work/rnx-bench/probes/nested-position/target/format\", [\"/home/me/work/rnx-bench/probes/n\"..., \"eval\", \"--manifest\", \"/home/me/work/rnx-bench/probes/i\"..., \"--\", \"42\"], 0x7ffdc7200190 /* 39 vars */) = 0",
+        "1032846 execve(\"/usr/bin/git\", [\"git\", \"-C\", \"/home/me/work/rnx-bench/probes/n\"..., \"rev-parse\", \"--show-superproject-working-tree\"], 0x7ffe347f9fa0 /* 39 vars */) = 0",
+        "1032847 execve(\"/usr/lib/git-core/git\", [\"/usr/lib/git-core/git\", \"--literal-pathspecs\", \"-C\", \"..\", \"ls-files\", \"-z\", \"--stage\", \"--full-name\", \"--\", \"s\"], 0x5c04d6434c60 /* 40 vars */) = 0",
+        "1032848 execve(\"/usr/bin/git\", [\"git\", \"-C\", \"/home/me/work/rnx-bench/probes/n\"..., \"ls-files\", \"--others\", \"--exclude-standard\", \"-z\", \"--\", \".\"], 0x7ffe347f9fa0 /* 39 vars */) = 0",
+        "1032849 execve(\"/usr/bin/git\", [\"git\", \"-C\", \"/home/me/work/rnx-bench/probes/n\"..., \"ls-files\", \"--stage\", \"-z\", \"--\", \".\"], 0x7ffe347f9fa0 /* 39 vars */) = 0",
+        "1032850 execve(\"/usr/bin/git\", [\"git\", \"-C\", \"/home/me/work/rnx-bench/probes/n\"..., \"rev-parse\", \"--show-superproject-working-tree\"], 0x7ffe347f9fa0 /* 39 vars */) = 0",
+        "1032851 execve(\"/usr/lib/git-core/git\", [\"/usr/lib/git-core/git\", \"--literal-pathspecs\", \"-C\", \"..\", \"ls-files\", \"-z\", \"--stage\", \"--full-name\", \"--\", \"s\"], 0x55d0eaf16ed0 /* 40 vars */) = 0",
+        "1032852 execve(\"/usr/bin/git\", [\"git\", \"-C\", \"/home/me/work/rnx-bench/probes/n\"..., \"ls-files\", \"--others\", \"--exclude-standard\", \"-z\", \"--\", \".\"], 0x7ffe347f9fa0 /* 39 vars */) = 0",
+        "1032853 execve(\"/usr/bin/git\", [\"git\", \"-C\", \"/home/me/work/rnx-bench/probes/n\"..., \"ls-files\", \"--stage\", \"-z\", \"--\", \".\"], 0x7ffe347f9fa0 /* 39 vars */) = 0",
+        "1032854 execve(\"/usr/bin/git\", [\"git\", \"-C\", \"/home/me/work/rnx-bench/probes/n\"..., \"rev-parse\", \"--show-superproject-working-tree\"], 0x7ffe347f9fa0 /* 39 vars */) = 0",
+        "1032855 execve(\"/usr/lib/git-core/git\", [\"/usr/lib/git-core/git\", \"--literal-pathspecs\", \"-C\", \"..\", \"ls-files\", \"-z\", \"--stage\", \"--full-name\", \"--\", \"s\"], 0x64d52b562ed0 /* 40 vars */) = 0",
+        "1032856 execve(\"/usr/bin/git\", [\"git\", \"-C\", \"/home/me/work/rnx-bench/probes/n\"..., \"ls-files\", \"--others\", \"--exclude-standard\", \"-z\", \"--\", \".\"], 0x7ffe347f9fa0 /* 39 vars */) = 0",
+        "1032857 execve(\"/usr/bin/git\", [\"git\", \"-C\", \"/home/me/work/rnx-bench/probes/n\"..., \"ls-files\", \"--stage\", \"-z\", \"--\", \".\"], 0x7ffe347f9fa0 /* 39 vars */) = 0",
+        "1032858 execve(\"/usr/bin/git\", [\"git\", \"-C\", \"/home/me/work/rnx-bench/probes/n\"..., \"rev-parse\", \"--show-superproject-working-tree\"], 0x7ffe347f9fa0 /* 39 vars */) = 0",
+        "1032859 execve(\"/usr/lib/git-core/git\", [\"/usr/lib/git-core/git\", \"--literal-pathspecs\", \"-C\", \"..\", \"ls-files\", \"-z\", \"--stage\", \"--full-name\", \"--\", \"s\"], 0x5e565becfed0 /* 40 vars */) = 0",
+        "1032860 execve(\"/usr/bin/git\", [\"git\", \"-C\", \"/home/me/work/rnx-bench/probes/n\"..., \"ls-files\", \"--others\", \"--exclude-standard\", \"-z\", \"--\", \".\"], 0x7ffe347f9fa0 /* 39 vars */) = 0",
+        "1032861 execve(\"/usr/bin/git\", [\"git\", \"-C\", \"/home/me/work/rnx-bench/probes/n\"..., \"ls-files\", \"--stage\", \"-z\", \"--\", \".\"], 0x7ffe347f9fa0 /* 39 vars */) = 0",
+        "1032845 execve(\"/home/me/work/rnx-bench/probes/native-inventory/target/cache/entries/b8088fb74461d012a61b968e49a5c089134ca1e6fe893880784128d73af8850b/artifacts/559424e50917fa8285d2dc038f8bffb37a475d128eb0922912d3d4ec8e571d38\", [\"/home/me/work/rnx-bench/probes/n\"..., \"eval\", \"42\"], 0x55af0bdaeb30 /* 39 vars */) = 0"
+      ]
+    },
+    {
+      "count": 3,
+      "version": "F2",
+      "tool": "/home/me/work/rnx-bench/probes/nested-directory/target/reuse",
+      "sha256": "f88d30fa501b1821a7d186387590c80f31fa03017e23e694851849a50d5863ff",
+      "statx": 4152,
+      "enoent": 741,
+      "successful_execs": [
+        "1032864 execve(\"/home/me/work/rnx-bench/probes/nested-directory/target/reuse\", [\"/home/me/work/rnx-bench/probes/n\"..., \"eval\", \"--manifest\", \"/home/me/work/rnx-bench/probes/i\"..., \"--\", \"42\"], 0x7fffbffcbac0 /* 39 vars */) = 0",
+        "1032865 execve(\"/usr/bin/git\", [\"git\", \"-C\", \"/home/me/work/rnx-bench/probes/n\"..., \"rev-parse\", \"--path-format=absolute\", \"--show-toplevel\", \"--absolute-git-dir\", \"--git-path\", \"index\", \"--show-superproject-working-tree\"], 0x7ffd1bdd69f0 /* 39 vars */) = 0",
+        "1032866 execve(\"/usr/lib/git-core/git\", [\"/usr/lib/git-core/git\", \"--literal-pathspecs\", \"-C\", \"..\", \"ls-files\", \"-z\", \"--stage\", \"--full-name\", \"--\", \"s\"], 0x564b8a08ae70 /* 40 vars */) = 0",
+        "1032867 execve(\"/usr/bin/git\", [\"git\", \"-C\", \"/home/me/work/rnx-bench/probes/n\"..., \"ls-files\", \"--others\", \"--exclude-standard\", \"-z\", \"--\", \".\"], 0x7ffd1bdd69f0 /* 39 vars */) = 0",
+        "1032868 execve(\"/usr/bin/git\", [\"git\", \"-C\", \"/home/me/work/rnx-bench/probes/n\"..., \"ls-files\", \"--stage\", \"-z\", \"--\", \".\"], 0x7ffd1bdd69f0 /* 39 vars */) = 0",
+        "1032864 execve(\"/home/me/work/rnx-bench/probes/native-inventory/target/cache/entries/b8088fb74461d012a61b968e49a5c089134ca1e6fe893880784128d73af8850b/artifacts/559424e50917fa8285d2dc038f8bffb37a475d128eb0922912d3d4ec8e571d38\", [\"/home/me/work/rnx-bench/probes/n\"..., \"eval\", \"42\"], 0x5779a027c060 /* 39 vars */) = 0"
+      ]
+    },
+    {
+      "count": 3,
+      "version": "F3-F4",
+      "tool": "/home/me/work/rnx-bench/probes/nested-scoped/target/reuse",
+      "sha256": "a71eb908239755dc0b7941f69223616ca3e4714484c3e776ae4e69e6aad68d41",
+      "statx": 3214,
+      "enoent": 263,
+      "successful_execs": [
+        "1032871 execve(\"/home/me/work/rnx-bench/probes/nested-scoped/target/reuse\", [\"/home/me/work/rnx-bench/probes/n\"..., \"eval\", \"--manifest\", \"/home/me/work/rnx-bench/probes/i\"..., \"--\", \"42\"], 0x7fff0b073bc0 /* 39 vars */) = 0",
+        "1032872 execve(\"/usr/bin/git\", [\"git\", \"-C\", \"/home/me/work/rnx-bench/probes/n\"..., \"rev-parse\", \"--path-format=absolute\", \"--show-toplevel\", \"--absolute-git-dir\", \"--git-path\", \"index\", \"--show-superproject-working-tree\"], 0x7ffed902e520 /* 39 vars */) = 0",
+        "1032873 execve(\"/usr/lib/git-core/git\", [\"/usr/lib/git-core/git\", \"--literal-pathspecs\", \"-C\", \"..\", \"ls-files\", \"-z\", \"--stage\", \"--full-name\", \"--\", \"s\"], 0x64fba0e98e70 /* 40 vars */) = 0",
+        "1032874 execve(\"/usr/bin/git\", [\"git\", \"-C\", \"/home/me/work/rnx-bench/probes/n\"..., \"ls-files\", \"--others\", \"--exclude-standard\", \"-z\", \"--\", \".\"], 0x7ffed902e520 /* 39 vars */) = 0",
+        "1032875 execve(\"/usr/bin/git\", [\"git\", \"-C\", \"/home/me/work/rnx-bench/probes/n\"..., \"ls-files\", \"--stage\", \"-z\", \"--\", \".\"], 0x7ffed902e520 /* 39 vars */) = 0",
+        "1032871 execve(\"/home/me/work/rnx-bench/probes/native-inventory/target/cache/entries/b8088fb74461d012a61b968e49a5c089134ca1e6fe893880784128d73af8850b/artifacts/559424e50917fa8285d2dc038f8bffb37a475d128eb0922912d3d4ec8e571d38\", [\"/home/me/work/rnx-bench/probes/n\"..., \"eval\", \"42\"], 0x5d1065601060 /* 39 vars */) = 0"
+      ]
+    },
+    {
+      "count": 3,
+      "version": "F5",
+      "tool": "/home/me/work/rnx-bench/probes/nested-position/target/reuse",
+      "sha256": "4a99bacdfff9ae4509c40ccbf6f7528d569d3972bfd388b3d5a2fd47c5cf2bb6",
+      "statx": 3214,
+      "enoent": 263,
+      "successful_execs": [
+        "1032878 execve(\"/home/me/work/rnx-bench/probes/nested-position/target/reuse\", [\"/home/me/work/rnx-bench/probes/n\"..., \"eval\", \"--manifest\", \"/home/me/work/rnx-bench/probes/i\"..., \"--\", \"42\"], 0x7ffe95479c00 /* 39 vars */) = 0",
+        "1032879 execve(\"/usr/bin/git\", [\"git\", \"-C\", \"/home/me/work/rnx-bench/probes/n\"..., \"rev-parse\", \"--path-format=absolute\", \"--show-toplevel\", \"--absolute-git-dir\", \"--git-path\", \"index\", \"--show-superproject-working-tree\"], 0x7ffd2cbd3df0 /* 39 vars */) = 0",
+        "1032880 execve(\"/usr/lib/git-core/git\", [\"/usr/lib/git-core/git\", \"--literal-pathspecs\", \"-C\", \"..\", \"ls-files\", \"-z\", \"--stage\", \"--full-name\", \"--\", \"s\"], 0x5857e3569e70 /* 40 vars */) = 0",
+        "1032881 execve(\"/usr/bin/git\", [\"git\", \"-C\", \"/home/me/work/rnx-bench/probes/n\"..., \"ls-files\", \"--others\", \"--exclude-standard\", \"-z\", \"--\", \".\"], 0x7ffd2cbd3df0 /* 39 vars */) = 0",
+        "1032882 execve(\"/usr/bin/git\", [\"git\", \"-C\", \"/home/me/work/rnx-bench/probes/n\"..., \"ls-files\", \"--stage\", \"-z\", \"--\", \".\"], 0x7ffd2cbd3df0 /* 39 vars */) = 0",
+        "1032878 execve(\"/home/me/work/rnx-bench/probes/native-inventory/target/cache/entries/b8088fb74461d012a61b968e49a5c089134ca1e6fe893880784128d73af8850b/artifacts/559424e50917fa8285d2dc038f8bffb37a475d128eb0922912d3d4ec8e571d38\", [\"/home/me/work/rnx-bench/probes/n\"..., \"eval\", \"42\"], 0x59d1310765d0 /* 39 vars */) = 0"
+      ]
+    }
+  ]
+}

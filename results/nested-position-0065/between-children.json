@@ -1,0 +1,604 @@
+{
+  "case": "tracked addition after first shared administration recheck",
+  "observations": [
+    {
+      "candidate": false,
+      "first": {
+        "answer": {
+          "Ok": [
+            {
+              "blake3": "1de6255d2d10da03d3a18d828ed8a19f795777237d0b1b72ebab5fc854f300ba",
+              "files": [
+                {
+                  "blake3": "d33fb48ab5adff269ae172b29a6913ff04f6f266207a7a8e976f2ecd571d4492",
+                  "bytes": 3,
+                  "executable": false,
+                  "path": "a/one"
+                },
+                {
+                  "blake3": "dc770fff53f50835f8cc957e01c0d5731d3c2ed544c375493a28c09be5e09763",
+                  "bytes": 3,
+                  "executable": false,
+                  "path": "b/two"
+                },
+                {
+                  "blake3": "92a2b787a06d7272df43eaf87acc3b9c1d315d79d599d61c285983483e431998",
+                  "bytes": 4,
+                  "executable": false,
+                  "path": "base"
+                }
+              ],
+              "root": "/home/me/work/rnx-bench/probes/nested-position/target/window/False"
+            },
+            {
+              "blake3": "9fbd3262fa69d3d1a089d8a89e1a747c9a4d43bad34a835b8550aee79e995a4b",
+              "files": [
+                {
+                  "blake3": "d33fb48ab5adff269ae172b29a6913ff04f6f266207a7a8e976f2ecd571d4492",
+                  "bytes": 3,
+                  "executable": false,
+                  "path": "one"
+                }
+              ],
+              "root": "/home/me/work/rnx-bench/probes/nested-position/target/window/False/a"
+            },
+            {
+              "blake3": "b1ac83cbbdedcca5fcec1025f697937f8ba30042fc5210f0fa3f2e72fac0d254",
+              "files": [
+                {
+                  "blake3": "16f06a7b26d44fe4f635f33060a92904117dcf39647a3a1606fa9a0a8d1976bb",
+                  "bytes": 17,
+                  "executable": false,
+                  "path": "new"
+                },
+                {
+                  "blake3": "dc770fff53f50835f8cc957e01c0d5731d3c2ed544c375493a28c09be5e09763",
+                  "bytes": 3,
+                  "executable": false,
+                  "path": "two"
+                }
+              ],
+              "root": "/home/me/work/rnx-bench/probes/nested-position/target/window/False/b"
+            }
+          ]
+        },
+        "events": [
+          {
+            "args": [
+              "rev-parse",
+              "--show-superproject-working-tree"
+            ],
+            "git": "/home/me/work/rnx-bench/probes/nested-position/target/window/False"
+          },
+          {
+            "args": [
+              "ls-files",
+              "--others",
+              "--exclude-standard",
+              "-z",
+              "--",
+              "."
+            ],
+            "git": "/home/me/work/rnx-bench/probes/nested-position/target/window/False"
+          },
+          {
+            "args": [
+              "ls-files",
+              "--stage",
+              "-z",
+              "--",
+              "."
+            ],
+            "git": "/home/me/work/rnx-bench/probes/nested-position/target/window/False"
+          },
+          {
+            "read": "/home/me/work/rnx-bench/probes/nested-position/target/window/False/a/one"
+          },
+          {
+            "read": "/home/me/work/rnx-bench/probes/nested-position/target/window/False/b/two"
+          },
+          {
+            "read": "/home/me/work/rnx-bench/probes/nested-position/target/window/False/base"
+          },
+          {
+            "args": [
+              "rev-parse",
+              "--show-superproject-working-tree"
+            ],
+            "git": "/home/me/work/rnx-bench/probes/nested-position/target/window/False/a"
+          },
+          {
+            "args": [
+              "ls-files",
+              "--others",
+              "--exclude-standard",
+              "-z",
+              "--",
+              "."
+            ],
+            "git": "/home/me/work/rnx-bench/probes/nested-position/target/window/False/a"
+          },
+          {
+            "args": [
+              "ls-files",
+              "--stage",
+              "-z",
+              "--",
+              "."
+            ],
+            "git": "/home/me/work/rnx-bench/probes/nested-position/target/window/False/a"
+          },
+          {
+            "read": "/home/me/work/rnx-bench/probes/nested-position/target/window/False/a/one"
+          },
+          {
+            "args": [
+              "rev-parse",
+              "--show-superproject-working-tree"
+            ],
+            "git": "/home/me/work/rnx-bench/probes/nested-position/target/window/False/b"
+          },
+          {
+            "args": [
+              "ls-files",
+              "--others",
+              "--exclude-standard",
+              "-z",
+              "--",
+              "."
+            ],
+            "git": "/home/me/work/rnx-bench/probes/nested-position/target/window/False/b"
+          },
+          {
+            "args": [
+              "ls-files",
+              "--stage",
+              "-z",
+              "--",
+              "."
+            ],
+            "git": "/home/me/work/rnx-bench/probes/nested-position/target/window/False/b"
+          },
+          {
+            "read": "/home/me/work/rnx-bench/probes/nested-position/target/window/False/b/new"
+          },
+          {
+            "read": "/home/me/work/rnx-bench/probes/nested-position/target/window/False/b/two"
+          }
+        ],
+        "remaining_bytes": 536870879,
+        "repeated": null
+      },
+      "next": {
+        "answer": {
+          "Ok": [
+            {
+              "blake3": "e948b9c8f0255de8adc2fd16aedbe71f5129341250ef1ad70862b73d50e71c64",
+              "files": [
+                {
+                  "blake3": "d33fb48ab5adff269ae172b29a6913ff04f6f266207a7a8e976f2ecd571d4492",
+                  "bytes": 3,
+                  "executable": false,
+                  "path": "a/one"
+                },
+                {
+                  "blake3": "16f06a7b26d44fe4f635f33060a92904117dcf39647a3a1606fa9a0a8d1976bb",
+                  "bytes": 17,
+                  "executable": false,
+                  "path": "b/new"
+                },
+                {
+                  "blake3": "dc770fff53f50835f8cc957e01c0d5731d3c2ed544c375493a28c09be5e09763",
+                  "bytes": 3,
+                  "executable": false,
+                  "path": "b/two"
+                },
+                {
+                  "blake3": "92a2b787a06d7272df43eaf87acc3b9c1d315d79d599d61c285983483e431998",
+                  "bytes": 4,
+                  "executable": false,
+                  "path": "base"
+                }
+              ],
+              "root": "/home/me/work/rnx-bench/probes/nested-position/target/window/False"
+            },
+            {
+              "blake3": "9fbd3262fa69d3d1a089d8a89e1a747c9a4d43bad34a835b8550aee79e995a4b",
+              "files": [
+                {
+                  "blake3": "d33fb48ab5adff269ae172b29a6913ff04f6f266207a7a8e976f2ecd571d4492",
+                  "bytes": 3,
+                  "executable": false,
+                  "path": "one"
+                }
+              ],
+              "root": "/home/me/work/rnx-bench/probes/nested-position/target/window/False/a"
+            },
+            {
+              "blake3": "b1ac83cbbdedcca5fcec1025f697937f8ba30042fc5210f0fa3f2e72fac0d254",
+              "files": [
+                {
+                  "blake3": "16f06a7b26d44fe4f635f33060a92904117dcf39647a3a1606fa9a0a8d1976bb",
+                  "bytes": 17,
+                  "executable": false,
+                  "path": "new"
+                },
+                {
+                  "blake3": "dc770fff53f50835f8cc957e01c0d5731d3c2ed544c375493a28c09be5e09763",
+                  "bytes": 3,
+                  "executable": false,
+                  "path": "two"
+                }
+              ],
+              "root": "/home/me/work/rnx-bench/probes/nested-position/target/window/False/b"
+            }
+          ]
+        },
+        "events": [
+          {
+            "args": [
+              "rev-parse",
+              "--show-superproject-working-tree"
+            ],
+            "git": "/home/me/work/rnx-bench/probes/nested-position/target/window/False"
+          },
+          {
+            "args": [
+              "ls-files",
+              "--others",
+              "--exclude-standard",
+              "-z",
+              "--",
+              "."
+            ],
+            "git": "/home/me/work/rnx-bench/probes/nested-position/target/window/False"
+          },
+          {
+            "args": [
+              "ls-files",
+              "--stage",
+              "-z",
+              "--",
+              "."
+            ],
+            "git": "/home/me/work/rnx-bench/probes/nested-position/target/window/False"
+          },
+          {
+            "read": "/home/me/work/rnx-bench/probes/nested-position/target/window/False/a/one"
+          },
+          {
+            "read": "/home/me/work/rnx-bench/probes/nested-position/target/window/False/b/new"
+          },
+          {
+            "read": "/home/me/work/rnx-bench/probes/nested-position/target/window/False/b/two"
+          },
+          {
+            "read": "/home/me/work/rnx-bench/probes/nested-position/target/window/False/base"
+          },
+          {
+            "args": [
+              "rev-parse",
+              "--show-superproject-working-tree"
+            ],
+            "git": "/home/me/work/rnx-bench/probes/nested-position/target/window/False/a"
+          },
+          {
+            "args": [
+              "ls-files",
+              "--others",
+              "--exclude-standard",
+              "-z",
+              "--",
+              "."
+            ],
+            "git": "/home/me/work/rnx-bench/probes/nested-position/target/window/False/a"
+          },
+          {
+            "args": [
+              "ls-files",
+              "--stage",
+              "-z",
+              "--",
+              "."
+            ],
+            "git": "/home/me/work/rnx-bench/probes/nested-position/target/window/False/a"
+          },
+          {
+            "read": "/home/me/work/rnx-bench/probes/nested-position/target/window/False/a/one"
+          },
+          {
+            "args": [
+              "rev-parse",
+              "--show-superproject-working-tree"
+            ],
+            "git": "/home/me/work/rnx-bench/probes/nested-position/target/window/False/b"
+          },
+          {
+            "args": [
+              "ls-files",
+              "--others",
+              "--exclude-standard",
+              "-z",
+              "--",
+              "."
+            ],
+            "git": "/home/me/work/rnx-bench/probes/nested-position/target/window/False/b"
+          },
+          {
+            "args": [
+              "ls-files",
+              "--stage",
+              "-z",
+              "--",
+              "."
+            ],
+            "git": "/home/me/work/rnx-bench/probes/nested-position/target/window/False/b"
+          },
+          {
+            "read": "/home/me/work/rnx-bench/probes/nested-position/target/window/False/b/new"
+          },
+          {
+            "read": "/home/me/work/rnx-bench/probes/nested-position/target/window/False/b/two"
+          }
+        ],
+        "remaining_bytes": 536870862,
+        "repeated": null
+      }
+    },
+    {
+      "candidate": true,
+      "first": {
+        "answer": {
+          "Ok": [
+            {
+              "blake3": "1de6255d2d10da03d3a18d828ed8a19f795777237d0b1b72ebab5fc854f300ba",
+              "files": [
+                {
+                  "blake3": "d33fb48ab5adff269ae172b29a6913ff04f6f266207a7a8e976f2ecd571d4492",
+                  "bytes": 3,
+                  "executable": false,
+                  "path": "a/one"
+                },
+                {
+                  "blake3": "dc770fff53f50835f8cc957e01c0d5731d3c2ed544c375493a28c09be5e09763",
+                  "bytes": 3,
+                  "executable": false,
+                  "path": "b/two"
+                },
+                {
+                  "blake3": "92a2b787a06d7272df43eaf87acc3b9c1d315d79d599d61c285983483e431998",
+                  "bytes": 4,
+                  "executable": false,
+                  "path": "base"
+                }
+              ],
+              "root": "/home/me/work/rnx-bench/probes/nested-position/target/window/True"
+            },
+            {
+              "blake3": "9fbd3262fa69d3d1a089d8a89e1a747c9a4d43bad34a835b8550aee79e995a4b",
+              "files": [
+                {
+                  "blake3": "d33fb48ab5adff269ae172b29a6913ff04f6f266207a7a8e976f2ecd571d4492",
+                  "bytes": 3,
+                  "executable": false,
+                  "path": "one"
+                }
+              ],
+              "root": "/home/me/work/rnx-bench/probes/nested-position/target/window/True/a"
+            },
+            {
+              "blake3": "c2b4944314442ae0c4005461b2efb72e839cda4bea7c5da59afb2a58320acfad",
+              "files": [
+                {
+                  "blake3": "dc770fff53f50835f8cc957e01c0d5731d3c2ed544c375493a28c09be5e09763",
+                  "bytes": 3,
+                  "executable": false,
+                  "path": "two"
+                }
+              ],
+              "root": "/home/me/work/rnx-bench/probes/nested-position/target/window/True/b"
+            }
+          ]
+        },
+        "events": [
+          {
+            "args": [
+              "rev-parse",
+              "--path-format=absolute",
+              "--show-toplevel",
+              "--absolute-git-dir",
+              "--git-path",
+              "index",
+              "--show-superproject-working-tree"
+            ],
+            "git": "/home/me/work/rnx-bench/probes/nested-position/target/window/True"
+          },
+          {
+            "args": [
+              "ls-files",
+              "--others",
+              "--exclude-standard",
+              "-z",
+              "--",
+              "."
+            ],
+            "git": "/home/me/work/rnx-bench/probes/nested-position/target/window/True"
+          },
+          {
+            "args": [
+              "ls-files",
+              "--stage",
+              "-z",
+              "--",
+              "."
+            ],
+            "git": "/home/me/work/rnx-bench/probes/nested-position/target/window/True"
+          },
+          {
+            "read": "/home/me/work/rnx-bench/probes/nested-position/target/window/True/a/one"
+          },
+          {
+            "read": "/home/me/work/rnx-bench/probes/nested-position/target/window/True/b/two"
+          },
+          {
+            "read": "/home/me/work/rnx-bench/probes/nested-position/target/window/True/base"
+          },
+          {
+            "paths": 11,
+            "shared_check": "/home/me/work/rnx-bench/probes/nested-position/target/window/True"
+          },
+          {
+            "gitdir": "/home/me/work/rnx-bench/probes/nested-position/target/window/True/.git",
+            "index": "/home/me/work/rnx-bench/probes/nested-position/target/window/True/.git/index",
+            "parent": "/home/me/work/rnx-bench/probes/nested-position/target/window/True",
+            "reuse": "/home/me/work/rnx-bench/probes/nested-position/target/window/True/a",
+            "top": "/home/me/work/rnx-bench/probes/nested-position/target/window/True"
+          },
+          {
+            "gitdir": "/home/me/work/rnx-bench/probes/nested-position/target/window/True/.git",
+            "index": "/home/me/work/rnx-bench/probes/nested-position/target/window/True/.git/index",
+            "parent": "/home/me/work/rnx-bench/probes/nested-position/target/window/True",
+            "reuse": "/home/me/work/rnx-bench/probes/nested-position/target/window/True/b",
+            "top": "/home/me/work/rnx-bench/probes/nested-position/target/window/True"
+          }
+        ],
+        "remaining_bytes": 536870896,
+        "repeated": null
+      },
+      "next": {
+        "answer": {
+          "Ok": [
+            {
+              "blake3": "e948b9c8f0255de8adc2fd16aedbe71f5129341250ef1ad70862b73d50e71c64",
+              "files": [
+                {
+                  "blake3": "d33fb48ab5adff269ae172b29a6913ff04f6f266207a7a8e976f2ecd571d4492",
+                  "bytes": 3,
+                  "executable": false,
+                  "path": "a/one"
+                },
+                {
+                  "blake3": "16f06a7b26d44fe4f635f33060a92904117dcf39647a3a1606fa9a0a8d1976bb",
+                  "bytes": 17,
+                  "executable": false,
+                  "path": "b/new"
+                },
+                {
+                  "blake3": "dc770fff53f50835f8cc957e01c0d5731d3c2ed544c375493a28c09be5e09763",
+                  "bytes": 3,
+                  "executable": false,
+                  "path": "b/two"
+                },
+                {
+                  "blake3": "92a2b787a06d7272df43eaf87acc3b9c1d315d79d599d61c285983483e431998",
+                  "bytes": 4,
+                  "executable": false,
+                  "path": "base"
+                }
+              ],
+              "root": "/home/me/work/rnx-bench/probes/nested-position/target/window/True"
+            },
+            {
+              "blake3": "9fbd3262fa69d3d1a089d8a89e1a747c9a4d43bad34a835b8550aee79e995a4b",
+              "files": [
+                {
+                  "blake3": "d33fb48ab5adff269ae172b29a6913ff04f6f266207a7a8e976f2ecd571d4492",
+                  "bytes": 3,
+                  "executable": false,
+                  "path": "one"
+                }
+              ],
+              "root": "/home/me/work/rnx-bench/probes/nested-position/target/window/True/a"
+            },
+            {
+              "blake3": "b1ac83cbbdedcca5fcec1025f697937f8ba30042fc5210f0fa3f2e72fac0d254",
+              "files": [
+                {
+                  "blake3": "16f06a7b26d44fe4f635f33060a92904117dcf39647a3a1606fa9a0a8d1976bb",
+                  "bytes": 17,
+                  "executable": false,
+                  "path": "new"
+                },
+                {
+                  "blake3": "dc770fff53f50835f8cc957e01c0d5731d3c2ed544c375493a28c09be5e09763",
+                  "bytes": 3,
+                  "executable": false,
+                  "path": "two"
+                }
+              ],
+              "root": "/home/me/work/rnx-bench/probes/nested-position/target/window/True/b"
+            }
+          ]
+        },
+        "events": [
+          {
+            "args": [
+              "rev-parse",
+              "--path-format=absolute",
+              "--show-toplevel",
+              "--absolute-git-dir",
+              "--git-path",
+              "index",
+              "--show-superproject-working-tree"
+            ],
+            "git": "/home/me/work/rnx-bench/probes/nested-position/target/window/True"
+          },
+          {
+            "args": [
+              "ls-files",
+              "--others",
+              "--exclude-standard",
+              "-z",
+              "--",
+              "."
+            ],
+            "git": "/home/me/work/rnx-bench/probes/nested-position/target/window/True"
+          },
+          {
+            "args": [
+              "ls-files",
+              "--stage",
+              "-z",
+              "--",
+              "."
+            ],
+            "git": "/home/me/work/rnx-bench/probes/nested-position/target/window/True"
+          },
+          {
+            "read": "/home/me/work/rnx-bench/probes/nested-position/target/window/True/a/one"
+          },
+          {
+            "read": "/home/me/work/rnx-bench/probes/nested-position/target/window/True/b/new"
+          },
+          {
+            "read": "/home/me/work/rnx-bench/probes/nested-position/target/window/True/b/two"
+          },
+          {
+            "read": "/home/me/work/rnx-bench/probes/nested-position/target/window/True/base"
+          },
+          {
+            "paths": 11,
+            "shared_check": "/home/me/work/rnx-bench/probes/nested-position/target/window/True"
+          },
+          {
+            "gitdir": "/home/me/work/rnx-bench/probes/nested-position/target/window/True/.git",
+            "index": "/home/me/work/rnx-bench/probes/nested-position/target/window/True/.git/index",
+            "parent": "/home/me/work/rnx-bench/probes/nested-position/target/window/True",
+            "reuse": "/home/me/work/rnx-bench/probes/nested-position/target/window/True/a",
+            "top": "/home/me/work/rnx-bench/probes/nested-position/target/window/True"
+          },
+          {
+            "gitdir": "/home/me/work/rnx-bench/probes/nested-position/target/window/True/.git",
+            "index": "/home/me/work/rnx-bench/probes/nested-position/target/window/True/.git/index",
+            "parent": "/home/me/work/rnx-bench/probes/nested-position/target/window/True",
+            "reuse": "/home/me/work/rnx-bench/probes/nested-position/target/window/True/b",
+            "top": "/home/me/work/rnx-bench/probes/nested-position/target/window/True"
+          }
+        ],
+        "remaining_bytes": 536870862,
+        "repeated": null
+      }
+    }
+  ],
+  "qualification": "candidate sees addition next invocation; independent second child sees it in this invocation; neither is an atomic snapshot"
+}
