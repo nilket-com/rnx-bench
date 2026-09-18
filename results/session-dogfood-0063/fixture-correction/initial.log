@@ -1,0 +1,12 @@
+Traceback (most recent call last):
+  File "/home/me/work/rnx-bench/probes/session-dogfood/check.py", line 102, in <module>
+    recall_after(t);bindings_and_cwd(t);frame_journey(t,'first')
+                    ~~~~~~~~~~~~~~~~^^^
+  File "/home/me/work/rnx-bench/probes/session-dogfood/check.py", line 63, in bindings_and_cwd
+    out=t.send('held');assert 'No local variable `held`' in out and '[1] >' in out,out
+                              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: held
+error at input 2, line 1, column 1: No local variable `held`
+  held
+  ^
+[3] > 

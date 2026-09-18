@@ -1,0 +1,189 @@
+diff --git a/README.md b/README.md
+index 47c2e8f..6e92f6e 100644
+--- a/README.md
++++ b/README.md
+@@ -291,6 +291,27 @@ unsupported-terminal modes (`dumb`, `cons25`, `emacs`, case-insensitively)
+ write prompts even for pipes, and now write numbered results there too.
+ Script output, colon-command output, and diagnostics do not get result markers.
+ 
++On Linux, `:dep polars` or `:dep polars postgres` prepares another executable
++and restarts this session after you consent. Put `rnx-project` on PATH (or set
++`RNX_PROJECT_TOOL` to its absolute path). A stock session also needs
++`export RNX_DEP_RUNTIME=/absolute/path/to/rnx` pointing at a source checkout.
++A session opened with `rnx-project session --manifest ...` edits that project;
++a stock session creates a retained scratch project under your user state directory.
++The replacement prints a command to reopen that scratch session later.
++
++The notice lists the additions, existing declarations and build cost before
++asking. `:dep --offline polars` prevents Cargo from fetching sources. The first
++Polars build can take about 100 seconds with registry sources cached; another
++consumer of the same assembly attaches without compiling. A successful restart
++loses bindings and declarations, resets numbering, keeps your working directory,
++and reloads saved history without replaying it. Preparation failure leaves the
++old session usable, although authored project files can remain. Once
++`restart is beginning` is printed, cleanup or exec failure ends the process.
++Builders run once in the startup probe and again in the replacement, so external
++startup side effects can happen twice. Native extensions become available;
++mapped Rune sources still do not load at the prompt. Runtime installation without
++a source checkout is the next record after 0063.
++
+ `rnx repl` is a line-edited session: history with the arrow keys and
+ incremental search, an input that continues on the next line while Rune's
+ parser says it is unfinished (two blank lines abandon it), values rendered
+diff --git a/src/dep_transition.rs b/src/dep_transition.rs
+index 4e12df9..a684d95 100644
+--- a/src/dep_transition.rs
++++ b/src/dep_transition.rs
+@@ -330,7 +330,14 @@ mod unix {
+ 		if kind != 5 {
+ 			return Err("expected checked replacement".into());
+ 		}
+-		wire::exact(&result, &[1, 2, 3])?;
++		wire::exact(
++			&result,
++			if result.contains_key(&4) {
++				&[1, 2, 3, 4]
++			} else {
++				&[1, 2, 3]
++			},
++		)?;
+ 		let capsule = wire::capsule(&result[&2])?;
+ 		if capsule[&6] != result[&1] || !PathBuf::from(&result[&1]).is_absolute() {
+ 			return Err("replacement association mismatch".into());
+@@ -341,6 +348,7 @@ mod unix {
+ 			path: result[&1].clone(),
+ 			association: result[&2].clone(),
+ 			stamp: result[&3].clone(),
++			reopen: result.get(&4).cloned(),
+ 			flags: flags(),
+ 		};
+ 		next.recheck()?;
+@@ -351,6 +359,7 @@ mod unix {
+ 		path: String,
+ 		association: String,
+ 		stamp: String,
++		reopen: Option<String>,
+ 		flags: Vec<String>,
+ 	}
+ 	impl Replacement {
+@@ -374,7 +383,15 @@ mod unix {
+ 		if let Some(next) = next {
+ 			next.recheck()
+ 				.map_err(|e| format!("dependency restart failed after cleanup: {e}"))?;
+-			let error = Command::new(&next.path)
++			let mut command = Command::new(&next.path);
++			command.env_remove("RNX_INTERNAL_DEP_REOPEN_V1");
++			if let Some(reopen) = next.reopen {
++				command.env(
++					"RNX_INTERNAL_DEP_REOPEN_V1",
++					format!("{}\n{reopen}", std::process::id()),
++				);
++			}
++			let error = command
+ 				.args(&next.flags)
+ 				.arg("repl")
+ 				.env_remove("RNX_INTERNAL_DEP_FD")
+@@ -397,3 +414,23 @@ pub(crate) fn finish(result: crate::Result<()>) -> crate::Result<()> {
+ 		result
+ 	}
+ }
++
++/// A one-process announcement after successful replacement initialization.
++/// Children inherit routing metadata, but cannot repeat their parent's notice.
++pub(crate) fn reopen_notice() {
++	let Ok(value) = std::env::var("RNX_INTERNAL_DEP_REOPEN_V1") else {
++		return;
++	};
++	if value.len() > 65536 {
++		return;
++	}
++	let Some((pid, command)) = value.split_once('\n') else {
++		return;
++	};
++	if pid.parse::<u32>().ok() == Some(std::process::id()) {
++		println!(
++			"Reopen this scratch session:\n  {}",
++			crate::format::terminal_safe(command)
++		);
++	}
++}
+diff --git a/src/repl.rs b/src/repl.rs
+index 5427d6c..60b653e 100644
+--- a/src/repl.rs
++++ b/src/repl.rs
+@@ -351,6 +351,7 @@ pub fn run(
+ 		// Restoring history loads text only; nothing here evaluates it.
+ 		let _ = editor.load_history(path);
+ 	}
++	crate::dep_transition::reopen_notice();
+ 	let limits = Limits::default();
+ 	let inspect_limits = InspectLimits::default();
+ 	if splash {
+diff --git a/tools/project/README.md b/tools/project/README.md
+index 217ddb4..088493d 100644
+--- a/tools/project/README.md
++++ b/tools/project/README.md
+@@ -312,3 +312,21 @@ Test-support adds pause points for publication and post-build edits; they are
+ absent from the ordinary executable. The assembly probe remains a test-only
+ adapter over private functions, not a second product CLI. Full workflow fixtures
+ are in rnx-bench/probes/project-workflow. No tool implementation module is public.
++
++## Requesting adapters from a live session
++
++A session opened through this tool retains its project association. Type
++`:dep polars postgres` to request catalogue adapters: the tool describes the
++change, asks for consent, then adds, locks, builds or attaches, and checks actual
++startup before replacement. Already-installed names are a no-op. Use
++`:dep --offline polars` to forbid source downloads. This is a restart with binding
++loss, not dynamic loading; saved history is reloaded but never replayed.
++
++For a stock session, select the source checkout with `RNX_DEP_RUNTIME` and locate
++this tool through PATH or `RNX_PROJECT_TOOL`. A retained scratch project is created
++only after consent. Its successful replacement prints the quoted command to
++reopen it. Projects and scratch consumers reuse the same shared assembly when
++their native inputs match. The working directory stays the caller's directory.
++A private startup probe executes builders before the replacement executes them
++again. Failed preparation preserves the old session, but project edits may remain;
++cleanup or exec failure after the restart announcement is terminal.
+diff --git a/tools/project/src/workflow/add.rs b/tools/project/src/workflow/add.rs
+index 1dd8aed..5709f22 100644
+--- a/tools/project/src/workflow/add.rs
++++ b/tools/project/src/workflow/add.rs
+@@ -126,7 +126,7 @@ impl Temporary {
+ 		Ok(())
+ 	}
+ }
+-fn shell_word(path: &Path) -> Result<String, String> {
++pub(super) fn shell_word(path: &Path) -> Result<String, String> {
+ 	let s = path.to_str().ok_or("manifest path is not Unicode")?;
+ 	Ok(format!("'{}'", s.replace('\'', "'\\''")))
+ }
+diff --git a/tools/project/src/workflow/transition.rs b/tools/project/src/workflow/transition.rs
+index ba8c1d1..a625f52 100644
+--- a/tools/project/src/workflow/transition.rs
++++ b/tools/project/src/workflow/transition.rs
+@@ -436,11 +436,19 @@ pub(super) fn serve(args: Vec<OsString>) -> Result<(), String> {
+ 			let replacement = association(&p, &lock, &checked, &digest)?;
+ 			let stamp = protocol::stamp(checked.path())?;
+ 			checked.recheck()?;
+-			protocol::write(
+-				&mut socket,
+-				5,
+-				&protocol::Fields::from([(1, text(checked.path())?), (2, replacement), (3, stamp)]),
+-			)?;
++			let mut ready =
++				protocol::Fields::from([(1, text(checked.path())?), (2, replacement), (3, stamp)]);
++			if fresh.scratch {
++				ready.insert(
++					4,
++					format!(
++						"{} session --manifest {}",
++						super::add::shell_word(&std::env::current_exe().map_err(err)?)?,
++						super::add::shell_word(&p.manifest)?
++					),
++				);
++			}
++			protocol::write(&mut socket, 5, &ready)?;
+ 			Ok(())
+ 		})();
+ 		prepare.map_err(|e|format!("{phase}: {e}; project files may have been published; retry with rnx-project lock/build/session --manifest {:?}",p.manifest))

@@ -1,0 +1,22 @@
+PASS first scratch, cold build and frame journey
+Traceback (most recent call last):
+  File "/home/me/work/rnx-bench/probes/session-dogfood/check.py", line 110, in <module>
+    t.send('let held = 42;');dep(t,':dep --offline polars','polars','(none)');out,seconds=handover(t)
+                                                                                          ~~~~~~~~^^^
+  File "/home/me/work/rnx-bench/probes/session-dogfood/check.py", line 56, in handover
+    assert 'restart is beginning' in out and '[1] >' in out and t.p.pid==pid,out
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: y
+added polars
+Next:
+  rnx-project lock --manifest '/home/me/work/rnx-bench/probes/session-dogfood/target/state with '\'' quote/rnx/sessions/session-3696929-1789730811437112536/rnx.toml'
+  rnx-project build --manifest '/home/me/work/rnx-bench/probes/session-dogfood/target/state with '\'' quote/rnx/sessions/session-3696929-1789730811437112536/rnx.toml'
+  rnx-project session --manifest '/home/me/work/rnx-bench/probes/session-dogfood/target/state with '\'' quote/rnx/sessions/session-3696929-1789730811437112536/rnx.toml'
+dependency phase: author
+dependency phase: resolve
+error: failed to run `rustc` to learn about target-specific information
+
+Caused by:
+  process didn't exit successfully: `rustc - --crate-name ___ --print=file-names --crate-type bin --crate-type rlib --crate-type dylib --crate-type cdylib --crate-type staticlib --crate-type proc-macro --print=sysroot --print=split-debuginfo --print=crate-name --print=cfg -Wwarnings` (exit status: 91)
+dependency preparation refused: resolve: "cargo" failed: exit status: 101; project files may have been published; retry with rnx-project lock/build/session --manifest "/home/me/work/rnx-bench/probes/session-dogfood/target/state with ' quote/rnx/sessions/session-3696929-1789730811437112536/rnx.toml"
+[2] > 

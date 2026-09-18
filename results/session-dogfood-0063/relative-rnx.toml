@@ -1,0 +1,19 @@
+format=1
+[application]
+entry="main.rn"
+[runtime]
+path="../../../../../rnx"
+
+
+[native.polars]
+path = "../../../../../rnx/adapters/polars"
+package = "rnx-polars"
+builder = "build"
+hook = "plain"
+
+
+[native.postgres]
+path = "../../../../../rnx/adapters/postgres"
+package = "rnx-postgres"
+builder = "build"
+hook = "lifecycle"
