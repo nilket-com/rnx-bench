@@ -1,0 +1,15 @@
+[package]
+name = "rnx-project-app"
+version = "0.0.0"
+edition = "2024"
+publish = false
+
+[workspace]
+
+[dependencies.native_0]
+package = "publication-adapter"
+path = "/tmp/rnx-cache-publication-b7qlrwvn/native/adapter"
+
+[dependencies.rnx]
+path = "/tmp/rnx-cache-publication-b7qlrwvn/native/runtime"
+features = ["project-sources"]
