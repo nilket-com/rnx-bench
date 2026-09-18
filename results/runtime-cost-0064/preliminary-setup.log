@@ -1,0 +1,5 @@
+Traceback (most recent call last):
+  File "/home/me/work/rnx-bench/probes/runtime-cost/setup.py", line 21, in <module>
+    lock=json.loads((pdir/'rnx.lock').read_text());key=hashlib.sha256(lock['assembly']['identity'].encode()).hexdigest();assert not (W/'cache/entries'/key/'ready.json').exists()
+                                                       ^^^^^^^^^^^^^^^^^^^^^^^
+KeyError: 'key'
