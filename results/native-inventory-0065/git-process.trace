@@ -1,0 +1,239 @@
+471481 execve("/home/me/work/rnx-bench/probes/native-inventory/target/stock/tools/project/target/release/inventory-probe", ["/home/me/work/rnx-bench/probes/native-inventory/target/stock/tools/project/target/release/inventory-probe", "/home/me/work/rnx-bench/probes/native-inventory/target/shallow-3.json"], 0x7ffeaf606c68 /* 38 vars */) = 0
+471481 clone3({flags=CLONE_VM|CLONE_VFORK|CLONE_CLEAR_SIGHAND, exit_signal=SIGCHLD, stack=0x73b085f94000, stack_size=0x9000}, 88 <unfinished ...>
+471482 execve("/home/me/.juliaup/bin/git", ["git", "-C", "/home/me/work/rnx-bench/probes/native-inventory/target/s", "rev-parse", "--show-superproject-working-tree"], 0x7ffda7724200 /* 38 vars */) = -1 ENOENT (No such file or directory)
+471482 execve("/home/me/.deno/bin/git", ["git", "-C", "/home/me/work/rnx-bench/probes/native-inventory/target/s", "rev-parse", "--show-superproject-working-tree"], 0x7ffda7724200 /* 38 vars */) = -1 ENOENT (No such file or directory)
+471482 execve("/home/me/.local/bin/git", ["git", "-C", "/home/me/work/rnx-bench/probes/native-inventory/target/s", "rev-parse", "--show-superproject-working-tree"], 0x7ffda7724200 /* 38 vars */) = -1 ENOENT (No such file or directory)
+471482 execve("/home/me/.codex/packages/standalone/releases/0.154.0-x86_64-unknown-linux-musl/codex-path/git", ["git", "-C", "/home/me/work/rnx-bench/probes/native-inventory/target/s", "rev-parse", "--show-superproject-working-tree"], 0x7ffda7724200 /* 38 vars */) = -1 ENOENT (No such file or directory)
+471482 execve("/home/me/.codex/tmp/arg0/codex-arg0Fk4ID0/git", ["git", "-C", "/home/me/work/rnx-bench/probes/native-inventory/target/s", "rev-parse", "--show-superproject-working-tree"], 0x7ffda7724200 /* 38 vars */) = -1 ENOENT (No such file or directory)
+471482 execve("/home/me/.local/bin/git", ["git", "-C", "/home/me/work/rnx-bench/probes/native-inventory/target/s", "rev-parse", "--show-superproject-working-tree"], 0x7ffda7724200 /* 38 vars */) = -1 ENOENT (No such file or directory)
+471482 execve("/home/me/.local/bin/git", ["git", "-C", "/home/me/work/rnx-bench/probes/native-inventory/target/s", "rev-parse", "--show-superproject-working-tree"], 0x7ffda7724200 /* 38 vars */) = -1 ENOENT (No such file or directory)
+471482 execve("/home/me/.cargo/bin/git", ["git", "-C", "/home/me/work/rnx-bench/probes/native-inventory/target/s", "rev-parse", "--show-superproject-working-tree"], 0x7ffda7724200 /* 38 vars */) = -1 ENOENT (No such file or directory)
+471482 execve("/usr/local/sbin/git", ["git", "-C", "/home/me/work/rnx-bench/probes/native-inventory/target/s", "rev-parse", "--show-superproject-working-tree"], 0x7ffda7724200 /* 38 vars */) = -1 ENOENT (No such file or directory)
+471482 execve("/usr/local/bin/git", ["git", "-C", "/home/me/work/rnx-bench/probes/native-inventory/target/s", "rev-parse", "--show-superproject-working-tree"], 0x7ffda7724200 /* 38 vars */) = -1 ENOENT (No such file or directory)
+471482 execve("/usr/sbin/git", ["git", "-C", "/home/me/work/rnx-bench/probes/native-inventory/target/s", "rev-parse", "--show-superproject-working-tree"], 0x7ffda7724200 /* 38 vars */) = -1 ENOENT (No such file or directory)
+471482 execve("/usr/bin/git", ["git", "-C", "/home/me/work/rnx-bench/probes/native-inventory/target/s", "rev-parse", "--show-superproject-working-tree"], 0x7ffda7724200 /* 38 vars */ <unfinished ...>
+471481 <... clone3 resumed>)            = 471482
+471482 <... execve resumed>)            = 0
+471482 clone(child_stack=NULL, flags=CLONE_CHILD_CLEARTID|CLONE_CHILD_SETTID|SIGCHLD, child_tidptr=0x702a0ce35e50) = 471483
+471483 execve("/usr/lib/git-core/git", ["/usr/lib/git-core/git", "--literal-pathspecs", "-C", "..", "ls-files", "-z", "--stage", "--full-name", "--", "s"], 0x569cfbc8fc50 /* 39 vars */) = 0
+471483 exit_group(0)                    = ?
+471482 --- SIGCHLD {si_signo=SIGCHLD, si_code=CLD_EXITED, si_pid=471483, si_uid=1003, si_status=0, si_utime=0, si_stime=0} ---
+471482 wait4(471483, [{WIFEXITED(s) && WEXITSTATUS(s) == 0}], 0, NULL) = 471483
+471482 exit_group(0)                    = ?
+471481 --- SIGCHLD {si_signo=SIGCHLD, si_code=CLD_EXITED, si_pid=471482, si_uid=1003, si_status=0, si_utime=0, si_stime=0} ---
+471481 wait4(471482, [{WIFEXITED(s) && WEXITSTATUS(s) == 0}], 0, NULL) = 471482
+471481 clone3({flags=CLONE_VM|CLONE_VFORK|CLONE_CLEAR_SIGHAND, exit_signal=SIGCHLD, stack=0x73b085f94000, stack_size=0x9000}, 88 <unfinished ...>
+471484 execve("/home/me/.juliaup/bin/git", ["git", "-C", "/home/me/work/rnx-bench/probes/native-inventory/target/s", "ls-files", "--others", "--exclude-standard", "-z", "--", "."], 0x7ffda7724200 /* 38 vars */) = -1 ENOENT (No such file or directory)
+471484 execve("/home/me/.deno/bin/git", ["git", "-C", "/home/me/work/rnx-bench/probes/native-inventory/target/s", "ls-files", "--others", "--exclude-standard", "-z", "--", "."], 0x7ffda7724200 /* 38 vars */) = -1 ENOENT (No such file or directory)
+471484 execve("/home/me/.local/bin/git", ["git", "-C", "/home/me/work/rnx-bench/probes/native-inventory/target/s", "ls-files", "--others", "--exclude-standard", "-z", "--", "."], 0x7ffda7724200 /* 38 vars */) = -1 ENOENT (No such file or directory)
+471484 execve("/home/me/.codex/packages/standalone/releases/0.154.0-x86_64-unknown-linux-musl/codex-path/git", ["git", "-C", "/home/me/work/rnx-bench/probes/native-inventory/target/s", "ls-files", "--others", "--exclude-standard", "-z", "--", "."], 0x7ffda7724200 /* 38 vars */) = -1 ENOENT (No such file or directory)
+471484 execve("/home/me/.codex/tmp/arg0/codex-arg0Fk4ID0/git", ["git", "-C", "/home/me/work/rnx-bench/probes/native-inventory/target/s", "ls-files", "--others", "--exclude-standard", "-z", "--", "."], 0x7ffda7724200 /* 38 vars */) = -1 ENOENT (No such file or directory)
+471484 execve("/home/me/.local/bin/git", ["git", "-C", "/home/me/work/rnx-bench/probes/native-inventory/target/s", "ls-files", "--others", "--exclude-standard", "-z", "--", "."], 0x7ffda7724200 /* 38 vars */) = -1 ENOENT (No such file or directory)
+471484 execve("/home/me/.local/bin/git", ["git", "-C", "/home/me/work/rnx-bench/probes/native-inventory/target/s", "ls-files", "--others", "--exclude-standard", "-z", "--", "."], 0x7ffda7724200 /* 38 vars */) = -1 ENOENT (No such file or directory)
+471484 execve("/home/me/.cargo/bin/git", ["git", "-C", "/home/me/work/rnx-bench/probes/native-inventory/target/s", "ls-files", "--others", "--exclude-standard", "-z", "--", "."], 0x7ffda7724200 /* 38 vars */) = -1 ENOENT (No such file or directory)
+471484 execve("/usr/local/sbin/git", ["git", "-C", "/home/me/work/rnx-bench/probes/native-inventory/target/s", "ls-files", "--others", "--exclude-standard", "-z", "--", "."], 0x7ffda7724200 /* 38 vars */) = -1 ENOENT (No such file or directory)
+471484 execve("/usr/local/bin/git", ["git", "-C", "/home/me/work/rnx-bench/probes/native-inventory/target/s", "ls-files", "--others", "--exclude-standard", "-z", "--", "."], 0x7ffda7724200 /* 38 vars */) = -1 ENOENT (No such file or directory)
+471484 execve("/usr/sbin/git", ["git", "-C", "/home/me/work/rnx-bench/probes/native-inventory/target/s", "ls-files", "--others", "--exclude-standard", "-z", "--", "."], 0x7ffda7724200 /* 38 vars */) = -1 ENOENT (No such file or directory)
+471484 execve("/usr/bin/git", ["git", "-C", "/home/me/work/rnx-bench/probes/native-inventory/target/s", "ls-files", "--others", "--exclude-standard", "-z", "--", "."], 0x7ffda7724200 /* 38 vars */ <unfinished ...>
+471481 <... clone3 resumed>)            = 471484
+471484 <... execve resumed>)            = 0
+471484 exit_group(0)                    = ?
+471481 --- SIGCHLD {si_signo=SIGCHLD, si_code=CLD_EXITED, si_pid=471484, si_uid=1003, si_status=0, si_utime=0, si_stime=0} ---
+471481 wait4(471484, [{WIFEXITED(s) && WEXITSTATUS(s) == 0}], 0, NULL) = 471484
+471481 clone3({flags=CLONE_VM|CLONE_VFORK|CLONE_CLEAR_SIGHAND, exit_signal=SIGCHLD, stack=0x73b085f94000, stack_size=0x9000}, 88 <unfinished ...>
+471485 execve("/home/me/.juliaup/bin/git", ["git", "-C", "/home/me/work/rnx-bench/probes/native-inventory/target/s", "ls-files", "--stage", "-z", "--", "."], 0x7ffda7724200 /* 38 vars */) = -1 ENOENT (No such file or directory)
+471485 execve("/home/me/.deno/bin/git", ["git", "-C", "/home/me/work/rnx-bench/probes/native-inventory/target/s", "ls-files", "--stage", "-z", "--", "."], 0x7ffda7724200 /* 38 vars */) = -1 ENOENT (No such file or directory)
+471485 execve("/home/me/.local/bin/git", ["git", "-C", "/home/me/work/rnx-bench/probes/native-inventory/target/s", "ls-files", "--stage", "-z", "--", "."], 0x7ffda7724200 /* 38 vars */) = -1 ENOENT (No such file or directory)
+471485 execve("/home/me/.codex/packages/standalone/releases/0.154.0-x86_64-unknown-linux-musl/codex-path/git", ["git", "-C", "/home/me/work/rnx-bench/probes/native-inventory/target/s", "ls-files", "--stage", "-z", "--", "."], 0x7ffda7724200 /* 38 vars */) = -1 ENOENT (No such file or directory)
+471485 execve("/home/me/.codex/tmp/arg0/codex-arg0Fk4ID0/git", ["git", "-C", "/home/me/work/rnx-bench/probes/native-inventory/target/s", "ls-files", "--stage", "-z", "--", "."], 0x7ffda7724200 /* 38 vars */) = -1 ENOENT (No such file or directory)
+471485 execve("/home/me/.local/bin/git", ["git", "-C", "/home/me/work/rnx-bench/probes/native-inventory/target/s", "ls-files", "--stage", "-z", "--", "."], 0x7ffda7724200 /* 38 vars */) = -1 ENOENT (No such file or directory)
+471485 execve("/home/me/.local/bin/git", ["git", "-C", "/home/me/work/rnx-bench/probes/native-inventory/target/s", "ls-files", "--stage", "-z", "--", "."], 0x7ffda7724200 /* 38 vars */) = -1 ENOENT (No such file or directory)
+471485 execve("/home/me/.cargo/bin/git", ["git", "-C", "/home/me/work/rnx-bench/probes/native-inventory/target/s", "ls-files", "--stage", "-z", "--", "."], 0x7ffda7724200 /* 38 vars */) = -1 ENOENT (No such file or directory)
+471485 execve("/usr/local/sbin/git", ["git", "-C", "/home/me/work/rnx-bench/probes/native-inventory/target/s", "ls-files", "--stage", "-z", "--", "."], 0x7ffda7724200 /* 38 vars */) = -1 ENOENT (No such file or directory)
+471485 execve("/usr/local/bin/git", ["git", "-C", "/home/me/work/rnx-bench/probes/native-inventory/target/s", "ls-files", "--stage", "-z", "--", "."], 0x7ffda7724200 /* 38 vars */) = -1 ENOENT (No such file or directory)
+471485 execve("/usr/sbin/git", ["git", "-C", "/home/me/work/rnx-bench/probes/native-inventory/target/s", "ls-files", "--stage", "-z", "--", "."], 0x7ffda7724200 /* 38 vars */) = -1 ENOENT (No such file or directory)
+471485 execve("/usr/bin/git", ["git", "-C", "/home/me/work/rnx-bench/probes/native-inventory/target/s", "ls-files", "--stage", "-z", "--", "."], 0x7ffda7724200 /* 38 vars */ <unfinished ...>
+471481 <... clone3 resumed>)            = 471485
+471485 <... execve resumed>)            = 0
+471485 exit_group(0)                    = ?
+471481 --- SIGCHLD {si_signo=SIGCHLD, si_code=CLD_EXITED, si_pid=471485, si_uid=1003, si_status=0, si_utime=0, si_stime=0} ---
+471481 wait4(471485, [{WIFEXITED(s) && WEXITSTATUS(s) == 0}], 0, NULL) = 471485
+471481 clone3({flags=CLONE_VM|CLONE_VFORK|CLONE_CLEAR_SIGHAND, exit_signal=SIGCHLD, stack=0x73b085f94000, stack_size=0x9000}, 88 <unfinished ...>
+471486 execve("/home/me/.juliaup/bin/git", ["git", "-C", "/home/me/work/rnx-bench/probes/native-inventory/target/s/adapters/pgcopy", "rev-parse", "--show-superproject-working-tree"], 0x7ffda7724200 /* 38 vars */) = -1 ENOENT (No such file or directory)
+471486 execve("/home/me/.deno/bin/git", ["git", "-C", "/home/me/work/rnx-bench/probes/native-inventory/target/s/adapters/pgcopy", "rev-parse", "--show-superproject-working-tree"], 0x7ffda7724200 /* 38 vars */) = -1 ENOENT (No such file or directory)
+471486 execve("/home/me/.local/bin/git", ["git", "-C", "/home/me/work/rnx-bench/probes/native-inventory/target/s/adapters/pgcopy", "rev-parse", "--show-superproject-working-tree"], 0x7ffda7724200 /* 38 vars */) = -1 ENOENT (No such file or directory)
+471486 execve("/home/me/.codex/packages/standalone/releases/0.154.0-x86_64-unknown-linux-musl/codex-path/git", ["git", "-C", "/home/me/work/rnx-bench/probes/native-inventory/target/s/adapters/pgcopy", "rev-parse", "--show-superproject-working-tree"], 0x7ffda7724200 /* 38 vars */) = -1 ENOENT (No such file or directory)
+471486 execve("/home/me/.codex/tmp/arg0/codex-arg0Fk4ID0/git", ["git", "-C", "/home/me/work/rnx-bench/probes/native-inventory/target/s/adapters/pgcopy", "rev-parse", "--show-superproject-working-tree"], 0x7ffda7724200 /* 38 vars */) = -1 ENOENT (No such file or directory)
+471486 execve("/home/me/.local/bin/git", ["git", "-C", "/home/me/work/rnx-bench/probes/native-inventory/target/s/adapters/pgcopy", "rev-parse", "--show-superproject-working-tree"], 0x7ffda7724200 /* 38 vars */) = -1 ENOENT (No such file or directory)
+471486 execve("/home/me/.local/bin/git", ["git", "-C", "/home/me/work/rnx-bench/probes/native-inventory/target/s/adapters/pgcopy", "rev-parse", "--show-superproject-working-tree"], 0x7ffda7724200 /* 38 vars */) = -1 ENOENT (No such file or directory)
+471486 execve("/home/me/.cargo/bin/git", ["git", "-C", "/home/me/work/rnx-bench/probes/native-inventory/target/s/adapters/pgcopy", "rev-parse", "--show-superproject-working-tree"], 0x7ffda7724200 /* 38 vars */) = -1 ENOENT (No such file or directory)
+471486 execve("/usr/local/sbin/git", ["git", "-C", "/home/me/work/rnx-bench/probes/native-inventory/target/s/adapters/pgcopy", "rev-parse", "--show-superproject-working-tree"], 0x7ffda7724200 /* 38 vars */) = -1 ENOENT (No such file or directory)
+471486 execve("/usr/local/bin/git", ["git", "-C", "/home/me/work/rnx-bench/probes/native-inventory/target/s/adapters/pgcopy", "rev-parse", "--show-superproject-working-tree"], 0x7ffda7724200 /* 38 vars */) = -1 ENOENT (No such file or directory)
+471486 execve("/usr/sbin/git", ["git", "-C", "/home/me/work/rnx-bench/probes/native-inventory/target/s/adapters/pgcopy", "rev-parse", "--show-superproject-working-tree"], 0x7ffda7724200 /* 38 vars */) = -1 ENOENT (No such file or directory)
+471486 execve("/usr/bin/git", ["git", "-C", "/home/me/work/rnx-bench/probes/native-inventory/target/s/adapters/pgcopy", "rev-parse", "--show-superproject-working-tree"], 0x7ffda7724200 /* 38 vars */ <unfinished ...>
+471481 <... clone3 resumed>)            = 471486
+471486 <... execve resumed>)            = 0
+471486 clone(child_stack=NULL, flags=CLONE_CHILD_CLEARTID|CLONE_CHILD_SETTID|SIGCHLD, child_tidptr=0x72ffb1f88e50) = 471487
+471487 execve("/usr/lib/git-core/git", ["/usr/lib/git-core/git", "--literal-pathspecs", "-C", "..", "ls-files", "-z", "--stage", "--full-name", "--", "s"], 0x641fe15e1ec0 /* 39 vars */) = 0
+471487 exit_group(0)                    = ?
+471486 --- SIGCHLD {si_signo=SIGCHLD, si_code=CLD_EXITED, si_pid=471487, si_uid=1003, si_status=0, si_utime=0, si_stime=0} ---
+471486 wait4(471487, [{WIFEXITED(s) && WEXITSTATUS(s) == 0}], 0, NULL) = 471487
+471486 exit_group(0)                    = ?
+471481 --- SIGCHLD {si_signo=SIGCHLD, si_code=CLD_EXITED, si_pid=471486, si_uid=1003, si_status=0, si_utime=0, si_stime=0} ---
+471481 wait4(471486, [{WIFEXITED(s) && WEXITSTATUS(s) == 0}], 0, NULL) = 471486
+471481 clone3({flags=CLONE_VM|CLONE_VFORK|CLONE_CLEAR_SIGHAND, exit_signal=SIGCHLD, stack=0x73b085f94000, stack_size=0x9000}, 88 <unfinished ...>
+471488 execve("/home/me/.juliaup/bin/git", ["git", "-C", "/home/me/work/rnx-bench/probes/native-inventory/target/s/adapters/pgcopy", "ls-files", "--others", "--exclude-standard", "-z", "--", "."], 0x7ffda7724200 /* 38 vars */) = -1 ENOENT (No such file or directory)
+471488 execve("/home/me/.deno/bin/git", ["git", "-C", "/home/me/work/rnx-bench/probes/native-inventory/target/s/adapters/pgcopy", "ls-files", "--others", "--exclude-standard", "-z", "--", "."], 0x7ffda7724200 /* 38 vars */) = -1 ENOENT (No such file or directory)
+471488 execve("/home/me/.local/bin/git", ["git", "-C", "/home/me/work/rnx-bench/probes/native-inventory/target/s/adapters/pgcopy", "ls-files", "--others", "--exclude-standard", "-z", "--", "."], 0x7ffda7724200 /* 38 vars */) = -1 ENOENT (No such file or directory)
+471488 execve("/home/me/.codex/packages/standalone/releases/0.154.0-x86_64-unknown-linux-musl/codex-path/git", ["git", "-C", "/home/me/work/rnx-bench/probes/native-inventory/target/s/adapters/pgcopy", "ls-files", "--others", "--exclude-standard", "-z", "--", "."], 0x7ffda7724200 /* 38 vars */) = -1 ENOENT (No such file or directory)
+471488 execve("/home/me/.codex/tmp/arg0/codex-arg0Fk4ID0/git", ["git", "-C", "/home/me/work/rnx-bench/probes/native-inventory/target/s/adapters/pgcopy", "ls-files", "--others", "--exclude-standard", "-z", "--", "."], 0x7ffda7724200 /* 38 vars */) = -1 ENOENT (No such file or directory)
+471488 execve("/home/me/.local/bin/git", ["git", "-C", "/home/me/work/rnx-bench/probes/native-inventory/target/s/adapters/pgcopy", "ls-files", "--others", "--exclude-standard", "-z", "--", "."], 0x7ffda7724200 /* 38 vars */) = -1 ENOENT (No such file or directory)
+471488 execve("/home/me/.local/bin/git", ["git", "-C", "/home/me/work/rnx-bench/probes/native-inventory/target/s/adapters/pgcopy", "ls-files", "--others", "--exclude-standard", "-z", "--", "."], 0x7ffda7724200 /* 38 vars */) = -1 ENOENT (No such file or directory)
+471488 execve("/home/me/.cargo/bin/git", ["git", "-C", "/home/me/work/rnx-bench/probes/native-inventory/target/s/adapters/pgcopy", "ls-files", "--others", "--exclude-standard", "-z", "--", "."], 0x7ffda7724200 /* 38 vars */) = -1 ENOENT (No such file or directory)
+471488 execve("/usr/local/sbin/git", ["git", "-C", "/home/me/work/rnx-bench/probes/native-inventory/target/s/adapters/pgcopy", "ls-files", "--others", "--exclude-standard", "-z", "--", "."], 0x7ffda7724200 /* 38 vars */) = -1 ENOENT (No such file or directory)
+471488 execve("/usr/local/bin/git", ["git", "-C", "/home/me/work/rnx-bench/probes/native-inventory/target/s/adapters/pgcopy", "ls-files", "--others", "--exclude-standard", "-z", "--", "."], 0x7ffda7724200 /* 38 vars */) = -1 ENOENT (No such file or directory)
+471488 execve("/usr/sbin/git", ["git", "-C", "/home/me/work/rnx-bench/probes/native-inventory/target/s/adapters/pgcopy", "ls-files", "--others", "--exclude-standard", "-z", "--", "."], 0x7ffda7724200 /* 38 vars */) = -1 ENOENT (No such file or directory)
+471488 execve("/usr/bin/git", ["git", "-C", "/home/me/work/rnx-bench/probes/native-inventory/target/s/adapters/pgcopy", "ls-files", "--others", "--exclude-standard", "-z", "--", "."], 0x7ffda7724200 /* 38 vars */ <unfinished ...>
+471481 <... clone3 resumed>)            = 471488
+471488 <... execve resumed>)            = 0
+471488 exit_group(0)                    = ?
+471481 --- SIGCHLD {si_signo=SIGCHLD, si_code=CLD_EXITED, si_pid=471488, si_uid=1003, si_status=0, si_utime=0, si_stime=0} ---
+471481 wait4(471488, [{WIFEXITED(s) && WEXITSTATUS(s) == 0}], 0, NULL) = 471488
+471481 clone3({flags=CLONE_VM|CLONE_VFORK|CLONE_CLEAR_SIGHAND, exit_signal=SIGCHLD, stack=0x73b085f94000, stack_size=0x9000}, 88 <unfinished ...>
+471489 execve("/home/me/.juliaup/bin/git", ["git", "-C", "/home/me/work/rnx-bench/probes/native-inventory/target/s/adapters/pgcopy", "ls-files", "--stage", "-z", "--", "."], 0x7ffda7724200 /* 38 vars */) = -1 ENOENT (No such file or directory)
+471489 execve("/home/me/.deno/bin/git", ["git", "-C", "/home/me/work/rnx-bench/probes/native-inventory/target/s/adapters/pgcopy", "ls-files", "--stage", "-z", "--", "."], 0x7ffda7724200 /* 38 vars */) = -1 ENOENT (No such file or directory)
+471489 execve("/home/me/.local/bin/git", ["git", "-C", "/home/me/work/rnx-bench/probes/native-inventory/target/s/adapters/pgcopy", "ls-files", "--stage", "-z", "--", "."], 0x7ffda7724200 /* 38 vars */) = -1 ENOENT (No such file or directory)
+471489 execve("/home/me/.codex/packages/standalone/releases/0.154.0-x86_64-unknown-linux-musl/codex-path/git", ["git", "-C", "/home/me/work/rnx-bench/probes/native-inventory/target/s/adapters/pgcopy", "ls-files", "--stage", "-z", "--", "."], 0x7ffda7724200 /* 38 vars */) = -1 ENOENT (No such file or directory)
+471489 execve("/home/me/.codex/tmp/arg0/codex-arg0Fk4ID0/git", ["git", "-C", "/home/me/work/rnx-bench/probes/native-inventory/target/s/adapters/pgcopy", "ls-files", "--stage", "-z", "--", "."], 0x7ffda7724200 /* 38 vars */) = -1 ENOENT (No such file or directory)
+471489 execve("/home/me/.local/bin/git", ["git", "-C", "/home/me/work/rnx-bench/probes/native-inventory/target/s/adapters/pgcopy", "ls-files", "--stage", "-z", "--", "."], 0x7ffda7724200 /* 38 vars */) = -1 ENOENT (No such file or directory)
+471489 execve("/home/me/.local/bin/git", ["git", "-C", "/home/me/work/rnx-bench/probes/native-inventory/target/s/adapters/pgcopy", "ls-files", "--stage", "-z", "--", "."], 0x7ffda7724200 /* 38 vars */) = -1 ENOENT (No such file or directory)
+471489 execve("/home/me/.cargo/bin/git", ["git", "-C", "/home/me/work/rnx-bench/probes/native-inventory/target/s/adapters/pgcopy", "ls-files", "--stage", "-z", "--", "."], 0x7ffda7724200 /* 38 vars */) = -1 ENOENT (No such file or directory)
+471489 execve("/usr/local/sbin/git", ["git", "-C", "/home/me/work/rnx-bench/probes/native-inventory/target/s/adapters/pgcopy", "ls-files", "--stage", "-z", "--", "."], 0x7ffda7724200 /* 38 vars */) = -1 ENOENT (No such file or directory)
+471489 execve("/usr/local/bin/git", ["git", "-C", "/home/me/work/rnx-bench/probes/native-inventory/target/s/adapters/pgcopy", "ls-files", "--stage", "-z", "--", "."], 0x7ffda7724200 /* 38 vars */) = -1 ENOENT (No such file or directory)
+471489 execve("/usr/sbin/git", ["git", "-C", "/home/me/work/rnx-bench/probes/native-inventory/target/s/adapters/pgcopy", "ls-files", "--stage", "-z", "--", "."], 0x7ffda7724200 /* 38 vars */) = -1 ENOENT (No such file or directory)
+471489 execve("/usr/bin/git", ["git", "-C", "/home/me/work/rnx-bench/probes/native-inventory/target/s/adapters/pgcopy", "ls-files", "--stage", "-z", "--", "."], 0x7ffda7724200 /* 38 vars */ <unfinished ...>
+471481 <... clone3 resumed>)            = 471489
+471489 <... execve resumed>)            = 0
+471489 exit_group(0)                    = ?
+471481 --- SIGCHLD {si_signo=SIGCHLD, si_code=CLD_EXITED, si_pid=471489, si_uid=1003, si_status=0, si_utime=0, si_stime=0} ---
+471481 wait4(471489, [{WIFEXITED(s) && WEXITSTATUS(s) == 0}], 0, NULL) = 471489
+471481 clone3({flags=CLONE_VM|CLONE_VFORK|CLONE_CLEAR_SIGHAND, exit_signal=SIGCHLD, stack=0x73b085f94000, stack_size=0x9000}, 88 <unfinished ...>
+471490 execve("/home/me/.juliaup/bin/git", ["git", "-C", "/home/me/work/rnx-bench/probes/native-inventory/target/s/adapters/polars", "rev-parse", "--show-superproject-working-tree"], 0x7ffda7724200 /* 38 vars */) = -1 ENOENT (No such file or directory)
+471490 execve("/home/me/.deno/bin/git", ["git", "-C", "/home/me/work/rnx-bench/probes/native-inventory/target/s/adapters/polars", "rev-parse", "--show-superproject-working-tree"], 0x7ffda7724200 /* 38 vars */) = -1 ENOENT (No such file or directory)
+471490 execve("/home/me/.local/bin/git", ["git", "-C", "/home/me/work/rnx-bench/probes/native-inventory/target/s/adapters/polars", "rev-parse", "--show-superproject-working-tree"], 0x7ffda7724200 /* 38 vars */) = -1 ENOENT (No such file or directory)
+471490 execve("/home/me/.codex/packages/standalone/releases/0.154.0-x86_64-unknown-linux-musl/codex-path/git", ["git", "-C", "/home/me/work/rnx-bench/probes/native-inventory/target/s/adapters/polars", "rev-parse", "--show-superproject-working-tree"], 0x7ffda7724200 /* 38 vars */) = -1 ENOENT (No such file or directory)
+471490 execve("/home/me/.codex/tmp/arg0/codex-arg0Fk4ID0/git", ["git", "-C", "/home/me/work/rnx-bench/probes/native-inventory/target/s/adapters/polars", "rev-parse", "--show-superproject-working-tree"], 0x7ffda7724200 /* 38 vars */) = -1 ENOENT (No such file or directory)
+471490 execve("/home/me/.local/bin/git", ["git", "-C", "/home/me/work/rnx-bench/probes/native-inventory/target/s/adapters/polars", "rev-parse", "--show-superproject-working-tree"], 0x7ffda7724200 /* 38 vars */) = -1 ENOENT (No such file or directory)
+471490 execve("/home/me/.local/bin/git", ["git", "-C", "/home/me/work/rnx-bench/probes/native-inventory/target/s/adapters/polars", "rev-parse", "--show-superproject-working-tree"], 0x7ffda7724200 /* 38 vars */) = -1 ENOENT (No such file or directory)
+471490 execve("/home/me/.cargo/bin/git", ["git", "-C", "/home/me/work/rnx-bench/probes/native-inventory/target/s/adapters/polars", "rev-parse", "--show-superproject-working-tree"], 0x7ffda7724200 /* 38 vars */) = -1 ENOENT (No such file or directory)
+471490 execve("/usr/local/sbin/git", ["git", "-C", "/home/me/work/rnx-bench/probes/native-inventory/target/s/adapters/polars", "rev-parse", "--show-superproject-working-tree"], 0x7ffda7724200 /* 38 vars */) = -1 ENOENT (No such file or directory)
+471490 execve("/usr/local/bin/git", ["git", "-C", "/home/me/work/rnx-bench/probes/native-inventory/target/s/adapters/polars", "rev-parse", "--show-superproject-working-tree"], 0x7ffda7724200 /* 38 vars */) = -1 ENOENT (No such file or directory)
+471490 execve("/usr/sbin/git", ["git", "-C", "/home/me/work/rnx-bench/probes/native-inventory/target/s/adapters/polars", "rev-parse", "--show-superproject-working-tree"], 0x7ffda7724200 /* 38 vars */) = -1 ENOENT (No such file or directory)
+471490 execve("/usr/bin/git", ["git", "-C", "/home/me/work/rnx-bench/probes/native-inventory/target/s/adapters/polars", "rev-parse", "--show-superproject-working-tree"], 0x7ffda7724200 /* 38 vars */ <unfinished ...>
+471481 <... clone3 resumed>)            = 471490
+471490 <... execve resumed>)            = 0
+471490 clone(child_stack=NULL, flags=CLONE_CHILD_CLEARTID|CLONE_CHILD_SETTID|SIGCHLD, child_tidptr=0x7dbd47cc8e50) = 471491
+471491 execve("/usr/lib/git-core/git", ["/usr/lib/git-core/git", "--literal-pathspecs", "-C", "..", "ls-files", "-z", "--stage", "--full-name", "--", "s"], 0x56383e5baec0 /* 39 vars */) = 0
+471491 exit_group(0)                    = ?
+471490 --- SIGCHLD {si_signo=SIGCHLD, si_code=CLD_EXITED, si_pid=471491, si_uid=1003, si_status=0, si_utime=0, si_stime=0} ---
+471490 wait4(471491, [{WIFEXITED(s) && WEXITSTATUS(s) == 0}], 0, NULL) = 471491
+471490 exit_group(0)                    = ?
+471481 --- SIGCHLD {si_signo=SIGCHLD, si_code=CLD_EXITED, si_pid=471490, si_uid=1003, si_status=0, si_utime=0, si_stime=0} ---
+471481 wait4(471490, [{WIFEXITED(s) && WEXITSTATUS(s) == 0}], 0, NULL) = 471490
+471481 clone3({flags=CLONE_VM|CLONE_VFORK|CLONE_CLEAR_SIGHAND, exit_signal=SIGCHLD, stack=0x73b085f94000, stack_size=0x9000}, 88 <unfinished ...>
+471492 execve("/home/me/.juliaup/bin/git", ["git", "-C", "/home/me/work/rnx-bench/probes/native-inventory/target/s/adapters/polars", "ls-files", "--others", "--exclude-standard", "-z", "--", "."], 0x7ffda7724200 /* 38 vars */) = -1 ENOENT (No such file or directory)
+471492 execve("/home/me/.deno/bin/git", ["git", "-C", "/home/me/work/rnx-bench/probes/native-inventory/target/s/adapters/polars", "ls-files", "--others", "--exclude-standard", "-z", "--", "."], 0x7ffda7724200 /* 38 vars */) = -1 ENOENT (No such file or directory)
+471492 execve("/home/me/.local/bin/git", ["git", "-C", "/home/me/work/rnx-bench/probes/native-inventory/target/s/adapters/polars", "ls-files", "--others", "--exclude-standard", "-z", "--", "."], 0x7ffda7724200 /* 38 vars */) = -1 ENOENT (No such file or directory)
+471492 execve("/home/me/.codex/packages/standalone/releases/0.154.0-x86_64-unknown-linux-musl/codex-path/git", ["git", "-C", "/home/me/work/rnx-bench/probes/native-inventory/target/s/adapters/polars", "ls-files", "--others", "--exclude-standard", "-z", "--", "."], 0x7ffda7724200 /* 38 vars */) = -1 ENOENT (No such file or directory)
+471492 execve("/home/me/.codex/tmp/arg0/codex-arg0Fk4ID0/git", ["git", "-C", "/home/me/work/rnx-bench/probes/native-inventory/target/s/adapters/polars", "ls-files", "--others", "--exclude-standard", "-z", "--", "."], 0x7ffda7724200 /* 38 vars */) = -1 ENOENT (No such file or directory)
+471492 execve("/home/me/.local/bin/git", ["git", "-C", "/home/me/work/rnx-bench/probes/native-inventory/target/s/adapters/polars", "ls-files", "--others", "--exclude-standard", "-z", "--", "."], 0x7ffda7724200 /* 38 vars */) = -1 ENOENT (No such file or directory)
+471492 execve("/home/me/.local/bin/git", ["git", "-C", "/home/me/work/rnx-bench/probes/native-inventory/target/s/adapters/polars", "ls-files", "--others", "--exclude-standard", "-z", "--", "."], 0x7ffda7724200 /* 38 vars */) = -1 ENOENT (No such file or directory)
+471492 execve("/home/me/.cargo/bin/git", ["git", "-C", "/home/me/work/rnx-bench/probes/native-inventory/target/s/adapters/polars", "ls-files", "--others", "--exclude-standard", "-z", "--", "."], 0x7ffda7724200 /* 38 vars */) = -1 ENOENT (No such file or directory)
+471492 execve("/usr/local/sbin/git", ["git", "-C", "/home/me/work/rnx-bench/probes/native-inventory/target/s/adapters/polars", "ls-files", "--others", "--exclude-standard", "-z", "--", "."], 0x7ffda7724200 /* 38 vars */) = -1 ENOENT (No such file or directory)
+471492 execve("/usr/local/bin/git", ["git", "-C", "/home/me/work/rnx-bench/probes/native-inventory/target/s/adapters/polars", "ls-files", "--others", "--exclude-standard", "-z", "--", "."], 0x7ffda7724200 /* 38 vars */) = -1 ENOENT (No such file or directory)
+471492 execve("/usr/sbin/git", ["git", "-C", "/home/me/work/rnx-bench/probes/native-inventory/target/s/adapters/polars", "ls-files", "--others", "--exclude-standard", "-z", "--", "."], 0x7ffda7724200 /* 38 vars */) = -1 ENOENT (No such file or directory)
+471492 execve("/usr/bin/git", ["git", "-C", "/home/me/work/rnx-bench/probes/native-inventory/target/s/adapters/polars", "ls-files", "--others", "--exclude-standard", "-z", "--", "."], 0x7ffda7724200 /* 38 vars */ <unfinished ...>
+471481 <... clone3 resumed>)            = 471492
+471492 <... execve resumed>)            = 0
+471492 exit_group(0)                    = ?
+471481 --- SIGCHLD {si_signo=SIGCHLD, si_code=CLD_EXITED, si_pid=471492, si_uid=1003, si_status=0, si_utime=0, si_stime=0} ---
+471481 wait4(471492, [{WIFEXITED(s) && WEXITSTATUS(s) == 0}], 0, NULL) = 471492
+471481 clone3({flags=CLONE_VM|CLONE_VFORK|CLONE_CLEAR_SIGHAND, exit_signal=SIGCHLD, stack=0x73b085f94000, stack_size=0x9000}, 88 <unfinished ...>
+471493 execve("/home/me/.juliaup/bin/git", ["git", "-C", "/home/me/work/rnx-bench/probes/native-inventory/target/s/adapters/polars", "ls-files", "--stage", "-z", "--", "."], 0x7ffda7724200 /* 38 vars */) = -1 ENOENT (No such file or directory)
+471493 execve("/home/me/.deno/bin/git", ["git", "-C", "/home/me/work/rnx-bench/probes/native-inventory/target/s/adapters/polars", "ls-files", "--stage", "-z", "--", "."], 0x7ffda7724200 /* 38 vars */) = -1 ENOENT (No such file or directory)
+471493 execve("/home/me/.local/bin/git", ["git", "-C", "/home/me/work/rnx-bench/probes/native-inventory/target/s/adapters/polars", "ls-files", "--stage", "-z", "--", "."], 0x7ffda7724200 /* 38 vars */) = -1 ENOENT (No such file or directory)
+471493 execve("/home/me/.codex/packages/standalone/releases/0.154.0-x86_64-unknown-linux-musl/codex-path/git", ["git", "-C", "/home/me/work/rnx-bench/probes/native-inventory/target/s/adapters/polars", "ls-files", "--stage", "-z", "--", "."], 0x7ffda7724200 /* 38 vars */) = -1 ENOENT (No such file or directory)
+471493 execve("/home/me/.codex/tmp/arg0/codex-arg0Fk4ID0/git", ["git", "-C", "/home/me/work/rnx-bench/probes/native-inventory/target/s/adapters/polars", "ls-files", "--stage", "-z", "--", "."], 0x7ffda7724200 /* 38 vars */) = -1 ENOENT (No such file or directory)
+471493 execve("/home/me/.local/bin/git", ["git", "-C", "/home/me/work/rnx-bench/probes/native-inventory/target/s/adapters/polars", "ls-files", "--stage", "-z", "--", "."], 0x7ffda7724200 /* 38 vars */) = -1 ENOENT (No such file or directory)
+471493 execve("/home/me/.local/bin/git", ["git", "-C", "/home/me/work/rnx-bench/probes/native-inventory/target/s/adapters/polars", "ls-files", "--stage", "-z", "--", "."], 0x7ffda7724200 /* 38 vars */) = -1 ENOENT (No such file or directory)
+471493 execve("/home/me/.cargo/bin/git", ["git", "-C", "/home/me/work/rnx-bench/probes/native-inventory/target/s/adapters/polars", "ls-files", "--stage", "-z", "--", "."], 0x7ffda7724200 /* 38 vars */) = -1 ENOENT (No such file or directory)
+471493 execve("/usr/local/sbin/git", ["git", "-C", "/home/me/work/rnx-bench/probes/native-inventory/target/s/adapters/polars", "ls-files", "--stage", "-z", "--", "."], 0x7ffda7724200 /* 38 vars */) = -1 ENOENT (No such file or directory)
+471493 execve("/usr/local/bin/git", ["git", "-C", "/home/me/work/rnx-bench/probes/native-inventory/target/s/adapters/polars", "ls-files", "--stage", "-z", "--", "."], 0x7ffda7724200 /* 38 vars */) = -1 ENOENT (No such file or directory)
+471493 execve("/usr/sbin/git", ["git", "-C", "/home/me/work/rnx-bench/probes/native-inventory/target/s/adapters/polars", "ls-files", "--stage", "-z", "--", "."], 0x7ffda7724200 /* 38 vars */) = -1 ENOENT (No such file or directory)
+471493 execve("/usr/bin/git", ["git", "-C", "/home/me/work/rnx-bench/probes/native-inventory/target/s/adapters/polars", "ls-files", "--stage", "-z", "--", "."], 0x7ffda7724200 /* 38 vars */ <unfinished ...>
+471481 <... clone3 resumed>)            = 471493
+471493 <... execve resumed>)            = 0
+471493 exit_group(0)                    = ?
+471481 --- SIGCHLD {si_signo=SIGCHLD, si_code=CLD_EXITED, si_pid=471493, si_uid=1003, si_status=0, si_utime=0, si_stime=0} ---
+471481 wait4(471493, [{WIFEXITED(s) && WEXITSTATUS(s) == 0}], 0, NULL) = 471493
+471481 clone3({flags=CLONE_VM|CLONE_VFORK|CLONE_CLEAR_SIGHAND, exit_signal=SIGCHLD, stack=0x73b085f94000, stack_size=0x9000}, 88 <unfinished ...>
+471494 execve("/home/me/.juliaup/bin/git", ["git", "-C", "/home/me/work/rnx-bench/probes/native-inventory/target/s/adapters/postgres", "rev-parse", "--show-superproject-working-tree"], 0x7ffda7724200 /* 38 vars */) = -1 ENOENT (No such file or directory)
+471494 execve("/home/me/.deno/bin/git", ["git", "-C", "/home/me/work/rnx-bench/probes/native-inventory/target/s/adapters/postgres", "rev-parse", "--show-superproject-working-tree"], 0x7ffda7724200 /* 38 vars */) = -1 ENOENT (No such file or directory)
+471494 execve("/home/me/.local/bin/git", ["git", "-C", "/home/me/work/rnx-bench/probes/native-inventory/target/s/adapters/postgres", "rev-parse", "--show-superproject-working-tree"], 0x7ffda7724200 /* 38 vars */) = -1 ENOENT (No such file or directory)
+471494 execve("/home/me/.codex/packages/standalone/releases/0.154.0-x86_64-unknown-linux-musl/codex-path/git", ["git", "-C", "/home/me/work/rnx-bench/probes/native-inventory/target/s/adapters/postgres", "rev-parse", "--show-superproject-working-tree"], 0x7ffda7724200 /* 38 vars */) = -1 ENOENT (No such file or directory)
+471494 execve("/home/me/.codex/tmp/arg0/codex-arg0Fk4ID0/git", ["git", "-C", "/home/me/work/rnx-bench/probes/native-inventory/target/s/adapters/postgres", "rev-parse", "--show-superproject-working-tree"], 0x7ffda7724200 /* 38 vars */) = -1 ENOENT (No such file or directory)
+471494 execve("/home/me/.local/bin/git", ["git", "-C", "/home/me/work/rnx-bench/probes/native-inventory/target/s/adapters/postgres", "rev-parse", "--show-superproject-working-tree"], 0x7ffda7724200 /* 38 vars */) = -1 ENOENT (No such file or directory)
+471494 execve("/home/me/.local/bin/git", ["git", "-C", "/home/me/work/rnx-bench/probes/native-inventory/target/s/adapters/postgres", "rev-parse", "--show-superproject-working-tree"], 0x7ffda7724200 /* 38 vars */) = -1 ENOENT (No such file or directory)
+471494 execve("/home/me/.cargo/bin/git", ["git", "-C", "/home/me/work/rnx-bench/probes/native-inventory/target/s/adapters/postgres", "rev-parse", "--show-superproject-working-tree"], 0x7ffda7724200 /* 38 vars */) = -1 ENOENT (No such file or directory)
+471494 execve("/usr/local/sbin/git", ["git", "-C", "/home/me/work/rnx-bench/probes/native-inventory/target/s/adapters/postgres", "rev-parse", "--show-superproject-working-tree"], 0x7ffda7724200 /* 38 vars */) = -1 ENOENT (No such file or directory)
+471494 execve("/usr/local/bin/git", ["git", "-C", "/home/me/work/rnx-bench/probes/native-inventory/target/s/adapters/postgres", "rev-parse", "--show-superproject-working-tree"], 0x7ffda7724200 /* 38 vars */) = -1 ENOENT (No such file or directory)
+471494 execve("/usr/sbin/git", ["git", "-C", "/home/me/work/rnx-bench/probes/native-inventory/target/s/adapters/postgres", "rev-parse", "--show-superproject-working-tree"], 0x7ffda7724200 /* 38 vars */) = -1 ENOENT (No such file or directory)
+471494 execve("/usr/bin/git", ["git", "-C", "/home/me/work/rnx-bench/probes/native-inventory/target/s/adapters/postgres", "rev-parse", "--show-superproject-working-tree"], 0x7ffda7724200 /* 38 vars */ <unfinished ...>
+471481 <... clone3 resumed>)            = 471494
+471494 <... execve resumed>)            = 0
+471494 clone(child_stack=NULL, flags=CLONE_CHILD_CLEARTID|CLONE_CHILD_SETTID|SIGCHLD, child_tidptr=0x7ef5ed0cfe50) = 471495
+471495 execve("/usr/lib/git-core/git", ["/usr/lib/git-core/git", "--literal-pathspecs", "-C", "..", "ls-files", "-z", "--stage", "--full-name", "--", "s"], 0x63537d804ec0 /* 39 vars */) = 0
+471495 exit_group(0)                    = ?
+471494 --- SIGCHLD {si_signo=SIGCHLD, si_code=CLD_EXITED, si_pid=471495, si_uid=1003, si_status=0, si_utime=0, si_stime=0} ---
+471494 wait4(471495, [{WIFEXITED(s) && WEXITSTATUS(s) == 0}], 0, NULL) = 471495
+471494 exit_group(0)                    = ?
+471481 --- SIGCHLD {si_signo=SIGCHLD, si_code=CLD_EXITED, si_pid=471494, si_uid=1003, si_status=0, si_utime=0, si_stime=0} ---
+471481 wait4(471494, [{WIFEXITED(s) && WEXITSTATUS(s) == 0}], 0, NULL) = 471494
+471481 clone3({flags=CLONE_VM|CLONE_VFORK|CLONE_CLEAR_SIGHAND, exit_signal=SIGCHLD, stack=0x73b085f94000, stack_size=0x9000}, 88 <unfinished ...>
+471496 execve("/home/me/.juliaup/bin/git", ["git", "-C", "/home/me/work/rnx-bench/probes/native-inventory/target/s/adapters/postgres", "ls-files", "--others", "--exclude-standard", "-z", "--", "."], 0x7ffda7724200 /* 38 vars */) = -1 ENOENT (No such file or directory)
+471496 execve("/home/me/.deno/bin/git", ["git", "-C", "/home/me/work/rnx-bench/probes/native-inventory/target/s/adapters/postgres", "ls-files", "--others", "--exclude-standard", "-z", "--", "."], 0x7ffda7724200 /* 38 vars */) = -1 ENOENT (No such file or directory)
+471496 execve("/home/me/.local/bin/git", ["git", "-C", "/home/me/work/rnx-bench/probes/native-inventory/target/s/adapters/postgres", "ls-files", "--others", "--exclude-standard", "-z", "--", "."], 0x7ffda7724200 /* 38 vars */) = -1 ENOENT (No such file or directory)
+471496 execve("/home/me/.codex/packages/standalone/releases/0.154.0-x86_64-unknown-linux-musl/codex-path/git", ["git", "-C", "/home/me/work/rnx-bench/probes/native-inventory/target/s/adapters/postgres", "ls-files", "--others", "--exclude-standard", "-z", "--", "."], 0x7ffda7724200 /* 38 vars */) = -1 ENOENT (No such file or directory)
+471496 execve("/home/me/.codex/tmp/arg0/codex-arg0Fk4ID0/git", ["git", "-C", "/home/me/work/rnx-bench/probes/native-inventory/target/s/adapters/postgres", "ls-files", "--others", "--exclude-standard", "-z", "--", "."], 0x7ffda7724200 /* 38 vars */) = -1 ENOENT (No such file or directory)
+471496 execve("/home/me/.local/bin/git", ["git", "-C", "/home/me/work/rnx-bench/probes/native-inventory/target/s/adapters/postgres", "ls-files", "--others", "--exclude-standard", "-z", "--", "."], 0x7ffda7724200 /* 38 vars */) = -1 ENOENT (No such file or directory)
+471496 execve("/home/me/.local/bin/git", ["git", "-C", "/home/me/work/rnx-bench/probes/native-inventory/target/s/adapters/postgres", "ls-files", "--others", "--exclude-standard", "-z", "--", "."], 0x7ffda7724200 /* 38 vars */) = -1 ENOENT (No such file or directory)
+471496 execve("/home/me/.cargo/bin/git", ["git", "-C", "/home/me/work/rnx-bench/probes/native-inventory/target/s/adapters/postgres", "ls-files", "--others", "--exclude-standard", "-z", "--", "."], 0x7ffda7724200 /* 38 vars */) = -1 ENOENT (No such file or directory)
+471496 execve("/usr/local/sbin/git", ["git", "-C", "/home/me/work/rnx-bench/probes/native-inventory/target/s/adapters/postgres", "ls-files", "--others", "--exclude-standard", "-z", "--", "."], 0x7ffda7724200 /* 38 vars */) = -1 ENOENT (No such file or directory)
+471496 execve("/usr/local/bin/git", ["git", "-C", "/home/me/work/rnx-bench/probes/native-inventory/target/s/adapters/postgres", "ls-files", "--others", "--exclude-standard", "-z", "--", "."], 0x7ffda7724200 /* 38 vars */) = -1 ENOENT (No such file or directory)
+471496 execve("/usr/sbin/git", ["git", "-C", "/home/me/work/rnx-bench/probes/native-inventory/target/s/adapters/postgres", "ls-files", "--others", "--exclude-standard", "-z", "--", "."], 0x7ffda7724200 /* 38 vars */) = -1 ENOENT (No such file or directory)
+471496 execve("/usr/bin/git", ["git", "-C", "/home/me/work/rnx-bench/probes/native-inventory/target/s/adapters/postgres", "ls-files", "--others", "--exclude-standard", "-z", "--", "."], 0x7ffda7724200 /* 38 vars */ <unfinished ...>
+471481 <... clone3 resumed>)            = 471496
+471496 <... execve resumed>)            = 0
+471496 exit_group(0)                    = ?
+471481 --- SIGCHLD {si_signo=SIGCHLD, si_code=CLD_EXITED, si_pid=471496, si_uid=1003, si_status=0, si_utime=0, si_stime=0} ---
+471481 wait4(471496, [{WIFEXITED(s) && WEXITSTATUS(s) == 0}], 0, NULL) = 471496
+471481 clone3({flags=CLONE_VM|CLONE_VFORK|CLONE_CLEAR_SIGHAND, exit_signal=SIGCHLD, stack=0x73b085f94000, stack_size=0x9000}, 88 <unfinished ...>
+471497 execve("/home/me/.juliaup/bin/git", ["git", "-C", "/home/me/work/rnx-bench/probes/native-inventory/target/s/adapters/postgres", "ls-files", "--stage", "-z", "--", "."], 0x7ffda7724200 /* 38 vars */) = -1 ENOENT (No such file or directory)
+471497 execve("/home/me/.deno/bin/git", ["git", "-C", "/home/me/work/rnx-bench/probes/native-inventory/target/s/adapters/postgres", "ls-files", "--stage", "-z", "--", "."], 0x7ffda7724200 /* 38 vars */) = -1 ENOENT (No such file or directory)
+471497 execve("/home/me/.local/bin/git", ["git", "-C", "/home/me/work/rnx-bench/probes/native-inventory/target/s/adapters/postgres", "ls-files", "--stage", "-z", "--", "."], 0x7ffda7724200 /* 38 vars */) = -1 ENOENT (No such file or directory)
+471497 execve("/home/me/.codex/packages/standalone/releases/0.154.0-x86_64-unknown-linux-musl/codex-path/git", ["git", "-C", "/home/me/work/rnx-bench/probes/native-inventory/target/s/adapters/postgres", "ls-files", "--stage", "-z", "--", "."], 0x7ffda7724200 /* 38 vars */) = -1 ENOENT (No such file or directory)
+471497 execve("/home/me/.codex/tmp/arg0/codex-arg0Fk4ID0/git", ["git", "-C", "/home/me/work/rnx-bench/probes/native-inventory/target/s/adapters/postgres", "ls-files", "--stage", "-z", "--", "."], 0x7ffda7724200 /* 38 vars */) = -1 ENOENT (No such file or directory)
+471497 execve("/home/me/.local/bin/git", ["git", "-C", "/home/me/work/rnx-bench/probes/native-inventory/target/s/adapters/postgres", "ls-files", "--stage", "-z", "--", "."], 0x7ffda7724200 /* 38 vars */) = -1 ENOENT (No such file or directory)
+471497 execve("/home/me/.local/bin/git", ["git", "-C", "/home/me/work/rnx-bench/probes/native-inventory/target/s/adapters/postgres", "ls-files", "--stage", "-z", "--", "."], 0x7ffda7724200 /* 38 vars */) = -1 ENOENT (No such file or directory)
+471497 execve("/home/me/.cargo/bin/git", ["git", "-C", "/home/me/work/rnx-bench/probes/native-inventory/target/s/adapters/postgres", "ls-files", "--stage", "-z", "--", "."], 0x7ffda7724200 /* 38 vars */) = -1 ENOENT (No such file or directory)
+471497 execve("/usr/local/sbin/git", ["git", "-C", "/home/me/work/rnx-bench/probes/native-inventory/target/s/adapters/postgres", "ls-files", "--stage", "-z", "--", "."], 0x7ffda7724200 /* 38 vars */) = -1 ENOENT (No such file or directory)
+471497 execve("/usr/local/bin/git", ["git", "-C", "/home/me/work/rnx-bench/probes/native-inventory/target/s/adapters/postgres", "ls-files", "--stage", "-z", "--", "."], 0x7ffda7724200 /* 38 vars */) = -1 ENOENT (No such file or directory)
+471497 execve("/usr/sbin/git", ["git", "-C", "/home/me/work/rnx-bench/probes/native-inventory/target/s/adapters/postgres", "ls-files", "--stage", "-z", "--", "."], 0x7ffda7724200 /* 38 vars */) = -1 ENOENT (No such file or directory)
+471497 execve("/usr/bin/git", ["git", "-C", "/home/me/work/rnx-bench/probes/native-inventory/target/s/adapters/postgres", "ls-files", "--stage", "-z", "--", "."], 0x7ffda7724200 /* 38 vars */ <unfinished ...>
+471481 <... clone3 resumed>)            = 471497
+471497 <... execve resumed>)            = 0
+471497 exit_group(0)                    = ?
+471481 --- SIGCHLD {si_signo=SIGCHLD, si_code=CLD_EXITED, si_pid=471497, si_uid=1003, si_status=0, si_utime=0, si_stime=0} ---
+471481 wait4(471497, [{WIFEXITED(s) && WEXITSTATUS(s) == 0}], 0, NULL) = 471497
+471481 execve("/home/me/work/rnx-bench/probes/native-inventory/target/fixed-rnx", ["/home/me/work/rnx-bench/probes/native-inventory/target/fixed-rnx", "--no-splash", "--color=never", "eval", "42"], 0x7ffda7724200 /* 38 vars */) = 0
+471481 exit_group(0)                    = ?

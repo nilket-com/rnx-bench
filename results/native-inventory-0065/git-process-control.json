@@ -1,0 +1,44 @@
+{
+  "command": [
+    "strace",
+    "-f",
+    "-qq",
+    "-s",
+    "1024",
+    "-e",
+    "trace=process",
+    "-o",
+    "/home/me/work/rnx-bench/results/native-inventory-0065/git-process.trace",
+    "/home/me/work/rnx-bench/probes/native-inventory/target/stock/tools/project/target/release/inventory-probe",
+    "/home/me/work/rnx-bench/probes/native-inventory/target/shallow-3.json"
+  ],
+  "stdout": "42\n",
+  "stderr": "INVENTORY_RESULT edee38d6fcfe3db166c53d4b8f72921dd0ba05a2e5b07a4838b2741308638d2b 239.949891\n",
+  "scope": "one untimed diagnostic run outside journal; four native trees share one Git working tree nested under bench",
+  "git_process_pids": {
+    "submodule": [
+      471482,
+      471486,
+      471490,
+      471494
+    ],
+    "untracked": [
+      471484,
+      471488,
+      471492,
+      471496
+    ],
+    "tracked": [
+      471485,
+      471489,
+      471493,
+      471497
+    ],
+    "nested_parent_listing": [
+      471483,
+      471487,
+      471491,
+      471495
+    ]
+  }
+}
