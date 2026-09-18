@@ -1,0 +1,1 @@
+pub struct Extensions;impl Extensions{pub fn none()->Self{Self}}pub fn main_with(_:Extensions)->Result<(),Box<dyn std::error::Error>>{for a in std::env::args().skip(1){println!("{:?}",a);}Ok(())}

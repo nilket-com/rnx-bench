@@ -1,0 +1,1389 @@
+diff --git a/tools/project/README.md b/tools/project/README.md
+index 088493d..39dc295 100644
+--- a/tools/project/README.md
++++ b/tools/project/README.md
+@@ -330,3 +330,36 @@ their native inputs match. The working directory stays the caller's directory.
+ A private startup probe executes builders before the replacement executes them
+ again. Failed preparation preserves the old session, but project edits may remain;
+ cleanup or exec failure after the restart announcement is terminal.
++
++## Retained runtime sources
++
++Install a complete local runtime snapshot before removing its checkout:
++
++```sh
++rnx-project runtime install --from /path/to/rnx
++rnx-project runtime show
++rnx-project runtime select FULL_INSTALLATION_ID
++```
++
++The store is `$XDG_DATA_HOME/rnx/runtimes`, or
++`$HOME/.local/share/rnx/runtimes`. A symlink to the store is allowed; managed
++paths below its canonical root must be private owned directories/regular files.
++Installation copies tracked working-tree bytes, including both shipped adapters,
++and builds an independent Git index. Dirty tracked edits are supported; untracked
++non-ignored files, conflicts, symlinks and escaping Cargo paths are refused.
++No source file is rewritten. Git, Rust/Cargo and native build tools remain needed
++for assembly. For the current `:dep` workflow, set `RNX_DEP_RUNTIME` to the installed
++source path printed by `runtime show`.
++
++An identical reinstall validates and reselects the existing installation without
++changing its original provenance. A different snapshot remains beside earlier
++ones. Selecting a default does not alter existing projects or scratch sessions.
++Canonical native paths are build inputs, so installing elsewhere gives a different
++assembly identity and can require a fresh build. This does not make builds hermetic.
++
++A failed copy/index step preserves the default. If entry publication succeeds but
++selection fails, the tool reports **installed but not selected**; the retained ID
++can be selected later. After the selection rename, a sync failure reports that the
++selection may already have changed. Entries are retained whole; removal and automatic
++upgrades are not implemented. Metadata records source provenance and the installing
++tool's version and digest, but launcher/runtime compatibility is not checked.
+diff --git a/tools/project/src/commands.rs b/tools/project/src/commands.rs
+index c410b5d..6b84ef8 100644
+--- a/tools/project/src/commands.rs
++++ b/tools/project/src/commands.rs
+@@ -55,12 +55,24 @@ pub(crate) fn check() -> Result<(), String> {
+ 		Ok(())
+ 	}
+ }
+-pub(crate) fn run(mut command: Command, capture: bool) -> Result<Vec<u8>, String> {
++pub(crate) fn run(command: Command, capture: bool) -> Result<Vec<u8>, String> {
++	run_inner(command, capture, false)
++}
++/// Installer Git must bound stderr too; ordinary Cargo output keeps its existing stream.
++#[allow(dead_code)]
++pub(crate) fn run_bounded(command: Command) -> Result<Vec<u8>, String> {
++	run_inner(command, true, true)
++}
++fn run_inner(mut command: Command, capture: bool, bounded_stderr: bool) -> Result<Vec<u8>, String> {
+ 	check()?;
+ 	command
+ 		.env_remove("RNX_INTERNAL_DEP_FD")
+ 		.env_remove("RNX_INTERNAL_SESSION_V1");
+-	command.stdin(Stdio::null()).stderr(Stdio::inherit());
++	command.stdin(Stdio::null()).stderr(if bounded_stderr {
++		Stdio::piped()
++	} else {
++		Stdio::inherit()
++	});
+ 	if capture {
+ 		command.stdout(Stdio::piped());
+ 	} else {
+@@ -88,6 +100,20 @@ pub(crate) fn run(mut command: Command, capture: bool) -> Result<Vec<u8>, String
+ 			Ok(bytes)
+ 		})
+ 	});
++	let mut errors = child.stderr.take().map(|stderr| {
++		std::thread::spawn(move || {
++			let mut bytes = vec![];
++			stderr
++				.take(crate::input::DOCUMENT_LIMIT as u64 + 1)
++				.read_to_end(&mut bytes)
++				.map_err(|e| e.to_string())?;
++			if bytes.len() > crate::input::DOCUMENT_LIMIT {
++				return Err("command stderr exceeds 16 MiB".into());
++			}
++			Ok(bytes)
++		})
++	});
++	let mut error_bytes = vec![];
+ 	let kill = || {
+ 		#[cfg(unix)]
+ 		unsafe {
+@@ -137,13 +163,40 @@ pub(crate) fn run(mut command: Command, capture: bool) -> Result<Vec<u8>, String
+ 			}
+ 		}
+ 
++		if errors.as_ref().is_some_and(|r| r.is_finished()) {
++			match errors
++				.take()
++				.unwrap()
++				.join()
++				.unwrap_or_else(|_| Err("command stderr reader panicked".into()))
++			{
++				Ok(bytes) => error_bytes = bytes,
++				Err(e) => {
++					kill();
++					let _ = child.kill();
++					let _ = child.wait();
++					break Err(e);
++				}
++			}
++		}
+ 		std::thread::sleep(Duration::from_millis(10));
+ 	};
+ 	let output = match reader {
+ 		Some(r) => r.join().map_err(|_| "command output reader panicked")?,
+ 		None => Ok(captured.unwrap_or_default()),
+ 	};
+-	result?;
++	if let Some(reader) = errors {
++		error_bytes = reader
++			.join()
++			.map_err(|_| "command stderr reader panicked")??;
++	}
++	result.map_err(|e| {
++		if error_bytes.is_empty() {
++			e
++		} else {
++			format!("{e}: {}", String::from_utf8_lossy(&error_bytes))
++		}
++	})?;
+ 	check()?;
+ 	output
+ }
+diff --git a/tools/project/src/fingerprint.rs b/tools/project/src/fingerprint.rs
+index 8afb8f8..340fd93 100644
+--- a/tools/project/src/fingerprint.rs
++++ b/tools/project/src/fingerprint.rs
+@@ -26,6 +26,14 @@ impl Default for Allowance {
+ 	}
+ }
+ impl Allowance {
++	/// Installer test allowances can be reduced without changing production bounds.
++	pub(crate) fn bounded(entries: usize, bytes: u64) -> Self {
++		Self {
++			entries: entries.min(ENTRIES),
++			bytes: bytes.min(BYTES),
++		}
++	}
++
+ 	pub(crate) fn remaining_bytes(&self) -> u64 {
+ 		self.bytes
+ 	}
+@@ -311,6 +319,14 @@ fn git(root: &Path, args: &[&str], limit: usize) -> Result<Vec<u8>, String> {
+ 	Ok(bytes)
+ }
+ pub(crate) fn native(path: &Path, allowance: &mut Allowance) -> Result<Tree, String> {
++	native_using(path, allowance, git)
++}
++/// Same inventory and encoding, with installer-owned Git supervision/configuration.
++pub(crate) fn native_using(
++	path: &Path,
++	allowance: &mut Allowance,
++	git: impl Fn(&Path, &[&str], usize) -> Result<Vec<u8>, String>,
++) -> Result<Tree, String> {
+ 	let root = root(path)?;
+ 	if !git(
+ 		&root,
+diff --git a/tools/project/src/lib.rs b/tools/project/src/lib.rs
+index ddc97d1..6abb1f5 100644
+--- a/tools/project/src/lib.rs
++++ b/tools/project/src/lib.rs
+@@ -17,6 +17,7 @@ mod inventory;
+ mod manifest;
+ #[cfg(test)]
+ mod maps;
++mod runtime_install;
+ #[cfg(test)]
+ mod tests;
+ mod wire;
+diff --git a/tools/project/src/main.rs b/tools/project/src/main.rs
+index fcc0443..c1a42e7 100644
+--- a/tools/project/src/main.rs
++++ b/tools/project/src/main.rs
+@@ -14,6 +14,7 @@ mod input;
+ mod inventory;
+ mod manifest;
+ mod maps;
++mod runtime_install;
+ mod wire;
+ mod workflow;
+ fn main() {
+diff --git a/tools/project/src/runtime_install.rs b/tools/project/src/runtime_install.rs
+new file mode 100644
+index 0000000..cab3457
+--- /dev/null
++++ b/tools/project/src/runtime_install.rs
+@@ -0,0 +1,19 @@
++//! Retained source installation; session discovery is integrated in gate three.
++#![allow(dead_code)] // Also compiled in the private library for checks.
++#[cfg(unix)]
++mod git;
++#[cfg(unix)]
++mod hooks;
++#[cfg(unix)]
++mod layout;
++#[cfg(unix)]
++mod storage;
++#[cfg(unix)]
++mod unix;
++#[cfg(unix)]
++#[allow(unused_imports)]
++pub(crate) use unix::cli;
++#[cfg(not(unix))]
++pub(crate) fn cli(_: &[std::ffi::OsString]) -> Result<(), String> {
++	Err("runtime installation commands require Unix in this release".into())
++}
+diff --git a/tools/project/src/runtime_install/git.rs b/tools/project/src/runtime_install/git.rs
+new file mode 100644
+index 0000000..cd21341
+--- /dev/null
++++ b/tools/project/src/runtime_install/git.rs
+@@ -0,0 +1,231 @@
++use super::{hooks, storage};
++use crate::{commands, fingerprint};
++use std::{path::Path, process::Command};
++use storage::err;
++fn clean(c: &mut Command) {
++	for (k, _) in std::env::vars_os() {
++		if k.to_string_lossy().starts_with("GIT_") {
++			c.env_remove(k);
++		}
++	}
++	c.env("GIT_CONFIG_GLOBAL", "/dev/null")
++		.env("GIT_CONFIG_SYSTEM", "/dev/null")
++		.env("GIT_CONFIG_NOSYSTEM", "1")
++		.env("GIT_ATTR_NOSYSTEM", "1")
++		.env("GIT_OPTIONAL_LOCKS", "0")
++		.env("GIT_NO_REPLACE_OBJECTS", "1");
++}
++pub(super) fn command(root: &Path) -> Command {
++	let mut c = Command::new("git");
++	use std::os::unix::process::CommandExt;
++	// Private Git outputs without changing the parent's process-wide mask.
++	unsafe {
++		c.pre_exec(|| {
++			libc::umask(0o077);
++			Ok(())
++		});
++	}
++	clean(&mut c);
++	c.arg("-C").arg(root).args([
++		"-c",
++		"core.autocrlf=false",
++		"-c",
++		"core.fsmonitor=false",
++		"-c",
++		"core.safecrlf=false",
++		"-c",
++		"core.hooksPath=/dev/null",
++		"-c",
++		"core.attributesFile=/dev/null",
++	]);
++	c
++}
++pub(super) fn run(c: Command) -> Result<Vec<u8>, String> {
++	commands::run_bounded(c)
++		.map_err(|e| format!("Git prerequisite/operation failed (install Git if missing): {e}"))
++}
++pub(super) fn index(root: &Path, tree: &fingerprint::Tree) -> Result<(), String> {
++	let mut c = command(root);
++	c.args(["init", "--quiet", "--template=", "--object-format=sha1"]);
++	run(c)?;
++	// Bound argv per batch. hash-object --no-filters never runs .gitattributes filters.
++	for batch in tree.files.chunks(64) {
++		hooks::point("git-step")?;
++		let mut c = command(root);
++		c.args(["hash-object", "-w", "--no-filters", "--"]);
++		for f in batch {
++			c.arg(root.join(&f.path));
++		}
++		let out = String::from_utf8(run(c)?).map_err(err)?;
++		let hashes: Vec<_> = out.lines().collect();
++		if hashes.len() != batch.len() {
++			return Err("object count mismatch".into());
++		}
++		let mut c = command(root);
++		c.args(["update-index", "--add"]);
++		for (f, hash) in batch.iter().zip(hashes) {
++			if hash.len() != 40 || !hash.bytes().all(|b| b.is_ascii_hexdigit()) {
++				return Err("bad Git object id".into());
++			}
++			c.arg("--cacheinfo").arg(format!(
++				"{},{},{}",
++				if f.executable { "100755" } else { "100644" },
++				hash,
++				f.path
++			));
++		}
++		run(c)?;
++		storage::walk(root, false)?;
++	}
++	Ok(())
++}
++// Compare raw blob identities; git diff/status may execute clean filters.
++fn head_matches(root: &Path, tree: &fingerprint::Tree, commit: &str) -> Result<bool, String> {
++	let mut c = command(root);
++	c.args(["ls-tree", "-r", "-z", commit]);
++	let output = run(c)?;
++	let mut head = std::collections::BTreeMap::new();
++	for record in output.split(|b| *b == 0).filter(|r| !r.is_empty()) {
++		let split = record
++			.iter()
++			.position(|b| *b == b'\t')
++			.ok_or("bad tree record")?;
++		let header = std::str::from_utf8(&record[..split]).map_err(err)?;
++		let path = std::str::from_utf8(&record[split + 1..]).map_err(err)?;
++		let parts: Vec<_> = header.split(' ').collect();
++		if parts.len() != 3 || parts[1] != "blob" {
++			return Ok(false);
++		}
++		head.insert(path.to_owned(), (parts[0].to_owned(), parts[2].to_owned()));
++	}
++	if head.len() != tree.files.len() {
++		return Ok(false);
++	}
++	for batch in tree.files.chunks(64) {
++		let mut c = command(root);
++		c.args(["hash-object", "--no-filters", "--"]);
++		for f in batch {
++			c.arg(root.join(&f.path));
++		}
++		let raw = String::from_utf8(run(c)?).map_err(err)?;
++		let hashes: Vec<_> = raw.lines().collect();
++		if hashes.len() != batch.len() {
++			return Err("bad raw hash count".into());
++		}
++		for (f, hash) in batch.iter().zip(hashes) {
++			let mode = if f.executable { "100755" } else { "100644" };
++			if head.get(&f.path) != Some(&(mode.to_owned(), hash.to_owned())) {
++				return Ok(false);
++			}
++		}
++	}
++	Ok(true)
++}
++
++pub(super) fn inventory(root: &Path) -> Result<fingerprint::Tree, String> {
++	commands::check()?;
++	let tree = fingerprint::native_using(
++		root,
++		&mut fingerprint::Allowance::bounded(
++			hooks::limit("RNX_INSTALL_SOURCE_FILES", 100000) as usize,
++			hooks::limit("RNX_INSTALL_SOURCE_BYTES", 512 * 1024 * 1024),
++		),
++		|root, args, limit| {
++			let mut c = command(root);
++			c.args(args);
++			let b = run(c)?;
++			if b.len() > limit {
++				return Err("Git inventory output exceeds allowance".into());
++			}
++			Ok(b)
++		},
++	)?;
++	if tree.files.len() as u64 > hooks::limit("RNX_INSTALL_SOURCE_FILES", 100000)
++		|| tree.files.iter().map(|f| f.bytes).sum::<u64>()
++			> hooks::limit("RNX_INSTALL_SOURCE_BYTES", 512 * 1024 * 1024)
++	{
++		return Err("source exceeds installer allowance".into());
++	}
++	commands::check()?;
++	Ok(tree)
++}
++pub(super) fn top(root: &Path) -> Result<(), String> {
++	let mut c = command(root);
++	c.args(["rev-parse", "--show-toplevel"]);
++	let b = String::from_utf8(run(c)?).map_err(err)?;
++	// Git adds one terminator; a literal newline in the root is not trimmed away.
++	let p = Path::new(b.strip_suffix('\n').ok_or("bad Git root")?);
++	if p.canonicalize().map_err(err)? != root {
++		return Err("runtime source must be the top of a Git working tree".into());
++	}
++	Ok(())
++}
++pub(super) fn provenance(
++	root: &Path,
++	tree: &fingerprint::Tree,
++) -> Result<(Option<String>, bool), String> {
++	let mut c = command(root);
++	c.args(["rev-parse", "--revs-only", "HEAD"]);
++	let b = String::from_utf8(run(c)?).map_err(err)?;
++	if b.is_empty() {
++		return Ok((None, true));
++	}
++	let commit = b.trim_end_matches('\n');
++	if !matches!(commit.len(), 40 | 64) || !commit.bytes().all(|b| b.is_ascii_hexdigit()) {
++		return Err("invalid source commit".into());
++	}
++	let dirty = !head_matches(root, tree, commit)?;
++	Ok((Some(commit.into()), dirty))
++}
++pub(super) fn administration(root: &Path) -> Result<(), String> {
++	let admin = root.join(".git");
++	storage::dir(&admin)?;
++	for e in std::fs::read_dir(&admin).map_err(err)? {
++		let e = e.map_err(err)?;
++		if !["HEAD", "config", "index", "objects", "refs"]
++			.iter()
++			.any(|s| e.file_name() == *s)
++		{
++			return Err(format!(
++				"unexpected installed Git administration: {}",
++				e.path().display()
++			));
++		}
++	}
++	for n in ["objects", "refs"] {
++		storage::dir(&admin.join(n))?;
++	}
++	for n in ["HEAD", "index"] {
++		storage::read(&admin.join(n), 16 * 1024 * 1024)?;
++	}
++	let config = String::from_utf8(storage::read(&admin.join("config"), 65536)?).map_err(err)?;
++	let mut section = false;
++	for line in config.lines().map(str::trim).filter(|s| !s.is_empty()) {
++		if line == "[core]" {
++			section = true;
++			continue;
++		}
++		let Some((key, value)) = line.split_once('=') else {
++			return Err("invalid installed Git config".into());
++		};
++		if !section
++			|| !matches!(
++				(key.trim(), value.trim()),
++				("repositoryformatversion", "0")
++					| ("filemode", "true")
++					| ("bare", "false")
++					| ("logallrefupdates", "true")
++			) {
++			return Err("unsupported installed Git configuration".into());
++		}
++	}
++	for n in ["objects/info/alternates", "objects/info/http-alternates"] {
++		if storage::exists(&admin.join(n))? {
++			return Err("installed Git alternates are forbidden".into());
++		}
++	}
++	let mut c = command(root);
++	c.args(["fsck", "--full", "--no-reflogs"]);
++	run(c)?;
++	Ok(())
++}
+diff --git a/tools/project/src/runtime_install/hooks.rs b/tools/project/src/runtime_install/hooks.rs
+new file mode 100644
+index 0000000..4342cde
+--- /dev/null
++++ b/tools/project/src/runtime_install/hooks.rs
+@@ -0,0 +1,46 @@
++use crate::commands;
++pub(super) fn point(name: &str) -> Result<(), String> {
++	commands::check()?;
++	#[cfg(feature = "test-support")]
++	{
++		if std::env::var("RNX_INSTALL_PAUSE").as_deref() == Ok(name) {
++			let marker = std::path::PathBuf::from(
++				std::env::var_os("RNX_INSTALL_MARKER").ok_or("pause marker missing")?,
++			);
++			std::fs::write(&marker, name).map_err(|e| e.to_string())?;
++			while !marker.with_extension("release").exists() {
++				commands::check()?;
++				std::thread::sleep(std::time::Duration::from_millis(10));
++			}
++		}
++		if std::env::var("RNX_INSTALL_FAIL").as_deref() == Ok(name) {
++			return Err(format!("injected installer failure: {name}"));
++		}
++	}
++	let _ = name;
++	commands::check()
++}
++pub(super) fn limit(name: &str, ordinary: u64) -> u64 {
++	#[cfg(feature = "test-support")]
++	if let Ok(v) = std::env::var(name) {
++		return v.parse::<u64>().unwrap_or(0).min(ordinary);
++	}
++	let _ = name;
++	ordinary
++}
++
++pub(super) fn read(path: &std::path::Path, bytes: usize) -> Result<(), String> {
++	#[cfg(feature = "test-support")]
++	if let Some(log) = std::env::var_os("RNX_INSTALL_READ_LOG") {
++		use std::io::Write;
++		let mut f = std::fs::OpenOptions::new()
++			.create(true)
++			.append(true)
++			.open(log)
++			.map_err(|e| e.to_string())?;
++		writeln!(f, "{}", serde_json::json!({"path":path,"bytes":bytes}))
++			.map_err(|e| e.to_string())?;
++	}
++	let _ = (path, bytes);
++	Ok(())
++}
+diff --git a/tools/project/src/runtime_install/layout.rs b/tools/project/src/runtime_install/layout.rs
+new file mode 100644
+index 0000000..ff7f5e3
+--- /dev/null
++++ b/tools/project/src/runtime_install/layout.rs
+@@ -0,0 +1,138 @@
++//! Static closure checks, not a Cargo resolver or a Rust/build-script sandbox.
++use super::storage::err;
++use crate::{catalogue, fingerprint, input};
++use std::{
++	collections::BTreeSet,
++	path::{Component, Path, PathBuf},
++};
++fn reference(
++	root: &Path,
++	base: &Path,
++	value: &toml::Value,
++	file: &Path,
++	field: &str,
++	paths: &BTreeSet<PathBuf>,
++) -> Result<(), String> {
++	let bad = |why: &str| format!("{}: {field}: {why}", file.display());
++	let text = value
++		.as_str()
++		.ok_or_else(|| bad("expected a literal relative path"))?;
++	let p = Path::new(text);
++	if text.is_empty() || p.is_absolute() || text.contains(['\\', '\0', '*', '?', '[']) {
++		return Err(bad("unsupported or non-relative source path"));
++	}
++	let mut joined = base.to_owned();
++	for c in p.components() {
++		match c {
++			Component::Normal(n) => joined.push(n),
++			Component::CurDir => (),
++			Component::ParentDir => {
++				if joined == root {
++					return Err(bad("path escapes installed snapshot"));
++				}
++				joined.pop();
++			}
++			_ => return Err(bad("unsupported path component")),
++		}
++	}
++	if !joined.starts_with(root) || !paths.iter().any(|p| p == &joined || p.starts_with(&joined)) {
++		return Err(bad(
++			"path is outside the tracked snapshot or names no tracked source",
++		));
++	}
++	Ok(())
++}
++fn inspect(
++	root: &Path,
++	base: &Path,
++	v: &toml::Value,
++	file: &Path,
++	field: &str,
++	paths: &BTreeSet<PathBuf>,
++) -> Result<(), String> {
++	if let Some(table) = v.as_table() {
++		for (key, v) in table {
++			let next = if field.is_empty() {
++				key.clone()
++			} else {
++				format!("{field}.{key}")
++			};
++			if key == "metadata" {
++				continue;
++			}
++			if key == "path"
++				|| (field == "package" && key == "workspace")
++				|| (field == "package"
++					&& matches!(key.as_str(), "build" | "readme" | "license-file")
++					&& v.is_str())
++			{
++				reference(root, base, v, file, &next, paths)?;
++			} else if key == "workspace" && v.is_bool() {
++				return Err(format!(
++					"{}: {next}: workspace inheritance is unsupported by the installed layout",
++					file.display()
++				));
++			} else if field == "workspace"
++				&& matches!(key.as_str(), "members" | "exclude" | "default-members")
++			{
++				for item in v
++					.as_array()
++					.ok_or_else(|| format!("{}: {next}: expected paths", file.display()))?
++				{
++					reference(root, base, item, file, &next, paths)?;
++				}
++			} else {
++				inspect(root, base, v, file, &next, paths)?;
++			}
++		}
++	} else if let Some(array) = v.as_array() {
++		for item in array {
++			inspect(root, base, item, file, field, paths)?;
++		}
++	}
++	Ok(())
++}
++pub(super) fn validate(root: &Path, tree: &fingerprint::Tree) -> Result<(), String> {
++	let paths = tree
++		.files
++		.iter()
++		.map(|f| root.join(&f.path))
++		.collect::<BTreeSet<_>>();
++	for required in [
++		"Cargo.toml",
++		"src/lib.rs",
++		"src/main.rs",
++		"adapters/polars/Cargo.toml",
++		"adapters/polars/src/lib.rs",
++		"adapters/postgres/Cargo.toml",
++		"adapters/postgres/src/lib.rs",
++	] {
++		if !paths.contains(&root.join(required)) {
++			return Err(format!(
++				"unsupported runtime layout: missing tracked {required}"
++			));
++		}
++	}
++	for file in tree.files.iter().filter(|f| {
++		Path::new(&f.path)
++			.file_name()
++			.is_some_and(|n| n == "Cargo.toml")
++	}) {
++		let path = root.join(&file.path);
++		let raw = input::read(&path, input::MANIFEST_LIMIT)?;
++		let value: toml::Value = toml::from_str(std::str::from_utf8(&raw).map_err(err)?)
++			.map_err(|e| format!("{}: {e}", path.display()))?;
++		inspect(root, path.parent().unwrap(), &value, &path, "", &paths)?;
++	}
++	// Reuse 0062's supported package names and each adapter's direct dependency on rnx.
++	let raw = format!(
++		"format=1\n[application]\nentry=\"src/main.rs\"\n[runtime]\npath={}\n",
++		toml::Value::String(root.to_str().ok_or("non-Unicode runtime path")?.into())
++	);
++	catalogue::author(
++		raw.into_bytes(),
++		root,
++		&catalogue::select(&["polars".into(), "postgres".into()])?,
++	)?;
++	Ok(())
++}
+diff --git a/tools/project/src/runtime_install/storage.rs b/tools/project/src/runtime_install/storage.rs
+new file mode 100644
+index 0000000..0effed7
+--- /dev/null
++++ b/tools/project/src/runtime_install/storage.rs
+@@ -0,0 +1,236 @@
++use super::hooks;
++use crate::{cache_storage, commands};
++use std::{
++	fs::{self, File, OpenOptions},
++	io::{Read, Write},
++	os::unix::fs::{DirBuilderExt, MetadataExt, OpenOptionsExt},
++	path::{Path, PathBuf},
++	time::Duration,
++};
++pub(super) fn err(e: impl std::fmt::Display) -> String {
++	e.to_string()
++}
++pub(super) fn exists(p: &Path) -> Result<bool, String> {
++	match fs::symlink_metadata(p) {
++		Ok(_) => Ok(true),
++		Err(e) if e.kind() == std::io::ErrorKind::NotFound => Ok(false),
++		Err(e) => Err(format!("{}: {e}", p.display())),
++	}
++}
++pub(super) fn absolute(p: PathBuf) -> Result<PathBuf, String> {
++	if !p.is_absolute() || p.to_str().is_none() {
++		Err("runtime store selection requires a nonempty absolute Unicode path".into())
++	} else {
++		Ok(p)
++	}
++}
++pub(super) fn future_canonical(p: &Path) -> Result<PathBuf, String> {
++	match p.canonicalize() {
++		Ok(p) => Ok(p),
++		Err(e) if e.kind() == std::io::ErrorKind::NotFound => {
++			if exists(p)? {
++				return Err(format!("broken path: {}", p.display()));
++			}
++			let parent = p.parent().ok_or("path has no parent")?;
++			Ok(future_canonical(parent)?.join(p.file_name().ok_or("path has no final name")?))
++		}
++		Err(e) => Err(format!("{}: {e}", p.display())),
++	}
++}
++fn envpath(
++	key: &str,
++	fallback: impl FnOnce() -> Result<PathBuf, String>,
++) -> Result<PathBuf, String> {
++	match std::env::var_os(key) {
++		Some(p) => absolute(p.into()),
++		None => fallback(),
++	}
++}
++fn home() -> Result<PathBuf, String> {
++	absolute(std::env::var_os("HOME").ok_or("HOME is missing")?.into())
++}
++pub(super) fn selected() -> Result<PathBuf, String> {
++	let p = envpath("XDG_DATA_HOME", || Ok(home()?.join(".local/share")))?.join("rnx/runtimes");
++	let p = future_canonical(&p)?;
++	let cache = envpath("RNX_PROJECT_CACHE", || {
++		Ok(envpath("XDG_CACHE_HOME", || Ok(home()?.join(".cache")))?.join("rnx/assemblies"))
++	})?;
++	let scratch =
++		envpath("XDG_STATE_HOME", || Ok(home()?.join(".local/state")))?.join("rnx/sessions");
++	for other in [cache, scratch] {
++		let other = future_canonical(&other)?;
++		if p.starts_with(&other) || other.starts_with(&p) {
++			return Err(
++				"runtime store and cache/scratch storage must not contain one another".into(),
++			);
++		}
++	}
++	for ancestor in p.ancestors() {
++		for marker in ["Cargo.toml", "rnx.toml"] {
++			if exists(&ancestor.join(marker))? {
++				return Err(format!(
++					"runtime store is inside a native/project root: {}",
++					ancestor.display()
++				));
++			}
++		}
++	}
++	Ok(p)
++}
++pub(super) fn create_root(p: &Path) -> Result<(), String> {
++	if !exists(p)? {
++		fs::DirBuilder::new()
++			.recursive(true)
++			.mode(0o700)
++			.create(p)
++			.map_err(err)?;
++	}
++	dir(p)
++}
++pub(super) fn dir(p: &Path) -> Result<(), String> {
++	cache_storage::private_directory(p)
++}
++pub(super) fn mkdir(p: &Path) -> Result<(), String> {
++	cache_storage::directory(p)
++}
++pub(super) fn options() -> OpenOptions {
++	let mut o = OpenOptions::new();
++	o.mode(0o600)
++		.custom_flags(libc::O_NOFOLLOW | libc::O_NONBLOCK);
++	o
++}
++pub(super) fn regular(m: &fs::Metadata, p: &Path) -> Result<(), String> {
++	if !m.is_file() || m.uid() != unsafe { libc::geteuid() } || m.mode() & 0o022 != 0 {
++		return Err(format!("not a private owned regular file: {}", p.display()));
++	}
++	Ok(())
++}
++pub(super) fn read(p: &Path, limit: usize) -> Result<Vec<u8>, String> {
++	let f = options()
++		.read(true)
++		.open(p)
++		.map_err(|e| format!("{}: {e}", p.display()))?;
++	regular(&f.metadata().map_err(err)?, p)?;
++	let mut b = vec![];
++	f.take(limit as u64 + 1).read_to_end(&mut b).map_err(err)?;
++	if b.len() > limit {
++		return Err(format!("{} exceeds {limit} bytes", p.display()));
++	}
++	Ok(b)
++}
++pub(super) fn write(p: &Path, bytes: &[u8]) -> Result<(), String> {
++	let mut f = options()
++		.write(true)
++		.create_new(true)
++		.open(p)
++		.map_err(err)?;
++	f.write_all(bytes).map_err(err)?;
++	f.sync_all().map_err(err)
++}
++pub(super) fn sync(p: &Path) -> Result<(), String> {
++	dir(p)?;
++	File::open(p).and_then(|f| f.sync_all()).map_err(err)
++}
++pub(super) fn lock(root: &Path) -> Result<File, String> {
++	let p = root.join("install.lock");
++	let f = options()
++		.read(true)
++		.write(true)
++		.create(true)
++		.open(&p)
++		.map_err(err)?;
++	regular(&f.metadata().map_err(err)?, &p)?;
++	loop {
++		commands::check()?;
++		match f.try_lock() {
++			Ok(()) => {
++				hooks::point("locked")?;
++				return Ok(f);
++			}
++			Err(fs::TryLockError::WouldBlock) => {
++				hooks::point("waiting")?;
++				std::thread::sleep(Duration::from_millis(10));
++			}
++			Err(e) => return Err(err(e)),
++		}
++	}
++}
++// Applies to retained source AND generated administration. Directory entries are
++// charged too, so traversal itself cannot outgrow the file bound.
++pub(super) fn walk(root: &Path, sync_files: bool) -> Result<(u64, u64), String> {
++	dir(root)?;
++	let mut dirs = vec![root.to_owned()];
++	let mut ordered = vec![];
++	let mut count = 0u64;
++	let mut bytes = 0u64;
++	while let Some(d) = dirs.pop() {
++		commands::check()?;
++		ordered.push(d.clone());
++		for e in fs::read_dir(&d).map_err(err)? {
++			let e = e.map_err(err)?;
++			let p = e.path();
++			if p.to_str().is_none() {
++				return Err("non-Unicode managed name".into());
++			}
++			count += 1;
++			if count > hooks::limit("RNX_INSTALL_RETAINED_FILES", 400_000) {
++				return Err("installed tree exceeds 400000 entries".into());
++			}
++			let m = fs::symlink_metadata(&p).map_err(err)?;
++			if m.is_dir() {
++				dir(&p)?;
++				dirs.push(p);
++			} else {
++				regular(&m, &p)?;
++				bytes = bytes
++					.checked_add(m.len())
++					.ok_or("installed byte overflow")?;
++				if bytes > hooks::limit("RNX_INSTALL_RETAINED_BYTES", 2 * 1024 * 1024 * 1024) {
++					return Err("installed tree exceeds 2 GiB".into());
++				}
++				if sync_files {
++					let f = options().read(true).open(&p).map_err(err)?;
++					regular(&f.metadata().map_err(err)?, &p)?;
++					f.sync_all().map_err(err)?;
++				}
++			}
++		}
++	}
++	if sync_files {
++		for d in ordered.into_iter().rev() {
++			sync(&d)?;
++		}
++	}
++	Ok((count, bytes))
++}
++pub(super) fn reclaim(root: &Path) -> Result<(), String> {
++	let mut n = 0;
++	for e in fs::read_dir(root).map_err(err)? {
++		n += 1;
++		if n > 400_000 {
++			return Err("too many runtime store entries".into());
++		}
++		let e = e.map_err(err)?;
++		let name = e.file_name();
++		let Some(name) = name.to_str() else {
++			return Err("non-Unicode store name".into());
++		};
++		if name.starts_with(".stage-") {
++			walk(&e.path(), false)?;
++			fs::remove_dir_all(e.path()).map_err(err)?;
++		} else if name.starts_with(".current-") {
++			read(&e.path(), 65536)?;
++			fs::remove_file(e.path()).map_err(err)?;
++		}
++	}
++	Ok(())
++}
++pub(super) fn unique(root: &Path, prefix: &str) -> Result<PathBuf, String> {
++	for i in 0..1000 {
++		let p = root.join(format!(".{prefix}-{}-{i}", std::process::id()));
++		if !exists(&p)? {
++			return Ok(p);
++		}
++	}
++	Err("runtime temporary names exhausted".into())
++}
+diff --git a/tools/project/src/runtime_install/unix.rs b/tools/project/src/runtime_install/unix.rs
+new file mode 100644
+index 0000000..90e309f
+--- /dev/null
++++ b/tools/project/src/runtime_install/unix.rs
+@@ -0,0 +1,467 @@
++use super::{
++	git, hooks, layout,
++	storage::{self, err},
++};
++use crate::{commands, fingerprint};
++use serde::{Deserialize, Serialize};
++use sha2::{Digest, Sha256};
++use std::{
++	ffi::OsString,
++	fs,
++	io::{Read, Write},
++	os::unix::fs::{DirBuilderExt, MetadataExt, PermissionsExt},
++	path::{Path, PathBuf},
++	time::{SystemTime, UNIX_EPOCH},
++};
++const DOCUMENT: usize = 65536;
++fn hash(b: &[u8]) -> String {
++	format!("{:x}", Sha256::digest(b))
++}
++fn digest(s: &str) -> bool {
++	s.len() == 64
++		&& s.bytes()
++			.all(|b| b.is_ascii_digit() || (b'a'..=b'f').contains(&b))
++}
++fn identity(tree: &str) -> String {
++	hash(format!("rnx-installed-runtime-v1\n{tree}\n").as_bytes())
++}
++#[derive(Serialize, Deserialize)]
++#[serde(deny_unknown_fields)]
++pub(super) struct Installation {
++	pub format: u32,
++	pub id: String,
++	pub tree_sha256: String,
++	pub files: u64,
++	pub bytes: u64,
++	pub layout: String,
++	pub source_path: PathBuf,
++	pub source_commit: Option<String>,
++	pub dirty_tracked: bool,
++	pub installed_utc: String,
++	pub tool_version: String,
++	pub tool_sha256: String,
++}
++#[derive(Serialize, Deserialize)]
++#[serde(deny_unknown_fields)]
++struct Current {
++	format: u32,
++	id: String,
++}
++fn json<T: Serialize>(v: &T) -> Result<Vec<u8>, String> {
++	let mut b = serde_json::to_vec_pretty(v).map_err(err)?;
++	b.push(b'\n');
++	if b.len() > DOCUMENT {
++		return Err("runtime document exceeds 65536 bytes".into());
++	}
++	Ok(b)
++}
++fn utc() -> Result<String, String> {
++	let seconds = SystemTime::now()
++		.duration_since(UNIX_EPOCH)
++		.map_err(err)?
++		.as_secs();
++	let seconds: libc::time_t = seconds.try_into().map_err(err)?;
++	// gmtime_r writes only this caller-owned tm and consults no local timezone.
++	let mut tm: libc::tm = unsafe { std::mem::zeroed() };
++	if unsafe { libc::gmtime_r(&seconds, &mut tm) }.is_null() {
++		return Err("cannot represent installation UTC time".into());
++	}
++	Ok(format!(
++		"{:04}-{:02}-{:02}T{:02}:{:02}:{:02}Z",
++		tm.tm_year + 1900,
++		tm.tm_mon + 1,
++		tm.tm_mday,
++		tm.tm_hour,
++		tm.tm_min,
++		tm.tm_sec
++	))
++}
++fn timestamp(s: &str) -> bool {
++	let b = s.as_bytes();
++	if b.len() != 20 {
++		return false;
++	}
++	for (i, c) in b.iter().enumerate() {
++		if let Some(expected) = match i {
++			4 | 7 => Some(b'-'),
++			10 => Some(b'T'),
++			13 | 16 => Some(b':'),
++			19 => Some(b'Z'),
++			_ => None,
++		} {
++			if *c != expected {
++				return false;
++			}
++		} else if !c.is_ascii_digit() {
++			return false;
++		}
++	}
++	let n = |r: std::ops::Range<usize>| s[r].parse::<u32>().unwrap_or(u32::MAX);
++	let y = n(0..4);
++	let m = n(5..7);
++	let days = match m {
++		1 | 3 | 5 | 7 | 8 | 10 | 12 => 31,
++		4 | 6 | 9 | 11 => 30,
++		2 => {
++			if y.is_multiple_of(4) && (!y.is_multiple_of(100) || y.is_multiple_of(400)) {
++				29
++			} else {
++				28
++			}
++		}
++		_ => 0,
++	};
++	(1..=days).contains(&n(8..10)) && n(11..13) < 24 && n(14..16) < 60 && n(17..19) < 60
++}
++fn metadata(entry: &Path, id: &str) -> Result<Installation, String> {
++	if !digest(id) {
++		return Err("installation ID must be a full lowercase SHA-256 digest".into());
++	}
++	storage::dir(entry)?;
++	let p = entry.join("installation.json");
++	let d: Installation = serde_json::from_slice(&storage::read(&p, DOCUMENT)?)
++		.map_err(|e| format!("{}: {e}", p.display()))?;
++	if d.format != 1
++		|| d.layout != "rnx-shipped-v1"
++		|| d.id != id
++		|| !digest(&d.tree_sha256)
++		|| identity(&d.tree_sha256) != d.id
++		|| !digest(&d.tool_sha256)
++		|| d.files == 0
++		|| d.files > 100000
++		|| d.bytes > 512 * 1024 * 1024
++		|| !d.source_path.is_absolute()
++		|| d.source_path.to_str().is_none()
++		|| d.tool_version.is_empty()
++		|| !timestamp(&d.installed_utc)
++		|| d.source_commit.as_ref().is_some_and(|c| {
++			!matches!(c.len(), 40 | 64) || !c.bytes().all(|b| b.is_ascii_hexdigit())
++		}) || (d.source_commit.is_none() && !d.dirty_tracked)
++	{
++		return Err(format!(
++			"invalid runtime installation document: {}",
++			p.display()
++		));
++	}
++	Ok(d)
++}
++fn validate(root: &Path, id: &str) -> Result<Installation, String> {
++	storage::dir(root)?;
++	storage::dir(&root.join("entries"))?;
++	let entry = root.join("entries").join(id);
++	let d = metadata(&entry, id)?;
++	storage::walk(&entry, false)?;
++	for e in fs::read_dir(&entry).map_err(err)? {
++		let e = e.map_err(err)?;
++		if e.file_name() != "source" && e.file_name() != "installation.json" {
++			return Err("unexpected installed entry member".into());
++		}
++	}
++	let source = entry.join("source");
++	git::administration(&source)?;
++	let t = git::inventory(&source)?;
++	layout::validate(&source, &t)?;
++	if t.sha256 != d.tree_sha256
++		|| t.files.len() as u64 != d.files
++		|| t.files.iter().map(|f| f.bytes).sum::<u64>() != d.bytes
++	{
++		return Err(format!(
++			"corrupt installed runtime {id}: source fingerprint differs"
++		));
++	}
++	Ok(d)
++}
++struct Temp(PathBuf);
++impl Drop for Temp {
++	fn drop(&mut self) {
++		let _ = if self.0.is_dir() {
++			fs::remove_dir_all(&self.0)
++		} else {
++			fs::remove_file(&self.0)
++		};
++	}
++}
++fn copy(source: &Path, dest: &Path, tree: &fingerprint::Tree) -> Result<(), String> {
++	storage::mkdir(dest)?;
++	let mut total = 0u64;
++	let mut entries = 1u64;
++	for file in &tree.files {
++		commands::check()?;
++		let mut source_parent = source.to_owned();
++		let mut dest_parent = dest.to_owned();
++		let path = Path::new(&file.path);
++		for c in path.parent().unwrap().components() {
++			source_parent.push(c);
++			if !fs::symlink_metadata(&source_parent).map_err(err)?.is_dir() {
++				return Err("source directory changed".into());
++			}
++			dest_parent.push(c);
++			if !storage::exists(&dest_parent)? {
++				entries += 1;
++				if entries > hooks::limit("RNX_INSTALL_RETAINED_FILES", 400000) {
++					return Err("installed copy exceeds 400000 entries".into());
++				}
++			}
++			storage::mkdir(&dest_parent)?;
++		}
++		let from = source.join(path);
++		let to = dest.join(path);
++		let mut f = storage::options()
++			.read(true)
++			.open(&from)
++			.map_err(|e| format!("{}: {e}", from.display()))?;
++		let before = f.metadata().map_err(err)?;
++		if !before.is_file()
++			|| before.len() != file.bytes
++			|| (before.mode() & 0o111 != 0) != file.executable
++		{
++			return Err(format!("source changed: {}", from.display()));
++		}
++		entries += 1;
++		if entries > hooks::limit("RNX_INSTALL_RETAINED_FILES", 400000) {
++			return Err("installed copy exceeds 400000 entries".into());
++		}
++		let mut out = storage::options()
++			.create_new(true)
++			.write(true)
++			.open(&to)
++			.map_err(err)?;
++		out.set_permissions(fs::Permissions::from_mode(if file.executable {
++			0o700
++		} else {
++			0o600
++		}))
++		.map_err(err)?;
++		let mut content = Sha256::new();
++		let mut n = 0u64;
++		let mut buffer = [0u8; 16384];
++		loop {
++			hooks::point("copy-chunk")?;
++			let remaining = (file.bytes - n).min(
++				hooks::limit("RNX_INSTALL_COPY_BYTES", 512 * 1024 * 1024).saturating_sub(total),
++			);
++			let take = buffer.len().min((remaining + 1) as usize);
++			let count = f.read(&mut buffer[..take]).map_err(err)?;
++			hooks::read(&from, count)?;
++			if count == 0 {
++				break;
++			}
++			n += count as u64;
++			if n > file.bytes {
++				return Err(format!("source grew during copy: {}", from.display()));
++			}
++			total += count as u64;
++			if total > hooks::limit("RNX_INSTALL_COPY_BYTES", 512 * 1024 * 1024) {
++				return Err("copy exceeds source byte allowance".into());
++			}
++			content.update(&buffer[..count]);
++			out.write_all(&buffer[..count]).map_err(err)?;
++		}
++		let after = f.metadata().map_err(err)?;
++		if n != file.bytes
++			|| format!("{:x}", content.finalize()) != file.sha256
++			|| after.len() != before.len()
++			|| after.mode() & 0o111 != before.mode() & 0o111
++		{
++			return Err(format!("source changed during copy: {}", from.display()));
++		}
++		out.sync_all().map_err(err)?;
++	}
++	Ok(())
++}
++fn select_inner(root: &Path, id: &str, selected: &mut bool) -> Result<(), String> {
++	validate(root, id)?;
++	// A corrupt current document may be replaced explicitly, but never a special file.
++	if storage::exists(&root.join("current.json"))? {
++		storage::read(&root.join("current.json"), DOCUMENT)?;
++	}
++	hooks::point("before-current-write")?;
++	let tmp = Temp(storage::unique(root, "current")?);
++	storage::write(
++		&tmp.0,
++		&json(&Current {
++			format: 1,
++			id: id.into(),
++		})?,
++	)?;
++	hooks::point("after-current-write")?;
++	hooks::point("before-current-rename")?;
++	fs::rename(&tmp.0, root.join("current.json")).map_err(err)?;
++	*selected = true;
++	hooks::point("after-current-rename")?;
++	storage::sync(root)?;
++	hooks::point("after-current-sync")?;
++	Ok(())
++}
++fn install(source: &Path) -> Result<Installation, String> {
++	let source = source
++		.canonicalize()
++		.map_err(|e| format!("runtime source {}: {e}", source.display()))?;
++	let root = storage::selected()?;
++	let own_installation = source.strip_prefix(&root).ok().is_some_and(|p| {
++		let parts = p.iter().collect::<Vec<_>>();
++		parts.len() == 3
++			&& parts[0] == "entries"
++			&& parts[2] == "source"
++			&& parts[1].to_str().is_some_and(digest)
++	});
++	if root.starts_with(&source) || (source.starts_with(&root) && !own_installation) {
++		return Err("runtime source and store must not contain one another".into());
++	}
++	git::top(&source)?;
++	let before = git::inventory(&source)?;
++	layout::validate(&source, &before)?;
++	let id = identity(&before.sha256);
++	if own_installation && source != root.join("entries").join(&id).join("source") {
++		return Err("installed source does not match its containing identity".into());
++	}
++	storage::create_root(&root)?;
++	let _lock = storage::lock(&root)?;
++	storage::reclaim(&root)?;
++	storage::mkdir(&root.join("entries"))?;
++	if git::inventory(&source)? != before {
++		return Err("source changed while waiting for installation lock".into());
++	}
++	let entry = root.join("entries").join(&id);
++	let mut published = false;
++	let mut selected = false;
++	let result = (|| {
++		let doc = if storage::exists(&entry)? {
++			published = true;
++			validate(&root, &id)?
++		} else {
++			let temp = Temp(storage::unique(&root, "stage")?);
++			fs::DirBuilder::new()
++				.mode(0o700)
++				.create(&temp.0)
++				.map_err(err)?;
++			hooks::point("after-snapshot")?;
++			copy(&source, &temp.0.join("source"), &before)?;
++			hooks::point("after-copy")?;
++			git::index(&temp.0.join("source"), &before)?;
++			hooks::point("after-index")?;
++			let copied = git::inventory(&temp.0.join("source"))?;
++			if copied.sha256 != before.sha256 || copied.files != before.files {
++				return Err("installed copy differs from source fingerprint".into());
++			}
++			layout::validate(&temp.0.join("source"), &copied)?;
++			git::administration(&temp.0.join("source"))?;
++			let (source_commit, dirty_tracked) = git::provenance(&source, &before)?;
++			if git::inventory(&source)? != before {
++				return Err("source changed during installation".into());
++			}
++			let doc = Installation {
++				format: 1,
++				id: id.clone(),
++				tree_sha256: before.sha256.clone(),
++				files: before.files.len() as u64,
++				bytes: before.files.iter().map(|f| f.bytes).sum(),
++				layout: "rnx-shipped-v1".into(),
++				source_path: source.clone(),
++				source_commit,
++				dirty_tracked,
++				installed_utc: utc()?,
++				tool_version: env!("CARGO_PKG_VERSION").into(),
++				tool_sha256: fingerprint::one(
++					&std::env::current_exe().map_err(err)?,
++					&mut fingerprint::Allowance::default(),
++				)?
++				.sha256,
++			};
++			hooks::point("before-document")?;
++			storage::write(&temp.0.join("installation.json"), &json(&doc)?)?;
++			hooks::point("after-document")?;
++			storage::walk(&temp.0, true)?;
++			hooks::point("before-entry-rename")?;
++			fs::rename(&temp.0, &entry).map_err(err)?;
++			published = true;
++			hooks::point("after-entry-rename")?;
++			storage::sync(&root.join("entries"))?;
++			hooks::point("after-entry-sync")?;
++			validate(&root, &id)?;
++			doc
++		};
++		if git::inventory(&source)? != before {
++			return Err("source changed before selection".into());
++		}
++		select_inner(&root, &id, &mut selected)?;
++		Ok(doc)
++	})();
++	result.map_err(|e| {
++		if selected {
++			format!("runtime {id}: selection may already have changed: {e}")
++		} else if published {
++			format!("runtime {id} installed but not selected: {e}")
++		} else {
++			e
++		}
++	})
++}
++pub(crate) fn cli(args: &[OsString]) -> Result<(), String> {
++	let verb = args
++		.first()
++		.and_then(|v| v.to_str())
++		.ok_or("expected runtime install --from PATH, show, or select ID")?;
++	match verb {
++		"install" if args.len() == 3 && args[1] == "--from" => {
++			commands::install_signals()?;
++			let d = install(Path::new(&args[2]))?;
++			println!(
++				"Installed and selected runtime {}\nSource: {}\nSnapshot: {} files, {} bytes\nAssembly requires Git, Cargo/Rust and native build tools.",
++				d.id,
++				storage::selected()?
++					.join("entries")
++					.join(&d.id)
++					.join("source")
++					.display(),
++				d.files,
++				d.bytes
++			);
++			Ok(())
++		}
++		"select" if args.len() == 2 => {
++			let id = args[1]
++				.to_str()
++				.filter(|s| digest(s))
++				.ok_or("installation ID must be a full lowercase SHA-256 digest")?;
++			commands::install_signals()?;
++			let root = storage::selected()?;
++			storage::dir(&root)?;
++			let _lock = storage::lock(&root)?;
++			storage::reclaim(&root)?;
++			let mut selected = false;
++			select_inner(&root, id, &mut selected).map_err(|e| {
++				if selected {
++					format!("selection may already have changed: {e}")
++				} else {
++					e
++				}
++			})?;
++			println!("Selected runtime {id}");
++			Ok(())
++		}
++		"show" if args.len() == 1 => {
++			let root = storage::selected()?;
++			storage::dir(&root)?;
++			let c: Current =
++				serde_json::from_slice(&storage::read(&root.join("current.json"), DOCUMENT)?)
++					.map_err(err)?;
++			if c.format != 1 || !digest(&c.id) {
++				return Err("invalid current runtime document".into());
++			}
++			storage::dir(&root.join("entries"))?;
++			let d = metadata(&root.join("entries").join(&c.id), &c.id)?;
++			storage::dir(&root.join("entries").join(&c.id).join("source"))?;
++			println!(
++				"Selected runtime {}\nSource: {}",
++				d.id,
++				root.join("entries").join(&d.id).join("source").display()
++			);
++			if let Some(p) = std::env::var_os("RNX_DEP_RUNTIME") {
++				println!("RNX_DEP_RUNTIME override: {:?}", p);
++			}
++			Ok(())
++		}
++		_ => Err("expected runtime install --from PATH, show, or select ID".into()),
++	}
++}
+diff --git a/tools/project/src/workflow.rs b/tools/project/src/workflow.rs
+index f0baec9..f6e515b 100644
+--- a/tools/project/src/workflow.rs
++++ b/tools/project/src/workflow.rs
+@@ -626,6 +626,9 @@ pub(crate) fn cli(args: Vec<OsString>) -> Result<(), String> {
+ 	if std::env::var_os("RNX_INTERNAL_DEP_FD").is_some() {
+ 		return transition::serve(args);
+ 	}
++	if args.first().and_then(|s| s.to_str()) == Some("runtime") {
++		return crate::runtime_install::cli(&args[1..]);
++	}
+ 	if args.first().and_then(|s| s.to_str()) == Some("adapters") {
+ 		if args.len() != 1 {
+ 			return Err("adapters takes no arguments".into());
+@@ -655,7 +658,7 @@ pub(crate) fn cli(args: Vec<OsString>) -> Result<(), String> {
+ 	}
+ 	if args.len() == 1 && matches!(args[0].to_str(), Some("--help" | "help")) {
+ 		println!(
+-			"rnx-project adapters\nrnx-project add --manifest FILE NAME [NAME...]\nrnx-project lock|build|run|session|eval --manifest FILE\nrun [--verify] [-- script arguments]\nsession [--verify] [--color=auto|always|never] [--no-splash]\neval [--verify] [--color=auto|always|never] -- SOURCE\nLaunch checks your sources, trusts your build output unless you ask it to verify.\nUse --verify for a full artifact hash. Changed metadata triggers a full check.\nlock/build accept --offline; run/session/eval never build."
++			"rnx-project runtime install --from PATH\nrnx-project runtime show\nrnx-project runtime select ID\nrnx-project adapters\nrnx-project add --manifest FILE NAME [NAME...]\nrnx-project lock|build|run|session|eval --manifest FILE\nrun [--verify] [-- script arguments]\nsession [--verify] [--color=auto|always|never] [--no-splash]\neval [--verify] [--color=auto|always|never] -- SOURCE\nLaunch checks your sources, trusts your build output unless you ask it to verify.\nUse --verify for a full artifact hash. Changed metadata triggers a full check.\nlock/build accept --offline; run/session/eval never build."
+ 		);
+ 		return Ok(());
+ 	}

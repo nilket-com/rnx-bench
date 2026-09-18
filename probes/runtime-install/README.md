@@ -86,3 +86,9 @@ fixture false positive: `/home/me/work/rnx` is a textual prefix of `rnx-bench`.
 Inspection now uses path delimiters and separately checks every local Cargo
 manifest's ancestry. Neither required changing the installed prototype or rerunning
 the cold builds. Their successful journey outputs were retained unchanged.
+
+For a checks-only rerun, remove the generated `target/patch-check` directory first;
+`setup.py` also requires `target/patch-base` to be absent (a full fresh-target run
+handles both). Run checks after the journey has finished: the inherited one-second
+handshake test can report timeout instead of its expected oversized-reply error
+under concurrent build load. No test deadline is changed here.
