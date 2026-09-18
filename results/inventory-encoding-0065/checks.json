@@ -1,0 +1,114 @@
+{
+  "complete": true,
+  "checks": [
+    {
+      "name": "fmt",
+      "args": [
+        "cargo",
+        "fmt",
+        "--manifest-path",
+        "tools/project/Cargo.toml",
+        "--",
+        "--check"
+      ],
+      "status": 0
+    },
+    {
+      "name": "clippy-default",
+      "args": [
+        "cargo",
+        "clippy",
+        "--offline",
+        "--locked",
+        "--manifest-path",
+        "tools/project/Cargo.toml",
+        "--all-targets",
+        "--",
+        "-D",
+        "warnings"
+      ],
+      "status": 0
+    },
+    {
+      "name": "tests-default",
+      "args": [
+        "cargo",
+        "test",
+        "--offline",
+        "--locked",
+        "--manifest-path",
+        "tools/project/Cargo.toml",
+        "--",
+        "--test-threads=1"
+      ],
+      "status": 0
+    },
+    {
+      "name": "clippy-support",
+      "args": [
+        "cargo",
+        "clippy",
+        "--offline",
+        "--locked",
+        "--manifest-path",
+        "tools/project/Cargo.toml",
+        "--features",
+        "test-support",
+        "--all-targets",
+        "--",
+        "-D",
+        "warnings"
+      ],
+      "status": 0
+    },
+    {
+      "name": "tests-support",
+      "args": [
+        "cargo",
+        "test",
+        "--offline",
+        "--locked",
+        "--manifest-path",
+        "tools/project/Cargo.toml",
+        "--features",
+        "test-support",
+        "--",
+        "--test-threads=1"
+      ],
+      "status": 0
+    },
+    {
+      "name": "notices",
+      "args": [
+        "/usr/bin/python3",
+        "tools/project/scripts/notices.py",
+        "--check"
+      ],
+      "status": 0
+    },
+    {
+      "name": "probe-build",
+      "args": [
+        "cargo",
+        "build",
+        "--offline",
+        "--locked",
+        "--manifest-path",
+        "tools/project/Cargo.toml",
+        "--release",
+        "--features",
+        "test-support",
+        "--bin",
+        "rnx-project-assembly-probe"
+      ],
+      "status": 0
+    }
+  ],
+  "blake3_features": [
+    "default",
+    "std"
+  ],
+  "root_unchanged_outside_tool_and_plan": true,
+  "handoff_and_manifest_unchanged": true,
+  "legacy_matches_v1_function_bodies": true
+}

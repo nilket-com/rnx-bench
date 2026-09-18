@@ -1,0 +1,615 @@
+[
+  {
+    "case": "empty source",
+    "mode": "source",
+    "ok": true,
+    "v1": {
+      "root": "/tmp/rnx-0065-encoding-2on9rln9/source",
+      "sha256": "625652c7c9b3938941afd7f89efc27e6252fa7b98fea2a8bc2adf4aa17d64609",
+      "files": []
+    },
+    "v2": {
+      "root": "/tmp/rnx-0065-encoding-2on9rln9/source",
+      "blake3": "85210ba55844d8205bf9bc8cd9d1ec3043705eac5bcd5773f4462b8727634c18",
+      "files": []
+    }
+  },
+  {
+    "case": "file 0",
+    "mode": "one",
+    "ok": true,
+    "v1": {
+      "path": "data",
+      "executable": false,
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "v2": {
+      "path": "data",
+      "executable": false,
+      "bytes": 0,
+      "blake3": "af1349b9f5f9a1a6a0404dea36dcc9499bcb25c9adc112b7cc9a93cae41f3262"
+    }
+  },
+  {
+    "case": "tree 0",
+    "mode": "source",
+    "ok": true,
+    "v1": {
+      "root": "/tmp/rnx-0065-encoding-2on9rln9/source",
+      "sha256": "5e230b036b9e19c2ab5105dc0bfd959bc461e8ea364e9a1bcfdb69640b73fc0f",
+      "files": [
+        {
+          "path": "data",
+          "executable": false,
+          "bytes": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        }
+      ]
+    },
+    "v2": {
+      "root": "/tmp/rnx-0065-encoding-2on9rln9/source",
+      "blake3": "0d0713421a73c2406918f2ee8d7c31e49508b80a9c81b80d61f2d2d24feabbf7",
+      "files": [
+        {
+          "path": "data",
+          "executable": false,
+          "bytes": 0,
+          "blake3": "af1349b9f5f9a1a6a0404dea36dcc9499bcb25c9adc112b7cc9a93cae41f3262"
+        }
+      ]
+    }
+  },
+  {
+    "case": "file 1",
+    "mode": "one",
+    "ok": true,
+    "v1": {
+      "path": "data",
+      "executable": false,
+      "bytes": 1,
+      "sha256": "6e340b9cffb37a989ca544e6bb780a2c78901d3fb33738768511a30617afa01d"
+    },
+    "v2": {
+      "path": "data",
+      "executable": false,
+      "bytes": 1,
+      "blake3": "2d3adedff11b61f14c886e35afa036736dcd87a74d27b5c1510225d0f592e213"
+    }
+  },
+  {
+    "case": "tree 1",
+    "mode": "source",
+    "ok": true,
+    "v1": {
+      "root": "/tmp/rnx-0065-encoding-2on9rln9/source",
+      "sha256": "348df86461d6f8e77044f55d8200fd56ac6a8ea8d3102408b33d3ff3b64739dd",
+      "files": [
+        {
+          "path": "data",
+          "executable": false,
+          "bytes": 1,
+          "sha256": "6e340b9cffb37a989ca544e6bb780a2c78901d3fb33738768511a30617afa01d"
+        }
+      ]
+    },
+    "v2": {
+      "root": "/tmp/rnx-0065-encoding-2on9rln9/source",
+      "blake3": "a43c8a4df4441d9389950e577434efae5b91d8f8cb14ca701ddc56bfcad84aa0",
+      "files": [
+        {
+          "path": "data",
+          "executable": false,
+          "bytes": 1,
+          "blake3": "2d3adedff11b61f14c886e35afa036736dcd87a74d27b5c1510225d0f592e213"
+        }
+      ]
+    }
+  },
+  {
+    "case": "one over allowance 1",
+    "mode": "one",
+    "ok": false,
+    "v1": "fingerprint /tmp/rnx-0065-encoding-2on9rln9/source/data: fingerprint exceeds byte allowance\n",
+    "v2": "fingerprint /tmp/rnx-0065-encoding-2on9rln9/source/data: fingerprint exceeds byte allowance\n"
+  },
+  {
+    "case": "file 16383",
+    "mode": "one",
+    "ok": true,
+    "v1": {
+      "path": "data",
+      "executable": false,
+      "bytes": 16383,
+      "sha256": "fab82f1352405c22ca2953ff80a508e5567c51e1a9aeb57cf9a56447e40ba066"
+    },
+    "v2": {
+      "path": "data",
+      "executable": false,
+      "bytes": 16383,
+      "blake3": "067ab0b8437d0ad5777ba530cf0a1c96131052486d2ad07687dc9fdc3f73ef04"
+    }
+  },
+  {
+    "case": "tree 16383",
+    "mode": "source",
+    "ok": true,
+    "v1": {
+      "root": "/tmp/rnx-0065-encoding-2on9rln9/source",
+      "sha256": "28d958ca7d10a205779a7b58893359888aec729c36b36c700206163a86e62abc",
+      "files": [
+        {
+          "path": "data",
+          "executable": false,
+          "bytes": 16383,
+          "sha256": "fab82f1352405c22ca2953ff80a508e5567c51e1a9aeb57cf9a56447e40ba066"
+        }
+      ]
+    },
+    "v2": {
+      "root": "/tmp/rnx-0065-encoding-2on9rln9/source",
+      "blake3": "6432ab58a6695134c7d01b89faeed3cac4c9a93ed66eed2d35a31a35234fd89d",
+      "files": [
+        {
+          "path": "data",
+          "executable": false,
+          "bytes": 16383,
+          "blake3": "067ab0b8437d0ad5777ba530cf0a1c96131052486d2ad07687dc9fdc3f73ef04"
+        }
+      ]
+    }
+  },
+  {
+    "case": "one over allowance 16383",
+    "mode": "one",
+    "ok": false,
+    "v1": "fingerprint /tmp/rnx-0065-encoding-2on9rln9/source/data: fingerprint exceeds byte allowance\n",
+    "v2": "fingerprint /tmp/rnx-0065-encoding-2on9rln9/source/data: fingerprint exceeds byte allowance\n"
+  },
+  {
+    "case": "file 16384",
+    "mode": "one",
+    "ok": true,
+    "v1": {
+      "path": "data",
+      "executable": false,
+      "bytes": 16384,
+      "sha256": "a1f259d4365ed4320c377ce26f5c8c56dcdc9a89e7b641bfd8eabfbbeac86654"
+    },
+    "v2": {
+      "path": "data",
+      "executable": false,
+      "bytes": 16384,
+      "blake3": "d49d367e4b0011a34510a28a1eb0caeb3e51e77ff2d30136849454640fefefc1"
+    }
+  },
+  {
+    "case": "tree 16384",
+    "mode": "source",
+    "ok": true,
+    "v1": {
+      "root": "/tmp/rnx-0065-encoding-2on9rln9/source",
+      "sha256": "a897c225268274d950dbd6509265d44c0fc4c97a990d17b4412bab9396d0741b",
+      "files": [
+        {
+          "path": "data",
+          "executable": false,
+          "bytes": 16384,
+          "sha256": "a1f259d4365ed4320c377ce26f5c8c56dcdc9a89e7b641bfd8eabfbbeac86654"
+        }
+      ]
+    },
+    "v2": {
+      "root": "/tmp/rnx-0065-encoding-2on9rln9/source",
+      "blake3": "53e82c71065a52db5f12d156f1dd8cb40bf977c46ef5d8edd6d5cbaff37e8e43",
+      "files": [
+        {
+          "path": "data",
+          "executable": false,
+          "bytes": 16384,
+          "blake3": "d49d367e4b0011a34510a28a1eb0caeb3e51e77ff2d30136849454640fefefc1"
+        }
+      ]
+    }
+  },
+  {
+    "case": "one over allowance 16384",
+    "mode": "one",
+    "ok": false,
+    "v1": "fingerprint /tmp/rnx-0065-encoding-2on9rln9/source/data: fingerprint exceeds byte allowance\n",
+    "v2": "fingerprint /tmp/rnx-0065-encoding-2on9rln9/source/data: fingerprint exceeds byte allowance\n"
+  },
+  {
+    "case": "file 16385",
+    "mode": "one",
+    "ok": true,
+    "v1": {
+      "path": "data",
+      "executable": false,
+      "bytes": 16385,
+      "sha256": "0000baf2684790c1122339755831010d032e896ce376a38e20106fcdd0a5517c"
+    },
+    "v2": {
+      "path": "data",
+      "executable": false,
+      "bytes": 16385,
+      "blake3": "2fa27eb0a80b89e74472646463ba0b7b1c619dfaafb3d3027d3e57defdbb3ce4"
+    }
+  },
+  {
+    "case": "tree 16385",
+    "mode": "source",
+    "ok": true,
+    "v1": {
+      "root": "/tmp/rnx-0065-encoding-2on9rln9/source",
+      "sha256": "26b3318fee515fa01d699235b65afda3cc3f5e243863b7ff715bd9300df4649a",
+      "files": [
+        {
+          "path": "data",
+          "executable": false,
+          "bytes": 16385,
+          "sha256": "0000baf2684790c1122339755831010d032e896ce376a38e20106fcdd0a5517c"
+        }
+      ]
+    },
+    "v2": {
+      "root": "/tmp/rnx-0065-encoding-2on9rln9/source",
+      "blake3": "2758f0f29ea720fc3b1761c17672d8d1ccbde9f5b228876defc57f8e73453ddd",
+      "files": [
+        {
+          "path": "data",
+          "executable": false,
+          "bytes": 16385,
+          "blake3": "2fa27eb0a80b89e74472646463ba0b7b1c619dfaafb3d3027d3e57defdbb3ce4"
+        }
+      ]
+    }
+  },
+  {
+    "case": "one over allowance 16385",
+    "mode": "one",
+    "ok": false,
+    "v1": "fingerprint /tmp/rnx-0065-encoding-2on9rln9/source/data: fingerprint exceeds byte allowance\n",
+    "v2": "fingerprint /tmp/rnx-0065-encoding-2on9rln9/source/data: fingerprint exceeds byte allowance\n"
+  },
+  {
+    "case": "file 32768",
+    "mode": "one",
+    "ok": true,
+    "v1": {
+      "path": "data",
+      "executable": false,
+      "bytes": 32768,
+      "sha256": "e11360251d1173650cdcd20f111d8f1ca2e412f572e8b36a4dc067121c1799b8"
+    },
+    "v2": {
+      "path": "data",
+      "executable": false,
+      "bytes": 32768,
+      "blake3": "e4a55fd482e5cf3599218d6f29ff2024b232643268c87ed4ee37695b947240ac"
+    }
+  },
+  {
+    "case": "tree 32768",
+    "mode": "source",
+    "ok": true,
+    "v1": {
+      "root": "/tmp/rnx-0065-encoding-2on9rln9/source",
+      "sha256": "bb5aee5777416b09b49e3d8574c019a2179f7b7f4cf4ac1943ec6a392ff41239",
+      "files": [
+        {
+          "path": "data",
+          "executable": false,
+          "bytes": 32768,
+          "sha256": "e11360251d1173650cdcd20f111d8f1ca2e412f572e8b36a4dc067121c1799b8"
+        }
+      ]
+    },
+    "v2": {
+      "root": "/tmp/rnx-0065-encoding-2on9rln9/source",
+      "blake3": "3fd6c9661187a81bbd435df205727d260e03b63f544709370861cc3d3efe4cd7",
+      "files": [
+        {
+          "path": "data",
+          "executable": false,
+          "bytes": 32768,
+          "blake3": "e4a55fd482e5cf3599218d6f29ff2024b232643268c87ed4ee37695b947240ac"
+        }
+      ]
+    }
+  },
+  {
+    "case": "one over allowance 32768",
+    "mode": "one",
+    "ok": false,
+    "v1": "fingerprint /tmp/rnx-0065-encoding-2on9rln9/source/data: fingerprint exceeds byte allowance\n",
+    "v2": "fingerprint /tmp/rnx-0065-encoding-2on9rln9/source/data: fingerprint exceeds byte allowance\n"
+  },
+  {
+    "case": "file 32769",
+    "mode": "one",
+    "ok": true,
+    "v1": {
+      "path": "data",
+      "executable": false,
+      "bytes": 32769,
+      "sha256": "b93c16c99895f1593347ab57af0c0a82f9672ecb3debb59d124e1b38f3871f01"
+    },
+    "v2": {
+      "path": "data",
+      "executable": false,
+      "bytes": 32769,
+      "blake3": "0e6b5d87f0676ef8a98d7a114cc05a7e4549828912070c7fb4a2dec23684dfb0"
+    }
+  },
+  {
+    "case": "tree 32769",
+    "mode": "source",
+    "ok": true,
+    "v1": {
+      "root": "/tmp/rnx-0065-encoding-2on9rln9/source",
+      "sha256": "7183e1f1f5721dbd25d0c286c419bc4d35dc3d52aff359982b75f4f2f11ed82a",
+      "files": [
+        {
+          "path": "data",
+          "executable": false,
+          "bytes": 32769,
+          "sha256": "b93c16c99895f1593347ab57af0c0a82f9672ecb3debb59d124e1b38f3871f01"
+        }
+      ]
+    },
+    "v2": {
+      "root": "/tmp/rnx-0065-encoding-2on9rln9/source",
+      "blake3": "ca5d0eece71bf12de18df21c7c850ea04ccdde3f17501e1a398203233f0a842b",
+      "files": [
+        {
+          "path": "data",
+          "executable": false,
+          "bytes": 32769,
+          "blake3": "0e6b5d87f0676ef8a98d7a114cc05a7e4549828912070c7fb4a2dec23684dfb0"
+        }
+      ]
+    }
+  },
+  {
+    "case": "one over allowance 32769",
+    "mode": "one",
+    "ok": false,
+    "v1": "fingerprint /tmp/rnx-0065-encoding-2on9rln9/source/data: fingerprint exceeds byte allowance\n",
+    "v2": "fingerprint /tmp/rnx-0065-encoding-2on9rln9/source/data: fingerprint exceeds byte allowance\n"
+  },
+  {
+    "case": "entry bound",
+    "mode": "source",
+    "ok": false,
+    "v1": "fingerprint exceeds entry allowance\n",
+    "v2": "fingerprint exceeds entry allowance\n"
+  },
+  {
+    "case": "executable bit",
+    "mode": "source",
+    "ok": true,
+    "v1": {
+      "root": "/tmp/rnx-0065-encoding-2on9rln9/source",
+      "sha256": "bb1519ee547c5474e90dab1f20fc1bd4fe8072aa03b4359797a98a165b9e6dc6",
+      "files": [
+        {
+          "path": "data",
+          "executable": true,
+          "bytes": 32769,
+          "sha256": "b93c16c99895f1593347ab57af0c0a82f9672ecb3debb59d124e1b38f3871f01"
+        }
+      ]
+    },
+    "v2": {
+      "root": "/tmp/rnx-0065-encoding-2on9rln9/source",
+      "blake3": "f266378908c2dbf6a399089ffc87e46601d4912b1f31e8482704df5990a0c6b1",
+      "files": [
+        {
+          "path": "data",
+          "executable": true,
+          "bytes": 32769,
+          "blake3": "0e6b5d87f0676ef8a98d7a114cc05a7e4549828912070c7fb4a2dec23684dfb0"
+        }
+      ]
+    }
+  },
+  {
+    "case": "unicode quotes nested",
+    "mode": "source",
+    "ok": true,
+    "v1": {
+      "root": "/tmp/rnx-0065-encoding-2on9rln9/source",
+      "sha256": "d01527bf46bd145523b6db66e2a90287be727762744287ad9a7f600f00783e74",
+      "files": [
+        {
+          "path": "nested/é\"🙂",
+          "executable": false,
+          "bytes": 3,
+          "sha256": "59b271ae1bbcb1d31d41929817f4b16fb439eb4f31520b5ad1d5ce98920a7138"
+        }
+      ]
+    },
+    "v2": {
+      "root": "/tmp/rnx-0065-encoding-2on9rln9/source",
+      "blake3": "9033099bbfc93211dc342f2624095d8dcc53381880c7b06a21d9132a21388e10",
+      "files": [
+        {
+          "path": "nested/é\"🙂",
+          "executable": false,
+          "bytes": 3,
+          "blake3": "fdeb88a4c6f022465eedaf052a322770e2875b1052f697e5dd3b6ac7722deea5"
+        }
+      ]
+    }
+  },
+  {
+    "case": "native tracked",
+    "mode": "native",
+    "ok": true,
+    "v1": {
+      "root": "/tmp/rnx-0065-encoding-2on9rln9/source",
+      "sha256": "d01527bf46bd145523b6db66e2a90287be727762744287ad9a7f600f00783e74",
+      "files": [
+        {
+          "path": "nested/é\"🙂",
+          "executable": false,
+          "bytes": 3,
+          "sha256": "59b271ae1bbcb1d31d41929817f4b16fb439eb4f31520b5ad1d5ce98920a7138"
+        }
+      ]
+    },
+    "v2": {
+      "root": "/tmp/rnx-0065-encoding-2on9rln9/source",
+      "blake3": "9033099bbfc93211dc342f2624095d8dcc53381880c7b06a21d9132a21388e10",
+      "files": [
+        {
+          "path": "nested/é\"🙂",
+          "executable": false,
+          "bytes": 3,
+          "blake3": "fdeb88a4c6f022465eedaf052a322770e2875b1052f697e5dd3b6ac7722deea5"
+        }
+      ]
+    }
+  },
+  {
+    "case": "dirty working bytes",
+    "mode": "native",
+    "ok": true,
+    "v1": {
+      "root": "/tmp/rnx-0065-encoding-2on9rln9/source",
+      "sha256": "7632464d9371597e8580c0fdaf34aae397310b23196c90e6b0c30e156695df2d",
+      "files": [
+        {
+          "path": "nested/é\"🙂",
+          "executable": false,
+          "bytes": 7,
+          "sha256": "d67e2e944994496c8d8ec76eed0cf9f09679448d584b532bebf941852a37f5ed"
+        }
+      ]
+    },
+    "v2": {
+      "root": "/tmp/rnx-0065-encoding-2on9rln9/source",
+      "blake3": "fecc9c6fb78d5e139051a5c88ed78a52631d342136e48656180a94250057d311",
+      "files": [
+        {
+          "path": "nested/é\"🙂",
+          "executable": false,
+          "bytes": 7,
+          "blake3": "6a9f75eec6464a34f0a7967471bc2b468914240a1bd29215340487264cb279e2"
+        }
+      ]
+    }
+  },
+  {
+    "case": "untracked refuses",
+    "mode": "native",
+    "ok": false,
+    "v1": "fingerprint /tmp/rnx-0065-encoding-2on9rln9/source: untracked non-ignored native file\n",
+    "v2": "fingerprint /tmp/rnx-0065-encoding-2on9rln9/source: untracked non-ignored native file\n"
+  },
+  {
+    "case": "ignored excluded",
+    "mode": "native",
+    "ok": true,
+    "v1": {
+      "root": "/tmp/rnx-0065-encoding-2on9rln9/source",
+      "sha256": "21fedee29153710b6b29f55ccc27e8971be374ed0130941b1ea38612512ae988",
+      "files": [
+        {
+          "path": ".gitignore",
+          "executable": false,
+          "bytes": 8,
+          "sha256": "a6c7e3c5ddd823efc8b7a30853eabc152dac866843bd7a39dc4a29e0a0eb68b3"
+        },
+        {
+          "path": "nested/é\"🙂",
+          "executable": false,
+          "bytes": 7,
+          "sha256": "d67e2e944994496c8d8ec76eed0cf9f09679448d584b532bebf941852a37f5ed"
+        }
+      ]
+    },
+    "v2": {
+      "root": "/tmp/rnx-0065-encoding-2on9rln9/source",
+      "blake3": "9fc5c981f1358a327b63960d6baf1c811233e938548448aea53867b8453de688",
+      "files": [
+        {
+          "path": ".gitignore",
+          "executable": false,
+          "bytes": 8,
+          "blake3": "636fab405e61c3ba7b062337a63afeb4064221c754d07e0f9f780306b72402a1"
+        },
+        {
+          "path": "nested/é\"🙂",
+          "executable": false,
+          "bytes": 7,
+          "blake3": "6a9f75eec6464a34f0a7967471bc2b468914240a1bd29215340487264cb279e2"
+        }
+      ]
+    }
+  },
+  {
+    "case": "missing tracked",
+    "mode": "native",
+    "ok": false,
+    "v1": "fingerprint /tmp/rnx-0065-encoding-2on9rln9/source/missing: No such file or directory (os error 2)\n",
+    "v2": "fingerprint /tmp/rnx-0065-encoding-2on9rln9/source/missing: No such file or directory (os error 2)\n"
+  },
+  {
+    "case": "symlink directory source",
+    "mode": "source",
+    "ok": false,
+    "v1": "fingerprint /tmp/rnx-0065-encoding-2on9rln9/source/link: symlink or special file refused\n",
+    "v2": "fingerprint /tmp/rnx-0065-encoding-2on9rln9/source/link: symlink or special file refused\n"
+  },
+  {
+    "case": "symlink in index",
+    "mode": "native",
+    "ok": false,
+    "v1": "fingerprint /tmp/rnx-0065-encoding-2on9rln9/source: tracked symlink, submodule or unsupported mode\n",
+    "v2": "fingerprint /tmp/rnx-0065-encoding-2on9rln9/source: tracked symlink, submodule or unsupported mode\n"
+  },
+  {
+    "case": "symlink component replaces directory",
+    "mode": "native",
+    "ok": false,
+    "v1": "fingerprint /tmp/rnx-0065-encoding-2on9rln9/source/nested: symlink refused\n",
+    "v2": "fingerprint /tmp/rnx-0065-encoding-2on9rln9/source/nested: symlink refused\n"
+  },
+  {
+    "case": "symlink root",
+    "mode": "native",
+    "ok": false,
+    "v1": "fingerprint /tmp/rnx-0065-encoding-2on9rln9/root-link: root must be a directory, not a symlink\n",
+    "v2": "fingerprint /tmp/rnx-0065-encoding-2on9rln9/root-link: root must be a directory, not a symlink\n"
+  },
+  {
+    "case": "fifo single",
+    "mode": "one",
+    "ok": false,
+    "v1": "fingerprint /tmp/rnx-0065-encoding-2on9rln9/source/fifo: not a regular file (symlinks and special files are refused)\n",
+    "v2": "fingerprint /tmp/rnx-0065-encoding-2on9rln9/source/fifo: not a regular file (symlinks and special files are refused)\n"
+  },
+  {
+    "case": "non Unicode source",
+    "mode": "source",
+    "ok": false,
+    "v1": "fingerprint �: non-Unicode name\n",
+    "v2": "fingerprint �: non-Unicode name\n"
+  },
+  {
+    "case": "gitlink refuses",
+    "mode": "native",
+    "ok": false,
+    "v1": "fingerprint /tmp/rnx-0065-encoding-2on9rln9/source: tracked symlink, submodule or unsupported mode\n",
+    "v2": "fingerprint /tmp/rnx-0065-encoding-2on9rln9/source: tracked symlink, submodule or unsupported mode\n"
+  },
+  {
+    "case": "unmerged index",
+    "mode": "native",
+    "ok": false,
+    "v1": "fingerprint /tmp/rnx-0065-encoding-2on9rln9/source: unmerged Git index\n",
+    "v2": "fingerprint /tmp/rnx-0065-encoding-2on9rln9/source: unmerged Git index\n"
+  }
+]
