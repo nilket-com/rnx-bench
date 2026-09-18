@@ -1,0 +1,113 @@
+{
+  "cpu": 0,
+  "threads": 1,
+  "sample_count": 1060,
+  "seed": 630000,
+  "terminal": "xterm-256color 120x30",
+  "cache": "warm; explicit lock/build outside timing",
+  "clocks": "spawn/capture/wait, or PTY setup to first prompt; cells send to next prompt",
+  "binaries": {
+    "before": {
+      "path": "/tmp/rnx-0063-before/target/release/rnx",
+      "sha256": "80f4d028ac217cce2ba66498bf0ad162f7ed165faf0e8b87c1d3f9175f509367"
+    },
+    "after": {
+      "path": "/home/me/work/rnx-bench/probes/session-final/target/dogfood/bin/rnx",
+      "sha256": "c0d23d7c935557ed6f145dffdf0885b880a791a48a1f481fac3b920091c1370d"
+    },
+    "tool": {
+      "path": "/home/me/work/rnx-bench/probes/session-final/target/dogfood/bin/rnx-project",
+      "sha256": "a5d665b128937ed208ad4e02f5d86819ff1dbf1afafd62f20fc4af06cbe1b779"
+    },
+    "artifact": {
+      "path": "/home/me/work/rnx-bench/probes/session-final/target/dogfood/cache/entries/42786635e49e0be6007f5a6f2f65b85f98af56033b375f8631a042dc91aefdf2/artifacts/19f74594369020ca4134c40be9979b60f063bab6f357ecf0903c2aa3ecdc73d9",
+      "sha256": "19f74594369020ca4134c40be9979b60f063bab6f357ecf0903c2aa3ecdc73d9"
+    }
+  },
+  "commands": {
+    "eval": {
+      "project": [
+        "/home/me/work/rnx-bench/probes/session-final/target/dogfood/bin/rnx-project",
+        "eval",
+        "--manifest",
+        "/home/me/work/rnx-bench/probes/session-final/target/dogfood/absolute-project/rnx.toml",
+        "--color=never",
+        "--",
+        "polars::lit(1).is_ok()"
+      ],
+      "verify": [
+        "/home/me/work/rnx-bench/probes/session-final/target/dogfood/bin/rnx-project",
+        "eval",
+        "--manifest",
+        "/home/me/work/rnx-bench/probes/session-final/target/dogfood/absolute-project/rnx.toml",
+        "--verify",
+        "--color=never",
+        "--",
+        "polars::lit(1).is_ok()"
+      ],
+      "direct": [
+        "/home/me/work/rnx-bench/probes/session-final/target/dogfood/cache/entries/42786635e49e0be6007f5a6f2f65b85f98af56033b375f8631a042dc91aefdf2/artifacts/19f74594369020ca4134c40be9979b60f063bab6f357ecf0903c2aa3ecdc73d9",
+        "--color=never",
+        "eval",
+        "polars::lit(1).is_ok()"
+      ]
+    },
+    "session": {
+      "project": [
+        "/home/me/work/rnx-bench/probes/session-final/target/dogfood/bin/rnx-project",
+        "session",
+        "--manifest",
+        "/home/me/work/rnx-bench/probes/session-final/target/dogfood/absolute-project/rnx.toml",
+        "--no-splash",
+        "--color=never"
+      ],
+      "verify": [
+        "/home/me/work/rnx-bench/probes/session-final/target/dogfood/bin/rnx-project",
+        "session",
+        "--manifest",
+        "/home/me/work/rnx-bench/probes/session-final/target/dogfood/absolute-project/rnx.toml",
+        "--verify",
+        "--no-splash",
+        "--color=never"
+      ],
+      "direct": [
+        "/home/me/work/rnx-bench/probes/session-final/target/dogfood/cache/entries/42786635e49e0be6007f5a6f2f65b85f98af56033b375f8631a042dc91aefdf2/artifacts/19f74594369020ca4134c40be9979b60f063bab6f357ecf0903c2aa3ecdc73d9",
+        "--no-splash",
+        "--color=never",
+        "repl"
+      ]
+    },
+    "version": {
+      "before": [
+        "/tmp/rnx-0063-before/target/release/rnx",
+        "version"
+      ],
+      "after": [
+        "/home/me/work/rnx-bench/probes/session-final/target/dogfood/bin/rnx",
+        "version"
+      ]
+    },
+    "stock-eval": {
+      "before": [
+        "/tmp/rnx-0063-before/target/release/rnx",
+        "--color=never",
+        "eval",
+        "42"
+      ],
+      "after": [
+        "/home/me/work/rnx-bench/probes/session-final/target/dogfood/bin/rnx",
+        "--color=never",
+        "eval",
+        "42"
+      ]
+    },
+    "startup-probe": {
+      "direct": [
+        "/home/me/work/rnx-bench/probes/session-final/target/dogfood/cache/entries/42786635e49e0be6007f5a6f2f65b85f98af56033b375f8631a042dc91aefdf2/artifacts/19f74594369020ca4134c40be9979b60f063bab6f357ecf0903c2aa3ecdc73d9",
+        "--no-splash",
+        "--color=never",
+        "repl"
+      ]
+    }
+  }
+}

@@ -1,0 +1,36 @@
+[22;2t]2;rnx[?2004h[?2026h[K[1] > [6C[?2026llet held = 42;[?2004l
+[?2004h[?2026h[K[2] > [6C[?2026l:dep --offline polars[?2004l
+New scratch project: /home/me/work/rnx-bench/probes/session-final/target/dogfood/state with ' quote/rnx/sessions/session-3872489-1789732975398756028/rnx.toml
+Adding: polars
+Already declared: (none)
+Offline: Cargo may not fetch sources.
+A first Polars build took about 100 seconds with registry sources cached; its retained shared entry is about 1.5 GB. A reusable entry avoids compilation.
+This prepares a new executable and restarts the session on success.
+Existing bindings and declarations will be lost. Saved history remains available with up-arrow; nothing is replayed.
+[?2004h[?2026h[KContinue? [y/N] [16C[?2026ly[?2004l
+added polars
+Next:
+  rnx-project lock --manifest '/home/me/work/rnx-bench/probes/session-final/target/dogfood/state with '\'' quote/rnx/sessions/session-3872489-1789732975398756028/rnx.toml'
+  rnx-project build --manifest '/home/me/work/rnx-bench/probes/session-final/target/dogfood/state with '\'' quote/rnx/sessions/session-3872489-1789732975398756028/rnx.toml'
+  rnx-project session --manifest '/home/me/work/rnx-bench/probes/session-final/target/dogfood/state with '\'' quote/rnx/sessions/session-3872489-1789732975398756028/rnx.toml'
+dependency phase: author
+dependency phase: resolve
+     Locking 385 packages to latest Rust 1.98.1 compatible versions
+      Adding jiff v0.2.24 (available: v0.2.37)
+locked /home/me/work/rnx-bench/probes/session-final/target/dogfood/state with ' quote/rnx/sessions/session-3872489-1789732975398756028/rnx.toml
+dependency phase: build/attach
+attached shared assembly 0b48c87528c4d9f5d2b764dba35913078a76bd99e899eed77f6db59d9ae8aa9e: /home/me/work/rnx-bench/probes/session-final/target/dogfood/cache/entries/0b48c87528c4d9f5d2b764dba35913078a76bd99e899eed77f6db59d9ae8aa9e/artifacts/8b8d892607dd2a49420dd32a6ace08bb8a71e37cf17721cb0260b21277f68e75
+dependency phase: startup check
+restart is beginning
+[23;2t[22;2t]2;rnxReopen this scratch session:
+  '/home/me/work/rnx-bench/probes/session-final/target/dogfood/bin/rnx-project' session --manifest '/home/me/work/rnx-bench/probes/session-final/target/dogfood/state with '\'' quote/rnx/sessions/session-3872489-1789732975398756028/rnx.toml'
+[?2004h[?2026h[K[1] > [6C[?2026lheld[?2004l
+error at input 1, line 1, column 1: No local variable `held`
+  held
+  ^
+[?2004h[?2026h[K[2] > [6C[?2026lfs::absolute(".").unwrap()[?2004l
+[2] "/home/me/work/rnx-bench/probes/session-final/target/dogfood/cwd"
+[?2004h[?2026h[K[3] > [6C[?2026lpolars::lit(1).is_ok()[?2004l
+[3] true
+[?2004h[?2026h[K[4] > [6C[?2026l:q[?2004l
+[23;2t

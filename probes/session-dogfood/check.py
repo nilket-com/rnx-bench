@@ -2,7 +2,7 @@
 from pathlib import Path
 import os,sys,json,subprocess,importlib.util,time,select,re,shlex,hashlib,tomllib
 sys.dont_write_bytecode=True
-H=Path(__file__).resolve().parent;B=H.parents[1];R=B.parent/'rnx';W=H/'target';O=B/'results/session-dogfood-0063';O.mkdir(exist_ok=True)
+H=Path(__file__).resolve().parent;B=H.parents[1];R=B.parent/'rnx';W=Path(os.environ.get('RNX_DOGFOOD_TARGET', H/'target'));O=Path(os.environ.get('RNX_DOGFOOD_RESULTS', B/'results/session-dogfood-0063'));O.mkdir(exist_ok=True)
 T=W/'bin/rnx-project';S=W/'bin/rnx';ENV=json.loads((W/'env.json').read_text())
 assert not (W/'cache/entries').exists(), 'cold control requires a fresh target/cache'
 assert not Path(ENV['XDG_STATE_HOME']).exists(), 'fresh private state required'
@@ -52,7 +52,17 @@ def dep(t,line,adding,already):
  assert 'bindings and declarations will be lost' in notice
  return notice
 def handover(t):
- pid=t.p.pid;start=time.monotonic();os.write(t.master,b'y\n');out=t.read(timeout=600)
+ pid=t.p.pid;start=time.monotonic();os.write(t.master,b'y\n');out='';observed=[];stop=time.monotonic()+600
+ while time.monotonic()<stop:
+  if select.select([t.master],[],[],.1)[0]:
+   chunk=os.read(t.master,65536);t.log+=chunk;out+=term.text(chunk)
+   now=time.monotonic()-start
+   for label in ['dependency phase: author','dependency phase: resolve','dependency phase: build/attach','dependency phase: startup check','restart is beginning']:
+    if label in out and not any(v['label']==label for v in observed):observed.append({'label':label,'seconds':now})
+   if re.search(r'\[1\] > \r*$',out):break
+ else:raise AssertionError(('handover timeout',out))
+ observed.append({'label':'first prompt','seconds':time.monotonic()-start})
+ with (O/'phases.jsonl').open('a') as f:f.write(json.dumps({'pid':pid,'observations':observed})+'\n')
  assert 'restart is beginning' in out and '[1] >' in out and t.p.pid==pid,out
  assert os.tcgetpgrp(t.master)==pid
  assert not Path('/proc',str(pid),'task',str(pid),'children').read_text().strip()

@@ -1,0 +1,181 @@
+diff --git a/src/dep_transition.rs b/src/dep_transition.rs
+index a684d95..01c7499 100644
+--- a/src/dep_transition.rs
++++ b/src/dep_transition.rs
+@@ -343,6 +343,8 @@ mod unix {
+ 			return Err("replacement association mismatch".into());
+ 		}
+ 		helper.finish()?;
++		#[cfg(feature = "test-support")]
++		point("before-commit", &result[&1])?;
+ 		helper.check()?;
+ 		let next = Replacement {
+ 			path: result[&1].clone(),
+@@ -352,6 +354,8 @@ mod unix {
+ 			flags: flags(),
+ 		};
+ 		next.recheck()?;
++		#[cfg(feature = "test-support")]
++		wire::trace("cleanup-begin");
+ 		NEXT.with(|v| *v.borrow_mut() = Some(next));
+ 		Ok(true)
+ 	}
+@@ -377,12 +381,37 @@ mod unix {
+ 			.take_while(|a| a == "--no-splash" || a.starts_with("--color="))
+ 			.collect()
+ 	}
++	#[cfg(feature = "test-support")]
++	fn point(name: &str, artifact: &str) -> Result<(), String> {
++		wire::trace(name);
++		if std::env::var("RNX_DEP_PAUSE").as_deref() != Ok(name) {
++			return Ok(());
++		}
++		let marker = std::env::var("RNX_DEP_MARKER").map_err(err)?;
++		let release = std::env::var("RNX_DEP_RELEASE").map_err(err)?;
++		std::fs::write(marker, artifact).map_err(err)?;
++		let deadline = Instant::now() + Duration::from_secs(30);
++		while !std::path::Path::new(&release).exists() {
++			if name == "before-commit" && crate::host::interrupted() {
++				break;
++			}
++			if Instant::now() >= deadline {
++				return Err("fixture transition pause deadline".into());
++			}
++			std::thread::sleep(Duration::from_millis(5));
++		}
++		Ok(())
++	}
+ 	pub(super) fn finish(result: crate::Result<()>) -> crate::Result<()> {
+ 		let next = NEXT.with(|v| v.borrow_mut().take());
+ 		result?;
+ 		if let Some(next) = next {
++			#[cfg(feature = "test-support")]
++			point("after-cleanup", &next.path)?;
+ 			next.recheck()
+ 				.map_err(|e| format!("dependency restart failed after cleanup: {e}"))?;
++			#[cfg(feature = "test-support")]
++			point("before-exec", &next.path)?;
+ 			let mut command = Command::new(&next.path);
+ 			command.env_remove("RNX_INTERNAL_DEP_REOPEN_V1");
+ 			if let Some(reopen) = next.reopen {
+diff --git a/src/dep_wire.rs b/src/dep_wire.rs
+index 5cef2f1..e645c81 100644
+--- a/src/dep_wire.rs
++++ b/src/dep_wire.rs
+@@ -120,6 +120,34 @@ pub fn stamp(path: &std::path::Path) -> Result<String, String> {
+ 	))
+ }
+ 
++/// Fixture-only, comparable monotonic timestamps across the transition processes.
++#[cfg(all(unix, feature = "test-support"))]
++pub fn trace(name: &str) {
++	use std::io::Write;
++	let Some(path) = std::env::var_os("RNX_DEP_TIMELINE") else {
++		return;
++	};
++	let mut ts = libc::timespec {
++		tv_sec: 0,
++		tv_nsec: 0,
++	};
++	if unsafe { libc::clock_gettime(libc::CLOCK_MONOTONIC, &mut ts) } != 0 {
++		return;
++	}
++	if let Ok(mut f) = std::fs::OpenOptions::new()
++		.create(true)
++		.append(true)
++		.open(path)
++	{
++		let _ = writeln!(
++			f,
++			"{}\t{}\t{name}",
++			ts.tv_sec as u128 * 1_000_000_000 + ts.tv_nsec as u128,
++			std::process::id()
++		);
++	}
++}
++
+ #[cfg(test)]
+ mod tests {
+ 	use super::*;
+diff --git a/tools/project/src/dep_wire.rs b/tools/project/src/dep_wire.rs
+index 5cef2f1..e645c81 100644
+--- a/tools/project/src/dep_wire.rs
++++ b/tools/project/src/dep_wire.rs
+@@ -120,6 +120,34 @@ pub fn stamp(path: &std::path::Path) -> Result<String, String> {
+ 	))
+ }
+ 
++/// Fixture-only, comparable monotonic timestamps across the transition processes.
++#[cfg(all(unix, feature = "test-support"))]
++pub fn trace(name: &str) {
++	use std::io::Write;
++	let Some(path) = std::env::var_os("RNX_DEP_TIMELINE") else {
++		return;
++	};
++	let mut ts = libc::timespec {
++		tv_sec: 0,
++		tv_nsec: 0,
++	};
++	if unsafe { libc::clock_gettime(libc::CLOCK_MONOTONIC, &mut ts) } != 0 {
++		return;
++	}
++	if let Ok(mut f) = std::fs::OpenOptions::new()
++		.create(true)
++		.append(true)
++		.open(path)
++	{
++		let _ = writeln!(
++			f,
++			"{}\t{}\t{name}",
++			ts.tv_sec as u128 * 1_000_000_000 + ts.tv_nsec as u128,
++			std::process::id()
++		);
++	}
++}
++
+ #[cfg(test)]
+ mod tests {
+ 	use super::*;
+diff --git a/tools/project/src/workflow/transition.rs b/tools/project/src/workflow/transition.rs
+index a625f52..199b4b3 100644
+--- a/tools/project/src/workflow/transition.rs
++++ b/tools/project/src/workflow/transition.rs
+@@ -409,14 +409,20 @@ pub(super) fn serve(args: Vec<OsString>) -> Result<(), String> {
+ 		let mut phase = "author";
+ 		let prepare: Result<(), String> = (|| {
+ 			eprintln!("dependency phase: author");
++			#[cfg(feature = "test-support")]
++			protocol::trace("tool-author");
+ 			fault("dep-author")?;
+ 			p.add(&fresh.entries)?;
+ 			phase = "resolve";
+ 			eprintln!("dependency phase: resolve");
++			#[cfg(feature = "test-support")]
++			protocol::trace("tool-resolve");
+ 			fault("dep-resolve")?;
+ 			p.lock(fresh.offline)?;
+ 			phase = "build/attach";
+ 			eprintln!("dependency phase: build/attach");
++			#[cfg(feature = "test-support")]
++			protocol::trace("tool-build");
+ 			fault("dep-build")?;
+ 			p.build(fresh.offline)?;
+ 			let (lock, bytes) = p.read_lock()?;
+@@ -425,6 +431,8 @@ pub(super) fn serve(args: Vec<OsString>) -> Result<(), String> {
+ 			checked.recheck()?;
+ 			phase = "startup check";
+ 			eprintln!("dependency phase: startup check");
++			#[cfg(feature = "test-support")]
++			protocol::trace("tool-probe");
+ 			super::startup::check(&checked, request.get(&6).map(String::as_str).unwrap_or(""))?;
+ 			commands::check()?;
+ 			p.verify_inputs(&lock)?;
+@@ -448,6 +456,8 @@ pub(super) fn serve(args: Vec<OsString>) -> Result<(), String> {
+ 					),
+ 				);
+ 			}
++			#[cfg(feature = "test-support")]
++			protocol::trace("tool-ready");
+ 			protocol::write(&mut socket, 5, &ready)?;
+ 			Ok(())
+ 		})();

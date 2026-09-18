@@ -1,0 +1,59 @@
+{
+  "root-default": {
+    "passed": 376,
+    "failed": 0
+  },
+  "root-support": {
+    "passed": 419,
+    "failed": 0
+  },
+  "root-combined": {
+    "passed": 438,
+    "failed": 0
+  },
+  "tool-default": {
+    "passed": 40,
+    "failed": 0
+  },
+  "tool-support": {
+    "passed": 40,
+    "failed": 0
+  },
+  "root-clippy": [
+    "error: using `clone` on type `Kind` which implements the `Copy` trait",
+    "error: this `if` statement can be collapsed",
+    "error: call to `std::mem::drop` with a value that does not implement `Drop`. Dropping such a type only extends its contained lifetimes",
+    "error: unneeded late initialization",
+    "error: this `if` has identical blocks",
+    "error: this `if` has identical blocks",
+    "error: doc list item without indentation",
+    "error: doc list item without indentation",
+    "error: this `if` statement can be collapsed",
+    "error: stripping a prefix manually",
+    "error: this manual char comparison can be written more succinctly",
+    "error: manual implementation of `.is_multiple_of()`",
+    "error: this `if` statement can be collapsed",
+    "error: could not compile `rnx` (lib) due to 13 previous errors"
+  ],
+  "before-clippy": [
+    "error: using `clone` on type `Kind` which implements the `Copy` trait",
+    "error: this `if` statement can be collapsed",
+    "error: call to `std::mem::drop` with a value that does not implement `Drop`. Dropping such a type only extends its contained lifetimes",
+    "error: unneeded late initialization",
+    "error: this `if` has identical blocks",
+    "error: this `if` has identical blocks",
+    "error: doc list item without indentation",
+    "error: doc list item without indentation",
+    "error: this `if` statement can be collapsed",
+    "error: stripping a prefix manually",
+    "error: this manual char comparison can be written more succinctly",
+    "error: manual implementation of `.is_multiple_of()`",
+    "error: this `if` statement can be collapsed",
+    "error: could not compile `rnx` (lib) due to 13 previous errors"
+  ],
+  "root-clippy-support": {
+    "errors": 14,
+    "additional_worker_fixture_diagnostic": "collapsible_if at src/worker.rs:318",
+    "worker_source_identical_to_78c514d": true
+  }
+}

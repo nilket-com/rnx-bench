@@ -1,0 +1,419 @@
+[22;2t]2;rnx[?2004h[?2026h[K[1] > [6C[?2026llet held = 42;[?2004l
+[?2004h[?2026h[K[2] > [6C[?2026lpolars::lit(1).is_ok()[?2004l
+[2] true
+[?2004h[?2026h[K[3] > [6C[?2026llet history_marker = 93817;[?2004l
+[?2004h[?2026h[K[4] > [6C[?2026l:dep --offline polars postgres[?2004l
+Project: /home/me/work/rnx-bench/probes/session-final/target/dogfood/absolute-project/rnx.toml
+Adding: postgres
+Already declared: polars
+Offline: Cargo may not fetch sources.
+This prepares a new executable and restarts the session on success.
+Existing bindings and declarations will be lost. Saved history remains available with up-arrow; nothing is replayed.
+[?2004h[?2026h[KContinue? [y/N] [16C[?2026ly[?2004l
+dependency phase: author
+added postgres
+already present: polars
+Next:
+  rnx-project lock --manifest '/home/me/work/rnx-bench/probes/session-final/target/dogfood/absolute-project/rnx.toml'
+  rnx-project build --manifest '/home/me/work/rnx-bench/probes/session-final/target/dogfood/absolute-project/rnx.toml'
+  rnx-project session --manifest '/home/me/work/rnx-bench/probes/session-final/target/dogfood/absolute-project/rnx.toml'
+dependency phase: resolve
+     Locking 22 packages to latest Rust 1.98.1 compatible versions
+      Adding byteorder v1.5.0
+      Adding cmov v0.5.4
+      Adding ctutils v0.4.2
+      Adding fallible-iterator v0.2.0
+      Adding hmac v0.13.0
+      Adding libredox v0.1.24
+      Adding md-5 v0.11.0
+      Adding objc2-system-configuration v0.3.2
+      Adding phf v0.13.1
+      Adding phf_shared v0.13.1
+      Adding postgres-protocol v0.6.12
+      Adding postgres-types v0.2.14
+      Adding rnx-postgres v0.0.0 (/home/me/work/rnx/adapters/postgres)
+      Adding stringprep v0.1.5
+      Adding tokio-postgres v0.7.18
+      Adding unicode-bidi v0.3.18
+      Adding unicode-properties v0.1.4
+      Adding wasi v0.14.7+wasi-0.2.4
+      Adding wasip2 v1.0.4+wasi-0.2.12
+      Adding wasite v1.0.2
+      Adding whoami v2.1.3
+      Adding wit-bindgen v0.57.1
+locked /home/me/work/rnx-bench/probes/session-final/target/dogfood/absolute-project/rnx.toml
+dependency phase: build/attach
+   Compiling proc-macro2 v1.0.107
+   Compiling quote v1.0.47
+   Compiling unicode-ident v1.0.26
+   Compiling serde_core v1.0.229
+   Compiling libc v0.2.189
+   Compiling cfg-if v1.0.5
+   Compiling version_check v0.9.5
+   Compiling serde v1.0.229
+   Compiling shlex v2.0.1
+   Compiling find-msvc-tools v0.1.12
+   Compiling pin-project-lite v0.2.17
+   Compiling memchr v2.8.3
+   Compiling futures-core v0.3.34
+   Compiling autocfg v1.5.1
+   Compiling libm v0.2.16
+   Compiling crossbeam-utils v0.8.23
+   Compiling portable-atomic v1.15.0
+   Compiling futures-sink v0.3.34
+   Compiling stable_deref_trait v1.2.1
+   Compiling smallvec v1.16.1
+   Compiling critical-section v1.2.0
+   Compiling slab v0.4.12
+   Compiling itoa v1.0.18
+   Compiling crossbeam-epoch v0.9.21
+   Compiling crossbeam-deque v0.8.8
+   Compiling futures-io v0.3.34
+   Compiling futures-task v0.3.34
+   Compiling allocator-api2 v0.2.21
+   Compiling rayon-core v1.13.0
+   Compiling equivalent v1.0.2
+   Compiling futures-channel v0.3.34
+   Compiling either v1.18.0
+   Compiling litemap v0.8.3
+   Compiling writeable v0.6.4
+   Compiling zeroize v1.9.0
+   Compiling icu_normalizer_data v2.3.0
+   Compiling utf8_iter v1.0.4
+   Compiling percent-encoding v2.3.2
+   Compiling icu_properties_data v2.3.0
+   Compiling getrandom v0.4.3
+   Compiling rand_core v0.10.1
+   Compiling cpufeatures v0.3.1
+   Compiling crc32fast v1.5.2
+   Compiling foldhash v0.2.0
+   Compiling simd-adler32 v0.3.10
+   Compiling httparse v1.10.1
+   Compiling rustls-pki-types v1.15.1
+   Compiling adler2 v2.0.1
+   Compiling base64 v0.22.1
+   Compiling untrusted v0.9.0
+   Compiling atomic-waker v1.1.2
+   Compiling num-traits v0.2.19
+   Compiling fnv v1.0.7
+   Compiling tower-service v0.3.3
+   Compiling rustls v0.23.45
+   Compiling try-lock v0.2.5
+   Compiling zlib-rs v0.6.8
+   Compiling miniz_oxide v0.9.1
+   Compiling zerocopy v0.8.57
+   Compiling chacha20 v0.10.2
+   Compiling form_urlencoded v1.2.2
+   Compiling subtle v2.6.1
+   Compiling ryu v1.0.23
+   Compiling compression-core v0.4.33
+   Compiling want v0.3.1
+   Compiling zmij v1.0.23
+   Compiling object v0.39.1
+   Compiling sync_wrapper v1.0.2
+   Compiling openssl-probe v0.2.1
+   Compiling log v0.4.34
+   Compiling tower-layer v0.3.3
+   Compiling serde_json v1.0.151
+   Compiling parking_lot_core v0.9.12
+   Compiling ipnet v2.12.2
+   Compiling webpki-roots v1.0.9
+   Compiling once_cell v1.21.4
+   Compiling rustls-native-certs v0.8.4
+   Compiling scopeguard v1.2.0
+   Compiling iana-time-zone v0.1.65
+   Compiling thiserror v2.0.20
+   Compiling rustversion v1.0.23
+   Compiling foldhash v0.1.5
+   Compiling aho-corasick v1.1.5
+   Compiling signal-hook v0.4.4
+   Compiling array-init-cursor v0.2.1
+   Compiling lock_api v0.4.14
+   Compiling regex-syntax v0.8.11
+   Compiling same-file v1.0.6
+   Compiling syn v3.0.6
+   Compiling syn v2.0.119
+   Compiling tracing-core v0.1.36
+   Compiling hashbrown v0.15.5
+   Compiling walkdir v2.5.0
+   Compiling itertools v0.14.0
+   Compiling siphasher v1.0.3
+   Compiling humantime v2.4.0
+   Compiling jobserver v0.1.35
+   Compiling mio v1.2.3
+   Compiling socket2 v0.6.5
+   Compiling getrandom v0.2.17
+   Compiling errno v0.3.14
+   Compiling slotmap v1.1.1
+   Compiling simdutf8 v0.1.5
+   Compiling virtue v0.0.18
+   Compiling pkg-config v0.3.34
+   Compiling cc v1.4.6
+   Compiling rand v0.10.2
+   Compiling parking_lot v0.12.5
+   Compiling planus v1.1.1
+   Compiling signal-hook-registry v1.4.8
+   Compiling castaway v0.2.4
+   Compiling polars-utils v0.55.2
+   Compiling rmp v0.8.15
+   Compiling rayon v1.12.0
+   Compiling bitflags v2.13.2
+   Compiling static_assertions v1.1.0
+   Compiling unty v0.0.4
+   Compiling uuid v1.26.1
+   Compiling raw-cpuid v11.6.0
+   Compiling sysinfo v0.39.6
+   Compiling memmap2 v0.9.11
+   Compiling zstd-safe v7.3.0
+   Compiling flate2 v1.1.10
+   Compiling phf_shared v0.12.1
+   Compiling bincode_derive v2.0.1
+   Compiling polars-schema v0.55.2
+   Compiling polars-buffer v0.55.2
+   Compiling typenum v1.20.1
+   Compiling chrono-tz v0.10.4
+   Compiling polars-arrow v0.55.2
+   Compiling heck v0.5.0
+   Compiling phf v0.12.1
+   Compiling streaming-iterator v0.1.9
+   Compiling ethnum v1.5.3
+   Compiling dyn-clone v1.0.20
+   Compiling cmov v0.5.4
+   Compiling polars-compute v0.55.2
+   Compiling const-oid v0.10.2
+   Compiling debug_unsafe v0.1.4
+   Compiling regex-automata v0.4.18
+   Compiling fast-float2 v0.2.4
+   Compiling strength_reduce v0.2.4
+   Compiling compression-codecs v0.4.43
+   Compiling atoi_simd v0.18.1
+   Compiling boxcar v0.2.14
+   Compiling crossbeam-channel v0.5.17
+   Compiling ahash v0.8.12
+   Compiling ctutils v0.4.2
+   Compiling polars-core v0.55.2
+   Compiling alloc-no-stdlib v2.0.4
+   Compiling rand_distr v0.6.0
+   Compiling snap v1.1.2
+   Compiling rustix v1.1.5
+   Compiling xxhash-rust v0.8.18
+   Compiling home v0.5.12
+   Compiling fallible-streaming-iterator v0.1.9
+   Compiling linux-raw-sys v0.12.1
+   Compiling alloc-stdlib v0.2.4
+   Compiling polars-ops v0.55.2
+   Compiling constant_time_eq v0.4.2
+   Compiling brotli-decompressor v5.0.3
+   Compiling streaming-decompression v0.1.2
+   Compiling hybrid-array v0.4.15
+   Compiling arrayvec v0.7.8
+   Compiling ring v0.17.14
+   Compiling stacker v0.1.25
+   Compiling zstd-sys v2.1.0+zstd.1.5.7
+   Compiling lz4-sys v1.11.1+lz4-1.10.0
+   Compiling blake3 v1.8.7
+   Compiling crossbeam-queue v0.3.14
+   Compiling fastrand v2.5.0
+   Compiling glob v0.3.4
+   Compiling hex v0.4.3
+   Compiling crypto-common v0.2.2
+   Compiling block-buffer v0.12.1
+   Compiling num-integer v0.1.47
+   Compiling polars-expr v0.55.2
+   Compiling cfg_aliases v0.2.2
+   Compiling parking v2.2.1
+   Compiling hashbrown v0.17.1
+   Compiling brotli v8.0.4
+   Compiling num-bigint v0.4.8
+   Compiling event-listener v5.4.2
+   Compiling ar_archive_writer v0.5.3
+   Compiling synstructure v0.14.0
+   Compiling nix v0.31.3
+   Compiling anyhow v1.0.104
+   Compiling twox-hash v2.1.4
+   Compiling digest v0.11.3
+   Compiling tinyvec v1.13.3
+   Compiling event-listener-strategy v0.5.4
+   Compiling num-iter v0.1.46
+   Compiling sha2 v0.11.0
+   Compiling indexmap v2.14.2
+   Compiling digest-io v0.1.0
+   Compiling num-complex v0.4.6
+   Compiling concurrent-queue v2.5.0
+   Compiling nibble_vec v0.1.0
+   Compiling polars-stream v0.55.2
+   Compiling fs4 v1.1.0
+   Compiling thread_local v1.1.10
+   Compiling unicode-properties v0.1.4
+   Compiling unicode-bidi v0.3.18
+   Compiling endian-type v0.2.0
+   Compiling psm v0.1.32
+   Compiling unicode-normalization v0.1.25
+   Compiling async-channel v2.5.0
+   Compiling radix_trie v0.3.0
+   Compiling md-5 v0.11.0
+   Compiling regex v1.13.1
+   Compiling hmac v0.13.0
+   Compiling polars-lazy v0.55.2
+   Compiling byteorder v1.5.0
+   Compiling num-rational v0.4.2
+   Compiling stringprep v0.1.5
+   Compiling tracing-attributes v0.1.31
+   Compiling zerocopy-derive v0.8.57
+   Compiling num-derive v0.4.2
+   Compiling strum_macros v0.28.0
+   Compiling async-stream-impl v0.3.6
+   Compiling pin-project-internal v1.1.13
+   Compiling serde_stacker v0.1.14
+   Compiling rune-alloc-macros v0.14.2
+   Compiling polars-plan v0.55.2
+   Compiling recursive-proc-macro-impl v0.1.1
+   Compiling async-stream v0.3.6
+   Compiling musli-macros v0.0.124
+   Compiling recursive v0.1.1
+   Compiling rune-tracing-macros v0.14.2
+   Compiling num v0.4.3
+   Compiling serde_derive v1.0.229
+   Compiling zerofrom-derive v0.1.8
+   Compiling yoke-derive v0.8.3
+   Compiling zerovec-derive v0.11.6
+   Compiling tokio-macros v2.7.2
+   Compiling displaydoc v0.2.7
+   Compiling futures-macro v0.3.34
+   Compiling async-trait v0.1.92
+   Compiling thiserror-impl v2.0.20
+   Compiling bytemuck_derive v1.12.1
+   Compiling tracing v0.1.44
+   Compiling pin-project v1.1.13
+   Compiling rune-tracing v0.14.2
+   Compiling rustyline-derive v0.12.0
+   Compiling fallible-iterator v0.2.0
+   Compiling unicode-width v0.2.2
+   Compiling unicode-segmentation v1.13.3
+   Compiling utf8parse v0.2.2
+   Compiling futures-util v0.3.34
+   Compiling syntree v0.18.0
+   Compiling phf_shared v0.13.1
+   Compiling polars v0.55.2
+   Compiling jiff v0.2.24
+   Compiling whoami v2.1.3
+   Compiling rustyline v18.0.1
+   Compiling zerofrom v0.1.8
+   Compiling yoke v0.8.3
+   Compiling phf v0.13.1
+   Compiling bytemuck v1.25.2
+   Compiling zerovec v0.11.8
+   Compiling zerotrie v0.2.5
+   Compiling musli-core v0.0.124
+   Compiling tinystr v0.8.4
+   Compiling potential_utf v0.1.6
+   Compiling rune-alloc v0.14.2
+   Compiling icu_collections v2.3.0
+   Compiling bytes v1.12.1
+   Compiling icu_locale_core v2.3.0
+   Compiling serde_urlencoded v0.7.1
+   Compiling chrono v0.4.45
+   Compiling quick-xml v0.39.4
+   Compiling polars-arrow-format v0.2.1
+   Compiling compact_str v0.9.1
+   Compiling bincode v2.0.1
+   Compiling rmp-serde v1.3.1
+   Compiling musli v0.0.124
+   Compiling tokio v1.53.1
+   Compiling http v1.5.0
+   Compiling postgres-protocol v0.6.12
+   Compiling icu_provider v2.3.1
+   Compiling futures-executor v0.3.34
+   Compiling postgres-types v0.2.14
+   Compiling icu_properties v2.3.0
+   Compiling http-body v1.1.0
+   Compiling icu_normalizer v2.3.0
+   Compiling futures v0.3.34
+   Compiling http-body-util v0.1.5
+   Compiling polars-parquet-format v0.1.0
+   Compiling rune-core v0.14.2
+   Compiling half v2.7.1
+   Compiling now v0.1.3
+   Compiling rustls-webpki v0.103.15
+   Compiling rune-macros v0.14.2
+   Compiling idna_adapter v1.2.2
+   Compiling argminmax v0.6.3
+   Compiling idna v1.1.0
+   Compiling url v2.5.8
+   Compiling rune v0.14.2
+   Compiling tokio-util v0.7.19
+   Compiling async-compression v0.4.48
+   Compiling tower v0.5.3
+   Compiling h2 v0.4.19
+   Compiling tower-http v0.6.11
+   Compiling tokio-postgres v0.7.18
+   Compiling tokio-rustls v0.26.5
+   Compiling lz4 v1.28.1
+   Compiling hyper v1.11.1
+   Compiling hyper-util v0.1.20
+   Compiling hyper-rustls v0.27.9
+   Compiling reqwest v0.12.28
+   Compiling object_store v0.13.2
+   Compiling zstd v0.13.3
+   Compiling polars-error v0.55.2
+   Compiling polars-config v0.55.2
+   Compiling polars-async v0.55.2
+   Compiling polars-dtype v0.55.2
+   Compiling polars-row v0.55.2
+   Compiling polars-parquet v0.55.2
+   Compiling rnx v0.0.0 (/home/me/work/rnx)
+   Compiling rnx-postgres v0.0.0 (/home/me/work/rnx/adapters/postgres)
+   Compiling polars-io v0.55.2
+   Compiling polars-ooc v0.55.2
+   Compiling polars-time v0.55.2
+   Compiling polars-mem-engine v0.55.2
+   Compiling rnx-polars v0.0.0 (/home/me/work/rnx/adapters/polars)
+   Compiling rnx-project-app v0.0.0 (/home/me/work/rnx-bench/probes/session-final/target/dogfood/cache/entries/42786635e49e0be6007f5a6f2f65b85f98af56033b375f8631a042dc91aefdf2/assembly)
+    Finished `release` profile [optimized] target(s) in 2m 30s
+built shared assembly 42786635e49e0be6007f5a6f2f65b85f98af56033b375f8631a042dc91aefdf2: /home/me/work/rnx-bench/probes/session-final/target/dogfood/cache/entries/42786635e49e0be6007f5a6f2f65b85f98af56033b375f8631a042dc91aefdf2/artifacts/19f74594369020ca4134c40be9979b60f063bab6f357ecf0903c2aa3ecdc73d9
+dependency phase: startup check
+restart is beginning
+[23;2t[22;2t]2;rnx[?2004h[?2026h[K[1] > [6C[?2026l[?2026h[K[1] > :dep --offline polars postgres[36C[?2026l[?2026h[K[1] > let history_marker = 93817;[33C[?2026l[?2004l
+[?2004h[?2026h[K[1] > [6C[?2026lhistory_marker[?2004l
+error at input 1, line 1, column 1: No local variable `history_marker`
+  history_marker
+  ^
+[?2004h[?2026h[K[2] > [6C[?2026lheld[?2004l
+error at input 2, line 1, column 1: No local variable `held`
+  held
+  ^
+[?2004h[?2026h[K[3] > [6C[?2026lfs::absolute(".").unwrap()[?2004l
+[3] "/home/me/work/rnx-bench/probes/session-final/target/dogfood/cwd"
+[?2004h[?2026h[K[4] > [6C[?2026lfs::write_new("absolute.csv", "category,value\na,1\na,2\n🦀,3\n🦀,4\nmissing,\n").unwrap();[?2004l
+[?2004h[?2026h[K[5] > [6C[?2026llet frame = polars::read_csv("absolute.csv", [("category","string"),("value","i64")]).unwrap();[?2004l
+[?2004h[?2026h[K[6] > [6C[?2026llet grouped = frame.lazy().filter(polars::col("value").gt(polars::lit(1).unwrap())).group_by([polars::col("catego[?2026h[K[6] > let grouped = frame.lazy().filter(polars::col("value").gt(polars::lit(1).unwrap())).group_by([polars::col("categor
+[?2026ly")]).unwrap();[?2004l
+[?2004h[?2026h[K[7] > [6C[?2026llet plan = grouped.agg([polars::col("value").sum().alias("total")]).unwrap().sort(["category"]).unwrap();[?2004l
+[?2004h[?2026h[K[8] > [6C[?2026llet result = plan.collect().unwrap();[?2004l
+[?2004h[?2026h[K[9] > [6C[?2026lprintln!("{}", result.preview().unwrap());[?2004l
+DataFrame: 2 rows × 2 columns
+"category": string | "total": i64
+"a" | 2
+"🦀" | 7
+
+[?2004h[?2026h[K[10] > [7C[?2026lframe.lazy().sort(["missing"]).unwrap().collect()[?2004l
+[10] Err("polars collect: not found: unable to find column \"missing\"; valid columns: [\"category\", \"value\"]\n\nResolved plan until failure:\n\n\t---> FAILED HERE RESOLVING 'sort' <---\nDF [\"category\", \"value\"]; PROJECT */2 COLUMNS: 'sort'")
+[?2004h[?2026h[K[11] > [7C[?2026lprintln!("{}", frame.preview().unwrap());[?2004l
+DataFrame: 5 rows × 2 columns
+"category": string | "value": i64
+"a" | 1
+"a" | 2
+"🦀" | 3
+"🦀" | 4
+"missing" | null
+
+[?2004h[?2026h[K[12] > [7C[?2026lresult.write_parquet_new("absolute.parquet").unwrap();[?2004l
+[?2004h[?2026h[K[13] > [7C[?2026lassert!(polars::read_parquet("absolute.parquet").unwrap().preview().unwrap() == result.preview().unwrap());[?2004l
+[?2004h[?2026h[K[14] > [7C[?2026lassert!(plan.collect().unwrap().preview().unwrap() == result.preview().unwrap());[?2004l
+[?2004h[?2026h[K[15] > [7C[?2026llet answer = postgres::query("postgresql:///postgres?host=/tmp/rnx-pg-contract-w99p3328&application_name=rnx-pg-[?2026h[K[15] > let answer = postgres::query("postgresql:///postgres?host=/tmp/rnx-pg-contract-w99p3328&application_name=rnx-pg-f
+[?2026lixture", "SELECT $1::text AS value, $2::int8 AS n", ["quote ' SQL ; \\ and 🦀", 42], #{}).await.unwrap();[?2004l
+[?2004h[?2026h[K[16] > [7C[?2026lassert!(answer.rows[0].value == "quote ' SQL ; \\ and 🦀" && answer.rows[0].n == 42);[?2004l
+[?2004h[?2026h[K[17] > [7C[?2026l:dep postgres[?2004l
+already installed; session unchanged
+[?2004h[?2026h[K[17] > [7C[?2026l:q[?2004l
+[23;2t
