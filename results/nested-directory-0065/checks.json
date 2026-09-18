@@ -1,0 +1,89 @@
+{
+  "complete": true,
+  "checks": [
+    {
+      "name": "fmt",
+      "args": [
+        "cargo",
+        "fmt",
+        "--manifest-path",
+        "tools/project/Cargo.toml",
+        "--check"
+      ],
+      "status": 0
+    },
+    {
+      "name": "clippy-default",
+      "args": [
+        "cargo",
+        "clippy",
+        "--locked",
+        "--offline",
+        "--manifest-path",
+        "tools/project/Cargo.toml",
+        "--all-targets",
+        "--",
+        "-D",
+        "warnings"
+      ],
+      "status": 0
+    },
+    {
+      "name": "tests-default",
+      "args": [
+        "cargo",
+        "test",
+        "--locked",
+        "--offline",
+        "--manifest-path",
+        "tools/project/Cargo.toml",
+        "--",
+        "--test-threads=1"
+      ],
+      "status": 0
+    },
+    {
+      "name": "clippy-support",
+      "args": [
+        "cargo",
+        "clippy",
+        "--locked",
+        "--offline",
+        "--manifest-path",
+        "tools/project/Cargo.toml",
+        "--all-targets",
+        "--features",
+        "test-support",
+        "--",
+        "-D",
+        "warnings"
+      ],
+      "status": 0
+    },
+    {
+      "name": "tests-support",
+      "args": [
+        "cargo",
+        "test",
+        "--locked",
+        "--offline",
+        "--manifest-path",
+        "tools/project/Cargo.toml",
+        "--features",
+        "test-support",
+        "--",
+        "--test-threads=1"
+      ],
+      "status": 0
+    },
+    {
+      "name": "notices",
+      "args": [
+        "python3",
+        "tools/project/scripts/notices.py",
+        "--check"
+      ],
+      "status": 0
+    }
+  ]
+}

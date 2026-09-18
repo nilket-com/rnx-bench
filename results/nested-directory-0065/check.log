@@ -1,0 +1,36 @@
+PASS quiescent {'oracle': {'git': 6, 'reads': 6, 'reused': 0}, 'candidate': {'git': 3, 'reads': 4, 'reused': 1}}
+PASS ignored {'oracle': {'git': 6, 'reads': 6, 'reused': 0}, 'candidate': {'git': 3, 'reads': 4, 'reused': 1}}
+PASS untracked-child {'oracle': {'git': 2, 'reads': 0, 'reused': 0}, 'candidate': {'git': 2, 'reads': 0, 'reused': 0}}
+PASS staged-addition {'oracle': {'git': 6, 'reads': 8, 'reused': 0}, 'candidate': {'git': 3, 'reads': 5, 'reused': 1}}
+PASS staged-deletion {'oracle': {'git': 6, 'reads': 6, 'reused': 0}, 'candidate': {'git': 3, 'reads': 4, 'reused': 1}}
+PASS working-executable {'oracle': {'git': 6, 'reads': 6, 'reused': 0}, 'candidate': {'git': 3, 'reads': 4, 'reused': 1}}
+PASS staged-executable {'oracle': {'git': 6, 'reads': 6, 'reused': 0}, 'candidate': {'git': 3, 'reads': 4, 'reused': 1}}
+PASS missing-tracked {'oracle': {'git': 3, 'reads': 1, 'reused': 0}, 'candidate': {'git': 3, 'reads': 1, 'reused': 0}}
+PASS empty-root {'oracle': {'git': 6, 'reads': 4, 'reused': 0}, 'candidate': {'git': 3, 'reads': 4, 'reused': 0}}
+PASS nested-repository-at-root {'oracle': {'git': 6, 'reads': 6, 'reused': 0}, 'candidate': {'git': 6, 'reads': 6, 'reused': 0}}
+PASS nested-repository-inside-adapter {'oracle': {'git': 6, 'reads': 6, 'reused': 0}, 'candidate': {'git': 6, 'reads': 6, 'reused': 0}}
+PASS external-repository {'oracle': {'git': 6, 'reads': 6, 'reused': 0}, 'candidate': {'git': 6, 'reads': 6, 'reused': 0}}
+PASS working-symlink {'oracle': {'git': 3, 'reads': 1, 'reused': 0}, 'candidate': {'git': 3, 'reads': 1, 'reused': 0}}
+PASS staged-symlink {'oracle': {'git': 3, 'reads': 0, 'reused': 0}, 'candidate': {'git': 3, 'reads': 0, 'reused': 0}}
+PASS symlinked-component {'oracle': {'git': 2, 'reads': 0, 'reused': 0}, 'candidate': {'git': 2, 'reads': 0, 'reused': 0}}
+PASS unmerged {'oracle': {'git': 3, 'reads': 0, 'reused': 0}, 'candidate': {'git': 3, 'reads': 0, 'reused': 0}}
+PASS gitlink-at-child {'oracle': {'git': 3, 'reads': 0, 'reused': 0}, 'candidate': {'git': 3, 'reads': 0, 'reused': 0}}
+PASS GIT_CONFIG_COUNT {'oracle': {'git': 6, 'reads': 6, 'reused': 0}, 'candidate': {'git': 6, 'reads': 6, 'reused': 0}}
+PASS GIT_DIR {'oracle': {'git': 5, 'reads': 4, 'reused': 0}, 'candidate': {'git': 5, 'reads': 4, 'reused': 0}}
+PASS GIT_WORK_TREE {'oracle': {'git': 6, 'reads': 6, 'reused': 0}, 'candidate': {'git': 6, 'reads': 6, 'reused': 0}}
+PASS GIT_INDEX_FILE {'oracle': {'git': 6, 'reads': 6, 'reused': 0}, 'candidate': {'git': 6, 'reads': 6, 'reused': 0}}
+PASS GIT_CEILING_DIRECTORIES {'oracle': {'git': 6, 'reads': 6, 'reused': 0}, 'candidate': {'git': 6, 'reads': 6, 'reused': 0}}
+PASS entry-limit-3 {'oracle': {'git': 3, 'reads': 0, 'reused': 0}, 'candidate': {'git': 3, 'reads': 0, 'reused': 0}}
+PASS entry-limit-4 {'oracle': {'git': 6, 'reads': 4, 'reused': 0}, 'candidate': {'git': 3, 'reads': 4, 'reused': 0}}
+PASS entry-limit-5 {'oracle': {'git': 6, 'reads': 4, 'reused': 0}, 'candidate': {'git': 3, 'reads': 4, 'reused': 0}}
+PASS entry-limit-6 {'oracle': {'git': 6, 'reads': 6, 'reused': 0}, 'candidate': {'git': 3, 'reads': 4, 'reused': 1}}
+PASS byte-limit-36 {'oracle': {'git': 3, 'reads': 3, 'reused': 0}, 'candidate': {'git': 3, 'reads': 3, 'reused': 0}}
+PASS byte-limit-44 {'oracle': {'git': 6, 'reads': 5, 'reused': 0}, 'candidate': {'git': 3, 'reads': 4, 'reused': 0}}
+PASS byte-limit-45 {'oracle': {'git': 6, 'reads': 6, 'reused': 0}, 'candidate': {'git': 3, 'reads': 4, 'reused': 1}}
+PASS byte-limit-46 {'oracle': {'git': 6, 'reads': 6, 'reused': 0}, 'candidate': {'git': 3, 'reads': 4, 'reused': 1}}
+PASS before-edit {'oracle': {'git': 6, 'reads': 6, 'reused': 0}, 'candidate': {'git': 3, 'reads': 4, 'reused': 1}}
+PASS restored-mtime-before-launch {'oracle': {'git': 6, 'reads': 6, 'reused': 0}, 'candidate': {'git': 3, 'reads': 4, 'reused': 1}}
+PASS timed mtime
+PASS timed index
+PASS timed boundary
+PASS timed restored

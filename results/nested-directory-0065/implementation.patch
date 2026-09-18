@@ -1,0 +1,60 @@
+[1mdiff --git a/tools/project/src/fingerprint/reuse.rs b/tools/project/src/fingerprint/reuse.rs[m
+[1mindex 9452cb7..0690890 100644[m
+[1m--- a/tools/project/src/fingerprint/reuse.rs[m
+[1m+++ b/tools/project/src/fingerprint/reuse.rs[m
+[36m@@ -45,17 +45,18 @@[m [mpub(super) fn before_read(p: &Path) -> Result<(), String> {[m
+ 	STATE.with(|s| {[m
+ 		let mut s = s.borrow_mut();[m
+ 		for dir in p.parent().unwrap().ancestors() {[m
+[31m-			for q in [dir.to_path_buf(), dir.join(".git")] {[m
+[31m-				let value = observed(&q)?;[m
+[31m-				if let Some(old) = s.boundaries.get(&q) {[m
+[31m-					if old != &value {[m
+[31m-						return Err(fail(&q, "boundary changed during observation"));[m
+[31m-					}[m
+[31m-				} else {[m
+[31m-					s.boundaries.insert(q, value);[m
+[31m-				}[m
+[32m+[m			[32m// A directory's ancestors were observed on its first visit. Reuse[m
+[32m+[m			[32m// rechecks the complete boundary map before deriving any child.[m
+[32m+[m			[32mif s.boundaries.contains_key(dir) {[m
+[32m+[m				[32mbreak;[m
+ 			}[m
+[31m-			if observed(&dir.join(".git"))?.is_some() {[m
+[32m+[m			[32mlet directory = observed(dir)?;[m
+[32m+[m			[32mlet git_path = dir.join(".git");[m
+[32m+[m			[32mlet git_entry = observed(&git_path)?;[m
+[32m+[m			[32mlet boundary = git_entry.is_some();[m
+[32m+[m			[32ms.boundaries.insert(dir.to_owned(), directory);[m
+[32m+[m			[32ms.boundaries.insert(git_path, git_entry);[m
+[32m+[m			[32mif boundary {[m
+ 				break;[m
+ 			}[m
+ 		}[m
+[36m@@ -279,10 +280,24 @@[m [mpub(crate) fn many(roots: Vec<PathBuf>, a: &mut Allowance) -> Result<Vec<Tree>,[m
+ 			STATE.with(|s| *s.borrow_mut() = State::default());[m
+ 		}[m
+ 	}[m
+[31m-	ACTIVE.with(|a| a.set(true));[m
+[32m+[m	[32mlet roots = roots.into_iter().collect::<BTreeSet<_>>();[m
+[32m+[m	[32mlet nested = roots[m
+[32m+[m		[32m.iter()[m
+[32m+[m		[32m.any(|p| p.ancestors().skip(1).any(|a| roots.contains(a)));[m
+ 	let _active = Active;[m
+[32m+[m	[32mif !nested {[m
+[32m+[m		[32mreturn roots[m
+[32m+[m			[32m.into_iter()[m
+[32m+[m			[32m.map(|p| {[m
+[32m+[m				[32mlet tree = native(&p, a)?;[m
+[32m+[m				[32m#[cfg(feature = "test-support")][m
+[32m+[m				[32msuper::trace::between(&p)?;[m
+[32m+[m				[32mOk(tree)[m
+[32m+[m			[32m})[m
+[32m+[m			[32m.collect();[m
+[32m+[m	[32m}[m
+[32m+[m	[32mACTIVE.with(|a| a.set(true));[m
+ 	let plain = std::env::vars_os().any(|(k, _)| k.to_string_lossy().starts_with("GIT_"));[m
+[31m-	let roots = roots.into_iter().collect::<BTreeSet<_>>();[m
+ 	let mut observations = vec![];[m
+ 	let mut trees = vec![];[m
+ 	for p in roots {[m
