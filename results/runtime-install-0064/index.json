@@ -1,0 +1,42 @@
+{
+  "dirty_modes_odd_names": {
+    "source_sha256": "44e187bc053c0bfedbdb2d6e95d0311b2914998edafca25d237c2476063eac21",
+    "installed_sha256": "44e187bc053c0bfedbdb2d6e95d0311b2914998edafca25d237c2476063eac21",
+    "files": 5,
+    "ignored_excluded": true,
+    "independent_blobs": true
+  },
+  "linked_worktree": {
+    "source_git_was_file": true,
+    "source_and_common_repo_renamed": true,
+    "installed_sha256": "f97b221e4993731d3331318a630509d184700dc97f8ab05c8cbd1c6ca6dfc9f8",
+    "objects_and_fingerprint_still_work": true
+  },
+  "hostile_git": {
+    "positive_filter_control": true,
+    "no_filter_during_install": true,
+    "crlf_preserved": true,
+    "routing_ignored": true,
+    "installed_sha256": "0faecab9aafd1b606b98880e36ddd8da12a52f5a58e505f64dbfffd9ee24b9de"
+  },
+  "symlink": {
+    "refused": true,
+    "error": "rnx-project: fingerprint /home/me/work/rnx-bench/probes/runtime-install/target/index-controls/symlink/tracked: symlink refused\nrnx-project: \"/home/me/work/rnx-bench/probes/runtime-install/target/bin/rnx-project\" failed: exit status: 1"
+  },
+  "fifo": {
+    "refused": true,
+    "error": "rnx-project: fingerprint /home/me/work/rnx-bench/probes/runtime-install/target/index-controls/fifo/tracked: not a regular file (symlinks and special files are refused)\nrnx-project: \"/home/me/work/rnx-bench/probes/runtime-install/target/bin/rnx-project\" failed: exit status: 1"
+  },
+  "untracked": {
+    "refused": true,
+    "error": "rnx-project: fingerprint /home/me/work/rnx-bench/probes/runtime-install/target/index-controls/untracked: untracked non-ignored native file\nrnx-project: \"/home/me/work/rnx-bench/probes/runtime-install/target/bin/rnx-project\" failed: exit status: 1"
+  },
+  "backslash": {
+    "refused": true,
+    "error": "rnx-project: fingerprint bad\\name: backslash in inventory name is unsupported\nrnx-project: \"/home/me/work/rnx-bench/probes/runtime-install/target/bin/rnx-project\" failed: exit status: 1"
+  },
+  "nonunicode": {
+    "refused": true,
+    "error": "rnx-project: fingerprint /home/me/work/rnx-bench/probes/runtime-install/target/index-controls/nonunicode: non-Unicode tracked name\nrnx-project: \"/home/me/work/rnx-bench/probes/runtime-install/target/bin/rnx-project\" failed: exit status: 1"
+  }
+}

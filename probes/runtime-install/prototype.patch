@@ -1,0 +1,433 @@
+diff --git a/tools/project/src/main.rs b/tools/project/src/main.rs
+index fcc0443..5723070 100644
+--- a/tools/project/src/main.rs
++++ b/tools/project/src/main.rs
+@@ -14,10 +14,17 @@ mod input;
+ mod inventory;
+ mod manifest;
+ mod maps;
++mod runtime_probe;
+ mod wire;
+ mod workflow;
+ fn main() {
+-	if let Err(error) = workflow::cli(std::env::args_os().skip(1).collect()) {
++	let args: Vec<_> = std::env::args_os().skip(1).collect();
++	let result = if args.first().is_some_and(|v| v == "runtime-probe") {
++		runtime_probe::cli(&args[1..])
++	} else {
++		workflow::cli(args)
++	};
++	if let Err(error) = result {
+ 		eprintln!("rnx-project: {error}");
+ 		std::process::exit(if commands::interrupted() {
+ 			commands::signal_status()
+diff --git a/tools/project/src/runtime_probe.rs b/tools/project/src/runtime_probe.rs
+new file mode 100644
+index 0000000..0a59dee
+--- /dev/null
++++ b/tools/project/src/runtime_probe.rs
+@@ -0,0 +1,340 @@
++//! Isolated gate-one experiment. Publication/concurrency are NOT product code.
++use crate::{commands, fingerprint, input};
++use serde::{Deserialize, Serialize};
++use sha2::{Digest, Sha256};
++use std::{
++	fs,
++	io::Read,
++	os::unix::fs::{OpenOptionsExt, PermissionsExt},
++	path::{Path, PathBuf},
++	process::Command,
++};
++fn err(e: impl std::fmt::Display) -> String {
++	e.to_string()
++}
++fn clean(c: &mut Command) {
++	for (k, _) in std::env::vars_os() {
++		if k.to_string_lossy().starts_with("GIT_") {
++			c.env_remove(k);
++		}
++	}
++	c.env("GIT_CONFIG_GLOBAL", "/dev/null")
++		.env("GIT_CONFIG_SYSTEM", "/dev/null")
++		.env("GIT_CONFIG_NOSYSTEM", "1")
++		.env("GIT_ATTR_NOSYSTEM", "1");
++}
++fn git(root: &Path) -> Command {
++	let mut c = Command::new("git");
++	clean(&mut c);
++	c.arg("-C").arg(root).args([
++		"-c",
++		"core.autocrlf=false",
++		"-c",
++		"core.safecrlf=false",
++		"-c",
++		"core.hooksPath=/dev/null",
++		"-c",
++		"core.attributesFile=/dev/null",
++	]);
++	c
++}
++fn run(c: Command) -> Result<Vec<u8>, String> {
++	commands::run(c, true)
++}
++fn digest(bytes: &[u8]) -> String {
++	format!("{:x}", Sha256::digest(bytes))
++}
++fn inventory(root: &Path) -> Result<fingerprint::Tree, String> {
++	// Use the real native fingerprinter unchanged, inside an isolated Git environment.
++	let mut c = Command::new(std::env::current_exe().map_err(err)?);
++	clean(&mut c);
++	c.args(["runtime-probe", "fingerprint-child"]).arg(root);
++	serde_json::from_slice(&run(c)?).map_err(err)
++}
++fn directory(p: &Path) -> Result<(), String> {
++	fs::create_dir_all(p).map_err(err)?;
++	fs::set_permissions(p, fs::Permissions::from_mode(0o700)).map_err(err)
++}
++#[derive(Serialize, Deserialize)]
++#[serde(deny_unknown_fields)]
++struct Installation {
++	format: u32,
++	id: String,
++	tree_sha256: String,
++	files: usize,
++	bytes: u64,
++	source_path: PathBuf,
++	source_commit: Option<String>,
++	dirty_tracked: bool,
++	installed_utc: String,
++	tool_version: String,
++	tool_sha256: String,
++}
++#[derive(Serialize, Deserialize)]
++#[serde(deny_unknown_fields)]
++struct Current {
++	format: u32,
++	id: String,
++}
++fn id(tree: &str) -> String {
++	digest(format!("rnx-installed-runtime-v1\n{tree}\n").as_bytes())
++}
++fn index(root: &Path, tree: &fingerprint::Tree) -> Result<(), String> {
++	let mut c = git(root);
++	c.args(["init", "--quiet", "--template="]);
++	run(c)?;
++	// Bound argv per batch. hash-object --no-filters never runs .gitattributes filters.
++	for batch in tree.files.chunks(64) {
++		let mut c = git(root);
++		c.args(["hash-object", "-w", "--no-filters", "--"]);
++		for f in batch {
++			c.arg(root.join(&f.path));
++		}
++		let out = String::from_utf8(run(c)?).map_err(err)?;
++		let hashes: Vec<_> = out.lines().collect();
++		if hashes.len() != batch.len() {
++			return Err("object count mismatch".into());
++		}
++		let mut c = git(root);
++		c.args(["update-index", "--add"]);
++		for (f, hash) in batch.iter().zip(hashes) {
++			if hash.len() != 40 || !hash.bytes().all(|b| b.is_ascii_hexdigit()) {
++				return Err("bad Git object id".into());
++			}
++			c.arg("--cacheinfo").arg(format!(
++				"{},{},{}",
++				if f.executable { "100755" } else { "100644" },
++				hash,
++				f.path
++			));
++		}
++		run(c)?;
++	}
++	Ok(())
++}
++// Compare raw blob identities; git diff/status may execute clean filters.
++fn head_matches(root: &Path, tree: &fingerprint::Tree) -> Result<bool, String> {
++	let mut c = git(root);
++	c.args(["ls-tree", "-r", "-z", "HEAD"]);
++	let output = run(c)?;
++	let mut head = std::collections::BTreeMap::new();
++	for record in output.split(|b| *b == 0).filter(|r| !r.is_empty()) {
++		let split = record
++			.iter()
++			.position(|b| *b == b'\t')
++			.ok_or("bad tree record")?;
++		let header = std::str::from_utf8(&record[..split]).map_err(err)?;
++		let path = std::str::from_utf8(&record[split + 1..]).map_err(err)?;
++		let parts: Vec<_> = header.split(' ').collect();
++		if parts.len() != 3 || parts[1] != "blob" {
++			return Ok(false);
++		}
++		head.insert(path.to_owned(), (parts[0].to_owned(), parts[2].to_owned()));
++	}
++	if head.len() != tree.files.len() {
++		return Ok(false);
++	}
++	for batch in tree.files.chunks(64) {
++		let mut c = git(root);
++		c.args(["hash-object", "--no-filters", "--"]);
++		for f in batch {
++			c.arg(root.join(&f.path));
++		}
++		let raw = String::from_utf8(run(c)?).map_err(err)?;
++		let hashes: Vec<_> = raw.lines().collect();
++		if hashes.len() != batch.len() {
++			return Err("bad raw hash count".into());
++		}
++		for (f, hash) in batch.iter().zip(hashes) {
++			let mode = if f.executable { "100755" } else { "100644" };
++			if head.get(&f.path) != Some(&(mode.to_owned(), hash.to_owned())) {
++				return Ok(false);
++			}
++		}
++	}
++	Ok(true)
++}
++fn install(source: &Path, store: &Path) -> Result<Installation, String> {
++	let source = source.canonicalize().map_err(err)?;
++	let before = inventory(&source)?;
++	directory(store)?;
++	let store = store.canonicalize().map_err(err)?;
++	if store.starts_with(&source) || source.starts_with(&store) {
++		return Err("source/store containment".into());
++	}
++	let entry = store.join("entries").join(id(&before.sha256));
++	if entry.exists() {
++		return Err("prototype requires an absent destination".into());
++	}
++	let dest = entry.join("source");
++	directory(&dest)?;
++	for f in &before.files {
++		commands::check()?;
++		let from = source.join(&f.path);
++		let to = dest.join(&f.path);
++		directory(to.parent().unwrap())?;
++		let mut input = fs::OpenOptions::new()
++			.read(true)
++			.custom_flags(libc::O_NOFOLLOW | libc::O_NONBLOCK)
++			.open(&from)
++			.map_err(err)?;
++		if !input.metadata().map_err(err)?.is_file() {
++			return Err(format!("not regular: {}", from.display()));
++		}
++		let mut bytes = Vec::new();
++		(&mut input)
++			.take(f.bytes + 1)
++			.read_to_end(&mut bytes)
++			.map_err(err)?;
++		if bytes.len() as u64 != f.bytes || digest(&bytes) != f.sha256 {
++			return Err(format!("source changed: {}", from.display()));
++		}
++		let mut out = fs::OpenOptions::new()
++			.write(true)
++			.create_new(true)
++			.mode(if f.executable { 0o700 } else { 0o600 })
++			.open(&to)
++			.map_err(err)?;
++		std::io::Write::write_all(&mut out, &bytes).map_err(err)?;
++	}
++	index(&dest, &before)?;
++	let copied = inventory(&dest)?;
++	let after = inventory(&source)?;
++	if before != after || before.sha256 != copied.sha256 || before.files != copied.files {
++		return Err("snapshot changed or copied index differs".into());
++	}
++	let mut c = git(&source);
++	c.args(["rev-parse", "--verify", "HEAD"]);
++	let commit = run(c)
++		.ok()
++		.and_then(|b| String::from_utf8(b).ok())
++		.map(|s| s.trim().to_owned());
++	let dirty = commit.is_none() || !head_matches(&source, &before)?;
++	let mut date = Command::new("date");
++	date.args(["-u", "+%Y-%m-%dT%H:%M:%SZ"]);
++	let document = Installation {
++		format: 1,
++		id: id(&before.sha256),
++		tree_sha256: before.sha256,
++		files: before.files.len(),
++		bytes: before.files.iter().map(|f| f.bytes).sum(),
++		source_path: source,
++		source_commit: commit,
++		dirty_tracked: dirty,
++		installed_utc: String::from_utf8(run(date)?).map_err(err)?.trim().into(),
++		tool_version: env!("CARGO_PKG_VERSION").into(),
++		tool_sha256: fingerprint::one(
++			&std::env::current_exe().map_err(err)?,
++			&mut fingerprint::Allowance::default(),
++		)?
++		.sha256,
++	};
++	fs::write(
++		entry.join("installation.json"),
++		serde_json::to_vec_pretty(&document).map_err(err)?,
++	)
++	.map_err(err)?;
++	fs::write(
++		store.join("current.json"),
++		serde_json::to_vec(&Current {
++			format: 1,
++			id: document.id.clone(),
++		})
++		.map_err(err)?,
++	)
++	.map_err(err)?;
++	Ok(document)
++}
++fn store() -> Result<PathBuf, String> {
++	let data = if let Some(p) = std::env::var_os("XDG_DATA_HOME") {
++		PathBuf::from(p)
++	} else {
++		PathBuf::from(std::env::var_os("HOME").ok_or("HOME missing")?).join(".local/share")
++	};
++	if !data.is_absolute() {
++		return Err("data home must be absolute".into());
++	}
++	Ok(data.join("rnx/runtimes"))
++}
++fn selected() -> Result<(PathBuf, Installation), String> {
++	let store = store()?.canonicalize().map_err(err)?;
++	let c: Current =
++		serde_json::from_slice(&input::read(&store.join("current.json"), 65536)?).map_err(err)?;
++	if c.format != 1
++		|| c.id.len() != 64
++		|| !c
++			.id
++			.bytes()
++			.all(|b| b.is_ascii_digit() || (b'a'..=b'f').contains(&b))
++	{
++		return Err("invalid selection".into());
++	}
++	let entry = store.join("entries").join(&c.id);
++	let d: Installation =
++		serde_json::from_slice(&input::read(&entry.join("installation.json"), 65536)?)
++			.map_err(err)?;
++	if d.format != 1 || d.id != c.id || id(&d.tree_sha256) != d.id {
++		return Err("invalid installation".into());
++	}
++	Ok((entry.join("source").canonicalize().map_err(err)?, d))
++}
++pub(crate) fn selection() -> Result<(PathBuf, String), String> {
++	if let Some(p) = std::env::var_os("RNX_DEP_RUNTIME") {
++		let p = PathBuf::from(p);
++		if !p.is_absolute() {
++			return Err("RNX_DEP_RUNTIME must be absolute".into());
++		}
++		let p = p.canonicalize().map_err(err)?;
++		return Ok((p.clone(), format!("Runtime: override {}", p.display())));
++	}
++	let (p, d) = selected()?;
++	Ok((
++		p.clone(),
++		format!(
++			"Runtime: installation {} (installed from {}, {}, {}, installed {}); source {}",
++			d.id,
++			d.source_path.display(),
++			d.source_commit.as_deref().unwrap_or("uncommitted"),
++			if d.dirty_tracked {
++				"dirty tracked snapshot"
++			} else {
++				"clean tracked snapshot"
++			},
++			d.installed_utc,
++			p.display()
++		),
++	))
++}
++pub(crate) fn validate_selected() -> Result<(), String> {
++	if std::env::var_os("RNX_DEP_RUNTIME").is_none() {
++		let (p, d) = selected()?;
++		let t = inventory(&p)?;
++		if t.sha256 != d.tree_sha256 {
++			return Err("installed snapshot changed".into());
++		}
++	}
++	Ok(())
++}
++pub(crate) fn cli(args: &[std::ffi::OsString]) -> Result<(), String> {
++	commands::install_signals()?;
++	let verb = args
++		.first()
++		.and_then(|s| s.to_str())
++		.ok_or("missing probe verb")?;
++	let p = PathBuf::from(args.get(1).ok_or("missing path")?);
++	let value = match verb {
++		"fingerprint-child" => serde_json::to_value(fingerprint::native(
++			&p,
++			&mut fingerprint::Allowance::default(),
++		)?)
++		.map_err(err)?,
++		"fingerprint" => serde_json::to_value(inventory(&p)?).map_err(err)?,
++		"install" => {
++			serde_json::to_value(install(&p, Path::new(args.get(2).ok_or("missing store")?))?)
++				.map_err(err)?
++		}
++		_ => return Err("unknown probe verb".into()),
++	};
++	println!("{}", serde_json::to_string(&value).map_err(err)?);
++	Ok(())
++}
+diff --git a/tools/project/src/workflow/transition.rs b/tools/project/src/workflow/transition.rs
+index 199b4b3..518df2d 100644
+--- a/tools/project/src/workflow/transition.rs
++++ b/tools/project/src/workflow/transition.rs
+@@ -95,6 +95,7 @@ fn validate_association(
+ 	Ok(())
+ }
+ struct Description {
++	runtime_notice: String,
+ 	manifest: PathBuf,
+ 	original: Vec<u8>,
+ 	candidate: catalogue::Candidate,
+@@ -128,6 +129,10 @@ impl Description {
+ 				"Online: Cargo may fetch sources."
+ 			}
+ 		);
++		if !self.runtime_notice.is_empty() {
++			notice.push_str(&self.runtime_notice);
++			notice.push('\n');
++		}
+ 		if self.candidate.added.iter().any(|n| n == "polars") {
+ 			notice.push_str("A first Polars build took about 100 seconds with registry sources cached; its retained shared entry is about 1.5 GB. A reusable entry avoids compilation.\n");
+ 		}
+@@ -207,21 +212,13 @@ fn describe(request: &protocol::Fields, proposed: Option<&Path>) -> Result<Descr
+ 		_ => return Err("invalid offline mode".into()),
+ 	};
+ 	let scratch = request[&2].is_empty();
++	let mut runtime_notice = String::new();
+ 	let (manifest, original) = if scratch {
+ 		if !request[&4].is_empty() {
+ 			return Err("custom executable needs a project association; open it through rnx-project session".into());
+ 		}
+-		let runtime = PathBuf::from(
+-			std::env::var_os("RNX_DEP_RUNTIME")
+-				.ok_or("scratch runtime missing; export RNX_DEP_RUNTIME=/absolute/path/to/rnx")?,
+-		);
+-		if !runtime.is_absolute() {
+-			return Err(
+-				"RNX_DEP_RUNTIME must be absolute; export RNX_DEP_RUNTIME=/absolute/path/to/rnx"
+-					.into(),
+-			);
+-		}
+-		let runtime = runtime.canonicalize().map_err(err)?;
++		let (runtime, notice) = crate::runtime_probe::selection()?;
++		runtime_notice = notice;
+ 		let selected = scratch_path()?;
+ 		let manifest = match proposed {
+ 			Some(p)
+@@ -265,6 +262,7 @@ fn describe(request: &protocol::Fields, proposed: Option<&Path>) -> Result<Descr
+ 	};
+ 	let candidate = catalogue::author(original.clone(), manifest.parent().unwrap(), &entries)?;
+ 	Ok(Description {
++		runtime_notice,
+ 		manifest,
+ 		original,
+ 		candidate,
+@@ -397,6 +395,7 @@ pub(super) fn serve(args: Vec<OsString>) -> Result<(), String> {
+ 			return Ok(());
+ 		}
+ 		if fresh.scratch {
++			crate::runtime_probe::validate_selected()?;
+ 			create_scratch(&fresh)?;
+ 		}
+ 		let p = Project::open(&fresh.manifest)?;
