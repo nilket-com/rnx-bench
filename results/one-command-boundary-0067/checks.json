@@ -1,0 +1,145 @@
+[
+  {
+    "crate": "integrated",
+    "command": [
+      "fmt",
+      "--",
+      "--check"
+    ],
+    "status": 0
+  },
+  {
+    "crate": "integrated",
+    "command": [
+      "clippy",
+      "--all-targets",
+      "--",
+      "-D",
+      "warnings"
+    ],
+    "status": 0
+  },
+  {
+    "crate": "integrated",
+    "command": [
+      "test",
+      "--",
+      "--test-threads=1"
+    ],
+    "status": 0
+  },
+  {
+    "crate": "integrated",
+    "command": [
+      "fmt",
+      "--",
+      "--check"
+    ],
+    "status": 0
+  },
+  {
+    "crate": "integrated",
+    "command": [
+      "clippy",
+      "--all-targets",
+      "--features",
+      "test-support",
+      "--",
+      "-D",
+      "warnings"
+    ],
+    "status": 0
+  },
+  {
+    "crate": "integrated",
+    "command": [
+      "test",
+      "--features",
+      "test-support",
+      "--",
+      "--test-threads=1"
+    ],
+    "status": 0
+  },
+  {
+    "crate": "schema",
+    "command": [
+      "fmt",
+      "--",
+      "--check"
+    ],
+    "status": 0
+  },
+  {
+    "crate": "schema",
+    "command": [
+      "clippy",
+      "--all-targets",
+      "--",
+      "-D",
+      "warnings"
+    ],
+    "status": 0
+  },
+  {
+    "crate": "schema",
+    "command": [
+      "test",
+      "--",
+      "--test-threads=1"
+    ],
+    "status": 0
+  },
+  {
+    "crate": "schema",
+    "command": [
+      "fmt",
+      "--",
+      "--check"
+    ],
+    "status": 0
+  },
+  {
+    "crate": "schema",
+    "command": [
+      "clippy",
+      "--all-targets",
+      "--features",
+      "test-support",
+      "--",
+      "-D",
+      "warnings"
+    ],
+    "status": 0
+  },
+  {
+    "crate": "schema",
+    "command": [
+      "test",
+      "--features",
+      "test-support",
+      "--",
+      "--test-threads=1"
+    ],
+    "status": 0
+  },
+  {
+    "root_clippy": "existing library warnings retained; no diagnostics in new main/build script"
+  },
+  {
+    "unchanged_reader": "manifest.rs",
+    "sha256": "08fd545efe26d1b47cd7d70af3d6fbe5b00abd306e73a4632e72c81376dea7bc"
+  },
+  {
+    "unchanged_reader": "wire.rs",
+    "sha256": "58bc10aec53396667c7f816edb60853da2a708feed9e5492637eb0a1babf2782"
+  },
+  {
+    "unchanged_reader": "artifact.rs",
+    "sha256": "7399ce3f27cd0e370fa6fe05a4ddee8fa63509809abe17925c9a59ccac29fb9a"
+  },
+  {
+    "unchanged_reader": "cache_identity.rs",
+    "sha256": "7f6eb94c81444d10aabb5304f05edf2e9179fa99489f19d72ef916a8e636f3c4"
+  }
+]

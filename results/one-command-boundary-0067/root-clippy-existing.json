@@ -1,0 +1,1670 @@
+[
+  {
+    "rendered": "warning: using `clone` on type `Kind` which implements the `Copy` trait\n   --> src/complete.rs:161:48\n    |\n161 |             let previous = first.checked_sub(1).map(|p| tokens[p].0.clone());\n    |                                                         ^^^^^^^^^^^^^^^^^^^ help: try removing the `clone` call: `tokens[p].0`\n    |\n    = help: for further information visit https://rust-lang.github.io/rust-clippy/rust-1.98.0/index.html#clone_on_copy\n    = note: `#[warn(clippy::clone_on_copy)]` on by default\n\n",
+    "$message_type": "diagnostic",
+    "children": [
+      {
+        "children": [],
+        "code": null,
+        "level": "help",
+        "message": "for further information visit https://rust-lang.github.io/rust-clippy/rust-1.98.0/index.html#clone_on_copy",
+        "rendered": null,
+        "spans": []
+      },
+      {
+        "children": [],
+        "code": null,
+        "level": "note",
+        "message": "`#[warn(clippy::clone_on_copy)]` on by default",
+        "rendered": null,
+        "spans": []
+      },
+      {
+        "children": [],
+        "code": null,
+        "level": "help",
+        "message": "try removing the `clone` call",
+        "rendered": null,
+        "spans": [
+          {
+            "byte_end": 5044,
+            "byte_start": 5025,
+            "column_end": 67,
+            "column_start": 48,
+            "expansion": null,
+            "file_name": "src/complete.rs",
+            "is_primary": true,
+            "label": null,
+            "line_end": 161,
+            "line_start": 161,
+            "suggested_replacement": "tokens[p].0",
+            "suggestion_applicability": "MachineApplicable",
+            "text": [
+              {
+                "highlight_end": 67,
+                "highlight_start": 48,
+                "text": "\t\t\tlet previous = first.checked_sub(1).map(|p| tokens[p].0.clone());"
+              }
+            ]
+          }
+        ]
+      }
+    ],
+    "level": "warning",
+    "message": "using `clone` on type `Kind` which implements the `Copy` trait",
+    "spans": [
+      {
+        "byte_end": 5044,
+        "byte_start": 5025,
+        "column_end": 67,
+        "column_start": 48,
+        "expansion": null,
+        "file_name": "src/complete.rs",
+        "is_primary": true,
+        "label": null,
+        "line_end": 161,
+        "line_start": 161,
+        "suggested_replacement": null,
+        "suggestion_applicability": null,
+        "text": [
+          {
+            "highlight_end": 67,
+            "highlight_start": 48,
+            "text": "\t\t\tlet previous = first.checked_sub(1).map(|p| tokens[p].0.clone());"
+          }
+        ]
+      }
+    ],
+    "code": {
+      "code": "clippy::clone_on_copy",
+      "explanation": null
+    }
+  },
+  {
+    "rendered": "warning: this `if` statement can be collapsed\n   --> src/complete.rs:181:5\n    |\n181 | /                 if let Some(start) = open.pop() {\n182 | |                     if start < cursor && cursor < range.end {\n183 | |                         return true;\n184 | |                     }\n185 | |                 }\n    | |_________________^\n    |\n    = help: for further information visit https://rust-lang.github.io/rust-clippy/rust-1.98.0/index.html#collapsible_if\n    = note: `#[warn(clippy::collapsible_if)]` on by default\nhelp: collapse nested if block\n    |\n181 ~                 if let Some(start) = open.pop()\n182 ~                     && start < cursor && cursor < range.end {\n183 |                         return true;\n184 ~                     }\n    |\n\n",
+    "$message_type": "diagnostic",
+    "children": [
+      {
+        "children": [],
+        "code": null,
+        "level": "help",
+        "message": "for further information visit https://rust-lang.github.io/rust-clippy/rust-1.98.0/index.html#collapsible_if",
+        "rendered": null,
+        "spans": []
+      },
+      {
+        "children": [],
+        "code": null,
+        "level": "note",
+        "message": "`#[warn(clippy::collapsible_if)]` on by default",
+        "rendered": null,
+        "spans": []
+      },
+      {
+        "children": [],
+        "code": null,
+        "level": "help",
+        "message": "collapse nested if block",
+        "rendered": null,
+        "spans": [
+          {
+            "byte_end": 5896,
+            "byte_start": 5894,
+            "column_end": 38,
+            "column_start": 36,
+            "expansion": null,
+            "file_name": "src/complete.rs",
+            "is_primary": true,
+            "label": null,
+            "line_end": 181,
+            "line_start": 181,
+            "suggested_replacement": "",
+            "suggestion_applicability": "MachineApplicable",
+            "text": [
+              {
+                "highlight_end": 38,
+                "highlight_start": 36,
+                "text": "\t\t\t\tif let Some(start) = open.pop() {"
+              }
+            ]
+          },
+          {
+            "byte_end": 5975,
+            "byte_start": 5969,
+            "column_end": 6,
+            "column_start": 7,
+            "expansion": null,
+            "file_name": "src/complete.rs",
+            "is_primary": true,
+            "label": null,
+            "line_end": 185,
+            "line_start": 184,
+            "suggested_replacement": "",
+            "suggestion_applicability": "MachineApplicable",
+            "text": [
+              {
+                "highlight_end": 7,
+                "highlight_start": 7,
+                "text": "\t\t\t\t\t}"
+              },
+              {
+                "highlight_end": 6,
+                "highlight_start": 1,
+                "text": "\t\t\t\t}"
+              }
+            ]
+          },
+          {
+            "byte_end": 5904,
+            "byte_start": 5902,
+            "column_end": 8,
+            "column_start": 6,
+            "expansion": null,
+            "file_name": "src/complete.rs",
+            "is_primary": true,
+            "label": null,
+            "line_end": 182,
+            "line_start": 182,
+            "suggested_replacement": "&&",
+            "suggestion_applicability": "MachineApplicable",
+            "text": [
+              {
+                "highlight_end": 8,
+                "highlight_start": 6,
+                "text": "\t\t\t\t\tif start < cursor && cursor < range.end {"
+              }
+            ]
+          }
+        ]
+      }
+    ],
+    "level": "warning",
+    "message": "this `if` statement can be collapsed",
+    "spans": [
+      {
+        "byte_end": 5975,
+        "byte_start": 5863,
+        "column_end": 6,
+        "column_start": 5,
+        "expansion": null,
+        "file_name": "src/complete.rs",
+        "is_primary": true,
+        "label": null,
+        "line_end": 185,
+        "line_start": 181,
+        "suggested_replacement": null,
+        "suggestion_applicability": null,
+        "text": [
+          {
+            "highlight_end": 38,
+            "highlight_start": 5,
+            "text": "\t\t\t\tif let Some(start) = open.pop() {"
+          },
+          {
+            "highlight_end": 47,
+            "highlight_start": 1,
+            "text": "\t\t\t\t\tif start < cursor && cursor < range.end {"
+          },
+          {
+            "highlight_end": 19,
+            "highlight_start": 1,
+            "text": "\t\t\t\t\t\treturn true;"
+          },
+          {
+            "highlight_end": 7,
+            "highlight_start": 1,
+            "text": "\t\t\t\t\t}"
+          },
+          {
+            "highlight_end": 6,
+            "highlight_start": 1,
+            "text": "\t\t\t\t}"
+          }
+        ]
+      }
+    ],
+    "code": {
+      "code": "clippy::collapsible_if",
+      "explanation": null
+    }
+  },
+  {
+    "rendered": "warning: call to `std::mem::drop` with a value that does not implement `Drop`. Dropping such a type only extends its contained lifetimes\n    --> src/host.rs:1130:2\n     |\n1130 |     drop(put);\n     |     ^^^^^^^^^\n     |\nnote: argument has type `{closure@src/host.rs:1103:16: 1103:64}`\n    --> src/host.rs:1130:7\n     |\n1130 |     drop(put);\n     |          ^^^\n     = help: for further information visit https://rust-lang.github.io/rust-clippy/rust-1.98.0/index.html#drop_non_drop\n     = note: `#[warn(clippy::drop_non_drop)]` on by default\n\n",
+    "$message_type": "diagnostic",
+    "children": [
+      {
+        "children": [],
+        "code": null,
+        "level": "note",
+        "message": "argument has type `{closure@src/host.rs:1103:16: 1103:64}`",
+        "rendered": null,
+        "spans": [
+          {
+            "byte_end": 46576,
+            "byte_start": 46573,
+            "column_end": 10,
+            "column_start": 7,
+            "expansion": null,
+            "file_name": "src/host.rs",
+            "is_primary": true,
+            "label": null,
+            "line_end": 1130,
+            "line_start": 1130,
+            "suggested_replacement": null,
+            "suggestion_applicability": null,
+            "text": [
+              {
+                "highlight_end": 10,
+                "highlight_start": 7,
+                "text": "\tdrop(put);"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "children": [],
+        "code": null,
+        "level": "help",
+        "message": "for further information visit https://rust-lang.github.io/rust-clippy/rust-1.98.0/index.html#drop_non_drop",
+        "rendered": null,
+        "spans": []
+      },
+      {
+        "children": [],
+        "code": null,
+        "level": "note",
+        "message": "`#[warn(clippy::drop_non_drop)]` on by default",
+        "rendered": null,
+        "spans": []
+      }
+    ],
+    "level": "warning",
+    "message": "call to `std::mem::drop` with a value that does not implement `Drop`. Dropping such a type only extends its contained lifetimes",
+    "spans": [
+      {
+        "byte_end": 46577,
+        "byte_start": 46568,
+        "column_end": 11,
+        "column_start": 2,
+        "expansion": null,
+        "file_name": "src/host.rs",
+        "is_primary": true,
+        "label": null,
+        "line_end": 1130,
+        "line_start": 1130,
+        "suggested_replacement": null,
+        "suggestion_applicability": null,
+        "text": [
+          {
+            "highlight_end": 11,
+            "highlight_start": 2,
+            "text": "\tdrop(put);"
+          }
+        ]
+      }
+    ],
+    "code": {
+      "code": "clippy::drop_non_drop",
+      "explanation": null
+    }
+  },
+  {
+    "rendered": "warning: unneeded late initialization\n   --> src/presentation.rs:270:3\n    |\n270 |         let style;\n    |         ^^^^^^^^^^\n    |\n    = help: for further information visit https://rust-lang.github.io/rust-clippy/rust-1.98.0/index.html#needless_late_init\n    = note: `#[warn(clippy::needless_late_init)]` on by default\nhelp: move the declaration `style` here and remove the assignments from the branches\n    |\n270 ~         \n271 ~         let style = if rest.starts_with(\"//\") {\n272 |             at += rest.find('\\n').unwrap_or(rest.len());\n273 ~             Some(Style::Comment)\n274 |         } else if rest.starts_with(\"/*\") {\n...\n287 |             }\n288 ~             Some(Style::Comment)\n289 |         } else if matches!(c, '\"' | '\\'' | '`') || rest.starts_with(\"b\\\"\") || rest.starts_with(\"b'\")\n...\n308 |             }\n309 ~             Some(Style::Literal)\n310 |         } else if c.is_ascii_digit() {\n...\n326 |             }\n327 ~             Some(Style::Number)\n328 |         } else if unicode_ident::is_xid_start(c) || c == '_' {\n...\n336 |             }\n337 ~             match &text[start..at] {\n338 |                 \"true\" | \"false\" | \"None\" | \"Some\" => Some(Style::Number),\n...\n346 |                 _ => None,\n347 ~             }\n348 |         } else {\n349 |             at += c.len_utf8();\n350 ~             None\n351 ~         };\n    |\n\n",
+    "$message_type": "diagnostic",
+    "children": [
+      {
+        "children": [],
+        "code": null,
+        "level": "help",
+        "message": "for further information visit https://rust-lang.github.io/rust-clippy/rust-1.98.0/index.html#needless_late_init",
+        "rendered": null,
+        "spans": []
+      },
+      {
+        "children": [],
+        "code": null,
+        "level": "note",
+        "message": "`#[warn(clippy::needless_late_init)]` on by default",
+        "rendered": null,
+        "spans": []
+      },
+      {
+        "children": [],
+        "code": null,
+        "level": "help",
+        "message": "move the declaration `style` here and remove the assignments from the branches",
+        "rendered": null,
+        "spans": [
+          {
+            "byte_end": 6952,
+            "byte_start": 6944,
+            "column_end": 12,
+            "column_start": 4,
+            "expansion": null,
+            "file_name": "src/presentation.rs",
+            "is_primary": true,
+            "label": null,
+            "line_end": 273,
+            "line_start": 273,
+            "suggested_replacement": "",
+            "suggestion_applicability": "MachineApplicable",
+            "text": [
+              {
+                "highlight_end": 12,
+                "highlight_start": 4,
+                "text": "\t\t\tstyle = Some(Style::Comment);"
+              }
+            ]
+          },
+          {
+            "byte_end": 6973,
+            "byte_start": 6972,
+            "column_end": 33,
+            "column_start": 32,
+            "expansion": null,
+            "file_name": "src/presentation.rs",
+            "is_primary": true,
+            "label": null,
+            "line_end": 273,
+            "line_start": 273,
+            "suggested_replacement": "",
+            "suggestion_applicability": "MachineApplicable",
+            "text": [
+              {
+                "highlight_end": 33,
+                "highlight_start": 32,
+                "text": "\t\t\tstyle = Some(Style::Comment);"
+              }
+            ]
+          },
+          {
+            "byte_end": 7329,
+            "byte_start": 7321,
+            "column_end": 12,
+            "column_start": 4,
+            "expansion": null,
+            "file_name": "src/presentation.rs",
+            "is_primary": true,
+            "label": null,
+            "line_end": 288,
+            "line_start": 288,
+            "suggested_replacement": "",
+            "suggestion_applicability": "MachineApplicable",
+            "text": [
+              {
+                "highlight_end": 12,
+                "highlight_start": 4,
+                "text": "\t\t\tstyle = Some(Style::Comment);"
+              }
+            ]
+          },
+          {
+            "byte_end": 7350,
+            "byte_start": 7349,
+            "column_end": 33,
+            "column_start": 32,
+            "expansion": null,
+            "file_name": "src/presentation.rs",
+            "is_primary": true,
+            "label": null,
+            "line_end": 288,
+            "line_start": 288,
+            "suggested_replacement": "",
+            "suggestion_applicability": "MachineApplicable",
+            "text": [
+              {
+                "highlight_end": 33,
+                "highlight_start": 32,
+                "text": "\t\t\tstyle = Some(Style::Comment);"
+              }
+            ]
+          },
+          {
+            "byte_end": 7832,
+            "byte_start": 7824,
+            "column_end": 12,
+            "column_start": 4,
+            "expansion": null,
+            "file_name": "src/presentation.rs",
+            "is_primary": true,
+            "label": null,
+            "line_end": 309,
+            "line_start": 309,
+            "suggested_replacement": "",
+            "suggestion_applicability": "MachineApplicable",
+            "text": [
+              {
+                "highlight_end": 12,
+                "highlight_start": 4,
+                "text": "\t\t\tstyle = Some(Style::Literal);"
+              }
+            ]
+          },
+          {
+            "byte_end": 7853,
+            "byte_start": 7852,
+            "column_end": 33,
+            "column_start": 32,
+            "expansion": null,
+            "file_name": "src/presentation.rs",
+            "is_primary": true,
+            "label": null,
+            "line_end": 309,
+            "line_start": 309,
+            "suggested_replacement": "",
+            "suggestion_applicability": "MachineApplicable",
+            "text": [
+              {
+                "highlight_end": 33,
+                "highlight_start": 32,
+                "text": "\t\t\tstyle = Some(Style::Literal);"
+              }
+            ]
+          },
+          {
+            "byte_end": 8294,
+            "byte_start": 8286,
+            "column_end": 12,
+            "column_start": 4,
+            "expansion": null,
+            "file_name": "src/presentation.rs",
+            "is_primary": true,
+            "label": null,
+            "line_end": 327,
+            "line_start": 327,
+            "suggested_replacement": "",
+            "suggestion_applicability": "MachineApplicable",
+            "text": [
+              {
+                "highlight_end": 12,
+                "highlight_start": 4,
+                "text": "\t\t\tstyle = Some(Style::Number);"
+              }
+            ]
+          },
+          {
+            "byte_end": 8314,
+            "byte_start": 8313,
+            "column_end": 32,
+            "column_start": 31,
+            "expansion": null,
+            "file_name": "src/presentation.rs",
+            "is_primary": true,
+            "label": null,
+            "line_end": 327,
+            "line_start": 327,
+            "suggested_replacement": "",
+            "suggestion_applicability": "MachineApplicable",
+            "text": [
+              {
+                "highlight_end": 32,
+                "highlight_start": 31,
+                "text": "\t\t\tstyle = Some(Style::Number);"
+              }
+            ]
+          },
+          {
+            "byte_end": 8564,
+            "byte_start": 8556,
+            "column_end": 12,
+            "column_start": 4,
+            "expansion": null,
+            "file_name": "src/presentation.rs",
+            "is_primary": true,
+            "label": null,
+            "line_end": 337,
+            "line_start": 337,
+            "suggested_replacement": "",
+            "suggestion_applicability": "MachineApplicable",
+            "text": [
+              {
+                "highlight_end": 12,
+                "highlight_start": 4,
+                "text": "\t\t\tstyle = match &text[start..at] {"
+              }
+            ]
+          },
+          {
+            "byte_end": 9216,
+            "byte_start": 9215,
+            "column_end": 6,
+            "column_start": 5,
+            "expansion": null,
+            "file_name": "src/presentation.rs",
+            "is_primary": true,
+            "label": null,
+            "line_end": 347,
+            "line_start": 347,
+            "suggested_replacement": "",
+            "suggestion_applicability": "MachineApplicable",
+            "text": [
+              {
+                "highlight_end": 6,
+                "highlight_start": 5,
+                "text": "\t\t\t};"
+              }
+            ]
+          },
+          {
+            "byte_end": 9262,
+            "byte_start": 9254,
+            "column_end": 12,
+            "column_start": 4,
+            "expansion": null,
+            "file_name": "src/presentation.rs",
+            "is_primary": true,
+            "label": null,
+            "line_end": 350,
+            "line_start": 350,
+            "suggested_replacement": "",
+            "suggestion_applicability": "MachineApplicable",
+            "text": [
+              {
+                "highlight_end": 12,
+                "highlight_start": 4,
+                "text": "\t\t\tstyle = None;"
+              }
+            ]
+          },
+          {
+            "byte_end": 9267,
+            "byte_start": 9266,
+            "column_end": 17,
+            "column_start": 16,
+            "expansion": null,
+            "file_name": "src/presentation.rs",
+            "is_primary": true,
+            "label": null,
+            "line_end": 350,
+            "line_start": 350,
+            "suggested_replacement": "",
+            "suggestion_applicability": "MachineApplicable",
+            "text": [
+              {
+                "highlight_end": 17,
+                "highlight_start": 16,
+                "text": "\t\t\tstyle = None;"
+              }
+            ]
+          },
+          {
+            "byte_end": 6862,
+            "byte_start": 6852,
+            "column_end": 13,
+            "column_start": 3,
+            "expansion": null,
+            "file_name": "src/presentation.rs",
+            "is_primary": true,
+            "label": null,
+            "line_end": 270,
+            "line_start": 270,
+            "suggested_replacement": "",
+            "suggestion_applicability": "MachineApplicable",
+            "text": [
+              {
+                "highlight_end": 13,
+                "highlight_start": 3,
+                "text": "\t\tlet style;"
+              }
+            ]
+          },
+          {
+            "byte_end": 6865,
+            "byte_start": 6865,
+            "column_end": 3,
+            "column_start": 3,
+            "expansion": null,
+            "file_name": "src/presentation.rs",
+            "is_primary": true,
+            "label": null,
+            "line_end": 271,
+            "line_start": 271,
+            "suggested_replacement": "let style = ",
+            "suggestion_applicability": "MachineApplicable",
+            "text": [
+              {
+                "highlight_end": 3,
+                "highlight_start": 3,
+                "text": "\t\tif rest.starts_with(\"//\") {"
+              }
+            ]
+          },
+          {
+            "byte_end": 9271,
+            "byte_start": 9271,
+            "column_end": 4,
+            "column_start": 4,
+            "expansion": null,
+            "file_name": "src/presentation.rs",
+            "is_primary": true,
+            "label": null,
+            "line_end": 351,
+            "line_start": 351,
+            "suggested_replacement": ";",
+            "suggestion_applicability": "MachineApplicable",
+            "text": [
+              {
+                "highlight_end": 4,
+                "highlight_start": 4,
+                "text": "\t\t}"
+              }
+            ]
+          }
+        ]
+      }
+    ],
+    "level": "warning",
+    "message": "unneeded late initialization",
+    "spans": [
+      {
+        "byte_end": 6862,
+        "byte_start": 6852,
+        "column_end": 13,
+        "column_start": 3,
+        "expansion": null,
+        "file_name": "src/presentation.rs",
+        "is_primary": true,
+        "label": null,
+        "line_end": 270,
+        "line_start": 270,
+        "suggested_replacement": null,
+        "suggestion_applicability": null,
+        "text": [
+          {
+            "highlight_end": 13,
+            "highlight_start": 3,
+            "text": "\t\tlet style;"
+          }
+        ]
+      }
+    ],
+    "code": {
+      "code": "clippy::needless_late_init",
+      "explanation": null
+    }
+  },
+  {
+    "rendered": "warning: this `if` has identical blocks\n   --> src/presentation.rs:314:49\n    |\n314 |                   if ch.is_ascii_alphanumeric() || ch == b'_' {\n    |  _____________________________________________________________^\n315 | |                     at += 1;\n316 | |                 } else if ch == b'.' && text.as_bytes().get(at + 1).is_some_and(u8::is_ascii_digit)\n    | |_________________^\n    |\nnote: same as this\n   --> src/presentation.rs:317:5\n    |\n317 | /                 {\n318 | |                     at += 1;\n319 | |                 } else if matches!(ch, b'+' | b'-')\n    | |_________________^\n    = help: for further information visit https://rust-lang.github.io/rust-clippy/rust-1.98.0/index.html#if_same_then_else\n    = note: `#[warn(clippy::if_same_then_else)]` on by default\n\n",
+    "$message_type": "diagnostic",
+    "children": [
+      {
+        "children": [],
+        "code": null,
+        "level": "note",
+        "message": "same as this",
+        "rendered": null,
+        "spans": [
+          {
+            "byte_end": 8137,
+            "byte_start": 8116,
+            "column_end": 6,
+            "column_start": 5,
+            "expansion": null,
+            "file_name": "src/presentation.rs",
+            "is_primary": true,
+            "label": null,
+            "line_end": 319,
+            "line_start": 317,
+            "suggested_replacement": null,
+            "suggestion_applicability": null,
+            "text": [
+              {
+                "highlight_end": 6,
+                "highlight_start": 5,
+                "text": "\t\t\t\t{"
+              },
+              {
+                "highlight_end": 14,
+                "highlight_start": 1,
+                "text": "\t\t\t\t\tat += 1;"
+              },
+              {
+                "highlight_end": 6,
+                "highlight_start": 1,
+                "text": "\t\t\t\t} else if matches!(ch, b'+' | b'-')"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "children": [],
+        "code": null,
+        "level": "help",
+        "message": "for further information visit https://rust-lang.github.io/rust-clippy/rust-1.98.0/index.html#if_same_then_else",
+        "rendered": null,
+        "spans": []
+      },
+      {
+        "children": [],
+        "code": null,
+        "level": "note",
+        "message": "`#[warn(clippy::if_same_then_else)]` on by default",
+        "rendered": null,
+        "spans": []
+      }
+    ],
+    "level": "warning",
+    "message": "this `if` has identical blocks",
+    "spans": [
+      {
+        "byte_end": 8029,
+        "byte_start": 8008,
+        "column_end": 6,
+        "column_start": 49,
+        "expansion": null,
+        "file_name": "src/presentation.rs",
+        "is_primary": true,
+        "label": null,
+        "line_end": 316,
+        "line_start": 314,
+        "suggested_replacement": null,
+        "suggestion_applicability": null,
+        "text": [
+          {
+            "highlight_end": 50,
+            "highlight_start": 49,
+            "text": "\t\t\t\tif ch.is_ascii_alphanumeric() || ch == b'_' {"
+          },
+          {
+            "highlight_end": 14,
+            "highlight_start": 1,
+            "text": "\t\t\t\t\tat += 1;"
+          },
+          {
+            "highlight_end": 6,
+            "highlight_start": 1,
+            "text": "\t\t\t\t} else if ch == b'.' && text.as_bytes().get(at + 1).is_some_and(u8::is_ascii_digit)"
+          }
+        ]
+      }
+    ],
+    "code": {
+      "code": "clippy::if_same_then_else",
+      "explanation": null
+    }
+  },
+  {
+    "rendered": "warning: this `if` has identical blocks\n   --> src/presentation.rs:317:5\n    |\n317 | /                 {\n318 | |                     at += 1;\n319 | |                 } else if matches!(ch, b'+' | b'-')\n    | |_________________^\n    |\nnote: same as this\n   --> src/presentation.rs:321:5\n    |\n321 | /                 {\n322 | |                     at += 1;\n323 | |                 } else {\n    | |_________________^\n    = help: for further information visit https://rust-lang.github.io/rust-clippy/rust-1.98.0/index.html#if_same_then_else\n\n",
+    "$message_type": "diagnostic",
+    "children": [
+      {
+        "children": [],
+        "code": null,
+        "level": "note",
+        "message": "same as this",
+        "rendered": null,
+        "spans": [
+          {
+            "byte_end": 8252,
+            "byte_start": 8231,
+            "column_end": 6,
+            "column_start": 5,
+            "expansion": null,
+            "file_name": "src/presentation.rs",
+            "is_primary": true,
+            "label": null,
+            "line_end": 323,
+            "line_start": 321,
+            "suggested_replacement": null,
+            "suggestion_applicability": null,
+            "text": [
+              {
+                "highlight_end": 6,
+                "highlight_start": 5,
+                "text": "\t\t\t\t{"
+              },
+              {
+                "highlight_end": 14,
+                "highlight_start": 1,
+                "text": "\t\t\t\t\tat += 1;"
+              },
+              {
+                "highlight_end": 6,
+                "highlight_start": 1,
+                "text": "\t\t\t\t} else {"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "children": [],
+        "code": null,
+        "level": "help",
+        "message": "for further information visit https://rust-lang.github.io/rust-clippy/rust-1.98.0/index.html#if_same_then_else",
+        "rendered": null,
+        "spans": []
+      }
+    ],
+    "level": "warning",
+    "message": "this `if` has identical blocks",
+    "spans": [
+      {
+        "byte_end": 8137,
+        "byte_start": 8116,
+        "column_end": 6,
+        "column_start": 5,
+        "expansion": null,
+        "file_name": "src/presentation.rs",
+        "is_primary": true,
+        "label": null,
+        "line_end": 319,
+        "line_start": 317,
+        "suggested_replacement": null,
+        "suggestion_applicability": null,
+        "text": [
+          {
+            "highlight_end": 6,
+            "highlight_start": 5,
+            "text": "\t\t\t\t{"
+          },
+          {
+            "highlight_end": 14,
+            "highlight_start": 1,
+            "text": "\t\t\t\t\tat += 1;"
+          },
+          {
+            "highlight_end": 6,
+            "highlight_start": 1,
+            "text": "\t\t\t\t} else if matches!(ch, b'+' | b'-')"
+          }
+        ]
+      }
+    ],
+    "code": {
+      "code": "clippy::if_same_then_else",
+      "explanation": null
+    }
+  },
+  {
+    "rendered": "warning: doc list item without indentation\n   --> src/session.rs:180:5\n    |\n180 | /// A real token at the end, such as the `;` of `let x = ;`, keeps its span\n    |     ^\n    |\n    = help: if this is supposed to be its own paragraph, add a blank line\n    = help: for further information visit https://rust-lang.github.io/rust-clippy/rust-1.98.0/index.html#doc_lazy_continuation\n    = note: `#[warn(clippy::doc_lazy_continuation)]` on by default\nhelp: indent this line\n    |\n180 | ///   A real token at the end, such as the `;` of `let x = ;`, keeps its span\n    |     ++\n\n",
+    "$message_type": "diagnostic",
+    "children": [
+      {
+        "children": [],
+        "code": null,
+        "level": "help",
+        "message": "if this is supposed to be its own paragraph, add a blank line",
+        "rendered": null,
+        "spans": []
+      },
+      {
+        "children": [],
+        "code": null,
+        "level": "help",
+        "message": "for further information visit https://rust-lang.github.io/rust-clippy/rust-1.98.0/index.html#doc_lazy_continuation",
+        "rendered": null,
+        "spans": []
+      },
+      {
+        "children": [],
+        "code": null,
+        "level": "note",
+        "message": "`#[warn(clippy::doc_lazy_continuation)]` on by default",
+        "rendered": null,
+        "spans": []
+      },
+      {
+        "children": [],
+        "code": null,
+        "level": "help",
+        "message": "indent this line",
+        "rendered": null,
+        "spans": [
+          {
+            "byte_end": 6465,
+            "byte_start": 6465,
+            "column_end": 5,
+            "column_start": 5,
+            "expansion": null,
+            "file_name": "src/session.rs",
+            "is_primary": true,
+            "label": null,
+            "line_end": 180,
+            "line_start": 180,
+            "suggested_replacement": "  ",
+            "suggestion_applicability": "MaybeIncorrect",
+            "text": [
+              {
+                "highlight_end": 5,
+                "highlight_start": 5,
+                "text": "/// A real token at the end, such as the `;` of `let x = ;`, keeps its span"
+              }
+            ]
+          }
+        ]
+      }
+    ],
+    "level": "warning",
+    "message": "doc list item without indentation",
+    "spans": [
+      {
+        "byte_end": 6465,
+        "byte_start": 6465,
+        "column_end": 5,
+        "column_start": 5,
+        "expansion": null,
+        "file_name": "src/session.rs",
+        "is_primary": true,
+        "label": null,
+        "line_end": 180,
+        "line_start": 180,
+        "suggested_replacement": null,
+        "suggestion_applicability": null,
+        "text": [
+          {
+            "highlight_end": 5,
+            "highlight_start": 5,
+            "text": "/// A real token at the end, such as the `;` of `let x = ;`, keeps its span"
+          }
+        ]
+      }
+    ],
+    "code": {
+      "code": "clippy::doc_lazy_continuation",
+      "explanation": null
+    }
+  },
+  {
+    "rendered": "warning: doc list item without indentation\n   --> src/session.rs:181:5\n    |\n181 | /// when the input grows, so it is a diagnostic.\n    |     ^\n    |\n    = help: if this is supposed to be its own paragraph, add a blank line\n    = help: for further information visit https://rust-lang.github.io/rust-clippy/rust-1.98.0/index.html#doc_lazy_continuation\nhelp: indent this line\n    |\n181 | ///   when the input grows, so it is a diagnostic.\n    |     ++\n\n",
+    "$message_type": "diagnostic",
+    "children": [
+      {
+        "children": [],
+        "code": null,
+        "level": "help",
+        "message": "if this is supposed to be its own paragraph, add a blank line",
+        "rendered": null,
+        "spans": []
+      },
+      {
+        "children": [],
+        "code": null,
+        "level": "help",
+        "message": "for further information visit https://rust-lang.github.io/rust-clippy/rust-1.98.0/index.html#doc_lazy_continuation",
+        "rendered": null,
+        "spans": []
+      },
+      {
+        "children": [],
+        "code": null,
+        "level": "help",
+        "message": "indent this line",
+        "rendered": null,
+        "spans": [
+          {
+            "byte_end": 6541,
+            "byte_start": 6541,
+            "column_end": 5,
+            "column_start": 5,
+            "expansion": null,
+            "file_name": "src/session.rs",
+            "is_primary": true,
+            "label": null,
+            "line_end": 181,
+            "line_start": 181,
+            "suggested_replacement": "  ",
+            "suggestion_applicability": "MaybeIncorrect",
+            "text": [
+              {
+                "highlight_end": 5,
+                "highlight_start": 5,
+                "text": "/// when the input grows, so it is a diagnostic."
+              }
+            ]
+          }
+        ]
+      }
+    ],
+    "level": "warning",
+    "message": "doc list item without indentation",
+    "spans": [
+      {
+        "byte_end": 6541,
+        "byte_start": 6541,
+        "column_end": 5,
+        "column_start": 5,
+        "expansion": null,
+        "file_name": "src/session.rs",
+        "is_primary": true,
+        "label": null,
+        "line_end": 181,
+        "line_start": 181,
+        "suggested_replacement": null,
+        "suggestion_applicability": null,
+        "text": [
+          {
+            "highlight_end": 5,
+            "highlight_start": 5,
+            "text": "/// when the input grows, so it is a diagnostic."
+          }
+        ]
+      }
+    ],
+    "code": {
+      "code": "clippy::doc_lazy_continuation",
+      "explanation": null
+    }
+  },
+  {
+    "rendered": "warning: this `if` statement can be collapsed\n   --> src/session.rs:631:6\n    |\n631 | /                     if let Some(old) = declarations.get(name) {\n632 | |                         if (old.is_type || is_type) && old.source != source {\n633 | |                             return Err(self.refused_at(\n634 | |                                 &format!(\n...   |\n641 | |                     }\n    | |_____________________^\n    |\n    = help: for further information visit https://rust-lang.github.io/rust-clippy/rust-1.98.0/index.html#collapsible_if\nhelp: collapse nested if block\n    |\n631 ~                     if let Some(old) = declarations.get(name)\n632 ~                         && (old.is_type || is_type) && old.source != source {\n633 |                             return Err(self.refused_at(\n...\n639 |                             ));\n640 ~                         }\n    |\n\n",
+    "$message_type": "diagnostic",
+    "children": [
+      {
+        "children": [],
+        "code": null,
+        "level": "help",
+        "message": "for further information visit https://rust-lang.github.io/rust-clippy/rust-1.98.0/index.html#collapsible_if",
+        "rendered": null,
+        "spans": []
+      },
+      {
+        "children": [],
+        "code": null,
+        "level": "help",
+        "message": "collapse nested if block",
+        "rendered": null,
+        "spans": [
+          {
+            "byte_end": 21555,
+            "byte_start": 21553,
+            "column_end": 49,
+            "column_start": 47,
+            "expansion": null,
+            "file_name": "src/session.rs",
+            "is_primary": true,
+            "label": null,
+            "line_end": 631,
+            "line_start": 631,
+            "suggested_replacement": "",
+            "suggestion_applicability": "MachineApplicable",
+            "text": [
+              {
+                "highlight_end": 49,
+                "highlight_start": 47,
+                "text": "\t\t\t\t\tif let Some(old) = declarations.get(name) {"
+              }
+            ]
+          },
+          {
+            "byte_end": 21820,
+            "byte_start": 21813,
+            "column_end": 7,
+            "column_start": 8,
+            "expansion": null,
+            "file_name": "src/session.rs",
+            "is_primary": true,
+            "label": null,
+            "line_end": 641,
+            "line_start": 640,
+            "suggested_replacement": "",
+            "suggestion_applicability": "MachineApplicable",
+            "text": [
+              {
+                "highlight_end": 8,
+                "highlight_start": 8,
+                "text": "\t\t\t\t\t\t}"
+              },
+              {
+                "highlight_end": 7,
+                "highlight_start": 1,
+                "text": "\t\t\t\t\t}"
+              }
+            ]
+          },
+          {
+            "byte_end": 21564,
+            "byte_start": 21562,
+            "column_end": 9,
+            "column_start": 7,
+            "expansion": null,
+            "file_name": "src/session.rs",
+            "is_primary": true,
+            "label": null,
+            "line_end": 632,
+            "line_start": 632,
+            "suggested_replacement": "&&",
+            "suggestion_applicability": "MachineApplicable",
+            "text": [
+              {
+                "highlight_end": 9,
+                "highlight_start": 7,
+                "text": "\t\t\t\t\t\tif (old.is_type || is_type) && old.source != source {"
+              }
+            ]
+          }
+        ]
+      }
+    ],
+    "level": "warning",
+    "message": "this `if` statement can be collapsed",
+    "spans": [
+      {
+        "byte_end": 21820,
+        "byte_start": 21512,
+        "column_end": 7,
+        "column_start": 6,
+        "expansion": null,
+        "file_name": "src/session.rs",
+        "is_primary": true,
+        "label": null,
+        "line_end": 641,
+        "line_start": 631,
+        "suggested_replacement": null,
+        "suggestion_applicability": null,
+        "text": [
+          {
+            "highlight_end": 49,
+            "highlight_start": 6,
+            "text": "\t\t\t\t\tif let Some(old) = declarations.get(name) {"
+          },
+          {
+            "highlight_end": 60,
+            "highlight_start": 1,
+            "text": "\t\t\t\t\t\tif (old.is_type || is_type) && old.source != source {"
+          },
+          {
+            "highlight_end": 35,
+            "highlight_start": 1,
+            "text": "\t\t\t\t\t\t\treturn Err(self.refused_at("
+          },
+          {
+            "highlight_end": 18,
+            "highlight_start": 1,
+            "text": "\t\t\t\t\t\t\t\t&format!("
+          },
+          {
+            "highlight_end": 80,
+            "highlight_start": 1,
+            "text": "\t\t\t\t\t\t\t\t\t\"`{name}` is a type whose shape changed; :reset before redeclaring it\""
+          },
+          {
+            "highlight_end": 11,
+            "highlight_start": 1,
+            "text": "\t\t\t\t\t\t\t\t),"
+          },
+          {
+            "highlight_end": 16,
+            "highlight_start": 1,
+            "text": "\t\t\t\t\t\t\t\tnumber,"
+          },
+          {
+            "highlight_end": 19,
+            "highlight_start": 1,
+            "text": "\t\t\t\t\t\t\t\tstart - 1,"
+          },
+          {
+            "highlight_end": 11,
+            "highlight_start": 1,
+            "text": "\t\t\t\t\t\t\t));"
+          },
+          {
+            "highlight_end": 8,
+            "highlight_start": 1,
+            "text": "\t\t\t\t\t\t}"
+          },
+          {
+            "highlight_end": 7,
+            "highlight_start": 1,
+            "text": "\t\t\t\t\t}"
+          }
+        ]
+      }
+    ],
+    "code": {
+      "code": "clippy::collapsible_if",
+      "explanation": null
+    }
+  },
+  {
+    "rendered": "warning: stripping a prefix manually\n    --> src/session.rs:1554:11\n     |\n1554 |             rest = &after[1..];\n     |                    ^^^^^^^^^^^\n     |\nnote: the prefix was tested here\n    --> src/session.rs:1553:3\n     |\n1553 |         if after.starts_with('{') {\n     |         ^^^^^^^^^^^^^^^^^^^^^^^^^^\n     = help: for further information visit https://rust-lang.github.io/rust-clippy/rust-1.98.0/index.html#manual_strip\n     = note: `#[warn(clippy::manual_strip)]` on by default\nhelp: try using the `strip_prefix` method\n     |\n1553 ~         if let Some(<stripped>) = after.strip_prefix('{') {\n1554 ~             rest = <stripped>;\n     |\n\n",
+    "$message_type": "diagnostic",
+    "children": [
+      {
+        "children": [],
+        "code": null,
+        "level": "note",
+        "message": "the prefix was tested here",
+        "rendered": null,
+        "spans": [
+          {
+            "byte_end": 51666,
+            "byte_start": 51640,
+            "column_end": 29,
+            "column_start": 3,
+            "expansion": null,
+            "file_name": "src/session.rs",
+            "is_primary": true,
+            "label": null,
+            "line_end": 1553,
+            "line_start": 1553,
+            "suggested_replacement": null,
+            "suggestion_applicability": null,
+            "text": [
+              {
+                "highlight_end": 29,
+                "highlight_start": 3,
+                "text": "\t\tif after.starts_with('{') {"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "children": [],
+        "code": null,
+        "level": "help",
+        "message": "for further information visit https://rust-lang.github.io/rust-clippy/rust-1.98.0/index.html#manual_strip",
+        "rendered": null,
+        "spans": []
+      },
+      {
+        "children": [],
+        "code": null,
+        "level": "note",
+        "message": "`#[warn(clippy::manual_strip)]` on by default",
+        "rendered": null,
+        "spans": []
+      },
+      {
+        "children": [],
+        "code": null,
+        "level": "help",
+        "message": "try using the `strip_prefix` method",
+        "rendered": null,
+        "spans": [
+          {
+            "byte_end": 51666,
+            "byte_start": 51640,
+            "column_end": 29,
+            "column_start": 3,
+            "expansion": null,
+            "file_name": "src/session.rs",
+            "is_primary": true,
+            "label": null,
+            "line_end": 1553,
+            "line_start": 1553,
+            "suggested_replacement": "if let Some(<stripped>) = after.strip_prefix('{') ",
+            "suggestion_applicability": "HasPlaceholders",
+            "text": [
+              {
+                "highlight_end": 29,
+                "highlight_start": 3,
+                "text": "\t\tif after.starts_with('{') {"
+              }
+            ]
+          },
+          {
+            "byte_end": 51689,
+            "byte_start": 51678,
+            "column_end": 22,
+            "column_start": 11,
+            "expansion": null,
+            "file_name": "src/session.rs",
+            "is_primary": true,
+            "label": null,
+            "line_end": 1554,
+            "line_start": 1554,
+            "suggested_replacement": "<stripped>",
+            "suggestion_applicability": "HasPlaceholders",
+            "text": [
+              {
+                "highlight_end": 22,
+                "highlight_start": 11,
+                "text": "\t\t\trest = &after[1..];"
+              }
+            ]
+          }
+        ]
+      }
+    ],
+    "level": "warning",
+    "message": "stripping a prefix manually",
+    "spans": [
+      {
+        "byte_end": 51689,
+        "byte_start": 51678,
+        "column_end": 22,
+        "column_start": 11,
+        "expansion": null,
+        "file_name": "src/session.rs",
+        "is_primary": true,
+        "label": null,
+        "line_end": 1554,
+        "line_start": 1554,
+        "suggested_replacement": null,
+        "suggestion_applicability": null,
+        "text": [
+          {
+            "highlight_end": 22,
+            "highlight_start": 11,
+            "text": "\t\t\trest = &after[1..];"
+          }
+        ]
+      }
+    ],
+    "code": {
+      "code": "clippy::manual_strip",
+      "explanation": null
+    }
+  },
+  {
+    "rendered": "warning: this manual char comparison can be written more succinctly\n    --> src/session.rs:1557:24\n     |\n1557 |         let end = after.find(|c| c == '}' || c == ':').unwrap_or(after.len());\n     |                              ^^^^^^^^^^^^^^^^^^^^^^^^ help: consider using an array of `char`: `['}', ':']`\n     |\n     = help: for further information visit https://rust-lang.github.io/rust-clippy/rust-1.98.0/index.html#manual_pattern_char_comparison\n     = note: `#[warn(clippy::manual_pattern_char_comparison)]` on by default\n\n",
+    "$message_type": "diagnostic",
+    "children": [
+      {
+        "children": [],
+        "code": null,
+        "level": "help",
+        "message": "for further information visit https://rust-lang.github.io/rust-clippy/rust-1.98.0/index.html#manual_pattern_char_comparison",
+        "rendered": null,
+        "spans": []
+      },
+      {
+        "children": [],
+        "code": null,
+        "level": "note",
+        "message": "`#[warn(clippy::manual_pattern_char_comparison)]` on by default",
+        "rendered": null,
+        "spans": []
+      },
+      {
+        "children": [],
+        "code": null,
+        "level": "help",
+        "message": "consider using an array of `char`",
+        "rendered": null,
+        "spans": [
+          {
+            "byte_end": 51755,
+            "byte_start": 51731,
+            "column_end": 48,
+            "column_start": 24,
+            "expansion": null,
+            "file_name": "src/session.rs",
+            "is_primary": true,
+            "label": null,
+            "line_end": 1557,
+            "line_start": 1557,
+            "suggested_replacement": "['}', ':']",
+            "suggestion_applicability": "MachineApplicable",
+            "text": [
+              {
+                "highlight_end": 48,
+                "highlight_start": 24,
+                "text": "\t\tlet end = after.find(|c| c == '}' || c == ':').unwrap_or(after.len());"
+              }
+            ]
+          }
+        ]
+      }
+    ],
+    "level": "warning",
+    "message": "this manual char comparison can be written more succinctly",
+    "spans": [
+      {
+        "byte_end": 51755,
+        "byte_start": 51731,
+        "column_end": 48,
+        "column_start": 24,
+        "expansion": null,
+        "file_name": "src/session.rs",
+        "is_primary": true,
+        "label": null,
+        "line_end": 1557,
+        "line_start": 1557,
+        "suggested_replacement": null,
+        "suggestion_applicability": null,
+        "text": [
+          {
+            "highlight_end": 48,
+            "highlight_start": 24,
+            "text": "\t\tlet end = after.find(|c| c == '}' || c == ':').unwrap_or(after.len());"
+          }
+        ]
+      }
+    ],
+    "code": {
+      "code": "clippy::manual_pattern_char_comparison",
+      "explanation": null
+    }
+  },
+  {
+    "rendered": "warning: manual implementation of `.is_multiple_of()`\n  --> src/text.rs:72:19\n   |\n72 |         if index > 0 && (digits.len() - index) % 3 == 0 {\n   |                         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ help: replace with: `(digits.len() - index).is_multiple_of(3)`\n   |\n   = help: for further information visit https://rust-lang.github.io/rust-clippy/rust-1.98.0/index.html#manual_is_multiple_of\n   = note: `#[warn(clippy::manual_is_multiple_of)]` on by default\n\n",
+    "$message_type": "diagnostic",
+    "children": [
+      {
+        "children": [],
+        "code": null,
+        "level": "help",
+        "message": "for further information visit https://rust-lang.github.io/rust-clippy/rust-1.98.0/index.html#manual_is_multiple_of",
+        "rendered": null,
+        "spans": []
+      },
+      {
+        "children": [],
+        "code": null,
+        "level": "note",
+        "message": "`#[warn(clippy::manual_is_multiple_of)]` on by default",
+        "rendered": null,
+        "spans": []
+      },
+      {
+        "children": [],
+        "code": null,
+        "level": "help",
+        "message": "replace with",
+        "rendered": null,
+        "spans": [
+          {
+            "byte_end": 2762,
+            "byte_start": 2731,
+            "column_end": 50,
+            "column_start": 19,
+            "expansion": null,
+            "file_name": "src/text.rs",
+            "is_primary": true,
+            "label": null,
+            "line_end": 72,
+            "line_start": 72,
+            "suggested_replacement": "(digits.len() - index).is_multiple_of(3)",
+            "suggestion_applicability": "MachineApplicable",
+            "text": [
+              {
+                "highlight_end": 50,
+                "highlight_start": 19,
+                "text": "\t\tif index > 0 && (digits.len() - index) % 3 == 0 {"
+              }
+            ]
+          }
+        ]
+      }
+    ],
+    "level": "warning",
+    "message": "manual implementation of `.is_multiple_of()`",
+    "spans": [
+      {
+        "byte_end": 2762,
+        "byte_start": 2731,
+        "column_end": 50,
+        "column_start": 19,
+        "expansion": null,
+        "file_name": "src/text.rs",
+        "is_primary": true,
+        "label": null,
+        "line_end": 72,
+        "line_start": 72,
+        "suggested_replacement": null,
+        "suggestion_applicability": null,
+        "text": [
+          {
+            "highlight_end": 50,
+            "highlight_start": 19,
+            "text": "\t\tif index > 0 && (digits.len() - index) % 3 == 0 {"
+          }
+        ]
+      }
+    ],
+    "code": {
+      "code": "clippy::manual_is_multiple_of",
+      "explanation": null
+    }
+  },
+  {
+    "rendered": "warning: this `if` statement can be collapsed\n   --> src/time.rs:175:3\n    |\n175 | /         if let Some(offset) = numeric_offset {\n176 | |             if offset != z.offset() {\n177 | |                 return Err(refuse(format!(\n178 | |                     \"numeric offset {offset} disagrees with zone offset {}\",\n...   |\n182 | |         }\n    | |_________^\n    |\n    = help: for further information visit https://rust-lang.github.io/rust-clippy/rust-1.98.0/index.html#collapsible_if\nhelp: collapse nested if block\n    |\n175 ~         if let Some(offset) = numeric_offset\n176 ~             && offset != z.offset() {\n177 |                 return Err(refuse(format!(\n...\n180 |                 )));\n181 ~             }\n    |\n\n",
+    "$message_type": "diagnostic",
+    "children": [
+      {
+        "children": [],
+        "code": null,
+        "level": "help",
+        "message": "for further information visit https://rust-lang.github.io/rust-clippy/rust-1.98.0/index.html#collapsible_if",
+        "rendered": null,
+        "spans": []
+      },
+      {
+        "children": [],
+        "code": null,
+        "level": "help",
+        "message": "collapse nested if block",
+        "rendered": null,
+        "spans": [
+          {
+            "byte_end": 5783,
+            "byte_start": 5781,
+            "column_end": 41,
+            "column_start": 39,
+            "expansion": null,
+            "file_name": "src/time.rs",
+            "is_primary": true,
+            "label": null,
+            "line_end": 175,
+            "line_start": 175,
+            "suggested_replacement": "",
+            "suggestion_applicability": "MachineApplicable",
+            "text": [
+              {
+                "highlight_end": 41,
+                "highlight_start": 39,
+                "text": "\t\tif let Some(offset) = numeric_offset {"
+              }
+            ]
+          },
+          {
+            "byte_end": 5939,
+            "byte_start": 5935,
+            "column_end": 4,
+            "column_start": 5,
+            "expansion": null,
+            "file_name": "src/time.rs",
+            "is_primary": true,
+            "label": null,
+            "line_end": 182,
+            "line_start": 181,
+            "suggested_replacement": "",
+            "suggestion_applicability": "MachineApplicable",
+            "text": [
+              {
+                "highlight_end": 5,
+                "highlight_start": 5,
+                "text": "\t\t\t}"
+              },
+              {
+                "highlight_end": 4,
+                "highlight_start": 1,
+                "text": "\t\t}"
+              }
+            ]
+          },
+          {
+            "byte_end": 5789,
+            "byte_start": 5787,
+            "column_end": 6,
+            "column_start": 4,
+            "expansion": null,
+            "file_name": "src/time.rs",
+            "is_primary": true,
+            "label": null,
+            "line_end": 176,
+            "line_start": 176,
+            "suggested_replacement": "&&",
+            "suggestion_applicability": "MachineApplicable",
+            "text": [
+              {
+                "highlight_end": 6,
+                "highlight_start": 4,
+                "text": "\t\t\tif offset != z.offset() {"
+              }
+            ]
+          }
+        ]
+      }
+    ],
+    "level": "warning",
+    "message": "this `if` statement can be collapsed",
+    "spans": [
+      {
+        "byte_end": 5939,
+        "byte_start": 5745,
+        "column_end": 4,
+        "column_start": 3,
+        "expansion": null,
+        "file_name": "src/time.rs",
+        "is_primary": true,
+        "label": null,
+        "line_end": 182,
+        "line_start": 175,
+        "suggested_replacement": null,
+        "suggestion_applicability": null,
+        "text": [
+          {
+            "highlight_end": 41,
+            "highlight_start": 3,
+            "text": "\t\tif let Some(offset) = numeric_offset {"
+          },
+          {
+            "highlight_end": 29,
+            "highlight_start": 1,
+            "text": "\t\t\tif offset != z.offset() {"
+          },
+          {
+            "highlight_end": 31,
+            "highlight_start": 1,
+            "text": "\t\t\t\treturn Err(refuse(format!("
+          },
+          {
+            "highlight_end": 62,
+            "highlight_start": 1,
+            "text": "\t\t\t\t\t\"numeric offset {offset} disagrees with zone offset {}\","
+          },
+          {
+            "highlight_end": 16,
+            "highlight_start": 1,
+            "text": "\t\t\t\t\tz.offset()"
+          },
+          {
+            "highlight_end": 9,
+            "highlight_start": 1,
+            "text": "\t\t\t\t)));"
+          },
+          {
+            "highlight_end": 5,
+            "highlight_start": 1,
+            "text": "\t\t\t}"
+          },
+          {
+            "highlight_end": 4,
+            "highlight_start": 1,
+            "text": "\t\t}"
+          }
+        ]
+      }
+    ],
+    "code": {
+      "code": "clippy::collapsible_if",
+      "explanation": null
+    }
+  }
+]

@@ -1,0 +1,1163 @@
+[1mdiff --git a/Cargo.lock b/Cargo.lock[m
+[1mindex f60e162..cf1d86c 100644[m
+[1m--- a/Cargo.lock[m
+[1m+++ b/Cargo.lock[m
+[36m@@ -35,11 +35,17 @@[m [mversion = "1.0.104"[m
+ source = "registry+https://github.com/rust-lang/crates.io-index"[m
+ checksum = "330a5ed07fa54e4702c9d6c4174f74427fc0ef6e214bbd677ae50a5099946470"[m
+ [m
+[32m+[m[32m[[package]][m
+[32m+[m[32mname = "arrayvec"[m
+[32m+[m[32mversion = "0.7.8"[m
+[32m+[m[32msource = "registry+https://github.com/rust-lang/crates.io-index"[m
+[32m+[m[32mchecksum = "d3fb67a6e08acf24fdeccbac2cb6ac4305825bd1f117462e0e6f2f193345ad56"[m
+[32m+[m
+ [[package]][m
+ name = "async-compression"[m
+[31m-version = "0.4.46"[m
+[32m+[m[32mversion = "0.4.48"[m
+ source = "registry+https://github.com/rust-lang/crates.io-index"[m
+[31m-checksum = "4f10dafd0c8d2e51ae9a748805777613ed0bbe17bf586b76c8311f45c020a32f"[m
+[32m+[m[32mchecksum = "fb61aea1a7def73ee7c350a184f0e70b32c182344e2e75bf70c9b621b83417fd"[m
+ dependencies = [[m
+  "compression-codecs",[m
+  "compression-core",[m
+[36m@@ -67,9 +73,31 @@[m [mchecksum = "72b3254f16251a8381aa12e40e3c4d2f0199f8c6508fbecb9d91f575e0fbb8c6"[m
+ [m
+ [[package]][m
+ name = "bitflags"[m
+[31m-version = "2.13.1"[m
+[32m+[m[32mversion = "2.13.2"[m
+[32m+[m[32msource = "registry+https://github.com/rust-lang/crates.io-index"[m
+[32m+[m[32mchecksum = "3ded4057c258ba199e2d26386d3af3780957ecaee6c4ef4041c6b4b8b97c0b06"[m
+[32m+[m
+[32m+[m[32m[[package]][m
+[32m+[m[32mname = "blake3"[m
+[32m+[m[32mversion = "1.8.7"[m
+[32m+[m[32msource = "registry+https://github.com/rust-lang/crates.io-index"[m
+[32m+[m[32mchecksum = "6d9e454fc11f76977dc803893aff6304ed33d6a26efae8696573bea74baa27ae"[m
+[32m+[m[32mdependencies = [[m
+[32m+[m[32m "arrayvec",[m
+[32m+[m[32m "cc",[m
+[32m+[m[32m "cfg-if",[m
+[32m+[m[32m "constant_time_eq",[m
+[32m+[m[32m "cpufeatures 0.3.1",[m
+[32m+[m[32m][m
+[32m+[m
+[32m+[m[32m[[package]][m
+[32m+[m[32mname = "block-buffer"[m
+[32m+[m[32mversion = "0.10.4"[m
+ source = "registry+https://github.com/rust-lang/crates.io-index"[m
+[31m-checksum = "b588b76d00fde79687d7646a9b5bdf3cc0f655e0bbd080335a95d7e96f3587da"[m
+[32m+[m[32mchecksum = "3078c7629b62d3f0439517fa394996acacc5cbc91c5a20d8c658e77abd503a71"[m
+[32m+[m[32mdependencies = [[m
+[32m+[m[32m "generic-array",[m
+[32m+[m[32m][m
+ [m
+ [[package]][m
+ name = "bumpalo"[m
+[36m@@ -85,9 +113,9 @@[m [mchecksum = "fc652a48c352aef3ea3aed32080501cf3ef6ed5da78602a020c991775b0aff04"[m
+ [m
+ [[package]][m
+ name = "cc"[m
+[31m-version = "1.4.5"[m
+[32m+[m[32mversion = "1.4.7"[m
+ source = "registry+https://github.com/rust-lang/crates.io-index"[m
+[31m-checksum = "005ec2760ca554fae18df7a11195552ec576cd665632a881bc011d5bb2fd4d80"[m
+[32m+[m[32mchecksum = "54413ede23c2daf518f35156dfde027feb2374004d63bd497f983c8db9c0e313"[m
+ dependencies = [[m
+  "find-msvc-tools",[m
+  "shlex",[m
+[36m@@ -95,9 +123,9 @@[m [mdependencies = [[m
+ [m
+ [[package]][m
+ name = "cfg-if"[m
+[31m-version = "1.0.4"[m
+[32m+[m[32mversion = "1.0.5"[m
+ source = "registry+https://github.com/rust-lang/crates.io-index"[m
+[31m-checksum = "9330f8b2ff13f34540b44e946ef35111825727b38d33286ef986142615121801"[m
+[32m+[m[32mchecksum = "4e7648175b45a9a48536d676f68d918270699102aa8dab5496df06904c914600"[m
+ [m
+ [[package]][m
+ name = "cfg_aliases"[m
+[36m@@ -112,7 +140,7 @@[m [msource = "registry+https://github.com/rust-lang/crates.io-index"[m
+ checksum = "65c35e4b699c7e15ccbe7ee35c005e4fc0a278d22238a2857e6ce2dadeda1b06"[m
+ dependencies = [[m
+  "cfg-if",[m
+[31m- "cpufeatures",[m
+[32m+[m[32m "cpufeatures 0.3.1",[m
+  "rand_core",[m
+ ][m
+ [m
+[36m@@ -127,9 +155,9 @@[m [mdependencies = [[m
+ [m
+ [[package]][m
+ name = "compression-codecs"[m
+[31m-version = "0.4.41"[m
+[32m+[m[32mversion = "0.4.43"[m
+ source = "registry+https://github.com/rust-lang/crates.io-index"[m
+[31m-checksum = "58a6d0db8759036a783bc7c3f7a07f8cef3bf9470eb1db3bc86e8bcd1c5d0fe8"[m
+[32m+[m[32mchecksum = "bef16c47ba2797aa6a909cc37d39911f3a6743811fe7408ac0b0cc0276b656e9"[m
+ dependencies = [[m
+  "compression-core",[m
+  "flate2",[m
+[36m@@ -142,6 +170,21 @@[m [mversion = "0.4.33"[m
+ source = "registry+https://github.com/rust-lang/crates.io-index"[m
+ checksum = "6e8ccc4ea9f6acc32d102c0f6d471d11d913ad15f20c04de743374861fa1d414"[m
+ [m
+[32m+[m[32m[[package]][m
+[32m+[m[32mname = "constant_time_eq"[m
+[32m+[m[32mversion = "0.4.2"[m
+[32m+[m[32msource = "registry+https://github.com/rust-lang/crates.io-index"[m
+[32m+[m[32mchecksum = "3d52eff69cd5e647efe296129160853a42795992097e8af39800e1060caeea9b"[m
+[32m+[m
+[32m+[m[32m[[package]][m
+[32m+[m[32mname = "cpufeatures"[m
+[32m+[m[32mversion = "0.2.17"[m
+[32m+[m[32msource = "registry+https://github.com/rust-lang/crates.io-index"[m
+[32m+[m[32mchecksum = "59ed5838eebb26a2bb2e58f6d5b5316989ae9d08bab10e0e6d103e656d1b0280"[m
+[32m+[m[32mdependencies = [[m
+[32m+[m[32m "libc",[m
+[32m+[m[32m][m
+[32m+[m
+ [[package]][m
+ name = "cpufeatures"[m
+ version = "0.3.1"[m
+[36m@@ -166,6 +209,26 @@[m [mversion = "1.2.0"[m
+ source = "registry+https://github.com/rust-lang/crates.io-index"[m
+ checksum = "790eea4361631c5e7d22598ecd5723ff611904e3344ce8720784c93e3d83d40b"[m
+ [m
+[32m+[m[32m[[package]][m
+[32m+[m[32mname = "crypto-common"[m
+[32m+[m[32mversion = "0.1.7"[m
+[32m+[m[32msource = "registry+https://github.com/rust-lang/crates.io-index"[m
+[32m+[m[32mchecksum = "78c8292055d1c1df0cce5d180393dc8cce0abec0a7102adb6c7b1eef6016d60a"[m
+[32m+[m[32mdependencies = [[m
+[32m+[m[32m "generic-array",[m
+[32m+[m[32m "typenum",[m
+[32m+[m[32m][m
+[32m+[m
+[32m+[m[32m[[package]][m
+[32m+[m[32mname = "digest"[m
+[32m+[m[32mversion = "0.10.7"[m
+[32m+[m[32msource = "registry+https://github.com/rust-lang/crates.io-index"[m
+[32m+[m[32mchecksum = "9ed9a281f7bc9b7576e61468ba615a66a5c8cfdff42420a70aa82701a3b1e292"[m
+[32m+[m[32mdependencies = [[m
+[32m+[m[32m "block-buffer",[m
+[32m+[m[32m "crypto-common",[m
+[32m+[m[32m][m
+[32m+[m
+ [[package]][m
+ name = "displaydoc"[m
+ version = "0.2.7"[m
+[36m@@ -174,7 +237,7 @@[m [mchecksum = "c6232dd377dcc64799954cbd3a9bb882e9cdc1308ccd87b1c098f1fb2eaf82a8"[m
+ dependencies = [[m
+  "proc-macro2",[m
+  "quote",[m
+[31m- "syn 3.0.5",[m
+[32m+[m[32m "syn 3.0.6",[m
+ ][m
+ [m
+ [[package]][m
+[36m@@ -183,6 +246,22 @@[m [mversion = "0.2.0"[m
+ source = "registry+https://github.com/rust-lang/crates.io-index"[m
+ checksum = "869b0adbda23651a9c5c0c3d270aac9fcb52e8622a8f2b17e57802d7791962f2"[m
+ [m
+[32m+[m[32m[[package]][m
+[32m+[m[32mname = "equivalent"[m
+[32m+[m[32mversion = "1.0.2"[m
+[32m+[m[32msource = "registry+https://github.com/rust-lang/crates.io-index"[m
+[32m+[m[32mchecksum = "877a4ace8713b0bcf2a4e7eec82529c029f1d0619886d18145fea96c3ffe5c0f"[m
+[32m+[m
+[32m+[m[32m[[package]][m
+[32m+[m[32mname = "errno"[m
+[32m+[m[32mversion = "0.3.14"[m
+[32m+[m[32msource = "registry+https://github.com/rust-lang/crates.io-index"[m
+[32m+[m[32mchecksum = "39cab71617ae0d63f51a36d69f866391735b51691dbda63cf6f96d042b63efeb"[m
+[32m+[m[32mdependencies = [[m
+[32m+[m[32m "libc",[m
+[32m+[m[32m "windows-sys 0.61.2",[m
+[32m+[m[32m][m
+[32m+[m
+ [[package]][m
+ name = "error-code"[m
+ version = "3.4.0"[m
+[36m@@ -191,9 +270,9 @@[m [mchecksum = "0b5343afd4a8365a643ac588dab4cf234a190c7f6c88c9f6dd6ffe00837661b7"[m
+ [m
+ [[package]][m
+ name = "find-msvc-tools"[m
+[31m-version = "0.1.12"[m
+[32m+[m[32mversion = "0.1.13"[m
+ source = "registry+https://github.com/rust-lang/crates.io-index"[m
+[31m-checksum = "3e0f1c7c3a72c66fd80abe965175f7523475c0489a87d3ff9d6e8c87d87a9d2d"[m
+[32m+[m[32mchecksum = "ef25905e51abafe4dcea6c15fec58c57b601cdbd0ee53d22ea1d3016c587d39b"[m
+ [m
+ [[package]][m
+ name = "flate2"[m
+[36m@@ -256,9 +335,9 @@[m [mdependencies = [[m
+ [m
+ [[package]][m
+ name = "generator"[m
+[31m-version = "0.8.9"[m
+[32m+[m[32mversion = "0.8.10"[m
+ source = "registry+https://github.com/rust-lang/crates.io-index"[m
+[31m-checksum = "b3b854b0e584ead1a33f18b2fcad7cf7be18b3875c78816b753639aa501513ae"[m
+[32m+[m[32mchecksum = "54ade96dc9003043bce7c035c85a9df5a858bfb2039c5a2e6fdf00f324f6c551"[m
+ dependencies = [[m
+  "cc",[m
+  "cfg-if",[m
+[36m@@ -269,6 +348,16 @@[m [mdependencies = [[m
+  "windows-result",[m
+ ][m
+ [m
+[32m+[m[32m[[package]][m
+[32m+[m[32mname = "generic-array"[m
+[32m+[m[32mversion = "0.14.7"[m
+[32m+[m[32msource = "registry+https://github.com/rust-lang/crates.io-index"[m
+[32m+[m[32mchecksum = "85649ca51fd72272d7821adaf274ad91c288277713d9c18820d8499a7ff69e9a"[m
+[32m+[m[32mdependencies = [[m
+[32m+[m[32m "typenum",[m
+[32m+[m[32m "version_check",[m
+[32m+[m[32m][m
+[32m+[m
+ [[package]][m
+ name = "getrandom"[m
+ version = "0.2.17"[m
+[36m@@ -296,6 +385,12 @@[m [mdependencies = [[m
+  "wasm-bindgen",[m
+ ][m
+ [m
+[32m+[m[32m[[package]][m
+[32m+[m[32mname = "hashbrown"[m
+[32m+[m[32mversion = "0.17.1"[m
+[32m+[m[32msource = "registry+https://github.com/rust-lang/crates.io-index"[m
+[32m+[m[32mchecksum = "ed5909b6e89a2db4456e54cd5f673791d7eca6732202bbf2a9cc504fe2f9b84a"[m
+[32m+[m
+ [[package]][m
+ name = "home"[m
+ version = "0.5.12"[m
+[36m@@ -507,6 +602,16 @@[m [mdependencies = [[m
+  "icu_properties",[m
+ ][m
+ [m
+[32m+[m[32m[[package]][m
+[32m+[m[32mname = "indexmap"[m
+[32m+[m[32mversion = "2.14.2"[m
+[32m+[m[32msource = "registry+https://github.com/rust-lang/crates.io-index"[m
+[32m+[m[32mchecksum = "cc4e190f5d26ca7051642629da2c52fc03bde85a03197c99408dcd291734c855"[m
+[32m+[m[32mdependencies = [[m
+[32m+[m[32m "equivalent",[m
+[32m+[m[32m "hashbrown",[m
+[32m+[m[32m][m
+[32m+[m
+ [[package]][m
+ name = "ipnet"[m
+ version = "2.12.2"[m
+[36m@@ -610,9 +715,9 @@[m [mdependencies = [[m
+ [m
+ [[package]][m
+ name = "lru-slab"[m
+[31m-version = "0.1.2"[m
+[32m+[m[32mversion = "0.1.3"[m
+ source = "registry+https://github.com/rust-lang/crates.io-index"[m
+[31m-checksum = "112b39cec0b298b6c1999fee3e31427f74f676e4cb9879ed1a121b43661a4154"[m
+[32m+[m[32mchecksum = "4050469837a6ff301cd14c1f8f24f88549e6d548f24f64e2148eb0f72cebc51f"[m
+ [m
+ [[package]][m
+ name = "matchers"[m
+[36m@@ -861,9 +966,9 @@[m [mdependencies = [[m
+ [m
+ [[package]][m
+ name = "quinn"[m
+[31m-version = "0.11.11"[m
+[32m+[m[32mversion = "0.11.12"[m
+ source = "registry+https://github.com/rust-lang/crates.io-index"[m
+[31m-checksum = "0c1a41e437b6bbd489372cd4971de128e85c855f56c57f283d20ff016cf7c0a8"[m
+[32m+[m[32mchecksum = "4051e23e9185c255a7e33ef59cdbca87a22d359052eecd22fc6b901fb37d9d11"[m
+ dependencies = [[m
+  "bytes",[m
+  "cfg_aliases",[m
+[36m@@ -881,9 +986,9 @@[m [mdependencies = [[m
+ [m
+ [[package]][m
+ name = "quinn-proto"[m
+[31m-version = "0.11.17"[m
+[32m+[m[32mversion = "0.11.18"[m
+ source = "registry+https://github.com/rust-lang/crates.io-index"[m
+[31m-checksum = "04759210543be93709136e28212294a659ef5001836ff4eab4d663e4529bba83"[m
+[32m+[m[32mchecksum = "a9746dbde176634f4f2f1faf2404e30a31b2bc1e9cafb5329c95d8177a18c9fc"[m
+ dependencies = [[m
+  "bytes",[m
+  "getrandom 0.4.3",[m
+[36m@@ -1043,6 +1148,7 @@[m [mdependencies = [[m
+  "jiff",[m
+  "libc",[m
+  "reqwest",[m
+[32m+[m[32m "rnx-project",[m
+  "rune",[m
+  "rustls",[m
+  "rustyline",[m
+[36m@@ -1054,6 +1160,20 @@[m [mdependencies = [[m
+  "windows-sys 0.61.2",[m
+ ][m
+ [m
+[32m+[m[32m[[package]][m
+[32m+[m[32mname = "rnx-project"[m
+[32m+[m[32mversion = "0.0.0"[m
+[32m+[m[32mdependencies = [[m
+[32m+[m[32m "blake3",[m
+[32m+[m[32m "libc",[m
+[32m+[m[32m "rune",[m
+[32m+[m[32m "serde",[m
+[32m+[m[32m "serde_json",[m
+[32m+[m[32m "sha2",[m
+[32m+[m[32m "tokio",[m
+[32m+[m[32m "toml",[m
+[32m+[m[32m][m
+[32m+[m
+ [[package]][m
+ name = "rune"[m
+ version = "0.14.2"[m
+[36m@@ -1154,9 +1274,9 @@[m [mchecksum = "6b1e7f9a428571be2dc5bc0505c13fb6bf936822b894ec87abf8a08a4e51742d"[m
+ [m
+ [[package]][m
+ name = "rustls"[m
+[31m-version = "0.23.44"[m
+[32m+[m[32mversion = "0.23.45"[m
+ source = "registry+https://github.com/rust-lang/crates.io-index"[m
+[31m-checksum = "6725596c3f2c3a0aef021139e145d4eafe314a6623e4680ca83852b2c67ab2ba"[m
+[32m+[m[32mchecksum = "0d41d731c7d2f962d1ccc364cec258de3c0e93b38c2fb3ba97ac74513048d634"[m
+ dependencies = [[m
+  "once_cell",[m
+  "ring",[m
+[36m@@ -1265,7 +1385,7 @@[m [mchecksum = "e7a5d71263a5a7d47b41f6b3f06ba276f10cc18b0931f1799f710578e2309348"[m
+ dependencies = [[m
+  "proc-macro2",[m
+  "quote",[m
+[31m- "syn 3.0.5",[m
+[32m+[m[32m "syn 3.0.6",[m
+ ][m
+ [m
+ [[package]][m
+[36m@@ -1281,6 +1401,15 @@[m [mdependencies = [[m
+  "zmij",[m
+ ][m
+ [m
+[32m+[m[32m[[package]][m
+[32m+[m[32mname = "serde_spanned"[m
+[32m+[m[32mversion = "1.1.1"[m
+[32m+[m[32msource = "registry+https://github.com/rust-lang/crates.io-index"[m
+[32m+[m[32mchecksum = "6662b5879511e06e8999a8a235d848113e942c9124f211511b16466ee2995f26"[m
+[32m+[m[32mdependencies = [[m
+[32m+[m[32m "serde_core",[m
+[32m+[m[32m][m
+[32m+[m
+ [[package]][m
+ name = "serde_urlencoded"[m
+ version = "0.7.1"[m
+[36m@@ -1293,6 +1422,17 @@[m [mdependencies = [[m
+  "serde",[m
+ ][m
+ [m
+[32m+[m[32m[[package]][m
+[32m+[m[32mname = "sha2"[m
+[32m+[m[32mversion = "0.10.9"[m
+[32m+[m[32msource = "registry+https://github.com/rust-lang/crates.io-index"[m
+[32m+[m[32mchecksum = "a7507d819769d01a365ab707794a4084392c824f54a7a6a7862f8c3d0892b283"[m
+[32m+[m[32mdependencies = [[m
+[32m+[m[32m "cfg-if",[m
+[32m+[m[32m "cpufeatures 0.2.17",[m
+[32m+[m[32m "digest",[m
+[32m+[m[32m][m
+[32m+[m
+ [[package]][m
+ name = "sharded-slab"[m
+ version = "0.1.7"[m
+[36m@@ -1308,6 +1448,16 @@[m [mversion = "2.0.1"[m
+ source = "registry+https://github.com/rust-lang/crates.io-index"[m
+ checksum = "f8fadd59c855ef2080decdef8ff161eb6661b86933c9d82e5ba29dc602a55aba"[m
+ [m
+[32m+[m[32m[[package]][m
+[32m+[m[32mname = "signal-hook-registry"[m
+[32m+[m[32mversion = "1.4.8"[m
+[32m+[m[32msource = "registry+https://github.com/rust-lang/crates.io-index"[m
+[32m+[m[32mchecksum = "c4db69cba1110affc0e9f7bcd48bbf87b3f4fc7c61fc9155afd4c469eb3d6c1b"[m
+[32m+[m[32mdependencies = [[m
+[32m+[m[32m "errno",[m
+[32m+[m[32m "libc",[m
+[32m+[m[32m][m
+[32m+[m
+ [[package]][m
+ name = "simd-adler32"[m
+ version = "0.3.10"[m
+[36m@@ -1328,9 +1478,9 @@[m [mchecksum = "0c790de23124f9ab44544d7ac05d60440adc586479ce501c1d6d7da3cd8c9cf5"[m
+ [m
+ [[package]][m
+ name = "smallvec"[m
+[31m-version = "1.16.0"[m
+[32m+[m[32mversion = "1.16.1"[m
+ source = "registry+https://github.com/rust-lang/crates.io-index"[m
+[31m-checksum = "b9be42f50aa861c555654aa3a37f52f4b1074bacf4e48fe0ef7fa584e80f1f0f"[m
+[32m+[m[32mchecksum = "ba467056f1b547ed52077911161fc86985becbc60e8e1857c8a144dab0def891"[m
+ [m
+ [[package]][m
+ name = "socket2"[m
+[36m@@ -1367,9 +1517,9 @@[m [mdependencies = [[m
+ [m
+ [[package]][m
+ name = "syn"[m
+[31m-version = "3.0.5"[m
+[32m+[m[32mversion = "3.0.6"[m
+ source = "registry+https://github.com/rust-lang/crates.io-index"[m
+[31m-checksum = "12df2e0110f65b775f769bb17ef989067a1d931b2eb822bd4346631eeada89f9"[m
+[32m+[m[32mchecksum = "8593e8e72159ed2257d083c7a454a85cbf854f37a0966d8d483aff8c8a3ebcee"[m
+ dependencies = [[m
+  "proc-macro2",[m
+  "quote",[m
+[36m@@ -1387,13 +1537,13 @@[m [mdependencies = [[m
+ [m
+ [[package]][m
+ name = "synstructure"[m
+[31m-version = "0.13.2"[m
+[32m+[m[32mversion = "0.14.0"[m
+ source = "registry+https://github.com/rust-lang/crates.io-index"[m
+[31m-checksum = "728a70f3dbaf5bab7f0c4b1ac8d7ae5ea60a4b5549c8a5914361c99147a709d2"[m
+[32m+[m[32mchecksum = "901704edd0dfe137f1987838ee4f259e4e063c31371bdb423f7ae38ec6f77f02"[m
+ dependencies = [[m
+  "proc-macro2",[m
+  "quote",[m
+[31m- "syn 2.0.119",[m
+[32m+[m[32m "syn 3.0.6",[m
+ ][m
+ [m
+ [[package]][m
+[36m@@ -1419,7 +1569,7 @@[m [mchecksum = "bc04cd3e1236dd4a98afca4569f2deb3f120e5422a4023be2cb683f8486292af"[m
+ dependencies = [[m
+  "proc-macro2",[m
+  "quote",[m
+[31m- "syn 3.0.5",[m
+[32m+[m[32m "syn 3.0.6",[m
+ ][m
+ [m
+ [[package]][m
+[36m@@ -1443,18 +1593,9 @@[m [mdependencies = [[m
+ [m
+ [[package]][m
+ name = "tinyvec"[m
+[31m-version = "1.13.2"[m
+[31m-source = "registry+https://github.com/rust-lang/crates.io-index"[m
+[31m-checksum = "4cf0ded5c4e56918d8f8a339e1bb67d038d3bc6d144ac407904015ba2e4cde9b"[m
+[31m-dependencies = [[m
+[31m- "tinyvec_macros",[m
+[31m-][m
+[31m-[m
+[31m-[[package]][m
+[31m-name = "tinyvec_macros"[m
+[31m-version = "0.1.1"[m
+[32m+[m[32mversion = "1.13.3"[m
+ source = "registry+https://github.com/rust-lang/crates.io-index"[m
+[31m-checksum = "1f3ccbac311fea05f86f61904b462b55fb3df8837a366dfc601a0161d0532f20"[m
+[32m+[m[32mchecksum = "fd3ca314f692efd6c868f8408f53fe444634a845f96c028b97d35f6a1f79f0ee"[m
+ [m
+ [[package]][m
+ name = "tokio"[m
+[36m@@ -1466,10 +1607,23 @@[m [mdependencies = [[m
+  "libc",[m
+  "mio",[m
+  "pin-project-lite",[m
+[32m+[m[32m "signal-hook-registry",[m
+  "socket2",[m
+[32m+[m[32m "tokio-macros",[m
+  "windows-sys 0.61.2",[m
+ ][m
+ [m
+[32m+[m[32m[[package]][m
+[32m+[m[32mname = "tokio-macros"[m
+[32m+[m[32mversion = "2.7.2"[m
+[32m+[m[32msource = "registry+https://github.com/rust-lang/crates.io-index"[m
+[32m+[m[32mchecksum = "78773a2a397f451582ce068015985c33193cf6dea8b74d2a639fe457b2f07b0e"[m
+[32m+[m[32mdependencies = [[m
+[32m+[m[32m "proc-macro2",[m
+[32m+[m[32m "quote",[m
+[32m+[m[32m "syn 3.0.6",[m
+[32m+[m[32m][m
+[32m+[m
+ [[package]][m
+ name = "tokio-rustls"[m
+ version = "0.26.5"[m
+[36m@@ -1493,6 +1647,45 @@[m [mdependencies = [[m
+  "tokio",[m
+ ][m
+ [m
+[32m+[m[32m[[package]][m
+[32m+[m[32mname = "toml"[m
+[32m+[m[32mversion = "0.9.12+spec-1.1.0"[m
+[32m+[m[32msource = "registry+https://github.com/rust-lang/crates.io-index"[m
+[32m+[m[32mchecksum = "cf92845e79fc2e2def6a5d828f0801e29a2f8acc037becc5ab08595c7d5e9863"[m
+[32m+[m[32mdependencies = [[m
+[32m+[m[32m "indexmap",[m
+[32m+[m[32m "serde_core",[m
+[32m+[m[32m "serde_spanned",[m
+[32m+[m[32m "toml_datetime",[m
+[32m+[m[32m "toml_parser",[m
+[32m+[m[32m "toml_writer",[m
+[32m+[m[32m "winnow 0.7.15",[m
+[32m+[m[32m][m
+[32m+[m
+[32m+[m[32m[[package]][m
+[32m+[m[32mname = "toml_datetime"[m
+[32m+[m[32mversion = "0.7.5+spec-1.1.0"[m
+[32m+[m[32msource = "registry+https://github.com/rust-lang/crates.io-index"[m
+[32m+[m[32mchecksum = "92e1cfed4a3038bc5a127e35a2d360f145e1f4b971b551a2ba5fd7aedf7e1347"[m
+[32m+[m[32mdependencies = [[m
+[32m+[m[32m "serde_core",[m
+[32m+[m[32m][m
+[32m+[m
+[32m+[m[32m[[package]][m
+[32m+[m[32mname = "toml_parser"[m
+[32m+[m[32mversion = "1.1.3+spec-1.1.0"[m
+[32m+[m[32msource = "registry+https://github.com/rust-lang/crates.io-index"[m
+[32m+[m[32mchecksum = "1d38ac1cf9b95face32296c0a3ede1fdc270627c9d9c02a7274dd6d960dc4d56"[m
+[32m+[m[32mdependencies = [[m
+[32m+[m[32m "winnow 1.0.4",[m
+[32m+[m[32m][m
+[32m+[m
+[32m+[m[32m[[package]][m
+[32m+[m[32mname = "toml_writer"[m
+[32m+[m[32mversion = "1.1.2+spec-1.1.0"[m
+[32m+[m[32msource = "registry+https://github.com/rust-lang/crates.io-index"[m
+[32m+[m[32mchecksum = "7d56353a2a665ad0f41a421187180aab746c8c325620617ad883a99a1cbe66d2"[m
+[32m+[m
+ [[package]][m
+ name = "tower"[m
+ version = "0.5.3"[m
+[36m@@ -1604,11 +1797,17 @@[m [mversion = "2.1.4"[m
+ source = "registry+https://github.com/rust-lang/crates.io-index"[m
+ checksum = "5283634e518fe9e82c7b20520bb4bc209009fd16c82077c802f8111ecbb0117a"[m
+ [m
+[32m+[m[32m[[package]][m
+[32m+[m[32mname = "typenum"[m
+[32m+[m[32mversion = "1.20.1"[m
+[32m+[m[32msource = "registry+https://github.com/rust-lang/crates.io-index"[m
+[32m+[m[32mchecksum = "b6f5e870be6c3b371b77fe0ee0bafb859fa4964b4404c27de1d380043c4dda20"[m
+[32m+[m
+ [[package]][m
+ name = "unicode-ident"[m
+[31m-version = "1.0.24"[m
+[32m+[m[32mversion = "1.0.26"[m
+ source = "registry+https://github.com/rust-lang/crates.io-index"[m
+[31m-checksum = "e6e4313cd5fcd3dad5cafa179702e2b244f760991f45397d14d4ebf38247da75"[m
+[32m+[m[32mchecksum = "d245f478577f809a851594d02313b640fb437e0bb33866753cff937863096954"[m
+ [m
+ [[package]][m
+ name = "unicode-segmentation"[m
+[36m@@ -1721,7 +1920,7 @@[m [mdependencies = [[m
+  "bumpalo",[m
+  "proc-macro2",[m
+  "quote",[m
+[31m- "syn 3.0.5",[m
+[32m+[m[32m "syn 3.0.6",[m
+  "wasm-bindgen-shared",[m
+ ][m
+ [m
+[36m@@ -1860,6 +2059,18 @@[m [mversion = "0.52.6"[m
+ source = "registry+https://github.com/rust-lang/crates.io-index"[m
+ checksum = "589f6da84c646204747d1270a2a5661ea66ed1cced2631d546fdfb155959f9ec"[m
+ [m
+[32m+[m[32m[[package]][m
+[32m+[m[32mname = "winnow"[m
+[32m+[m[32mversion = "0.7.15"[m
+[32m+[m[32msource = "registry+https://github.com/rust-lang/crates.io-index"[m
+[32m+[m[32mchecksum = "df79d97927682d2fd8adb29682d1140b343be4ac0f08fd68b7765d9c059d3945"[m
+[32m+[m
+[32m+[m[32m[[package]][m
+[32m+[m[32mname = "winnow"[m
+[32m+[m[32mversion = "1.0.4"[m
+[32m+[m[32msource = "registry+https://github.com/rust-lang/crates.io-index"[m
+[32m+[m[32mchecksum = "23b97319f7b8343df12cc98938e5c3eb436064524c8d2b4e30a1d3a36eecdf81"[m
+[32m+[m
+ [[package]][m
+ name = "writeable"[m
+ version = "0.6.4"[m
+[36m@@ -1879,30 +2090,30 @@[m [mdependencies = [[m
+ [m
+ [[package]][m
+ name = "yoke-derive"[m
+[31m-version = "0.8.2"[m
+[32m+[m[32mversion = "0.8.3"[m
+ source = "registry+https://github.com/rust-lang/crates.io-index"[m
+[31m-checksum = "de844c262c8848816172cef550288e7dc6c7b7814b4ee56b3e1553f275f1858e"[m
+[32m+[m[32mchecksum = "33811428bee40dbceb6d545e95754741d17a6aef9a4849f0fd62e2ba4f412a78"[m
+ dependencies = [[m
+  "proc-macro2",[m
+  "quote",[m
+[31m- "syn 2.0.119",[m
+[32m+[m[32m "syn 3.0.6",[m
+  "synstructure",[m
+ ][m
+ [m
+ [[package]][m
+ name = "zerocopy"[m
+[31m-version = "0.8.56"[m
+[32m+[m[32mversion = "0.8.57"[m
+ source = "registry+https://github.com/rust-lang/crates.io-index"[m
+[31m-checksum = "556764e583adb45a9f8d413c2a147fa7e8d821e48e12b14fd560b607998b75eb"[m
+[32m+[m[32mchecksum = "d35102a9f36d089ccae9e4c6802bc118be4487b80aaffc0ab4e0cf5ce92d2873"[m
+ dependencies = [[m
+  "zerocopy-derive",[m
+ ][m
+ [m
+ [[package]][m
+ name = "zerocopy-derive"[m
+[31m-version = "0.8.56"[m
+[32m+[m[32mversion = "0.8.57"[m
+ source = "registry+https://github.com/rust-lang/crates.io-index"[m
+[31m-checksum = "f2ab42fc20575779bd240faa45f94a74256f755c0fa9e89f0ede20d91d0cdfc1"[m
+[32m+[m[32mchecksum = "146c01f5ab44258da43cf276c74a2763db2ff3969c9c652c3f2de07041d0b2bc"[m
+ dependencies = [[m
+  "proc-macro2",[m
+  "quote",[m
+[36m@@ -1920,13 +2131,13 @@[m [mdependencies = [[m
+ [m
+ [[package]][m
+ name = "zerofrom-derive"[m
+[31m-version = "0.1.7"[m
+[32m+[m[32mversion = "0.1.8"[m
+ source = "registry+https://github.com/rust-lang/crates.io-index"[m
+[31m-checksum = "11532158c46691caf0f2593ea8358fed6bbf68a0315e80aae9bd41fbade684a1"[m
+[32m+[m[32mchecksum = "f75b4683f6c7f45248d4d64056a24298c6281e0993356d7d1b4a1a962ef10d4a"[m
+ dependencies = [[m
+  "proc-macro2",[m
+  "quote",[m
+[31m- "syn 2.0.119",[m
+[32m+[m[32m "syn 3.0.6",[m
+  "synstructure",[m
+ ][m
+ [m
+[36m@@ -1966,14 +2177,14 @@[m [mchecksum = "34df6fc39dbd26ddc9c10e6a2984476e13acce22e64e4487636ef494369225da"[m
+ dependencies = [[m
+  "proc-macro2",[m
+  "quote",[m
+[31m- "syn 3.0.5",[m
+[32m+[m[32m "syn 3.0.6",[m
+ ][m
+ [m
+ [[package]][m
+ name = "zlib-rs"[m
+[31m-version = "0.6.7"[m
+[32m+[m[32mversion = "0.6.8"[m
+ source = "registry+https://github.com/rust-lang/crates.io-index"[m
+[31m-checksum = "34b31d188d9d685a4f9c7b46d6e36631b07058d2cfe190267adce54dc230bf12"[m
+[32m+[m[32mchecksum = "b268e58e7c693d7c271f93ffc4ba3b380412554231c85bf61ca7af91042a4112"[m
+ [m
+ [[package]][m
+ name = "zmij"[m
+[1mdiff --git a/Cargo.toml b/Cargo.toml[m
+[1mindex 3b755ce..2690f61 100644[m
+[1m--- a/Cargo.toml[m
+[1m+++ b/Cargo.toml[m
+[36m@@ -13,7 +13,7 @@[m [medition = "2024"[m
+ # the whole set, and that is what fails at 1.88.[m
+ rust-version = "1.95"[m
+ description = "A scripting environment for Rune: a file runner, an expression evaluator, and an interactive session, on upstream Rune with no compiler fork."[m
+[31m-repository = "https://github.com/nilket-com/rnx"[m
+[32m+[m[32mrepository = "file:///home/me/work/rnx-bench/probes/one-command-boundary/target/origin.git"[m
+ readme = "README.md"[m
+ keywords = ["rune", "scripting", "repl", "interpreter", "cli"][m
+ categories = ["command-line-utilities", "development-tools"][m
+[36m@@ -28,9 +28,11 @@[m [mpublish = false[m
+ [m
+ # Deliberately independent of the product workspace and its editor/GUI hosts.[m
+ [workspace][m
+[32m+[m[32mexclude = ["tools/project"][m
+ [m
+ [features][m
+[31m-default = ["count-allocations"][m
+[32m+[m[32mdefault = ["count-allocations", "stock-management"][m
+[32m+[m[32mstock-management = ["dep:rnx-project"][m
+ # Allocation accounting. Without it no ceiling is enforced and no figure is[m
+ # reported; the build says so rather than reporting zero.[m
+ count-allocations = [][m
+[36m@@ -44,6 +46,7 @@[m [mserver-runtime = [][m
+ project-sources = ["dep:serde"][m
+ [m
+ [dependencies][m
+[32m+[m[32mrnx-project = { path = "tools/project", optional = true }[m
+ serde = { version = "1", features = ["derive"], optional = true }[m
+ rune = { version = "=0.14.2", default-features = false, features = ["std"] }[m
+ serde_json = "1.0.149"[m
+[1mdiff --git a/adapters/polars/Cargo.toml b/adapters/polars/Cargo.toml[m
+[1mindex 691aaec..ed2fdbc 100644[m
+[1m--- a/adapters/polars/Cargo.toml[m
+[1m+++ b/adapters/polars/Cargo.toml[m
+[36m@@ -10,7 +10,7 @@[m [mpublish = false[m
+ test-support = ["dep:tokio"][m
+ [m
+ [dependencies][m
+[31m-rnx = { path = "../.." }[m
+[32m+[m[32mrnx = { path = "../..", default-features = false, features = ["count-allocations"] }[m
+ polars = { version = "=0.55.2", default-features = false, features = ["lazy", "csv", "parquet"] }[m
+ tokio = { version = "1", features = ["rt"], optional = true }[m
+ [m
+[1mdiff --git a/adapters/postgres/Cargo.toml b/adapters/postgres/Cargo.toml[m
+[1mindex 737ba04..b7ef29d 100644[m
+[1m--- a/adapters/postgres/Cargo.toml[m
+[1m+++ b/adapters/postgres/Cargo.toml[m
+[36m@@ -11,7 +11,7 @@[m [mdescription = "A typed PostgreSQL query extension for rnx"[m
+ test-support = [][m
+ [m
+ [dependencies][m
+[31m-rnx = { path = "../.." }[m
+[32m+[m[32mrnx = { path = "../..", default-features = false, features = ["count-allocations"] }[m
+ tokio-postgres = "=0.7.18"[m
+ tokio = { version = "1", features = ["time", "macros"] }[m
+ futures-util = "0.3"[m
+[1mdiff --git a/build.rs b/build.rs[m
+[1mnew file mode 100644[m
+[1mindex 0000000..01edc22[m
+[1m--- /dev/null[m
+[1m+++ b/build.rs[m
+[36m@@ -0,0 +1,237 @@[m
+[32m+[m[32m//! Gate-1 prototype: build provenance only. No network or source acquisition.[m
+[32m+[m[32muse std::{[m
+[32m+[m	[32mcollections::BTreeMap,[m
+[32m+[m	[32mfs,[m
+[32m+[m	[32mpath::{Path, PathBuf},[m
+[32m+[m	[32mprocess::Command,[m
+[32m+[m[32m};[m
+[32m+[m[32mfn git(root: &Path, args: &[&str]) -> Result<Vec<u8>, String> {[m
+[32m+[m	[32mlet mut c = Command::new("git");[m
+[32m+[m	[32mfor (k, _) in std::env::vars_os() {[m
+[32m+[m		[32mif k.to_string_lossy().starts_with("GIT_") {[m
+[32m+[m			[32mc.env_remove(k);[m
+[32m+[m		[32m}[m
+[32m+[m	[32m}[m
+[32m+[m	[32mc.env("GIT_CONFIG_GLOBAL", "/dev/null")[m
+[32m+[m		[32m.env("GIT_CONFIG_SYSTEM", "/dev/null")[m
+[32m+[m		[32m.env("GIT_CONFIG_NOSYSTEM", "1")[m
+[32m+[m		[32m.env("GIT_ATTR_NOSYSTEM", "1")[m
+[32m+[m		[32m.env("GIT_OPTIONAL_LOCKS", "0")[m
+[32m+[m		[32m.env("GIT_NO_REPLACE_OBJECTS", "1");[m
+[32m+[m	[32mlet p = c[m
+[32m+[m		[32m.arg("-C")[m
+[32m+[m		[32m.arg(root)[m
+[32m+[m		[32m.args([[m
+[32m+[m			[32m"-c",[m
+[32m+[m			[32m"core.autocrlf=false",[m
+[32m+[m			[32m"-c",[m
+[32m+[m			[32m"core.fsmonitor=false",[m
+[32m+[m			[32m"-c",[m
+[32m+[m			[32m"core.hooksPath=/dev/null",[m
+[32m+[m			[32m"-c",[m
+[32m+[m			[32m"core.attributesFile=/dev/null",[m
+[32m+[m		[32m])[m
+[32m+[m		[32m.args(args)[m
+[32m+[m		[32m.output()[m
+[32m+[m		[32m.map_err(|e| e.to_string())?;[m
+[32m+[m	[32mif !p.status.success() {[m
+[32m+[m		[32mreturn Err(String::from_utf8_lossy(&p.stderr).into_owned());[m
+[32m+[m	[32m}[m
+[32m+[m	[32mif p.stdout.len() > 16 * 1024 * 1024 {[m
+[32m+[m		[32mreturn Err("Git output allowance".into());[m
+[32m+[m	[32m}[m
+[32m+[m	[32mOk(p.stdout)[m
+[32m+[m[32m}[m
+[32m+[m[32mfn text(root: &Path, args: &[&str]) -> Result<String, String> {[m
+[32m+[m	[32mString::from_utf8(git(root, args)?)[m
+[32m+[m		[32m.map(|s| s.trim().to_owned())[m
+[32m+[m		[32m.map_err(|e| e.to_string())[m
+[32m+[m[32m}[m
+[32m+[m[32mfn revision(root: &Path) -> Result<String, String> {[m
+[32m+[m	[32mif PathBuf::from(text(root, &["rev-parse", "--show-toplevel"])?)[m
+[32m+[m		[32m.canonicalize()[m
+[32m+[m		[32m.map_err(|e| e.to_string())?[m
+[32m+[m		[32m!= root.canonicalize().map_err(|e| e.to_string())?[m
+[32m+[m	[32m{[m
+[32m+[m		[32mreturn Err("unrelated enclosing repository".into());[m
+[32m+[m	[32m}[m
+[32m+[m	[32mlet r = text(root, &["rev-parse", "HEAD"])?;[m
+[32m+[m	[32mif r.len() != 40 || !r.bytes().all(|b| b.is_ascii_hexdigit()) {[m
+[32m+[m		[32mreturn Err("unknown revision".into());[m
+[32m+[m	[32m}[m
+[32m+[m	[32mOk(r)[m
+[32m+[m[32m}[m
+[32m+[m[32mfn clean(root: &Path, rev: &str) -> Result<bool, String> {[m
+[32m+[m	[32mlet tree = git(root, &["ls-tree", "-r", "-z", rev])?;[m
+[32m+[m	[32mlet mut rows = BTreeMap::new();[m
+[32m+[m	[32mlet mut bytes = 0u64;[m
+[32m+[m	[32mfor record in tree.split(|b| *b == 0).filter(|r| !r.is_empty()) {[m
+[32m+[m		[32mlet pos = record[m
+[32m+[m			[32m.iter()[m
+[32m+[m			[32m.position(|b| *b == b'\t')[m
+[32m+[m			[32m.ok_or("tree record")?;[m
+[32m+[m		[32mlet fields = std::str::from_utf8(&record[..pos])[m
+[32m+[m			[32m.map_err(|e| e.to_string())?[m
+[32m+[m			[32m.split(' ')[m
+[32m+[m			[32m.collect::<Vec<_>>();[m
+[32m+[m		[32mlet name = std::str::from_utf8(&record[pos + 1..]).map_err(|e| e.to_string())?;[m
+[32m+[m		[32mif fields.len() != 3 || fields[1] != "blob" || !matches!(fields[0], "100644" | "100755") {[m
+[32m+[m			[32mreturn Ok(false);[m
+[32m+[m		[32m}[m
+[32m+[m		[32mlet p = root.join(name);[m
+[32m+[m		[32mlet m = match fs::symlink_metadata(&p) {[m
+[32m+[m			[32mOk(m) => m,[m
+[32m+[m			[32mErr(_) => return Ok(false),[m
+[32m+[m		[32m};[m
+[32m+[m		[32mif !m.is_file() {[m
+[32m+[m			[32mreturn Ok(false);[m
+[32m+[m		[32m}[m
+[32m+[m		[32mfor dir in p.parent().unwrap().ancestors() {[m
+[32m+[m			[32mif dir == root {[m
+[32m+[m				[32mbreak;[m
+[32m+[m			[32m}[m
+[32m+[m			[32mif !fs::symlink_metadata(dir)[m
+[32m+[m				[32m.map_err(|e| e.to_string())?[m
+[32m+[m				[32m.is_dir()[m
+[32m+[m			[32m{[m
+[32m+[m				[32mreturn Ok(false);[m
+[32m+[m			[32m}[m
+[32m+[m		[32m}[m
+[32m+[m		[32muse std::os::unix::fs::PermissionsExt;[m
+[32m+[m		[32mif (m.permissions().mode() & 0o111 != 0) != (fields[0] == "100755") {[m
+[32m+[m			[32mreturn Ok(false);[m
+[32m+[m		[32m}[m
+[32m+[m		[32mbytes += m.len();[m
+[32m+[m		[32mif bytes > 512 * 1024 * 1024 || rows.len() >= 100_000 {[m
+[32m+[m			[32mreturn Err("source allowance".into());[m
+[32m+[m		[32m}[m
+[32m+[m		[32mrows.insert(name.to_owned(), fields[2].to_owned());[m
+[32m+[m	[32m}[m
+[32m+[m	[32mlet paths = rows.keys().map(String::as_str).collect::<Vec<_>>();[m
+[32m+[m	[32mfor chunk in paths.chunks(64) {[m
+[32m+[m		[32mlet mut args = vec!["hash-object", "--no-filters", "--"];[m
+[32m+[m		[32margs.extend_from_slice(chunk);[m
+[32m+[m		[32mlet out = text(root, &args)?;[m
+[32m+[m		[32mif out.lines().collect::<Vec<_>>()[m
+[32m+[m			[32m!= chunk.iter().map(|n| rows[*n].as_str()).collect::<Vec<_>>()[m
+[32m+[m		[32m{[m
+[32m+[m			[32mreturn Ok(false);[m
+[32m+[m		[32m}[m
+[32m+[m	[32m}[m
+[32m+[m	[32mlet index = git(root, &["ls-files", "--stage", "-z"])?;[m
+[32m+[m	[32mlet mut names = vec![];[m
+[32m+[m	[32mfor record in index.split(|b| *b == 0).filter(|r| !r.is_empty()) {[m
+[32m+[m		[32mlet pos = record[m
+[32m+[m			[32m.iter()[m
+[32m+[m			[32m.position(|b| *b == b'\t')[m
+[32m+[m			[32m.ok_or("index record")?;[m
+[32m+[m		[32mif !record[..pos].ends_with(b" 0") {[m
+[32m+[m			[32mreturn Ok(false);[m
+[32m+[m		[32m}[m
+[32m+[m		[32mnames.push(std::str::from_utf8(&record[pos + 1..]).map_err(|e| e.to_string())?);[m
+[32m+[m	[32m}[m
+[32m+[m	[32mif names != paths {[m
+[32m+[m		[32mreturn Ok(false);[m
+[32m+[m	[32m}[m
+[32m+[m	[32mlet extra = git(root, &["ls-files", "--others", "--exclude-standard", "-z"])?;[m
+[32m+[m	[32mif extra[m
+[32m+[m		[32m.split(|b| *b == 0)[m
+[32m+[m		[32m.any(|n| !n.is_empty() && n != b".cargo-ok")[m
+[32m+[m	[32m{[m
+[32m+[m		[32mreturn Ok(false);[m
+[32m+[m	[32m}[m
+[32m+[m	[32mif let Ok(m) = fs::symlink_metadata(root.join(".cargo-ok")) {[m
+[32m+[m		[32mif !m.is_file() || m.len() > 4096 {[m
+[32m+[m			[32mreturn Ok(false);[m
+[32m+[m		[32m}[m
+[32m+[m	[32m}[m
+[32m+[m	[32mOk(true)[m
+[32m+[m[32m}[m
+[32m+[m[32mfn acquired(root: &Path, rev: &str, url: &str) -> bool {[m
+[32m+[m	[32mlet Some(home) = std::env::var_os("CARGO_HOME")[m
+[32m+[m		[32m.map(PathBuf::from)[m
+[32m+[m		[32m.or_else(|| std::env::var_os("HOME").map(|p| PathBuf::from(p).join(".cargo")))[m
+[32m+[m	[32melse {[m
+[32m+[m		[32mreturn false;[m
+[32m+[m	[32m};[m
+[32m+[m	[32mlet Ok(home) = home.canonicalize() else {[m
+[32m+[m		[32mreturn false;[m
+[32m+[m	[32m};[m
+[32m+[m	[32mlet Ok(root) = root.canonicalize() else {[m
+[32m+[m		[32mreturn false;[m
+[32m+[m	[32m};[m
+[32m+[m	[32mif !root.starts_with(home.join("git/checkouts")) {[m
+[32m+[m		[32mreturn false;[m
+[32m+[m	[32m}[m
+[32m+[m	[32mlet Ok(origin) = text(&root, &["config", "--get", "remote.origin.url"]) else {[m
+[32m+[m		[32mreturn false;[m
+[32m+[m	[32m};[m
+[32m+[m	[32mlet Some(local) = origin.strip_prefix("file://") else {[m
+[32m+[m		[32mreturn false;[m
+[32m+[m	[32m};[m
+[32m+[m	[32mlet Ok(db) = Path::new(local).canonicalize() else {[m
+[32m+[m		[32mreturn false;[m
+[32m+[m	[32m};[m
+[32m+[m	[32mif db.parent() != Some(home.join("git/db").as_path()) {[m
+[32m+[m		[32mreturn false;[m
+[32m+[m	[32m}[m
+[32m+[m	[32mlet Ok(fetched) = fs::read_to_string(db.join("FETCH_HEAD")) else {[m
+[32m+[m		[32mreturn false;[m
+[32m+[m	[32m};[m
+[32m+[m	[32mif fetched.len() > 1024 * 1024 {[m
+[32m+[m		[32mreturn false;[m
+[32m+[m	[32m}[m
+[32m+[m	[32mfor line in fetched.lines() {[m
+[32m+[m		[32mlet Some((oid, description)) = line.split_once('\t') else {[m
+[32m+[m			[32mcontinue;[m
+[32m+[m		[32m};[m
+[32m+[m		[32mif oid.len() != 40[m
+[32m+[m			[32m|| !oid.bytes().all(|b| b.is_ascii_hexdigit())[m
+[32m+[m			[32m|| !description.ends_with(&format!(" of {url}"))[m
+[32m+[m		[32m{[m
+[32m+[m			[32mcontinue;[m
+[32m+[m		[32m}[m
+[32m+[m		[32mif git(&db, &["merge-base", "--is-ancestor", rev, oid]).is_ok() {[m
+[32m+[m			[32mreturn true;[m
+[32m+[m		[32m}[m
+[32m+[m	[32m}[m
+[32m+[m	[32mfalse[m
+[32m+[m[32m}[m
+[32m+[m[32mfn main() {[m
+[32m+[m	[32mprintln!("cargo:rerun-if-env-changed=CARGO_FEATURE_STOCK_MANAGEMENT");[m
+[32m+[m	[32mif std::env::var_os("CARGO_FEATURE_STOCK_MANAGEMENT").is_none() {[m
+[32m+[m		[32mreturn;[m
+[32m+[m	[32m}[m
+[32m+[m	[32mlet out = PathBuf::from(std::env::var_os("OUT_DIR").unwrap());[m
+[32m+[m	[32m// Cargo mtime tracking does not detect chmod. A missing private output asks[m
+[32m+[m	[32m// Cargo to rerun this scan on every stock build, including mode-only edits.[m
+[32m+[m	[32mlet marker = out.join("coordinate-rescan-required");[m
+[32m+[m	[32mlet _ = fs::remove_file(&marker);[m
+[32m+[m	[32mprintln!("cargo:rerun-if-changed={}", marker.display());[m
+[32m+[m	[32mlet root = PathBuf::from(std::env::var_os("CARGO_MANIFEST_DIR").unwrap());[m
+[32m+[m	[32mlet url = std::env::var("CARGO_PKG_REPOSITORY").unwrap_or_default();[m
+[32m+[m	[32mlet rev = revision(&root).unwrap_or_else(|_| "unknown".into());[m
+[32m+[m	[32mlet state = if rev == "unknown" {[m
+[32m+[m		[32m"unknown"[m
+[32m+[m	[32m} else {[m
+[32m+[m		[32mmatch clean(&root, &rev) {[m
+[32m+[m			[32mOk(false) => "dirty",[m
+[32m+[m			[32mErr(_) => "unknown",[m
+[32m+[m			[32mOk(true) => {[m
+[32m+[m				[32mif acquired(&root, &rev, &url) {[m
+[32m+[m					[32m"acquired"[m
+[32m+[m				[32m} else {[m
+[32m+[m					[32m"unverified"[m
+[32m+[m				[32m}[m
+[32m+[m			[32m}[m
+[32m+[m		[32m}[m
+[32m+[m	[32m};[m
+[32m+[m	[32mlet data = format!([m
+[32m+[m		[32m"pub const URL:&str={url:?};\npub const REV:&str={rev:?};\npub const STATE:&str={state:?};\npub const SOURCE:&str={:?};\n",[m
+[32m+[m		[32mroot.to_string_lossy()[m
+[32m+[m	[32m);[m
+[32m+[m	[32mlet dest = out.join("coordinates.rs");[m
+[32m+[m	[32mif fs::read_to_string(&dest).ok().as_deref() != Some(&data) {[m
+[32m+[m		[32mfs::write(dest, data).unwrap();[m
+[32m+[m	[32m}[m
+[32m+[m[32m}[m
+[1mdiff --git a/src/main.rs b/src/main.rs[m
+[1mindex 2e86e1a..7ca90e3 100644[m
+[1m--- a/src/main.rs[m
+[1m+++ b/src/main.rs[m
+[36m@@ -1,3 +1,84 @@[m
+[32m+[m[32m#[cfg(feature = "stock-management")][m
+[32m+[m[32mmod coordinates {[m
+[32m+[m	[32minclude!(concat!(env!("OUT_DIR"), "/coordinates.rs"));[m
+[32m+[m[32m}[m
+ fn main() -> Result<(), Box<dyn std::error::Error>> {[m
+[32m+[m	[32m#[cfg(feature = "stock-management")][m
+[32m+[m	[32m{[m
+[32m+[m		[32mlet args = std::env::args_os().skip(1).collect::<Vec<_>>();[m
+[32m+[m		[32mif args.first().and_then(|a| a.to_str()) == Some("--probe-coordinates") {[m
+[32m+[m			[32mprintln!([m
+[32m+[m				[32m"{}",[m
+[32m+[m				[32mserde_json::json!({"url":coordinates::URL,"rev":coordinates::REV,"state":coordinates::STATE,"source":coordinates::SOURCE})[m
+[32m+[m			[32m);[m
+[32m+[m			[32mreturn Ok(());[m
+[32m+[m		[32m}[m
+[32m+[m		[32m// Gate 1 only: this exercises the coordinate decision, not the REPL protocol.[m
+[32m+[m		[32mif args.first().and_then(|a| a.to_str()) == Some("--probe-dep") {[m
+[32m+[m			[32mif matches!(coordinates::STATE, "dirty" | "unknown") {[m
+[32m+[m				[32meprintln!([m
+[32m+[m					[32m"dependency preparation refused: {} {} {}; export RNX_DEP_RUNTIME={:?}",[m
+[32m+[m					[32mcoordinates::URL,[m
+[32m+[m					[32mcoordinates::REV,[m
+[32m+[m					[32mcoordinates::STATE,[m
+[32m+[m					[32mcoordinates::SOURCE[m
+[32m+[m				[32m);[m
+[32m+[m				[32mstd::process::exit(2);[m
+[32m+[m			[32m}[m
+[32m+[m			[32mprintln!([m
+[32m+[m				[32m"Runtime: {} {} ({})",[m
+[32m+[m				[32mcoordinates::URL,[m
+[32m+[m				[32mcoordinates::REV,[m
+[32m+[m				[32mif coordinates::STATE == "unverified" {[m
+[32m+[m					[32m"not yet confirmed reachable"[m
+[32m+[m				[32m} else {[m
+[32m+[m					[32m"acquired"[m
+[32m+[m				[32m}[m
+[32m+[m			[32m);[m
+[32m+[m			[32mif !args.iter().any(|a| a == "--consent") {[m
+[32m+[m				[32mreturn Ok(());[m
+[32m+[m			[32m}[m
+[32m+[m			[32mlet root = std::path::PathBuf::from([m
+[32m+[m				[32mstd::env::var_os("RNX_PROBE_REQUEST_DIR")[m
+[32m+[m					[32m.ok_or("fixture request directory required")?,[m
+[32m+[m			[32m);[m
+[32m+[m			[32mstd::fs::create_dir_all(root.join("src"))?;[m
+[32m+[m			[32mstd::fs::write([m
+[32m+[m				[32mroot.join("Cargo.toml"),[m
+[32m+[m				[32mformat!([m
+[32m+[m					[32m"[package]\nname=\"coordinate-request\"\nversion=\"0.0.0\"\nedition=\"2024\"\n[workspace]\n[dependencies]\nrnx={{git={:?},rev={:?},default-features=false}}\n",[m
+[32m+[m					[32mcoordinates::URL,[m
+[32m+[m					[32mcoordinates::REV[m
+[32m+[m				[32m),[m
+[32m+[m			[32m)?;[m
+[32m+[m			[32mstd::fs::write(root.join("src/main.rs"), "fn main() {}\n")?;[m
+[32m+[m			[32mlet status = std::process::Command::new("cargo")[m
+[32m+[m				[32m.args(["metadata", "--format-version=1", "--manifest-path"])[m
+[32m+[m				[32m.arg(root.join("Cargo.toml"))[m
+[32m+[m				[32m.status()?;[m
+[32m+[m			[32mif !status.success() {[m
+[32m+[m				[32meprintln!([m
+[32m+[m					[32m"acquisition refused; export RNX_DEP_RUNTIME={:?}",[m
+[32m+[m					[32mcoordinates::SOURCE[m
+[32m+[m				[32m);[m
+[32m+[m				[32mstd::process::exit(3);[m
+[32m+[m			[32m}[m
+[32m+[m			[32mreturn Ok(());[m
+[32m+[m		[32m}[m
+[32m+[m		[32mif let Some(group) = args.first().and_then(|a| a.to_str()) {[m
+[32m+[m			[32mlet selected = match group {[m
+[32m+[m				[32m"project" => Some(args[1..].to_vec()),[m
+[32m+[m				[32m"runtime" | "cache" => Some(args.clone()),[m
+[32m+[m				[32m_ => None,[m
+[32m+[m			[32m};[m
+[32m+[m			[32mif let Some(args) = selected {[m
+[32m+[m				[32mif let Err(e) = rnx_project::dispatch(args) {[m
+[32m+[m					[32meprintln!("rnx: {e}");[m
+[32m+[m					[32mstd::process::exit(rnx_project::failure_status());[m
+[32m+[m				[32m}[m
+[32m+[m				[32mreturn Ok(());[m
+[32m+[m			[32m}[m
+[32m+[m		[32m}[m
+[32m+[m	[32m}[m
+ 	rnx::main_with(rnx::Extensions::none())[m
+ }[m
+[1mdiff --git a/tools/project/src/generate.rs b/tools/project/src/generate.rs[m
+[1mindex ef710c5..8d4db72 100644[m
+[1m--- a/tools/project/src/generate.rs[m
+[1m+++ b/tools/project/src/generate.rs[m
+[36m@@ -21,6 +21,8 @@[m [mstruct Dependency {[m
+ 	#[serde(skip_serializing_if = "Option::is_none")][m
+ 	package: Option<String>,[m
+ 	path: String,[m
+[32m+[m	[32m#[serde(rename = "default-features")][m
+[32m+[m	[32mdefault_features: bool,[m
+ 	#[serde(skip_serializing_if = "Vec::is_empty")][m
+ 	features: Vec<String>,[m
+ }[m
+[36m@@ -40,8 +42,9 @@[m [mpub(crate) fn wrapper(manifest: &Manifest, base: &Path) -> Result<(String, Strin[m
+ 		"rnx".into(),[m
+ 		Dependency {[m
+ 			package: None,[m
+[32m+[m			[32mdefault_features: false,[m
+ 			path: path(&runtime.path)?,[m
+[31m-			features: vec!["project-sources".into()],[m
+[32m+[m			[32mfeatures: vec!["count-allocations".into(), "project-sources".into()],[m
+ 		},[m
+ 	)]);[m
+ 	let mut main = "fn main() -> Result<(), Box<dyn std::error::Error>> {\n    rnx::main_with(rnx::Extensions::none()".to_owned();[m
+[36m@@ -51,6 +54,7 @@[m [mpub(crate) fn wrapper(manifest: &Manifest, base: &Path) -> Result<(String, Strin[m
+ 			alias.clone(),[m
+ 			Dependency {[m
+ 				package: Some(native.package.clone()),[m
+[32m+[m				[32mdefault_features: true,[m
+ 				path: path(&native.path)?,[m
+ 				features: vec![],[m
+ 			},[m
+[1mdiff --git a/tools/project/src/lib.rs b/tools/project/src/lib.rs[m
+[1mindex 7548741..3077199 100644[m
+[1m--- a/tools/project/src/lib.rs[m
+[1m+++ b/tools/project/src/lib.rs[m
+[36m@@ -1,26 +1,35 @@[m
+[31m-//! Private implementation for record 0057. Product commands follow input gates.[m
+ mod artifact;[m
+ mod assembly;[m
+ mod cache_entry;[m
+ mod cache_identity;[m
+ mod cache_storage;[m
+[31m-#[allow(dead_code)][m
+ mod catalogue;[m
+[31m-#[allow(dead_code)][m
+ mod commands;[m
+[32m+[m[32mmod dep_wire;[m
+ mod fingerprint;[m
+ mod generate;[m
+ mod graph;[m
+ mod handshake;[m
+ mod input;[m
+ mod inventory;[m
+[32m+[m[32mmod maintenance;[m
+ mod manifest;[m
+[31m-#[cfg(test)][m
+ mod maps;[m
+ mod runtime_install;[m
+[31m-#[cfg(test)][m
+[31m-mod tests;[m
+ mod wire;[m
+[32m+[m[32mmod workflow;[m
+ [m
+ #[cfg(test)][m
+[31m-mod maintenance;[m
+[32m+[m[32mmod tests;[m
+[32m+[m[32m/// Private prototype boundary, not an embedding API promise.[m
+[32m+[m[32m#[inline(never)][m
+[32m+[m[32mpub fn dispatch(args: Vec<std::ffi::OsString>) -> Result<(), String> {[m
+[32m+[m	[32mworkflow::cli(args)[m
+[32m+[m[32m}[m
+[32m+[m[32mpub fn failure_status() -> i32 {[m
+[32m+[m	[32mif commands::interrupted() {[m
+[32m+[m		[32mcommands::signal_status()[m
+[32m+[m	[32m} else {[m
+[32m+[m		[32m1[m
+[32m+[m	[32m}[m
+[32m+[m[32m}[m
+[1mdiff --git a/tools/project/src/main.rs b/tools/project/src/main.rs[m
+[1mindex 765ec9d..5aaeb43 100644[m
+[1m--- a/tools/project/src/main.rs[m
+[1m+++ b/tools/project/src/main.rs[m
+[36m@@ -1,30 +1,6 @@[m
+[31m-mod artifact;[m
+[31m-mod assembly;[m
+[31m-mod cache_entry;[m
+[31m-mod cache_identity;[m
+[31m-mod cache_storage;[m
+[31m-mod catalogue;[m
+[31m-mod commands;[m
+[31m-mod dep_wire;[m
+[31m-mod fingerprint;[m
+[31m-mod generate;[m
+[31m-mod graph;[m
+[31m-mod handshake;[m
+[31m-mod input;[m
+[31m-mod inventory;[m
+[31m-mod maintenance;[m
+[31m-mod manifest;[m
+[31m-mod maps;[m
+[31m-mod runtime_install;[m
+[31m-mod wire;[m
+[31m-mod workflow;[m
+ fn main() {[m
+[31m-	if let Err(error) = workflow::cli(std::env::args_os().skip(1).collect()) {[m
+[31m-		eprintln!("rnx-project: {error}");[m
+[31m-		std::process::exit(if commands::interrupted() {[m
+[31m-			commands::signal_status()[m
+[31m-		} else {[m
+[31m-			1[m
+[31m-		});[m
+[32m+[m	[32mif let Err(e) = rnx_project::dispatch(std::env::args_os().skip(1).collect()) {[m
+[32m+[m		[32meprintln!("rnx-project: {e}");[m
+[32m+[m		[32mstd::process::exit(rnx_project::failure_status());[m
+ 	}[m
+ }[m
