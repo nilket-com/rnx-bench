@@ -1,0 +1,7 @@
+from common import *
+row=next(r for r in json.loads((O/'roster.json').read_text()) if r['kind']=='git' and r['count']==1);env=json.loads((O/'roster-env.json').read_text())|{'RNX_PROJECT_CACHE':str(T/'cold-cache')};d=T/'cold-project';d.mkdir();m=d/'rnx.toml';m.write_bytes(Path(row['manifest']).read_bytes());(d/'entry.rn').write_text('pub fn main(_) { println!("42"); }\n');assert not Path(env['RNX_PROJECT_CACHE']).exists()
+times={}
+for command in ['lock','build']:
+ start=time.monotonic();p=run([T/'stock','project',command,'--offline','--manifest',m],env=env);times[command]=time.monotonic()-start;(O/('cold-'+command+'.log')).write_bytes(p.stdout+p.stderr)
+assert b'Compiling polars ' in (O/'cold-build.log').read_bytes();receipt=json.loads((d/'.rnx/receipt.json').read_text());artifact=Path(env['RNX_PROJECT_CACHE'])/'entries'/receipt['assembly_key']/'artifacts'/receipt['executable_blake3'];assert run([artifact,'eval','polars::lit(1).is_ok()'],env=env).stdout==b'true\n'
+save('cold.json',{'seconds':times,'key':receipt['assembly_key'],'artifact':str(artifact),'artifact_sha256':sha(artifact),'scope':'isolated cold target, Cargo Git and registry sources cached, offline, no other fixture builds running; default Cargo compilation parallelism, no pinned-core restriction','compiler':run(['rustc','-Vv']).stdout.decode(),'cpus':sorted(os.sched_getaffinity(0))});print('isolated cold Polars build',times,flush=True)

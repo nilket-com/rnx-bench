@@ -1,0 +1,431 @@
+{
+  "tests": {
+    "root-default": 376,
+    "root-support": 419,
+    "root-runner": 389,
+    "tool-default": 51,
+    "tool-support": 52,
+    "adapters-postgres-tests": 5,
+    "adapters-polars-tests": 6,
+    "servers-http-postgres-tests": 0
+  },
+  "stock": [
+    {
+      "mode": "version",
+      "repeat": 0,
+      "before": 1.8649755,
+      "after": 1.8982825,
+      "delta_ms": 0.0333070000000002,
+      "percent": 1.7859215844926668,
+      "p10_p90": {
+        "before": [
+          1.78075,
+          1.956488
+        ],
+        "after": [
+          1.809045,
+          1.969998
+        ]
+      }
+    },
+    {
+      "mode": "version",
+      "repeat": 1,
+      "before": 1.887381,
+      "after": 1.9078279999999999,
+      "delta_ms": 0.020446999999999882,
+      "percent": 1.0833530696769733,
+      "p10_p90": {
+        "before": [
+          1.782923,
+          1.977777
+        ],
+        "after": [
+          1.804726,
+          1.993333
+        ]
+      }
+    },
+    {
+      "mode": "eval",
+      "repeat": 0,
+      "before": 5.2659135,
+      "after": 5.362481000000001,
+      "delta_ms": 0.0965675000000008,
+      "percent": 1.833822374788352,
+      "p10_p90": {
+        "before": [
+          5.211567,
+          5.435106
+        ],
+        "after": [
+          5.27755,
+          5.529992
+        ]
+      }
+    },
+    {
+      "mode": "eval",
+      "repeat": 1,
+      "before": 5.325756999999999,
+      "after": 5.417834,
+      "delta_ms": 0.09207700000000063,
+      "percent": 1.7288997601655698,
+      "p10_p90": {
+        "before": [
+          5.217033,
+          5.455906
+        ],
+        "after": [
+          5.285985,
+          5.529096
+        ]
+      }
+    },
+    {
+      "mode": "json",
+      "repeat": 0,
+      "before": 12.8624905,
+      "after": 12.8887965,
+      "delta_ms": 0.02630599999999994,
+      "percent": 0.20451715785523294,
+      "p10_p90": {
+        "before": [
+          12.69169,
+          12.966756
+        ],
+        "after": [
+          12.745993,
+          12.967339
+        ]
+      }
+    },
+    {
+      "mode": "json",
+      "repeat": 1,
+      "before": 12.8633865,
+      "after": 12.888462,
+      "delta_ms": 0.025075499999999806,
+      "percent": 0.19493700200954311,
+      "p10_p90": {
+        "before": [
+          12.735799,
+          13.015467
+        ],
+        "after": [
+          12.747246,
+          12.986358
+        ]
+      }
+    },
+    {
+      "mode": "prompt",
+      "repeat": 0,
+      "before": 4.10832,
+      "after": 4.165101,
+      "delta_ms": 0.05678099999999997,
+      "percent": 1.382097791798098,
+      "p10_p90": {
+        "before": [
+          4.005276,
+          4.189872
+        ],
+        "after": [
+          4.063105,
+          4.234322
+        ]
+      }
+    },
+    {
+      "mode": "prompt",
+      "repeat": 1,
+      "before": 4.106092500000001,
+      "after": 4.142825,
+      "delta_ms": 0.03673249999999939,
+      "percent": 0.8945853022064076,
+      "p10_p90": {
+        "before": [
+          4.031223,
+          4.196475
+        ],
+        "after": [
+          4.083898,
+          4.286413
+        ]
+      }
+    },
+    {
+      "mode": "cell",
+      "repeat": 0,
+      "before": 0.3411625,
+      "after": 0.3498445,
+      "delta_ms": 0.008682000000000023,
+      "percent": 2.544828344264105,
+      "p10_p90": {
+        "before": [
+          0.323899,
+          0.363236
+        ],
+        "after": [
+          0.322563,
+          0.365367
+        ]
+      }
+    },
+    {
+      "mode": "cell",
+      "repeat": 1,
+      "before": 0.347245,
+      "after": 0.349808,
+      "delta_ms": 0.002562999999999982,
+      "percent": 0.7380955809298761,
+      "p10_p90": {
+        "before": [
+          0.325425,
+          0.369085
+        ],
+        "after": [
+          0.329541,
+          0.368825
+        ]
+      }
+    }
+  ],
+  "over_direct_ms": {
+    "git": {
+      "0": 1.8932215000000001,
+      "1": 2.1863869999999994,
+      "2": 2.35332225,
+      "3": 2.5250007500000002
+    },
+    "path": {
+      "0": 13.86593325,
+      "1": 14.873223249999999,
+      "2": 15.222009999999997,
+      "3": 15.557672999999998
+    }
+  },
+  "path_first_adapter_cells": [
+    {
+      "repeat": 0,
+      "kind": "path",
+      "mode": "run",
+      "count": 1,
+      "project": 21.072152,
+      "direct": 6.20078,
+      "over_direct": 14.871372,
+      "increment": 1.0148089999999996,
+      "p10_p90": {
+        "project": [
+          20.875951,
+          22.076566
+        ],
+        "direct": [
+          6.023331,
+          6.454444
+        ]
+      }
+    },
+    {
+      "repeat": 0,
+      "kind": "path",
+      "mode": "eval",
+      "count": 1,
+      "project": 21.384437,
+      "direct": 6.5243205,
+      "over_direct": 14.860116499999998,
+      "increment": 0.991342999999997,
+      "p10_p90": {
+        "project": [
+          21.184166,
+          21.718976
+        ],
+        "direct": [
+          6.267756,
+          6.828385
+        ]
+      }
+    },
+    {
+      "repeat": 0,
+      "kind": "path",
+      "mode": "session",
+      "count": 1,
+      "project": 20.211404,
+      "direct": 5.2814825,
+      "over_direct": 14.929921500000003,
+      "increment": 0.9036020000000011,
+      "p10_p90": {
+        "project": [
+          19.998207,
+          20.941737
+        ],
+        "direct": [
+          5.161533,
+          6.064461
+        ]
+      }
+    },
+    {
+      "repeat": 1,
+      "kind": "path",
+      "mode": "run",
+      "count": 1,
+      "project": 21.128408,
+      "direct": 6.2006274999999995,
+      "over_direct": 14.9277805,
+      "increment": 1.0646875000000033,
+      "p10_p90": {
+        "project": [
+          20.87289,
+          21.680107
+        ],
+        "direct": [
+          6.111485,
+          6.373724
+        ]
+      }
+    },
+    {
+      "repeat": 1,
+      "kind": "path",
+      "mode": "eval",
+      "count": 1,
+      "project": 21.440401,
+      "direct": 6.573859000000001,
+      "over_direct": 14.866542,
+      "increment": 1.0529855000000001,
+      "p10_p90": {
+        "project": [
+          21.229499,
+          28.735737
+        ],
+        "direct": [
+          6.433764,
+          6.814562
+        ]
+      }
+    },
+    {
+      "repeat": 1,
+      "kind": "path",
+      "mode": "session",
+      "count": 1,
+      "project": 20.218906,
+      "direct": 5.3438315,
+      "over_direct": 14.8750745,
+      "increment": 0.8644980000000011,
+      "p10_p90": {
+        "project": [
+          20.109566,
+          20.516432
+        ],
+        "direct": [
+          5.234076,
+          5.635719
+        ]
+      }
+    }
+  ],
+  "costs": [
+    {
+      "kind": "git",
+      "mode": "verify",
+      "repeat": 0,
+      "median_ms": 319.988657
+    },
+    {
+      "kind": "git",
+      "mode": "verify",
+      "repeat": 1,
+      "median_ms": 319.948889
+    },
+    {
+      "kind": "git",
+      "mode": "lock",
+      "repeat": 0,
+      "median_ms": 1304.5633385
+    },
+    {
+      "kind": "git",
+      "mode": "lock",
+      "repeat": 1,
+      "median_ms": 1302.1707875000002
+    },
+    {
+      "kind": "git",
+      "mode": "attach",
+      "repeat": 0,
+      "median_ms": 2025.2721820000002
+    },
+    {
+      "kind": "git",
+      "mode": "attach",
+      "repeat": 1,
+      "median_ms": 2025.6477405
+    },
+    {
+      "kind": "git",
+      "mode": "probe",
+      "repeat": 0,
+      "median_ms": 6.550865
+    },
+    {
+      "kind": "git",
+      "mode": "probe",
+      "repeat": 1,
+      "median_ms": 6.5985375
+    },
+    {
+      "kind": "path",
+      "mode": "verify",
+      "repeat": 0,
+      "median_ms": 57.227853499999995
+    },
+    {
+      "kind": "path",
+      "mode": "verify",
+      "repeat": 1,
+      "median_ms": 57.054435
+    },
+    {
+      "kind": "path",
+      "mode": "lock",
+      "repeat": 0,
+      "median_ms": 434.2735465
+    },
+    {
+      "kind": "path",
+      "mode": "lock",
+      "repeat": 1,
+      "median_ms": 432.632763
+    },
+    {
+      "kind": "path",
+      "mode": "attach",
+      "repeat": 0,
+      "median_ms": 177.92327849999998
+    },
+    {
+      "kind": "path",
+      "mode": "attach",
+      "repeat": 1,
+      "median_ms": 177.9202505
+    },
+    {
+      "kind": "path",
+      "mode": "probe",
+      "repeat": 0,
+      "median_ms": 6.5381029999999996
+    },
+    {
+      "kind": "path",
+      "mode": "probe",
+      "repeat": 1,
+      "median_ms": 6.5374845
+    }
+  ],
+  "root_clippy": "15 retained diagnostics including test-only findings; none added versus baseline",
+  "no_source_reads_or_tools_in_git_launch": true,
+  "notes": "headline medians combine run/eval/prompt and both repeats only for this compact view; full cells and spreads retained separately"
+}

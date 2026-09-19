@@ -1,0 +1,19 @@
+    Checking rnx-postgres v0.0.0 (/home/me/work/rnx/adapters/postgres)
+error: items after a test module
+   --> src/lib.rs:80:1
+    |
+ 80 | mod tests {
+    | ^^^^^^^^^
+...
+ 98 | fn database_error(e: tokio_postgres::Error) -> String {
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+...
+112 | async fn query(url: String, sql: String, params: Value, options: Value) -> Result<Value, String> {
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    |
+    = help: for further information visit https://rust-lang.github.io/rust-clippy/rust-1.98.0/index.html#items_after_test_module
+    = note: `-D clippy::items-after-test-module` implied by `-D warnings`
+    = help: to override `-D warnings` add `#[allow(clippy::items_after_test_module)]`
+    = help: move the items to before the test module was defined
+
+error: could not compile `rnx-postgres` (lib test) due to 1 previous error

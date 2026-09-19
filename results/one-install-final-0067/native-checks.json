@@ -1,0 +1,90 @@
+[
+  {
+    "name": "adapters-postgres-fmt",
+    "status": 0,
+    "args": [
+      "cargo",
+      "fmt",
+      "--manifest-path",
+      "adapters/postgres/Cargo.toml",
+      "--check"
+    ]
+  },
+  {
+    "name": "adapters-postgres-clippy",
+    "status": 101,
+    "args": [
+      "cargo",
+      "clippy",
+      "--locked",
+      "--offline",
+      "--manifest-path",
+      "adapters/postgres/Cargo.toml",
+      "--all-targets",
+      "-j",
+      "4",
+      "--",
+      "-D",
+      "warnings"
+    ],
+    "source_byte_identical_to_baseline": true
+  },
+  {
+    "name": "adapters-polars-fmt",
+    "status": 0,
+    "args": [
+      "cargo",
+      "fmt",
+      "--manifest-path",
+      "adapters/polars/Cargo.toml",
+      "--check"
+    ]
+  },
+  {
+    "name": "adapters-polars-clippy",
+    "status": 0,
+    "args": [
+      "cargo",
+      "clippy",
+      "--locked",
+      "--offline",
+      "--manifest-path",
+      "adapters/polars/Cargo.toml",
+      "--all-targets",
+      "-j",
+      "4",
+      "--",
+      "-D",
+      "warnings"
+    ]
+  },
+  {
+    "name": "servers-http-postgres-fmt",
+    "status": 0,
+    "args": [
+      "cargo",
+      "fmt",
+      "--manifest-path",
+      "servers/http-postgres/Cargo.toml",
+      "--check"
+    ]
+  },
+  {
+    "name": "servers-http-postgres-clippy",
+    "status": 0,
+    "args": [
+      "cargo",
+      "clippy",
+      "--locked",
+      "--offline",
+      "--manifest-path",
+      "servers/http-postgres/Cargo.toml",
+      "--all-targets",
+      "-j",
+      "4",
+      "--",
+      "-D",
+      "warnings"
+    ]
+  }
+]

@@ -1,0 +1,20 @@
+{
+  "third_adapter": {
+    "classification": "fixture error before any headline timing",
+    "failure": "help path postgres::query must name an item under third::",
+    "correction": "rename the copied help namespace along with its package name",
+    "preserved": "roster-initial/ and original ignored fixture target; corrected full roster built independently"
+  },
+  "notices_driver": {
+    "classification": "fixture command typo",
+    "failure": "scripts/notices.py does not exist in the adapters",
+    "correction": "use their scripts/third-party-notices.py; resume after successful checks",
+    "preserved": "initial-notices-driver-error.log and regression.json"
+  },
+  "attachment_warmup": {
+    "classification": "fixture assertion before sampling",
+    "failure": "Git and retained path workflows use different attachment success wording",
+    "correction": "check each workflow exact success prefix; exit status remains checked",
+    "preserved": "path-attach-output.log; no headline journal existed"
+  }
+}
