@@ -1,0 +1,213 @@
+{
+  "cases": [
+    {
+      "case": "exact CLI refuses before writes",
+      "passed": true
+    },
+    {
+      "case": "missing root lists absent without creation",
+      "passed": true
+    },
+    {
+      "case": "cache override",
+      "passed": true
+    },
+    {
+      "case": "cache xdg",
+      "passed": true
+    },
+    {
+      "case": "cache home",
+      "passed": true
+    },
+    {
+      "case": "runtime xdg",
+      "passed": true
+    },
+    {
+      "case": "runtime home",
+      "passed": true
+    },
+    {
+      "case": "explicit root wins; invalid environment never falls back",
+      "passed": true
+    },
+    {
+      "case": "broken root is not absent",
+      "passed": true
+    },
+    {
+      "case": "sorted entries; corrupt and missing metadata; escaped unknown names",
+      "passed": true
+    },
+    {
+      "case": "entry memory and output bounds refuse without writes",
+      "passed": true
+    },
+    {
+      "case": "known but incomplete entry document is unrecognized",
+      "passed": true
+    },
+    {
+      "case": "old/current shared reference 2",
+      "passed": true
+    },
+    {
+      "case": "annotated dry run 2",
+      "passed": true
+    },
+    {
+      "case": "old/current shared reference 3",
+      "passed": true
+    },
+    {
+      "case": "annotated dry run 3",
+      "passed": true
+    },
+    {
+      "case": "no digest-only shared match generated2",
+      "passed": true
+    },
+    {
+      "case": "no digest-only shared match executable2",
+      "passed": true
+    },
+    {
+      "case": "no digest-only shared match generated3",
+      "passed": true
+    },
+    {
+      "case": "no digest-only shared match executable3",
+      "passed": true
+    },
+    {
+      "case": "reference outside selected store",
+      "passed": true
+    },
+    {
+      "case": "missing recorded entry",
+      "passed": true
+    },
+    {
+      "case": "runtime reference uses recorded source, not selection or provenance",
+      "passed": true
+    },
+    {
+      "case": "visible reference does not become pending reference",
+      "passed": true
+    },
+    {
+      "case": "missing receipt is indeterminate",
+      "passed": true
+    },
+    {
+      "case": "malformed lock is indeterminate",
+      "passed": true
+    },
+    {
+      "case": "unsupported lock is indeterminate",
+      "passed": true
+    },
+    {
+      "case": "bad key is indeterminate",
+      "passed": true
+    },
+    {
+      "case": "duplicate field is indeterminate",
+      "passed": true
+    },
+    {
+      "case": "oversized manifest is indeterminate",
+      "passed": true
+    },
+    {
+      "case": "64 supplied paths coalesce; 65 refuse",
+      "passed": true
+    },
+    {
+      "case": "unbuilt project is not opened for mutation",
+      "passed": true
+    },
+    {
+      "case": "observable annotation edit",
+      "passed": true
+    },
+    {
+      "case": "observable annotation replace",
+      "passed": true
+    },
+    {
+      "case": "failure boundary before-rename",
+      "passed": true
+    },
+    {
+      "case": "failure boundary before-root-sync",
+      "passed": true
+    },
+    {
+      "case": "failure boundary after-root-sync",
+      "passed": true
+    },
+    {
+      "case": "failure boundary before-entries-sync",
+      "passed": true
+    },
+    {
+      "case": "failure boundary after-entries-sync",
+      "passed": true
+    },
+    {
+      "case": "failure boundary before-pending-sync",
+      "passed": true
+    },
+    {
+      "case": "failure boundary after-pending-sync",
+      "passed": true
+    },
+    {
+      "case": "failure boundary before-unlink",
+      "passed": true
+    },
+    {
+      "case": "failure boundary before-final-sync",
+      "passed": true
+    },
+    {
+      "case": "failure boundary after-final-sync",
+      "passed": true
+    },
+    {
+      "case": "kill and CLOEXEC before-entries-sync",
+      "passed": true
+    },
+    {
+      "case": "kill and CLOEXEC after-entries-sync",
+      "passed": true
+    },
+    {
+      "case": "kill and CLOEXEC before-pending-sync",
+      "passed": true
+    },
+    {
+      "case": "kill and CLOEXEC after-pending-sync",
+      "passed": true
+    },
+    {
+      "case": "real deletion permission error leaves resumable pending",
+      "passed": true
+    },
+    {
+      "case": "real rename permission error preserves visible entry",
+      "passed": true
+    },
+    {
+      "case": "relative and symlink manifest spellings coalesce",
+      "passed": true
+    },
+    {
+      "case": "ordinary product ignores test hooks",
+      "passed": true
+    }
+  ],
+  "count": 52
+}
