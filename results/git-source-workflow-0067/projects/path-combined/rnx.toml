@@ -1,0 +1,18 @@
+format=1
+[application]
+entry="main.rn"
+[runtime]
+path="/home/me/work/rnx-bench/probes/git-source-workflow/target/real-source"
+
+
+[native.polars]
+path = "/home/me/work/rnx-bench/probes/git-source-workflow/target/real-source/adapters/polars"
+package = "rnx-polars"
+builder = "build"
+hook = "plain"
+
+[native.postgres]
+path = "/home/me/work/rnx-bench/probes/git-source-workflow/target/real-source/adapters/postgres"
+package = "rnx-postgres"
+builder = "build"
+hook = "lifecycle"
