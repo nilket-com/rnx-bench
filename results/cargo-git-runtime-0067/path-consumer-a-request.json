@@ -1,0 +1,7 @@
+{
+  "entry": "/home/me/work/rnx-bench/probes/cargo-git-runtime/target/path-consumer-a/main.rn",
+  "manifest": "[package]\nname=\"git-discovery\"\nversion=\"0.0.0\"\nedition=\"2024\"\n[workspace]\n[dependencies]\nrnx={path=\"/home/me/work/rnx-bench/probes/cargo-git-runtime/target/developer-runtime\"}\nrnx-polars={path=\"/home/me/work/rnx-bench/probes/cargo-git-runtime/target/developer-runtime/adapters/polars\"}\nrnx-postgres={path=\"/home/me/work/rnx-bench/probes/cargo-git-runtime/target/developer-runtime/adapters/postgres\"}\n",
+  "main": "fn main() -> Result<(), Box<dyn std::error::Error>> { rnx::main_with(rnx::Extensions::none().with(\"polars\",rnx_polars::build).with_lifecycle(\"postgres\",rnx_postgres::build)) }\n",
+  "cargo_lock_blake3": "5f0b948b0535a577e5a23d27d8a358b3cc2474327243ba9cde7320ed7de62722",
+  "source_kind": "path"
+}

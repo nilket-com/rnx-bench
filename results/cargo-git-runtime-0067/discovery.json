@@ -1,0 +1,1181 @@
+{
+  "revision": "94f5f3f98ba756c5ab5293d1e5132c7fd7b52d32",
+  "url": "https://github.com/nilket-com/rnx",
+  "packages": {
+    "rnx": {
+      "name": "rnx",
+      "version": "0.0.0",
+      "id": "git+https://github.com/nilket-com/rnx?rev=94f5f3f98ba756c5ab5293d1e5132c7fd7b52d32#0.0.0",
+      "license": null,
+      "license_file": null,
+      "description": "A scripting environment for Rune: a file runner, an expression evaluator, and an interactive session, on upstream Rune with no compiler fork.",
+      "source": "git+https://github.com/nilket-com/rnx?rev=94f5f3f98ba756c5ab5293d1e5132c7fd7b52d32#94f5f3f98ba756c5ab5293d1e5132c7fd7b52d32",
+      "dependencies": [
+        {
+          "name": "jiff",
+          "source": "registry+https://github.com/rust-lang/crates.io-index",
+          "req": "=0.2.24",
+          "kind": null,
+          "rename": null,
+          "optional": false,
+          "uses_default_features": false,
+          "features": [
+            "std",
+            "tz-system",
+            "tzdb-zoneinfo"
+          ],
+          "target": null,
+          "registry": null
+        },
+        {
+          "name": "libc",
+          "source": "registry+https://github.com/rust-lang/crates.io-index",
+          "req": "^0.2.177",
+          "kind": null,
+          "rename": null,
+          "optional": false,
+          "uses_default_features": true,
+          "features": [],
+          "target": null,
+          "registry": null
+        },
+        {
+          "name": "reqwest",
+          "source": "registry+https://github.com/rust-lang/crates.io-index",
+          "req": "=0.12.28",
+          "kind": null,
+          "rename": null,
+          "optional": false,
+          "uses_default_features": false,
+          "features": [
+            "rustls-tls",
+            "gzip"
+          ],
+          "target": null,
+          "registry": null
+        },
+        {
+          "name": "rune",
+          "source": "registry+https://github.com/rust-lang/crates.io-index",
+          "req": "=0.14.2",
+          "kind": null,
+          "rename": null,
+          "optional": false,
+          "uses_default_features": false,
+          "features": [
+            "std"
+          ],
+          "target": null,
+          "registry": null
+        },
+        {
+          "name": "rustyline",
+          "source": "registry+https://github.com/rust-lang/crates.io-index",
+          "req": "^18.0.1",
+          "kind": null,
+          "rename": null,
+          "optional": false,
+          "uses_default_features": true,
+          "features": [
+            "derive"
+          ],
+          "target": null,
+          "registry": null
+        },
+        {
+          "name": "serde",
+          "source": "registry+https://github.com/rust-lang/crates.io-index",
+          "req": "^1",
+          "kind": null,
+          "rename": null,
+          "optional": true,
+          "uses_default_features": true,
+          "features": [
+            "derive"
+          ],
+          "target": null,
+          "registry": null
+        },
+        {
+          "name": "serde_json",
+          "source": "registry+https://github.com/rust-lang/crates.io-index",
+          "req": "^1.0.149",
+          "kind": null,
+          "rename": null,
+          "optional": false,
+          "uses_default_features": true,
+          "features": [],
+          "target": null,
+          "registry": null
+        },
+        {
+          "name": "tokio",
+          "source": "registry+https://github.com/rust-lang/crates.io-index",
+          "req": "^1",
+          "kind": null,
+          "rename": null,
+          "optional": false,
+          "uses_default_features": false,
+          "features": [
+            "rt",
+            "time",
+            "net"
+          ],
+          "target": null,
+          "registry": null
+        },
+        {
+          "name": "unicode-ident",
+          "source": "registry+https://github.com/rust-lang/crates.io-index",
+          "req": "^1",
+          "kind": null,
+          "rename": null,
+          "optional": false,
+          "uses_default_features": true,
+          "features": [],
+          "target": null,
+          "registry": null
+        },
+        {
+          "name": "unicode-width",
+          "source": "registry+https://github.com/rust-lang/crates.io-index",
+          "req": "^0.2.2",
+          "kind": null,
+          "rename": null,
+          "optional": false,
+          "uses_default_features": true,
+          "features": [],
+          "target": null,
+          "registry": null
+        },
+        {
+          "name": "flate2",
+          "source": "registry+https://github.com/rust-lang/crates.io-index",
+          "req": "^1",
+          "kind": "dev",
+          "rename": null,
+          "optional": false,
+          "uses_default_features": true,
+          "features": [],
+          "target": null,
+          "registry": null
+        },
+        {
+          "name": "rustls",
+          "source": "registry+https://github.com/rust-lang/crates.io-index",
+          "req": "^0.23",
+          "kind": "dev",
+          "rename": null,
+          "optional": false,
+          "uses_default_features": false,
+          "features": [
+            "ring",
+            "std",
+            "tls12"
+          ],
+          "target": null,
+          "registry": null
+        },
+        {
+          "name": "unicode-width",
+          "source": "registry+https://github.com/rust-lang/crates.io-index",
+          "req": "^0.2.2",
+          "kind": "dev",
+          "rename": null,
+          "optional": false,
+          "uses_default_features": true,
+          "features": [],
+          "target": null,
+          "registry": null
+        },
+        {
+          "name": "jiff",
+          "source": "registry+https://github.com/rust-lang/crates.io-index",
+          "req": "=0.2.24",
+          "kind": null,
+          "rename": null,
+          "optional": false,
+          "uses_default_features": false,
+          "features": [
+            "std",
+            "tz-system",
+            "tzdb-zoneinfo",
+            "tzdb-bundle-platform"
+          ],
+          "target": "cfg(windows)",
+          "registry": null
+        },
+        {
+          "name": "windows-sys",
+          "source": "registry+https://github.com/rust-lang/crates.io-index",
+          "req": "^0.61.2",
+          "kind": null,
+          "rename": null,
+          "optional": false,
+          "uses_default_features": true,
+          "features": [
+            "Win32_Foundation",
+            "Win32_System_JobObjects",
+            "Win32_System_Threading",
+            "Win32_System_Console",
+            "Win32_System_Pipes",
+            "Win32_System_IO",
+            "Win32_System_Diagnostics_ToolHelp",
+            "Win32_Storage_FileSystem",
+            "Wdk_Storage_FileSystem"
+          ],
+          "target": "cfg(windows)",
+          "registry": null
+        }
+      ],
+      "targets": [
+        {
+          "kind": [
+            "lib"
+          ],
+          "crate_types": [
+            "lib"
+          ],
+          "name": "rnx",
+          "src_path": "/home/me/work/rnx-bench/probes/cargo-git-runtime/target/cargo-home/git/checkouts/rnx-56432e7f0784caaf/94f5f3f/src/lib.rs",
+          "edition": "2024",
+          "doc": true,
+          "doctest": true,
+          "test": true
+        },
+        {
+          "kind": [
+            "bin"
+          ],
+          "crate_types": [
+            "bin"
+          ],
+          "name": "rnx",
+          "src_path": "/home/me/work/rnx-bench/probes/cargo-git-runtime/target/cargo-home/git/checkouts/rnx-56432e7f0784caaf/94f5f3f/src/main.rs",
+          "edition": "2024",
+          "doc": true,
+          "doctest": false,
+          "test": true
+        },
+        {
+          "kind": [
+            "test"
+          ],
+          "crate_types": [
+            "bin"
+          ],
+          "name": "async_execution",
+          "src_path": "/home/me/work/rnx-bench/probes/cargo-git-runtime/target/cargo-home/git/checkouts/rnx-56432e7f0784caaf/94f5f3f/tests/async_execution.rs",
+          "edition": "2024",
+          "doc": false,
+          "doctest": false,
+          "test": true
+        },
+        {
+          "kind": [
+            "test"
+          ],
+          "crate_types": [
+            "bin"
+          ],
+          "name": "budget",
+          "src_path": "/home/me/work/rnx-bench/probes/cargo-git-runtime/target/cargo-home/git/checkouts/rnx-56432e7f0784caaf/94f5f3f/tests/budget.rs",
+          "edition": "2024",
+          "doc": false,
+          "doctest": false,
+          "test": true
+        },
+        {
+          "kind": [
+            "test"
+          ],
+          "crate_types": [
+            "bin"
+          ],
+          "name": "capture_bound",
+          "src_path": "/home/me/work/rnx-bench/probes/cargo-git-runtime/target/cargo-home/git/checkouts/rnx-56432e7f0784caaf/94f5f3f/tests/capture_bound.rs",
+          "edition": "2024",
+          "doc": false,
+          "doctest": false,
+          "test": true
+        },
+        {
+          "kind": [
+            "test"
+          ],
+          "crate_types": [
+            "bin"
+          ],
+          "name": "capture_bound_windows",
+          "src_path": "/home/me/work/rnx-bench/probes/cargo-git-runtime/target/cargo-home/git/checkouts/rnx-56432e7f0784caaf/94f5f3f/tests/capture_bound_windows.rs",
+          "edition": "2024",
+          "doc": false,
+          "doctest": false,
+          "test": true
+        },
+        {
+          "kind": [
+            "test"
+          ],
+          "crate_types": [
+            "bin"
+          ],
+          "name": "capture_hold_windows",
+          "src_path": "/home/me/work/rnx-bench/probes/cargo-git-runtime/target/cargo-home/git/checkouts/rnx-56432e7f0784caaf/94f5f3f/tests/capture_hold_windows.rs",
+          "edition": "2024",
+          "doc": false,
+          "doctest": false,
+          "test": true
+        },
+        {
+          "kind": [
+            "test"
+          ],
+          "crate_types": [
+            "bin"
+          ],
+          "name": "child_input",
+          "src_path": "/home/me/work/rnx-bench/probes/cargo-git-runtime/target/cargo-home/git/checkouts/rnx-56432e7f0784caaf/94f5f3f/tests/child_input.rs",
+          "edition": "2024",
+          "doc": false,
+          "doctest": false,
+          "test": true
+        },
+        {
+          "kind": [
+            "test"
+          ],
+          "crate_types": [
+            "bin"
+          ],
+          "name": "colour",
+          "src_path": "/home/me/work/rnx-bench/probes/cargo-git-runtime/target/cargo-home/git/checkouts/rnx-56432e7f0784caaf/94f5f3f/tests/colour.rs",
+          "edition": "2024",
+          "doc": false,
+          "doctest": false,
+          "test": true
+        },
+        {
+          "kind": [
+            "test"
+          ],
+          "crate_types": [
+            "bin"
+          ],
+          "name": "commands",
+          "src_path": "/home/me/work/rnx-bench/probes/cargo-git-runtime/target/cargo-home/git/checkouts/rnx-56432e7f0784caaf/94f5f3f/tests/commands.rs",
+          "edition": "2024",
+          "doc": false,
+          "doctest": false,
+          "test": true
+        },
+        {
+          "kind": [
+            "test"
+          ],
+          "crate_types": [
+            "bin"
+          ],
+          "name": "config",
+          "src_path": "/home/me/work/rnx-bench/probes/cargo-git-runtime/target/cargo-home/git/checkouts/rnx-56432e7f0784caaf/94f5f3f/tests/config.rs",
+          "edition": "2024",
+          "doc": false,
+          "doctest": false,
+          "test": true
+        },
+        {
+          "kind": [
+            "test"
+          ],
+          "crate_types": [
+            "bin"
+          ],
+          "name": "console_interrupt",
+          "src_path": "/home/me/work/rnx-bench/probes/cargo-git-runtime/target/cargo-home/git/checkouts/rnx-56432e7f0784caaf/94f5f3f/tests/console_interrupt.rs",
+          "edition": "2024",
+          "doc": false,
+          "doctest": false,
+          "test": true
+        },
+        {
+          "kind": [
+            "test"
+          ],
+          "crate_types": [
+            "bin"
+          ],
+          "name": "delivery_deadline_windows",
+          "src_path": "/home/me/work/rnx-bench/probes/cargo-git-runtime/target/cargo-home/git/checkouts/rnx-56432e7f0784caaf/94f5f3f/tests/delivery_deadline_windows.rs",
+          "edition": "2024",
+          "doc": false,
+          "doctest": false,
+          "test": true
+        },
+        {
+          "kind": [
+            "test"
+          ],
+          "crate_types": [
+            "bin"
+          ],
+          "name": "delivery_exit_windows",
+          "src_path": "/home/me/work/rnx-bench/probes/cargo-git-runtime/target/cargo-home/git/checkouts/rnx-56432e7f0784caaf/94f5f3f/tests/delivery_exit_windows.rs",
+          "edition": "2024",
+          "doc": false,
+          "doctest": false,
+          "test": true
+        },
+        {
+          "kind": [
+            "test"
+          ],
+          "crate_types": [
+            "bin"
+          ],
+          "name": "delivery_failure",
+          "src_path": "/home/me/work/rnx-bench/probes/cargo-git-runtime/target/cargo-home/git/checkouts/rnx-56432e7f0784caaf/94f5f3f/tests/delivery_failure.rs",
+          "edition": "2024",
+          "doc": false,
+          "doctest": false,
+          "test": true
+        },
+        {
+          "kind": [
+            "test"
+          ],
+          "crate_types": [
+            "bin"
+          ],
+          "name": "delivery_failure_windows",
+          "src_path": "/home/me/work/rnx-bench/probes/cargo-git-runtime/target/cargo-home/git/checkouts/rnx-56432e7f0784caaf/94f5f3f/tests/delivery_failure_windows.rs",
+          "edition": "2024",
+          "doc": false,
+          "doctest": false,
+          "test": true
+        },
+        {
+          "kind": [
+            "test"
+          ],
+          "crate_types": [
+            "bin"
+          ],
+          "name": "env",
+          "src_path": "/home/me/work/rnx-bench/probes/cargo-git-runtime/target/cargo-home/git/checkouts/rnx-56432e7f0784caaf/94f5f3f/tests/env.rs",
+          "edition": "2024",
+          "doc": false,
+          "doctest": false,
+          "test": true
+        },
+        {
+          "kind": [
+            "test"
+          ],
+          "crate_types": [
+            "bin"
+          ],
+          "name": "eval_outcome",
+          "src_path": "/home/me/work/rnx-bench/probes/cargo-git-runtime/target/cargo-home/git/checkouts/rnx-56432e7f0784caaf/94f5f3f/tests/eval_outcome.rs",
+          "edition": "2024",
+          "doc": false,
+          "doctest": false,
+          "test": true
+        },
+        {
+          "kind": [
+            "test"
+          ],
+          "crate_types": [
+            "bin"
+          ],
+          "name": "exit_status",
+          "src_path": "/home/me/work/rnx-bench/probes/cargo-git-runtime/target/cargo-home/git/checkouts/rnx-56432e7f0784caaf/94f5f3f/tests/exit_status.rs",
+          "edition": "2024",
+          "doc": false,
+          "doctest": false,
+          "test": true
+        },
+        {
+          "kind": [
+            "test"
+          ],
+          "crate_types": [
+            "bin"
+          ],
+          "name": "fs",
+          "src_path": "/home/me/work/rnx-bench/probes/cargo-git-runtime/target/cargo-home/git/checkouts/rnx-56432e7f0784caaf/94f5f3f/tests/fs.rs",
+          "edition": "2024",
+          "doc": false,
+          "doctest": false,
+          "test": true
+        },
+        {
+          "kind": [
+            "test"
+          ],
+          "crate_types": [
+            "bin"
+          ],
+          "name": "history",
+          "src_path": "/home/me/work/rnx-bench/probes/cargo-git-runtime/target/cargo-home/git/checkouts/rnx-56432e7f0784caaf/94f5f3f/tests/history.rs",
+          "edition": "2024",
+          "doc": false,
+          "doctest": false,
+          "test": true
+        },
+        {
+          "kind": [
+            "test"
+          ],
+          "crate_types": [
+            "bin"
+          ],
+          "name": "http",
+          "src_path": "/home/me/work/rnx-bench/probes/cargo-git-runtime/target/cargo-home/git/checkouts/rnx-56432e7f0784caaf/94f5f3f/tests/http.rs",
+          "edition": "2024",
+          "doc": false,
+          "doctest": false,
+          "test": true
+        },
+        {
+          "kind": [
+            "test"
+          ],
+          "crate_types": [
+            "bin"
+          ],
+          "name": "job_assignment_windows",
+          "src_path": "/home/me/work/rnx-bench/probes/cargo-git-runtime/target/cargo-home/git/checkouts/rnx-56432e7f0784caaf/94f5f3f/tests/job_assignment_windows.rs",
+          "edition": "2024",
+          "doc": false,
+          "doctest": false,
+          "test": true
+        },
+        {
+          "kind": [
+            "test"
+          ],
+          "crate_types": [
+            "bin"
+          ],
+          "name": "job_breakaway",
+          "src_path": "/home/me/work/rnx-bench/probes/cargo-git-runtime/target/cargo-home/git/checkouts/rnx-56432e7f0784caaf/94f5f3f/tests/job_breakaway.rs",
+          "edition": "2024",
+          "doc": false,
+          "doctest": false,
+          "test": true
+        },
+        {
+          "kind": [
+            "test"
+          ],
+          "crate_types": [
+            "bin"
+          ],
+          "name": "json",
+          "src_path": "/home/me/work/rnx-bench/probes/cargo-git-runtime/target/cargo-home/git/checkouts/rnx-56432e7f0784caaf/94f5f3f/tests/json.rs",
+          "edition": "2024",
+          "doc": false,
+          "doctest": false,
+          "test": true
+        },
+        {
+          "kind": [
+            "test"
+          ],
+          "crate_types": [
+            "bin"
+          ],
+          "name": "json_parse",
+          "src_path": "/home/me/work/rnx-bench/probes/cargo-git-runtime/target/cargo-home/git/checkouts/rnx-56432e7f0784caaf/94f5f3f/tests/json_parse.rs",
+          "edition": "2024",
+          "doc": false,
+          "doctest": false,
+          "test": true
+        },
+        {
+          "kind": [
+            "test"
+          ],
+          "crate_types": [
+            "bin"
+          ],
+          "name": "method_naming",
+          "src_path": "/home/me/work/rnx-bench/probes/cargo-git-runtime/target/cargo-home/git/checkouts/rnx-56432e7f0784caaf/94f5f3f/tests/method_naming.rs",
+          "edition": "2024",
+          "doc": false,
+          "doctest": false,
+          "test": true
+        },
+        {
+          "kind": [
+            "test"
+          ],
+          "crate_types": [
+            "bin"
+          ],
+          "name": "modules",
+          "src_path": "/home/me/work/rnx-bench/probes/cargo-git-runtime/target/cargo-home/git/checkouts/rnx-56432e7f0784caaf/94f5f3f/tests/modules.rs",
+          "edition": "2024",
+          "doc": false,
+          "doctest": false,
+          "test": true
+        },
+        {
+          "kind": [
+            "test"
+          ],
+          "crate_types": [
+            "bin"
+          ],
+          "name": "namespaces",
+          "src_path": "/home/me/work/rnx-bench/probes/cargo-git-runtime/target/cargo-home/git/checkouts/rnx-56432e7f0784caaf/94f5f3f/tests/namespaces.rs",
+          "edition": "2024",
+          "doc": false,
+          "doctest": false,
+          "test": true
+        },
+        {
+          "kind": [
+            "test"
+          ],
+          "crate_types": [
+            "bin"
+          ],
+          "name": "numbering",
+          "src_path": "/home/me/work/rnx-bench/probes/cargo-git-runtime/target/cargo-home/git/checkouts/rnx-56432e7f0784caaf/94f5f3f/tests/numbering.rs",
+          "edition": "2024",
+          "doc": false,
+          "doctest": false,
+          "test": true
+        },
+        {
+          "kind": [
+            "test"
+          ],
+          "crate_types": [
+            "bin"
+          ],
+          "name": "path",
+          "src_path": "/home/me/work/rnx-bench/probes/cargo-git-runtime/target/cargo-home/git/checkouts/rnx-56432e7f0784caaf/94f5f3f/tests/path.rs",
+          "edition": "2024",
+          "doc": false,
+          "doctest": false,
+          "test": true
+        },
+        {
+          "kind": [
+            "test"
+          ],
+          "crate_types": [
+            "bin"
+          ],
+          "name": "pipe_cancel_windows",
+          "src_path": "/home/me/work/rnx-bench/probes/cargo-git-runtime/target/cargo-home/git/checkouts/rnx-56432e7f0784caaf/94f5f3f/tests/pipe_cancel_windows.rs",
+          "edition": "2024",
+          "doc": false,
+          "doctest": false,
+          "test": true
+        },
+        {
+          "kind": [
+            "test"
+          ],
+          "crate_types": [
+            "bin"
+          ],
+          "name": "process_bytes",
+          "src_path": "/home/me/work/rnx-bench/probes/cargo-git-runtime/target/cargo-home/git/checkouts/rnx-56432e7f0784caaf/94f5f3f/tests/process_bytes.rs",
+          "edition": "2024",
+          "doc": false,
+          "doctest": false,
+          "test": true
+        },
+        {
+          "kind": [
+            "test"
+          ],
+          "crate_types": [
+            "bin"
+          ],
+          "name": "process_module",
+          "src_path": "/home/me/work/rnx-bench/probes/cargo-git-runtime/target/cargo-home/git/checkouts/rnx-56432e7f0784caaf/94f5f3f/tests/process_module.rs",
+          "edition": "2024",
+          "doc": false,
+          "doctest": false,
+          "test": true
+        },
+        {
+          "kind": [
+            "test"
+          ],
+          "crate_types": [
+            "bin"
+          ],
+          "name": "project_sources",
+          "src_path": "/home/me/work/rnx-bench/probes/cargo-git-runtime/target/cargo-home/git/checkouts/rnx-56432e7f0784caaf/94f5f3f/tests/project_sources.rs",
+          "edition": "2024",
+          "doc": false,
+          "doctest": false,
+          "test": true
+        },
+        {
+          "kind": [
+            "test"
+          ],
+          "crate_types": [
+            "bin"
+          ],
+          "name": "prompt",
+          "src_path": "/home/me/work/rnx-bench/probes/cargo-git-runtime/target/cargo-home/git/checkouts/rnx-56432e7f0784caaf/94f5f3f/tests/prompt.rs",
+          "edition": "2024",
+          "doc": false,
+          "doctest": false,
+          "test": true
+        },
+        {
+          "kind": [
+            "test"
+          ],
+          "crate_types": [
+            "bin"
+          ],
+          "name": "reader_panic_windows",
+          "src_path": "/home/me/work/rnx-bench/probes/cargo-git-runtime/target/cargo-home/git/checkouts/rnx-56432e7f0784caaf/94f5f3f/tests/reader_panic_windows.rs",
+          "edition": "2024",
+          "doc": false,
+          "doctest": false,
+          "test": true
+        },
+        {
+          "kind": [
+            "test"
+          ],
+          "crate_types": [
+            "bin"
+          ],
+          "name": "release_metadata",
+          "src_path": "/home/me/work/rnx-bench/probes/cargo-git-runtime/target/cargo-home/git/checkouts/rnx-56432e7f0784caaf/94f5f3f/tests/release_metadata.rs",
+          "edition": "2024",
+          "doc": false,
+          "doctest": false,
+          "test": true
+        },
+        {
+          "kind": [
+            "test"
+          ],
+          "crate_types": [
+            "bin"
+          ],
+          "name": "repl",
+          "src_path": "/home/me/work/rnx-bench/probes/cargo-git-runtime/target/cargo-home/git/checkouts/rnx-56432e7f0784caaf/94f5f3f/tests/repl.rs",
+          "edition": "2024",
+          "doc": false,
+          "doctest": false,
+          "test": true
+        },
+        {
+          "kind": [
+            "test"
+          ],
+          "crate_types": [
+            "bin"
+          ],
+          "name": "run_diagnostics",
+          "src_path": "/home/me/work/rnx-bench/probes/cargo-git-runtime/target/cargo-home/git/checkouts/rnx-56432e7f0784caaf/94f5f3f/tests/run_diagnostics.rs",
+          "edition": "2024",
+          "doc": false,
+          "doctest": false,
+          "test": true
+        },
+        {
+          "kind": [
+            "test"
+          ],
+          "crate_types": [
+            "bin"
+          ],
+          "name": "run_output",
+          "src_path": "/home/me/work/rnx-bench/probes/cargo-git-runtime/target/cargo-home/git/checkouts/rnx-56432e7f0784caaf/94f5f3f/tests/run_output.rs",
+          "edition": "2024",
+          "doc": false,
+          "doctest": false,
+          "test": true
+        },
+        {
+          "kind": [
+            "test"
+          ],
+          "crate_types": [
+            "bin"
+          ],
+          "name": "stdin",
+          "src_path": "/home/me/work/rnx-bench/probes/cargo-git-runtime/target/cargo-home/git/checkouts/rnx-56432e7f0784caaf/94f5f3f/tests/stdin.rs",
+          "edition": "2024",
+          "doc": false,
+          "doctest": false,
+          "test": true
+        },
+        {
+          "kind": [
+            "test"
+          ],
+          "crate_types": [
+            "bin"
+          ],
+          "name": "terminal_safety",
+          "src_path": "/home/me/work/rnx-bench/probes/cargo-git-runtime/target/cargo-home/git/checkouts/rnx-56432e7f0784caaf/94f5f3f/tests/terminal_safety.rs",
+          "edition": "2024",
+          "doc": false,
+          "doctest": false,
+          "test": true
+        },
+        {
+          "kind": [
+            "test"
+          ],
+          "crate_types": [
+            "bin"
+          ],
+          "name": "time",
+          "src_path": "/home/me/work/rnx-bench/probes/cargo-git-runtime/target/cargo-home/git/checkouts/rnx-56432e7f0784caaf/94f5f3f/tests/time.rs",
+          "edition": "2024",
+          "doc": false,
+          "doctest": false,
+          "test": true
+        },
+        {
+          "kind": [
+            "test"
+          ],
+          "crate_types": [
+            "bin"
+          ],
+          "name": "upstream_isolation",
+          "src_path": "/home/me/work/rnx-bench/probes/cargo-git-runtime/target/cargo-home/git/checkouts/rnx-56432e7f0784caaf/94f5f3f/tests/upstream_isolation.rs",
+          "edition": "2024",
+          "doc": false,
+          "doctest": false,
+          "test": true
+        },
+        {
+          "kind": [
+            "test"
+          ],
+          "crate_types": [
+            "bin"
+          ],
+          "name": "worker",
+          "src_path": "/home/me/work/rnx-bench/probes/cargo-git-runtime/target/cargo-home/git/checkouts/rnx-56432e7f0784caaf/94f5f3f/tests/worker.rs",
+          "edition": "2024",
+          "doc": false,
+          "doctest": false,
+          "test": true
+        }
+      ],
+      "features": {
+        "count-allocations": [],
+        "default": [
+          "count-allocations"
+        ],
+        "project-sources": [
+          "dep:serde"
+        ],
+        "server-runtime": [],
+        "test-support": []
+      },
+      "manifest_path": "/home/me/work/rnx-bench/probes/cargo-git-runtime/target/cargo-home/git/checkouts/rnx-56432e7f0784caaf/94f5f3f/Cargo.toml",
+      "metadata": null,
+      "publish": [],
+      "authors": [],
+      "categories": [
+        "command-line-utilities",
+        "development-tools"
+      ],
+      "keywords": [
+        "rune",
+        "scripting",
+        "repl",
+        "interpreter",
+        "cli"
+      ],
+      "readme": "README.md",
+      "repository": "https://github.com/nilket-com/rnx",
+      "homepage": null,
+      "documentation": null,
+      "edition": "2024",
+      "links": null,
+      "default_run": null,
+      "rust_version": "1.95"
+    },
+    "rnx-polars": {
+      "name": "rnx-polars",
+      "version": "0.0.0",
+      "id": "git+https://github.com/nilket-com/rnx?rev=94f5f3f98ba756c5ab5293d1e5132c7fd7b52d32#rnx-polars@0.0.0",
+      "license": null,
+      "license_file": null,
+      "description": null,
+      "source": "git+https://github.com/nilket-com/rnx?rev=94f5f3f98ba756c5ab5293d1e5132c7fd7b52d32#94f5f3f98ba756c5ab5293d1e5132c7fd7b52d32",
+      "dependencies": [
+        {
+          "name": "polars",
+          "source": "registry+https://github.com/rust-lang/crates.io-index",
+          "req": "=0.55.2",
+          "kind": null,
+          "rename": null,
+          "optional": false,
+          "uses_default_features": false,
+          "features": [
+            "lazy",
+            "csv",
+            "parquet"
+          ],
+          "target": null,
+          "registry": null
+        },
+        {
+          "name": "rnx",
+          "source": "git+https://github.com/nilket-com/rnx?rev=94f5f3f98ba756c5ab5293d1e5132c7fd7b52d32#94f5f3f98ba756c5ab5293d1e5132c7fd7b52d32",
+          "req": "*",
+          "kind": null,
+          "rename": null,
+          "optional": false,
+          "uses_default_features": true,
+          "features": [],
+          "target": null,
+          "registry": null
+        },
+        {
+          "name": "tokio",
+          "source": "registry+https://github.com/rust-lang/crates.io-index",
+          "req": "^1",
+          "kind": null,
+          "rename": null,
+          "optional": true,
+          "uses_default_features": true,
+          "features": [
+            "rt"
+          ],
+          "target": null,
+          "registry": null
+        },
+        {
+          "name": "libc",
+          "source": "registry+https://github.com/rust-lang/crates.io-index",
+          "req": "^0.2",
+          "kind": null,
+          "rename": null,
+          "optional": false,
+          "uses_default_features": true,
+          "features": [],
+          "target": "cfg(unix)",
+          "registry": null
+        }
+      ],
+      "targets": [
+        {
+          "kind": [
+            "lib"
+          ],
+          "crate_types": [
+            "lib"
+          ],
+          "name": "rnx_polars",
+          "src_path": "/home/me/work/rnx-bench/probes/cargo-git-runtime/target/cargo-home/git/checkouts/rnx-56432e7f0784caaf/94f5f3f/adapters/polars/src/lib.rs",
+          "edition": "2024",
+          "doc": true,
+          "doctest": true,
+          "test": true
+        },
+        {
+          "kind": [
+            "bin"
+          ],
+          "crate_types": [
+            "bin"
+          ],
+          "name": "rnx-polars",
+          "src_path": "/home/me/work/rnx-bench/probes/cargo-git-runtime/target/cargo-home/git/checkouts/rnx-56432e7f0784caaf/94f5f3f/adapters/polars/src/main.rs",
+          "edition": "2024",
+          "doc": true,
+          "doctest": false,
+          "test": true
+        }
+      ],
+      "features": {
+        "test-support": [
+          "dep:tokio"
+        ]
+      },
+      "manifest_path": "/home/me/work/rnx-bench/probes/cargo-git-runtime/target/cargo-home/git/checkouts/rnx-56432e7f0784caaf/94f5f3f/adapters/polars/Cargo.toml",
+      "metadata": null,
+      "publish": [],
+      "authors": [],
+      "categories": [],
+      "keywords": [],
+      "readme": "README.md",
+      "repository": null,
+      "homepage": null,
+      "documentation": null,
+      "edition": "2024",
+      "links": null,
+      "default_run": null,
+      "rust_version": null
+    },
+    "rnx-postgres": {
+      "name": "rnx-postgres",
+      "version": "0.0.0",
+      "id": "git+https://github.com/nilket-com/rnx?rev=94f5f3f98ba756c5ab5293d1e5132c7fd7b52d32#rnx-postgres@0.0.0",
+      "license": null,
+      "license_file": null,
+      "description": "A typed PostgreSQL query extension for rnx",
+      "source": "git+https://github.com/nilket-com/rnx?rev=94f5f3f98ba756c5ab5293d1e5132c7fd7b52d32#94f5f3f98ba756c5ab5293d1e5132c7fd7b52d32",
+      "dependencies": [
+        {
+          "name": "bytes",
+          "source": "registry+https://github.com/rust-lang/crates.io-index",
+          "req": "^1",
+          "kind": null,
+          "rename": null,
+          "optional": false,
+          "uses_default_features": true,
+          "features": [],
+          "target": null,
+          "registry": null
+        },
+        {
+          "name": "futures-util",
+          "source": "registry+https://github.com/rust-lang/crates.io-index",
+          "req": "^0.3",
+          "kind": null,
+          "rename": null,
+          "optional": false,
+          "uses_default_features": true,
+          "features": [],
+          "target": null,
+          "registry": null
+        },
+        {
+          "name": "rnx",
+          "source": "git+https://github.com/nilket-com/rnx?rev=94f5f3f98ba756c5ab5293d1e5132c7fd7b52d32#94f5f3f98ba756c5ab5293d1e5132c7fd7b52d32",
+          "req": "*",
+          "kind": null,
+          "rename": null,
+          "optional": false,
+          "uses_default_features": true,
+          "features": [],
+          "target": null,
+          "registry": null
+        },
+        {
+          "name": "tokio",
+          "source": "registry+https://github.com/rust-lang/crates.io-index",
+          "req": "^1",
+          "kind": null,
+          "rename": null,
+          "optional": false,
+          "uses_default_features": true,
+          "features": [
+            "time",
+            "macros"
+          ],
+          "target": null,
+          "registry": null
+        },
+        {
+          "name": "tokio-postgres",
+          "source": "registry+https://github.com/rust-lang/crates.io-index",
+          "req": "=0.7.18",
+          "kind": null,
+          "rename": null,
+          "optional": false,
+          "uses_default_features": true,
+          "features": [],
+          "target": null,
+          "registry": null
+        }
+      ],
+      "targets": [
+        {
+          "kind": [
+            "lib"
+          ],
+          "crate_types": [
+            "lib"
+          ],
+          "name": "rnx_postgres",
+          "src_path": "/home/me/work/rnx-bench/probes/cargo-git-runtime/target/cargo-home/git/checkouts/rnx-56432e7f0784caaf/94f5f3f/adapters/postgres/src/lib.rs",
+          "edition": "2024",
+          "doc": true,
+          "doctest": true,
+          "test": true
+        },
+        {
+          "kind": [
+            "bin"
+          ],
+          "crate_types": [
+            "bin"
+          ],
+          "name": "rnx-pg",
+          "src_path": "/home/me/work/rnx-bench/probes/cargo-git-runtime/target/cargo-home/git/checkouts/rnx-56432e7f0784caaf/94f5f3f/adapters/postgres/src/main.rs",
+          "edition": "2024",
+          "doc": true,
+          "doctest": false,
+          "test": true
+        },
+        {
+          "kind": [
+            "bin"
+          ],
+          "crate_types": [
+            "bin"
+          ],
+          "name": "rnx-pg-test",
+          "src_path": "/home/me/work/rnx-bench/probes/cargo-git-runtime/target/cargo-home/git/checkouts/rnx-56432e7f0784caaf/94f5f3f/adapters/postgres/src/test_main.rs",
+          "edition": "2024",
+          "required-features": [
+            "test-support"
+          ],
+          "doc": true,
+          "doctest": false,
+          "test": true
+        },
+        {
+          "kind": [
+            "test"
+          ],
+          "crate_types": [
+            "bin"
+          ],
+          "name": "borrowed_inputs",
+          "src_path": "/home/me/work/rnx-bench/probes/cargo-git-runtime/target/cargo-home/git/checkouts/rnx-56432e7f0784caaf/94f5f3f/adapters/postgres/tests/borrowed_inputs.rs",
+          "edition": "2024",
+          "doc": false,
+          "doctest": false,
+          "test": true
+        }
+      ],
+      "features": {
+        "test-support": []
+      },
+      "manifest_path": "/home/me/work/rnx-bench/probes/cargo-git-runtime/target/cargo-home/git/checkouts/rnx-56432e7f0784caaf/94f5f3f/adapters/postgres/Cargo.toml",
+      "metadata": null,
+      "publish": [],
+      "authors": [],
+      "categories": [],
+      "keywords": [],
+      "readme": "README.md",
+      "repository": null,
+      "homepage": null,
+      "documentation": null,
+      "edition": "2024",
+      "links": null,
+      "default_run": null,
+      "rust_version": null
+    }
+  },
+  "checkout": "/home/me/work/rnx-bench/probes/cargo-git-runtime/target/cargo-home/git/checkouts/rnx-56432e7f0784caaf/94f5f3f",
+  "single_runner": true
+}

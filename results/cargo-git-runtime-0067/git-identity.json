@@ -1,0 +1,420 @@
+{
+  "probe_format": 1,
+  "generator": "cargo-git-runtime-candidate-v1",
+  "context": {
+    "cache_root": "/home/me/work/rnx-bench/probes/cargo-git-runtime/target/assemblies",
+    "cargo_home": "/home/me/work/rnx-bench/probes/cargo-git-runtime/target/cargo-home",
+    "rustup_home": "/home/me/.rustup",
+    "rustup_toolchain": null,
+    "rustc": "rustc 1.98.1 (48a229cea 2026-09-01)\nbinary: rustc\ncommit-hash: 48a229ceaefd4985c50990b14116b6d856af0985\ncommit-date: 2026-09-01\nhost: x86_64-unknown-linux-gnu\nrelease: 1.98.1\nLLVM version: 22.1.8\n",
+    "cargo": "cargo 1.98.1 (797e8a9bc 2026-08-05)\n",
+    "target": "x86_64-unknown-linux-gnu",
+    "profile": "release",
+    "features": {
+      "rnx": [
+        "default/count-allocations"
+      ],
+      "rnx-polars": [],
+      "rnx-postgres": []
+    },
+    "build_configuration": {
+      "jobs": 4,
+      "offline": true,
+      "locked": true,
+      "rustflags": null
+    }
+  },
+  "manifest": "[package]\nname=\"git-discovery\"\nversion=\"0.0.0\"\nedition=\"2024\"\n[workspace]\n[dependencies]\nrnx={git=\"https://github.com/nilket-com/rnx\",rev=\"94f5f3f98ba756c5ab5293d1e5132c7fd7b52d32\"}\nrnx-polars={git=\"https://github.com/nilket-com/rnx\",rev=\"94f5f3f98ba756c5ab5293d1e5132c7fd7b52d32\"}\nrnx-postgres={git=\"https://github.com/nilket-com/rnx\",rev=\"94f5f3f98ba756c5ab5293d1e5132c7fd7b52d32\"}\n",
+  "main": "fn main() -> Result<(), Box<dyn std::error::Error>> { rnx::main_with(rnx::Extensions::none().with(\"polars\",rnx_polars::build).with_lifecycle(\"postgres\",rnx_postgres::build)) }\n",
+  "cargo_lock_blake3": "0572b712b7017e34e4779d2da0f19b7dd17c744c607e958ef1331209209d6f2e",
+  "source_kind": "git",
+  "native": [
+    {
+      "name": "rnx",
+      "id": "git+https://github.com/nilket-com/rnx?rev=94f5f3f98ba756c5ab5293d1e5132c7fd7b52d32#0.0.0",
+      "source": "git+https://github.com/nilket-com/rnx?rev=94f5f3f98ba756c5ab5293d1e5132c7fd7b52d32#94f5f3f98ba756c5ab5293d1e5132c7fd7b52d32",
+      "manifest": "/home/me/work/rnx-bench/probes/cargo-git-runtime/target/cargo-home/git/checkouts/rnx-56432e7f0784caaf/94f5f3f/Cargo.toml",
+      "canonical_root": "/home/me/work/rnx-bench/probes/cargo-git-runtime/target/cargo-home/git/checkouts/rnx-56432e7f0784caaf/94f5f3f"
+    },
+    {
+      "name": "rnx-polars",
+      "id": "git+https://github.com/nilket-com/rnx?rev=94f5f3f98ba756c5ab5293d1e5132c7fd7b52d32#rnx-polars@0.0.0",
+      "source": "git+https://github.com/nilket-com/rnx?rev=94f5f3f98ba756c5ab5293d1e5132c7fd7b52d32#94f5f3f98ba756c5ab5293d1e5132c7fd7b52d32",
+      "manifest": "/home/me/work/rnx-bench/probes/cargo-git-runtime/target/cargo-home/git/checkouts/rnx-56432e7f0784caaf/94f5f3f/adapters/polars/Cargo.toml",
+      "canonical_root": "/home/me/work/rnx-bench/probes/cargo-git-runtime/target/cargo-home/git/checkouts/rnx-56432e7f0784caaf/94f5f3f/adapters/polars"
+    },
+    {
+      "name": "rnx-postgres",
+      "id": "git+https://github.com/nilket-com/rnx?rev=94f5f3f98ba756c5ab5293d1e5132c7fd7b52d32#rnx-postgres@0.0.0",
+      "source": "git+https://github.com/nilket-com/rnx?rev=94f5f3f98ba756c5ab5293d1e5132c7fd7b52d32#94f5f3f98ba756c5ab5293d1e5132c7fd7b52d32",
+      "manifest": "/home/me/work/rnx-bench/probes/cargo-git-runtime/target/cargo-home/git/checkouts/rnx-56432e7f0784caaf/94f5f3f/adapters/postgres/Cargo.toml",
+      "canonical_root": "/home/me/work/rnx-bench/probes/cargo-git-runtime/target/cargo-home/git/checkouts/rnx-56432e7f0784caaf/94f5f3f/adapters/postgres"
+    }
+  ],
+  "external": [
+    {
+      "path": "/.cargo/config",
+      "file": null
+    },
+    {
+      "path": "/.cargo/config.toml",
+      "file": null
+    },
+    {
+      "path": "/Cargo.toml",
+      "file": null
+    },
+    {
+      "path": "/home/.cargo/config",
+      "file": null
+    },
+    {
+      "path": "/home/.cargo/config.toml",
+      "file": null
+    },
+    {
+      "path": "/home/Cargo.toml",
+      "file": null
+    },
+    {
+      "path": "/home/me/.cargo/config",
+      "file": null
+    },
+    {
+      "path": "/home/me/.cargo/config.toml",
+      "file": null
+    },
+    {
+      "path": "/home/me/Cargo.toml",
+      "file": null
+    },
+    {
+      "path": "/home/me/rust-toolchain",
+      "file": null
+    },
+    {
+      "path": "/home/me/rust-toolchain.toml",
+      "file": null
+    },
+    {
+      "path": "/home/me/work/.cargo/config",
+      "file": null
+    },
+    {
+      "path": "/home/me/work/.cargo/config.toml",
+      "file": null
+    },
+    {
+      "path": "/home/me/work/Cargo.toml",
+      "file": null
+    },
+    {
+      "path": "/home/me/work/rnx-bench/.cargo/config",
+      "file": null
+    },
+    {
+      "path": "/home/me/work/rnx-bench/.cargo/config.toml",
+      "file": null
+    },
+    {
+      "path": "/home/me/work/rnx-bench/Cargo.toml",
+      "file": null
+    },
+    {
+      "path": "/home/me/work/rnx-bench/probes/.cargo/config",
+      "file": null
+    },
+    {
+      "path": "/home/me/work/rnx-bench/probes/.cargo/config.toml",
+      "file": null
+    },
+    {
+      "path": "/home/me/work/rnx-bench/probes/Cargo.toml",
+      "file": null
+    },
+    {
+      "path": "/home/me/work/rnx-bench/probes/cargo-git-runtime/.cargo/config",
+      "file": null
+    },
+    {
+      "path": "/home/me/work/rnx-bench/probes/cargo-git-runtime/.cargo/config.toml",
+      "file": null
+    },
+    {
+      "path": "/home/me/work/rnx-bench/probes/cargo-git-runtime/Cargo.toml",
+      "file": null
+    },
+    {
+      "path": "/home/me/work/rnx-bench/probes/cargo-git-runtime/rust-toolchain",
+      "file": null
+    },
+    {
+      "path": "/home/me/work/rnx-bench/probes/cargo-git-runtime/rust-toolchain.toml",
+      "file": null
+    },
+    {
+      "path": "/home/me/work/rnx-bench/probes/cargo-git-runtime/target/.cargo/config",
+      "file": null
+    },
+    {
+      "path": "/home/me/work/rnx-bench/probes/cargo-git-runtime/target/.cargo/config.toml",
+      "file": null
+    },
+    {
+      "path": "/home/me/work/rnx-bench/probes/cargo-git-runtime/target/Cargo.toml",
+      "file": null
+    },
+    {
+      "path": "/home/me/work/rnx-bench/probes/cargo-git-runtime/target/assemblies/.cargo/config",
+      "file": null
+    },
+    {
+      "path": "/home/me/work/rnx-bench/probes/cargo-git-runtime/target/assemblies/.cargo/config.toml",
+      "file": null
+    },
+    {
+      "path": "/home/me/work/rnx-bench/probes/cargo-git-runtime/target/assemblies/Cargo.toml",
+      "file": null
+    },
+    {
+      "path": "/home/me/work/rnx-bench/probes/cargo-git-runtime/target/assemblies/rust-toolchain",
+      "file": null
+    },
+    {
+      "path": "/home/me/work/rnx-bench/probes/cargo-git-runtime/target/assemblies/rust-toolchain.toml",
+      "file": null
+    },
+    {
+      "path": "/home/me/work/rnx-bench/probes/cargo-git-runtime/target/cargo-home/.cargo/config",
+      "file": null
+    },
+    {
+      "path": "/home/me/work/rnx-bench/probes/cargo-git-runtime/target/cargo-home/.cargo/config.toml",
+      "file": null
+    },
+    {
+      "path": "/home/me/work/rnx-bench/probes/cargo-git-runtime/target/cargo-home/Cargo.toml",
+      "file": null
+    },
+    {
+      "path": "/home/me/work/rnx-bench/probes/cargo-git-runtime/target/cargo-home/config",
+      "file": null
+    },
+    {
+      "path": "/home/me/work/rnx-bench/probes/cargo-git-runtime/target/cargo-home/config.toml",
+      "file": null
+    },
+    {
+      "path": "/home/me/work/rnx-bench/probes/cargo-git-runtime/target/cargo-home/git/.cargo/config",
+      "file": null
+    },
+    {
+      "path": "/home/me/work/rnx-bench/probes/cargo-git-runtime/target/cargo-home/git/.cargo/config.toml",
+      "file": null
+    },
+    {
+      "path": "/home/me/work/rnx-bench/probes/cargo-git-runtime/target/cargo-home/git/Cargo.toml",
+      "file": null
+    },
+    {
+      "path": "/home/me/work/rnx-bench/probes/cargo-git-runtime/target/cargo-home/git/checkouts/.cargo/config",
+      "file": null
+    },
+    {
+      "path": "/home/me/work/rnx-bench/probes/cargo-git-runtime/target/cargo-home/git/checkouts/.cargo/config.toml",
+      "file": null
+    },
+    {
+      "path": "/home/me/work/rnx-bench/probes/cargo-git-runtime/target/cargo-home/git/checkouts/Cargo.toml",
+      "file": null
+    },
+    {
+      "path": "/home/me/work/rnx-bench/probes/cargo-git-runtime/target/cargo-home/git/checkouts/rnx-56432e7f0784caaf/.cargo/config",
+      "file": null
+    },
+    {
+      "path": "/home/me/work/rnx-bench/probes/cargo-git-runtime/target/cargo-home/git/checkouts/rnx-56432e7f0784caaf/.cargo/config.toml",
+      "file": null
+    },
+    {
+      "path": "/home/me/work/rnx-bench/probes/cargo-git-runtime/target/cargo-home/git/checkouts/rnx-56432e7f0784caaf/94f5f3f/.cargo/config",
+      "file": null
+    },
+    {
+      "path": "/home/me/work/rnx-bench/probes/cargo-git-runtime/target/cargo-home/git/checkouts/rnx-56432e7f0784caaf/94f5f3f/.cargo/config.toml",
+      "file": null
+    },
+    {
+      "path": "/home/me/work/rnx-bench/probes/cargo-git-runtime/target/cargo-home/git/checkouts/rnx-56432e7f0784caaf/94f5f3f/Cargo.toml",
+      "file": {
+        "path": "Cargo.toml",
+        "executable": false,
+        "bytes": 3545,
+        "blake3": "0df139667505a9b55149442c5c0c519c0b7fc8e62d5e33137090b89153218485"
+      }
+    },
+    {
+      "path": "/home/me/work/rnx-bench/probes/cargo-git-runtime/target/cargo-home/git/checkouts/rnx-56432e7f0784caaf/94f5f3f/adapters/.cargo/config",
+      "file": null
+    },
+    {
+      "path": "/home/me/work/rnx-bench/probes/cargo-git-runtime/target/cargo-home/git/checkouts/rnx-56432e7f0784caaf/94f5f3f/adapters/.cargo/config.toml",
+      "file": null
+    },
+    {
+      "path": "/home/me/work/rnx-bench/probes/cargo-git-runtime/target/cargo-home/git/checkouts/rnx-56432e7f0784caaf/94f5f3f/adapters/Cargo.toml",
+      "file": null
+    },
+    {
+      "path": "/home/me/work/rnx-bench/probes/cargo-git-runtime/target/cargo-home/git/checkouts/rnx-56432e7f0784caaf/94f5f3f/adapters/polars/.cargo/config",
+      "file": null
+    },
+    {
+      "path": "/home/me/work/rnx-bench/probes/cargo-git-runtime/target/cargo-home/git/checkouts/rnx-56432e7f0784caaf/94f5f3f/adapters/polars/.cargo/config.toml",
+      "file": null
+    },
+    {
+      "path": "/home/me/work/rnx-bench/probes/cargo-git-runtime/target/cargo-home/git/checkouts/rnx-56432e7f0784caaf/94f5f3f/adapters/polars/Cargo.toml",
+      "file": {
+        "path": "Cargo.toml",
+        "executable": false,
+        "bytes": 445,
+        "blake3": "829cd35833bfeecd82c4e6d54f9048dcc971ff9cbff6bed412ea8de201120c49"
+      }
+    },
+    {
+      "path": "/home/me/work/rnx-bench/probes/cargo-git-runtime/target/cargo-home/git/checkouts/rnx-56432e7f0784caaf/94f5f3f/adapters/polars/rust-toolchain",
+      "file": null
+    },
+    {
+      "path": "/home/me/work/rnx-bench/probes/cargo-git-runtime/target/cargo-home/git/checkouts/rnx-56432e7f0784caaf/94f5f3f/adapters/polars/rust-toolchain.toml",
+      "file": null
+    },
+    {
+      "path": "/home/me/work/rnx-bench/probes/cargo-git-runtime/target/cargo-home/git/checkouts/rnx-56432e7f0784caaf/94f5f3f/adapters/postgres/.cargo/config",
+      "file": null
+    },
+    {
+      "path": "/home/me/work/rnx-bench/probes/cargo-git-runtime/target/cargo-home/git/checkouts/rnx-56432e7f0784caaf/94f5f3f/adapters/postgres/.cargo/config.toml",
+      "file": null
+    },
+    {
+      "path": "/home/me/work/rnx-bench/probes/cargo-git-runtime/target/cargo-home/git/checkouts/rnx-56432e7f0784caaf/94f5f3f/adapters/postgres/Cargo.toml",
+      "file": {
+        "path": "Cargo.toml",
+        "executable": false,
+        "bytes": 552,
+        "blake3": "fc208f4f17da2c18308689fe9fc6bc240bdd08fe214a0b79d2e55c69fc013ad2"
+      }
+    },
+    {
+      "path": "/home/me/work/rnx-bench/probes/cargo-git-runtime/target/cargo-home/git/checkouts/rnx-56432e7f0784caaf/94f5f3f/adapters/postgres/rust-toolchain",
+      "file": null
+    },
+    {
+      "path": "/home/me/work/rnx-bench/probes/cargo-git-runtime/target/cargo-home/git/checkouts/rnx-56432e7f0784caaf/94f5f3f/adapters/postgres/rust-toolchain.toml",
+      "file": null
+    },
+    {
+      "path": "/home/me/work/rnx-bench/probes/cargo-git-runtime/target/cargo-home/git/checkouts/rnx-56432e7f0784caaf/94f5f3f/adapters/rust-toolchain",
+      "file": null
+    },
+    {
+      "path": "/home/me/work/rnx-bench/probes/cargo-git-runtime/target/cargo-home/git/checkouts/rnx-56432e7f0784caaf/94f5f3f/adapters/rust-toolchain.toml",
+      "file": null
+    },
+    {
+      "path": "/home/me/work/rnx-bench/probes/cargo-git-runtime/target/cargo-home/git/checkouts/rnx-56432e7f0784caaf/94f5f3f/rust-toolchain",
+      "file": null
+    },
+    {
+      "path": "/home/me/work/rnx-bench/probes/cargo-git-runtime/target/cargo-home/git/checkouts/rnx-56432e7f0784caaf/94f5f3f/rust-toolchain.toml",
+      "file": null
+    },
+    {
+      "path": "/home/me/work/rnx-bench/probes/cargo-git-runtime/target/cargo-home/git/checkouts/rnx-56432e7f0784caaf/Cargo.toml",
+      "file": null
+    },
+    {
+      "path": "/home/me/work/rnx-bench/probes/cargo-git-runtime/target/cargo-home/git/checkouts/rnx-56432e7f0784caaf/rust-toolchain",
+      "file": null
+    },
+    {
+      "path": "/home/me/work/rnx-bench/probes/cargo-git-runtime/target/cargo-home/git/checkouts/rnx-56432e7f0784caaf/rust-toolchain.toml",
+      "file": null
+    },
+    {
+      "path": "/home/me/work/rnx-bench/probes/cargo-git-runtime/target/cargo-home/git/checkouts/rust-toolchain",
+      "file": null
+    },
+    {
+      "path": "/home/me/work/rnx-bench/probes/cargo-git-runtime/target/cargo-home/git/checkouts/rust-toolchain.toml",
+      "file": null
+    },
+    {
+      "path": "/home/me/work/rnx-bench/probes/cargo-git-runtime/target/cargo-home/git/rust-toolchain",
+      "file": null
+    },
+    {
+      "path": "/home/me/work/rnx-bench/probes/cargo-git-runtime/target/cargo-home/git/rust-toolchain.toml",
+      "file": null
+    },
+    {
+      "path": "/home/me/work/rnx-bench/probes/cargo-git-runtime/target/cargo-home/rust-toolchain",
+      "file": null
+    },
+    {
+      "path": "/home/me/work/rnx-bench/probes/cargo-git-runtime/target/cargo-home/rust-toolchain.toml",
+      "file": null
+    },
+    {
+      "path": "/home/me/work/rnx-bench/probes/cargo-git-runtime/target/rust-toolchain",
+      "file": null
+    },
+    {
+      "path": "/home/me/work/rnx-bench/probes/cargo-git-runtime/target/rust-toolchain.toml",
+      "file": null
+    },
+    {
+      "path": "/home/me/work/rnx-bench/probes/rust-toolchain",
+      "file": null
+    },
+    {
+      "path": "/home/me/work/rnx-bench/probes/rust-toolchain.toml",
+      "file": null
+    },
+    {
+      "path": "/home/me/work/rnx-bench/rust-toolchain",
+      "file": null
+    },
+    {
+      "path": "/home/me/work/rnx-bench/rust-toolchain.toml",
+      "file": null
+    },
+    {
+      "path": "/home/me/work/rust-toolchain",
+      "file": null
+    },
+    {
+      "path": "/home/me/work/rust-toolchain.toml",
+      "file": null
+    },
+    {
+      "path": "/home/rust-toolchain",
+      "file": null
+    },
+    {
+      "path": "/home/rust-toolchain.toml",
+      "file": null
+    },
+    {
+      "path": "/rust-toolchain",
+      "file": null
+    },
+    {
+      "path": "/rust-toolchain.toml",
+      "file": null
+    }
+  ],
+  "policy": "git coordinates plus retained canonical checkout paths; authentication measured separately, not silently asserted"
+}

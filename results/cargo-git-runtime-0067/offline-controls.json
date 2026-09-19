@@ -1,0 +1,29 @@
+{
+  "network_namespace": "unshare-net; positive external socket fails",
+  "compiler_trap_positive": 77,
+  "attachment_compiler_attempts": 0,
+  "traced_exec_paths": [
+    "/home/me/.bun/bin/git",
+    "/home/me/.cargo/bin/git",
+    "/home/me/.codex/packages/standalone/releases/0.155.0-x86_64-unknown-linux-musl/codex-path/git",
+    "/home/me/.codex/tmp/arg0/codex-arg06WIWFD/git",
+    "/home/me/.deno/bin/git",
+    "/home/me/.juliaup/bin/git",
+    "/home/me/.local/bin/git",
+    "/home/me/work/rnx-bench/probes/cargo-git-runtime/target/assemblies/095101ad7ac3f22c14f4fc3b1a585eb6f92b1f2c786b14c13c94b0a4b251722b/target/release/git-discovery",
+    "/home/me/work/rnx-bench/probes/cargo-git-runtime/target/assemblies/84d00e56c50abdaf929fc9bfdf47880ef27d9e8bc33904f15d2d49de7cb764b7/target/release/git-discovery",
+    "/home/me/work/rnx-bench/probes/cargo-git-runtime/target/raw-verify",
+    "/home/me/work/rnx-bench/probes/cargo-git-runtime/target/tool/target/release/rnx-project-assembly-probe",
+    "/home/me/work/rnx-bench/probes/cargo-git-runtime/target/traps/git",
+    "/usr/bin/git",
+    "/usr/bin/python3",
+    "/usr/lib/git-core/git",
+    "/usr/local/bin/git",
+    "/usr/local/sbin/git",
+    "/usr/sbin/git"
+  ],
+  "attachment_inet_syscalls": 0,
+  "empty_git_cache_status": 101,
+  "empty_git_cache_stderr": "error: failed to get `rnx` as a dependency of package `git-discovery v0.0.0 (/home/me/work/rnx-bench/probes/cargo-git-runtime/target/discovery)`\n\nCaused by:\n  failed to load source for dependency `rnx`\n\nCaused by:\n  unable to update https://github.com/nilket-com/rnx?rev=94f5f3f98ba756c5ab5293d1e5132c7fd7b52d32#94f5f3f9\n\nCaused by:\n  can't checkout from 'https://github.com/nilket-com/rnx': you are in the offline mode (--offline)\n",
+  "qualification": "Candidate attachment reads retained full identity and verifies artifact/source. It is not production rnx-project support for Git declarations or a general resolver."
+}

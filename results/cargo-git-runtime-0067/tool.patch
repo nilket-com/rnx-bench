@@ -1,0 +1,32 @@
+--- a/tools/project/src/assembly_probe.rs
++++ b/tools/project/src/assembly_probe.rs
+@@ -18,6 +18,18 @@
+ fn run() -> Result<(), String> {
+ 	let args: Vec<OsString> = std::env::args_os().skip(1).collect();
+ 	match args.first().and_then(|a| a.to_str()) {
++        Some("audit") if args.len() == 6 => {
++            let data=std::fs::read(&args[1]).map_err(|e| e.to_string())?;
++            let inv=inventory::native(&data,Path::new(&args[2]),Path::new(&args[3]),Path::new(&args[4]),&mut fingerprint::Allowance::default())?;
++            std::fs::write(&args[5],serde_json::to_vec_pretty(&inv).map_err(|e| e.to_string())?).map_err(|e| e.to_string())?;
++            Ok(())
++        }
++        Some("digest") if args.len() == 3 => {
++            let data=std::fs::read(&args[1]).map_err(|e| e.to_string())?;
++            std::fs::write(&args[2],blake3::hash(&data).to_hex().as_str()).map_err(|e| e.to_string())?;
++            Ok(())
++        }
++
+ 		Some("nested-inventory") if args.len() == 2 => {
+ 			#[derive(serde::Deserialize)]
+ 			struct Config {
+--- a/tools/project/src/inventory.rs
++++ b/tools/project/src/inventory.rs
+@@ -132,7 +132,7 @@
+ 	if packages.windows(2).any(|p| p[0].id == p[1].id) {
+ 		return Err("duplicate Cargo package identity".into());
+ 	}
+-	let trees = fingerprint::many(roots.into_iter().collect(), allowance)?;
++	let trees = if std::env::var_os("RNX_PROBE_AUDIT_ONLY").is_some() { vec![] } else { fingerprint::many(roots.into_iter().collect(), allowance)? };
+ 	// Inspect all ancestor manifests, not just metadata.workspace_root (which is
+ 	// the generated wrapper's workspace). Explicit workspace redirects are followed.
+ 	let mut external = BTreeMap::new();

@@ -1,0 +1,7 @@
+{
+  "rev": "d1b4c192e2eec144191af603263c0afbad54cf25",
+  "url": "https://github.com/nilket-com/rnx",
+  "status": 101,
+  "stderr": "    Updating git repository `https://github.com/nilket-com/rnx`\nwarning: spurious network error (3 tries remaining): could not read from remote repository; class=Net (12); code=Eof (-20)\nwarning: spurious network error (2 tries remaining): could not read from remote repository; class=Net (12); code=Eof (-20)\nwarning: spurious network error (1 try remaining): could not read from remote repository; class=Net (12); code=Eof (-20)\nerror: failed to get `rnx` as a dependency of package `unpublished-coordinate-control v0.0.0 (/home/me/work/rnx-bench/probes/cargo-git-runtime/target/unpublished)`\n\nCaused by:\n  failed to load source for dependency `rnx`\n\nCaused by:\n  unable to update https://github.com/nilket-com/rnx?rev=d1b4c192e2eec144191af603263c0afbad54cf25\n\nCaused by:\n  failed to fetch into: /home/me/work/rnx-bench/probes/cargo-git-runtime/target/cargo-home/git/db/rnx-56432e7f0784caaf\n\nCaused by:\n  revision d1b4c192e2eec144191af603263c0afbad54cf25 not found\n\nCaused by:\n  network failure seems to have happened\n  if a proxy or similar is necessary `net.git-fetch-with-cli` may help here\n  https://doc.rust-lang.org/cargo/reference/config.html#netgit-fetch-with-cli\n\nCaused by:\n  could not read from remote repository; class=Net (12); code=Eof (-20)\n",
+  "meaning": "Clean local HEAD alone does not establish that the configured remote can supply it."
+}

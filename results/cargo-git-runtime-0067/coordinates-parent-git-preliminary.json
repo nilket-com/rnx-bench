@@ -1,0 +1,42 @@
+{
+  "fixture_revision": "eb11eb22923a4ac638f772c423755a0175ebd161",
+  "base": "94f5f3f98ba756c5ab5293d1e5132c7fd7b52d32",
+  "rows": {
+    "path": {
+      "revision": "eb11eb22923a4ac638f772c423755a0175ebd161",
+      "dirty": "false",
+      "source": "/home/me/work/rnx-bench/probes/cargo-git-runtime/target/coordinate-repo",
+      "refusal": "",
+      "exit": 0
+    },
+    "git": {
+      "revision": "eb11eb22923a4ac638f772c423755a0175ebd161",
+      "dirty": "false",
+      "source": "/home/me/work/rnx-bench/probes/cargo-git-runtime/target/cargo-home/git/checkouts/coordinate-repo-2c5ed4ae4cc0b868/eb11eb2",
+      "refusal": "",
+      "exit": 0
+    },
+    "dirty": {
+      "revision": "eb11eb22923a4ac638f772c423755a0175ebd161",
+      "dirty": "true",
+      "source": "/home/me/work/rnx-bench/probes/cargo-git-runtime/target/coordinate-repo",
+      "refusal": "probe: dirty or unidentifiable build; use RNX_DEP_RUNTIME=/absolute/path/to/checkout\n",
+      "exit": 1
+    },
+    "filter-dirty": {
+      "revision": "eb11eb22923a4ac638f772c423755a0175ebd161",
+      "dirty": "true",
+      "source": "/home/me/work/rnx-bench/probes/cargo-git-runtime/target/coordinate-repo",
+      "refusal": "probe: dirty or unidentifiable build; use RNX_DEP_RUNTIME=/absolute/path/to/checkout\n",
+      "exit": 1
+    },
+    "no-git": {
+      "revision": "e628c97a9ef6662a3460bb2b00216ea3dc9fccd7",
+      "dirty": "true",
+      "source": "/home/me/work/rnx-bench",
+      "refusal": "probe: dirty or unidentifiable build; use RNX_DEP_RUNTIME=/absolute/path/to/checkout\n",
+      "exit": 1
+    }
+  },
+  "qualification": "instrumented fixture in exact repository topology, not production provenance code; no new rnx protocol implemented"
+}
