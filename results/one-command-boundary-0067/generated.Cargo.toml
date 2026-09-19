@@ -1,0 +1,22 @@
+[package]
+name = "rnx-project-app"
+version = "0.0.0"
+edition = "2024"
+publish = false
+
+[workspace]
+
+[dependencies.native_0]
+package = "rnx-polars"
+path = "/home/me/work/rnx-bench/probes/one-command-boundary/target/source/adapters/polars"
+default-features = true
+
+[dependencies.native_1]
+package = "rnx-postgres"
+path = "/home/me/work/rnx-bench/probes/one-command-boundary/target/source/adapters/postgres"
+default-features = true
+
+[dependencies.rnx]
+path = "/home/me/work/rnx-bench/probes/one-command-boundary/target/source"
+default-features = false
+features = ["count-allocations", "project-sources"]
