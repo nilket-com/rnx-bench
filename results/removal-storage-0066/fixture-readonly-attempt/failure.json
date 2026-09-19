@@ -1,0 +1,8 @@
+{
+  "classification": "fixture error",
+  "phase": "creating corrupt copy after successful old-entry removal",
+  "cause": "Git loose objects retain read-only mode on copy",
+  "correction": "chmod only the copied object to owner-write before deliberate corruption",
+  "product_change": false,
+  "rerun": "fresh setup and journey"
+}

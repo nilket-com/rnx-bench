@@ -1,0 +1,716 @@
+{
+  "runtime_formats": {
+    "old": 1,
+    "new": 2,
+    "migration_preserved_old": true
+  },
+  "default_journeys": {
+    "first_scratch": {
+      "artifact": "/home/me/work/rnx-bench/probes/removal-storage/target/real/cache/entries/7899886d5f193fe73d6fb2e1c8d246a23914b6c30d5ef1205066058cde918777/artifacts/d83af6f4431ebcdbfa04f7abecdb7b4dc9f3315ff6e6b9bc2ac24b565f608d82",
+      "assembly_key": "7899886d5f193fe73d6fb2e1c8d246a23914b6c30d5ef1205066058cde918777",
+      "sha256": "95f6dcac4609a4be7110039422ff6b032d817a436dafb610e68b422de1487135",
+      "seconds": 112.63082918297732,
+      "command": "'/home/me/work/rnx-bench/probes/removal-storage/target/real/current/bin/rnx-project' session --manifest '/home/me/work/rnx-bench/probes/removal-storage/target/real/current/state '\\'' private/rnx/sessions/session-1473823-1789789331560897592/rnx.toml'",
+      "manifest": "/home/me/work/rnx-bench/probes/removal-storage/target/real/current/state ' private/rnx/sessions/session-1473823-1789789331560897592/rnx.toml",
+      "cold_target": true,
+      "decline_wrote_nothing": true
+    },
+    "second_scratch": {
+      "artifact": "/home/me/work/rnx-bench/probes/removal-storage/target/real/cache/entries/7899886d5f193fe73d6fb2e1c8d246a23914b6c30d5ef1205066058cde918777/artifacts/d83af6f4431ebcdbfa04f7abecdb7b4dc9f3315ff6e6b9bc2ac24b565f608d82",
+      "assembly_key": "7899886d5f193fe73d6fb2e1c8d246a23914b6c30d5ef1205066058cde918777",
+      "sha256": "95f6dcac4609a4be7110039422ff6b032d817a436dafb610e68b422de1487135",
+      "seconds": 1.9609622489660978,
+      "compilation_trapped": true
+    },
+    "printed_command_reopens": true,
+    "absolute": {
+      "identity": {
+        "artifact": "/home/me/work/rnx-bench/probes/removal-storage/target/real/cache/entries/64d7e265b4f464b480e3ee529bcec51de2d21909640235627022100ae5c03c3d/artifacts/715906f40169b8ba8035a9058a7e9bac4d61f89d649a6ce242191083c215471e",
+        "assembly_key": "64d7e265b4f464b480e3ee529bcec51de2d21909640235627022100ae5c03c3d",
+        "sha256": "10b3c4d7178a6c727b76721888a7f1d5bafa831b4a8ebacee73444e626d4543e"
+      },
+      "seconds": 116.38910003000638,
+      "typed_query": true,
+      "polars_live": true,
+      "declaration": {
+        "polars": {
+          "path": "/home/me/work/rnx-bench/probes/removal-storage/target/real/data ' private/rnx/runtimes/entries/442b4f457ecefa68f57689994d2985e45e60d3cc43b6861081c51b3344f6ef6d/source/adapters/polars",
+          "package": "rnx-polars",
+          "builder": "build",
+          "hook": "plain"
+        },
+        "postgres": {
+          "path": "/home/me/work/rnx-bench/probes/removal-storage/target/real/data ' private/rnx/runtimes/entries/442b4f457ecefa68f57689994d2985e45e60d3cc43b6861081c51b3344f6ef6d/source/adapters/postgres",
+          "package": "rnx-postgres",
+          "builder": "build",
+          "hook": "lifecycle"
+        }
+      },
+      "no_backend_after_quit": true
+    },
+    "relative": {
+      "identity": {
+        "artifact": "/home/me/work/rnx-bench/probes/removal-storage/target/real/cache/entries/64d7e265b4f464b480e3ee529bcec51de2d21909640235627022100ae5c03c3d/artifacts/715906f40169b8ba8035a9058a7e9bac4d61f89d649a6ce242191083c215471e",
+        "assembly_key": "64d7e265b4f464b480e3ee529bcec51de2d21909640235627022100ae5c03c3d",
+        "sha256": "10b3c4d7178a6c727b76721888a7f1d5bafa831b4a8ebacee73444e626d4543e"
+      },
+      "seconds": 1.6000380160403438,
+      "typed_query": true,
+      "polars_live": true,
+      "declaration": {
+        "polars": {
+          "path": "../../data ' private/rnx/runtimes/entries/442b4f457ecefa68f57689994d2985e45e60d3cc43b6861081c51b3344f6ef6d/source/adapters/polars",
+          "package": "rnx-polars",
+          "builder": "build",
+          "hook": "plain"
+        },
+        "postgres": {
+          "path": "../../data ' private/rnx/runtimes/entries/442b4f457ecefa68f57689994d2985e45e60d3cc43b6861081c51b3344f6ef6d/source/adapters/postgres",
+          "package": "rnx-postgres",
+          "builder": "build",
+          "hook": "lifecycle"
+        }
+      },
+      "no_backend_after_quit": true
+    },
+    "cleanup": {
+      "session_pids": [
+        1473821,
+        1485133,
+        1485655,
+        1497747
+      ],
+      "postmaster": 1485411,
+      "all_gone": true
+    }
+  },
+  "current_build": {
+    "key": "64d7e265b4f464b480e3ee529bcec51de2d21909640235627022100ae5c03c3d",
+    "receipt_format": 4,
+    "both_adapters": true
+  },
+  "live_inspection": {
+    "session_pid": 1498004,
+    "kernel_pid": 1498009,
+    "rounds": 2,
+    "writer_locks_free_with_readers": true,
+    "inspection_succeeds_with_writer_locks_held": true,
+    "cache_metadata_unchanged": true,
+    "runtime_bytes_unchanged": true,
+    "project_bytes_unchanged": true,
+    "kernelspec_unchanged": true,
+    "reports": [
+      {
+        "entries": [
+          {
+            "allocated_estimate": 1600548864,
+            "files": 3204,
+            "id": "64d7e265b4f464b480e3ee529bcec51de2d21909640235627022100ae5c03c3d",
+            "location": "entries",
+            "logical": 1588648896,
+            "metadata": {
+              "format": 2,
+              "installed_utc": null,
+              "source_commit": null,
+              "source_path": null,
+              "status": "recognized envelope; not authenticated"
+            },
+            "nodes": 3905,
+            "path": "/home/me/work/rnx-bench/probes/removal-storage/target/real/cache/entries/64d7e265b4f464b480e3ee529bcec51de2d21909640235627022100ae5c03c3d",
+            "referenced_by": [
+              "/home/me/work/rnx-bench/probes/removal-storage/target/real/current/absolute-project/rnx.toml"
+            ],
+            "selected": false
+          },
+          {
+            "allocated_estimate": 1570922496,
+            "files": 3064,
+            "id": "7899886d5f193fe73d6fb2e1c8d246a23914b6c30d5ef1205066058cde918777",
+            "location": "entries",
+            "logical": 1559553420,
+            "metadata": {
+              "format": 2,
+              "installed_utc": null,
+              "source_commit": null,
+              "source_path": null,
+              "status": "recognized envelope; not authenticated"
+            },
+            "nodes": 3745,
+            "path": "/home/me/work/rnx-bench/probes/removal-storage/target/real/cache/entries/7899886d5f193fe73d6fb2e1c8d246a23914b6c30d5ef1205066058cde918777",
+            "selected": false
+          },
+          {
+            "allocated_estimate": 1571577856,
+            "files": 3084,
+            "id": "94e2161559c4a3ad3f891389ade7e80f5c192799b06b6192f6eed6336503a996",
+            "location": "entries",
+            "logical": 1560139697,
+            "metadata": {
+              "format": 1,
+              "installed_utc": null,
+              "source_commit": null,
+              "source_path": null,
+              "status": "recognized envelope; not authenticated"
+            },
+            "nodes": 3772,
+            "path": "/home/me/work/rnx-bench/probes/removal-storage/target/real/cache/entries/94e2161559c4a3ad3f891389ade7e80f5c192799b06b6192f6eed6336503a996",
+            "referenced_by": [
+              "/home/me/work/rnx-bench/probes/removal-storage/target/real/old-project/rnx.toml"
+            ],
+            "selected": false
+          }
+        ],
+        "reference_scope": "Only the manifests named were checked; other consumers may exist. Recorded references are not lifetime leases or deletion authorization.",
+        "references": [
+          {
+            "id": "94e2161559c4a3ad3f891389ade7e80f5c192799b06b6192f6eed6336503a996",
+            "kind": "shared assembly",
+            "manifest": "/home/me/work/rnx-bench/probes/removal-storage/target/real/old-project/rnx.toml",
+            "path": "/home/me/work/rnx-bench/probes/removal-storage/target/real/cache/entries/94e2161559c4a3ad3f891389ade7e80f5c192799b06b6192f6eed6336503a996",
+            "relation": "referenced by named manifest",
+            "status": "recorded reference; contents not authenticated"
+          },
+          {
+            "id": "64d7e265b4f464b480e3ee529bcec51de2d21909640235627022100ae5c03c3d",
+            "kind": "shared assembly",
+            "manifest": "/home/me/work/rnx-bench/probes/removal-storage/target/real/current/absolute-project/rnx.toml",
+            "path": "/home/me/work/rnx-bench/probes/removal-storage/target/real/cache/entries/64d7e265b4f464b480e3ee529bcec51de2d21909640235627022100ae5c03c3d",
+            "relation": "referenced by named manifest",
+            "status": "recorded reference; contents not authenticated"
+          }
+        ],
+        "root": "/home/me/work/rnx-bench/probes/removal-storage/target/real/cache",
+        "size_note": "Allocated bytes are estimates, not a promise of reclaimed space.",
+        "unknown": [
+          "\"resolve\""
+        ]
+      },
+      {
+        "dry_run": true,
+        "entries": [
+          {
+            "allocated_estimate": 1571577856,
+            "files": 3084,
+            "id": "94e2161559c4a3ad3f891389ade7e80f5c192799b06b6192f6eed6336503a996",
+            "location": "entries",
+            "logical": 1560139697,
+            "metadata": {
+              "format": 1,
+              "installed_utc": null,
+              "source_commit": null,
+              "source_path": null,
+              "status": "recognized envelope; not authenticated"
+            },
+            "nodes": 3772,
+            "path": "/home/me/work/rnx-bench/probes/removal-storage/target/real/cache/entries/94e2161559c4a3ad3f891389ade7e80f5c192799b06b6192f6eed6336503a996",
+            "referenced_by": [
+              "/home/me/work/rnx-bench/probes/removal-storage/target/real/old-project/rnx.toml"
+            ]
+          }
+        ],
+        "reference_scope": "Only the manifests named were checked; other consumers may exist. Recorded references are not lifetime leases or deletion authorization.",
+        "references": [
+          {
+            "id": "94e2161559c4a3ad3f891389ade7e80f5c192799b06b6192f6eed6336503a996",
+            "kind": "shared assembly",
+            "manifest": "/home/me/work/rnx-bench/probes/removal-storage/target/real/old-project/rnx.toml",
+            "path": "/home/me/work/rnx-bench/probes/removal-storage/target/real/cache/entries/94e2161559c4a3ad3f891389ade7e80f5c192799b06b6192f6eed6336503a996",
+            "relation": "referenced by named manifest",
+            "status": "recorded reference; contents not authenticated"
+          },
+          {
+            "id": "64d7e265b4f464b480e3ee529bcec51de2d21909640235627022100ae5c03c3d",
+            "kind": "shared assembly",
+            "manifest": "/home/me/work/rnx-bench/probes/removal-storage/target/real/current/absolute-project/rnx.toml",
+            "path": "/home/me/work/rnx-bench/probes/removal-storage/target/real/cache/entries/64d7e265b4f464b480e3ee529bcec51de2d21909640235627022100ae5c03c3d",
+            "relation": "recorded path not part of this inspection",
+            "status": "recorded reference; contents not authenticated"
+          }
+        ],
+        "root": "/home/me/work/rnx-bench/probes/removal-storage/target/real/cache",
+        "size_note": "Allocated bytes are estimates, not a promise of reclaimed space.",
+        "writer": "not reserved"
+      },
+      {
+        "entries": [
+          {
+            "allocated_estimate": 11497472,
+            "files": 807,
+            "id": "442b4f457ecefa68f57689994d2985e45e60d3cc43b6861081c51b3344f6ef6d",
+            "location": "entries",
+            "logical": 8475141,
+            "metadata": {
+              "format": 2,
+              "installed_utc": "2026-09-19T03:42:10Z",
+              "source_commit": "16d2dbd3f7d014b940b7739f9a11f0905f6939d6",
+              "source_path": "/home/me/work/rnx-bench/probes/removal-storage/target/real/original",
+              "status": "recognized envelope; not authenticated"
+            },
+            "nodes": 1093,
+            "path": "/home/me/work/rnx-bench/probes/removal-storage/target/real/data ' private/rnx/runtimes/entries/442b4f457ecefa68f57689994d2985e45e60d3cc43b6861081c51b3344f6ef6d",
+            "referenced_by": [
+              "/home/me/work/rnx-bench/probes/removal-storage/target/real/current/absolute-project/rnx.toml"
+            ],
+            "selected": true
+          },
+          {
+            "allocated_estimate": 11497472,
+            "files": 807,
+            "id": "54430e47250ac6fba8c7d96573057ab016d93917c0f8f30da2f2c06f05272a93",
+            "location": "entries",
+            "logical": 8475021,
+            "metadata": {
+              "format": 1,
+              "installed_utc": "2026-09-19T03:40:04Z",
+              "source_commit": "16d2dbd3f7d014b940b7739f9a11f0905f6939d6",
+              "source_path": "/home/me/work/rnx-bench/probes/removal-storage/target/real/original",
+              "status": "recognized envelope; not authenticated"
+            },
+            "nodes": 1093,
+            "path": "/home/me/work/rnx-bench/probes/removal-storage/target/real/data ' private/rnx/runtimes/entries/54430e47250ac6fba8c7d96573057ab016d93917c0f8f30da2f2c06f05272a93",
+            "referenced_by": [
+              "/home/me/work/rnx-bench/probes/removal-storage/target/real/old-project/rnx.toml"
+            ],
+            "selected": false
+          }
+        ],
+        "reference_scope": "Only the manifests named were checked; other consumers may exist. Recorded references are not lifetime leases or deletion authorization.",
+        "references": [
+          {
+            "id": "54430e47250ac6fba8c7d96573057ab016d93917c0f8f30da2f2c06f05272a93",
+            "kind": "installed runtime",
+            "manifest": "/home/me/work/rnx-bench/probes/removal-storage/target/real/old-project/rnx.toml",
+            "path": "/home/me/work/rnx-bench/probes/removal-storage/target/real/data ' private/rnx/runtimes/entries/54430e47250ac6fba8c7d96573057ab016d93917c0f8f30da2f2c06f05272a93",
+            "relation": "referenced by named manifest",
+            "source": "/home/me/work/rnx-bench/probes/removal-storage/target/real/data ' private/rnx/runtimes/entries/54430e47250ac6fba8c7d96573057ab016d93917c0f8f30da2f2c06f05272a93/source",
+            "status": "recorded reference; contents not authenticated"
+          },
+          {
+            "id": "442b4f457ecefa68f57689994d2985e45e60d3cc43b6861081c51b3344f6ef6d",
+            "kind": "installed runtime",
+            "manifest": "/home/me/work/rnx-bench/probes/removal-storage/target/real/current/absolute-project/rnx.toml",
+            "path": "/home/me/work/rnx-bench/probes/removal-storage/target/real/data ' private/rnx/runtimes/entries/442b4f457ecefa68f57689994d2985e45e60d3cc43b6861081c51b3344f6ef6d",
+            "relation": "referenced by named manifest",
+            "source": "/home/me/work/rnx-bench/probes/removal-storage/target/real/data ' private/rnx/runtimes/entries/442b4f457ecefa68f57689994d2985e45e60d3cc43b6861081c51b3344f6ef6d/source",
+            "status": "recorded reference; contents not authenticated"
+          }
+        ],
+        "root": "/home/me/work/rnx-bench/probes/removal-storage/target/real/data ' private/rnx/runtimes",
+        "size_note": "Allocated bytes are estimates, not a promise of reclaimed space.",
+        "unknown": []
+      },
+      {
+        "dry_run": true,
+        "entries": [
+          {
+            "allocated_estimate": 11497472,
+            "files": 807,
+            "id": "54430e47250ac6fba8c7d96573057ab016d93917c0f8f30da2f2c06f05272a93",
+            "location": "entries",
+            "logical": 8475021,
+            "metadata": {
+              "format": 1,
+              "installed_utc": "2026-09-19T03:40:04Z",
+              "source_commit": "16d2dbd3f7d014b940b7739f9a11f0905f6939d6",
+              "source_path": "/home/me/work/rnx-bench/probes/removal-storage/target/real/original",
+              "status": "recognized envelope; not authenticated"
+            },
+            "nodes": 1093,
+            "path": "/home/me/work/rnx-bench/probes/removal-storage/target/real/data ' private/rnx/runtimes/entries/54430e47250ac6fba8c7d96573057ab016d93917c0f8f30da2f2c06f05272a93",
+            "referenced_by": [
+              "/home/me/work/rnx-bench/probes/removal-storage/target/real/old-project/rnx.toml"
+            ]
+          }
+        ],
+        "reference_scope": "Only the manifests named were checked; other consumers may exist. Recorded references are not lifetime leases or deletion authorization.",
+        "references": [
+          {
+            "id": "54430e47250ac6fba8c7d96573057ab016d93917c0f8f30da2f2c06f05272a93",
+            "kind": "installed runtime",
+            "manifest": "/home/me/work/rnx-bench/probes/removal-storage/target/real/old-project/rnx.toml",
+            "path": "/home/me/work/rnx-bench/probes/removal-storage/target/real/data ' private/rnx/runtimes/entries/54430e47250ac6fba8c7d96573057ab016d93917c0f8f30da2f2c06f05272a93",
+            "relation": "referenced by named manifest",
+            "source": "/home/me/work/rnx-bench/probes/removal-storage/target/real/data ' private/rnx/runtimes/entries/54430e47250ac6fba8c7d96573057ab016d93917c0f8f30da2f2c06f05272a93/source",
+            "status": "recorded reference; contents not authenticated"
+          },
+          {
+            "id": "442b4f457ecefa68f57689994d2985e45e60d3cc43b6861081c51b3344f6ef6d",
+            "kind": "installed runtime",
+            "manifest": "/home/me/work/rnx-bench/probes/removal-storage/target/real/current/absolute-project/rnx.toml",
+            "path": "/home/me/work/rnx-bench/probes/removal-storage/target/real/data ' private/rnx/runtimes/entries/442b4f457ecefa68f57689994d2985e45e60d3cc43b6861081c51b3344f6ef6d",
+            "relation": "recorded path not part of this inspection",
+            "source": "/home/me/work/rnx-bench/probes/removal-storage/target/real/data ' private/rnx/runtimes/entries/442b4f457ecefa68f57689994d2985e45e60d3cc43b6861081c51b3344f6ef6d/source",
+            "status": "recorded reference; contents not authenticated"
+          }
+        ],
+        "root": "/home/me/work/rnx-bench/probes/removal-storage/target/real/data ' private/rnx/runtimes",
+        "size_note": "Allocated bytes are estimates, not a promise of reclaimed space.",
+        "writer": "not reserved"
+      },
+      {
+        "entries": [
+          {
+            "allocated_estimate": 1600548864,
+            "files": 3204,
+            "id": "64d7e265b4f464b480e3ee529bcec51de2d21909640235627022100ae5c03c3d",
+            "location": "entries",
+            "logical": 1588648896,
+            "metadata": {
+              "format": 2,
+              "installed_utc": null,
+              "source_commit": null,
+              "source_path": null,
+              "status": "recognized envelope; not authenticated"
+            },
+            "nodes": 3905,
+            "path": "/home/me/work/rnx-bench/probes/removal-storage/target/real/cache/entries/64d7e265b4f464b480e3ee529bcec51de2d21909640235627022100ae5c03c3d",
+            "referenced_by": [
+              "/home/me/work/rnx-bench/probes/removal-storage/target/real/current/absolute-project/rnx.toml"
+            ],
+            "selected": false
+          },
+          {
+            "allocated_estimate": 1570922496,
+            "files": 3064,
+            "id": "7899886d5f193fe73d6fb2e1c8d246a23914b6c30d5ef1205066058cde918777",
+            "location": "entries",
+            "logical": 1559553420,
+            "metadata": {
+              "format": 2,
+              "installed_utc": null,
+              "source_commit": null,
+              "source_path": null,
+              "status": "recognized envelope; not authenticated"
+            },
+            "nodes": 3745,
+            "path": "/home/me/work/rnx-bench/probes/removal-storage/target/real/cache/entries/7899886d5f193fe73d6fb2e1c8d246a23914b6c30d5ef1205066058cde918777",
+            "selected": false
+          },
+          {
+            "allocated_estimate": 1571577856,
+            "files": 3084,
+            "id": "94e2161559c4a3ad3f891389ade7e80f5c192799b06b6192f6eed6336503a996",
+            "location": "entries",
+            "logical": 1560139697,
+            "metadata": {
+              "format": 1,
+              "installed_utc": null,
+              "source_commit": null,
+              "source_path": null,
+              "status": "recognized envelope; not authenticated"
+            },
+            "nodes": 3772,
+            "path": "/home/me/work/rnx-bench/probes/removal-storage/target/real/cache/entries/94e2161559c4a3ad3f891389ade7e80f5c192799b06b6192f6eed6336503a996",
+            "referenced_by": [
+              "/home/me/work/rnx-bench/probes/removal-storage/target/real/old-project/rnx.toml"
+            ],
+            "selected": false
+          }
+        ],
+        "reference_scope": "Only the manifests named were checked; other consumers may exist. Recorded references are not lifetime leases or deletion authorization.",
+        "references": [
+          {
+            "id": "94e2161559c4a3ad3f891389ade7e80f5c192799b06b6192f6eed6336503a996",
+            "kind": "shared assembly",
+            "manifest": "/home/me/work/rnx-bench/probes/removal-storage/target/real/old-project/rnx.toml",
+            "path": "/home/me/work/rnx-bench/probes/removal-storage/target/real/cache/entries/94e2161559c4a3ad3f891389ade7e80f5c192799b06b6192f6eed6336503a996",
+            "relation": "referenced by named manifest",
+            "status": "recorded reference; contents not authenticated"
+          },
+          {
+            "id": "64d7e265b4f464b480e3ee529bcec51de2d21909640235627022100ae5c03c3d",
+            "kind": "shared assembly",
+            "manifest": "/home/me/work/rnx-bench/probes/removal-storage/target/real/current/absolute-project/rnx.toml",
+            "path": "/home/me/work/rnx-bench/probes/removal-storage/target/real/cache/entries/64d7e265b4f464b480e3ee529bcec51de2d21909640235627022100ae5c03c3d",
+            "relation": "referenced by named manifest",
+            "status": "recorded reference; contents not authenticated"
+          }
+        ],
+        "root": "/home/me/work/rnx-bench/probes/removal-storage/target/real/cache",
+        "size_note": "Allocated bytes are estimates, not a promise of reclaimed space.",
+        "unknown": [
+          "\"resolve\""
+        ]
+      },
+      {
+        "dry_run": true,
+        "entries": [
+          {
+            "allocated_estimate": 1571577856,
+            "files": 3084,
+            "id": "94e2161559c4a3ad3f891389ade7e80f5c192799b06b6192f6eed6336503a996",
+            "location": "entries",
+            "logical": 1560139697,
+            "metadata": {
+              "format": 1,
+              "installed_utc": null,
+              "source_commit": null,
+              "source_path": null,
+              "status": "recognized envelope; not authenticated"
+            },
+            "nodes": 3772,
+            "path": "/home/me/work/rnx-bench/probes/removal-storage/target/real/cache/entries/94e2161559c4a3ad3f891389ade7e80f5c192799b06b6192f6eed6336503a996",
+            "referenced_by": [
+              "/home/me/work/rnx-bench/probes/removal-storage/target/real/old-project/rnx.toml"
+            ]
+          }
+        ],
+        "reference_scope": "Only the manifests named were checked; other consumers may exist. Recorded references are not lifetime leases or deletion authorization.",
+        "references": [
+          {
+            "id": "94e2161559c4a3ad3f891389ade7e80f5c192799b06b6192f6eed6336503a996",
+            "kind": "shared assembly",
+            "manifest": "/home/me/work/rnx-bench/probes/removal-storage/target/real/old-project/rnx.toml",
+            "path": "/home/me/work/rnx-bench/probes/removal-storage/target/real/cache/entries/94e2161559c4a3ad3f891389ade7e80f5c192799b06b6192f6eed6336503a996",
+            "relation": "referenced by named manifest",
+            "status": "recorded reference; contents not authenticated"
+          },
+          {
+            "id": "64d7e265b4f464b480e3ee529bcec51de2d21909640235627022100ae5c03c3d",
+            "kind": "shared assembly",
+            "manifest": "/home/me/work/rnx-bench/probes/removal-storage/target/real/current/absolute-project/rnx.toml",
+            "path": "/home/me/work/rnx-bench/probes/removal-storage/target/real/cache/entries/64d7e265b4f464b480e3ee529bcec51de2d21909640235627022100ae5c03c3d",
+            "relation": "recorded path not part of this inspection",
+            "status": "recorded reference; contents not authenticated"
+          }
+        ],
+        "root": "/home/me/work/rnx-bench/probes/removal-storage/target/real/cache",
+        "size_note": "Allocated bytes are estimates, not a promise of reclaimed space.",
+        "writer": "not reserved"
+      },
+      {
+        "entries": [
+          {
+            "allocated_estimate": 11497472,
+            "files": 807,
+            "id": "442b4f457ecefa68f57689994d2985e45e60d3cc43b6861081c51b3344f6ef6d",
+            "location": "entries",
+            "logical": 8475141,
+            "metadata": {
+              "format": 2,
+              "installed_utc": "2026-09-19T03:42:10Z",
+              "source_commit": "16d2dbd3f7d014b940b7739f9a11f0905f6939d6",
+              "source_path": "/home/me/work/rnx-bench/probes/removal-storage/target/real/original",
+              "status": "recognized envelope; not authenticated"
+            },
+            "nodes": 1093,
+            "path": "/home/me/work/rnx-bench/probes/removal-storage/target/real/data ' private/rnx/runtimes/entries/442b4f457ecefa68f57689994d2985e45e60d3cc43b6861081c51b3344f6ef6d",
+            "referenced_by": [
+              "/home/me/work/rnx-bench/probes/removal-storage/target/real/current/absolute-project/rnx.toml"
+            ],
+            "selected": true
+          },
+          {
+            "allocated_estimate": 11497472,
+            "files": 807,
+            "id": "54430e47250ac6fba8c7d96573057ab016d93917c0f8f30da2f2c06f05272a93",
+            "location": "entries",
+            "logical": 8475021,
+            "metadata": {
+              "format": 1,
+              "installed_utc": "2026-09-19T03:40:04Z",
+              "source_commit": "16d2dbd3f7d014b940b7739f9a11f0905f6939d6",
+              "source_path": "/home/me/work/rnx-bench/probes/removal-storage/target/real/original",
+              "status": "recognized envelope; not authenticated"
+            },
+            "nodes": 1093,
+            "path": "/home/me/work/rnx-bench/probes/removal-storage/target/real/data ' private/rnx/runtimes/entries/54430e47250ac6fba8c7d96573057ab016d93917c0f8f30da2f2c06f05272a93",
+            "referenced_by": [
+              "/home/me/work/rnx-bench/probes/removal-storage/target/real/old-project/rnx.toml"
+            ],
+            "selected": false
+          }
+        ],
+        "reference_scope": "Only the manifests named were checked; other consumers may exist. Recorded references are not lifetime leases or deletion authorization.",
+        "references": [
+          {
+            "id": "54430e47250ac6fba8c7d96573057ab016d93917c0f8f30da2f2c06f05272a93",
+            "kind": "installed runtime",
+            "manifest": "/home/me/work/rnx-bench/probes/removal-storage/target/real/old-project/rnx.toml",
+            "path": "/home/me/work/rnx-bench/probes/removal-storage/target/real/data ' private/rnx/runtimes/entries/54430e47250ac6fba8c7d96573057ab016d93917c0f8f30da2f2c06f05272a93",
+            "relation": "referenced by named manifest",
+            "source": "/home/me/work/rnx-bench/probes/removal-storage/target/real/data ' private/rnx/runtimes/entries/54430e47250ac6fba8c7d96573057ab016d93917c0f8f30da2f2c06f05272a93/source",
+            "status": "recorded reference; contents not authenticated"
+          },
+          {
+            "id": "442b4f457ecefa68f57689994d2985e45e60d3cc43b6861081c51b3344f6ef6d",
+            "kind": "installed runtime",
+            "manifest": "/home/me/work/rnx-bench/probes/removal-storage/target/real/current/absolute-project/rnx.toml",
+            "path": "/home/me/work/rnx-bench/probes/removal-storage/target/real/data ' private/rnx/runtimes/entries/442b4f457ecefa68f57689994d2985e45e60d3cc43b6861081c51b3344f6ef6d",
+            "relation": "referenced by named manifest",
+            "source": "/home/me/work/rnx-bench/probes/removal-storage/target/real/data ' private/rnx/runtimes/entries/442b4f457ecefa68f57689994d2985e45e60d3cc43b6861081c51b3344f6ef6d/source",
+            "status": "recorded reference; contents not authenticated"
+          }
+        ],
+        "root": "/home/me/work/rnx-bench/probes/removal-storage/target/real/data ' private/rnx/runtimes",
+        "size_note": "Allocated bytes are estimates, not a promise of reclaimed space.",
+        "unknown": []
+      },
+      {
+        "dry_run": true,
+        "entries": [
+          {
+            "allocated_estimate": 11497472,
+            "files": 807,
+            "id": "54430e47250ac6fba8c7d96573057ab016d93917c0f8f30da2f2c06f05272a93",
+            "location": "entries",
+            "logical": 8475021,
+            "metadata": {
+              "format": 1,
+              "installed_utc": "2026-09-19T03:40:04Z",
+              "source_commit": "16d2dbd3f7d014b940b7739f9a11f0905f6939d6",
+              "source_path": "/home/me/work/rnx-bench/probes/removal-storage/target/real/original",
+              "status": "recognized envelope; not authenticated"
+            },
+            "nodes": 1093,
+            "path": "/home/me/work/rnx-bench/probes/removal-storage/target/real/data ' private/rnx/runtimes/entries/54430e47250ac6fba8c7d96573057ab016d93917c0f8f30da2f2c06f05272a93",
+            "referenced_by": [
+              "/home/me/work/rnx-bench/probes/removal-storage/target/real/old-project/rnx.toml"
+            ]
+          }
+        ],
+        "reference_scope": "Only the manifests named were checked; other consumers may exist. Recorded references are not lifetime leases or deletion authorization.",
+        "references": [
+          {
+            "id": "54430e47250ac6fba8c7d96573057ab016d93917c0f8f30da2f2c06f05272a93",
+            "kind": "installed runtime",
+            "manifest": "/home/me/work/rnx-bench/probes/removal-storage/target/real/old-project/rnx.toml",
+            "path": "/home/me/work/rnx-bench/probes/removal-storage/target/real/data ' private/rnx/runtimes/entries/54430e47250ac6fba8c7d96573057ab016d93917c0f8f30da2f2c06f05272a93",
+            "relation": "referenced by named manifest",
+            "source": "/home/me/work/rnx-bench/probes/removal-storage/target/real/data ' private/rnx/runtimes/entries/54430e47250ac6fba8c7d96573057ab016d93917c0f8f30da2f2c06f05272a93/source",
+            "status": "recorded reference; contents not authenticated"
+          },
+          {
+            "id": "442b4f457ecefa68f57689994d2985e45e60d3cc43b6861081c51b3344f6ef6d",
+            "kind": "installed runtime",
+            "manifest": "/home/me/work/rnx-bench/probes/removal-storage/target/real/current/absolute-project/rnx.toml",
+            "path": "/home/me/work/rnx-bench/probes/removal-storage/target/real/data ' private/rnx/runtimes/entries/442b4f457ecefa68f57689994d2985e45e60d3cc43b6861081c51b3344f6ef6d",
+            "relation": "recorded path not part of this inspection",
+            "source": "/home/me/work/rnx-bench/probes/removal-storage/target/real/data ' private/rnx/runtimes/entries/442b4f457ecefa68f57689994d2985e45e60d3cc43b6861081c51b3344f6ef6d/source",
+            "status": "recorded reference; contents not authenticated"
+          }
+        ],
+        "root": "/home/me/work/rnx-bench/probes/removal-storage/target/real/data ' private/rnx/runtimes",
+        "size_note": "Allocated bytes are estimates, not a promise of reclaimed space.",
+        "writer": "not reserved"
+      }
+    ]
+  },
+  "polars_interruption": {
+    "logical_before": 1711506417,
+    "killed_during_unlink": true,
+    "resume_command": "'/home/me/work/rnx-bench/probes/removal-storage/target/real/bin/rnx-project-support' cache remove 94e2161559c4a3ad3f891389ade7e80f5c192799b06b6192f6eed6336503a996 --root '/home/me/work/rnx-bench/probes/removal-storage/target/real/cache' --resume --quiescent",
+    "events": [
+      {
+        "notice": "All consumers must remain stopped, including older tools, surviving build children, direct executions, sessions, servers and kernels. Retained projects and kernelspecs may break. Removing a runtime can discard its only source copy.",
+        "quiescence_acknowledged": true
+      },
+      {
+        "committed": true,
+        "pending": "/home/me/work/rnx-bench/probes/removal-storage/target/real/cache/removing/94e2161559c4a3ad3f891389ade7e80f5c192799b06b6192f6eed6336503a996",
+        "resume_command": "'/home/me/work/rnx-bench/probes/removal-storage/target/real/bin/rnx-project-support' cache remove 94e2161559c4a3ad3f891389ade7e80f5c192799b06b6192f6eed6336503a996 --root '/home/me/work/rnx-bench/probes/removal-storage/target/real/cache' --resume --quiescent"
+      },
+      {
+        "paused": "during-delete"
+      }
+    ]
+  },
+  "removal": {
+    "consumers_reaped_before_removal": true,
+    "reports": [
+      [
+        {
+          "notice": "All consumers must remain stopped, including older tools, surviving build children, direct executions, sessions, servers and kernels. Retained projects and kernelspecs may break. Removing a runtime can discard its only source copy.",
+          "quiescence_acknowledged": true
+        },
+        {
+          "allocated_estimate_before": 1463984128,
+          "deleted_leaves": 3141,
+          "location": "removing",
+          "logical_before": 1452552625,
+          "removed": "94e2161559c4a3ad3f891389ade7e80f5c192799b06b6192f6eed6336503a996"
+        }
+      ],
+      [
+        {
+          "notice": "All consumers must remain stopped, including older tools, surviving build children, direct executions, sessions, servers and kernels. Retained projects and kernelspecs may break. Removing a runtime can discard its only source copy.",
+          "quiescence_acknowledged": true
+        },
+        {
+          "committed": true,
+          "pending": "/home/me/work/rnx-bench/probes/removal-storage/target/real/data ' private/rnx/runtimes/removing/54430e47250ac6fba8c7d96573057ab016d93917c0f8f30da2f2c06f05272a93",
+          "resume_command": "'/home/me/work/rnx-bench/probes/removal-storage/target/real/bin/rnx-project' runtime remove 54430e47250ac6fba8c7d96573057ab016d93917c0f8f30da2f2c06f05272a93 --root '/home/me/work/rnx-bench/probes/removal-storage/target/real/data '\\'' private/rnx/runtimes' --resume --quiescent"
+        },
+        {
+          "allocated_estimate_before": 11497472,
+          "deleted_leaves": 807,
+          "location": "entries",
+          "logical_before": 8475021,
+          "removed": "54430e47250ac6fba8c7d96573057ab016d93917c0f8f30da2f2c06f05272a93"
+        }
+      ]
+    ],
+    "current_entry_unchanged": true,
+    "selection_unchanged": true,
+    "current_runtime_unchanged": true,
+    "projects_and_kernelspec_unchanged": true,
+    "locks_preserved": true,
+    "new_polars_eval": true
+  },
+  "corrupt_runtime_removed_without_authentication": true,
+  "explicit_rebuild": {
+    "launch_execs": [
+      "rnx-project",
+      "git",
+      "git",
+      "git",
+      "git",
+      "git",
+      "git",
+      "git",
+      "git",
+      "git",
+      "git",
+      "git",
+      "git",
+      "git",
+      "git",
+      "git",
+      "git",
+      "git",
+      "git",
+      "git",
+      "git",
+      "git",
+      "git",
+      "git",
+      "git",
+      "git",
+      "git",
+      "git",
+      "git",
+      "git",
+      "git",
+      "git",
+      "git",
+      "git",
+      "git",
+      "git",
+      "git",
+      "git",
+      "git",
+      "git",
+      "git"
+    ],
+    "same_key": true,
+    "seconds": 112.53940694598714,
+    "missing_launch_no_cargo": true,
+    "polars_live": true
+  },
+  "post_removal_default": {
+    "same_combined_key": true,
+    "polars": true,
+    "typed_query": true,
+    "pid": 1505967
+  }
+}

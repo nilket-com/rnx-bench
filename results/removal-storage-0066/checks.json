@@ -1,0 +1,38 @@
+{
+  "product_revision": "06a295e",
+  "product_sources_match_accepted": true,
+  "binaries": {
+    "ordinary": "f0338e5b57f6ca8d7568b5f5426d1713bd4ca779b11a15aa43a8076b6dfc4d50",
+    "support": "1b93cf24d6fefb9a456b18bf0ac76e982cfd8ee6db402681dc9304b2582144fc"
+  },
+  "launcher_sha256": "c0d23d7c935557ed6f145dffdf0885b880a791a48a1f481fac3b920091c1370d",
+  "checks": [
+    {
+      "command": [
+        "cargo",
+        "fmt",
+        "--manifest-path",
+        "/home/me/work/rnx/tools/project/Cargo.toml",
+        "--",
+        "--check"
+      ],
+      "output": ""
+    },
+    {
+      "command": [
+        "python3",
+        "/home/me/work/rnx/tools/project/scripts/notices.py",
+        "--check"
+      ],
+      "output": "104 packages, 69 texts, 6 unavailable"
+    }
+  ],
+  "no_fixture_processes": true,
+  "no_fixture_mounts": true,
+  "fixture_sha256": {
+    "checks.py": "7af7793913cec50b2df71675cec21e7268bd4c955667f782feef212fef15c65d",
+    "setup.py": "3de736c25954990342f9354e633c4a04b9fd838792d5bf56cdbcab8fe47a1706",
+    "corrupt.py": "8ff044eed300f4d0ec1cdc7d1289159d2651fa792b4e7ac39cbfa2ff2aac821c",
+    "journey.py": "188c05891ed0cc30f1ccc87a2da5aaf7159ccf4d31c6e7b09d1559592cbf774f"
+  }
+}
