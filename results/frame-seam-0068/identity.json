@@ -1,0 +1,27 @@
+{
+  "omitted": {
+    "baseline_key": "08bf3340265c7ad07744dc0197f3141078c3223c207cda47447901247afda369",
+    "candidate_key": "08bf3340265c7ad07744dc0197f3141078c3223c207cda47447901247afda369",
+    "equal": true,
+    "main": "fn main() -> Result<(), Box<dyn std::error::Error>> {\n    rnx::main_with(rnx::Extensions::none().with(\"polars\", native_0::build))\n}\n",
+    "lock_format": 3
+  },
+  "false": {
+    "candidate_key": "08bf3340265c7ad07744dc0197f3141078c3223c207cda47447901247afda369",
+    "equal_to_omitted": true
+  },
+  "enabled": {
+    "candidate_key": "fa2a9d9795fc3e87dd431af7d4da130889d1283e7456e610b25d6bf4ebd166a0",
+    "differs": true,
+    "main": "fn main() -> Result<(), Box<dyn std::error::Error>> {\n    rnx::main_with(rnx::Extensions::none().with(\"polars\", native_0::build).present(\"polars\", native_0::present))\n}\n"
+  },
+  "wrappers": {
+    "omitted": "fn main() -> Result<(), Box<dyn std::error::Error>> {\n    rnx::main_with(rnx::Extensions::none().with(\"polars\", native_0::build))\n}\n",
+    "enabled": "fn main() -> Result<(), Box<dyn std::error::Error>> {\n    rnx::main_with(rnx::Extensions::none().with(\"polars\", native_0::build).present(\"polars\", native_0::present))\n}\n",
+    "git-omitted": "fn main() -> Result<(), Box<dyn std::error::Error>> {\n    rnx::main_with(rnx::Extensions::none().with(\"polars\", native_0::build))\n}\n",
+    "git-enabled": "fn main() -> Result<(), Box<dyn std::error::Error>> {\n    rnx::main_with(rnx::Extensions::none().with(\"polars\", native_0::build).present(\"polars\", native_0::present))\n}\n"
+  },
+  "identity_fields_changed_by_presentation": [
+    "main"
+  ]
+}

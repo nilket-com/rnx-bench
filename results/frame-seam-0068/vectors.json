@@ -1,0 +1,56 @@
+{
+  "format1-plain": {
+    "omitted_sha256": "a08b6f203602cc756d7fe0b38877f5c96e169fe43b57b4d55c8a5f8599c09cb5",
+    "false_sha256": "a08b6f203602cc756d7fe0b38877f5c96e169fe43b57b4d55c8a5f8599c09cb5",
+    "true_sha256": "210a960f28c1b8b39b68e5a4d6469a7583c64aa328bdbe8c3e426290b5072c65",
+    "false_equals_omitted": true,
+    "true_differs": true,
+    "refusals": {
+      "string": "TOML parse error at line 11, column 16\n   |\n11 | presentation = \"yes\"\n   |                ^^^^^\ninvalid type: string \"yes\", expected a boolean",
+      "integer": "TOML parse error at line 11, column 16\n   |\n11 | presentation = 1\n   |                ^\ninvalid type: integer `1`, expected a boolean",
+      "unknown": "TOML parse error at line 12, column 1\n   |\n12 | display = true\n   | ^^^^^^^\nunknown field `display`, expected one of `path`, `package`, `builder`, `hook`, `presentation`",
+      "duplicate": "TOML parse error at line 12, column 1\n   |\n12 | presentation = false\n   | ^^^^^^^^^^^^\nduplicate key"
+    }
+  },
+  "format1-lifecycle": {
+    "omitted_sha256": "79baf03350281255ee728051934faa25a962b6df02647a358b10b97f58f2c4b6",
+    "false_sha256": "79baf03350281255ee728051934faa25a962b6df02647a358b10b97f58f2c4b6",
+    "true_sha256": "b6d6b8581892beafdf66f84985f66c8ebf0f37ff0307ccfd74c5fe01c401fb44",
+    "false_equals_omitted": true,
+    "true_differs": true,
+    "refusals": {
+      "string": "TOML parse error at line 11, column 16\n   |\n11 | presentation = \"yes\"\n   |                ^^^^^\ninvalid type: string \"yes\", expected a boolean",
+      "integer": "TOML parse error at line 11, column 16\n   |\n11 | presentation = 1\n   |                ^\ninvalid type: integer `1`, expected a boolean",
+      "unknown": "TOML parse error at line 12, column 1\n   |\n12 | display = true\n   | ^^^^^^^\nunknown field `display`, expected one of `path`, `package`, `builder`, `hook`, `presentation`",
+      "duplicate": "TOML parse error at line 12, column 1\n   |\n12 | presentation = false\n   | ^^^^^^^^^^^^\nduplicate key"
+    }
+  },
+  "format2-plain": {
+    "omitted_sha256": "f1ebbad8851561b87c8b0349c5a6a4084ab6d1333c145c77cb0c5c90d92e33f2",
+    "false_sha256": "f1ebbad8851561b87c8b0349c5a6a4084ab6d1333c145c77cb0c5c90d92e33f2",
+    "true_sha256": "c5eb9cf6b0765eff0032021d7fb2cf7db474130f017b4bf23f5ec1d1da9f754c",
+    "false_equals_omitted": true,
+    "true_differs": true,
+    "refusals": {
+      "string": "TOML parse error at line 13, column 16\n   |\n13 | presentation = \"yes\"\n   |                ^^^^^\ninvalid type: string \"yes\", expected a boolean",
+      "integer": "TOML parse error at line 13, column 16\n   |\n13 | presentation = 1\n   |                ^\ninvalid type: integer `1`, expected a boolean",
+      "unknown": "TOML parse error at line 14, column 1\n   |\n14 | display = true\n   | ^^^^^^^\nunknown field `display`, expected one of `path`, `git`, `rev`, `package`, `builder`, `hook`, `presentation`",
+      "duplicate": "TOML parse error at line 14, column 1\n   |\n14 | presentation = false\n   | ^^^^^^^^^^^^\nduplicate key"
+    }
+  },
+  "format2-lifecycle": {
+    "omitted_sha256": "a4c7f361ba7a1d3782ee645b846a61d972ac111a1eb5dab1997d92220f463369",
+    "false_sha256": "a4c7f361ba7a1d3782ee645b846a61d972ac111a1eb5dab1997d92220f463369",
+    "true_sha256": "5b91df57cceb14ff90f71a0657d36c18d24774d4ce06cc6bb64afadd3edc2fe8",
+    "false_equals_omitted": true,
+    "true_differs": true,
+    "refusals": {
+      "string": "TOML parse error at line 13, column 16\n   |\n13 | presentation = \"yes\"\n   |                ^^^^^\ninvalid type: string \"yes\", expected a boolean",
+      "integer": "TOML parse error at line 13, column 16\n   |\n13 | presentation = 1\n   |                ^\ninvalid type: integer `1`, expected a boolean",
+      "unknown": "TOML parse error at line 14, column 1\n   |\n14 | display = true\n   | ^^^^^^^\nunknown field `display`, expected one of `path`, `git`, `rev`, `package`, `builder`, `hook`, `presentation`",
+      "duplicate": "TOML parse error at line 14, column 1\n   |\n14 | presentation = false\n   | ^^^^^^^^^^^^\nduplicate key"
+    }
+  },
+  "baseline-tool-refuses-format1": "rnx-project: manifest /home/me/work/rnx-bench/probes/frame-seam/target/vectors/old-tool-format1/rnx.toml: TOML parse error at line 11, column 1\n   |\n11 | presentation = true\n   | ^^^^^^^^^^^^\nunknown field `presentation`, expected one of `path`, `package`, `builder`, `hook`",
+  "baseline-tool-refuses-format2": "rnx-project: manifest /home/me/work/rnx-bench/probes/frame-seam/target/vectors/old-tool-format2/rnx.toml: TOML parse error at line 13, column 1\n   |\n13 | presentation = true\n   | ^^^^^^^^^^^^\nunknown field `presentation`, expected one of `path`, `git`, `rev`, `package`, `builder`, `hook`"
+}

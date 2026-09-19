@@ -1,0 +1,82 @@
+{
+  "build_seconds": 114.2,
+  "wrapper": "fn main() -> Result<(), Box<dyn std::error::Error>> {\n    rnx::main_with(rnx::Extensions::none().with(\"polars\", native_0::build).present(\"polars\", native_0::present))\n}\n",
+  "steps": {
+    "csv": {
+      "input": "fs::write_new(\"sales.csv\", \"region,item,qty,price\\nwest,apple,3,1.5\\nwest,pear,1,2.0\\neast,apple,5,1.5\\neast,plum,2,3.0\\nnorth,apple,4,1.5\\n\")?;",
+      "output": ""
+    },
+    "read": {
+      "input": "let sales = polars::read_csv(\"sales.csv\", [(\"region\",\"string\"),(\"item\",\"string\"),(\"qty\",\"i64\"),(\"price\",\"f64\")])?;",
+      "output": ""
+    },
+    "bare": {
+      "input": "sales",
+      "output": "[3] DataFrame: 5 rows × 4 columns\n\"region\": string | \"item\": string | \"qty\": i64 | \"price\": f64\n\"west\" | \"apple\" | 3 | 1.5\n\"west\" | \"pear\" | 1 | 2.0\n\"east\" | \"apple\" | 5 | 1.5\n\"east\" | \"plum\" | 2 | 3.0\n\"north\" | \"apple\" | 4 | 1.5"
+    },
+    "explicit": {
+      "input": "format!(\"{sales}\")",
+      "output": "[4] \"DataFrame: 5 rows × 4 columns\\n\\\"region\\\": string | \\\"item\\\": string | \\\"qty\\\": i64 | \\\"price\\\": f64\\n\\\"west\\\" | \\\"apple\\\" | 3 | 1.5\\n\\\"west\\\" | \\\"pear\\\" | 1 | 2.0\\n\\\"east\\\" | \\\"apple\\\" | 5 | 1.5\\n\\\"east\\\" | \\\"plum\\\" | 2 | 3.0\\n\\\"north\\\" | \\\"apple\\\" | 4 | 1.5\\n\""
+    },
+    "println": {
+      "input": "println!(\"{sales}\")",
+      "output": "DataFrame: 5 rows × 4 columns\n\"region\": string | \"item\": string | \"qty\": i64 | \"price\": f64\n\"west\" | \"apple\" | 3 | 1.5\n\"west\" | \"pear\" | 1 | 2.0\n\"east\" | \"apple\" | 5 | 1.5\n\"east\" | \"plum\" | 2 | 3.0\n\"north\" | \"apple\" | 4 | 1.5"
+    },
+    "suppressed": {
+      "input": "let again = sales;",
+      "output": ""
+    },
+    "container": {
+      "input": "[sales]",
+      "output": "[7] [<::polars::DataFrame>]"
+    },
+    "result": {
+      "input": "sales.lazy().collect()",
+      "output": "[8] Ok(<::polars::DataFrame>)"
+    },
+    "lazy": {
+      "input": "sales.lazy()",
+      "output": "[9] <::polars::LazyFrame>"
+    },
+    "expr": {
+      "input": "polars::col(\"qty\")",
+      "output": "[10] <::polars::Expr>"
+    },
+    "preview-string": {
+      "input": "sales.preview()?",
+      "output": "[11] \"DataFrame: 5 rows × 4 columns\\n\\\"region\\\": string | \\\"item\\\": string | \\\"qty\\\": i64 | \\\"price\\\": f64\\n\\\"west\\\" | \\\"apple\\\" | 3 | 1.5\\n\\\"west\\\" | \\\"pear\\\" | 1 | 2.0\\n\\\"east\\\" | \\\"apple\\\" | 5 | 1.5\\n\\\"east\\\" | \\\"plum\\\" | 2 | 3.0\\n\\\"north\\\" | \\\"apple\\\" | 4 | 1.5\\n\""
+    },
+    "filtered": {
+      "input": "sales.lazy().filter(polars::col(\"qty\").gt(polars::lit(2)?)).collect()?",
+      "output": "[12] DataFrame: 3 rows × 4 columns\n\"region\": string | \"item\": string | \"qty\": i64 | \"price\": f64\n\"west\" | \"apple\" | 3 | 1.5\n\"east\" | \"apple\" | 5 | 1.5\n\"north\" | \"apple\" | 4 | 1.5"
+    },
+    "error": {
+      "input": "sales.lazy().filter(polars::col(\"missing\").gt(polars::lit(1)?)).collect().is_err()",
+      "output": "[13] true"
+    },
+    "still-there": {
+      "input": "sales",
+      "output": "[14] DataFrame: 5 rows × 4 columns\n\"region\": string | \"item\": string | \"qty\": i64 | \"price\": f64\n\"west\" | \"apple\" | 3 | 1.5\n\"west\" | \"pear\" | 1 | 2.0\n\"east\" | \"apple\" | 5 | 1.5\n\"east\" | \"plum\" | 2 | 3.0\n\"north\" | \"apple\" | 4 | 1.5"
+    },
+    "wide-csv": {
+      "input": "fs::write_new(\"wide.csv\", \"c0,c1,c2,c3,c4,c5,c6,c7,c8,c9,c10,c11\\n0,1,2,3,4,5,6,7,8,9,10,11\\n100,101,102,103,104,105,106,107,108,109,110,111\\n200,201,202,203,204,205,206,207,208,209,210,211\\n300,301,302,303,304,305,306,307,308,309,310,311\\n400,401,402,403,404,405,406,407,408,409,410,411\\n500,501,502,503,504,505,506,507,508,509,510,511\\n600,601,602,603,604,605,606,607,608,609,610,611\\n700,701,702,703,704,705,706,707,708,709,710,711\\n800,801,802,803,804,805,806,807,808,809,810,811\\n900,901,902,903,904,905,906,907,908,909,910,911\\n1000,1001,1002,1003,1004,1005,1006,1007,1008,1009,1010,1011\\n1100,1101,1102,1103,1104,1105,1106,1107,1108,1109,1110,1111\\n1200,1201,1202,1203,1204,1205,1206,1207,1208,1209,1210,1211\\n1300,1301,1302,1303,1304,1305,1306,1307,1308,1309,1310,1311\\n1400,1401,1402,1403,1404,1405,1406,1407,1408,1409,1410,1411\\n\")?;",
+      "output": ""
+    },
+    "wide-read": {
+      "input": "let wide = polars::read_csv(\"wide.csv\", [(\"c0\",\"i64\"),(\"c1\",\"i64\"),(\"c2\",\"i64\"),(\"c3\",\"i64\"),(\"c4\",\"i64\"),(\"c5\",\"i64\"),(\"c6\",\"i64\"),(\"c7\",\"i64\"),(\"c8\",\"i64\"),(\"c9\",\"i64\"),(\"c10\",\"i64\"),(\"c11\",\"i64\")])?;",
+      "output": "fs::write_new(\"wide.csv\", \"c0,c1,c2,c3,c4,c5,c6,c7,c8,c9,c10,c11\\n0,1,2,3,4,5,6,7,8,9,10,11\\n100,101,102,103,104,105,106,107,108,109,110,111\\n200,201,202,203,204,205,206,207,208,209,210,211\\n300,301,302,303,304,305,306,307,308,309,310,311\\n400,401,402,403,404,405,406,407,408,409,410,411\\n500,501,502,503,504,505,506,507,508,509,510,511\\n600,601,602,603,604,605,606,607,608,609,610,611\\n700,701,702,703,704,705,706,707,708,709,710,711\\n800,801,802,803,804,805,806,807,808,809,810,811\\n900,901,902,903,904,905,906,907,908,909,910,911\\n1000,1001,1002,1003,1004,1005,1006,1007,1008,1009,1010,1011\\n1100,1101,1102"
+    },
+    "wide": {
+      "input": "wide",
+      "output": "[17] DataFrame: 15 rows × 12 columns\n[5 rows and 4 columns omitted by display limits]\n\"c0\": i64 | \"c1\": i64 | \"c2\": i64 | \"c3\": i64 | \"c4\": i64 | \"c5\": i64 | \"c6\": i64 | \"c7\": i64\n0 | 1 | 2 | 3 | 4 | 5 | 6 | 7\n100 | 101 | 102 | 103 | 104 | 105 | 106 | 107\n200 | 201 | 202 | 203 | 204 | 205 | 206 | 207\n300 | 301 | 302 | 303 | 304 | 305 | 306 | 307\n400 | 401 | 402 | 403 | 404 | 405 | 406 | 407\n500 | 501 | 502 | 503 | 504 | 505 | 506 | 507\n600 | 601 | 602 | 603 | 604 | 605 | 606 | 607\n700 | 701 | 702 | 703 | 704 | 705 | 706 | 707\n800 | 801 | 802 | 803 | 804 | 805 | 806 | 807\n900 | 901 | 902 | 903 | 904 | 905 | 906 | 907"
+    },
+    "reset": {
+      "input": ":reset",
+      "output": "session reset"
+    },
+    "after-reset": {
+      "input": "polars::read_csv(\"sales.csv\", [(\"region\",\"string\"),(\"item\",\"string\"),(\"qty\",\"i64\"),(\"price\",\"f64\")])?",
+      "output": "[1] DataFrame: 5 rows × 4 columns\n\"region\": string | \"item\": string | \"qty\": i64 | \"price\": f64\n\"west\" | \"apple\" | 3 | 1.5\n\"west\" | \"pear\" | 1 | 2.0\n\"east\" | \"apple\" | 5 | 1.5\n\"east\" | \"plum\" | 2 | 3.0\n\"north\" | \"apple\" | 4 | 1.5"
+    }
+  }
+}

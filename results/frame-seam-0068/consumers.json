@@ -1,0 +1,23 @@
+{
+  "failure-only": {
+    "compiled": true,
+    "log_tail": "hecking rustls-webpki v0.103.15\n    Checking tokio-rustls v0.26.5\n    Checking hyper-rustls v0.27.9\n    Checking reqwest v0.12.28\n    Checking failure-only v0.0.0 (/home/me/work/rnx-bench/probes/frame-seam/target/consumers/failure-only)\n    Finished `release` profile [optimized] target(s) in 23.20s\n"
+  },
+  "panic-only": {
+    "compiled": true,
+    "log_tail": "     Locking 203 packages to latest Rust 1.98.1 compatible versions\n      Adding jiff v0.2.24 (available: v0.2.37)\n    Checking panic-only v0.0.0 (/home/me/work/rnx-bench/probes/frame-seam/target/consumers/panic-only)\n    Finished `release` profile [optimized] target(s) in 0.28s\n"
+  },
+  "lifecycle-failure-only": {
+    "compiled": true,
+    "log_tail": " Locking 203 packages to latest Rust 1.98.1 compatible versions\n      Adding jiff v0.2.24 (available: v0.2.37)\n    Checking lifecycle-failure-only v0.0.0 (/home/me/work/rnx-bench/probes/frame-seam/target/consumers/lifecycle-failure-only)\n    Finished `release` profile [optimized] target(s) in 0.28s\n"
+  },
+  "runner-only": {
+    "compiled": true,
+    "log_tail": "r-rustls v0.27.9\n   Compiling reqwest v0.12.28\n   Compiling rnx v0.0.0 (/home/me/work/rnx-bench/probes/frame-seam/target/candidate)\n   Compiling runner-only v0.0.0 (/home/me/work/rnx-bench/probes/frame-seam/target/consumers/runner-only)\n    Finished `release` profile [optimized] target(s) in 35.49s\n",
+    "registration_symbols": false,
+    "lookup_symbols": 1,
+    "packages_equal_to_baseline": true,
+    "packages": 201,
+    "bytes": 15325696
+  }
+}
