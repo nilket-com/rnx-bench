@@ -1,0 +1,110 @@
+{
+  "baseline": "eff151b4fcbff4721299027f5ef6f1663ea55f32",
+  "bench_baseline": "a0dd0bf411f90f75f26957d53121bee7f9c88f91",
+  "kernel": {
+    "release": "7.0.0-31-generic",
+    "machine": "x86_64"
+  },
+  "identity": {
+    "Uid": "1003\t1003\t1003\t1003",
+    "Gid": "1003\t1003\t1003\t1003",
+    "CapEff": "0000000000000000",
+    "NoNewPrivs": "0",
+    "Seccomp": "0",
+    "Seccomp_filters": "0"
+  },
+  "unshare_version": "unshare from util-linux 2.41.3",
+  "rows": [
+    {
+      "name": "ordinary-child",
+      "args": [
+        "/usr/bin/python3",
+        "-c",
+        "print(\"ordinary child works\")"
+      ],
+      "returncode": 0,
+      "stdout": "ordinary child works\n",
+      "stderr": "",
+      "timed_out": false,
+      "seconds": 0.011338651995174587
+    },
+    {
+      "name": "user-namespace-no-mapping",
+      "args": [
+        "/usr/bin/unshare",
+        "--user",
+        "--fork",
+        "true"
+      ],
+      "returncode": 0,
+      "stdout": "",
+      "stderr": "",
+      "timed_out": false,
+      "seconds": 0.0024325359845533967
+    },
+    {
+      "name": "mount-namespace-no-user-mapping",
+      "args": [
+        "/usr/bin/unshare",
+        "--mount",
+        "--fork",
+        "true"
+      ],
+      "returncode": 1,
+      "stdout": "",
+      "stderr": "unshare: unshare failed: Operation not permitted\n",
+      "timed_out": false,
+      "seconds": 0.0011818489874713123
+    },
+    {
+      "name": "current-user-map",
+      "args": [
+        "/usr/bin/unshare",
+        "--user",
+        "--map-current-user",
+        "--mount",
+        "--fork",
+        "true"
+      ],
+      "returncode": 1,
+      "stdout": "",
+      "stderr": "unshare: write failed /proc/self/uid_map: Operation not permitted\n",
+      "timed_out": false,
+      "seconds": 0.0024595020222477615
+    },
+    {
+      "name": "nested-and-bind-fixture",
+      "args": [
+        "/usr/bin/unshare",
+        "--user",
+        "--map-root-user",
+        "--mount",
+        "--fork",
+        "/usr/bin/python3",
+        "/home/me/work/rnx-bench/probes/removal-preflight/namespace.py",
+        "/tmp/rnx-0066-mount-02r2twzf",
+        "mnt:[4026531832]",
+        "/usr/bin/mount"
+      ],
+      "returncode": 1,
+      "stdout": "",
+      "stderr": "unshare: write failed /proc/self/uid_map: Operation not permitted\n",
+      "timed_out": false,
+      "seconds": 0.00423408200731501
+    }
+  ],
+  "child_entered": false,
+  "mount_fixture_available": false,
+  "gate1_passed": false,
+  "decision": "STOP: unprivileged mount fixture unavailable",
+  "product_removal_implemented": false,
+  "ordinary_child_passed": true,
+  "parent_namespace_unchanged": true,
+  "outside_sentinel_unchanged": true,
+  "temporary_tree_removed": true,
+  "privileged_retry": false,
+  "source_sha256": {
+    "check.py": "5f739053df09b73aaeb8f9362ab62f6be1c94c383fcaf7479b11815ec12f1942",
+    "namespace.py": "95701111b4a67e0139c48d3b1697285674800650ba073c090aedf95c2071135f"
+  }
+}
