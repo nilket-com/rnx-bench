@@ -1,0 +1,266 @@
+--- a/src/extensions.rs
++++ b/src/extensions.rs
+@@ -8,7 +8,7 @@
+ 	dyn FnOnce(
+ 		&mut Module,
+ 		&crate::lifecycle::Lifecycle,
+-	) -> Result<Vec<(String, &'static str)>, String>,
++	) -> Result<crate::native_preview::Registration, String>,
+ >;
+ struct Extension {
+ 	name: &'static str,
+@@ -39,14 +39,14 @@
+ 
+ 	/// Append a builder without running it. Closures may capture non-Send
+ 	/// state, but must own it (`'static`). Invoke main_with from main's thread.
+-	pub fn with(
++	pub fn with<R: Into<crate::native_preview::Registration>>(
+ 		mut self,
+ 		name: &'static str,
+-		build: impl FnOnce(&mut Module) -> Result<Vec<(String, &'static str)>, String> + 'static,
++		build: impl FnOnce(&mut Module) -> Result<R, String> + 'static,
+ 	) -> Self {
+ 		self.builders.push(Extension {
+ 			name,
+-			build: Box::new(move |module, _| build(module)),
++			build: Box::new(move |module, _| build(module).map(Into::into)),
+ 		});
+ 		self
+ 	}
+@@ -60,7 +60,7 @@
+ 	) -> Self {
+ 		self.builders.push(Extension {
+ 			name,
+-			build: Box::new(move |module, lifecycle| build(module, lifecycle.scope(name))),
++			build: Box::new(move |module, lifecycle| build(module, lifecycle.scope(name)).map(Into::into)),
+ 		});
+ 		self
+ 	}
+@@ -78,6 +78,9 @@
+ 		context: &mut Context,
+ 		lifecycle: &crate::lifecycle::Lifecycle,
+ 	) -> Result<Vec<HostFunction>, String> {
++        self.install_presented(context, lifecycle, &mut Default::default())
++    }
++    pub(crate) fn install_presented(self, context: &mut Context, lifecycle: &crate::lifecycle::Lifecycle, presenters: &mut crate::native_preview::Presenters) -> Result<Vec<HostFunction>, String> {
+ 		let mut installed = Vec::new();
+ 		let mut functions = Vec::new();
+ 		for extension in self.builders {
+@@ -101,8 +104,10 @@
+ 			}
+ 			installed.push(name);
+ 			let mut module = Module::with_crate(name).map_err(|e| failure(e.to_string()))?;
+-			let entries =
++			let registration =
+ 				build_catching(|| (extension.build)(&mut module, lifecycle)).map_err(&failure)?;
++			presenters.append(registration.presenters).map_err(&failure)?;
++			let entries = registration.help;
+ 			let prefix = format!("{name}::");
+ 			for (path, _) in &entries {
+ 				if !path
+--- a/src/lib.rs
++++ b/src/lib.rs
+@@ -11,6 +11,7 @@
+ #[cfg(unix)]
+ mod dep_wire;
+ mod extensions;
++pub mod native_preview;
+ mod lifecycle;
+ pub use extensions::Extensions;
+ pub use lifecycle::Scope;
+@@ -259,6 +260,7 @@
+ 		dep_transition::installed(extensions.names());
+ 	}
+ 	let mut extensions = Some(extensions);
++	let mut presenters = native_preview::Presenters::default();
+ 	let mut context = Context::with_default_modules()?;
+ 	let mut host_functions = install_core(&mut context)?;
+ 	host_functions.extend(fs::install(&mut context)?);
+@@ -281,6 +283,7 @@
+ 			extensions.take().unwrap(),
+ 			&mut context,
+ 			lifecycle,
++            &mut presenters,
+ 		));
+ 	}
+ 	if startup {
+@@ -300,7 +303,7 @@
+ 	}
+ 	if let Some(transport) = worker_transport {
+ 		// Fatal transport errors are not script stderr or a successful cell.
+-		if worker::run(transport, context, http, lifecycle.clone()).is_err() {
++		if worker::run(transport, context, http, lifecycle.clone(), presenters).is_err() {
+ 			terminal::exit(1);
+ 		}
+ 		return Ok(());
+@@ -371,7 +374,7 @@
+ 	// A session is what someone typing `rnx` almost always wants, and it works
+ 	// whether standard input is a terminal or a pipe.
+ 	if args.is_empty() || args.first().is_some_and(|s| s == "repl") {
+-		return repl::run(context, host_functions, http, splash, lifecycle.clone());
++		return repl::run(context, host_functions, http, splash, lifecycle.clone(), presenters);
+ 	}
+ 	if args.first().is_some_and(|s| s == "run") {
+ 		// Flags are read only before the script path. Everything after the
+@@ -435,7 +438,7 @@
+ 		let snapshot: Arc<[String]> = Arc::from(rest[1..].to_vec());
+ 		let arguments = rune::to_value(snapshot.to_vec())?;
+ 		env::install(&mut context, snapshot)?;
+-		install_extensions(extensions.take().unwrap(), &mut context, lifecycle);
++		install_extensions(extensions.take().unwrap(), &mut context, lifecycle, &mut presenters);
+ 		#[cfg(feature = "project-sources")]
+ 		let code = runner::run_loaded(
+ 			&context,
+@@ -549,8 +552,9 @@
+ 	extensions: Extensions,
+ 	context: &mut Context,
+ 	lifecycle: &lifecycle::Lifecycle,
++    presenters: &mut native_preview::Presenters,
+ ) -> Vec<host::HostFunction> {
+-	match extensions.install_with(context, lifecycle) {
++	match extensions.install_presented(context, lifecycle, presenters) {
+ 		Ok(functions) => functions,
+ 		Err(message) => {
+ 			eprintln!("error: {}", format::terminal_safe(&message));
+--- a/src/session.rs
++++ b/src/session.rs
+@@ -283,6 +283,7 @@
+ }
+ 
+ pub struct Session {
++    presenters: crate::native_preview::Presenters,
+ 	/// The compile-time context, owned, so an input cannot be compiled
+ 	/// against one context and run against another, and so no caller can
+ 	/// modify it between inputs. The runtime is built from it per input:
+@@ -316,6 +317,15 @@
+ 	lifecycle: crate::lifecycle::Lifecycle,
+ }
+ impl Session {
++    pub(crate) fn with_presenters(mut self, presenters: crate::native_preview::Presenters) -> Self { self.presenters = presenters; self }
++    pub(crate) fn present(&self, value: &Value, limits: &crate::format::Limits, styled: bool) -> String {
++        match self.presenters.render(value, limits.total_bytes) {
++            Some(Ok(text)) => text,
++            Some(Err(_)) => format!("{} [preview unavailable]", crate::format::render(value, Some(&self.fields()), limits)),
++            None => crate::format::render_styled(value, Some(&self.fields()), limits, styled),
++        }
++    }
++
+ 	pub fn with_lifecycle(mut self, lifecycle: crate::lifecycle::Lifecycle) -> Self {
+ 		self.lifecycle = lifecycle;
+ 		self
+@@ -339,6 +349,7 @@
+ 	}
+ 	pub fn with_ceiling(context: Context, ceiling: usize) -> Result<Self> {
+ 		Ok(Self {
++            presenters: Default::default(),
+ 			context,
+ 			declarations: BTreeMap::new(),
+ 			names: BTreeSet::new(),
+--- a/src/repl.rs
++++ b/src/repl.rs
+@@ -1,6 +1,6 @@
+ //! The interactive session: a line editor over the persistent session.
+ use crate::complete::{Completion, Names, complete};
+-use crate::format::{Limits, render_styled};
++use crate::format::Limits;
+ use crate::host::HostFunction;
+ use crate::inspect::{self, InspectLimits};
+ use crate::presentation;
+@@ -292,9 +292,8 @@
+ 	let number = session.next_number();
+ 	match session.eval(input) {
+ 		Ok(value) => {
+-			let text = render_styled(
++			let text = session.present(
+ 				&value,
+-				Some(&session.fields()),
+ 				limits,
+ 				presentation::stdout(),
+ 			);
+@@ -328,6 +327,7 @@
+ 	http: crate::http::State,
+ 	splash: bool,
+ 	lifecycle: crate::lifecycle::Lifecycle,
++    presenters: crate::native_preview::Presenters,
+ ) -> crate::Result<()> {
+ 	let _title = crate::terminal::Title::new("rnx");
+ 	let config = Config::builder()
+@@ -338,7 +338,8 @@
+ 	let mut editor: Editor<RnxHelper, FileHistory> = Editor::with_config(config)?;
+ 	let mut session = Session::with_ceiling(context, ceiling())?
+ 		.with_http(http)
+-		.with_lifecycle(lifecycle);
++		.with_lifecycle(lifecycle)
++        .with_presenters(presenters);
+ 	let names = Rc::new(RefCell::new(snapshot(&session, &host)));
+ 	editor.set_helper(Some(RnxHelper {
+ 		names: names.clone(),
+--- a/src/worker.rs
++++ b/src/worker.rs
+@@ -164,11 +164,13 @@
+ 	context: rune::Context,
+ 	http: crate::http::State,
+ 	lifecycle: crate::lifecycle::Lifecycle,
++    presenters: crate::native_preview::Presenters,
+ ) -> io::Result<()> {
+ 	let mut session = Session::with_ceiling(context, crate::repl::ceiling())
+ 		.map_err(|e| io::Error::other(e.to_string()))?
+ 		.with_http(http)
+-		.with_lifecycle(lifecycle);
++		.with_lifecycle(lifecycle)
++        .with_presenters(presenters);
+ 	crate::memory::record_baseline();
+ 	session.sample();
+ 	transport.send(json!({"type":"ready","protocol":1,"rnx":crate::VERSION,"rune":crate::RUNE_VERSION,
+@@ -219,10 +221,9 @@
+ 			})?;
+ 			match result {
+ 				Ok(value) if !crate::runner::is_unit(&value) => {
+-					reply["text_plain"] = json!(crate::format::render(
++					reply["text_plain"] = json!(session.present(
+ 						&value,
+-						Some(&session.fields()),
+-						&crate::format::Limits::default()
++						&crate::format::Limits::default(), false
+ 					));
+ 					reply["render_bounded"] = json!(true);
+ 				}
+--- /dev/null
++++ b/src/native_preview.rs
+@@ -0,0 +1,36 @@
++//! Gate 1 only: context-owned, explicitly registered native presentation.
++use rune::{Any, Hash, Value};
++use std::collections::BTreeMap;
++type Callback = Box<dyn Fn(&Value, &mut Output) -> Result<(), String>>;
++#[derive(Default)]
++pub struct Presenters(BTreeMap<Hash, Callback>);
++pub struct Output { text: String, limit: usize }
++impl Output {
++    pub fn push(&mut self, text: &str) -> Result<(), String> {
++        if text.len() > self.limit.saturating_sub(self.text.len()) { return Err("preview output limit".into()); }
++        self.text.push_str(text); Ok(())
++    }
++}
++impl Presenters {
++    pub fn register<T: Any>(&mut self, callback: impl Fn(&T, &mut Output) -> Result<(), String> + 'static) -> Result<(), String> {
++        let hash = T::HASH;
++        if self.0.contains_key(&hash) { return Err("duplicate native presenter".into()); }
++        self.0.insert(hash, Box::new(move |value, out| callback(&*value.borrow_ref::<T>().map_err(|e| e.to_string())?, out)));
++        Ok(())
++    }
++    pub(crate) fn append(&mut self, other: Self) -> Result<(), String> {
++        for (hash, callback) in other.0 { if self.0.insert(hash, callback).is_some() { return Err("duplicate native presenter".into()); } } Ok(())
++    }
++    pub(crate) fn render(&self, value: &Value, limit: usize) -> Option<Result<String, String>> {
++        let callback = self.0.get(&value.type_hash())?;
++        let mut output = Output { text: String::new(), limit };
++        Some(callback(value, &mut output).map(|()| output.text))
++    }
++}
++pub struct Registration { pub(crate) help: Vec<(String, &'static str)>, pub(crate) presenters: Presenters }
++impl From<Vec<(String, &'static str)>> for Registration {
++    fn from(help: Vec<(String, &'static str)>) -> Self { Self { help, presenters: Presenters::default() } }
++}
++impl Registration {
++    pub fn with_presenters(help: Vec<(String, &'static str)>, presenters: Presenters) -> Self { Self { help, presenters } }
++}
