@@ -1,0 +1,22 @@
+format = 2
+[application]
+entry = "entry.rn"
+[runtime]
+git = "https://github.com/nilket-com/rnx"
+rev = "7ae886305aea33312a061cbafbebbb49ff8bc8c4"
+
+
+[native.polars]
+git = "https://github.com/nilket-com/rnx"
+rev = "7ae886305aea33312a061cbafbebbb49ff8bc8c4"
+package = "rnx-polars"
+builder = "build"
+hook = "plain"
+
+
+[native.postgres]
+git = "https://github.com/nilket-com/rnx"
+rev = "7ae886305aea33312a061cbafbebbb49ff8bc8c4"
+package = "rnx-postgres"
+builder = "build"
+hook = "lifecycle"
