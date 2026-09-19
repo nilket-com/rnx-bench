@@ -1,0 +1,43 @@
+PASS inspection writes nothing and takes no writer lock
+PASS quiescence required before writes
+PASS busy cache writer refuses
+PASS busy runtime writer refuses
+PASS selected-1
+PASS selected pending runtime format 1
+PASS selected-2
+PASS selected pending runtime format 2
+PASS invalid-selection
+PASS opposite-root
+PASS cwd inside target
+PASS executable inside target
+PASS symlink leaves hardlink and readonly file
+PASS fifo
+PASS socket refuses without opening
+PASS control symlink entries
+PASS control symlink locks
+PASS control symlink entry
+PASS control symlink removing
+PASS control symlink lockfile
+PASS user root symlink canonicalized
+PASS open-error-38
+PASS open-error-22
+PASS node-bound
+PASS depth bound before rename
+PASS replacement before rename refused
+PASS SIGINT-before-rename
+PASS SIGINT-after-rename
+PASS SIGINT-during-delete
+PASS SIGTERM-before-rename
+PASS SIGTERM-after-rename
+PASS SIGTERM-during-delete
+PASS SIGKILL-before-rename
+PASS SIGKILL-after-rename
+PASS SIGKILL-during-delete
+PASS pending refuses normal removal; quoted resume command executes
+PASS bind-subdir refused before rename
+PASS tmpfs-subdir refused before rename
+PASS bind-entry refused before rename
+PASS bind-entries refused before rename
+PASS bind-locks refused before rename
+PASS bind-file refused before rename
+PASS 42 ownership and filesystem cases

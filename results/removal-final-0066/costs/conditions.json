@@ -1,0 +1,10 @@
+{
+  "sync": "os.sync before/after free-space readings; excluded from command wall times",
+  "filesystem": "shared host filesystem; unrelated allocation can affect statvfs deltas",
+  "copy": "whole-directory copies, never executed, no synthetic padding or explicit reflink request",
+  "samples_per_operation": 1,
+  "cache": "warmed by copy; no cold-cache claim",
+  "free": "f_bavail * f_frsize",
+  "scope": "single-host observations, no exact reclamation promise",
+  "original_selection_unchanged": true
+}

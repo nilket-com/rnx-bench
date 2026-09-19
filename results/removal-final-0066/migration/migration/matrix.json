@@ -1,0 +1,100 @@
+[
+  {
+    "name": "old discovery and select refuse with exact quoted recovery, unchanged old payloads"
+  },
+  {
+    "name": "authentication refuses source",
+    "error": "rnx-project: cannot authenticate legacy runtime 6a98e8aba6095cfcf44f9b9fccf9847e850ca78addcf5df899ec2ec2bbe047da: source fingerprint differs"
+  },
+  {
+    "name": "authentication refuses blob",
+    "error": "rnx-project: corrupt installed runtime at /home/me/work/rnx-bench/probes/removal-final/target/migration/target/migration/corrupt-blob/rnx/runtimes/entries/6a98e8aba6095cfcf44f9b9fccf9847e850ca78addcf5df899ec2ec2bbe047da/source: \"git\" failed: exit status: 3: error: inflate: data stream error (incorrect data check)\nerror: corrupt loose object '73fbbcd3eca3dbd0f3117652470f35d15de6579c'\nerror: unable to unpack contents of .git/objects/73/fbbcd3eca3dbd0f3117652470f35d15de6579c\nerror: 73fbbcd3eca3dbd0f3117652470f35d15de6579c: object corrupt or missing: .git/objects/73/fbbcd3eca3dbd0f3117652470f35d15de6579c\nnotice: No default references"
+  },
+  {
+    "name": "authentication refuses metadata",
+    "error": "rnx-project: invalid runtime installation document: /home/me/work/rnx-bench/probes/removal-final/target/migration/target/migration/corrupt-metadata/rnx/runtimes/entries/6a98e8aba6095cfcf44f9b9fccf9847e850ca78addcf5df899ec2ec2bbe047da/installation.json"
+  },
+  {
+    "name": "authentication refuses id",
+    "error": "rnx-project: invalid runtime installation document: /home/me/work/rnx-bench/probes/removal-final/target/migration/target/migration/corrupt-id/rnx/runtimes/entries/6a98e8aba6095cfcf44f9b9fccf9847e850ca78addcf5df899ec2ec2bbe047da/installation.json"
+  },
+  {
+    "name": "authentication refuses mixed",
+    "error": "rnx-project: /home/me/work/rnx-bench/probes/removal-final/target/migration/target/migration/corrupt-mixed/rnx/runtimes/entries/6a98e8aba6095cfcf44f9b9fccf9847e850ca78addcf5df899ec2ec2bbe047da/installation.json: unknown field `tree_blake3`, expected one of `format`, `id`, `tree_sha256`, `files`, `bytes`, `layout`, `source_path`, `source_commit`, `dirty_tracked`, `installed_utc`, `tool_version`, `tool_sha256` at line 1 column 578"
+  },
+  {
+    "name": "authentication refuses unknown",
+    "error": "rnx-project: /home/me/work/rnx-bench/probes/removal-final/target/migration/target/migration/corrupt-unknown/rnx/runtimes/entries/6a98e8aba6095cfcf44f9b9fccf9847e850ca78addcf5df899ec2ec2bbe047da/installation.json: unknown field `tree_sha256`, expected one of `format`, `id`, `tree_blake3`, `files`, `bytes`, `layout`, `source_path`, `source_commit`, `dirty_tracked`, `installed_utc`, `tool_version`, `tool_blake3`, `migrated_from` at line 1 column 102"
+  },
+  {
+    "name": "migration publication after-snapshot"
+  },
+  {
+    "name": "migration publication copy-chunk"
+  },
+  {
+    "name": "migration publication after-copy"
+  },
+  {
+    "name": "migration publication git-step"
+  },
+  {
+    "name": "migration publication after-index"
+  },
+  {
+    "name": "migration publication before-document"
+  },
+  {
+    "name": "migration publication after-document"
+  },
+  {
+    "name": "migration publication before-entry-rename"
+  },
+  {
+    "name": "migration publication after-entry-rename"
+  },
+  {
+    "name": "migration publication after-entry-sync"
+  },
+  {
+    "name": "migration publication before-current-write"
+  },
+  {
+    "name": "migration publication after-current-write"
+  },
+  {
+    "name": "migration publication before-current-rename"
+  },
+  {
+    "name": "migration publication after-current-rename"
+  },
+  {
+    "name": "migration publication after-current-sync"
+  },
+  {
+    "name": "migration interruption copy-chunk SIGINT"
+  },
+  {
+    "name": "migration interruption copy-chunk SIGTERM"
+  },
+  {
+    "name": "migration interruption git-step SIGINT"
+  },
+  {
+    "name": "migration interruption git-step SIGTERM"
+  },
+  {
+    "name": "late source change refuses before publication"
+  },
+  {
+    "name": "late provenance change refuses before publication"
+  },
+  {
+    "name": "only exact owned retained source qualifies"
+  },
+  {
+    "name": "authenticated migration preserves old provenance, repairs administration, publishes new ID and reselects without rewrite",
+    "old": "6a98e8aba6095cfcf44f9b9fccf9847e850ca78addcf5df899ec2ec2bbe047da",
+    "new": "fb8f77ca465c226068b2e2cdf27dfea6ce6db2f4dcd4a88b08db4a128aa9aa32"
+  }
+]

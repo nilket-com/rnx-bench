@@ -1,0 +1,34 @@
+[22;2t]2;rnx[?2004h[?2026h[K[1] > [6C[?2026l:dep --offline polars postgres[?2004l
+New scratch project: /home/me/work/rnx-bench/probes/removal-final/target/installed/state ' private/rnx/sessions/session-1640549-1789792123006189156/rnx.toml
+Adding: polars, postgres
+Already declared: (none)
+Offline: Cargo may not fetch sources.
+Runtime: installation 442b4f457ecefa68f57689994d2985e45e60d3cc43b6861081c51b3344f6ef6d at /home/me/work/rnx-bench/probes/removal-storage/target/real/data ' private/rnx/runtimes/entries/442b4f457ecefa68f57689994d2985e45e60d3cc43b6861081c51b3344f6ef6d/source (installed from /home/me/work/rnx-bench/probes/removal-storage/target/real/original, 2551cd6f819de14c55059858c65cb1ea44d81e81, clean tracked snapshot, 2026-09-19T04:04:01Z)
+A first Polars build took about 100 seconds with registry sources cached; its retained shared entry is about 1.5 GB. A reusable entry avoids compilation.
+This prepares a new executable and restarts the session on success.
+Existing bindings and declarations will be lost. Saved history remains available with up-arrow; nothing is replayed.
+[?2004h[?2026h[KContinue? [y/N] [16C[?2026ly[?2004l
+added polars
+added postgres
+Next:
+  rnx-project lock --manifest '/home/me/work/rnx-bench/probes/removal-final/target/installed/state '\'' private/rnx/sessions/session-1640549-1789792123006189156/rnx.toml'
+  rnx-project build --manifest '/home/me/work/rnx-bench/probes/removal-final/target/installed/state '\'' private/rnx/sessions/session-1640549-1789792123006189156/rnx.toml'
+  rnx-project session --manifest '/home/me/work/rnx-bench/probes/removal-final/target/installed/state '\'' private/rnx/sessions/session-1640549-1789792123006189156/rnx.toml'
+dependency phase: author
+dependency phase: resolve
+     Locking 407 packages to latest Rust 1.98.1 compatible versions
+      Adding jiff v0.2.24 (available: v0.2.37)
+locked /home/me/work/rnx-bench/probes/removal-final/target/installed/state ' private/rnx/sessions/session-1640549-1789792123006189156/rnx.toml
+dependency phase: build/attach
+attached shared assembly 64d7e265b4f464b480e3ee529bcec51de2d21909640235627022100ae5c03c3d: /home/me/work/rnx-bench/probes/removal-storage/target/real/cache/entries/64d7e265b4f464b480e3ee529bcec51de2d21909640235627022100ae5c03c3d/artifacts/715906f40169b8ba8035a9058a7e9bac4d61f89d649a6ce242191083c215471e
+dependency phase: startup check
+restart is beginning
+[23;2t[22;2t]2;rnxReopen this scratch session:
+  '/home/me/work/rnx-bench/probes/removal-final/target/tool-ordinary' session --manifest '/home/me/work/rnx-bench/probes/removal-final/target/installed/state '\'' private/rnx/sessions/session-1640549-1789792123006189156/rnx.toml'
+[?2004h[?2026h[K[1] > [6C[?2026lpolars::lit(1).is_ok()[?2004l
+[1] true
+[?2004h[?2026h[K[2] > [6C[?2026llet row = postgres::query("postgresql:///postgres?host=/tmp/rnx-pg-contract-1olhx0k_&application_name=rnx-pg-fixt[?2026h[K[2] > let row = postgres::query("postgresql:///postgres?host=/tmp/rnx-pg-contract-1olhx0k_&application_name=rnx-pg-fixtu
+[?2026lre", "SELECT $1::int8 AS n", [42], #{}).await.unwrap();[?2004l
+[?2004h[?2026h[K[3] > [6C[?2026lassert!(row.rows[0].n == 42);[?2004l
+[?2004h[?2026h[K[4] > [6C[?2026l:q[?2004l
+[23;2t

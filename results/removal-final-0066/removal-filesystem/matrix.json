@@ -1,0 +1,289 @@
+{
+  "cases": [
+    {
+      "case": "inspection writes nothing and takes no writer lock",
+      "passed": true
+    },
+    {
+      "case": "quiescence required before writes",
+      "passed": true
+    },
+    {
+      "case": "busy cache writer refuses",
+      "passed": true
+    },
+    {
+      "case": "busy runtime writer refuses",
+      "passed": true
+    },
+    {
+      "case": "selected-1",
+      "passed": true,
+      "status": 1,
+      "diagnostic": "rnx-project: selected runtime aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa in \"/home/me/work/rnx-bench/probes/removal-final/target/removal-filesystem/target/cases/selected-1\" refused; select or install a replacement first"
+    },
+    {
+      "case": "selected pending runtime format 1",
+      "passed": true
+    },
+    {
+      "case": "selected-2",
+      "passed": true,
+      "status": 1,
+      "diagnostic": "rnx-project: selected runtime aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa in \"/home/me/work/rnx-bench/probes/removal-final/target/removal-filesystem/target/cases/selected-2\" refused; select or install a replacement first"
+    },
+    {
+      "case": "selected pending runtime format 2",
+      "passed": true
+    },
+    {
+      "case": "invalid-selection",
+      "passed": true,
+      "status": 1,
+      "diagnostic": "rnx-project: uninterpretable runtime selection: EOF while parsing an object at line 1 column 1"
+    },
+    {
+      "case": "opposite-root",
+      "passed": true,
+      "status": 1,
+      "diagnostic": "rnx-project: opposite runtime controls"
+    },
+    {
+      "case": "cwd inside target",
+      "passed": true
+    },
+    {
+      "case": "executable inside target",
+      "passed": true
+    },
+    {
+      "case": "symlink leaves hardlink and readonly file",
+      "passed": true,
+      "outside_unchanged": true,
+      "lock_inode_preserved": true
+    },
+    {
+      "case": "fifo",
+      "passed": true,
+      "status": 1,
+      "diagnostic": "rnx-project: special file refused: \"fifo\""
+    },
+    {
+      "case": "socket refuses without opening",
+      "passed": true
+    },
+    {
+      "case": "control symlink entries",
+      "passed": true
+    },
+    {
+      "case": "control symlink locks",
+      "passed": true
+    },
+    {
+      "case": "control symlink entry",
+      "passed": true
+    },
+    {
+      "case": "control symlink removing",
+      "passed": true
+    },
+    {
+      "case": "control symlink lockfile",
+      "passed": true
+    },
+    {
+      "case": "user root symlink canonicalized",
+      "passed": true
+    },
+    {
+      "case": "open-error-38",
+      "passed": true,
+      "status": 1,
+      "diagnostic": "rnx-project: openat2 \"entries\": Function not implemented (os error 38); guarded open refused, no fallback"
+    },
+    {
+      "case": "open-error-22",
+      "passed": true,
+      "status": 1,
+      "diagnostic": "rnx-project: openat2 \"entries\": Invalid argument (os error 22); guarded open refused, no fallback"
+    },
+    {
+      "case": "node-bound",
+      "passed": true,
+      "status": 1,
+      "diagnostic": "rnx-project: traversal allowance exceeded"
+    },
+    {
+      "case": "depth bound before rename",
+      "passed": true
+    },
+    {
+      "case": "replacement before rename refused",
+      "passed": true
+    },
+    {
+      "case": "SIGINT-before-rename",
+      "passed": true,
+      "status": 130,
+      "visible_preserved": true
+    },
+    {
+      "case": "SIGINT-after-rename",
+      "passed": true,
+      "status": 130,
+      "visible_preserved": true
+    },
+    {
+      "case": "SIGINT-during-delete",
+      "passed": true,
+      "status": 130,
+      "visible_preserved": true
+    },
+    {
+      "case": "SIGTERM-before-rename",
+      "passed": true,
+      "status": 143,
+      "visible_preserved": true
+    },
+    {
+      "case": "SIGTERM-after-rename",
+      "passed": true,
+      "status": 143,
+      "visible_preserved": true
+    },
+    {
+      "case": "SIGTERM-during-delete",
+      "passed": true,
+      "status": 143,
+      "visible_preserved": true
+    },
+    {
+      "case": "SIGKILL-before-rename",
+      "passed": true,
+      "status": -9,
+      "visible_preserved": true
+    },
+    {
+      "case": "SIGKILL-after-rename",
+      "passed": true,
+      "status": -9,
+      "visible_preserved": true
+    },
+    {
+      "case": "SIGKILL-during-delete",
+      "passed": true,
+      "status": -9,
+      "visible_preserved": true
+    },
+    {
+      "case": "pending refuses normal removal; quoted resume command executes",
+      "passed": true
+    },
+    {
+      "case": "bind-subdir refused before rename",
+      "passed": true,
+      "outside_unchanged": true
+    },
+    {
+      "case": "tmpfs-subdir refused before rename",
+      "passed": true,
+      "outside_unchanged": true
+    },
+    {
+      "case": "bind-entry refused before rename",
+      "passed": true,
+      "outside_unchanged": true
+    },
+    {
+      "case": "bind-entries refused before rename",
+      "passed": true,
+      "outside_unchanged": true
+    },
+    {
+      "case": "bind-locks refused before rename",
+      "passed": true,
+      "outside_unchanged": true
+    },
+    {
+      "case": "bind-file refused before rename",
+      "passed": true,
+      "outside_unchanged": true
+    }
+  ],
+  "mounts": [
+    {
+      "shape": "bind-subdir",
+      "uid": 1003,
+      "entry_device": 64513,
+      "mount_device": 64513,
+      "status": 1,
+      "stdout": "{\"notice\":\"All consumers must remain stopped, including older tools, surviving build children, direct executions, sessions, servers and kernels. Retained projects and kernelspecs may break. Removing a runtime can discard its only source copy.\",\"quiescence_acknowledged\":true}\n",
+      "stderr": "rnx-project: openat2 \"mnt\": Invalid cross-device link (os error 18); guarded open refused, no fallback\n",
+      "mountinfo": [
+        "10639 10558 252:1 /home/me/work/rnx-bench/probes/removal-final/target/removal-filesystem/target/cases/external-bind-subdir /home/me/work/rnx-bench/probes/removal-final/target/removal-filesystem/target/cases/mount-bind-subdir/entries/aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/mnt rw,nosuid,nodev,relatime master:1 - ext4 /dev/mapper/ubuntu--vg-ubuntu--lv rw"
+      ]
+    },
+    {
+      "shape": "tmpfs-subdir",
+      "uid": 1003,
+      "entry_device": 64513,
+      "mount_device": 117,
+      "status": 1,
+      "stdout": "{\"notice\":\"All consumers must remain stopped, including older tools, surviving build children, direct executions, sessions, servers and kernels. Retained projects and kernelspecs may break. Removing a runtime can discard its only source copy.\",\"quiescence_acknowledged\":true}\n",
+      "stderr": "rnx-project: openat2 \"mnt\": Invalid cross-device link (os error 18); guarded open refused, no fallback\n",
+      "mountinfo": [
+        "10639 10558 0:117 / /home/me/work/rnx-bench/probes/removal-final/target/removal-filesystem/target/cases/mount-tmpfs-subdir/entries/aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/mnt rw,nosuid,nodev,relatime - tmpfs tmpfs rw,mode=755,uid=1003,gid=1003,inode64"
+      ]
+    },
+    {
+      "shape": "bind-entry",
+      "uid": 1003,
+      "entry_device": 64513,
+      "mount_device": 64513,
+      "status": 1,
+      "stdout": "{\"notice\":\"All consumers must remain stopped, including older tools, surviving build children, direct executions, sessions, servers and kernels. Retained projects and kernelspecs may break. Removing a runtime can discard its only source copy.\",\"quiescence_acknowledged\":true}\n",
+      "stderr": "rnx-project: openat2 \"aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\": Invalid cross-device link (os error 18); guarded open refused, no fallback\n",
+      "mountinfo": [
+        "10639 10558 252:1 /home/me/work/rnx-bench/probes/removal-final/target/removal-filesystem/target/cases/mount-bind-entry/entries/aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa /home/me/work/rnx-bench/probes/removal-final/target/removal-filesystem/target/cases/mount-bind-entry/entries/aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa rw,nosuid,nodev,relatime master:1 - ext4 /dev/mapper/ubuntu--vg-ubuntu--lv rw"
+      ]
+    },
+    {
+      "shape": "bind-entries",
+      "uid": 1003,
+      "entry_device": 64513,
+      "mount_device": 64513,
+      "status": 1,
+      "stdout": "{\"notice\":\"All consumers must remain stopped, including older tools, surviving build children, direct executions, sessions, servers and kernels. Retained projects and kernelspecs may break. Removing a runtime can discard its only source copy.\",\"quiescence_acknowledged\":true}\n",
+      "stderr": "rnx-project: openat2 \"entries\": Invalid cross-device link (os error 18); guarded open refused, no fallback\n",
+      "mountinfo": [
+        "10639 10558 252:1 /home/me/work/rnx-bench/probes/removal-final/target/removal-filesystem/target/cases/mount-bind-entries/entries /home/me/work/rnx-bench/probes/removal-final/target/removal-filesystem/target/cases/mount-bind-entries/entries rw,nosuid,nodev,relatime master:1 - ext4 /dev/mapper/ubuntu--vg-ubuntu--lv rw"
+      ]
+    },
+    {
+      "shape": "bind-locks",
+      "uid": 1003,
+      "entry_device": 64513,
+      "mount_device": 64513,
+      "status": 1,
+      "stdout": "{\"notice\":\"All consumers must remain stopped, including older tools, surviving build children, direct executions, sessions, servers and kernels. Retained projects and kernelspecs may break. Removing a runtime can discard its only source copy.\",\"quiescence_acknowledged\":true}\n",
+      "stderr": "rnx-project: openat2 \"locks\": Invalid cross-device link (os error 18); guarded open refused, no fallback\n",
+      "mountinfo": [
+        "10639 10558 252:1 /home/me/work/rnx-bench/probes/removal-final/target/removal-filesystem/target/cases/mount-bind-locks/locks /home/me/work/rnx-bench/probes/removal-final/target/removal-filesystem/target/cases/mount-bind-locks/locks rw,nosuid,nodev,relatime master:1 - ext4 /dev/mapper/ubuntu--vg-ubuntu--lv rw"
+      ]
+    },
+    {
+      "shape": "bind-file",
+      "uid": 1003,
+      "entry_device": 64513,
+      "mount_device": 64513,
+      "status": 1,
+      "stdout": "{\"notice\":\"All consumers must remain stopped, including older tools, surviving build children, direct executions, sessions, servers and kernels. Retained projects and kernelspecs may break. Removing a runtime can discard its only source copy.\",\"quiescence_acknowledged\":true}\n",
+      "stderr": "rnx-project: openat2 \"leaf\": Invalid cross-device link (os error 18); guarded open refused, no fallback\n",
+      "mountinfo": [
+        "10639 10558 252:1 /home/me/work/rnx-bench/probes/removal-final/target/removal-filesystem/target/cases/external-bind-file/sentinel /home/me/work/rnx-bench/probes/removal-final/target/removal-filesystem/target/cases/mount-bind-file/entries/aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/leaf rw,nosuid,nodev,relatime master:1 - ext4 /dev/mapper/ubuntu--vg-ubuntu--lv rw"
+      ]
+    }
+  ],
+  "scope": "isolated candidate; synthetic control documents; actual syscalls and mounts"
+}

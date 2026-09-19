@@ -1,0 +1,129 @@
+[
+  {
+    "label": "polars",
+    "kind": "cache",
+    "source": "/home/me/work/rnx-bench/probes/removal-storage/target/real/cache/entries/7899886d5f193fe73d6fb2e1c8d246a23914b6c30d5ef1205066058cde918777",
+    "list_ms": 19.921658,
+    "dry_ms": 15.303409,
+    "nodes": 3745,
+    "files": 3121,
+    "logical_bytes": 1710427835,
+    "allocated_estimate": 1722871808,
+    "free_before_copy": 559228809216,
+    "free_after_copy": 557505933312,
+    "copy_free_delta": 1722875904,
+    "remove_ms": 592.79092,
+    "free_before_remove": 557505925120,
+    "free_after_remove": 559228792832,
+    "observed_free_increase": 1722867712,
+    "report": [
+      {
+        "notice": "All consumers must remain stopped, including older tools, surviving build children, direct executions, sessions, servers and kernels. Retained projects and kernelspecs may break. Removing a runtime can discard its only source copy.",
+        "quiescence_acknowledged": true
+      },
+      {
+        "committed": true,
+        "pending": "/home/me/work/rnx-bench/probes/removal-final/target/costs/polars/removing/7899886d5f193fe73d6fb2e1c8d246a23914b6c30d5ef1205066058cde918777",
+        "resume_command": "'/home/me/work/rnx-bench/probes/removal-final/target/tool-ordinary' cache remove 7899886d5f193fe73d6fb2e1c8d246a23914b6c30d5ef1205066058cde918777 --root '/home/me/work/rnx-bench/probes/removal-final/target/costs/polars' --resume --quiescent"
+      },
+      {
+        "allocated_estimate_before": 1722871808,
+        "deleted_leaves": 3121,
+        "location": "entries",
+        "logical_before": 1710427835,
+        "removed": "7899886d5f193fe73d6fb2e1c8d246a23914b6c30d5ef1205066058cde918777"
+      }
+    ],
+    "original_metadata_unchanged": true,
+    "lock_inode_retained": true
+  },
+  {
+    "label": "combined",
+    "kind": "cache",
+    "source": "/home/me/work/rnx-bench/probes/removal-storage/target/real/cache/entries/64d7e265b4f464b480e3ee529bcec51de2d21909640235627022100ae5c03c3d",
+    "list_ms": 18.894461,
+    "dry_ms": 13.67341,
+    "nodes": 3905,
+    "files": 3261,
+    "logical_bytes": 1740572120,
+    "allocated_estimate": 1753546752,
+    "free_before_copy": 559228784640,
+    "free_after_copy": 557475233792,
+    "copy_free_delta": 1753550848,
+    "spawn_to_pause_ms": 16.989588,
+    "resume_ms": 604.021934,
+    "pending_dry_ms": 12.759896,
+    "pending_nodes": 3904,
+    "pending_logical": 1631956480,
+    "free_before_resume": 557583839232,
+    "pause_events": [
+      {
+        "notice": "All consumers must remain stopped, including older tools, surviving build children, direct executions, sessions, servers and kernels. Retained projects and kernelspecs may break. Removing a runtime can discard its only source copy.",
+        "quiescence_acknowledged": true
+      },
+      {
+        "committed": true,
+        "pending": "/home/me/work/rnx-bench/probes/removal-final/target/costs/combined/removing/64d7e265b4f464b480e3ee529bcec51de2d21909640235627022100ae5c03c3d",
+        "resume_command": "'/home/me/work/rnx-bench/probes/removal-final/target/tool-support' cache remove 64d7e265b4f464b480e3ee529bcec51de2d21909640235627022100ae5c03c3d --root '/home/me/work/rnx-bench/probes/removal-final/target/costs/combined' --resume --quiescent"
+      },
+      {
+        "paused": "during-delete"
+      }
+    ],
+    "free_after_remove": 559228764160,
+    "observed_free_increase": 1644924928,
+    "report": [
+      {
+        "notice": "All consumers must remain stopped, including older tools, surviving build children, direct executions, sessions, servers and kernels. Retained projects and kernelspecs may break. Removing a runtime can discard its only source copy.",
+        "quiescence_acknowledged": true
+      },
+      {
+        "allocated_estimate_before": 1644929024,
+        "deleted_leaves": 3260,
+        "location": "removing",
+        "logical_before": 1631956480,
+        "removed": "64d7e265b4f464b480e3ee529bcec51de2d21909640235627022100ae5c03c3d"
+      }
+    ],
+    "original_metadata_unchanged": true,
+    "lock_inode_retained": true
+  },
+  {
+    "label": "runtime",
+    "kind": "runtime",
+    "source": "/home/me/work/rnx-bench/probes/removal-storage/target/real/data ' private/rnx/runtimes/entries/442b4f457ecefa68f57689994d2985e45e60d3cc43b6861081c51b3344f6ef6d",
+    "list_ms": 6.231068,
+    "dry_ms": 5.786937,
+    "nodes": 1093,
+    "files": 807,
+    "logical_bytes": 8475141,
+    "allocated_estimate": 11497472,
+    "free_before_copy": 559228755968,
+    "free_after_copy": 559217258496,
+    "copy_free_delta": 11497472,
+    "remove_ms": 240.345895,
+    "free_before_remove": 559217250304,
+    "free_after_remove": 559228743680,
+    "observed_free_increase": 11493376,
+    "report": [
+      {
+        "notice": "All consumers must remain stopped, including older tools, surviving build children, direct executions, sessions, servers and kernels. Retained projects and kernelspecs may break. Removing a runtime can discard its only source copy.",
+        "quiescence_acknowledged": true
+      },
+      {
+        "committed": true,
+        "pending": "/home/me/work/rnx-bench/probes/removal-final/target/costs/runtime/removing/442b4f457ecefa68f57689994d2985e45e60d3cc43b6861081c51b3344f6ef6d",
+        "resume_command": "'/home/me/work/rnx-bench/probes/removal-final/target/tool-ordinary' runtime remove 442b4f457ecefa68f57689994d2985e45e60d3cc43b6861081c51b3344f6ef6d --root '/home/me/work/rnx-bench/probes/removal-final/target/costs/runtime' --resume --quiescent"
+      },
+      {
+        "allocated_estimate_before": 11497472,
+        "deleted_leaves": 807,
+        "location": "entries",
+        "logical_before": 8475141,
+        "removed": "442b4f457ecefa68f57689994d2985e45e60d3cc43b6861081c51b3344f6ef6d"
+      }
+    ],
+    "original_metadata_unchanged": true,
+    "lock_inode_retained": true
+  }
+]

@@ -1,0 +1,53 @@
+PASS exact CLI refuses before writes
+PASS missing root lists absent without creation
+PASS cache override
+PASS cache xdg
+PASS cache home
+PASS runtime xdg
+PASS runtime home
+PASS explicit root wins; invalid environment never falls back
+PASS broken root is not absent
+PASS sorted entries; corrupt and missing metadata; escaped unknown names
+PASS entry memory and output bounds refuse without writes
+PASS known but incomplete entry document is unrecognized
+PASS old/current shared reference 2
+PASS annotated dry run 2
+PASS old/current shared reference 3
+PASS annotated dry run 3
+PASS no digest-only shared match generated2
+PASS no digest-only shared match executable2
+PASS no digest-only shared match generated3
+PASS no digest-only shared match executable3
+PASS reference outside selected store
+PASS missing recorded entry
+PASS runtime reference uses recorded source, not selection or provenance
+PASS visible reference does not become pending reference
+PASS missing receipt is indeterminate
+PASS malformed lock is indeterminate
+PASS unsupported lock is indeterminate
+PASS bad key is indeterminate
+PASS duplicate field is indeterminate
+PASS oversized manifest is indeterminate
+PASS 64 supplied paths coalesce; 65 refuse
+PASS unbuilt project is not opened for mutation
+PASS observable annotation edit
+PASS observable annotation replace
+PASS failure boundary before-rename
+PASS failure boundary before-root-sync
+PASS failure boundary after-root-sync
+PASS failure boundary before-entries-sync
+PASS failure boundary after-entries-sync
+PASS failure boundary before-pending-sync
+PASS failure boundary after-pending-sync
+PASS failure boundary before-unlink
+PASS failure boundary before-final-sync
+PASS failure boundary after-final-sync
+PASS kill and CLOEXEC before-entries-sync
+PASS kill and CLOEXEC after-entries-sync
+PASS kill and CLOEXEC before-pending-sync
+PASS kill and CLOEXEC after-pending-sync
+PASS real deletion permission error leaves resumable pending
+PASS real rename permission error preserves visible entry
+PASS relative and symlink manifest spellings coalesce
+PASS ordinary product ignores test hooks
+PASS 52 contract groups

@@ -1,0 +1,2423 @@
+diff --git a/plans/0065_a_launch_checks_each_native_file_once.md b/plans/0065_a_launch_checks_each_native_file_once.md
+index 3ebd432..44178ae 100644
+--- a/plans/0065_a_launch_checks_each_native_file_once.md
++++ b/plans/0065_a_launch_checks_each_native_file_once.md
+@@ -1,6 +1,6 @@
+ # rnx 0065: a launch checks each native file once
+ 
+-Status: accepted for implementation after the 2026-09-18 draft review.
++Status: accepted and closed on Linux, with the gate-5 numerical qualification retained.
+ The removal record is explicitly next after this record closes; gate 3 includes
+ a kernelspec referencing an old-key artifact among surviving consumers.
+ Gate 1's reader/encoding checks are accepted on Linux; see
+@@ -18,12 +18,12 @@ Gate 5 is accepted with its one numerical miss retained as a qualification.
+ F5 removes the path-map bookkeeping cost; five first-adapter comparisons pass,
+ but one eval repeat misses the unchanged strict bound by 0.016205 ms. The original
+ journal, gate file and [positional attribution](0065_a_launch_checks_each_native_file_once_position_evidence.md) remain unchanged.
+-Gate 6 passes on Linux, ready for review; see
++Gate 6 is accepted on Linux; see
+ [the closing evidence](0065_a_launch_checks_each_native_file_once_regression_evidence.md).
+ Its fresh six first-adapter comparisons pass, and it reports external-root,
+ inherited-Git-variable and nested-repository slopes, path controls, full-hash
+ attachment, final installed journeys and the full regression. Implementation is
+-complete on Linux, pending gate 6 review, with the gate-5 miss and ownership,
++complete and the record is closed on Linux, with the gate-5 miss and ownership,
+ platform and migration qualifications retained. Baseline: rnx `7cd3205`, rnx-bench `921ffe3`.
+ 0064 is closed on Linux. This record addresses native inventory after runtime
+ installation; it does not introduce a persistent source-verification cache.
+@@ -354,7 +354,7 @@ hashing content once makes a concurrently edited checkout an atomic snapshot.
+ The measured stops and format-only/final checkpoints earn commits because their
+ sources must remain reproducible. Incidental fixes fold into their checkpoint
+ before push. Do not rewrite accepted baselines or describe predicted combined
+-savings as observations. Next review is gate 6's closing evidence. The record immediately
++savings as observations. The next record is [0066](0066_removal_is_an_explicit_ownership_decision.md). The record immediately
+ after 0065 closes must decide removal of retained assemblies/runtimes, so the disk
+ cost has an explicit next decision rather than an open-ended deferral. It must
+ account for old tools, project references, sessions and kernels before deletion.
+diff --git a/plans/0066_removal_is_an_explicit_ownership_decision.md b/plans/0066_removal_is_an_explicit_ownership_decision.md
+new file mode 100644
+index 0000000..9c76587
+--- /dev/null
++++ b/plans/0066_removal_is_an_explicit_ownership_decision.md
+@@ -0,0 +1,352 @@
++# rnx 0066: removal is an explicit ownership decision
++
++Status: gates 1–2 accepted and pushed, most recently `06a295e` (bench `14440f3`).
++Gate 3 is ready for review in the
++[real storage evidence](0066_removal_is_an_explicit_ownership_decision_storage_evidence.md).
++The [ownership evidence](0066_removal_is_an_explicit_ownership_decision_ownership_evidence.md)
++retains the namespace stop and its bubblewrap resolution; the
++[command evidence](0066_removal_is_an_explicit_ownership_decision_commands_evidence.md)
++retains the product failure matrix and genuine same-key rebuild. Gate 4 remains open.
++
++## Context
++
++The 0065 identity migration leaves old entries reachable under their original
++keys. A retained Polars assembly is about 1.5 GB; the reviewer's accumulated cache
++reached about 15 GB. An installed runtime is much smaller, about 8.45 MB logical
++including Git objects in 0064, but can be the only remaining copy of its source.
++Relocking and migrating reclaim neither. Keeping only an assembly's executable
++is insufficient: trusted build scripts can make it read retained build outputs.
++
++There is no complete reference inventory. Projects can live anywhere, old tools
++still understand their old locks, kernelspecs can name an artifact directly, and
++a session or server can outlive the tool that launched it. The cache's
++`locks/<key>.lock` coordinates build/attachment through receipt publication. It
++is not a lifetime lease. The runtime's `install.lock` serializes writers, not
++users of installed source. Ordinary launches take no cache lifetime lease; the
++project lock closes on exec. A successful nonblocking writer-lock acquisition
++therefore cannot establish that deletion is safe.
++
++A registry introduced now would miss existing projects and older consumers, and
++process scans cannot discover future file reads or offline kernelspecs. This
++record chooses explicit user quiescence and exact targets, rather than pretending
++those gaps are solved. It adds no launch work or lifetime protocol.
++
++## Decisions
++
++### 1. List, inspect, then explicitly remove one full ID
++
++Add these tool commands, with no root CLI or Rune API change:
++
++```text
++rnx-project cache list [--root PATH] [--manifest FILE]...
++rnx-project runtime list [--root PATH] [--manifest FILE]...
++rnx-project cache remove KEY [--root PATH] [--dry-run] [--resume] [--quiescent]
++rnx-project runtime remove ID [--root PATH] [--dry-run] [--resume] [--quiescent]
++```
++
++There is exactly one target per remove command: a full 64-character lowercase
++hexadecimal key/ID, not a prefix, path, pattern or version selector. Its shape does
++not declare its hash algorithm. SHA-256-era and BLAKE3-era entries are addressable.
++Unknown options, duplicate single-use options, missing values and surplus
++arguments refuse before opening storage. Only `--manifest` is repeatable. No `--all`, `--obsolete`, `--force`, age rule or automatic prune.
++
++`remove --dry-run` is read-only and does not require `--quiescent`. Without
++`--dry-run`, the command requires the explicit `--quiescent` acknowledgement;
++otherwise it refuses before creating anything and prints the inspection command.
++There is no interactive prompt, implicit yes or tty-dependent behavior. A dry run
++is not a saved authorization: actual removal repeats every applicable check.
++`--resume` explicitly addresses a pending removal, as defined in decision 4.
++
++The acknowledgement means: the user has stopped every consumer of this entry,
++including older tools, builders, direct executions, sessions, servers and notebook
++kernels, and will start none until the command finishes. The user also accepts
++that retained project locks, scratch manifests, kernelspecs and scripts may still
++name it and will need rebuilding, reconfiguration or another source copy. Stopping
++a kernel does not rewrite its kernelspec. Removing a runtime can permanently
++remove its only source copy. The notice and README state this plainly.
++
++No command labels an entry "unused" or claims to enumerate all its references.
++Versions are descriptive metadata only. Active consumers that ignore the
++acknowledgement are not protected by this record, even if a writer lock is free.
++In particular, a killed old builder may have orphaned children after its
++close-on-exec lock was released. Quiescence includes those children.
++
++### 2. Root selection, read-only inventory and scope
++
++Without `--root`, select the cache using the existing RNX_PROJECT_CACHE,
++XDG_CACHE_HOME and HOME precedence, or the runtime store using XDG_DATA_HOME/HOME.
++Do not walk upward from the working directory or infer the store from a project
++manifest. Only the explicitly requested annotations below read project files.
++`--root` is an explicit absolute Unicode store-root override for these maintenance
++commands only. It outranks the environment, with no fallback on an invalid value.
++It does not change lock/build/run/session/eval or runtime install/select behavior.
++
++Canonicalize the user's chosen root, allowing a symlink that points to a store on
++another disk. Below that point, managed control paths must be real, owned,
++non-group/other-writable directories or regular files as appropriate, not links.
++Check store kind: cache roots have their `locks` directory; runtime roots have
++`install.lock`. Opposite-kind or ambiguous control layouts refuse, so passing a
++runtime root to `cache remove` cannot bypass selected-runtime protection. A missing
++root lists as absent without creating it; a malformed existing root is an error.
++
++A sorted listing reports the canonical store root, full IDs, location (entry or
++pending removal), bounded metadata format/provenance when readable, runtime
++selection, file count, logical regular-file bytes and estimated allocated bytes.
++Corrupt, missing or unknown-version entry documents are labelled unrecognized;
++they are not silently called valid or obsolete. List the two locations separately
++if the same key has both. Human output escapes control characters and unusual
++names. Diagnostic commands shell-quote the actual tool path and include
++`--root <canonical-root>` so pasted commands do not silently select another store.
++
++For list and remove **with --dry-run only**, accept repeatable `--manifest FILE`
++(up to 64 supplied paths). This is an explicit read-only annotation request, not
++reference discovery or a store selector. Read only the named manifest and its
++fixed project lock/receipt paths; do not search directories, resolve a dependency
++graph, follow project references to other manifests or inspect kernelspecs.
++Manifest files retain the existing 1 MiB bound; lock/receipt documents retain the
++16 MiB bound, with reads/accounting also charged to the command's memory limit.
++
++Cache annotations use the named project's receipt and its recorded assembly/root
++binding in the lock. Mark the matching visible entry `referenced by <manifest>`
++and show the recorded path. Runtime annotations use the installed source root
++named by that project's lock, not the current default, RNX_DEP_RUNTIME or the
++installation's provenance path. Label these as recorded references: no source
++freshness, content authentication or executable validation is implied. Support
++inspection of the shipped old/current lock and receipt shapes without admitting
++old formats into current launch/build paths. Project-local artifacts and overrides
++are reported as such, not matched to a shared entry merely by a digest.
++
++Show named references outside the selected store or to missing entries separately.
++A reference to entries/ID does not become a reference to removing/ID when that
++entry is pending deletion. Missing, malformed, unsupported or observably changing
++project documents produce an indeterminate annotation and nonzero inspection
++status, never an assertion of no reference. Do not acquire project writer locks,
++create .rnx, refresh receipts or repair/migrate documents. Coalesce repeated paths
++to the same named manifest for display. Mutating remove refuses --manifest rather
++than implying these annotations authorize deletion or protect other projects.
++
++Every annotated report and the README say **only the manifests named were checked**.
++An unannotated entry may still have other consumers. An annotation is not a busy
++reader, lifetime lease or deletion veto; quiescence and acceptance of broken
++retained references remain the separate removal contract.
++
++Control documents use the existing 16 MiB cache and 64 KiB runtime limits.
++Filesystem inspection reads metadata, not artifact/source contents: no Git,
++Cargo, compiler, adapter builder, source fingerprint, fsck or executable is run.
++The existing private SHA-256 authentication path remains migration-only. Removal
++of owned corrupt entry data does not require first making it usable again.
++
++Bounds: at most 10,000 named entries in a store listing, 1,000,000 visited nodes
++per command, depth 128, 256 MiB of retained traversal/accounting data and 16 MiB of
++rendered output. Check allowances before expanding/allocating the next item.
++Bounded documents and traversal are cancellable. A bound, permission or topology
++failure makes inspection incomplete and nonzero; actual removal refuses before
++commit if its preflight cannot complete. Unknown top-level names are reported and
++never turned into deletion candidates. Non-Unicode names inside build output can
++be handled as OS bytes without opening their contents; they must be escaped in
++errors. Managed IDs and control names retain their strict syntax.
++
++Deduplicate inode accounting within each reported entry. Logical size and
++`st_blocks * 512` are observations, not guaranteed free-space recovery: hardlinks
++outside the entry, reflinks, compression and open descriptors can retain blocks.
++Report measured free-space changes only as separate fixture observations. Do not
++sum per-entry allocated estimates into a promise about unique physical storage.
++
++Scope is complete `entries/<id>` directories and this record's pending removals.
++Never delete project-local `.rnx`, executable overrides, user projects, scratch
++projects, kernelspecs, Cargo's global registry/cache, other entries, lockfiles or
++runtime selection as a side effect. Resolver scratch and installer `.stage-*`
++cleanup keep their existing owners; this is not a sweep of all store contents.
++
++### 3. Writer coordination and selection protection
++
++Actual cache removal acquires the existing `locks/<key>.lock` exclusively and
++nonblockingly, retaining it through final deletion/reporting. Actual runtime
++removal similarly takes `install.lock`. A busy writer means a named refusal;
++removal neither waits for a build to finish nor interrupts it. Lock descriptors
++are close-on-exec and remain at their permanent paths after release. Never unlink
++a lockfile: a waiter may already have opened that inode. There is no new global
++cache lock and no lock ordering across projects or both stores.
++
++Under the lock, re-inspect the target and its ownership. For runtimes, read
++`current.json` again. Recognize the bounded format-1 and format-2 selection
++shapes without authenticating their source; refuse removal of the selected ID,
++including `--resume` for that ID. If selection exists but cannot be interpreted,
++refuse rather than treating it as absent. Never unselect automatically or offer a
++bypass: select/install a replacement first. Removing the last selected runtime is
++outside this first surface. A missing selection permits explicit unselected
++removal. Provenance fields such as migrated_from and source_path are history, not
++selection and not a discovered lifetime lease.
++
++Dry-run and list never create lockfiles, refresh receipts, repair modes, reclaim
++staging directories or acquire mutation ownership. They may report an existing
++writer as busy using a non-mutating probe, but cannot reserve a later removal.
++Actual removal still checks after taking its lock. Reject a target containing the
++maintenance process's current executable or working directory.
++
++These locks protect cooperative writers, including the old tools' same lock
++paths. They do not cover ordinary launch or readers. No process-registry,
++/proc-based absence claim, kernelspec scan or new shared lock on everyday launch
++is introduced. The quiescence acknowledgement is a real contract, not a synonym
++for a successful lock operation.
++
++### 4. Hide the whole entry, then finish deletion explicitly
++
++Reserve an owned `removing/` directory next to `entries/` in each store. Existing
++readers look only under entries; old installer staging cleanup does not own this
++new directory. A removal's commitment boundary is a no-replace rename from
++`entries/<id>` to `removing/<id>`, on the same filesystem. Do not move an executable
++separately or leave ready.json discoverable over a half-deleted target.
++
++Before rename, validate control directories, selection, the full bounded target
++walk and target identity. Keep directory handles; use relative no-follow
++operations below them, and refuse filesystem/mount crossings, including a
++same-device bind mount. The Linux implementation may use the already-pinned libc
++for the necessary directory/rename operations. Gate 1 must demonstrate the
++boundary; a host that cannot enforce it refuses before commitment. Do not replace
++it with a canonicalize-then-recursively-follow-path fallback.
++
++Inside the target, regular files and directories must be owned by the user.
++Symlinks in build output are leaf objects: count/unlink the link without reading
++or traversing its referent. Symlinks at the store, entries, removing or selected
++entry control boundary refuse (except the allowed initial root spelling).
++Special files and mounted subtrees refuse during preflight, without blocking or
++opening them. Read-only regular files can be unlinked from writable owned parents;
++removal must not chmod/truncate a shared file or alter a hardlink's other names.
++
++Recheck the source entry identity immediately before rename and the destination
++identity afterwards. A changed identity stops deletion. Do not overwrite an
++existing pending directory or visible entry. Sync both parent directories after
++rename before deleting any child. Once renamed, no rollback is promised: a cleanup
++error or signal leaves pending state and prints its exact resume command. Sync
++failures distinguish "rename may already have committed" from a precommit refusal.
++The rename itself changes all original build-output paths, so it already requires
++quiescence even if no file has yet been unlinked.
++
++Delete using bounded directory-relative, no-follow traversal. Recheck boundaries
++rather than resolving a link into another tree. Sync modified directories and the
++pending parent before reporting success. SIGINT/SIGTERM use the tool's existing
++signal-status convention and stop at checked operation boundaries; SIGKILL can
++leave pending work. No detached janitor or automatic resume on launch, build,
++install, select, list or dry-run. The trusted-store/quiescence assumption still
++applies; this is not a sandbox against a same-user adversary moving open
++directories elsewhere during deletion.
++
++`remove ID --resume --quiescent` operates only on `removing/ID`, taking the same
++writer lock and rerunning the applicable checks on its remaining contents. It
++must never fall back to deleting `entries/ID`. Without --resume, an existing
++pending removal refuses with the recovery command. Without a pending removal,
++--resume refuses even if a visible entry has since been rebuilt. With both
++locations present, resume deletes only the pending one and preserves the new
++visible entry byte-for-byte. Runtime selection protection still applies.
++
++No removal manifest with authenticated content is needed: the checked store,
++strict ID and explicit location are the deletion authority. Partially removed
++control documents need not decode to resume. Unknown future entry-document
++versions are deletable as explicitly selected owned data, never interpretable as
++current launch identities. Existing lock, receipt, ready, identity, installation
++and selection versions do not change. Maintenance commands neither generate nor
++resolve assembly identities. The generator and fingerprint formats stay fixed;
++a tracked source edit still changes its input identity in the ordinary way.
++
++Precommit failures preserve the entry and selection; created infrastructure such
++as a missing per-key lock or removing directory may remain. Postcommit failures
++report pending state and cannot claim reclaimed space or a clean removal. Exit
++zero requires the selected location gone and required directory syncs successful.
++No-op absence is a named refusal, so a mistyped or wrong-location command does not
++pretend to have removed anything.
++
++### 5. End-user outcomes and failure recovery
++
++The README shows list, dry-run and remove together, with exact full IDs copied
++from listing and --manifest examples identifying the user's working assembly
++and locked runtime. It states that only the named manifests are covered. It explains stopping all consumers, preserving needed source copies,
++selected-runtime refusal and resuming an interruption. Old and new IDs receive the
++same deliberate treatment. No wording implies relock, successful migration or a
++new generator made an old entry unreferenced.
++
++Deleting an assembly invalidates consumers that name its original path. Current
++project run/eval/session still never build: they refuse a missing entry with the
++existing build guidance. Explicit build may reconstruct it when locked sources,
++toolchain and configuration are still available; no universal reconstruction or
++bit-reproducibility promise is added. A kernelspec naming a deleted executable
++must be repointed/reinstalled by its owner. Removing an installed source can make
++both input verification and rebuilding impossible until a suitable source copy
++is restored and the project explicitly relocked. No project or kernelspec is
++rewritten by removal.
++
++## Gates and stop points
++
++1. **Ownership and filesystem prototype.** Isolated tool copy, actual old/new
++   cache/runtime layouts, directory handles and real rename/unlink operations.
++   Prove that old live sessions and an old-key kernel can read retained output
++   while no writer lock is held; list/dry-run leave them working. Stop them before
++   actual removal. Prove busy build/install refusal, no inherited writer lock,
++   selected old/new runtime refusal, and rename-before-delete visibility. Exercise
++   internal symlinks to outside sentinels, control-path symlinks, file replacements,
++   special files, hardlinks, read-only files, nested mounts and bind mounts. A mount
++   fixture may use an isolated user/mount namespace; if unavailable, record that
++   gap and stop for review rather than asserting the boundary untested. Root
++   symlink spelling must work. No unexplained escape, identity difference or
++   reference claim passes. This gate precedes a product deletion primitive.
++2. **Commands and interruption matrix.** Exact CLI/root precedence, full-ID
++   refusals, sorted bounded listing and zero-write dry-run. Cover annotations for
++   several explicitly named old/current projects, relative paths, duplicates,
++   shared/local/override forms, different stores, missing entries, pending versus
++   visible entries and missing/corrupt/changed documents. Assert no project writes,
++   no search or inferred completeness, and refusal on mutating --manifest use.
++   Corrupt/missing/unknown entry documents remain inspectable/removable as owned data; invalid selection
++   and malformed control roots refuse. Acquire the same old/new writer locks;
++   kill or interrupt the remover before rename, after rename, after each parent
++   sync and during deletion. Preserve all precommit bytes, name postcommit state,
++   resume only pending data and retain lock inodes. Include removal failure from
++   permissions and sync errors. After a killed remover, rebuild the same cache key
++   with an old tool, then prove resume preserves that new visible entry. No
++   implicit resume, selected-runtime bypass or compiler/Git invocation.
++3. **Real storage journey.** Private stores only. Create authentic SHA-256 and
++   BLAKE3 Polars/combined assemblies and runtime installations, including a real
++   old-key kernel as the live retained-output consumer, using its old-key
++   kernelspec again. Migrate first, then run list and annotated dry-run while the
++   kernel remains alive; execute cells that read its retained output before and
++   after inspection. Explicitly stop and reap it before removing the chosen old
++   entries/runtimes. The new installed default must still serve stock :dep, with
++   Polars and a typed PostgreSQL query. Kept entries, project locks/receipts,
++   kernelspecs and selection stay unchanged. A deliberately removed current-format
++   assembly refuses ordinary launch without compiling, and explicit build recovers
++   when its retained inputs permit. Remove one corrupted unselected runtime too;
++   no authentication/repair is needed to delete its owned data. Demonstrate pending
++   removal recovery in a retained Polars-sized tree, not only tiny fixtures.
++4. **Costs, regression and documentation.** Report actual inspected node counts,
++   logical/allocated estimates, listing/dry-run/removal/resume wall times and
++   observed free-space changes separately on real entries; no exact byte-recovery
++   promise or universal threshold. Confirm no per-launch work, identity-schema/generator
++   changes or dependency additions. Reuse the matched zero-to-three launch roster
++   against 0065 with both repeats, retained outputs and all six first-adapter cells
++   reported; do not reopen the accepted noise qualification as a new absolute
++   promise. Tool fmt, strict clippy and suites in both configurations, notices,
++   publication/migration/interactive/installed :dep regressions; root suites
++   serially, notices, fresh default selfcheck and normalized graph. Root source,
++   Cargo files, API, kernel, adapters and server remain unchanged. Linux execution
++   only, with other platforms refusing maintenance before writes. README includes
++   real reclamation and retained-reference consequences before acceptance. The gate-2
++   review also carries the recurring loaded-host flake in
++   `capability_refuses_bad_replies_and_retires_timed_out_child`: give oversized
++   reply validation deterministic coverage without changing the bounded production
++   handshake, while retaining the real child-timeout and retirement check.
++
++## Guardrails and later work
++
++No automatic eviction, global project registry, claim to find all references,
++lifetime lease migration, default-runtime clearing, removal of local projects or
++scratch state, automatic kernelspec repair, cross-root bulk transaction, hash
++migration, Git-variable whitelist, path-depth optimization or launcher/runtime
++compatibility rule. No user stores are deleted by the fixtures or by writing this
++draft. A cache generation is never a deletion predicate. If the ownership or
++filesystem gate cannot be demonstrated, preserve that measured stop for review;
++do not substitute a version sweep to meet a disk-reclamation target.
++
++Plan plus implementation is the default history shape. A measured stop or changed
++design earns its own reproducible checkpoint; review corrections fold into their
++unpublished checkpoint. After this record, the Git-variable whitelist and path
++depth remain the smaller launch follow-ups, followed by the already-visible
++launcher/runtime skew decision.
+diff --git a/plans/0066_removal_is_an_explicit_ownership_decision_commands_evidence.md b/plans/0066_removal_is_an_explicit_ownership_decision_commands_evidence.md
+new file mode 100644
+index 0000000..1450bfb
+--- /dev/null
++++ b/plans/0066_removal_is_an_explicit_ownership_decision_commands_evidence.md
+@@ -0,0 +1,113 @@
++# 0066 gate 2: product commands and interruption evidence
++
++Status: implemented, ready for review. Gate 1 was accepted at `bafa2a0`, with
++bench `94539e1`. Gate 2's source archive, drivers and retained results are in
++rnx-bench `14440f3`, under `probes/removal-commands` and
++`results/removal-commands-0066`. Gates 3–4 remain open.
++
++## Product boundary
++
++The change is confined to the project tool. A private maintenance module handles
++cache/runtime list and remove, with exact IDs, root precedence, read-only dry
++runs, explicit quiescence, pending-only resume and repeatable annotations on
++inspection commands only. The workflow dispatches maintenance separately from
++launch/build/install. No dependency, document version, identity generator,
++launch operation, root source, adapter, server or kernel changes.
++
++The accepted directory-handle primitive is ported without a path fallback:
++openat2 beneath/no-symlink/no-mount-crossing guards, O_PATH leaf inspection,
++no-replace rename, both rename-parent syncs before deletion, permanent existing
++writer-lock paths and guarded recursive unlink. Internal symlinks are leaves.
++Only owned, preflighted data is deleted. Current-executable/current-directory
++protection, selected-runtime protection in both formats and uninterpretable
++selection refusal remain. The product starts no subprocess. Linux-only hooks,
++forced failures, reduced bounds and pause controls compile only with test-support.
++
++The report is bounded pretty JSON. Entry metadata is an unauthenticated envelope;
++corrupt or missing entry documents do not make owned data undeletable. Explicit
++project annotations inspect manifest/lock/receipt envelopes and reference fields,
++not dependency contents, executable hashes or freshness. They cannot certify
++receipt-to-lock content binding. Local/override forms never match a shared entry
++by digest alone. Shared entries match recorded store plus key; runtimes match the
++locked runtime source path. No default selection or provenance is used to infer a
++project reference. Missing, unsupported or observably changed documents make that
++annotation indeterminate and the report exits nonzero. Relative and symlink
++manifest spellings coalesce after canonicalization; no project search occurs.
++
++## Builds and checks
++
++The two frozen release binaries used by the final replays have SHA-256 evidence
++hashes:
++
++| Configuration | Hash |
++| --- | --- |
++| ordinary | `f0338e5b57f6ca8d7568b5f5426d1713bd4ca779b11a15aa43a8076b6dfc4d50` |
++| test-support | `1b93cf24d6fefb9a456b18bf0ac76e982cfd8ee6db402681dc9304b2582144fc` |
++
++Tool formatting and strict clippy across all targets pass in both configurations.
++Serial tests: ordinary 47 passed, support 48 passed, zero failures, two ignored in
++each (the ignored integration tests have their own fixture requirements).
++Notices check: 104 packages, 69 texts, six previously named unavailable texts;
++no inventory change. `build.json` records every tool source hash and unchanged
++Cargo files; `source/` preserves changed source, not hashes alone. `finish.json`
++rechecks the source and binary correspondence, unchanged root paths, notices,
++Python syntax and absence of fixture processes/mounts. Broad root suites and
++matched launch regression belong to gate 4 and are not claimed here.
++
++## Filesystem and command matrix
++
++All 42 applicable gate-1 filesystem controls pass on the product binary,
++including the six real bubblewrap mount shapes. Same-device bind directories,
++nested tmpfs, entry/control mounts and a bound regular file all refuse EXDEV
++before rename and preserve outside sentinels. No unprivileged-namespace gap is
++substituted with a mocked device number. The gate-1 namespace stop and bootstrap
++positive control remain preserved in their accepted evidence.
++
++All 52 command contract groups pass: exact options/root precedence, absent-root
++inspection without creation, sorted reports, unknown metadata and escaped names,
++entry/memory/output limits, old/current reference envelopes, local/override forms,
++different stores, missing/visible/pending references, duplicate and relative
++paths, document edits/replacements, and refusal of mutating annotations. Ordinary
++removal ignores the test-hook environment, including forced ENOSYS and a pause.
++Inspection's exec trace contains only the tool, no Git/compiler child.
++
++The interruption matrix covers SIGINT, SIGTERM and SIGKILL before rename, after
++rename and during deletion. Additional real SIGKILL cases bracket each of the
++two rename-parent syncs. The actual held writer descriptor has CLOEXEC observed
++in /proc; its inode remains at its path. Failure hooks bracket root sync when
++creating `removing`, both rename-parent syncs and final pending-parent sync.
++Before-commit failures preserve entry contents; postcommit errors identify the
++pending state and print the quoted resume command. Errors after final unlink may
++leave nothing to resume, and do not claim confirmed durability. These are errors
++injected around actual sync calls, not simulated power-loss durability tests.
++Actual parent/child permission failures separately prove before-rename
++preservation and post-rename resumability. No automatic resume occurs.
++
++## Genuine same-key rebuild
++
++The independent old tool is built from `7cd3205`, with evidence hash
++`26c84d6caf76d268173a2d0806709437e53e081a4029d29a084ccba4379f4c17`.
++Setup installs a fixture checkout, renames it, and builds Polars plus a native
++retained-OUT_DIR reader from an initially empty private cache. The wrapper and
++locks do not point back to the unavailable checkout. This is a real old shared
++assembly, not a fabricated visible directory.
++
++On the final product, removal is killed after the two rename-parent syncs. The
++entry is absent from entries and present in removing; the old receipt is intact.
++The old tool then runs its real offline build under exec tracing: 394 compiler
++execs, approximately 112.5 seconds, the same assembly key, and a new artifact
++inode. This asserts compilation rather than inferring it from duration.
++
++Listing shows the same ID in both locations, with the named project referencing
++only the visible entry. Executing the exact printed resume command removes only
++the pending copy. Every file in the rebuilt visible tree retains its bytes,
++inode, mode, size and mtime; both project locks and the newly written receipt stay
++unchanged. The old tool then evaluates its retained-output reader and returns
++`"before"`. `rebuild.json`, `old-rebuild.exec` and the build log retain this proof.
++A development run preceded the frozen-binary replay; only the latter rebuild is
++reported here.
++
++All deletion was in disposable fixture stores with no live consumer at mutation.
++Gate 1 already proved inspection against live old sessions/kernels. Gate 3 still
++owes the full migrated-default Polars/PostgreSQL journey and its old-key kernel;
++gate 4 owes real costs and full regressions. No user store was removed.
+diff --git a/plans/0066_removal_is_an_explicit_ownership_decision_mount_evidence.md b/plans/0066_removal_is_an_explicit_ownership_decision_mount_evidence.md
+new file mode 100644
+index 0000000..182912e
+--- /dev/null
++++ b/plans/0066_removal_is_an_explicit_ownership_decision_mount_evidence.md
+@@ -0,0 +1,37 @@
++# 0066 gate 1: stopped at the unprivileged mount prerequisite
++
++Status: **stopped for review**, as gate 1 requires when its mount fixture cannot
++run unprivileged. No product deletion primitive, candidate port or removal command
++has been written. No live user store, project, session or kernel was touched.
++
++Source baseline is the signed plan commit rnx eff151b; bench baseline a0dd0bf.
++The driver and complete stop evidence are committed at rnx-bench 1f0b85d.
++The reproducible driver is probes/removal-preflight/check.py and its guarded child
++is namespace.py. preflight.json retains exact commands, output, statuses, tool and
++kernel observations and script hashes. product.patch is empty against eff151b.
++
++| Control | Exit | Observation |
++|---|---:|---|
++| Ordinary Python child | 0 | Execution works |
++| User namespace without mapping | 0 | Namespace creation alone works |
++| Mount namespace without user mapping | 1 | unshare: Operation not permitted |
++| Current-user mapping plus mount namespace | 1 | write to /proc/self/uid_map: Operation not permitted |
++| Root mapping plus actual nested/bind fixture | 1 | write to /proc/self/uid_map: Operation not permitted |
++
++The caller is unprivileged (UID 1003). The final child never reaches its entry
++marker, so neither tmpfs nor bind mount is created. The parent mount namespace and
++outside sentinel are unchanged, children are waited and the private temporary
++tree is removed. No privilege escalation or alternative privileged mount was used.
++The results locate the observable refusal; they do not attribute it to a specific
++host security configuration or establish that Linux lacks the capability.
++
++The driver records a successful control run with a STOP decision and
++`gate1_passed: false`. This is not evidence for the deletion primitive's mount
++refusals. No claims are made for live old-consumer preservation, manifest
++annotations, busy/selected/self-target refusal, rename visibility, deletion,
++hardlinks, symlinks or interrupted resume. Those remain gate-1 prototype work once
++the prerequisite can be exercised in a suitable unprivileged environment.
++
++The plan's stop is followed rather than replacing a real mount with a synthetic
++metadata result or dropping the bind-mount case. The next review decision is how
++to supply that environment. Gates 1–4 remain open; removal is not enabled.
+diff --git a/plans/0066_removal_is_an_explicit_ownership_decision_ownership_evidence.md b/plans/0066_removal_is_an_explicit_ownership_decision_ownership_evidence.md
+new file mode 100644
+index 0000000..0d32087
+--- /dev/null
++++ b/plans/0066_removal_is_an_explicit_ownership_decision_ownership_evidence.md
+@@ -0,0 +1,144 @@
++# 0066 gate 1: ownership and filesystem prototype
++
++Status: **ready for review**. The mount prerequisite is now exercised
++unprivileged, and the ownership/filesystem candidate passes. No production
++removal primitive or command has been added. Gates 2–4 remain open.
++
++The accepted stop remains at rnx `1ab9732` and bench `1f0b85d`, both pushed.
++This continuation uses root `1ab9732` as its source baseline. Candidate source,
++drivers and results are in rnx-bench `94539e1`, under
++`probes/removal-ownership` and `results/removal-ownership-0066`. The probe README
++contains the exact rerun order, prerequisites and clean-directory requirements.
++`source.json` pins every copied tool source, the candidate and its binary;
++`old-tool-source.json` checks the genuine SHA-256 product against `7cd3205`.
++
++## The mount stop is closed by an actual boundary test
++
++Bubblewrap maps the caller's UID (1003) and prepares mounts before exec. No sudo,
++sysctl change or privileged helper invocation was requested by this fixture.
++The bootstrap puts an outside fixture directory under an entry using a bind
++mount, and puts a tmpfs under a second child. The entry, bind and outside
++directory share a device; the tmpfs does not. Mountinfo records both. The unsafe
++positive control unlinks the disposable outside sentinel through the bind, so
++the tested shape is a real traversal escape, not a synthetic device result.
++
++The candidate opens below retained directory handles using
++`openat2(RESOLVE_BENEATH | RESOLVE_NO_SYMLINKS | RESOLVE_NO_XDEV)`. Its regular-file
++metadata opens use O_PATH with the same guard, so file bind mounts are covered
++as well. It never falls back to path traversal. ENOSYS and EINVAL injection each
++refuse before mutation; the normal calls run on the actual host kernel.
++
++| Real mount shape | Device relation | Actual removal result |
++|---|---|---|
++| Directory bind inside entry | Same | EXDEV before rename |
++| tmpfs inside entry | Different | EXDEV before rename |
++| Bind at selected entry boundary | Same | EXDEV before rename |
++| Bind at entries boundary | Same | EXDEV before rename |
++| Bind at locks boundary | Same | EXDEV before rename |
++| Regular-file bind inside entry | Same | EXDEV before rename |
++
++All six retain their visible entry and outside sentinels. Mounts exist only in
++the child namespace. The original unshare failure is still historical evidence;
++it was not edited into a passing result.
++
++## Ownership, visibility and interruption
++
++The final matrix passes **44 cases**. These use synthetic control documents and
++real filesystem operations; actual old/current layouts are exercised separately
++below. List and dry-run succeed while the fixture holds the existing writer lock,
++and preserve entry/control snapshots. Actual removal refuses busy cache and
++runtime writer locks. Exec controls prove neither lock descriptor survives exec.
++The lock inodes remain at their original paths after removal.
++
++Selected runtime IDs refuse in selection formats 1 and 2, both for visible and
++pending entries. Malformed selection refuses. Opposite-kind roots, an executable
++or current directory inside the target, control-path symlinks, FIFOs and sockets
++refuse. The initial user-spelled symlink to the root is accepted. Internal file
++and directory symlinks are unlinked as leaves; outside data is unchanged. A
++hardlink's outside name retains its content, inode, size, mtime and mode. A
++read-only regular file is removed without chmod or truncation.
++
++A full bounded preflight precedes `renameat2(RENAME_NOREPLACE)`. Replacing the
++target while paused before rename produces an identity refusal and preserves
++both directories. After rename, listing shows only removing/ID, never a
++partially deleted entries/ID. Both parents are synced before child deletion.
++
++SIGINT, SIGTERM and SIGKILL are each exercised before rename, after rename and
++during deletion. Precommit entry snapshots stay identical. Postcommit state is
++pending, with no visible entry. The committed event carries an exact shell-quoted
++resume command even when SIGKILL prevents a final diagnostic. Checked signals
++exit 130/143 and name pending state. Each resume removes only pending contents;
++a separately created visible entry with the same ID survives. A second resume
++refuses instead of targeting that visible entry. A root containing an apostrophe
++also resumes through the printed `/bin/sh` command. The visible replacement is
++a fixture-created tree, not yet an old-tool rebuild; that remains gate 2.
++
++The process trace records one exec for inspection and no children. The candidate
++does not invoke Git, Cargo, a compiler, a builder or the inspected artifact. Its
++exec-control subprocess exists only behind the explicit prototype test hook.
++
++## Real old consumers and current entries
++
++The setup installs a genuine format-1 runtime from `7cd3205`, renames the original
++fixture checkout away, then builds an old-key Polars assembly in a fresh private
++cache. A second fixture adapter writes retained.txt to its real OUT_DIR at build
++time and reads that absolute path on every `keep::read()` call. Nothing is copied
++from a prebuilt assembly whose embedded paths might point elsewhere.
++
++The current product authenticates/migrates that runtime to format 2 and builds
++an independent current-format Polars assembly (receipt 4). Both source roots and
++both assembly entries therefore exist during inspection. The old tool's original
++product modules and lock match the published SHA-256 baseline, with executable
++digests retained. Each Polars build took roughly 100 seconds with registry sources
++already cached; these are setup observations, not performance claims.
++
++An old direct session and a kernel installed against the old-key artifact are
++alive together. In two rounds, the fixture changes retained.txt, runs list and
++dry-run against the cache and unselected old runtime, then observes the new value
++from both consumers. The session also retains its bound value 42; the kernel can
++still use Polars. The fixture acquires the writer locks nonblockingly while both
++readers are alive, and inspection succeeds while those locks are held. Thus the
++writer lock is demonstrably neither a reader lease nor a reason to remove a live
++entry.
++
++Only after both consumers exit and are reaped does the candidate remove the old
++assembly and unselected runtime. The old retained path disappears. The selected
++current runtime, selection document, both projects and kernelspec remain intact;
++the kept current Polars assembly still evaluates successfully. The fixture owner
++then removes its own temporary kernelspec environment, without touching a user's
++Jupyter installation.
++
++Snapshots cover runtime and project content hashes plus inode/mode/size/mtime,
++selection and kernelspec bytes, and cache inode/mode/size/mtime. They exclude
++atime and do not hash every byte of the retained cache. The old assembly traversal
++covered 3,771 descendant nodes, 1,560,141,427 logical regular-file bytes and an
++allocated estimate of 1,571,573,760 bytes. These are preliminary descendant-only
++counts (excluding the entry directory itself), not measured free-space recovery.
++Full kept-cache byte assertions, final accounting and cost reporting remain in
++the later gates.
++
++## Checks, corrections and limits
++
++The isolated tool is formatted and strict clippy passes across all targets in
++both configurations. Its unchanged product suites pass serially: **46 passed,
++2 ignored** normally; **47 passed, 2 ignored** with test support, including the
++existing same-process inventory subprocess test. Original tool sources and
++Cargo.lock remain byte-identical; no new dependency or root source change.
++No fixture processes or mounts remain.
++
++Three early corrections are recorded rather than attributed to the product:
++duplicate/unused candidate imports found by clippy; O_PATH combined with
++O_NONBLOCK, which openat2 rejects with EINVAL; and an overlong Unix socket fixture
++path. The flag fix only omits O_NONBLOCK for O_PATH, leaving all resolve guards
++in place. The socket fixture binds a relative name. The final matrix and real
++journey pass after those corrections.
++
++This standalone candidate requires an explicit root and emits minimal JSON.
++It does not claim the finished CLI, reference annotations, complete listing
++metadata/output limits or missing-root semantics. Gate 2 owns those plus the
++per-parent-sync failure injections and genuine old-tool rebuild before resume.
++Gate 3 owns the combined PostgreSQL journey, Polars-sized interrupted removal,
++annotations and expanded retained-byte checks. No deletion primitive may be
++ported into product code until this gate is accepted. The trusted-store and
++quiescence boundary remains explicit; this is not a sandbox against a same-user
++adversary moving already-open directories.
+diff --git a/plans/0066_removal_is_an_explicit_ownership_decision_storage_evidence.md b/plans/0066_removal_is_an_explicit_ownership_decision_storage_evidence.md
+new file mode 100644
+index 0000000..5e2475c
+--- /dev/null
++++ b/plans/0066_removal_is_an_explicit_ownership_decision_storage_evidence.md
+@@ -0,0 +1,93 @@
++# 0066 gate 3: real storage and surviving-consumer evidence
++
++Status: ready for review. The product is byte-identical to accepted gate 2,
++`06a295e`. This checkpoint adds only plan/evidence text in rnx, with the fixture
++and results in rnx-bench `39467e8`, `probes/removal-storage` and
++`results/removal-storage-0066`. Gate 4 remains open.
++
++## Assemblies and provenance
++
++The fixture installs the `7cd3205` runtime with its genuine old tool, renames the
++fixture checkout, and builds an authentic SHA-256 Polars assembly plus a small
++adapter that reads a retained OUT_DIR file. Its first assembly cache is empty.
++The accepted current tool authenticates migration into a BLAKE3 runtime ID,
++leaving the old entry unchanged. No user installation or cache is used.
++
++All ordinary commands use the frozen gate-2 ordinary tool; the interrupted-removal sequence
++uses the frozen test-support binary to pause, inspect pending data and execute
++its printed resume command. `checks.json` pins both tools,
++the launcher and fixture sources and verifies unchanged product source. The
++old tool hash and initial build provenance are in `old-setup.json`. The source
++of that old tool and runtime remains recoverable at its published revision.
++
++The accepted session-dogfood driver runs against the migrated installed default,
++without RNX_DEP_RUNTIME. Its only adaptations are the installed runtime path,
++an initial allowance for the retained old key and a runtime-notice assertion.
++Both new-format keys require real cold-target compilation; the registry sources
++are already available offline. The second scratch and relative combined project
++attach with compiler invocation traps. All four frame/error/recovery/Parquet and
++typed PostgreSQL assertions remain unchanged. The effective driver and logs are
++retained, including phase observations, not reconstructed after the run.
++
++## Old-key kernel and explicit stopping
++
++An old session and an actual Jupyter kernel installed against the old artifact
++read its retained output before inspection. In two rounds the fixture changes
++that output, takes both writer locks, and runs list and annotated dry-run against
++the cache and runtime store. The annotations name the old and current projects.
++The session retains its binding and the kernel executes another cell reading
++the new marker after each round. Inspection changes no cache metadata, runtime
++bytes, old project files or kernelspec. No reader lease is inferred from this.
++
++Both processes are explicitly shut down and reaped before mutation. The old-key
++kernelspec is retained and unchanged through removal, illustrating the future
++reference that removal does not repair. The fixture removes that temporary
++notebook environment only during its final cleanup.
++
++## Interruption, kept data and recovery
++
++The old assembly (1,711,506,417 logical file bytes) is renamed to pending and removal is killed with
++SIGKILL during unlink, not only before deletion begins. The visible entry is
++absent and the pending entry is inspectable. Running the exact printed resume
++command finishes only pending deletion. The old unselected runtime is then
++removed. Every file in the kept assemblies is compared by content and metadata;
++the current runtime, selection, project locks/receipts, kernelspec and permanent
++lock inodes remain unchanged.
++
++Corrupt owned data remains removable. In addition to a damaged installation copy
++in the main journey, a supplementary private store contains a clone under its
++authentic ID and document. Appending bytes to a loose object makes runtime select
++refuse as corrupt, without selecting it; explicit removal succeeds. The real
++selected store stays unchanged. This does not relax install authentication.
++
++The fixture deliberately removes the current combined assembly too. Ordinary
++eval refuses, with exec tracing showing no Cargo/compiler invocation. An explicit
++offline build takes about 112.5 seconds and reconstructs the same key from retained installed source. Finally a
++fresh stock session runs :dep for Polars and PostgreSQL, attaches to that combined
++entry, evaluates Polars and a typed query against a new private cluster, and exits.
++The selected runtime and its source remain unchanged.
++
++## Fixture correction
++
++The first run passed the four new session journeys, live-kernel inspection and
++old-entry removal, then failed while creating a corruption control: the copied
++Git loose object retained its read-only mode. The fixture now gives only that
++copied object owner-write permission before damaging it. The failed attempt is
++retained under `fixture-readonly-attempt`, and the complete journey was rerun
++from fresh storage with unchanged product binaries. The trace check also matches
++executable basenames, avoiding false positives from Git searches under `.cargo`.
++
++## Limits and next gate
++
++The checks assert no fixture processes or mounts remain. Tool formatting and
++notices pass; all source and binary hashes match gate 2. There is no production
++change to justify repeating broad suites here. Build durations in the logs are
++single-run fixture observations, not the gate-4 cost measurement. Retained
++reference consequences are deliberate; no complete reference discovery, safe
++version sweep or process-lifetime guarantee is claimed.
++
++Gate 4 still owns real node/byte/free-space and wall-time observations, matched
++zero-to-three launch measurements, full regressions and documentation. It also
++carries the reviewer's repeatedly reproduced oversized-handshake-test timing
++flake: make that test deterministic under load without changing the bounded
++production handshake contract.
+diff --git a/tools/project/README.md b/tools/project/README.md
+index 720a140..847ea7d 100644
+--- a/tools/project/README.md
++++ b/tools/project/README.md
+@@ -27,6 +27,69 @@ in either order with `--manifest`, before `--`; lock/build do not accept it.
+ Run passes everything after `--` as script arguments. Direct runner flags before
+ `--` are not exposed by this first project CLI. Build chatter goes to stderr.
+ 
++## Inspect and remove retained storage (Linux)
++
++List before choosing a full entry ID. Optionally name projects to see their
++recorded references; repeat `--manifest` for each project you want checked.
++
++```sh
++rnx-project cache list --manifest app/rnx.toml
++rnx-project runtime list --manifest app/rnx.toml
++rnx-project cache remove "$ID" --dry-run --manifest app/rnx.toml
++```
++
++Listings and dry runs print bounded, sorted JSON with paths, pending entries,
++logical sizes and allocated-byte estimates. They take no writer lock and do not
++refresh receipts, hash artifacts, invoke Git/Cargo, or change project files.
++Annotations read only the named manifests, locks and receipts. They describe
++recorded paths, not authenticated or fresh builds. Missing, unsupported, corrupt
++or observably changed project documents are marked indeterminate and return a
++nonzero status. Local and override artifacts are distinguished from shared
++entries. **Only the manifests named are checked; other consumers may exist.**
++No search, reference registry or lifetime lease makes an unannotated entry safe
++to remove. Allocated bytes are estimates, not promised reclaimed space.
++
++Stop every consumer of the entry first: older tools and surviving build children,
++direct executions, sessions, servers and notebook kernels. Update or abandon
++projects and kernelspecs that still name it. Removing a runtime may delete the
++only remaining source copy. Then acknowledge that quiescence explicitly:
++
++```sh
++rnx-project cache remove "$ID" --quiescent
++rnx-project runtime remove "$RUNTIME_ID" --dry-run
++rnx-project runtime remove "$RUNTIME_ID" --quiescent
++```
++
++Removal accepts one full lowercase 64-character hexadecimal ID, never a prefix
++or a version sweep. The selected runtime is protected; select or install a
++replacement first. An unreadable selection refuses. Busy build/install writers
++also refuse, but their locks do not represent running consumers. `--manifest`
++is accepted only for list and dry-run; it never authorizes deletion.
++
++After a complete preflight, removal renames the whole entry to `removing/ID`
++before deleting any contents. Interruption after that point may leave pending
++data; the error prints the exact command to resume. Resume acts only on pending
++data, preserving a new visible entry rebuilt under the same ID:
++
++```sh
++rnx-project cache remove "$ID" --resume --dry-run
++rnx-project cache remove "$ID" --resume --quiescent
++```
++
++The same options apply to runtime removal. Lock files remain in place. Internal
++symlinks are unlinked as leaves; control-path symlinks, special files and mount
++crossings refuse. Linux must support the guarded `openat2` operations; there is
++no path-based fallback. Other platforms refuse maintenance before writing.
++
++An absolute `--root PATH` overrides the store for these maintenance commands
++only. Otherwise cache selection uses `RNX_PROJECT_CACHE`, then `XDG_CACHE_HOME`,
++then `HOME`; runtimes use `XDG_DATA_HOME`, then `HOME`, as for builds/installation.
++The user's root symlink is canonicalized; managed paths below it are guarded.
++An invalid selected root never falls back. Missing roots are reported without
++creation. Unknown entry documents remain owned data that can be inspected and
++removed; this is not an authentication or repair command. There is no automatic
++pruning or deletion of local project/scratch directories.
++
+ ## Open the project's prompt
+ 
+ After the explicit lock and build above, `session` opens the assembled executable's
+diff --git a/tools/project/src/handshake.rs b/tools/project/src/handshake.rs
+index d2c17e3..02ab84d 100644
+--- a/tools/project/src/handshake.rs
++++ b/tools/project/src/handshake.rs
+@@ -2,6 +2,19 @@
+ #![allow(dead_code)]
+ use std::{path::Path, process::Stdio, time::Duration};
+ use tokio::io::AsyncReadExt;
++async fn read(stream: impl tokio::io::AsyncRead + Unpin) -> Result<Vec<u8>, String> {
++	let mut bytes = vec![];
++	stream
++		.take(4097)
++		.read_to_end(&mut bytes)
++		.await
++		.map_err(|e| e.to_string())?;
++	if bytes.len() > 4096 {
++		return Err("capability stream exceeds 4096 bytes".into());
++	}
++	Ok(bytes)
++}
++
+ pub(crate) fn check(executable: &Path) -> Result<(), String> {
+ 	let result = || -> Result<(), String> {
+ 		let runtime = tokio::runtime::Builder::new_current_thread()
+@@ -19,18 +32,7 @@ pub(crate) fn check(executable: &Path) -> Result<(), String> {
+ 				.map_err(|e| e.to_string())?;
+ 			let stdout = child.stdout.take().ok_or("missing handshake stdout")?;
+ 			let stderr = child.stderr.take().ok_or("missing handshake stderr")?;
+-			async fn read(stream: impl tokio::io::AsyncRead + Unpin) -> Result<Vec<u8>, String> {
+-				let mut bytes = vec![];
+-				stream
+-					.take(4097)
+-					.read_to_end(&mut bytes)
+-					.await
+-					.map_err(|e| e.to_string())?;
+-				if bytes.len() > 4096 {
+-					return Err("capability stream exceeds 4096 bytes".into());
+-				}
+-				Ok(bytes)
+-			}
++
+ 			let result = tokio::time::timeout(Duration::from_secs(1), async {
+ 				let (stdout, stderr, status) =
+ 					tokio::try_join!(read(stdout), read(stderr), async {
+@@ -67,3 +69,24 @@ pub(crate) fn check(executable: &Path) -> Result<(), String> {
+ 	};
+ 	result().map_err(|e| format!("executable {}: {e}", executable.display()))
+ }
++
++#[cfg(test)]
++mod tests {
++	#[test]
++	fn capability_stream_limit_is_independent_of_process_scheduling() {
++		let runtime = tokio::runtime::Builder::new_current_thread()
++			.build()
++			.unwrap();
++		runtime.block_on(async {
++			let boundary = vec![b' '; 4096];
++			assert_eq!(super::read(boundary.as_slice()).await.unwrap(), boundary);
++			let excess = vec![b'x'; 8192];
++			let mut stream = excess.as_slice();
++			assert_eq!(
++				super::read(&mut stream).await.unwrap_err(),
++				"capability stream exceeds 4096 bytes"
++			);
++			assert_eq!(stream.len(), 8192 - 4097);
++		});
++	}
++}
+diff --git a/tools/project/src/lib.rs b/tools/project/src/lib.rs
+index 6abb1f5..7548741 100644
+--- a/tools/project/src/lib.rs
++++ b/tools/project/src/lib.rs
+@@ -21,3 +21,6 @@ mod runtime_install;
+ #[cfg(test)]
+ mod tests;
+ mod wire;
++
++#[cfg(test)]
++mod maintenance;
+diff --git a/tools/project/src/main.rs b/tools/project/src/main.rs
+index c1a42e7..765ec9d 100644
+--- a/tools/project/src/main.rs
++++ b/tools/project/src/main.rs
+@@ -12,6 +12,7 @@ mod graph;
+ mod handshake;
+ mod input;
+ mod inventory;
++mod maintenance;
+ mod manifest;
+ mod maps;
+ mod runtime_install;
+diff --git a/tools/project/src/maintenance.rs b/tools/project/src/maintenance.rs
+new file mode 100644
+index 0000000..76bbc9d
+--- /dev/null
++++ b/tools/project/src/maintenance.rs
+@@ -0,0 +1,204 @@
++//! Explicit maintenance only. No launch path, identity or lifetime protocol.
++#![cfg_attr(any(test, not(target_os = "linux")), allow(dead_code))]
++use std::{ffi::OsString, path::PathBuf};
++#[cfg(target_os = "linux")]
++mod hooks;
++#[cfg(target_os = "linux")]
++mod linux;
++
++struct Args {
++	root: PathBuf,
++	kind: String,
++	id: Option<String>,
++	list: bool,
++	dry: bool,
++	resume: bool,
++	quiescent: bool,
++	manifests: Vec<PathBuf>,
++}
++fn valid_id(s: &str) -> bool {
++	s.len() == 64
++		&& s.bytes()
++			.all(|b| b.is_ascii_digit() || (b'a'..=b'f').contains(&b))
++}
++fn absolute(p: PathBuf) -> Result<PathBuf, String> {
++	if !p.is_absolute() || p.to_str().is_none() {
++		Err("maintenance root must be an absolute Unicode path".into())
++	} else {
++		Ok(p)
++	}
++}
++fn envpath(key: &str) -> Result<Option<PathBuf>, String> {
++	std::env::var_os(key)
++		.map(|p| absolute(p.into()).map_err(|e| format!("{key}: {e}")))
++		.transpose()
++}
++fn root(kind: &str) -> Result<PathBuf, String> {
++	if kind == "cache" {
++		if let Some(p) = envpath("RNX_PROJECT_CACHE")? {
++			return Ok(p);
++		}
++		if let Some(p) = envpath("XDG_CACHE_HOME")? {
++			return Ok(p.join("rnx/assemblies"));
++		}
++		Ok(envpath("HOME")?
++			.ok_or("HOME or cache selection is required")?
++			.join(".cache/rnx/assemblies"))
++	} else {
++		if let Some(p) = envpath("XDG_DATA_HOME")? {
++			return Ok(p.join("rnx/runtimes"));
++		}
++		Ok(envpath("HOME")?
++			.ok_or("HOME or runtime selection is required")?
++			.join(".local/share/rnx/runtimes"))
++	}
++}
++fn parse(args: &[OsString]) -> Result<Args, String> {
++	let mut it = args.iter();
++	let kind = it
++		.next()
++		.and_then(|s| s.to_str())
++		.filter(|s| matches!(*s, "cache" | "runtime"))
++		.ok_or("expected cache or runtime")?
++		.to_owned();
++	let action = it
++		.next()
++		.and_then(|s| s.to_str())
++		.ok_or("expected list or remove")?;
++	let list = action == "list";
++	if !list && action != "remove" {
++		return Err("expected list or remove".into());
++	}
++	let id = if list {
++		None
++	} else {
++		Some(
++			it.next()
++				.and_then(|s| s.to_str())
++				.filter(|s| valid_id(s))
++				.ok_or("remove requires one full 64-character lowercase hexadecimal ID")?
++				.to_owned(),
++		)
++	};
++	let mut out = Args {
++		root: PathBuf::new(),
++		kind,
++		id,
++		list,
++		dry: false,
++		resume: false,
++		quiescent: false,
++		manifests: vec![],
++	};
++	let mut seen = std::collections::HashSet::new();
++	let mut explicit = None;
++	while let Some(arg) = it.next() {
++		if arg != "--manifest" && !seen.insert(arg) {
++			return Err(format!("duplicate maintenance option {arg:?}"));
++		}
++		match arg.to_str() {
++			Some("--root") => {
++				explicit = Some(absolute(PathBuf::from(
++					it.next().ok_or("--root needs a path")?,
++				))?)
++			}
++			Some("--manifest") => {
++				if out.manifests.len() == 64 {
++					return Err("at most 64 manifest paths may be named".into());
++				}
++				out.manifests.push(
++					it.next()
++						.filter(|v| !v.is_empty())
++						.ok_or("--manifest needs a path")?
++						.into(),
++				);
++			}
++			Some("--dry-run") => out.dry = true,
++			Some("--resume") => out.resume = true,
++			Some("--quiescent") => out.quiescent = true,
++			_ => return Err(format!("unexpected maintenance argument {arg:?}")),
++		}
++	}
++	if list && (out.dry || out.resume || out.quiescent) {
++		return Err("list accepts only --root and --manifest".into());
++	}
++	if !list && !out.dry && !out.manifests.is_empty() {
++		return Err(
++			"--manifest is for listing and --dry-run only; it does not authorize removal".into(),
++		);
++	}
++	out.root = match explicit {
++		Some(p) => p,
++		None => root(&out.kind)?,
++	};
++	if !list && !out.dry && !out.quiescent {
++		return Err(format!(
++			"removal requires --quiescent: stop all consumers, including older tools, surviving build children, direct executions, sessions, servers and kernels; retained references may break and runtime source may be lost. Inspect first:\n{} {} remove {} --root {} --dry-run{}",
++			shell(&std::env::current_exe().map_err(|e| e.to_string())?),
++			out.kind,
++			out.id.as_ref().unwrap(),
++			shell(&out.root),
++			if out.resume { " --resume" } else { "" }
++		));
++	}
++	Ok(out)
++}
++fn shell(p: &std::path::Path) -> String {
++	format!("'{}'", p.to_string_lossy().replace('\'', "'\\''"))
++}
++pub(crate) fn cli(args: &[OsString]) -> Result<(), String> {
++	#[cfg(target_os = "linux")]
++	{
++		linux::run(parse(args)?)
++	}
++	#[cfg(not(target_os = "linux"))]
++	{
++		let _ = args;
++		Err("cache/runtime maintenance requires Linux; no storage was changed".into())
++	}
++}
++
++#[cfg(all(test, target_os = "linux"))]
++mod tests {
++	use super::*;
++	fn args(s: &[&str]) -> Vec<OsString> {
++		s.iter().map(OsString::from).collect()
++	}
++	#[test]
++	fn maintenance_refuses_ambiguous_or_mutating_annotations_before_open() {
++		let id = "a".repeat(64);
++		for a in [
++			vec!["cache", "remove", "abc"],
++			vec!["cache", "list", "--resume"],
++			vec!["cache", "list", "--root", "relative"],
++			vec!["cache", "list", "--root", "/a", "--root", "/b"],
++			vec![
++				"cache",
++				"remove",
++				&id,
++				"--root",
++				"/absent",
++				"--quiescent",
++				"--manifest",
++				"x",
++			],
++		] {
++			assert!(parse(&args(&a)).is_err());
++		}
++		assert!(
++			parse(&args(&[
++				"cache",
++				"remove",
++				&id,
++				"--root",
++				"/absent",
++				"--dry-run",
++				"--manifest",
++				"x",
++				"--manifest",
++				"x"
++			]))
++			.is_ok()
++		);
++	}
++}
+diff --git a/tools/project/src/maintenance/hooks.rs b/tools/project/src/maintenance/hooks.rs
+new file mode 100644
+index 0000000..c4cc426
+--- /dev/null
++++ b/tools/project/src/maintenance/hooks.rs
+@@ -0,0 +1,43 @@
++use crate::commands;
++pub(super) fn point(name: &str) -> Result<(), String> {
++	commands::check()?;
++	#[cfg(feature = "test-support")]
++	{
++		if std::env::var("RNX_REMOVE_PAUSE").as_deref() == Ok(name) {
++			use std::io::Write;
++			println!("{}", serde_json::json!({"paused":name}));
++			std::io::stdout().flush().map_err(|e| e.to_string())?;
++			let release =
++				std::env::var_os("RNX_REMOVE_RELEASE").ok_or("pause needs release path")?;
++			while !std::path::Path::new(&release).exists() {
++				commands::check()?;
++				std::thread::sleep(std::time::Duration::from_millis(10));
++			}
++		}
++		if std::env::var("RNX_REMOVE_FAIL").as_deref() == Ok(name) {
++			return Err(format!("injected removal failure at {name}"));
++		}
++	}
++	let _ = name;
++	commands::check()
++}
++pub(super) fn limit(name: &str, normal: u64) -> u64 {
++	#[cfg(feature = "test-support")]
++	if let Ok(v) = std::env::var(name) {
++		return v.parse::<u64>().unwrap_or(0).min(normal);
++	}
++	let _ = name;
++	normal
++}
++pub(super) fn open_error() -> Option<i32> {
++	#[cfg(feature = "test-support")]
++	{
++		std::env::var("RNX_REMOVE_OPEN_ERRNO")
++			.ok()
++			.and_then(|v| v.parse().ok())
++	}
++	#[cfg(not(feature = "test-support"))]
++	{
++		None
++	}
++}
+diff --git a/tools/project/src/maintenance/linux.rs b/tools/project/src/maintenance/linux.rs
+new file mode 100644
+index 0000000..320ec28
+--- /dev/null
++++ b/tools/project/src/maintenance/linux.rs
+@@ -0,0 +1,773 @@
++use super::{Args, hooks};
++use crate::commands;
++mod annotations;
++mod documents;
++use serde_json::{Value, json};
++use std::{
++	collections::HashSet,
++	ffi::{CStr, CString, OsStr, OsString},
++	fs::{File, OpenOptions},
++	io::{Read, Write},
++	os::{
++		fd::{AsRawFd, FromRawFd},
++		unix::{
++			ffi::{OsStrExt, OsStringExt},
++			fs::{MetadataExt, OpenOptionsExt},
++		},
++	},
++	path::{Path, PathBuf},
++};
++type Result<T> = std::result::Result<T, String>;
++fn error(e: impl std::fmt::Display) -> String {
++	e.to_string()
++}
++fn io_error(label: &str) -> String {
++	format!("{label}: {}", std::io::Error::last_os_error())
++}
++fn name(s: &OsStr) -> Result<CString> {
++	CString::new(s.as_bytes()).map_err(error)
++}
++#[repr(C)]
++struct How {
++	flags: u64,
++	mode: u64,
++	resolve: u64,
++}
++const RESOLVE: u64 = 0x08 | 0x04 | 0x01; // BENEATH | NO_SYMLINKS | NO_XDEV
++fn open(dir: &File, n: &OsStr, flags: i32, mode: u32) -> Result<File> {
++	let n = name(n)?;
++	let how = How {
++		flags: (flags
++			| libc::O_CLOEXEC
++			| libc::O_NOFOLLOW
++			| if flags & libc::O_PATH == 0 {
++				libc::O_NONBLOCK
++			} else {
++				0
++			}) as u64,
++		mode: mode as u64,
++		resolve: RESOLVE,
++	};
++	let injected = hooks::open_error();
++	let fd = if injected.is_some() {
++		-1
++	} else {
++		unsafe {
++			libc::syscall(
++				libc::SYS_openat2,
++				dir.as_raw_fd(),
++				n.as_ptr(),
++				&how,
++				std::mem::size_of::<How>(),
++			) as i32
++		}
++	};
++	if fd < 0 {
++		let e = injected
++			.map(std::io::Error::from_raw_os_error)
++			.unwrap_or_else(std::io::Error::last_os_error);
++		return Err(format!(
++			"openat2 {:?}: {e}; guarded open refused, no fallback",
++			n
++		));
++	}
++	Ok(unsafe { File::from_raw_fd(fd) })
++}
++fn directory(d: &File, n: &OsStr) -> Result<File> {
++	open(d, n, libc::O_RDONLY | libc::O_DIRECTORY, 0)
++}
++fn stat(d: &File, n: &OsStr) -> Result<Option<libc::stat>> {
++	let n = name(n)?;
++	let mut s = std::mem::MaybeUninit::<libc::stat>::uninit();
++	if unsafe {
++		libc::fstatat(
++			d.as_raw_fd(),
++			n.as_ptr(),
++			s.as_mut_ptr(),
++			libc::AT_SYMLINK_NOFOLLOW,
++		)
++	} != 0
++	{
++		let e = std::io::Error::last_os_error();
++		if e.kind() == std::io::ErrorKind::NotFound {
++			return Ok(None);
++		}
++		return Err(error(e));
++	}
++	Ok(Some(unsafe { s.assume_init() }))
++}
++fn private(f: &File, dir: bool) -> Result<()> {
++	let m = f.metadata().map_err(error)?;
++	if m.uid() != unsafe { libc::geteuid() }
++		|| m.mode() & 0o022 != 0
++		|| (if dir { !m.is_dir() } else { !m.is_file() })
++	{
++		return Err("not a private owned control object".into());
++	}
++	Ok(())
++}
++fn same(f: &File, s: &libc::stat) -> Result<()> {
++	let m = f.metadata().map_err(error)?;
++	if m.dev() != s.st_dev || m.ino() != s.st_ino {
++		return Err("directory identity changed".into());
++	}
++	Ok(())
++}
++fn sync(f: &File) -> Result<()> {
++	f.sync_all().map_err(error)
++}
++fn mkdir(d: &File, n: &str) -> Result<File> {
++	let c = name(OsStr::new(n))?;
++	if unsafe { libc::mkdirat(d.as_raw_fd(), c.as_ptr(), 0o700) } != 0
++		&& std::io::Error::last_os_error().kind() != std::io::ErrorKind::AlreadyExists
++	{
++		return Err(io_error("mkdirat"));
++	}
++	let f = directory(d, OsStr::new(n))?;
++	private(&f, true)?;
++	Ok(f)
++}
++fn bounded_document(d: &File, n: &str, limit: usize, budget: &mut Budget) -> Result<Option<Value>> {
++	if stat(d, OsStr::new(n))?.is_none() {
++		return Ok(None);
++	}
++	let f = open(d, OsStr::new(n), libc::O_RDONLY, 0)?;
++	private(&f, false)?;
++	let bytes = read_bytes(&f, limit, budget)?;
++	documents::decode(&bytes, budget).map(Some)
++}
++fn read_bytes(mut f: &File, limit: usize, budget: &mut Budget) -> Result<Vec<u8>> {
++	let mut out = vec![];
++	let mut buffer = [0u8; 16384];
++	loop {
++		commands::check()?;
++		let n = f.read(&mut buffer).map_err(error)?;
++		if n == 0 {
++			break;
++		}
++		if n > limit.saturating_sub(out.len()) {
++			return Err(format!("document exceeds {limit} bytes"));
++		}
++		budget.reserve(n as u64)?;
++		out.extend_from_slice(&buffer[..n]);
++	}
++	Ok(out)
++}
++fn selected(root: &File, budget: &mut Budget) -> Result<Option<String>> {
++	let Some(v) = bounded_document(root, "current.json", 65536, budget)
++		.map_err(|e| format!("uninterpretable runtime selection: {e}"))?
++	else {
++		return Ok(None);
++	};
++	if v.as_object().is_none_or(|v| v.len() != 2) || !matches!(v["format"].as_u64(), Some(1 | 2)) {
++		return Err("uninterpretable runtime selection".into());
++	}
++	Ok(Some(
++		v["id"]
++			.as_str()
++			.filter(|v| valid_id(v))
++			.ok_or("uninterpretable runtime selection")?
++			.into(),
++	))
++}
++fn valid_id(s: &str) -> bool {
++	s.len() == 64
++		&& s.bytes()
++			.all(|b| b.is_ascii_digit() || (b'a'..=b'f').contains(&b))
++}
++#[derive(Default)]
++struct Budget {
++	nodes: u64,
++	files: u64,
++	memory: u64,
++	logical: u64,
++	allocated: u64,
++	seen: HashSet<(u64, u64)>,
++}
++impl Budget {
++	fn reserve(&mut self, bytes: u64) -> Result<()> {
++		let next = self
++			.memory
++			.checked_add(bytes)
++			.ok_or("accounting overflow")?;
++		if next > hooks::limit("RNX_REMOVE_MEMORY_LIMIT", 256 * 1024 * 1024) {
++			return Err("memory allowance exceeded".into());
++		}
++		self.memory = next;
++		commands::check()
++	}
++
++	fn charge(&mut self, bytes: usize) -> Result<()> {
++		self.nodes += 1;
++		self.reserve(bytes as u64 + 128)?;
++		let limit = hooks::limit("RNX_REMOVE_NODE_LIMIT", 1_000_000);
++		if self.nodes > limit
++			|| self.memory > hooks::limit("RNX_REMOVE_MEMORY_LIMIT", 256 * 1024 * 1024)
++		{
++			return Err("traversal allowance exceeded".into());
++		}
++		commands::check()
++	}
++	fn account(&mut self, s: &libc::stat) -> Result<()> {
++		if self.seen.insert((s.st_dev, s.st_ino)) {
++			self.allocated = self
++				.allocated
++				.checked_add(
++					(s.st_blocks as u64)
++						.checked_mul(512)
++						.ok_or("block overflow")?,
++				)
++				.ok_or("block overflow")?;
++			if s.st_mode & libc::S_IFMT == libc::S_IFREG {
++				self.files += 1;
++				self.logical = self
++					.logical
++					.checked_add(s.st_size as u64)
++					.ok_or("byte overflow")?;
++			}
++		}
++		Ok(())
++	}
++}
++fn names(d: &File, b: &mut Budget) -> Result<Vec<OsString>> {
++	names_capped(d, b, None)
++}
++fn names_capped(d: &File, b: &mut Budget, mut ids: Option<u64>) -> Result<Vec<OsString>> {
++	// A fresh open description, rather than dup sharing a previous directory offset.
++	let f = directory(d, OsStr::new("."))?;
++	use std::os::fd::IntoRawFd;
++	let fd = f.into_raw_fd();
++	let dir = unsafe { libc::fdopendir(fd) };
++	if dir.is_null() {
++		unsafe { libc::close(fd) };
++		return Err(io_error("fdopendir"));
++	}
++	let result = (|| {
++		let mut out = vec![];
++		loop {
++			unsafe { *libc::__errno_location() = 0 };
++			let e = unsafe { libc::readdir(dir) };
++			if e.is_null() {
++				if unsafe { *libc::__errno_location() } != 0 {
++					return Err(io_error("readdir"));
++				}
++				break;
++			}
++			let n = unsafe { CStr::from_ptr((*e).d_name.as_ptr()) }.to_bytes();
++			if n == b"." || n == b".." {
++				continue;
++			}
++			if let Some(remaining) = &mut ids
++				&& std::str::from_utf8(n).is_ok_and(valid_id)
++			{
++				if *remaining == 0 {
++					return Err("listing exceeds entry allowance".into());
++				}
++				*remaining -= 1;
++			}
++			b.charge(n.len())?;
++			out.push(OsString::from_vec(n.to_vec()));
++		}
++		out.sort_by(|a, b| a.as_bytes().cmp(b.as_bytes()));
++		Ok(out)
++	})();
++	unsafe { libc::closedir(dir) };
++	result
++}
++fn walk(d: &File, b: &mut Budget, depth: usize, erase: bool, deleted: &mut u64) -> Result<()> {
++	if depth as u64 > hooks::limit("RNX_REMOVE_DEPTH_LIMIT", 128) {
++		return Err("depth exceeds 128".into());
++	}
++	for n in names(d, b)? {
++		commands::check()?;
++		let s = stat(d, &n)?.ok_or("entry disappeared during walk")?;
++		if s.st_uid != unsafe { libc::geteuid() } {
++			return Err(format!("unowned data: {n:?}"));
++		}
++		b.account(&s)?;
++		match s.st_mode & libc::S_IFMT {
++			libc::S_IFDIR => {
++				let child = directory(d, &n)?;
++				same(&child, &s)?;
++				walk(&child, b, depth + 1, erase, deleted)?;
++				if erase {
++					same(&child, &stat(d, &n)?.ok_or("directory disappeared")?)?;
++					unlink(d, &n, true)?;
++				}
++			}
++			libc::S_IFREG | libc::S_IFLNK => {
++				// Open even regular leaves for metadata with the same mount guard.
++				// O_PATH does not require file read/write permission or read contents.
++				if s.st_mode & libc::S_IFMT == libc::S_IFREG {
++					let f = open(d, &n, libc::O_PATH, 0)?;
++					same(&f, &s)?;
++				}
++				if erase {
++					hooks::point("before-unlink")?;
++					unlink(d, &n, false)?;
++					*deleted += 1;
++					if *deleted == 1 {
++						hooks::point("during-delete")?;
++					}
++				}
++			}
++			_ => return Err(format!("special file refused: {n:?}")),
++		}
++	}
++	if erase {
++		sync(d)?
++	}
++	Ok(())
++}
++fn unlink(d: &File, n: &OsStr, dir: bool) -> Result<()> {
++	let n = name(n)?;
++	if unsafe {
++		libc::unlinkat(
++			d.as_raw_fd(),
++			n.as_ptr(),
++			if dir { libc::AT_REMOVEDIR } else { 0 },
++		)
++	} != 0
++	{
++		return Err(io_error("unlinkat"));
++	}
++	Ok(())
++}
++fn quote(p: &OsStr) -> String {
++	format!("'{}'", p.to_string_lossy().replace('\'', "'\\''"))
++}
++pub(super) fn run(mut a: Args) -> Result<()> {
++	commands::install_signals()?;
++	let mut budget = Budget::default();
++	if !a.list && !a.dry {
++		emit(
++			&json!({"quiescence_acknowledged":true,"notice":"All consumers must remain stopped, including older tools, surviving build children, direct executions, sessions, servers and kernels. Retained projects and kernelspecs may break. Removing a runtime can discard its only source copy."}),
++			&mut budget,
++		)?;
++	}
++	a.root = future_root(&a.root)?;
++	if std::fs::symlink_metadata(&a.root).is_err_and(|e| e.kind() == std::io::ErrorKind::NotFound) {
++		if !a.list {
++			return Err(format!("store {:?} is absent", a.root));
++		}
++		let refs = annotations::inspect(&a, &mut budget)?;
++		return report(
++			json!({"root":a.root,"absent":true,"entries":[],"unknown":[]}),
++			refs,
++			&a,
++			&mut budget,
++			None,
++		);
++	}
++	let root = OpenOptions::new()
++		.read(true)
++		.custom_flags(libc::O_CLOEXEC | libc::O_DIRECTORY | libc::O_NOFOLLOW)
++		.open(&a.root)
++		.map_err(error)?;
++	private(&root, true)?;
++	let entries = directory(&root, OsStr::new("entries"))?;
++	private(&entries, true)?;
++	let lock_parent = if a.kind == "cache" {
++		if stat(&root, OsStr::new("install.lock"))?.is_some()
++			|| stat(&root, OsStr::new("current.json"))?.is_some()
++		{
++			return Err("opposite runtime controls".into());
++		}
++		let f = directory(&root, OsStr::new("locks"))?;
++		private(&f, true)?;
++		Some(f)
++	} else {
++		if stat(&root, OsStr::new("locks"))?.is_some() {
++			return Err("opposite cache controls".into());
++		}
++		let f = open(&root, OsStr::new("install.lock"), libc::O_RDONLY, 0)?;
++		private(&f, false)?;
++		None
++	};
++	if a.list {
++		let current = if a.kind == "runtime" {
++			selected(&root, &mut budget)?
++		} else {
++			None
++		};
++		let refs = annotations::inspect(&a, &mut budget)?;
++		let mut records = vec![];
++		let mut unknown = vec![];
++		let mut total = 0u64;
++		for n in names(&root, &mut budget)? {
++			if !matches!(
++				n.to_str(),
++				Some("entries" | "removing" | "locks" | "install.lock" | "current.json")
++			) {
++				budget.reserve(n.len() as u64 + 128)?;
++				unknown.push(format!("{n:?}"));
++			}
++		}
++		for location in ["entries", "removing"] {
++			if stat(&root, OsStr::new(location))?.is_none() {
++				continue;
++			}
++			let dir = directory(&root, OsStr::new(location))?;
++			private(&dir, true)?;
++			for n in names_capped(
++				&dir,
++				&mut budget,
++				Some(hooks::limit("RNX_REMOVE_ENTRY_LIMIT", 10_000) - total),
++			)? {
++				let Some(key) = n.to_str().filter(|v| valid_id(v)) else {
++					unknown.push(format!("{location}/{n:?}"));
++					continue;
++				};
++				if total == hooks::limit("RNX_REMOVE_ENTRY_LIMIT", 10_000) {
++					return Err("listing exceeds entry allowance".into());
++				}
++				total += 1;
++				let entry = directory(&dir, &n)?;
++				private(&entry, true)?;
++				budget.seen.clear();
++				let before = (budget.nodes, budget.files, budget.logical, budget.allocated);
++				budget.charge(0)?;
++				budget.account(&stat(&dir, &n)?.ok_or("entry disappeared")?)?;
++				walk(&entry, &mut budget, 0, false, &mut 0)?;
++				let metadata = metadata(&entry, &a.kind, key, &mut budget)?;
++				budget.reserve(4096 + a.root.as_os_str().len() as u64 * 2)?;
++				records.push(json!({"id":key,"location":location,"path":a.root.join(location).join(key),"selected":current.as_deref()==Some(key),"nodes":budget.nodes-before.0,"files":budget.files-before.1,"logical":budget.logical-before.2,"allocated_estimate":budget.allocated-before.3,"metadata":metadata}));
++			}
++		}
++		return report(
++			json!({"root":a.root,"entries":records,"unknown":unknown}),
++			refs,
++			&a,
++			&mut budget,
++			Some(&entries),
++		);
++	}
++
++	let key = a.id.as_ref().unwrap();
++	let key_os = OsStr::new(key);
++	let location = if a.resume { "removing" } else { "entries" };
++	let _lock = if a.dry {
++		None
++	} else {
++		let (parent, n, flags, mode) = if let Some(p) = &lock_parent {
++			(
++				p,
++				format!("{key}.lock"),
++				libc::O_RDWR | libc::O_CREAT,
++				0o600,
++			)
++		} else {
++			(&root, "install.lock".into(), libc::O_RDWR, 0)
++		};
++		let f = open(parent, OsStr::new(&n), flags, mode)?;
++		private(&f, false)?;
++		f.try_lock()
++			.map_err(|e| format!("busy or invalid writer lock for {key} at {:?}: {e}", a.root))?;
++
++		Some(f)
++	};
++	if a.kind == "runtime" && selected(&root, &mut budget)?.as_deref() == Some(key) {
++		return Err(format!(
++			"selected runtime {key} in {:?} refused; select or install a replacement first",
++			a.root
++		));
++	}
++	if !a.resume && stat(&root, OsStr::new("removing"))?.is_some() {
++		let d = directory(&root, OsStr::new("removing"))?;
++		private(&d, true)?;
++		if stat(&d, key_os)?.is_some() {
++			return Err(format!(
++				"pending removal exists; resume explicitly:\n{}",
++				resume_command(&a, key)?
++			));
++		}
++	}
++	if stat(&root, OsStr::new(location))?.is_none() {
++		return Err(format!(
++			"no {location}/{key} in {:?}; nothing removed",
++			a.root
++		));
++	}
++	let parent = directory(&root, OsStr::new(location))?;
++	if stat(&parent, key_os)?.is_none() {
++		return Err(format!(
++			"no {location}/{key} in {:?}; nothing removed",
++			a.root
++		));
++	}
++	private(&parent, true)?;
++	let target = directory(&parent, key_os)?;
++	private(&target, true)?;
++	let path = a.root.join(location).join(key);
++	for own in [
++		std::env::current_dir().map_err(error)?,
++		std::env::current_exe().map_err(error)?,
++	] {
++		if own.starts_with(&path) {
++			return Err("current executable or working directory is inside target".into());
++		}
++	}
++	let initial = target.metadata().map_err(error)?;
++	budget.charge(0)?;
++	budget.account(&stat(&parent, key_os)?.ok_or("target disappeared")?)?;
++	walk(&target, &mut budget, 0, false, &mut 0)?;
++	if a.dry {
++		let refs = annotations::inspect(&a, &mut budget)?;
++		let metadata = metadata(&target, &a.kind, key, &mut budget)?;
++		return report(
++			json!({"root":a.root,"dry_run":true,"entries":[{"id":key,"location":location,"path":path,"nodes":budget.nodes,"files":budget.files,"logical":budget.logical,"allocated_estimate":budget.allocated,"metadata":metadata}],"writer":"not reserved"}),
++			refs,
++			&a,
++			&mut budget,
++			Some(&entries),
++		);
++	}
++	let command = resume_command(&a, key)?;
++	let mut committed = a.resume;
++	let operation = (|| {
++		hooks::point("before-rename")?;
++		let again = directory(&parent, key_os)?;
++		let now = again.metadata().map_err(error)?;
++		if initial.dev() != now.dev() || initial.ino() != now.ino() {
++			return Err("target identity changed before commit".into());
++		}
++		let pending = if a.resume {
++			parent
++		} else {
++			let pending = mkdir(&root, "removing")?;
++			hooks::point("before-root-sync")?;
++			sync(&root)?;
++			hooks::point("after-root-sync")?;
++			let key_c = name(key_os)?;
++			if unsafe {
++				libc::syscall(
++					libc::SYS_renameat2,
++					entries.as_raw_fd(),
++					key_c.as_ptr(),
++					pending.as_raw_fd(),
++					key_c.as_ptr(),
++					libc::RENAME_NOREPLACE,
++				)
++			} != 0
++			{
++				return Err(io_error("renameat2"));
++			}
++			committed = true;
++			emit(
++				&json!({"committed":true,"pending":a.root.join("removing").join(key),"resume_command":command}),
++				&mut budget,
++			)?;
++			std::io::stdout().flush().map_err(error)?;
++			let moved = directory(&pending, key_os)?;
++			let m = moved.metadata().map_err(error)?;
++			if m.dev() != initial.dev() || m.ino() != initial.ino() {
++				return Err("target identity changed after rename".into());
++			}
++			hooks::point("after-rename")?;
++			hooks::point("before-entries-sync")?;
++			sync(&entries)?;
++			hooks::point("after-entries-sync")?;
++			hooks::point("before-pending-sync")?;
++			sync(&pending)?;
++			hooks::point("after-pending-sync")?;
++			pending
++		};
++		let mut deletion = Budget {
++			nodes: budget.nodes,
++			memory: budget.memory,
++			..Budget::default()
++		};
++		let mut deleted = 0;
++		walk(&target, &mut deletion, 0, true, &mut deleted)?;
++		same(
++			&target,
++			&stat(&pending, key_os)?.ok_or("pending entry disappeared")?,
++		)?;
++		unlink(&pending, key_os, true)?;
++		hooks::point("before-final-sync")?;
++		sync(&pending)?;
++		hooks::point("after-final-sync")?;
++		emit(
++			&json!({"removed":key,"location":location,"deleted_leaves":deleted,"logical_before":budget.logical,"allocated_estimate_before":budget.allocated}),
++			&mut budget,
++		)?;
++		Ok(())
++	})();
++	operation.map_err(|e| {
++		if committed {
++			format!("pending removal may remain: {e}\n{command}")
++		} else {
++			format!("before commitment: {e}")
++		}
++	})
++}
++fn future_root(path: &Path) -> Result<PathBuf> {
++	match path.canonicalize() {
++		Ok(p) => Ok(p),
++		Err(e) if e.kind() == std::io::ErrorKind::NotFound => {
++			if std::fs::symlink_metadata(path).is_ok() {
++				return Err(format!("broken store path: {path:?}"));
++			}
++			let parent = path.parent().ok_or("store has no parent")?;
++			Ok(future_root(parent)?.join(path.file_name().ok_or("store has no name")?))
++		}
++		Err(e) => Err(format!("store {path:?}: {e}")),
++	}
++}
++fn resume_command(a: &Args, key: &str) -> Result<String> {
++	Ok(format!(
++		"{} {} remove {} --root {} --resume --quiescent",
++		quote(std::env::current_exe().map_err(error)?.as_os_str()),
++		a.kind,
++		key,
++		quote(a.root.as_os_str())
++	))
++}
++fn metadata(entry: &File, kind: &str, key: &str, budget: &mut Budget) -> Result<Value> {
++	let (n, limit) = if kind == "cache" {
++		("ready.json", crate::input::DOCUMENT_LIMIT)
++	} else {
++		("installation.json", 65536)
++	};
++	match bounded_document(entry, n, limit, budget) {
++		Ok(Some(v)) => {
++			let known = matches!(v["format"].as_u64(), Some(1 | 2));
++			let id = v[if kind == "cache" { "key" } else { "id" }].as_str() == Some(key);
++			let suffix = if v["format"] == 1 { "sha256" } else { "blake3" };
++			let shape = if kind == "cache" {
++				v.as_object().is_some_and(|o| o.len() == 5)
++					&& v["identity"].is_string()
++					&& v["artifact"].is_string()
++					&& v[format!("executable_{suffix}")]
++						.as_str()
++						.is_some_and(valid_id)
++			} else {
++				v[format!("tree_{suffix}")].as_str().is_some_and(valid_id)
++					&& v[format!("tool_{suffix}")].as_str().is_some_and(valid_id)
++					&& v["files"].is_u64()
++					&& v["bytes"].is_u64()
++					&& v["layout"].is_string()
++					&& v["source_path"].is_string()
++					&& v["dirty_tracked"].is_boolean()
++					&& v["installed_utc"].is_string()
++					&& v["tool_version"].is_string()
++			};
++			Ok(
++				json!({"status":if known&&id&&shape {"recognized envelope; not authenticated"}else{"unrecognized"},"format":v.get("format"),"source_path":v.get("source_path"),"source_commit":v.get("source_commit"),"installed_utc":v.get("installed_utc")}),
++			)
++		}
++		Ok(None) => Ok(json!({"status":"unrecognized","reason":"document missing"})),
++		Err(e) => {
++			commands::check()?;
++			Ok(json!({"status":"unrecognized","reason":e}))
++		}
++	}
++}
++fn emit(value: &Value, budget: &mut Budget) -> Result<()> {
++	render(value, budget, false)
++}
++fn render(value: &Value, budget: &mut Budget, pretty: bool) -> Result<()> {
++	let bytes = if pretty {
++		crate::wire::pretty(value)?
++	} else {
++		crate::wire::encode(value)?
++	};
++	budget.reserve(bytes.len() as u64)?;
++	let text = std::str::from_utf8(&bytes).map_err(error)?;
++	let mut out = String::new();
++	let limit = hooks::limit("RNX_REMOVE_OUTPUT_LIMIT", 16 * 1024 * 1024) as usize;
++	for c in text.chars() {
++		let mut buffer = [0u8; 4];
++		let escaped;
++		let piece = if c == '\u{7f}'
++			|| ('\u{80}'..='\u{9f}').contains(&c)
++			|| matches!(c,'\u{061c}'|'\u{200e}'|'\u{200f}'|'\u{2028}'..='\u{202e}'|'\u{2066}'..='\u{2069}')
++		{
++			{
++				escaped = format!("\\u{:04x}", c as u32);
++				escaped.as_str()
++			}
++		} else {
++			c.encode_utf8(&mut buffer)
++		};
++		if piece.len() > limit.saturating_sub(out.len()) {
++			return Err("rendered output exceeds allowance".into());
++		}
++		budget.reserve(piece.len() as u64)?;
++		out.push_str(piece);
++	}
++	writeln!(std::io::stdout().lock(), "{out}").map_err(error)
++}
++fn report(
++	mut value: Value,
++	mut refs: Vec<Value>,
++	a: &Args,
++	budget: &mut Budget,
++	store_entries: Option<&File>,
++) -> Result<()> {
++	let entries = value["entries"]
++		.as_array_mut()
++		.ok_or("report entries missing")?;
++	for reference in &mut refs {
++		if let Some(path) = reference["path"].as_str() {
++			budget.reserve(path.len() as u64)?;
++			let path = PathBuf::from(path);
++			let matched = entries.iter_mut().find(|e| {
++				matches!(
++					reference["kind"].as_str(),
++					Some("shared assembly" | "installed runtime")
++				) && e["path"].as_str().is_some_and(|p| Path::new(p) == path)
++			});
++			if let Some(entry) = matched {
++				if entry.get("referenced_by").is_none() {
++					entry["referenced_by"] = json!([])
++				}
++				entry["referenced_by"]
++					.as_array_mut()
++					.unwrap()
++					.push(reference["manifest"].clone());
++				reference["relation"] = json!("referenced by named manifest");
++			} else if !path.starts_with(&a.root) {
++				reference["relation"] = json!("outside selected store")
++			} else {
++				reference["relation"] = match recorded_path(&path, a, store_entries) {
++					Ok(v) => json!(v),
++					Err(e) => {
++						reference["status"] = json!("indeterminate");
++						json!(e)
++					}
++				};
++			}
++		}
++	}
++	let incomplete = refs.iter().any(|r| r["status"] == "indeterminate");
++	value["references"] = json!(refs);
++	value["reference_scope"] = json!(
++		"Only the manifests named were checked; other consumers may exist. Recorded references are not lifetime leases or deletion authorization."
++	);
++	value["size_note"] = json!("Allocated bytes are estimates, not a promise of reclaimed space.");
++	render(&value, budget, true)?;
++	if incomplete {
++		Err("one or more named project annotations are indeterminate; no completeness claim".into())
++	} else {
++		Ok(())
++	}
++}
++
++fn recorded_path(path: &Path, a: &Args, entries: Option<&File>) -> Result<&'static str> {
++	let Ok(relative) = path.strip_prefix(a.root.join("entries")) else {
++		return Ok("recorded path not part of this inspection");
++	};
++	let Some(id) = relative.to_str().filter(|v| valid_id(v)) else {
++		return Ok("recorded path not part of this inspection");
++	};
++	let Some(entries) = entries else {
++		return Ok("recorded entry missing");
++	};
++	if stat(entries, OsStr::new(id))?.is_none() {
++		return Ok("recorded entry missing");
++	}
++	let entry = directory(entries, OsStr::new(id))?;
++	private(&entry, true)?;
++	Ok("recorded path not part of this inspection")
++}
+diff --git a/tools/project/src/maintenance/linux/annotations.rs b/tools/project/src/maintenance/linux/annotations.rs
+new file mode 100644
+index 0000000..9a0ddc0
+--- /dev/null
++++ b/tools/project/src/maintenance/linux/annotations.rs
+@@ -0,0 +1,287 @@
++//! Only explicitly named project documents. Never Project::open, graph resolution,
++//! source verification, receipt refresh or a project writer lock.
++use super::*;
++
++struct Observed {
++	path: PathBuf,
++	file: File,
++	stamp: (u64, u64, u64, i64, i64, u32),
++}
++fn stamp(m: &std::fs::Metadata) -> (u64, u64, u64, i64, i64, u32) {
++	(
++		m.dev(),
++		m.ino(),
++		m.len(),
++		m.mtime(),
++		m.mtime_nsec(),
++		m.mode(),
++	)
++}
++fn read(
++	path: &Path,
++	limit: usize,
++	budget: &mut Budget,
++	seen: &mut Vec<Observed>,
++) -> Result<Vec<u8>> {
++	let file = OpenOptions::new()
++		.read(true)
++		.custom_flags(libc::O_NOFOLLOW | libc::O_NONBLOCK | libc::O_CLOEXEC)
++		.open(path)
++		.map_err(|e| format!("{path:?}: {e}"))?;
++	let m = file.metadata().map_err(error)?;
++	if !m.is_file() {
++		return Err(format!("{path:?}: not a regular project document"));
++	}
++	let bytes = read_bytes(&file, limit, budget)?;
++	seen.push(Observed {
++		path: path.to_owned(),
++		file,
++		stamp: stamp(&m),
++	});
++	Ok(bytes)
++}
++fn string<'a>(v: &'a Value, key: &str) -> Result<&'a str> {
++	v[key]
++		.as_str()
++		.ok_or_else(|| format!("missing or invalid {key}"))
++}
++fn path(v: &Value, key: &str) -> Result<PathBuf> {
++	let p = PathBuf::from(string(v, key)?);
++	if !p.is_absolute()
++		|| p.components().any(|c| {
++			matches!(
++				c,
++				std::path::Component::ParentDir | std::path::Component::CurDir
++			)
++		}) {
++		return Err(format!("{key} must be a recorded absolute path"));
++	}
++	Ok(p)
++}
++fn digest(v: &Value, key: &str) -> Result<()> {
++	if !valid_id(string(v, key)?) {
++		Err(format!("invalid {key}"))
++	} else {
++		Ok(())
++	}
++}
++fn one(manifest: &Path, kind: &str, budget: &mut Budget) -> Result<Value> {
++	let mut seen = vec![];
++	crate::manifest::Manifest::parse(&read(
++		manifest,
++		crate::input::MANIFEST_LIMIT,
++		budget,
++		&mut seen,
++	)?)?;
++	let base = manifest.parent().ok_or("manifest has no parent")?;
++	let lock = documents::decode(
++		&read(
++			&base.join("rnx.lock"),
++			crate::input::DOCUMENT_LIMIT,
++			budget,
++			&mut seen,
++		)?,
++		budget,
++	)?;
++	let receipt = documents::decode(
++		&read(
++			&base.join(".rnx/receipt.json"),
++			crate::input::DOCUMENT_LIMIT,
++			budget,
++			&mut seen,
++		)?,
++		budget,
++	)?;
++	if lock.as_object().is_none_or(|o| {
++		o.len() != 5
++			|| o.keys().any(|k| {
++				!matches!(
++					k.as_str(),
++					"format" | "declarations" | "sources" | "inputs" | "assembly"
++				)
++			})
++	}) {
++		return Err("malformed lock envelope".into());
++	}
++	if receipt.as_object().is_none_or(|o| {
++		o.keys().any(|k| {
++			!matches!(
++				k.as_str(),
++				"format"
++					| "assembly_key"
++					| "lock_sha256" | "executable_sha256"
++					| "lock_blake3" | "executable_blake3"
++					| "stamp"
++			)
++		})
++	}) {
++		return Err("unrecognized receipt fields".into());
++	}
++	let lf = lock["format"]
++		.as_u64()
++		.filter(|v| matches!(v, 1..=3))
++		.ok_or("unsupported project lock format")?;
++	let rf = receipt["format"]
++		.as_u64()
++		.filter(|v| matches!(v, 1..=4))
++		.ok_or("unsupported receipt format")?;
++	if (lf == 3) != (rf == 4) {
++		return Err("lock and receipt formats disagree".into());
++	}
++	let suffix = if rf == 4 { "blake3" } else { "sha256" };
++	digest(&receipt, &format!("lock_{suffix}"))?;
++	digest(&receipt, &format!("executable_{suffix}"))?;
++	// Validate declaration syntax only. No dependency manifest or source is read.
++	let declarations: crate::manifest::Manifest =
++		serde_json::from_value(lock["declarations"].clone()).map_err(error)?;
++	declarations.validate()?;
++	if lock["sources"].as_object().is_none() || lock["inputs"].as_object().is_none() {
++		return Err("malformed project lock envelope".into());
++	}
++	if rf != 1 {
++		let s = &receipt["stamp"];
++		if s["bytes"]
++			.as_u64()
++			.is_none_or(|n| n > crate::fingerprint::BYTES)
++			|| s["mtime_seconds"].as_i64().is_none()
++			|| s["mtime_nanoseconds"]
++				.as_u64()
++				.is_none_or(|n| n >= 1_000_000_000)
++			|| s["executable"].as_bool().is_none()
++			|| s["device"].as_u64().is_none()
++			|| s["inode"].as_u64().is_none()
++		{
++			return Err("invalid receipt stamp".into());
++		}
++	}
++	let handoff: crate::wire::Handoff =
++		serde_json::from_value(lock["sources"].clone()).map_err(error)?;
++	handoff.validate()?;
++	if !["packages", "trees", "outside_manifests"]
++		.iter()
++		.all(|k| lock["inputs"]["source"][k].is_array())
++	{
++		return Err("malformed source inventory envelope".into());
++	}
++
++	let assembly = &lock["assembly"];
++	let shape = string(assembly, "kind")?;
++	let shared = shape == "shared";
++	if shared != (receipt.get("assembly_key").is_some_and(|v| !v.is_null())) || (rf == 3 && !shared)
++	{
++		return Err("receipt assembly binding disagrees with lock".into());
++	}
++	let mut identity = None;
++	if shared {
++		if lf == 1 {
++			return Err("format-1 lock cannot name a shared entry".into());
++		}
++		let i = documents::decode(string(assembly, "identity")?.as_bytes(), budget)?;
++		if i["format"].as_u64() != Some(if lf == 3 { 2 } else { 1 })
++			|| i["generator"].as_u64() != Some(if lf == 3 { 2 } else { 1 })
++		{
++			return Err("unsupported assembly identity format or generator".into());
++		}
++		path(&i["context"], "cache_root")?;
++		digest(&receipt, "assembly_key")?;
++		identity = Some(i);
++	} else if !matches!(shape, "generated" | "executable") {
++		return Err("unknown assembly kind".into());
++	}
++	if shape == "generated" {
++		for name in ["manifest", "main", "cargo_lock"] {
++			digest(assembly, &format!("{name}_{suffix}"))?;
++		}
++		for name in ["target", "profile", "rustc", "cargo"] {
++			string(assembly, name)?;
++		}
++		if !assembly["features"]
++			.as_array()
++			.is_some_and(|v| v.iter().all(Value::is_string))
++		{
++			return Err("invalid generated features".into());
++		}
++	} else if shape == "executable" {
++		path(assembly, "path")?;
++		digest(assembly, suffix)?;
++	}
++
++	let reference = if kind == "cache" {
++		if let Some(i) = &identity {
++			let key = string(&receipt, "assembly_key")?;
++			json!({"kind":"shared assembly","path":path(&i["context"],"cache_root")?.join("entries").join(key),"id":key})
++		} else if shape == "executable" {
++			json!({"kind":"executable override","path":path(assembly,"path")?})
++		} else {
++			json!({"kind":"project-local artifact","path":base.join(".rnx/artifacts").join(string(&receipt,&format!("executable_{suffix}"))?)})
++		}
++	} else if declarations.runtime.is_none() {
++		json!({"kind":"executable override","path":path(assembly,"path")?})
++	} else {
++		let packages = lock["inputs"]["native"]["packages"]
++			.as_array()
++			.ok_or("missing recorded native packages")?;
++		let roots = packages
++			.iter()
++			.filter(|p| p["name"].as_str() == Some("rnx"))
++			.map(|p| path(p, "root"))
++			.collect::<Result<Vec<_>>>()?;
++		if roots.len() != 1 {
++			return Err("recorded runtime source is missing or ambiguous".into());
++		}
++		let source = &roots[0];
++		let entry = source.parent().ok_or("runtime source has no parent")?;
++		if source.file_name() == Some(OsStr::new("source"))
++			&& entry
++				.file_name()
++				.and_then(OsStr::to_str)
++				.is_some_and(valid_id)
++			&& entry.parent().and_then(Path::file_name) == Some(OsStr::new("entries"))
++		{
++			json!({"kind":"installed runtime","path":entry,"source":source,"id":entry.file_name().unwrap().to_str().unwrap()})
++		} else {
++			json!({"kind":"runtime outside an installation","path":source})
++		}
++	};
++	hooks::point("annotation-before-recheck")?;
++	for observed in seen {
++		if stamp(&observed.file.metadata().map_err(error)?) != observed.stamp
++			|| stamp(&std::fs::symlink_metadata(&observed.path).map_err(error)?) != observed.stamp
++		{
++			return Err(format!("project document changed: {:?}", observed.path));
++		}
++	}
++	Ok(reference)
++}
++pub(super) fn inspect(args: &Args, budget: &mut Budget) -> Result<Vec<Value>> {
++	let mut out = vec![];
++	let mut seen = HashSet::new();
++	for supplied in &args.manifests {
++		commands::check()?;
++		let resolved = supplied.canonicalize().map_err(error);
++		let key = resolved.as_ref().unwrap_or(supplied).clone();
++		if !seen.insert(key.clone()) {
++			continue;
++		}
++		budget.reserve(key.as_os_str().len() as u64 + 256)?;
++		let result = resolved.and_then(|p| {
++			let value = one(&p, &args.kind, budget)?;
++			if supplied.canonicalize().map_err(error)? != p {
++				return Err("named manifest alias changed".into());
++			}
++			Ok(value)
++		});
++		match result {
++			Ok(mut v) => {
++				v["manifest"] = json!(key);
++				v["status"] = json!("recorded reference; contents not authenticated");
++				out.push(v)
++			}
++			Err(e) => {
++				commands::check()?;
++				out.push(json!({"manifest":format!("{key:?}"),"status":"indeterminate","reason":e}))
++			}
++		}
++	}
++	Ok(out)
++}
+diff --git a/tools/project/src/maintenance/linux/documents.rs b/tools/project/src/maintenance/linux/documents.rs
+new file mode 100644
+index 0000000..8f1c30b
+--- /dev/null
++++ b/tools/project/src/maintenance/linux/documents.rs
+@@ -0,0 +1,67 @@
++//! Bounded JSON inspection, including duplicate-key refusal at every level.
++use super::{Budget, Result};
++use serde::de::{self, DeserializeSeed, MapAccess, SeqAccess, Visitor};
++use serde_json::{Map, Value};
++struct Seed<'a>(&'a mut Budget);
++impl<'de> DeserializeSeed<'de> for Seed<'_> {
++	type Value = Value;
++	fn deserialize<D: de::Deserializer<'de>>(self, d: D) -> std::result::Result<Value, D::Error> {
++		self.0.reserve(128).map_err(de::Error::custom)?;
++		d.deserialize_any(self)
++	}
++}
++impl<'de> Visitor<'de> for Seed<'_> {
++	type Value = Value;
++	fn expecting(&self, f: &mut std::fmt::Formatter) -> std::fmt::Result {
++		f.write_str("bounded JSON without duplicate keys")
++	}
++	fn visit_unit<E: de::Error>(self) -> std::result::Result<Value, E> {
++		Ok(Value::Null)
++	}
++	fn visit_bool<E: de::Error>(self, v: bool) -> std::result::Result<Value, E> {
++		Ok(v.into())
++	}
++	fn visit_i64<E: de::Error>(self, v: i64) -> std::result::Result<Value, E> {
++		Ok(v.into())
++	}
++	fn visit_u64<E: de::Error>(self, v: u64) -> std::result::Result<Value, E> {
++		Ok(v.into())
++	}
++	fn visit_f64<E: de::Error>(self, v: f64) -> std::result::Result<Value, E> {
++		serde_json::Number::from_f64(v)
++			.map(Value::Number)
++			.ok_or_else(|| E::custom("nonfinite number"))
++	}
++	fn visit_str<E: de::Error>(self, v: &str) -> std::result::Result<Value, E> {
++		self.0.reserve(v.len() as u64).map_err(E::custom)?;
++		Ok(v.into())
++	}
++	fn visit_seq<A: SeqAccess<'de>>(self, mut a: A) -> std::result::Result<Value, A::Error> {
++		let mut v = vec![];
++		while let Some(n) = a.next_element_seed(Seed(&mut *self.0))? {
++			v.push(n)
++		}
++		Ok(v.into())
++	}
++	fn visit_map<A: MapAccess<'de>>(self, mut a: A) -> std::result::Result<Value, A::Error> {
++		let mut v = Map::new();
++		while let Some(k) = a.next_key::<String>()? {
++			self.0
++				.reserve(k.len() as u64 + 128)
++				.map_err(de::Error::custom)?;
++			if v.contains_key(&k) {
++				return Err(de::Error::custom("duplicate JSON key"));
++			}
++			v.insert(k, a.next_value_seed(Seed(&mut *self.0))?);
++		}
++		Ok(v.into())
++	}
++}
++pub(super) fn decode(bytes: &[u8], budget: &mut Budget) -> Result<Value> {
++	let mut d = serde_json::Deserializer::from_slice(bytes);
++	let v = Seed(budget)
++		.deserialize(&mut d)
++		.map_err(|e| e.to_string())?;
++	d.end().map_err(|e| e.to_string())?;
++	Ok(v)
++}
+diff --git a/tools/project/src/tests.rs b/tools/project/src/tests.rs
+index 5e1a3fb..e03f96e 100644
+--- a/tools/project/src/tests.rs
++++ b/tools/project/src/tests.rs
+@@ -325,11 +325,14 @@ fn capability_refuses_bad_replies_and_retires_timed_out_child() {
+ 	assert!(crate::handshake::check(&script).is_ok());
+ 	set("printf '%s' '{\"format\":1}'; printf '%4084s' ''");
+ 	assert!(crate::handshake::check(&script).is_ok());
++	// The stream boundary is checked without a subprocess deadline in
++	// handshake::tests. Under host load this subprocess may legitimately hit
++	// its production deadline first; either refusal must still retire it.
+ 	set("printf '%s' '{\"format\":1}'; printf '%4085s' ''");
+ 	assert!(
+ 		crate::handshake::check(&script)
+ 			.unwrap_err()
+-			.contains("4096")
++			.contains("executable")
+ 	);
+ 	for body in [
+ 		"printf '%s' '{\"format\":2}'",
+diff --git a/tools/project/src/workflow.rs b/tools/project/src/workflow.rs
+index 6334011..3454aab 100644
+--- a/tools/project/src/workflow.rs
++++ b/tools/project/src/workflow.rs
+@@ -674,6 +674,14 @@ pub(crate) fn cli(args: Vec<OsString>) -> Result<(), String> {
+ 	if std::env::var_os("RNX_INTERNAL_DEP_FD").is_some() {
+ 		return transition::serve(args);
+ 	}
++	if args.first().and_then(|s| s.to_str()) == Some("cache")
++		|| (args.first().and_then(|s| s.to_str()) == Some("runtime")
++			&& matches!(
++				args.get(1).and_then(|s| s.to_str()),
++				Some("list" | "remove")
++			)) {
++		return crate::maintenance::cli(&args);
++	}
+ 	if args.first().and_then(|s| s.to_str()) == Some("runtime") {
+ 		return crate::runtime_install::cli(&args[1..]);
+ 	}
+@@ -706,7 +714,7 @@ pub(crate) fn cli(args: Vec<OsString>) -> Result<(), String> {
+ 	}
+ 	if args.len() == 1 && matches!(args[0].to_str(), Some("--help" | "help")) {
+ 		println!(
+-			"rnx-project runtime install --from PATH\nrnx-project runtime show\nrnx-project runtime select ID\nrnx-project adapters\nrnx-project add --manifest FILE NAME [NAME...]\nrnx-project lock|build|run|session|eval --manifest FILE\nrun [--verify] [-- script arguments]\nsession [--verify] [--color=auto|always|never] [--no-splash]\neval [--verify] [--color=auto|always|never] -- SOURCE\nLaunch checks your sources, trusts your build output unless you ask it to verify.\nUse --verify for a full artifact hash. Changed metadata triggers a full check.\nlock/build accept --offline; run/session/eval never build."
++			"rnx-project cache|runtime list [--root PATH] [--manifest FILE]...\nrnx-project cache|runtime remove ID [--root PATH] [--dry-run [--manifest FILE]...] [--resume] [--quiescent]\nRemoval requires stopping all consumers; named manifests are not a complete reference inventory.\nrnx-project runtime install --from PATH\nrnx-project runtime show\nrnx-project runtime select ID\nrnx-project adapters\nrnx-project add --manifest FILE NAME [NAME...]\nrnx-project lock|build|run|session|eval --manifest FILE\nrun [--verify] [-- script arguments]\nsession [--verify] [--color=auto|always|never] [--no-splash]\neval [--verify] [--color=auto|always|never] -- SOURCE\nLaunch checks your sources, trusts your build output unless you ask it to verify.\nUse --verify for a full artifact hash. Changed metadata triggers a full check.\nlock/build accept --offline; run/session/eval never build."
+ 		);
+ 		return Ok(());
+ 	}

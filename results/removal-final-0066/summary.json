@@ -1,0 +1,112 @@
+{
+  "overhead_by_count": [
+    {
+      "count": 0,
+      "before": 12.372222500000001,
+      "after": 12.34142925
+    },
+    {
+      "count": 1,
+      "before": 13.232794250000001,
+      "after": 13.1556745
+    },
+    {
+      "count": 2,
+      "before": 13.5486085,
+      "after": 13.489150250000002
+    },
+    {
+      "count": 3,
+      "before": 13.77893225,
+      "after": 13.776961
+    }
+  ],
+  "first_adapter": [
+    {
+      "mode": "run",
+      "repeat": 0,
+      "before": 0.8922440000000016,
+      "after": 0.729420499999998
+    },
+    {
+      "mode": "eval",
+      "repeat": 0,
+      "before": 0.829566499999995,
+      "after": 0.7716799999999999
+    },
+    {
+      "mode": "session",
+      "repeat": 0,
+      "before": 0.8034425000000027,
+      "after": 1.0155429999999939
+    },
+    {
+      "mode": "run",
+      "repeat": 1,
+      "before": 0.8551534999999983,
+      "after": 0.947273500000005
+    },
+    {
+      "mode": "eval",
+      "repeat": 1,
+      "before": 0.9684965000000023,
+      "after": 0.8190275000000007
+    },
+    {
+      "mode": "session",
+      "repeat": 1,
+      "before": 0.874823499999998,
+      "after": 0.7588254999999986
+    }
+  ],
+  "verify": [
+    {
+      "version": "before",
+      "repeat": 0,
+      "median_ms": 55.357983000000004
+    },
+    {
+      "version": "before",
+      "repeat": 1,
+      "median_ms": 55.520036
+    },
+    {
+      "version": "after",
+      "repeat": 0,
+      "median_ms": 55.4670745
+    },
+    {
+      "version": "after",
+      "repeat": 1,
+      "median_ms": 55.4651135
+    }
+  ],
+  "test_counts": {
+    "root-default": {
+      "passed": 376,
+      "failed": 0,
+      "ignored": 0
+    },
+    "root-support": {
+      "passed": 419,
+      "failed": 0,
+      "ignored": 0
+    },
+    "root-combined": {
+      "passed": 438,
+      "failed": 0,
+      "ignored": 0
+    },
+    "tool-default": {
+      "passed": 48,
+      "failed": 0,
+      "ignored": 2
+    },
+    "tool-support": {
+      "passed": 49,
+      "failed": 0,
+      "ignored": 2
+    }
+  },
+  "aggregation": "overhead table is median of six mode/repeat project-minus-direct medians; first-adapter cells are separate and unrounded here"
+}

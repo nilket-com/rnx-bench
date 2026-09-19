@@ -1,0 +1,19 @@
+[22;2t]2;rnx[?2004h[?2026h[K[1] > [6C[?2026llet held = 42; let q = fixture::pending(false);[?2004l
+[?2004h[?2026h[K[2] > [6C[?2026llet timer = time::sleep(5); select { _ = q => (), _ = timer => () };[?2004l
+[?2004h[?2026h[K[3] > [6C[?2026l:dep --offline polars[?2004l
+Project: /home/me/work/rnx-bench/probes/removal-final/target/preparation/project/rnx.toml
+Adding: polars
+Already declared: (none)
+Offline: Cargo may not fetch sources.
+A first Polars build took about 100 seconds with registry sources cached; its retained shared entry is about 1.5 GB. A reusable entry avoids compilation.
+This prepares a new executable and restarts the session on success.
+Existing bindings and declarations will be lost. Saved history remains available with up-arrow; nothing is replayed.
+[?2004h[?2026h[KContinue? [y/N] [16C[?2026ly[?2004l
+dependency phase: author
+dependency preparation refused: author: manifest /home/me/work/rnx-bench/probes/removal-final/target/preparation/project/rnx.toml was replaced; durability not confirmed: injected failure at after-add-rename; project files may have been published; retry with rnx-project lock/build/session --manifest "/home/me/work/rnx-bench/probes/removal-final/target/preparation/project/rnx.toml"
+[?2004h[?2026h[K[3] > [6C[?2026lheld[?2004l
+[3] 42
+[?2004h[?2026h[K[4] > [6C[?2026lq.await[?2004l
+[4] Ok(73)
+[?2004h[?2026h[K[5] > [6C[?2026l:q[?2004l
+[23;2t

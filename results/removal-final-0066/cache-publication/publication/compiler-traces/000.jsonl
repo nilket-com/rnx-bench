@@ -1,0 +1,37 @@
+{"program": "cargo", "args": ["metadata", "--offline", "--format-version", "1"]}
+{"program": "rustc", "args": ["-vV"]}
+{"program": "rustc", "args": ["-", "--crate-name", "___", "--print=file-names", "--crate-type", "bin", "--crate-type", "rlib", "--crate-type", "dylib", "--crate-type", "cdylib", "--crate-type", "staticlib", "--crate-type", "proc-macro", "--print=sysroot", "--print=split-debuginfo", "--print=crate-name", "--print=cfg", "-Wwarnings"]}
+{"program": "rustc", "args": ["-vV"]}
+{"program": "rustc", "args": ["-vV"]}
+{"program": "rustc", "args": ["-vV"]}
+{"program": "rustc", "args": ["-vV"]}
+{"program": "rustc", "args": ["-Vv"]}
+{"program": "cargo", "args": ["-V"]}
+{"program": "rustc", "args": ["-Vv"]}
+{"program": "cargo", "args": ["-V"]}
+{"program": "rustc", "args": ["-Vv"]}
+{"program": "cargo", "args": ["-V"]}
+{"program": "cargo", "args": ["build", "--locked", "--release", "--target-dir", "/tmp/rnx-cache-publication-2a2nct_x/cache/entries/f0c981bd1389f098203e56112a945177b1cff2302992597ddb0b92526c9d22ce/target", "--offline"]}
+{"program": "rustc", "args": ["-vV"]}
+{"program": "rustc", "args": ["-", "--crate-name", "___", "--print=file-names", "--crate-type", "bin", "--crate-type", "rlib", "--crate-type", "dylib", "--crate-type", "cdylib", "--crate-type", "staticlib", "--crate-type", "proc-macro", "--print=sysroot", "--print=split-debuginfo", "--print=crate-name", "--print=cfg", "-Wwarnings"]}
+{"program": "rustc", "args": ["-vV"]}
+{"program": "rustc", "args": ["--crate-name", "rnx", "--edition=2024", "/tmp/rnx-cache-publication-2a2nct_x/native/runtime/src/lib.rs", "--error-format=json", "--json=diagnostic-rendered-ansi,artifacts,future-incompat", "--crate-type", "lib", "--emit=dep-info,metadata,link", "-C", "opt-level=3", "-C", "embed-bitcode=no", "--cfg", "feature=\"project-sources\"", "--check-cfg", "cfg(docsrs,test)", "--check-cfg", "cfg(feature, values(\"project-sources\"))", "-C", "metadata=c2a3bbf907c689ec", "-C", "extra-filename=-124949ee490c638e", "--out-dir", "/tmp/rnx-cache-publication-2a2nct_x/cache/entries/f0c981bd1389f098203e56112a945177b1cff2302992597ddb0b92526c9d22ce/target/release/deps", "-C", "strip=debuginfo", "-L", "dependency=/tmp/rnx-cache-publication-2a2nct_x/cache/entries/f0c981bd1389f098203e56112a945177b1cff2302992597ddb0b92526c9d22ce/target/release/deps"]}
+{"program": "rustc", "args": ["--crate-name", "build_script_build", "--edition=2024", "/tmp/rnx-cache-publication-2a2nct_x/native/adapter/build.rs", "--error-format=json", "--json=diagnostic-rendered-ansi,artifacts,future-incompat", "--crate-type", "bin", "--emit=dep-info,link", "-C", "embed-bitcode=no", "-C", "debug-assertions=off", "--check-cfg", "cfg(docsrs,test)", "--check-cfg", "cfg(feature, values())", "-C", "metadata=a11505226ebb70d7", "-C", "extra-filename=-2849238fb5d379b5", "--out-dir", "/tmp/rnx-cache-publication-2a2nct_x/cache/entries/f0c981bd1389f098203e56112a945177b1cff2302992597ddb0b92526c9d22ce/target/release/build/publication-adapter-2849238fb5d379b5", "-C", "strip=debuginfo", "-L", "dependency=/tmp/rnx-cache-publication-2a2nct_x/cache/entries/f0c981bd1389f098203e56112a945177b1cff2302992597ddb0b92526c9d22ce/target/release/deps"]}
+{"program": "rustc", "args": ["--crate-name", "publication_adapter", "--edition=2024", "/tmp/rnx-cache-publication-2a2nct_x/native/adapter/src/lib.rs", "--error-format=json", "--json=diagnostic-rendered-ansi,artifacts,future-incompat", "--crate-type", "lib", "--emit=dep-info,metadata,link", "-C", "opt-level=3", "-C", "embed-bitcode=no", "--check-cfg", "cfg(docsrs,test)", "--check-cfg", "cfg(feature, values())", "-C", "metadata=a382f6c08d1fd12e", "-C", "extra-filename=-1bd169d551fbc958", "--out-dir", "/tmp/rnx-cache-publication-2a2nct_x/cache/entries/f0c981bd1389f098203e56112a945177b1cff2302992597ddb0b92526c9d22ce/target/release/deps", "-C", "strip=debuginfo", "-L", "dependency=/tmp/rnx-cache-publication-2a2nct_x/cache/entries/f0c981bd1389f098203e56112a945177b1cff2302992597ddb0b92526c9d22ce/target/release/deps"]}
+{"program": "rustc", "args": ["--crate-name", "rnx_project_app", "--edition=2024", "src/main.rs", "--error-format=json", "--json=diagnostic-rendered-ansi,artifacts,future-incompat", "--crate-type", "bin", "--emit=dep-info,link", "-C", "opt-level=3", "-C", "embed-bitcode=no", "--check-cfg", "cfg(docsrs,test)", "--check-cfg", "cfg(feature, values())", "-C", "metadata=0ab02f73a92afd45", "-C", "extra-filename=-e4e9d8b62fbd20c7", "--out-dir", "/tmp/rnx-cache-publication-2a2nct_x/cache/entries/f0c981bd1389f098203e56112a945177b1cff2302992597ddb0b92526c9d22ce/target/release/deps", "-C", "strip=debuginfo", "-L", "dependency=/tmp/rnx-cache-publication-2a2nct_x/cache/entries/f0c981bd1389f098203e56112a945177b1cff2302992597ddb0b92526c9d22ce/target/release/deps", "--extern", "native_0=/tmp/rnx-cache-publication-2a2nct_x/cache/entries/f0c981bd1389f098203e56112a945177b1cff2302992597ddb0b92526c9d22ce/target/release/deps/libpublication_adapter-1bd169d551fbc958.rlib", "--extern", "rnx=/tmp/rnx-cache-publication-2a2nct_x/cache/entries/f0c981bd1389f098203e56112a945177b1cff2302992597ddb0b92526c9d22ce/target/release/deps/librnx-124949ee490c638e.rlib"]}
+{"program": "rustc", "args": ["-Vv"]}
+{"program": "cargo", "args": ["-V"]}
+{"program": "rustc", "args": ["-Vv"]}
+{"program": "cargo", "args": ["-V"]}
+{"program": "rustc", "args": ["-Vv"]}
+{"program": "cargo", "args": ["-V"]}
+{"program": "rustc", "args": ["-Vv"]}
+{"program": "cargo", "args": ["-V"]}
+{"program": "rustc", "args": ["-Vv"]}
+{"program": "cargo", "args": ["-V"]}
+{"program": "rustc", "args": ["-Vv"]}
+{"program": "cargo", "args": ["-V"]}
+{"program": "rustc", "args": ["-Vv"]}
+{"program": "cargo", "args": ["-V"]}
+{"program": "rustc", "args": ["-Vv"]}
+{"program": "cargo", "args": ["-V"]}
