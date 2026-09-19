@@ -1,0 +1,82 @@
+[
+  {
+    "cwd": "/home/me/work/rnx",
+    "args": [
+      "cargo",
+      "fmt",
+      "--check"
+    ],
+    "status": 0,
+    "log": "check-0.log"
+  },
+  {
+    "cwd": "/home/me/work/rnx/tools/project",
+    "args": [
+      "cargo",
+      "fmt",
+      "--check"
+    ],
+    "status": 0,
+    "log": "check-1.log"
+  },
+  {
+    "cwd": "/home/me/work/rnx/tools/project",
+    "args": [
+      "cargo",
+      "clippy",
+      "--locked",
+      "--offline",
+      "--all-targets",
+      "--",
+      "-D",
+      "warnings"
+    ],
+    "status": 0,
+    "log": "check-2.log"
+  },
+  {
+    "cwd": "/home/me/work/rnx/tools/project",
+    "args": [
+      "cargo",
+      "clippy",
+      "--locked",
+      "--offline",
+      "--all-targets",
+      "--features",
+      "test-support",
+      "--",
+      "-D",
+      "warnings"
+    ],
+    "status": 0,
+    "log": "check-3.log"
+  },
+  {
+    "cwd": "/home/me/work/rnx/tools/project",
+    "args": [
+      "cargo",
+      "test",
+      "--locked",
+      "--offline",
+      "--",
+      "--test-threads=1"
+    ],
+    "status": 0,
+    "log": "check-4.log"
+  },
+  {
+    "cwd": "/home/me/work/rnx/tools/project",
+    "args": [
+      "cargo",
+      "test",
+      "--locked",
+      "--offline",
+      "--features",
+      "test-support",
+      "--",
+      "--test-threads=1"
+    ],
+    "status": 0,
+    "log": "check-5.log"
+  }
+]
