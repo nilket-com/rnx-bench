@@ -1,0 +1,21 @@
+format=2
+[application]
+entry="main.rn"
+[runtime]
+git="file:///home/me/work/rnx-bench/probes/git-source-workflow/target/origin.git"
+rev="8cc75c509eab3317d2e37bf7cf33e4f6a201b79b"
+
+
+[native.polars]
+git = "file:///home/me/work/rnx-bench/probes/git-source-workflow/target/origin.git"
+rev = "8cc75c509eab3317d2e37bf7cf33e4f6a201b79b"
+package = "rnx-polars"
+builder = "build"
+hook = "plain"
+
+[native.postgres]
+git = "file:///home/me/work/rnx-bench/probes/git-source-workflow/target/origin.git"
+rev = "8cc75c509eab3317d2e37bf7cf33e4f6a201b79b"
+package = "rnx-postgres"
+builder = "build"
+hook = "lifecycle"

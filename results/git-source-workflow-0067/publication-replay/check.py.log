@@ -1,0 +1,8 @@
+Traceback (most recent call last):
+  File "/home/me/work/rnx-bench/results/git-source-workflow-0067/publication-replay/check.py", line 45, in <module>
+    meta=call(['cargo','metadata','--offline','--format-version','1'],env,stage).stdout;(root/'metadata.json').write_text(meta)
+         ~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/me/work/rnx-bench/results/git-source-workflow-0067/publication-replay/check.py", line 8, in call
+    if ok:assert p.returncode==0,(args,p.stdout,p.stderr)
+                 ^^^^^^^^^^^^^^^
+AssertionError: (['cargo', 'metadata', '--offline', '--format-version', '1'], '', 'error: failed to select a version for `rnx`.\n    ... required by package `rnx-project-app v0.0.0 (/tmp/rnx-cache-publication-b3_9lztz/cache/resolve/base/assembly)`\nversions that meet the requirements `*` are: 0.0.0\n\npackage `rnx-project-app` depends on `rnx` with feature `count-allocations` but `rnx` does not have that feature.\nhelp: available features: project-sources\n\n\nfailed to select a version for `rnx` which could resolve this conflict\n')

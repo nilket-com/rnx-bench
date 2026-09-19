@@ -1,0 +1,10 @@
+[22;2t]2;rnx[?2004h[?2026h[K[1] > [6C[?2026llet held = 42; let q = fixture::pending(false);[?2004l
+[?2004h[?2026h[K[2] > [6C[?2026llet timer = time::sleep(5); select { _ = q => (), _ = timer => () };[?2004l
+[?2004h[?2026h[K[3] > [6C[?2026l:dep unknown[?2004l
+dependency preparation refused: unknown adapter unknown; available: polars, postgres
+[?2004h[?2026h[K[3] > [6C[?2026lheld[?2004l
+[3] 42
+[?2004h[?2026h[K[4] > [6C[?2026lq.await[?2004l
+[4] Ok(73)
+[?2004h[?2026h[K[5] > [6C[?2026l:q[?2004l
+[23;2t

@@ -1,0 +1,147 @@
+[
+  {
+    "name": "root-fmt",
+    "arguments": [
+      "cargo",
+      "fmt",
+      "--all",
+      "--",
+      "--check"
+    ],
+    "status": 0
+  },
+  {
+    "name": "tool-fmt",
+    "arguments": [
+      "cargo",
+      "fmt",
+      "--manifest-path",
+      "tools/project/Cargo.toml",
+      "--",
+      "--check"
+    ],
+    "status": 0
+  },
+  {
+    "name": "root-default",
+    "arguments": [
+      "cargo",
+      "test",
+      "--locked",
+      "--offline",
+      "--",
+      "--test-threads=1"
+    ],
+    "status": 0
+  },
+  {
+    "name": "root-support",
+    "arguments": [
+      "cargo",
+      "test",
+      "--locked",
+      "--offline",
+      "--features",
+      "test-support",
+      "--",
+      "--test-threads=1"
+    ],
+    "status": 0
+  },
+  {
+    "name": "root-runner",
+    "arguments": [
+      "cargo",
+      "test",
+      "--locked",
+      "--offline",
+      "--no-default-features",
+      "--features",
+      "count-allocations,project-sources",
+      "--",
+      "--test-threads=1"
+    ],
+    "status": 0
+  },
+  {
+    "name": "tool-default",
+    "arguments": [
+      "cargo",
+      "test",
+      "--locked",
+      "--offline",
+      "--manifest-path",
+      "tools/project/Cargo.toml",
+      "--",
+      "--test-threads=1"
+    ],
+    "status": 0
+  },
+  {
+    "name": "clippy-default",
+    "arguments": [
+      "cargo",
+      "clippy",
+      "--locked",
+      "--offline",
+      "--manifest-path",
+      "tools/project/Cargo.toml",
+      "--all-targets",
+      "--",
+      "-D",
+      "warnings"
+    ],
+    "status": 0
+  },
+  {
+    "name": "tool-support",
+    "arguments": [
+      "cargo",
+      "test",
+      "--locked",
+      "--offline",
+      "--manifest-path",
+      "tools/project/Cargo.toml",
+      "--features",
+      "test-support",
+      "--",
+      "--test-threads=1"
+    ],
+    "status": 0
+  },
+  {
+    "name": "clippy-support",
+    "arguments": [
+      "cargo",
+      "clippy",
+      "--locked",
+      "--offline",
+      "--manifest-path",
+      "tools/project/Cargo.toml",
+      "--all-targets",
+      "--features",
+      "test-support",
+      "--",
+      "-D",
+      "warnings"
+    ],
+    "status": 0
+  },
+  {
+    "name": "root-notices",
+    "arguments": [
+      "scripts/third-party-notices.sh",
+      "--check"
+    ],
+    "status": 0
+  },
+  {
+    "name": "tool-notices",
+    "arguments": [
+      "python3",
+      "tools/project/scripts/notices.py",
+      "--check"
+    ],
+    "status": 0
+  }
+]

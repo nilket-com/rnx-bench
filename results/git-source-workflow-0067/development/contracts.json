@@ -1,0 +1,76 @@
+[
+  {
+    "case": "restored-mtime-native-edit-documented-miss",
+    "default": 0,
+    "verify": 1,
+    "reason": "rnx-project: Git checkout /home/me/work/rnx-bench/probes/git-source-workflow/target/cargo-home/git/checkouts/tiny-source-clean-b0d6efb34c9612e0/f4ddd6a at f4ddd6a81023de09c9e9ff07d46d5f108b5d98ec: raw Git blob differs: src/lib.rs\n"
+  },
+  {
+    "case": "untracked",
+    "default": 0,
+    "verify": 1,
+    "reason": "rnx-project: Git checkout /home/me/work/rnx-bench/probes/git-source-workflow/target/cargo-home/git/checkouts/tiny-source-clean-b0d6efb34c9612e0/f4ddd6a at f4ddd6a81023de09c9e9ff07d46d5f108b5d98ec: untracked Git source\n"
+  },
+  {
+    "case": "root-marker",
+    "default": 0,
+    "verify": 0,
+    "reason": ""
+  },
+  {
+    "case": "oversize-marker",
+    "default": 0,
+    "verify": 1,
+    "reason": "rnx-project: Git checkout /home/me/work/rnx-bench/probes/git-source-workflow/target/cargo-home/git/checkouts/tiny-source-clean-b0d6efb34c9612e0/f4ddd6a at f4ddd6a81023de09c9e9ff07d46d5f108b5d98ec: Git input is not bounded regular file: /home/me/work/rnx-bench/probes/git-source-workflow/target/cargo-home/git/checkouts/tiny-source-clean-b0d6efb34c9612e0/f4ddd6a/.cargo-ok\n"
+  },
+  {
+    "case": "marker-symlink",
+    "default": 0,
+    "verify": 1,
+    "reason": "rnx-project: Git checkout /home/me/work/rnx-bench/probes/git-source-workflow/target/cargo-home/git/checkouts/tiny-source-clean-b0d6efb34c9612e0/f4ddd6a at f4ddd6a81023de09c9e9ff07d46d5f108b5d98ec: Too many levels of symbolic links (os error 40)\n"
+  },
+  {
+    "case": "nested-marker",
+    "default": 0,
+    "verify": 1,
+    "reason": "rnx-project: Git checkout /home/me/work/rnx-bench/probes/git-source-workflow/target/cargo-home/git/checkouts/tiny-source-clean-b0d6efb34c9612e0/f4ddd6a at f4ddd6a81023de09c9e9ff07d46d5f108b5d98ec: untracked Git source\n"
+  },
+  {
+    "case": "mode-change",
+    "default": 0,
+    "verify": 1,
+    "reason": "rnx-project: Git checkout /home/me/work/rnx-bench/probes/git-source-workflow/target/cargo-home/git/checkouts/tiny-source-clean-b0d6efb34c9612e0/f4ddd6a at f4ddd6a81023de09c9e9ff07d46d5f108b5d98ec: Git source executable mode differs\n"
+  },
+  {
+    "case": "tracked-symlink",
+    "default": 0,
+    "verify": 1,
+    "reason": "rnx-project: Git checkout /home/me/work/rnx-bench/probes/git-source-workflow/target/cargo-home/git/checkouts/tiny-source-clean-b0d6efb34c9612e0/f4ddd6a at f4ddd6a81023de09c9e9ff07d46d5f108b5d98ec: Git source is not a regular file\n"
+  },
+  {
+    "case": "tracked-fifo",
+    "default": 0,
+    "verify": 1,
+    "reason": "rnx-project: Git checkout /home/me/work/rnx-bench/probes/git-source-workflow/target/cargo-home/git/checkouts/tiny-source-clean-b0d6efb34c9612e0/f4ddd6a at f4ddd6a81023de09c9e9ff07d46d5f108b5d98ec: Git source is not a regular file\n"
+  },
+  {
+    "case": "staged-delete",
+    "default": 0,
+    "verify": 1,
+    "reason": "rnx-project: Git checkout /home/me/work/rnx-bench/probes/git-source-workflow/target/cargo-home/git/checkouts/tiny-source-clean-b0d6efb34c9612e0/f4ddd6a at f4ddd6a81023de09c9e9ff07d46d5f108b5d98ec: Git tracked set differs\n"
+  },
+  {
+    "case": "lock-edited-checkout",
+    "status": 1
+  },
+  {
+    "case": "build-edited-checkout",
+    "status": 1
+  },
+  {
+    "case": "second-consumer-offline-attach-and-traced-launch",
+    "same_key": true,
+    "compiler_trapped": true,
+    "native_content_opens": 0
+  }
+]

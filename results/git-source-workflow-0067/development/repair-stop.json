@@ -1,0 +1,45 @@
+{
+  "cargo": "cargo 1.98.1 (797e8a9bc 2026-08-05)",
+  "source": "/home/me/work/rnx-bench/probes/git-source-workflow/target/cargo-home/git/checkouts/tiny-source-07f6b35b84869183/85b060d",
+  "original_sha256": "d03e936c2b1726d77213fb5f5c9da974d062b40db51d3bb0a9ce99b5664ccc15",
+  "edited_sha256": "09007d58f505d5bee214da6a5beb6979a6677403e0194decaf6109f27e8ba48f",
+  "rows": [
+    {
+      "frontend": "cargo",
+      "marker_present_before": true,
+      "status": 0,
+      "before_sha256": "09007d58f505d5bee214da6a5beb6979a6677403e0194decaf6109f27e8ba48f",
+      "after_sha256": "09007d58f505d5bee214da6a5beb6979a6677403e0194decaf6109f27e8ba48f",
+      "repaired": false,
+      "stderr": ""
+    },
+    {
+      "frontend": "cargo",
+      "marker_present_before": false,
+      "status": 0,
+      "before_sha256": "09007d58f505d5bee214da6a5beb6979a6677403e0194decaf6109f27e8ba48f",
+      "after_sha256": "d03e936c2b1726d77213fb5f5c9da974d062b40db51d3bb0a9ce99b5664ccc15",
+      "repaired": true,
+      "stderr": ""
+    },
+    {
+      "frontend": "product",
+      "marker_present_before": true,
+      "status": 1,
+      "before_sha256": "09007d58f505d5bee214da6a5beb6979a6677403e0194decaf6109f27e8ba48f",
+      "after_sha256": "09007d58f505d5bee214da6a5beb6979a6677403e0194decaf6109f27e8ba48f",
+      "repaired": false,
+      "stderr": "rnx-project: Git checkout /home/me/work/rnx-bench/probes/git-source-workflow/target/cargo-home/git/checkouts/tiny-source-07f6b35b84869183/85b060d at 85b060db43b79229275915b97be42439a7abf753: raw Git blob differs: src/lib.rs\n"
+    },
+    {
+      "frontend": "product",
+      "marker_present_before": false,
+      "status": 0,
+      "before_sha256": "09007d58f505d5bee214da6a5beb6979a6677403e0194decaf6109f27e8ba48f",
+      "after_sha256": "d03e936c2b1726d77213fb5f5c9da974d062b40db51d3bb0a9ce99b5664ccc15",
+      "repaired": true,
+      "stderr": "locked /home/me/work/rnx-bench/probes/git-source-workflow/target/tiny-a/rnx.toml\n"
+    }
+  ],
+  "conclusion": "Cargo metadata repairs an edited checkout when the transport marker is absent; post-resolution verification cannot detect the discarded bytes. Product candidate remains unaccepted."
+}

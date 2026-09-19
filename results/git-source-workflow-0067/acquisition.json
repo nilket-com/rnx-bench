@@ -1,0 +1,31 @@
+[
+  {
+    "case": "missing-marker",
+    "status": 0,
+    "report": "Cargo reacquired Git checkout /home/me/work/rnx-bench/probes/git-source-workflow/target/cargo-home/git/checkouts/tiny-source-clean-b0d6efb34c9612e0/18aaea2 at 18aaea2045771a6bff818834c0327798193bff86 (completion marker was missing); edits inside Cargo's checkout may have been discarded. Source verification follows before lock publication.\nlocked /home/me/work/rnx-bench/probes/git-source-workflow/target/tiny-a-clean/rnx.toml\n"
+  },
+  {
+    "case": "different-head",
+    "status": 0,
+    "report": "Cargo reacquired Git checkout /home/me/work/rnx-bench/probes/git-source-workflow/target/cargo-home/git/checkouts/tiny-source-clean-b0d6efb34c9612e0/18aaea2 at 18aaea2045771a6bff818834c0327798193bff86 (HEAD differed or was unavailable); edits inside Cargo's checkout may have been discarded. Source verification follows before lock publication.\nlocked /home/me/work/rnx-bench/probes/git-source-workflow/target/tiny-a-clean/rnx.toml\n"
+  },
+  {
+    "case": "fresh-marker-edit-refuses-after-cargo",
+    "status": 1
+  },
+  {
+    "case": "post-reset-mismatch-refuses-no-publication",
+    "status": 1,
+    "report": "Cargo reacquired Git checkout /home/me/work/rnx-bench/probes/git-source-workflow/target/cargo-home/git/checkouts/tiny-source-clean-b0d6efb34c9612e0/18aaea2 at 18aaea2045771a6bff818834c0327798193bff86 (completion marker was missing); edits inside Cargo's checkout may have been discarded. Source verification follows before lock publication.\nrnx-project: Git checkout /home/me/work/rnx-bench/probes/git-source-workflow/target/cargo-home/git/checkouts/tiny-source-clean-b0d6efb34c9612e0/18aaea2 at 18aaea2045771a6bff818834c0327798193bff86: missing, corrupt or changed Git blob\n"
+  },
+  {
+    "case": "refuse-only-eval",
+    "status": 1,
+    "reason": "rnx-project: Git checkout /home/me/work/rnx-bench/probes/git-source-workflow/target/cargo-home/git/checkouts/tiny-source-clean-b0d6efb34c9612e0/18aaea2 at 18aaea2045771a6bff818834c0327798193bff86: raw Git blob differs: src/lib.rs; project /home/me/work/rnx-bench/probes/git-source-workflow/target/tiny-a-clean/rnx.toml\n'/home/me/work/rnx-bench/probes/git-source-workflow/target/rnx-project' lock --manifest '/home/me/work/rnx-bench/probes/git-source-workflow/target/tiny-a-clean/rnx.toml'\n'/home/me/work/rnx-bench/probes/git-source-workflow/target/rnx-project' build --manifest '/home/me/work/rnx-bench/probes/git-source-workflow/target/tiny-a-clean/rnx.toml'\nRelocking retains old assemblies and runtimes; a new Polars assembly can use another approximately 1.5 GB.\n"
+  },
+  {
+    "case": "refuse-only-build",
+    "status": 1,
+    "reason": "rnx-project: Git checkout /home/me/work/rnx-bench/probes/git-source-workflow/target/cargo-home/git/checkouts/tiny-source-clean-b0d6efb34c9612e0/18aaea2 at 18aaea2045771a6bff818834c0327798193bff86: raw Git blob differs: src/lib.rs; project /home/me/work/rnx-bench/probes/git-source-workflow/target/tiny-a-clean/rnx.toml\n'/home/me/work/rnx-bench/probes/git-source-workflow/target/rnx-project' lock --manifest '/home/me/work/rnx-bench/probes/git-source-workflow/target/tiny-a-clean/rnx.toml'\n'/home/me/work/rnx-bench/probes/git-source-workflow/target/rnx-project' build --manifest '/home/me/work/rnx-bench/probes/git-source-workflow/target/tiny-a-clean/rnx.toml'\nRelocking retains old assemblies and runtimes; a new Polars assembly can use another approximately 1.5 GB.\n"
+  }
+]

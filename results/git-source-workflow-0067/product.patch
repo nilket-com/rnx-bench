@@ -1,0 +1,3045 @@
+diff --git a/plans/0067_one_install_provides_the_dependency_workflow.md b/plans/0067_one_install_provides_the_dependency_workflow.md
+index 6133b75..230ccd2 100644
+--- a/plans/0067_one_install_provides_the_dependency_workflow.md
++++ b/plans/0067_one_install_provides_the_dependency_workflow.md
+@@ -255,8 +255,19 @@ Keep ignored-output limitations explicit, as with today's path inventory. No
+ blanket exemption for extra files or arbitrary `.cargo*` paths.
+ 
+ Recheck source inputs after compilation before publishing readiness/receipts.
+-On a mismatch refuse rather than accepting new bytes under the old revision or
+-silently repairing Cargo's checkout. Missing/corrupt referenced objects refuse.
++Verification never repairs a checkout or accepts new bytes under the old revision.
++Build, attachment and `--verify` refuse mismatches and name the project's lock
++command as recovery. Missing/corrupt referenced objects refuse.
++
++Explicit lock owns acquisition. Cargo may reset its checkout when HEAD differs
++or its completion marker is absent, discarding edits inside that Cargo-owned
++checkout. Lock observes those transport states for reporting only, reports a
++reacquired checkout, and authenticates the resulting bytes **after Cargo**, before
++publishing either lock file. A mismatch remaining after acquisition still refuses;
++Cargo's success is not authentication. The observer performs no pre-acquisition
++content verification and is not used by build, attachment or launch. A checkout
++Cargo considers fresh can retain an edit: lock then refuses too, and the user
++must restore the checkout before retrying. No rnx verification step resets it.
+ The 90 ms whole-database fsck is not required on every operation: the gate proves
+ the narrower verifier's object/content checks and does not call them a full
+ history fsck. `--verify` also fully hashes the executable as before. This is
+diff --git a/tools/project/README.md b/tools/project/README.md
+index 1a43407..22cbbbe 100644
+--- a/tools/project/README.md
++++ b/tools/project/README.md
+@@ -20,17 +20,39 @@ built `rnx-project` compatibility executable uses the same implementation with
+ the old argument grammar (`rnx-project lock`, `rnx-project runtime`, and so on).
+ It is not required beside stock `rnx` and is not a shell forwarding wrapper.
+ 
+-0067 gate 2 provides command dispatch and session delegation. Git default notices
+-are live, but acquisition is staged for gate 3: consent currently refuses before
+-fetching or writing scratch state. Path projects and the explicit path override
+-already run the complete transition. Clean known revisions reach consent;
+-dirty/unknown coordinates refuse with an override instruction.
++Git declarations now support the complete dependency transition. A clean stock
++binary with known repository coordinates can acquire its own revision through
++Cargo after consent; dirty/unknown builds print an explicit path override.
++No default runtime installation or companion executable is needed.
++
++A format-2 manifest declares exactly one of `path` or `git` plus a full `rev`
++for each runtime/native package. `rnx project add` uses the runtime's source form.
++Format-1 path manifests and their existing lock/receipt/cache formats keep their
++original readers and content checks. Relocking never promotes an old artifact.
++
++For Git sources, ordinary launch trusts Cargo's checkout at the recorded URL and
++revision: it reads no native source contents and invokes neither Git nor Cargo.
++Editing bytes inside that checkout can go unnoticed until an explicit check.
++Lock, build, attachment and `--verify` authenticate raw Git objects, working-tree
++bytes, executable bits and tracked paths, without filters. Only the root regular,
++bounded `.cargo-ok` marker is exempt as transport bookkeeping; ignored build
++outputs retain the path inventory's limitations. Path dependencies still receive
++full content checks on every launch, including in mixed projects.
++
++**Lock may reset Cargo's Git checkout and discard edits made inside it.** Cargo
++owns acquisition: a different HEAD or missing completion marker can cause Cargo
++to recreate the checkout. Lock reports that reset and verifies the resulting
++bytes against the resolved revision before publishing the lock pair. Build,
++attachment and `--verify` never repair source content. Their refusal prints the
++project's lock/build recovery commands. If Cargo considers an edited checkout
++fresh, lock also refuses; restore those edits before retrying. No verification
++step silently rewrites bytes to make its check pass.
+ 
+ `--manifest` is required; there is no upward search. Paths inside a manifest are
+ relative to that manifest. Only lock resolves the Cargo graph. Build uses
+ `--locked`, the release profile and the compiler's host target; run never invokes
+ Cargo or rustc, builds anything, repairs a lock or requires a network connection.
+-**Launch checks your sources, trusts your build output unless you ask it to verify.**
++**Launch checks your Rune and path sources, trusts Cargo’s Git checkout and your build output unless you ask it to verify.**
+ 
+ By default, matching artifact size, modification time, executable-bit state and
+ Unix device/inode avoid rereading the executable. A mismatch triggers a full hash
+diff --git a/tools/project/src/assembly_probe.rs b/tools/project/src/assembly_probe.rs
+index 5eec6c2..6f88a75 100644
+--- a/tools/project/src/assembly_probe.rs
++++ b/tools/project/src/assembly_probe.rs
+@@ -8,16 +8,33 @@ mod cache_storage;
+ mod commands;
+ mod fingerprint;
+ mod generate;
++mod git_inventory;
+ mod graph;
+ mod handshake;
+ mod input;
+ mod inventory;
+ mod manifest;
++mod new_identity;
++mod schemas;
+ mod wire;
+ use std::{ffi::OsString, path::Path};
+ fn run() -> Result<(), String> {
+ 	let args: Vec<OsString> = std::env::args_os().skip(1).collect();
+ 	match args.first().and_then(|a| a.to_str()) {
++		Some("schema") if args.len() == 4 => {
++			let bytes = input::read(Path::new(&args[2]), input::DOCUMENT_LIMIT)?;
++			let output = schemas::validate_vector(args[1].to_str().ok_or("schema name")?, &bytes)?;
++			std::fs::write(&args[3], &output).map_err(|e| e.to_string())?;
++			println!("{}", blake3::hash(&output));
++			Ok(())
++		}
++		Some("git-verify") if args.len() == 2 => {
++			let packages: Vec<schemas::GitPackage> =
++				serde_json::from_slice(&input::read(Path::new(&args[1]), input::DOCUMENT_LIMIT)?)
++					.map_err(|e| e.to_string())?;
++			git_inventory::verify(&packages)
++		}
++
+ 		Some("nested-inventory") if args.len() == 2 => {
+ 			#[derive(serde::Deserialize)]
+ 			struct Config {
+diff --git a/tools/project/src/cache_entry.rs b/tools/project/src/cache_entry.rs
+index feaa82c..b0f0346 100644
+--- a/tools/project/src/cache_entry.rs
++++ b/tools/project/src/cache_entry.rs
+@@ -2,10 +2,7 @@
+ //! Callers hold their project lock first and keep the returned entry lease until
+ //! their receipt is published. Readiness is always re-read after acquiring a key.
+ #![allow(dead_code)]
+-use crate::{
+-	artifact, cache_identity::Identity, cache_storage as storage, commands, fingerprint, input,
+-	wire,
+-};
++use crate::{artifact, cache_storage as storage, commands, fingerprint, input, wire};
+ use serde::{Deserialize, Serialize};
+ use std::{
+ 	fs::{self, File, OpenOptions},
+@@ -14,6 +11,44 @@ use std::{
+ 	process::Command,
+ 	time::Duration,
+ };
++pub(crate) trait Identity {
++	fn context(&self) -> &crate::cache_identity::Context;
++	fn wrapper(&self) -> (&str, &str);
++	fn key(&self) -> &str;
++	fn bytes(&self) -> &[u8];
++	fn check_lock(&self, bytes: &[u8]) -> Result<(), String>;
++	fn revalidate(&self, stage: &Path) -> Result<(), String>;
++	fn ready_format(&self) -> u32;
++}
++macro_rules! identity {
++	($ty:ty,$format:expr) => {
++		impl Identity for $ty {
++			fn context(&self) -> &crate::cache_identity::Context {
++				self.context()
++			}
++			fn wrapper(&self) -> (&str, &str) {
++				self.wrapper()
++			}
++			fn key(&self) -> &str {
++				self.key()
++			}
++			fn bytes(&self) -> &[u8] {
++				self.bytes()
++			}
++			fn check_lock(&self, bytes: &[u8]) -> Result<(), String> {
++				self.check_lock(bytes)
++			}
++			fn revalidate(&self, stage: &Path) -> Result<(), String> {
++				self.revalidate(stage)
++			}
++			fn ready_format(&self) -> u32 {
++				$format
++			}
++		}
++	};
++}
++identity!(crate::cache_identity::Identity, 2);
++identity!(crate::new_identity::Identity, 3);
+ fn err(e: impl std::fmt::Display) -> String {
+ 	e.to_string()
+ }
+@@ -127,7 +162,7 @@ fn version(program: &str, arg: &str, cwd: &Path) -> Result<String, String> {
+ 	command.arg(arg).current_dir(cwd);
+ 	String::from_utf8(commands::run(command, true)?).map_err(err)
+ }
+-pub(crate) fn environment(identity: &Identity) -> Result<(), String> {
++pub(crate) fn environment(identity: &impl Identity) -> Result<(), String> {
+ 	let c = identity.context();
+ 	for (key, _) in std::env::vars_os() {
+ 		let s = key.to_string_lossy();
+@@ -167,7 +202,7 @@ pub(crate) fn environment(identity: &Identity) -> Result<(), String> {
+ 	}
+ 	Ok(())
+ }
+-fn validate(identity: &Identity, stage: &Path, project: &Path) -> Result<(), String> {
++fn validate(identity: &impl Identity, stage: &Path, project: &Path) -> Result<(), String> {
+ 	storage::guard(&identity.context().cache_root, stage, project)?;
+ 	environment(identity)?;
+ 	identity.revalidate(stage)?;
+@@ -184,7 +219,7 @@ fn validate(identity: &Identity, stage: &Path, project: &Path) -> Result<(), Str
+ }
+ /// Bounded readiness and fixed-path validation, also used by future launch code.
+ /// This never compiles, populates a directory, or repairs a published entry.
+-pub(crate) fn ready(identity: &Identity) -> Result<(PathBuf, String), String> {
++pub(crate) fn ready(identity: &impl Identity) -> Result<(PathBuf, String), String> {
+ 	let root = &identity.context().cache_root;
+ 	if storage::root(root)? != *root {
+ 		return Err("locked cache root moved; run lock".into());
+@@ -201,12 +236,12 @@ pub(crate) fn ready(identity: &Identity) -> Result<(PathBuf, String), String> {
+ }
+ fn decode_ready(
+ 	bytes: &[u8],
+-	identity: &Identity,
++	identity: &impl Identity,
+ 	path: &Path,
+ ) -> Result<(String, String), String> {
+ 	let r: Ready = serde_json::from_slice(bytes)
+ 		.map_err(|e| format!("cache ready {}: {e}", path.display()))?;
+-	if r.format != 2
++	if r.format != identity.ready_format()
+ 		|| r.key != identity.key()
+ 		|| r.identity.as_bytes() != identity.bytes()
+ 		|| !artifact::digest_valid(&r.executable_blake3)
+@@ -220,7 +255,7 @@ fn decode_ready(
+ /// publishing. It runs after waiting and after independent assembly publication.
+ /// Gate four supplies the product's lock/source verification and receipt writer.
+ pub(crate) fn acquire(
+-	identity: &Identity,
++	identity: &impl Identity,
+ 	cargo_lock: &[u8],
+ 	project: &Path,
+ 	offline: bool,
+@@ -341,7 +376,7 @@ pub(crate) fn acquire(
+ 			fault("before-ready")?;
+ 			validate(identity, &stage, project)?;
+ 			let ready = Ready {
+-				format: 2,
++				format: identity.ready_format(),
+ 				key: identity.key().into(),
+ 				identity: String::from_utf8(identity.bytes().to_vec()).map_err(err)?,
+ 				executable_blake3: expected.clone(),
+diff --git a/tools/project/src/catalogue.rs b/tools/project/src/catalogue.rs
+index 736fad4..1485f08 100644
+--- a/tools/project/src/catalogue.rs
++++ b/tools/project/src/catalogue.rs
+@@ -86,6 +86,11 @@ pub(crate) struct Candidate {
+ 	pub existing: Vec<String>,
+ }
+ pub(crate) fn author(raw: Vec<u8>, base: &Path, entries: &[Entry]) -> Result<Candidate, String> {
++	let value: toml::Value =
++		toml::from_str(std::str::from_utf8(&raw).map_err(error)?).map_err(error)?;
++	if value.get("format").and_then(toml::Value::as_integer) == Some(2) {
++		return author_git(raw, base, entries);
++	}
+ 	let original = Manifest::parse(&raw)?;
+ 	let runtime = original
+ 		.runtime
+@@ -185,34 +190,99 @@ pub(crate) fn author(raw: Vec<u8>, base: &Path, entries: &[Entry]) -> Result<Can
+ 	})
+ }
+ 
+-/// Describe-only authoring for the Git workflow staged in 0067 gate 3. No I/O.
+-pub(crate) fn git_candidate(
+-	mut bytes: Vec<u8>,
+-	entries: &[Entry],
+-	url: &str,
+-	rev: &str,
+-) -> Candidate {
++/// Author coordinates without acquisition. Consent and lock own the first fetch.
++fn author_git(raw: Vec<u8>, base: &Path, entries: &[Entry]) -> Result<Candidate, String> {
++	use crate::schemas::{Declaration, Native};
++	let original = Declaration::parse(&raw)?;
++	let runtime = original.runtime.as_ref().ok_or("add requires a runtime")?;
++	let mut additions = BTreeMap::new();
++	let mut existing = Vec::new();
++	let path_natives = if let Some(path) = &runtime.path {
++		let mut m = original.graph_manifest();
++		m.executable = None;
++		m.runtime = Some(crate::manifest::Location { path: path.clone() });
++		let candidate = author(
++			toml::to_string(&m).map_err(error)?.into_bytes(),
++			base,
++			entries,
++		)?;
++		Some(Manifest::parse(&candidate.bytes)?.native)
++	} else {
++		None
++	};
+ 	for e in entries {
+-		bytes.extend_from_slice(
+-			format!(
+-				"\n[native.{}]\ngit = {}\nrev = {}\npackage = {}\nbuilder = \"build\"\nhook = \"{}\"\n",
+-				e.name,
+-				toml::Value::String(url.into()),
+-				toml::Value::String(rev.into()),
+-				toml::Value::String(e.package.into()),
+-				match e.hook {
+-					Hook::Plain => "plain",
+-					Hook::Lifecycle => "lifecycle",
+-				}
+-			)
+-			.as_bytes(),
+-		);
++		let n = if let Some(n) = path_natives.as_ref().and_then(|n| n.get(e.name)) {
++			Native {
++				path: Some(n.path.clone()),
++				git: None,
++				rev: None,
++				package: n.package.clone(),
++				builder: n.builder.clone(),
++				hook: n.hook,
++			}
++		} else {
++			Native {
++				path: None,
++				git: runtime.git.clone(),
++				rev: runtime.rev.clone(),
++				package: e.package.into(),
++				builder: "build".into(),
++				hook: e.hook,
++			}
++		};
++		if let Some(old) = original.native.get(e.name) {
++			let mut comparison = old.clone();
++			let mut expected = n.clone();
++			if let (Some(a), Some(b)) = (&old.path, &n.path) {
++				comparison.path = Some(
++					canonical(&base.join(a))?
++						.to_str()
++						.ok_or("non-Unicode path")?
++						.into(),
++				);
++				expected.path = Some(
++					canonical(&base.join(b))?
++						.to_str()
++						.ok_or("non-Unicode path")?
++						.into(),
++				);
++			}
++			if comparison != expected {
++				return Err(format!(
++					"native namespace {} already has a different declaration",
++					e.name
++				));
++			}
++			existing.push(e.name.into());
++		} else {
++			additions.insert(e.name.to_owned(), n);
++		}
++	}
++	#[derive(serde::Serialize)]
++	struct Tables<'a> {
++		native: &'a BTreeMap<String, Native>,
+ 	}
+-	Candidate {
+-		bytes,
+-		added: entries.iter().map(|e| e.name.into()).collect(),
+-		existing: vec![],
++	let mut candidate = String::from_utf8(raw).map_err(error)?;
++	if !additions.is_empty() {
++		let append = toml::to_string(&Tables { native: &additions }).map_err(error)?;
++		if candidate.len() + 2 + append.len() > input::MANIFEST_LIMIT {
++			return Err("candidate manifest allowance".into());
++		}
++		candidate.push_str("\n\n");
++		candidate.push_str(&append);
+ 	}
++	let parsed = Declaration::parse(candidate.as_bytes())
++		.map_err(|e| format!("cannot append native tables; use explicit table layout: {e}"))?;
++	let mut expected = original;
++	expected.native.extend(additions.clone());
++	if parsed != expected {
++		return Err("append changed unrelated manifest meaning".into());
++	}
++	Ok(Candidate {
++		bytes: candidate.into_bytes(),
++		added: additions.into_keys().collect(),
++		existing,
++	})
+ }
+ 
+ /// Validate a diagnostic hint using the same shipped layouts as add, without Git.
+diff --git a/tools/project/src/commands.rs b/tools/project/src/commands.rs
+index 6b84ef8..cd86131 100644
+--- a/tools/project/src/commands.rs
++++ b/tools/project/src/commands.rs
+@@ -56,23 +56,38 @@ pub(crate) fn check() -> Result<(), String> {
+ 	}
+ }
+ pub(crate) fn run(command: Command, capture: bool) -> Result<Vec<u8>, String> {
+-	run_inner(command, capture, false)
++	run_inner(command, capture, false, None, crate::input::DOCUMENT_LIMIT)
+ }
+ /// Installer Git must bound stderr too; ordinary Cargo output keeps its existing stream.
+ #[allow(dead_code)]
+ pub(crate) fn run_bounded(command: Command) -> Result<Vec<u8>, String> {
+-	run_inner(command, true, true)
++	run_inner(command, true, true, None, crate::input::DOCUMENT_LIMIT)
+ }
+-fn run_inner(mut command: Command, capture: bool, bounded_stderr: bool) -> Result<Vec<u8>, String> {
++pub(crate) fn run_input(command: Command, input: Vec<u8>, limit: usize) -> Result<Vec<u8>, String> {
++	run_inner(command, true, true, Some(input), limit)
++}
++fn run_inner(
++	mut command: Command,
++	capture: bool,
++	bounded_stderr: bool,
++	input: Option<Vec<u8>>,
++	limit: usize,
++) -> Result<Vec<u8>, String> {
+ 	check()?;
+ 	command
+ 		.env_remove("RNX_INTERNAL_DEP_FD")
+ 		.env_remove("RNX_INTERNAL_SESSION_V1");
+-	command.stdin(Stdio::null()).stderr(if bounded_stderr {
+-		Stdio::piped()
+-	} else {
+-		Stdio::inherit()
+-	});
++	command
++		.stdin(if input.is_some() {
++			Stdio::piped()
++		} else {
++			Stdio::null()
++		})
++		.stderr(if bounded_stderr {
++			Stdio::piped()
++		} else {
++			Stdio::inherit()
++		});
+ 	if capture {
+ 		command.stdout(Stdio::piped());
+ 	} else {
+@@ -85,17 +100,24 @@ fn run_inner(mut command: Command, capture: bool, bounded_stderr: bool) -> Resul
+ 	}
+ 	let label = format!("{:?}", command.get_program());
+ 	let mut child = command.spawn().map_err(|e| format!("{label}: {e}"))?;
++	let writer = input.map(|bytes| {
++		let mut stdin = child.stdin.take().unwrap();
++		std::thread::spawn(move || {
++			use std::io::Write;
++			stdin.write_all(&bytes).map_err(|e| e.to_string())
++		})
++	});
+ 	#[cfg(unix)]
+ 	let pid = child.id();
+ 	let mut reader = child.stdout.take().map(|stdout| {
+ 		std::thread::spawn(move || {
+ 			let mut bytes = vec![];
+ 			stdout
+-				.take(crate::input::DOCUMENT_LIMIT as u64 + 1)
++				.take(limit as u64 + 1)
+ 				.read_to_end(&mut bytes)
+ 				.map_err(|e| e.to_string())?;
+-			if bytes.len() > crate::input::DOCUMENT_LIMIT {
+-				return Err("command output exceeds 16 MiB".into());
++			if bytes.len() > limit {
++				return Err("command output exceeds allowance".into());
+ 			}
+ 			Ok(bytes)
+ 		})
+@@ -190,6 +212,13 @@ fn run_inner(mut command: Command, capture: bool, bounded_stderr: bool) -> Resul
+ 			.join()
+ 			.map_err(|_| "command stderr reader panicked")??;
+ 	}
++	let written = writer
++		.map(|w| {
++			w.join()
++				.map_err(|_| "command input writer panicked".to_owned())
++				.and_then(|r| r)
++		})
++		.transpose();
+ 	result.map_err(|e| {
+ 		if error_bytes.is_empty() {
+ 			e
+@@ -197,6 +226,7 @@ fn run_inner(mut command: Command, capture: bool, bounded_stderr: bool) -> Resul
+ 			format!("{e}: {}", String::from_utf8_lossy(&error_bytes))
+ 		}
+ 	})?;
++	written?;
+ 	check()?;
+ 	output
+ }
+diff --git a/tools/project/src/fingerprint.rs b/tools/project/src/fingerprint.rs
+index c57c72f..86fba7d 100644
+--- a/tools/project/src/fingerprint.rs
++++ b/tools/project/src/fingerprint.rs
+@@ -45,7 +45,7 @@ impl Allowance {
+ 		Ok(())
+ 	}
+ 
+-	fn entry(&mut self) -> Result<(), String> {
++	pub(crate) fn entry(&mut self) -> Result<(), String> {
+ 		self.entries = self
+ 			.entries
+ 			.checked_sub(1)
+diff --git a/tools/project/src/generate.rs b/tools/project/src/generate.rs
+index 8d4db72..2481ea9 100644
+--- a/tools/project/src/generate.rs
++++ b/tools/project/src/generate.rs
+@@ -22,11 +22,19 @@ struct Dependency {
+ 	package: Option<String>,
+ 	path: String,
+ 	#[serde(rename = "default-features")]
+-	default_features: bool,
++	#[serde(skip_serializing_if = "Option::is_none")]
++	default_features: Option<bool>,
+ 	#[serde(skip_serializing_if = "Vec::is_empty")]
+ 	features: Vec<String>,
+ }
+ pub(crate) fn wrapper(manifest: &Manifest, base: &Path) -> Result<(String, String), String> {
++	wrapper_style(manifest, base, false)
++}
++fn wrapper_style(
++	manifest: &Manifest,
++	base: &Path,
++	legacy: bool,
++) -> Result<(String, String), String> {
+ 	manifest.validate()?;
+ 	let runtime = manifest
+ 		.runtime
+@@ -42,9 +50,13 @@ pub(crate) fn wrapper(manifest: &Manifest, base: &Path) -> Result<(String, Strin
+ 		"rnx".into(),
+ 		Dependency {
+ 			package: None,
+-			default_features: false,
++			default_features: (!legacy).then_some(false),
+ 			path: path(&runtime.path)?,
+-			features: vec!["count-allocations".into(), "project-sources".into()],
++			features: if legacy {
++				vec!["project-sources".into()]
++			} else {
++				vec!["count-allocations".into(), "project-sources".into()]
++			},
+ 		},
+ 	)]);
+ 	let mut main = "fn main() -> Result<(), Box<dyn std::error::Error>> {\n    rnx::main_with(rnx::Extensions::none()".to_owned();
+@@ -54,7 +66,7 @@ pub(crate) fn wrapper(manifest: &Manifest, base: &Path) -> Result<(String, Strin
+ 			alias.clone(),
+ 			Dependency {
+ 				package: Some(native.package.clone()),
+-				default_features: true,
++				default_features: (!legacy).then_some(true),
+ 				path: path(&native.path)?,
+ 				features: vec![],
+ 			},
+@@ -84,6 +96,13 @@ pub(crate) fn wrapper(manifest: &Manifest, base: &Path) -> Result<(String, Strin
+ pub(crate) fn canonical_wrapper(
+ 	manifest: &Manifest,
+ 	base: &Path,
++) -> Result<(String, String), String> {
++	canonical_style(manifest, base, false)
++}
++fn canonical_style(
++	manifest: &Manifest,
++	base: &Path,
++	legacy: bool,
+ ) -> Result<(String, String), String> {
+ 	let mut manifest = manifest.clone();
+ 	let canonical = |path: &str| -> Result<String, String> {
+@@ -100,5 +119,99 @@ pub(crate) fn canonical_wrapper(
+ 	for native in manifest.native.values_mut() {
+ 		native.path = canonical(&native.path)?;
+ 	}
+-	wrapper(&manifest, base)
++	wrapper_style(&manifest, base, legacy)
++}
++
++/// Version-three generator: Cargo owns Git acquisition; only explicit path
++/// declarations are canonicalised on the host.
++pub(crate) fn git_wrapper(
++	declaration: &crate::schemas::Declaration,
++	base: &Path,
++) -> Result<(String, String), String> {
++	declaration.validate()?;
++	let runtime = declaration
++		.runtime
++		.as_ref()
++		.ok_or("override has no wrapper")?;
++	let mut projection = declaration.graph_manifest();
++	projection.executable = None;
++	projection.runtime = Some(crate::manifest::Location {
++		path: runtime
++			.path
++			.clone()
++			.unwrap_or_else(|| "/unused-git-coordinate".into()),
++	});
++	projection.native = declaration
++		.native
++		.iter()
++		.map(|(name, n)| {
++			(
++				name.clone(),
++				crate::manifest::Native {
++					path: n
++						.path
++						.clone()
++						.unwrap_or_else(|| "/unused-git-coordinate".into()),
++					package: n.package.clone(),
++					builder: n.builder.clone(),
++					hook: n.hook,
++				},
++			)
++		})
++		.collect();
++	if let Some(p) = &runtime.path {
++		projection.runtime.as_mut().unwrap().path = base
++			.join(p)
++			.canonicalize()
++			.map_err(|e| e.to_string())?
++			.to_str()
++			.ok_or("non-Unicode runtime")?
++			.into();
++	}
++	for (name, n) in &declaration.native {
++		if let Some(p) = &n.path {
++			projection.native.get_mut(name).unwrap().path = base
++				.join(p)
++				.canonicalize()
++				.map_err(|e| e.to_string())?
++				.to_str()
++				.ok_or("non-Unicode native")?
++				.into();
++		}
++	}
++	let (manifest, main) = wrapper(&projection, base)?;
++	let mut doc: toml::Value = toml::from_str(&manifest).map_err(|e| e.to_string())?;
++	let deps = doc
++		.get_mut("dependencies")
++		.and_then(toml::Value::as_table_mut)
++		.ok_or("missing generated dependencies")?;
++	let mut replace = |name: &str, url: &Option<String>, rev: &Option<String>| {
++		if let Some(url) = url {
++			let dep = deps.get_mut(name).unwrap().as_table_mut().unwrap();
++			dep.remove("path");
++			dep.insert("git".into(), url.clone().into());
++			dep.insert("rev".into(), rev.clone().unwrap().into());
++		}
++	};
++	replace("rnx", &runtime.git, &runtime.rev);
++	for (i, n) in declaration.native.values().enumerate() {
++		replace(&format!("native_{i}"), &n.git, &n.rev);
++	}
++	Ok((toml::to_string(&doc).map_err(|e| e.to_string())?, main))
++}
++
++/// Generator two predates the stock-management feature. Its exact historical
++/// wrapper remains a valid recipe only for retained identity-two envelopes.
++pub(crate) fn retained_wrapper(
++	manifest: &Manifest,
++	base: &Path,
++	expected: (&str, &str),
++) -> Result<bool, String> {
++	for legacy in [false, true] {
++		let (cargo, main) = canonical_style(manifest, base, legacy)?;
++		if expected == (cargo.as_str(), main.as_str()) {
++			return Ok(true);
++		}
++	}
++	Ok(false)
+ }
+diff --git a/tools/project/src/git_inventory.rs b/tools/project/src/git_inventory.rs
+new file mode 100644
+index 0000000..4b2b991
+--- /dev/null
++++ b/tools/project/src/git_inventory.rs
+@@ -0,0 +1,463 @@
++//! Git coordinates are launch identities, not a claim about mutable checkout
++//! bytes. Only full operations authenticate raw objects and working-tree bytes.
++#![allow(dead_code)]
++pub(crate) mod acquisition;
++use crate::{commands, fingerprint, inventory, schemas::GitPackage, wire};
++use std::{
++	collections::{BTreeMap, BTreeSet},
++	fs,
++	io::Read,
++	path::{Path, PathBuf},
++	process::Command,
++};
++fn error(e: impl std::fmt::Display) -> String {
++	e.to_string()
++}
++fn command(root: &Path) -> Command {
++	let mut c = Command::new("git");
++	for (k, _) in std::env::vars_os() {
++		if k.to_string_lossy().starts_with("GIT_") {
++			c.env_remove(k);
++		}
++	}
++	c.env("GIT_CONFIG_GLOBAL", "/dev/null")
++		.env("GIT_CONFIG_SYSTEM", "/dev/null")
++		.env("GIT_CONFIG_NOSYSTEM", "1")
++		.env("GIT_ATTR_NOSYSTEM", "1")
++		.env("GIT_NO_REPLACE_OBJECTS", "1")
++		.env("GIT_OPTIONAL_LOCKS", "0")
++		.arg("-C")
++		.arg(root)
++		.args([
++			"-c",
++			"core.autocrlf=false",
++			"-c",
++			"core.fsmonitor=false",
++			"-c",
++			"core.hooksPath=/dev/null",
++			"-c",
++			"core.attributesFile=/dev/null",
++		]);
++	c
++}
++fn git(root: &Path, args: &[&str]) -> Result<Vec<u8>, String> {
++	let mut c = command(root);
++	c.args(args);
++	commands::run_bounded(c)
++}
++fn text(b: &[u8]) -> Result<&str, String> {
++	std::str::from_utf8(b).map_err(error)
++}
++fn canonical_dir(path: &Path) -> Result<(), String> {
++	if !path.is_absolute() || path.canonicalize().map_err(error)? != path {
++		return Err(format!(
++			"Git checkout is missing or noncanonical: {}",
++			path.display()
++		));
++	}
++	for ancestor in path.ancestors() {
++		if !fs::symlink_metadata(ancestor).map_err(error)?.is_dir() {
++			return Err(format!(
++				"Git source directory is not regular: {}",
++				ancestor.display()
++			));
++		}
++	}
++	Ok(())
++}
++fn relative(s: &str) -> Result<(), String> {
++	if s.is_empty()
++		|| s.contains(['\\', '\0'])
++		|| s.split('/').any(|p| p.is_empty() || p == "." || p == "..")
++		|| Path::new(s).is_absolute()
++	{
++		Err("invalid Git tree path".into())
++	} else {
++		Ok(())
++	}
++}
++/// No Git or source-content read. These structural checks deliberately do not
++/// authenticate a replacement directory with the same canonical pathname.
++pub(crate) fn structure(packages: &[GitPackage]) -> Result<(), String> {
++	let mut roots = BTreeSet::new();
++	for p in packages {
++		relative(&p.manifest)?;
++		let root = Path::new(&p.checkout);
++		if roots.insert(root) {
++			canonical_dir(root)?;
++		}
++		let parent = root
++			.join(&p.manifest)
++			.parent()
++			.ok_or("Git manifest parent")?
++			.to_owned();
++		canonical_dir(&parent)?;
++	}
++	Ok(())
++}
++#[derive(Clone)]
++struct Blob {
++	name: String,
++	oid: String,
++	executable: bool,
++	len: u64,
++}
++fn read_regular(path: &Path, limit: u64) -> Result<Vec<u8>, String> {
++	let mut o = fs::OpenOptions::new();
++	o.read(true);
++	#[cfg(unix)]
++	{
++		use std::os::unix::fs::OpenOptionsExt;
++		o.custom_flags(libc::O_NOFOLLOW | libc::O_NONBLOCK);
++	}
++	let f = o.open(path).map_err(error)?;
++	let m = f.metadata().map_err(error)?;
++	if !m.is_file() || m.len() > limit {
++		return Err(format!(
++			"Git input is not bounded regular file: {}",
++			path.display()
++		));
++	}
++	let mut b = Vec::new();
++	(&f).take(limit + 1).read_to_end(&mut b).map_err(error)?;
++	if b.len() as u64 != m.len() || f.metadata().map_err(error)?.len() != m.len() {
++		return Err("Git input changed during read".into());
++	}
++	Ok(b)
++}
++pub(crate) fn verify(packages: &[GitPackage]) -> Result<(), String> {
++	verify_with(packages, &mut fingerprint::Allowance::default())
++}
++fn verify_with(
++	packages: &[GitPackage],
++	allowance: &mut fingerprint::Allowance,
++) -> Result<(), String> {
++	structure(packages)?;
++	let mut roots = BTreeMap::new();
++	for p in packages {
++		if let Some(rev) = roots.insert(&p.checkout, &p.revision)
++			&& rev != &p.revision
++		{
++			return Err("one checkout has multiple revisions".into());
++		}
++	}
++	for (root, rev) in roots {
++		verify_root(Path::new(root), rev, allowance)
++			.map_err(|e| format!("Git checkout {root} at {rev}: {e}"))?;
++	}
++	Ok(())
++}
++fn verify_root(
++	root: &Path,
++	rev: &str,
++	allowance: &mut fingerprint::Allowance,
++) -> Result<(), String> {
++	if text(&git(root, &["rev-parse", "HEAD"])?)?.trim() != rev {
++		return Err("HEAD differs from locked revision".into());
++	}
++	canonical_dir(&root.join(".git"))?;
++	if text(&git(root, &["rev-parse", "--show-toplevel"])?)?.trim()
++		!= root.to_str().ok_or("non-Unicode checkout")?
++	{
++		return Err("Git worktree routing differs".into());
++	}
++	// Authenticate this commit, then check connectivity/corruption from its tree
++	// rather than requesting a whole-history fsck. Blob contents are checked below.
++	let commit = git(root, &["cat-file", "commit", rev])?;
++	let tree_id = text(&commit)?
++		.lines()
++		.next()
++		.and_then(|s| s.strip_prefix("tree "))
++		.ok_or("invalid commit tree")?
++		.to_owned();
++	crate::schemas::git_coordinate("file:///object", &tree_id)?;
++	let mut hash = command(root);
++	hash.args(["hash-object", "--no-filters", "-t", "commit", "--stdin"]);
++	if text(&commands::run_input(hash, commit, 128)?)?.trim() != rev {
++		return Err("corrupt committed object identity".into());
++	}
++	git(
++		root,
++		&[
++			"fsck",
++			"--connectivity-only",
++			"--no-dangling",
++			"--no-reflogs",
++			&tree_id,
++		],
++	)?;
++	let tree = git(root, &["ls-tree", "-r", "-z", rev])?;
++	let mut rows = Vec::new();
++	let mut dirs = BTreeSet::new();
++	for row in tree.split(|b| *b == 0).filter(|r| !r.is_empty()) {
++		let (head, name) = text(row)?.split_once('\t').ok_or("invalid tree entry")?;
++		relative(name)?;
++		let fields: Vec<_> = head.split(' ').collect();
++		if fields.len() != 3 || fields[1] != "blob" || !matches!(fields[0], "100644" | "100755") {
++			return Err("unsupported Git tree entry".into());
++		}
++		let path = root.join(name);
++		for parent in path.parent().unwrap().ancestors() {
++			if parent == root || !dirs.insert(parent.to_owned()) {
++				break;
++			}
++			if !fs::symlink_metadata(parent).map_err(error)?.is_dir() {
++				return Err("Git source has symlink/non-directory component".into());
++			}
++		}
++		let m = fs::symlink_metadata(&path).map_err(error)?;
++		if !m.is_file() {
++			return Err("Git source is not a regular file".into());
++		}
++		#[cfg(unix)]
++		{
++			use std::os::unix::fs::MetadataExt;
++			if (m.mode() & 0o111 != 0) != (fields[0] == "100755") {
++				return Err("Git source executable mode differs".into());
++			}
++		}
++		allowance
++			.entry()
++			.map_err(|e| format!("Git input allowance exceeded: {e}"))?;
++		allowance
++			.charge_bytes(m.len())
++			.map_err(|e| format!("Git input allowance exceeded: {e}"))?;
++		rows.push(Blob {
++			name: name.into(),
++			oid: fields[2].into(),
++			executable: fields[0] == "100755",
++			len: m.len(),
++		});
++	}
++	if rows.is_empty() {
++		return Err("empty Git tree".into());
++	}
++	let index = git(root, &["ls-files", "--stage", "-z"])?;
++	let staged: Vec<_> = index.split(|b| *b == 0).filter(|r| !r.is_empty()).collect();
++	if staged.len() != rows.len() {
++		return Err("Git tracked set differs".into());
++	}
++	for (raw, row) in staged.iter().zip(&rows) {
++		let (head, name) = text(raw)?.split_once('\t').ok_or("invalid index")?;
++		let expected = format!(
++			"{} {} 0",
++			if row.executable { "100755" } else { "100644" },
++			row.oid
++		);
++		if head != expected || name != row.name {
++			return Err("Git staged tree differs or is unmerged".into());
++		}
++	}
++	let extra = git(root, &["ls-files", "--others", "--exclude-standard", "-z"])?;
++	for name in extra.split(|b| *b == 0).filter(|r| !r.is_empty()) {
++		if name != b".cargo-ok" {
++			return Err("untracked Git source".into());
++		}
++	}
++	// The exception is the root marker alone, including when ignore rules hide it.
++	match fs::symlink_metadata(root.join(".cargo-ok")) {
++		Ok(_) => {
++			read_regular(&root.join(".cargo-ok"), 4096)?;
++		}
++		Err(e) if e.kind() == std::io::ErrorKind::NotFound => (),
++		Err(e) => return Err(error(e)),
++	}
++	// Batch raw-object reads authenticate the referenced objects too. Comparing
++	// their bytes directly with no-follow file reads avoids filters and does not
++	// mistake an unchanged object name for proof that its stored bytes are sound.
++	for chunk in rows.chunks(64) {
++		let names = chunk
++			.iter()
++			.map(|r| format!("{}\n", r.oid))
++			.collect::<String>()
++			.into_bytes();
++		let mut cmd = command(root);
++		cmd.args(["cat-file", "--batch"]);
++		let limit = chunk.iter().try_fold(0usize, |n, r| {
++			n.checked_add(r.len as usize + 256)
++				.ok_or("object allowance")
++		})?;
++		let objects = commands::run_input(cmd, names, limit)?;
++		let mut rest = objects.as_slice();
++		for row in chunk {
++			let end = rest
++				.iter()
++				.position(|b| *b == b'\n')
++				.ok_or("missing Git object")?;
++			if text(&rest[..end])? != format!("{} blob {}", row.oid, row.len) {
++				return Err("missing, corrupt or changed Git blob".into());
++			}
++			rest = &rest[end + 1..];
++			let len = row.len as usize;
++			if rest.len() <= len || rest[len] != b'\n' {
++				return Err("truncated Git blob".into());
++			}
++			if read_regular(&root.join(&row.name), row.len)? != rest[..len] {
++				return Err(format!("raw Git blob differs: {}", row.name));
++			}
++			rest = &rest[len + 1..];
++		}
++		if !rest.is_empty() {
++			return Err("extra Git object output".into());
++		}
++		let mut args = vec!["hash-object", "--no-filters", "--"];
++		args.extend(chunk.iter().map(|r| r.name.as_str()));
++		let hashes = git(root, &args)?;
++		if text(&hashes)?
++			.lines()
++			.ne(chunk.iter().map(|r| r.oid.as_str()))
++		{
++			return Err("raw Git object identity differs".into());
++		}
++	}
++	Ok(())
++}
++
++pub(crate) fn resolve(
++	metadata: &[u8],
++	stage: &Path,
++	root: &Path,
++	home: &Path,
++	allowance: &mut fingerprint::Allowance,
++) -> Result<(inventory::Inventory, Vec<GitPackage>), String> {
++	let packages = packages(metadata)?;
++	verify_with(&packages, allowance)?;
++	let native = partition(metadata, &packages, stage, root, home, allowance, true, &[])?;
++	Ok((native, packages))
++}
++pub(crate) fn packages(metadata: &[u8]) -> Result<Vec<GitPackage>, String> {
++	let doc: serde_json::Value = serde_json::from_slice(metadata).map_err(error)?;
++	let mut packages = Vec::new();
++	for p in doc
++		.get("packages")
++		.and_then(serde_json::Value::as_array)
++		.ok_or("missing Cargo packages")?
++	{
++		let Some(source) = p
++			.get("source")
++			.and_then(serde_json::Value::as_str)
++			.filter(|s| s.starts_with("git+"))
++		else {
++			continue;
++		};
++		let (coordinate, revision) = source
++			.strip_prefix("git+")
++			.unwrap()
++			.rsplit_once('#')
++			.ok_or("Git package has no resolved revision")?;
++		let url = coordinate.split('?').next().unwrap();
++		crate::schemas::git_coordinate(url, revision)?;
++		let manifest = PathBuf::from(
++			p.get("manifest_path")
++				.and_then(serde_json::Value::as_str)
++				.ok_or("Git manifest path")?,
++		);
++		let package = manifest.parent().ok_or("Git package root")?;
++		canonical_dir(package)?;
++		let checkout = package
++			.ancestors()
++			.find(|a| fs::symlink_metadata(a.join(".git")).is_ok())
++			.ok_or("Git checkout administration missing")?;
++		if !fs::symlink_metadata(checkout.join(".git"))
++			.map_err(error)?
++			.is_dir()
++		{
++			return Err("Git checkout requires local administration directory".into());
++		}
++		packages.push(GitPackage {
++			id: p
++				.get("id")
++				.and_then(serde_json::Value::as_str)
++				.ok_or("Git package ID")?
++				.into(),
++			name: p
++				.get("name")
++				.and_then(serde_json::Value::as_str)
++				.ok_or("Git package name")?
++				.into(),
++			url: url.into(),
++			revision: revision.into(),
++			checkout: checkout
++				.to_str()
++				.ok_or("Git checkout is not Unicode")?
++				.into(),
++			manifest: manifest
++				.strip_prefix(checkout)
++				.map_err(error)?
++				.to_str()
++				.ok_or("Git manifest is not Unicode")?
++				.into(),
++		});
++	}
++	packages.sort_by(|a, b| a.id.cmp(&b.id));
++	Ok(packages)
++}
++#[allow(clippy::too_many_arguments)]
++fn partition(
++	metadata: &[u8],
++	git: &[GitPackage],
++	stage: &Path,
++	root: &Path,
++	home: &Path,
++	allowance: &mut fingerprint::Allowance,
++	full: bool,
++	recorded: &[inventory::External],
++) -> Result<inventory::Inventory, String> {
++	let manifests = git
++		.iter()
++		.map(|p| Path::new(&p.checkout).join(&p.manifest))
++		.collect::<Vec<_>>();
++	let roots = git
++		.iter()
++		.map(|p| PathBuf::from(&p.checkout))
++		.collect::<BTreeSet<_>>()
++		.into_iter()
++		.collect::<Vec<_>>();
++	let mut n = inventory::native_partitioned(
++		metadata,
++		stage,
++		root,
++		home,
++		allowance,
++		&manifests,
++		if full { &[] } else { &roots },
++		recorded,
++	)?;
++	crate::cache_storage::policy(&n)?;
++	n.external
++		.retain(|e| !roots.iter().any(|r| e.path.starts_with(r)));
++	Ok(n)
++}
++pub(crate) fn replay(
++	native: &inventory::Inventory,
++	git: &[GitPackage],
++	stage: &Path,
++	root: &Path,
++	home: &Path,
++	full: bool,
++) -> Result<inventory::Inventory, String> {
++	let mut allowance = fingerprint::Allowance::default();
++	if full {
++		verify_with(git, &mut allowance)?;
++	} else {
++		structure(git)?;
++	}
++	let packages = native
++		.packages
++		.iter()
++		.map(
++			|p| serde_json::json!({"id":p.id,"name":p.name,"source":null,"manifest_path":p.manifest}),
++		)
++		.collect::<Vec<_>>();
++	let metadata = wire::encode(&serde_json::json!({"workspace_root":stage,"packages":packages}))?;
++	partition(
++		&metadata,
++		git,
++		stage,
++		root,
++		home,
++		&mut allowance,
++		full,
++		if full { &[] } else { &native.external },
++	)
++}
+diff --git a/tools/project/src/git_inventory/acquisition.rs b/tools/project/src/git_inventory/acquisition.rs
+new file mode 100644
+index 0000000..4584ef6
+--- /dev/null
++++ b/tools/project/src/git_inventory/acquisition.rs
+@@ -0,0 +1,111 @@
++//! Describe Cargo's acquisition changes, never authenticate content before Cargo.
++//! Only lock uses this observer. Verification paths never invoke acquisition.
++use super::*;
++
++struct Before {
++	head: Option<String>,
++	marker: Option<Marker>,
++}
++pub(crate) struct Observation(BTreeMap<PathBuf, Before>);
++impl Observation {
++	pub(crate) fn begin(home: &Path) -> Result<Self, String> {
++		let base = home.join("git/checkouts");
++		let mut found = BTreeMap::new();
++		let mut allowance = fingerprint::ENTRIES;
++		// Cargo owns this two-level layout. Observe existing directories only;
++		// absent caches are normal. No URL hashing or checkout selection is ours.
++		for repository in directories(&base, &mut allowance)? {
++			for checkout in directories(&repository, &mut allowance)? {
++				canonical_dir(&checkout)?;
++				let head = git(&checkout, &["rev-parse", "HEAD"])
++					.ok()
++					.and_then(|b| String::from_utf8(b).ok())
++					.map(|s| s.trim().to_owned());
++				found.insert(
++					checkout.clone(),
++					Before {
++						head,
++						marker: marker(&checkout),
++					},
++				);
++			}
++		}
++		Ok(Self(found))
++	}
++	pub(crate) fn report(&self, packages: &[GitPackage]) -> Result<(), String> {
++		let mut seen = BTreeSet::new();
++		for p in packages {
++			let path = Path::new(&p.checkout);
++			if !seen.insert(path) {
++				continue;
++			}
++			let Some(before) = self.0.get(path) else {
++				continue;
++			};
++			let after = marker(path);
++			let head_changed = before.head.as_deref() != Some(p.revision.as_str());
++			if (head_changed || before.marker.is_none())
++				&& after.is_some()
++				&& after != before.marker
++			{
++				eprintln!(
++					"Cargo reacquired Git checkout {} at {} ({}); edits inside Cargo's checkout may have been discarded. Source verification follows before lock publication.",
++					path.display(),
++					p.revision,
++					if head_changed {
++						"HEAD differed or was unavailable"
++					} else {
++						"completion marker was missing"
++					}
++				);
++			}
++		}
++		Ok(())
++	}
++}
++#[derive(PartialEq)]
++struct Marker {
++	bytes: u64,
++	modified: std::time::SystemTime,
++	#[cfg(unix)]
++	inode: u64,
++}
++fn marker(root: &Path) -> Option<Marker> {
++	let m = fs::symlink_metadata(root.join(".cargo-ok")).ok()?;
++	if !m.is_file() {
++		return None;
++	}
++	#[cfg(unix)]
++	use std::os::unix::fs::MetadataExt;
++	Some(Marker {
++		bytes: m.len(),
++		modified: m.modified().ok()?,
++		#[cfg(unix)]
++		inode: m.ino(),
++	})
++}
++fn directories(path: &Path, remaining: &mut usize) -> Result<Vec<PathBuf>, String> {
++	let metadata = match fs::symlink_metadata(path) {
++		Ok(m) => m,
++		Err(e) if e.kind() == std::io::ErrorKind::NotFound => return Ok(vec![]),
++		Err(e) => return Err(error(e)),
++	};
++	if !metadata.is_dir() {
++		return Err(format!(
++			"Cargo checkout directory is not regular: {}",
++			path.display()
++		));
++	}
++	let mut result = Vec::new();
++	for entry in fs::read_dir(path).map_err(error)? {
++		*remaining = remaining
++			.checked_sub(1)
++			.ok_or("Cargo checkout observation exceeds entry allowance")?;
++		let entry = entry.map_err(error)?;
++		if entry.file_type().map_err(error)?.is_dir() {
++			result.push(entry.path());
++		}
++	}
++	result.sort();
++	Ok(result)
++}
+diff --git a/tools/project/src/inventory.rs b/tools/project/src/inventory.rs
+index b121d46..13523b5 100644
+--- a/tools/project/src/inventory.rs
++++ b/tools/project/src/inventory.rs
+@@ -76,6 +76,30 @@ pub(crate) fn native(
+ 	invocation_dir: &Path,
+ 	cargo_home: &Path,
+ 	allowance: &mut Allowance,
++) -> Result<Inventory, String> {
++	native_partitioned(
++		metadata,
++		generated_root,
++		invocation_dir,
++		cargo_home,
++		allowance,
++		&[],
++		&[],
++		&[],
++	)
++}
++/// The caller authenticates Git-owned files on full checks. Everyday replay
++/// excludes those reads but retains all external candidates and redirects.
++#[allow(clippy::too_many_arguments)]
++pub(crate) fn native_partitioned(
++	metadata: &[u8],
++	generated_root: &Path,
++	invocation_dir: &Path,
++	cargo_home: &Path,
++	allowance: &mut Allowance,
++	git_manifests: &[PathBuf],
++	skip: &[PathBuf],
++	recorded: &[External],
+ ) -> Result<Inventory, String> {
+ 	if metadata.len() > input::DOCUMENT_LIMIT {
+ 		return Err("Cargo metadata exceeds 16 MiB".into());
+@@ -90,6 +114,13 @@ pub(crate) fn native(
+ 	let mut roots = BTreeSet::new();
+ 	let mut candidates = BTreeSet::new();
+ 	ancestors(invocation_dir, &mut candidates);
++	for manifest in git_manifests {
++		ancestors(
++			manifest.parent().ok_or("Git manifest has no parent")?,
++			&mut candidates,
++		);
++	}
++	candidates.extend(recorded.iter().map(|e| e.path.clone()));
+ 	candidates.insert(cargo_home.join("config"));
+ 	candidates.insert(cargo_home.join("config.toml"));
+ 	// Root workspace can lie outside the package's ancestors through package.workspace.
+@@ -137,7 +168,7 @@ pub(crate) fn native(
+ 	// the generated wrapper's workspace). Explicit workspace redirects are followed.
+ 	let mut external = BTreeMap::new();
+ 	while let Some(path) = candidates.pop_first() {
+-		if path.starts_with(generated_root) {
++		if path.starts_with(generated_root) || skip.iter().any(|root| path.starts_with(root)) {
+ 			continue;
+ 		}
+ 		if external.contains_key(&path) {
+@@ -251,7 +282,7 @@ pub(crate) fn sources(app: &Path, allowance: &mut Allowance) -> Result<Sources,
+ 	let mut packages = vec![];
+ 	let mut application_root = None;
+ 	crate::graph::expand(&app, |path| {
+-		let manifest = crate::manifest::Manifest::read(path)?;
++		let manifest = crate::schemas::graph_read(path)?;
+ 		if path == app && manifest.application.is_none() {
+ 			return Err("entry must be an application".into());
+ 		}
+diff --git a/tools/project/src/lib.rs b/tools/project/src/lib.rs
+index 582bc08..b349f19 100644
+--- a/tools/project/src/lib.rs
++++ b/tools/project/src/lib.rs
+@@ -9,6 +9,7 @@ mod commands;
+ mod dep_wire;
+ mod fingerprint;
+ mod generate;
++mod git_inventory;
+ mod graph;
+ mod handshake;
+ mod input;
+@@ -16,7 +17,9 @@ mod inventory;
+ mod maintenance;
+ mod manifest;
+ mod maps;
++mod new_identity;
+ mod runtime_install;
++mod schemas;
+ mod wire;
+ mod workflow;
+ 
+diff --git a/tools/project/src/maintenance/linux.rs b/tools/project/src/maintenance/linux.rs
+index 320ec28..3c53957 100644
+--- a/tools/project/src/maintenance/linux.rs
++++ b/tools/project/src/maintenance/linux.rs
+@@ -631,7 +631,8 @@ fn metadata(entry: &File, kind: &str, key: &str, budget: &mut Budget) -> Result<
+ 	};
+ 	match bounded_document(entry, n, limit, budget) {
+ 		Ok(Some(v)) => {
+-			let known = matches!(v["format"].as_u64(), Some(1 | 2));
++			let known = matches!(v["format"].as_u64(), Some(1 | 2))
++				|| (kind == "cache" && v["format"] == 3);
+ 			let id = v[if kind == "cache" { "key" } else { "id" }].as_str() == Some(key);
+ 			let suffix = if v["format"] == 1 { "sha256" } else { "blake3" };
+ 			let shape = if kind == "cache" {
+diff --git a/tools/project/src/maintenance/linux/annotations.rs b/tools/project/src/maintenance/linux/annotations.rs
+index 9a0ddc0..bc1e5c6 100644
+--- a/tools/project/src/maintenance/linux/annotations.rs
++++ b/tools/project/src/maintenance/linux/annotations.rs
+@@ -93,11 +93,11 @@ fn one(manifest: &Path, kind: &str, budget: &mut Budget) -> Result<Value> {
+ 		budget,
+ 	)?;
+ 	if lock.as_object().is_none_or(|o| {
+-		o.len() != 5
++		o.len() != if lock["format"] == 4 { 6 } else { 5 }
+ 			|| o.keys().any(|k| {
+ 				!matches!(
+ 					k.as_str(),
+-					"format" | "declarations" | "sources" | "inputs" | "assembly"
++					"format" | "declarations" | "sources" | "inputs" | "assembly" | "git"
+ 				)
+ 			})
+ 	}) {
+@@ -119,22 +119,31 @@ fn one(manifest: &Path, kind: &str, budget: &mut Budget) -> Result<Value> {
+ 	}
+ 	let lf = lock["format"]
+ 		.as_u64()
+-		.filter(|v| matches!(v, 1..=3))
++		.filter(|v| matches!(v, 1..=4))
+ 		.ok_or("unsupported project lock format")?;
+ 	let rf = receipt["format"]
+ 		.as_u64()
+-		.filter(|v| matches!(v, 1..=4))
++		.filter(|v| matches!(v, 1..=5))
+ 		.ok_or("unsupported receipt format")?;
+-	if (lf == 3) != (rf == 4) {
++	if (lf == 4 && rf != 5) || (lf != 4 && rf == 5) || (lf == 3) != (rf == 4) {
+ 		return Err("lock and receipt formats disagree".into());
+ 	}
+-	let suffix = if rf == 4 { "blake3" } else { "sha256" };
++	let suffix = if rf >= 4 { "blake3" } else { "sha256" };
+ 	digest(&receipt, &format!("lock_{suffix}"))?;
+ 	digest(&receipt, &format!("executable_{suffix}"))?;
+ 	// Validate declaration syntax only. No dependency manifest or source is read.
+-	let declarations: crate::manifest::Manifest =
+-		serde_json::from_value(lock["declarations"].clone()).map_err(error)?;
+-	declarations.validate()?;
++	let has_runtime = if lf == 4 {
++		let d: crate::schemas::Declaration =
++			serde_json::from_value(lock["declarations"].clone()).map_err(error)?;
++		d.validate()?;
++		d.runtime.is_some()
++	} else {
++		let d: crate::manifest::Manifest =
++			serde_json::from_value(lock["declarations"].clone()).map_err(error)?;
++		d.validate()?;
++		d.runtime.is_some()
++	};
++
+ 	if lock["sources"].as_object().is_none() || lock["inputs"].as_object().is_none() {
+ 		return Err("malformed project lock envelope".into());
+ 	}
+@@ -177,9 +186,21 @@ fn one(manifest: &Path, kind: &str, budget: &mut Budget) -> Result<Value> {
+ 			return Err("format-1 lock cannot name a shared entry".into());
+ 		}
+ 		let i = documents::decode(string(assembly, "identity")?.as_bytes(), budget)?;
+-		if i["format"].as_u64() != Some(if lf == 3 { 2 } else { 1 })
+-			|| i["generator"].as_u64() != Some(if lf == 3 { 2 } else { 1 })
+-		{
++		if i["format"].as_u64()
++			!= Some(if lf == 4 {
++				3
++			} else if lf == 3 {
++				2
++			} else {
++				1
++			}) || i["generator"].as_u64()
++			!= Some(if lf == 4 {
++				3
++			} else if lf == 3 {
++				2
++			} else {
++				1
++			}) {
+ 			return Err("unsupported assembly identity format or generator".into());
+ 		}
+ 		path(&i["context"], "cache_root")?;
+@@ -215,8 +236,10 @@ fn one(manifest: &Path, kind: &str, budget: &mut Budget) -> Result<Value> {
+ 		} else {
+ 			json!({"kind":"project-local artifact","path":base.join(".rnx/artifacts").join(string(&receipt,&format!("executable_{suffix}"))?)})
+ 		}
+-	} else if declarations.runtime.is_none() {
++	} else if !has_runtime {
+ 		json!({"kind":"executable override","path":path(assembly,"path")?})
++	} else if lf == 4 && lock["declarations"]["runtime"]["git"].is_string() {
++		json!({"kind":"Cargo Git runtime","git":lock["declarations"]["runtime"]["git"],"rev":lock["declarations"]["runtime"]["rev"]})
+ 	} else {
+ 		let packages = lock["inputs"]["native"]["packages"]
+ 			.as_array()
+diff --git a/tools/project/src/manifest.rs b/tools/project/src/manifest.rs
+index 3a78824..9fbbc78 100644
+--- a/tools/project/src/manifest.rs
++++ b/tools/project/src/manifest.rs
+@@ -225,7 +225,7 @@ impl Manifest {
+ }
+ pub(crate) fn resolve(path: &Path) -> Result<(Manifest, PathBuf, Vec<graph::Mount>), String> {
+ 	let path = path.canonicalize().map_err(|e| e.to_string())?;
+-	let app = Manifest::read(&path)?;
++	let app = crate::schemas::graph_read(&path)?;
+ 	let entry = path.parent().unwrap().join(
+ 		&app.application
+ 			.as_ref()
+@@ -236,7 +236,7 @@ pub(crate) fn resolve(path: &Path) -> Result<(Manifest, PathBuf, Vec<graph::Moun
+ 		let manifest = if p == path {
+ 			app.clone()
+ 		} else {
+-			let m = Manifest::read(p)?;
++			let m = crate::schemas::graph_read(p)?;
+ 			if m.source.is_none() {
+ 				return Err(format!(
+ 					"dependency {} is not a source package",
+diff --git a/tools/project/src/new_identity.rs b/tools/project/src/new_identity.rs
+new file mode 100644
+index 0000000..491417a
+--- /dev/null
++++ b/tools/project/src/new_identity.rs
+@@ -0,0 +1,399 @@
++//! Git-aware assembly identity. Path-only envelopes retain the original reader.
++#![allow(dead_code)]
++pub(crate) use crate::cache_identity::Context;
++use crate::{fingerprint, input, inventory::Inventory, schemas::Declaration, wire};
++use serde::{Deserialize, Serialize};
++
++use std::{
++	collections::BTreeSet,
++	path::{Component, Path, PathBuf},
++};
++
++#[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
++#[serde(deny_unknown_fields)]
++struct Document {
++	format: u32,
++	generator: u32,
++	context: Context,
++	manifest: String,
++	main: String,
++	cargo_lock_blake3: String,
++	native: Inventory,
++	git: Vec<crate::schemas::GitPackage>,
++}
++/// Construction requires a live verified inventory. Decoding validates shape
++/// and canonical encoding, not the truth of filesystem or compiler observations.
++#[derive(Clone, Debug)]
++pub(crate) struct Identity {
++	document: Document,
++	bytes: Vec<u8>,
++	key: String,
++}
++fn digest(bytes: &[u8]) -> String {
++	blake3::hash(bytes).to_hex().to_string()
++}
++fn valid_digest(s: &str) -> bool {
++	s.len() == 64
++		&& s.bytes()
++			.all(|c| c.is_ascii_digit() || (b'a'..=b'f').contains(&c))
++}
++fn path(p: &Path) -> Result<(), String> {
++	if !p.is_absolute()
++		|| p.to_str().is_none()
++		|| p.components().collect::<PathBuf>().as_os_str() != p.as_os_str()
++		|| p.components()
++			.any(|c| matches!(c, Component::ParentDir | Component::CurDir))
++	{
++		return Err("assembly identity requires normalized absolute Unicode paths".into());
++	}
++	Ok(())
++}
++fn directory(p: &Path) -> Result<PathBuf, String> {
++	if !p.is_absolute() || p.to_str().is_none() {
++		return Err("assembly directory requires an absolute Unicode path".into());
++	}
++	let p = p
++		.canonicalize()
++		.map_err(|e| format!("assembly directory {}: {e}", p.display()))?;
++	if !p.is_dir() {
++		return Err(format!(
++			"assembly directory is not a directory: {}",
++			p.display()
++		));
++	}
++	path(&p)?;
++	Ok(p)
++}
++fn nonempty(s: &str) -> Result<(), String> {
++	if s.is_empty() || s.contains('\0') {
++		Err("empty or NUL assembly identity field".into())
++	} else {
++		Ok(())
++	}
++}
++fn relative(s: &str) -> Result<(), String> {
++	if s.is_empty()
++		|| s.contains(['\\', '\0'])
++		|| s.split('/').any(|p| p.is_empty() || p == "." || p == "..")
++		|| Path::new(s).is_absolute()
++	{
++		Err("invalid relative inventory path".into())
++	} else {
++		Ok(())
++	}
++}
++impl Identity {
++	pub(crate) fn create(
++		manifest: &Declaration,
++		base: &Path,
++		mut context: Context,
++		mut native: Inventory,
++		mut git: Vec<crate::schemas::GitPackage>,
++		cargo_lock: &[u8],
++	) -> Result<Self, String> {
++		if cargo_lock.is_empty() || cargo_lock.len() > input::DOCUMENT_LIMIT {
++			return Err("Cargo lock is empty or exceeds document allowance".into());
++		}
++		context.cache_root = directory(&context.cache_root)?;
++		context.cargo_home = directory(&context.cargo_home)?;
++		context.rustup_home = context.rustup_home.as_deref().map(directory).transpose()?;
++		context.features.sort();
++		// The inventory owns canonical native roots. Refuse a caller handing
++		// over a lexical or symlink alias rather than silently rewriting IDs.
++		for tree in &native.trees {
++			if directory(&tree.root)? != tree.root {
++				return Err("native inventory root is not canonical".into());
++			}
++			if context.cache_root.starts_with(&tree.root)
++				|| tree.root.starts_with(&context.cache_root)
++			{
++				return Err("native inputs and assembly cache must not contain one another".into());
++			}
++		}
++		for tree in &mut native.trees {
++			tree.files.sort_by(|a, b| a.path.cmp(&b.path));
++		}
++		native.trees.sort_by(|a, b| a.root.cmp(&b.root));
++		native.packages.sort_by(|a, b| a.id.cmp(&b.id));
++		native.external.sort_by(|a, b| a.path.cmp(&b.path));
++		let (manifest, main) = crate::generate::git_wrapper(manifest, base)?;
++		Self::from_document(Document {
++			format: 3,
++			generator: 3,
++			context,
++			manifest,
++			main,
++			cargo_lock_blake3: digest(cargo_lock),
++			native,
++			git: {
++				git.sort_by(|a, b| a.id.cmp(&b.id));
++				git
++			},
++		})
++	}
++	fn from_document(document: Document) -> Result<Self, String> {
++		document.validate()?;
++		let bytes = wire::encode(&document)?;
++		let key = digest(&bytes);
++		Ok(Self {
++			document,
++			bytes,
++			key,
++		})
++	}
++	pub(crate) fn decode(bytes: &[u8]) -> Result<Self, String> {
++		if bytes.len() > input::DOCUMENT_LIMIT {
++			return Err("assembly identity exceeds document allowance".into());
++		}
++		let doc: Document =
++			serde_json::from_slice(bytes).map_err(|e| format!("assembly identity: {e}"))?;
++		let identity = Self::from_document(doc)?;
++		if identity.bytes != bytes {
++			return Err("assembly identity is not canonically encoded".into());
++		}
++		Ok(identity)
++	}
++	pub(crate) fn git(&self) -> &[crate::schemas::GitPackage] {
++		&self.document.git
++	}
++	pub(crate) fn native(&self) -> &Inventory {
++		&self.document.native
++	}
++	pub(crate) fn context(&self) -> &Context {
++		&self.document.context
++	}
++	pub(crate) fn wrapper(&self) -> (&str, &str) {
++		(&self.document.manifest, &self.document.main)
++	}
++	pub(crate) fn check_lock(&self, bytes: &[u8]) -> Result<(), String> {
++		if digest(bytes) != self.document.cargo_lock_blake3 {
++			return Err("assembly Cargo lock mismatch".into());
++		}
++		Ok(())
++	}
++	pub(crate) fn revalidate(&self, stage: &Path) -> Result<(), String> {
++		self.verify(stage, true)
++	}
++	pub(crate) fn verify(&self, stage: &Path, full: bool) -> Result<(), String> {
++		let c = self.context();
++		let native = crate::git_inventory::replay(
++			self.native(),
++			self.git(),
++			stage,
++			&c.cache_root,
++			&c.cargo_home,
++			full,
++		)?;
++		crate::cache_storage::policy(&native)?;
++		if &native != self.native() {
++			return Err("assembly native/context inputs changed; run lock".into());
++		}
++		Ok(())
++	}
++
++	pub(crate) fn key(&self) -> &str {
++		&self.key
++	}
++	pub(crate) fn bytes(&self) -> &[u8] {
++		&self.bytes
++	}
++}
++fn strictly_sorted<T: Ord>(values: impl IntoIterator<Item = T>) -> Result<(), String> {
++	let mut previous = None;
++	for value in values {
++		if previous.as_ref().is_some_and(|p| p >= &value) {
++			return Err("assembly identity collection is unsorted or duplicated".into());
++		}
++		previous = Some(value);
++	}
++	Ok(())
++}
++impl Document {
++	fn validate(&self) -> Result<(), String> {
++		if self.format != 3 || self.generator != 3 {
++			return Err("unsupported assembly identity/generator version".into());
++		}
++		let c = &self.context;
++		for p in [&c.cache_root, &c.cargo_home] {
++			path(p)?;
++		}
++		if let Some(p) = &c.rustup_home {
++			path(p)?;
++		}
++		if let Some(s) = &c.rustup_toolchain {
++			nonempty(s)?;
++		}
++		for s in [
++			&c.rustc,
++			&c.cargo,
++			&c.target,
++			&c.profile,
++			&self.manifest,
++			&self.main,
++			&self.native.platform,
++		] {
++			nonempty(s)?;
++		}
++		strictly_sorted(c.features.iter())?;
++		for f in &c.features {
++			nonempty(f)?;
++		}
++		if !valid_digest(&self.cargo_lock_blake3) {
++			return Err("invalid Cargo lock digest".into());
++		}
++		let n = &self.native;
++		if (n.packages.is_empty() && self.git.is_empty())
++			|| self.git.len() > fingerprint::ENTRIES
++			|| n.trees.len() > fingerprint::ENTRIES
++			|| n.packages.len() > fingerprint::ENTRIES
++			|| n.external.len() > fingerprint::ENTRIES
++		{
++			return Err("invalid assembly inventory counts".into());
++		}
++		strictly_sorted(n.trees.iter().map(|t| &t.root))?;
++		strictly_sorted(n.packages.iter().map(|p| &p.id))?;
++		strictly_sorted(n.external.iter().map(|e| &e.path))?;
++		let mut entries = 0usize;
++		let mut bytes = 0u64;
++		let mut file = |f: &wire::File| -> Result<(), String> {
++			relative(&f.path)?;
++			if !valid_digest(&f.blake3) {
++				return Err("invalid inventory digest".into());
++			}
++			entries += 1;
++			bytes = bytes
++				.checked_add(f.bytes)
++				.ok_or("inventory size overflow")?;
++			if entries > fingerprint::ENTRIES || bytes > fingerprint::BYTES {
++				return Err("assembly inventory exceeds shared allowance".into());
++			}
++			Ok(())
++		};
++		for t in &n.trees {
++			path(&t.root)?;
++			if !valid_digest(&t.blake3) {
++				return Err("invalid native tree digest".into());
++			}
++			if c.cache_root.starts_with(&t.root) || t.root.starts_with(&c.cache_root) {
++				return Err("native inputs overlap assembly cache".into());
++			}
++			strictly_sorted(t.files.iter().map(|f| &f.path))?;
++			for f in &t.files {
++				file(f)?;
++			}
++		}
++		let mut associations = BTreeSet::new();
++		for p in &n.packages {
++			path(&p.root)?;
++			path(&p.manifest)?;
++			nonempty(&p.id)?;
++			nonempty(&p.name)?;
++			if p.manifest != p.root.join("Cargo.toml")
++				|| !n.trees.iter().any(|t| t.root == p.root)
++				|| !associations.insert((&p.root, &p.name))
++			{
++				return Err("invalid native package association".into());
++			}
++		}
++		strictly_sorted(self.git.iter().map(|g| &g.id))?;
++		let mut git_associations = BTreeSet::new();
++		for g in &self.git {
++			nonempty(&g.id)?;
++			nonempty(&g.name)?;
++			crate::schemas::git_coordinate(&g.url, &g.revision)?;
++			let checkout = Path::new(&g.checkout);
++			path(checkout)?;
++			relative(&g.manifest)?;
++			if Path::new(&g.manifest).file_name().and_then(|s| s.to_str()) != Some("Cargo.toml")
++				|| checkout.starts_with(&c.cache_root)
++				|| c.cache_root.starts_with(checkout)
++				|| n.packages
++					.iter()
++					.any(|p| p.id == g.id || p.root.starts_with(checkout))
++				|| n.trees
++					.iter()
++					.any(|t| t.root.starts_with(checkout) || checkout.starts_with(&t.root))
++				|| !git_associations.insert((&g.checkout, &g.manifest))
++			{
++				return Err("invalid Git package association".into());
++			}
++		}
++
++		let wrapper: toml::Value =
++			toml::from_str(&self.manifest).map_err(|e| format!("assembly manifest: {e}"))?;
++		let dependencies = wrapper
++			.get("dependencies")
++			.and_then(toml::Value::as_table)
++			.ok_or("assembly manifest has no dependencies")?;
++		if !dependencies.contains_key("rnx") {
++			return Err("assembly manifest has no rnx dependency".into());
++		}
++		for (alias, dep) in dependencies {
++			let name = dep
++				.get("package")
++				.and_then(toml::Value::as_str)
++				.unwrap_or(alias);
++			let table = dep.as_table().ok_or("dependency table")?;
++			for k in table.keys() {
++				if ![
++					"package",
++					"path",
++					"git",
++					"rev",
++					"features",
++					"default-features",
++				]
++				.contains(&k.as_str())
++				{
++					return Err("unsupported wrapper dependency field".into());
++				}
++			}
++			match (
++				dep.get("path").and_then(toml::Value::as_str),
++				dep.get("git").and_then(toml::Value::as_str),
++				dep.get("rev").and_then(toml::Value::as_str),
++			) {
++				(Some(root), None, None) => {
++					path(Path::new(root))?;
++					if !n
++						.packages
++						.iter()
++						.any(|p| p.root == Path::new(root) && p.name == name)
++					{
++						return Err("missing path association".into());
++					}
++				}
++				(None, Some(url), Some(rev)) => {
++					crate::schemas::git_coordinate(url, rev)?;
++					if !self
++						.git
++						.iter()
++						.any(|p| p.url == url && p.revision == rev && p.name == name)
++					{
++						return Err("missing Git association".into());
++					}
++				}
++				_ => return Err("exactly path or git plus rev in wrapper".into()),
++			}
++		}
++
++		for e in &n.external {
++			path(&e.path)?;
++			if self.git.iter().any(|g| e.path.starts_with(&g.checkout)) {
++				return Err("Git-owned input in external inventory".into());
++			}
++			if let Some(f) = &e.file {
++				file(f)?;
++			}
++		}
++		Ok(())
++	}
++}
++
++pub(crate) fn canonical(bytes: &[u8]) -> Result<Vec<u8>, String> {
++	if bytes.len() > input::DOCUMENT_LIMIT {
++		return Err("document allowance".into());
++	}
++	let d = serde_json::from_slice(bytes).map_err(|e| format!("identity: {e}"))?;
++	Ok(Identity::from_document(d)?.bytes)
++}
+diff --git a/tools/project/src/schemas.rs b/tools/project/src/schemas.rs
+new file mode 100644
+index 0000000..25fca0f
+--- /dev/null
++++ b/tools/project/src/schemas.rs
+@@ -0,0 +1,436 @@
++//! Versioned Git-source declarations and envelopes; legacy readers remain separate.
++#![allow(dead_code)]
++use crate::{artifact, input, manifest, new_identity, wire};
++use serde::{Deserialize, Serialize};
++use std::{collections::BTreeMap, path::Path};
++fn digest(s: &str) -> bool {
++	s.len() == 64
++		&& s.bytes()
++			.all(|b| b.is_ascii_digit() || (b'a'..=b'f').contains(&b))
++}
++pub(crate) fn git_coordinate(url: &str, rev: &str) -> Result<(), String> {
++	if !(url.starts_with("https://") || url.starts_with("file:///"))
++		|| url.len() > 4096
++		|| url.contains(['\0', '\n', '\r', '?', '#'])
++		|| url.split("://").nth(1).is_none_or(str::is_empty)
++	{
++		return Err("unsupported Git URL".into());
++	}
++	if rev.len() != 40
++		|| !rev
++			.bytes()
++			.all(|b| b.is_ascii_digit() || (b'a'..=b'f').contains(&b))
++	{
++		return Err("full lowercase 40-hex Git revision required".into());
++	}
++	Ok(())
++}
++#[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
++#[serde(deny_unknown_fields)]
++pub(crate) struct Location {
++	#[serde(default, skip_serializing_if = "Option::is_none")]
++	pub path: Option<String>,
++	#[serde(default, skip_serializing_if = "Option::is_none")]
++	pub git: Option<String>,
++	#[serde(default, skip_serializing_if = "Option::is_none")]
++	pub rev: Option<String>,
++}
++impl Location {
++	pub fn validate(&self) -> Result<(), String> {
++		match (&self.path, &self.git, &self.rev) {
++			(Some(p), None, None) => input::path(p),
++			(None, Some(g), Some(r)) => git_coordinate(g, r),
++			_ => Err("exactly path or git plus rev required".into()),
++		}
++	}
++}
++#[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
++#[serde(deny_unknown_fields)]
++pub(crate) struct Native {
++	#[serde(default, skip_serializing_if = "Option::is_none")]
++	pub path: Option<String>,
++	#[serde(default, skip_serializing_if = "Option::is_none")]
++	pub git: Option<String>,
++	#[serde(default, skip_serializing_if = "Option::is_none")]
++	pub rev: Option<String>,
++	pub package: String,
++	pub builder: String,
++	pub hook: manifest::Hook,
++}
++#[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
++#[serde(deny_unknown_fields)]
++pub(crate) struct Declaration {
++	pub format: u32,
++	#[serde(default, skip_serializing_if = "Option::is_none")]
++	pub application: Option<manifest::Application>,
++	#[serde(default, skip_serializing_if = "Option::is_none")]
++	pub source: Option<manifest::Source>,
++	#[serde(default, skip_serializing_if = "Option::is_none")]
++	pub runtime: Option<Location>,
++	#[serde(default, skip_serializing_if = "Option::is_none")]
++	pub executable: Option<manifest::Location>,
++	#[serde(default, deserialize_with = "unique_map")]
++	pub sources: BTreeMap<String, manifest::Location>,
++	#[serde(default, deserialize_with = "unique_map")]
++	pub native: BTreeMap<String, Native>,
++}
++impl Declaration {
++	pub fn validate(&self) -> Result<(), String> {
++		if self.format != 2 {
++			return Err("expected declaration format 2".into());
++		}
++		// Reuse the existing semantic/limit validator after replacing only native
++		// locations with inert paths; this projection is never persisted or hashed.
++		if let Some(r) = &self.runtime {
++			r.validate()?;
++		}
++		for n in self.native.values() {
++			Location {
++				path: n.path.clone(),
++				git: n.git.clone(),
++				rev: n.rev.clone(),
++			}
++			.validate()?;
++		}
++		let mut v = serde_json::to_value(self).map_err(|e| e.to_string())?;
++		v["format"] = 1.into();
++		if let Some(r) = &self.runtime {
++			v["runtime"] = serde_json::json!({"path":r.path.as_deref().unwrap_or("/probe/git")});
++		}
++		for (name, n) in &self.native {
++			v["native"][name] = serde_json::json!({"path":n.path.as_deref().unwrap_or("/probe/git"),"package":n.package,"builder":n.builder,"hook":n.hook});
++		}
++		let old: manifest::Manifest = serde_json::from_value(v).map_err(|e| e.to_string())?;
++		old.validate()
++	}
++}
++#[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
++#[serde(deny_unknown_fields)]
++pub(crate) struct GitPackage {
++	pub id: String,
++	pub name: String,
++	pub url: String,
++	pub revision: String,
++	pub checkout: String,
++	pub manifest: String,
++}
++#[derive(Serialize, Deserialize)]
++#[serde(deny_unknown_fields)]
++pub(crate) struct Lock {
++	pub format: u32,
++	pub declarations: Declaration,
++	pub sources: wire::Handoff,
++	pub inputs: wire::Inputs,
++	pub git: Vec<GitPackage>,
++	pub assembly: Assembly,
++}
++#[derive(Serialize, Deserialize)]
++#[serde(tag = "kind", rename_all = "lowercase", deny_unknown_fields)]
++pub(crate) enum Assembly {
++	Shared { identity: String },
++	Executable { path: String, blake3: String },
++}
++#[derive(Serialize, Deserialize)]
++#[serde(deny_unknown_fields)]
++pub(crate) struct Receipt {
++	pub format: u32,
++	#[serde(default, skip_serializing_if = "Option::is_none")]
++	pub assembly_key: Option<String>,
++	pub lock_blake3: String,
++	pub executable_blake3: String,
++	#[serde(default, skip_serializing_if = "Option::is_none")]
++	pub stamp: Option<artifact::Stamp>,
++}
++#[derive(Serialize, Deserialize)]
++#[serde(deny_unknown_fields)]
++pub(crate) struct Ready {
++	pub format: u32,
++	pub key: String,
++	pub identity: String,
++	pub executable_blake3: String,
++	pub artifact: String,
++}
++pub(crate) fn envelope(b: &[u8]) -> Result<u64, String> {
++	if b.len() > input::DOCUMENT_LIMIT {
++		return Err("document allowance".into());
++	}
++	let v: serde_json::Value = serde_json::from_slice(b).map_err(|e| e.to_string())?;
++	v.get("format")
++		.and_then(|v| v.as_u64())
++		.ok_or("missing format".into())
++}
++pub(crate) fn parsed<T: serde::de::DeserializeOwned>(b: &[u8]) -> Result<T, String> {
++	if b.len() > input::DOCUMENT_LIMIT {
++		return Err("document allowance".into());
++	}
++	serde_json::from_slice(b).map_err(|e| e.to_string())
++}
++impl Lock {
++	pub fn decode(b: &[u8]) -> Result<Self, String> {
++		let d: Self = parsed(b)?;
++		d.validate()?;
++		Ok(d)
++	}
++	pub fn encode(&self) -> Result<Vec<u8>, String> {
++		self.validate()?;
++		wire::encode(self)
++	}
++	pub fn shared(&self) -> Result<Option<new_identity::Identity>, String> {
++		match &self.assembly {
++			Assembly::Shared { identity } => {
++				new_identity::Identity::decode(identity.as_bytes()).map(Some)
++			}
++			_ => Ok(None),
++		}
++	}
++	pub fn validate(&self) -> Result<(), String> {
++		let d = self;
++		if d.format != 4 {
++			return Err("expected lock format 4".into());
++		}
++		d.declarations.validate()?;
++		d.sources.validate()?;
++		if d.declarations.application.is_none() {
++			return Err("lock needs application".into());
++		}
++		// Existing source/path inventory bounds remain enforced by the old lock
++		// validator on a shape-only executable projection. Git binding is checked below.
++		let mut shape = serde_json::to_value(d).map_err(|e| e.to_string())?;
++		shape.as_object_mut().unwrap().remove("git");
++		shape["format"] = 3.into();
++		shape["declarations"] = serde_json::json!({"format":1,"application":{"entry":"main.rn"},"executable":{"path":"/probe/executable"},"sources":{},"native":{}});
++		shape["assembly"] = serde_json::json!({"kind":"executable","path":"/probe/executable","blake3":"0".repeat(64)});
++		let old: wire::Lock = serde_json::from_value(shape).map_err(|e| e.to_string())?;
++		old.validate()?;
++		match &d.assembly {
++			Assembly::Shared { identity } => {
++				let i = new_identity::Identity::decode(identity.as_bytes())?;
++				if d.declarations.runtime.is_none()
++					|| d.inputs.native.as_ref() != Some(i.native())
++					|| d.git != i.git()
++				{
++					return Err("identity/input binding mismatch".into());
++				}
++				bind(&d.declarations, i.wrapper().0)?;
++			}
++			Assembly::Executable { path, blake3 } => {
++				if d.declarations.executable.is_none()
++					|| d.inputs.native.is_some()
++					|| !d.git.is_empty()
++					|| !Path::new(path).is_absolute()
++					|| !digest(blake3)
++				{
++					return Err("invalid override lock".into());
++				}
++			}
++		}
++		Ok(())
++	}
++}
++
++fn bind(d: &Declaration, wrapper: &str) -> Result<(), String> {
++	let doc: toml::Value = toml::from_str(wrapper).map_err(|e| e.to_string())?;
++	let deps = doc
++		.get("dependencies")
++		.and_then(|v| v.as_table())
++		.ok_or("missing dependencies")?;
++	let Some(runtime) = &d.runtime else {
++		return Err("missing runtime".into());
++	};
++	let check = |l: &Location, dep: &toml::Value| -> Result<(), String> {
++		match (&l.path, &l.git, &l.rev) {
++			(Some(p), None, None) => {
++				if Path::new(p).is_absolute() && dep.get("path").and_then(|v| v.as_str()) != Some(p)
++				{
++					return Err("path binding".into());
++				}
++			}
++			(None, Some(g), Some(r)) => {
++				if dep.get("git").and_then(|v| v.as_str()) != Some(g)
++					|| dep.get("rev").and_then(|v| v.as_str()) != Some(r)
++				{
++					return Err("Git binding".into());
++				}
++			}
++			_ => return Err("location binding".into()),
++		}
++		Ok(())
++	};
++	check(
++		runtime,
++		deps.get("rnx").ok_or("missing runtime dependency")?,
++	)?;
++	if deps.len() != d.native.len() + 1 {
++		return Err("native dependency count".into());
++	}
++	for (n, (_, native)) in d.native.iter().enumerate() {
++		let dep = deps
++			.get(&format!("native_{n}"))
++			.ok_or("missing native alias")?;
++		if dep.get("package").and_then(|v| v.as_str()) != Some(&native.package) {
++			return Err("native package binding".into());
++		}
++		check(
++			&Location {
++				path: native.path.clone(),
++				git: native.git.clone(),
++				rev: native.rev.clone(),
++			},
++			dep,
++		)?;
++	}
++	Ok(())
++}
++
++fn unique_map<'de, D, T>(de: D) -> Result<BTreeMap<String, T>, D::Error>
++where
++	D: serde::Deserializer<'de>,
++	T: Deserialize<'de>,
++{
++	struct Map<T>(std::marker::PhantomData<T>);
++	impl<'de, T: Deserialize<'de>> serde::de::Visitor<'de> for Map<T> {
++		type Value = BTreeMap<String, T>;
++		fn expecting(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
++			f.write_str("up to 256 distinct declarations")
++		}
++		fn visit_map<A: serde::de::MapAccess<'de>>(
++			self,
++			mut map: A,
++		) -> Result<Self::Value, A::Error> {
++			let mut out = BTreeMap::new();
++			while let Some(key) = map.next_key::<String>()? {
++				if out.len() == 256 || out.contains_key(&key) {
++					return Err(serde::de::Error::custom(
++						"too many or duplicate declarations",
++					));
++				}
++				out.insert(key, map.next_value()?);
++			}
++			Ok(out)
++		}
++	}
++	de.deserialize_map(Map::<T>(std::marker::PhantomData))
++}
++
++impl Declaration {
++	pub fn parse(bytes: &[u8]) -> Result<Self, String> {
++		if bytes.len() > input::MANIFEST_LIMIT {
++			return Err("manifest allowance".into());
++		}
++		let d: Self = toml::from_str(std::str::from_utf8(bytes).map_err(|e| e.to_string())?)
++			.map_err(|e| e.to_string())?;
++		d.validate()?;
++		Ok(d)
++	}
++	pub fn read(path: &Path) -> Result<Self, String> {
++		Self::parse(&input::read(path, input::MANIFEST_LIMIT)?)
++			.map_err(|e| format!("manifest {}: {e}", path.display()))
++	}
++	/// Only the graph fields are consumed; native locations are not resolved here.
++	pub fn graph_manifest(&self) -> manifest::Manifest {
++		manifest::Manifest {
++			format: 1,
++			application: self.application.clone(),
++			source: self.source.clone(),
++			runtime: None,
++			executable: self.application.as_ref().map(|_| manifest::Location {
++				path: "/unused-graph-runtime".into(),
++			}),
++			sources: self.sources.clone(),
++			native: BTreeMap::new(),
++		}
++	}
++}
++impl Receipt {
++	pub fn decode(bytes: &[u8]) -> Result<Self, String> {
++		let r: Self = parsed(bytes)?;
++		if r.format != 5 {
++			return Err("unsupported receipt format (expected 5); run build".into());
++		}
++		let mut old = serde_json::to_value(&r).map_err(|e| e.to_string())?;
++		old["format"] = 4.into();
++		artifact::Receipt::decode(&wire::encode(&old)?)?;
++		Ok(r)
++	}
++}
++
++pub(crate) fn graph_read(path: &Path) -> Result<manifest::Manifest, String> {
++	let bytes = input::read(path, input::MANIFEST_LIMIT)?;
++	let v: toml::Value = toml::from_str(std::str::from_utf8(&bytes).map_err(|e| e.to_string())?)
++		.map_err(|e| e.to_string())?;
++	if v.get("format").and_then(toml::Value::as_integer) == Some(2) {
++		Ok(Declaration::parse(&bytes)?.graph_manifest())
++	} else {
++		let m: manifest::Manifest = v
++			.try_into()
++			.map_err(|e| format!("manifest {}: {e}", path.display()))?;
++		m.validate()
++			.map_err(|e| format!("manifest {}: {e}", path.display()))?;
++		Ok(m)
++	}
++}
++
++#[cfg(feature = "test-support")]
++pub(crate) fn validate_vector(kind: &str, b: &[u8]) -> Result<Vec<u8>, String> {
++	match kind {
++		"declaration" => {
++			let v: toml::Value = toml::from_str(std::str::from_utf8(b).map_err(|e| e.to_string())?)
++				.map_err(|e| e.to_string())?;
++			if v.get("format").and_then(toml::Value::as_integer) == Some(1) {
++				wire::encode(&manifest::Manifest::parse(b)?)
++			} else {
++				wire::encode(&Declaration::parse(b)?)
++			}
++		}
++		"identity" => {
++			if envelope(b)? == 2 {
++				Ok(crate::cache_identity::Identity::decode(b)?.bytes().to_vec())
++			} else {
++				Ok(new_identity::Identity::decode(b)?.bytes().to_vec())
++			}
++		}
++		"canonical-identity" => new_identity::canonical(b),
++		"lock" => {
++			if envelope(b)? == 3 {
++				wire::encode(&wire::Lock::decode(b)?)
++			} else {
++				Lock::decode(b)?.encode()
++			}
++		}
++		"receipt" => {
++			if envelope(b)? == 4 {
++				artifact::Receipt::decode(b)?;
++				Ok(b.to_vec())
++			} else {
++				wire::encode(&Receipt::decode(b)?)
++			}
++		}
++		"ready" => {
++			let d: Ready = parsed(b)?;
++			let (key, format) = match d.format {
++				2 => (
++					crate::cache_identity::Identity::decode(d.identity.as_bytes())?
++						.key()
++						.to_owned(),
++					2,
++				),
++				3 => (
++					new_identity::Identity::decode(d.identity.as_bytes())?
++						.key()
++						.to_owned(),
++					3,
++				),
++				_ => return Err("unsupported ready format".into()),
++			};
++			if d.format != format
++				|| d.key != key
++				|| !digest(&d.executable_blake3)
++				|| d.artifact != format!("artifacts/{}", d.executable_blake3)
++			{
++				return Err("invalid ready binding".into());
++			}
++			wire::encode(&d)
++		}
++		_ => Err("unknown schema operation".into()),
++	}
++}
+diff --git a/tools/project/src/workflow.rs b/tools/project/src/workflow.rs
+index 22f6b5e..a5d2a0a 100644
+--- a/tools/project/src/workflow.rs
++++ b/tools/project/src/workflow.rs
+@@ -1,4 +1,5 @@
+ mod add;
++mod git_sources;
+ mod shared;
+ mod startup;
+ mod transition;
+@@ -236,6 +237,9 @@ impl Project {
+ 		commands::check()
+ 	}
+ 	fn lock(&self, offline: bool) -> Result<(), String> {
++		if self.new_manifest()? {
++			return self.git_lock(offline);
++		}
+ 		let declarations = Manifest::read(&self.manifest)?;
+ 		let sources = Handoff::from_project(&self.manifest)?;
+ 		self.layout(&sources)?;
+@@ -273,6 +277,17 @@ impl Project {
+ 		self.verify_inputs(&lock)?;
+ 		lock.validate()?;
+ 		let bytes = wire::pretty(&lock)?;
++		self.publish_pair(&bytes, cargo_bytes.as_deref())?;
++
++		if matches!(lock.assembly, Assembly::Executable { .. })
++			&& self.base.join("rnx.Cargo.lock").exists()
++		{
++			fs::remove_file(self.base.join("rnx.Cargo.lock")).map_err(err)?;
++		}
++		eprintln!("locked {}", self.manifest.display());
++		Ok(())
++	}
++	fn publish_pair(&self, bytes: &[u8], cargo_bytes: Option<&[u8]>) -> Result<(), String> {
+ 		// Cargo first, JSON last: rnx.lock is the commit marker for the pair. A
+ 		// crash between renames is a detectable mismatch, never an accepted new lock
+ 		// paired with old Cargo bytes. Keep the old pair privately for normal errors.
+@@ -293,7 +308,7 @@ impl Project {
+ 				self.atomic(&cargo_path, cargo)?;
+ 			}
+ 			fault("after-cargo-publication")?;
+-			self.atomic(&project_path, &bytes)?;
++			self.atomic(&project_path, bytes)?;
+ 			fault("after-json-publication")
+ 		};
+ 		if let Err(e) = publish() {
+@@ -320,13 +335,13 @@ impl Project {
+ 			return Err(e);
+ 		}
+ 
+-		if matches!(lock.assembly, Assembly::Executable { .. }) && cargo_path.exists() {
+-			fs::remove_file(cargo_path).map_err(err)?;
+-		}
+-		eprintln!("locked {}", self.manifest.display());
+ 		Ok(())
+ 	}
++
+ 	fn build(&self, offline: bool) -> Result<(), String> {
++		if self.new_lock()? {
++			return self.git_build(offline);
++		}
+ 		// Refusing an old or invalid lock must preserve the old receipt too.
+ 		let (lock, bytes) = self.read_lock()?;
+ 		let receipt = self.dot.join("receipt.json");
+@@ -513,6 +528,9 @@ impl Project {
+ 		Ok((checked, digest))
+ 	}
+ 	fn launch(self, mode: Launch, verify: bool) -> Result<(), String> {
++		if self.new_lock()? {
++			return self.git_launch(mode, verify);
++		}
+ 		let (lock, bytes) = self.read_lock()?;
+ 		self.verify_inputs(&lock)?;
+ 		let (checked, digest) = self.checked_artifact(&lock, &bytes, verify, true)?;
+diff --git a/tools/project/src/workflow/git_sources.rs b/tools/project/src/workflow/git_sources.rs
+new file mode 100644
+index 0000000..df01374
+--- /dev/null
++++ b/tools/project/src/workflow/git_sources.rs
+@@ -0,0 +1,392 @@
++//! Format-two project workflow. Legacy envelopes stay on the original path.
++use super::*;
++use crate::{
++	cache_entry,
++	cache_identity::Context,
++	cache_storage as storage, git_inventory,
++	new_identity::Identity,
++	schemas::{Assembly, Declaration, Lock, Receipt},
++};
++impl Project {
++	pub(super) fn new_manifest(&self) -> Result<bool, String> {
++		let b = input::read(&self.manifest, input::MANIFEST_LIMIT)?;
++		let v: toml::Value = toml::from_str(std::str::from_utf8(&b).map_err(err)?).map_err(err)?;
++		Ok(v.get("format").and_then(toml::Value::as_integer) == Some(2))
++	}
++	pub(super) fn new_lock(&self) -> Result<bool, String> {
++		let bytes = input::read(&self.base.join("rnx.lock"), input::DOCUMENT_LIMIT)
++			.map_err(|e| self.recovery(e))?;
++		Ok(crate::schemas::envelope(&bytes)? == 4)
++	}
++	pub(super) fn read_git_lock(&self) -> Result<(Lock, Vec<u8>), String> {
++		let bytes = input::read(&self.base.join("rnx.lock"), input::DOCUMENT_LIMIT)
++			.map_err(|e| self.recovery(e))?;
++		let lock = Lock::decode(&bytes).map_err(|e| self.format_refusal("rnx.lock", &bytes, e))?;
++		if let Some(i) = lock.shared()? {
++			i.check_lock(&input::read(
++				&self.base.join("rnx.Cargo.lock"),
++				input::DOCUMENT_LIMIT,
++			)?)
++			.map_err(|e| format!("lock pair mismatch: {e}; run lock"))?;
++		}
++		Ok((lock, bytes))
++	}
++	pub(super) fn git_verify_inputs(&self, lock: &Lock, full: bool) -> Result<(), String> {
++		if Declaration::read(&self.manifest)? != lock.declarations
++			|| Handoff::from_project(&self.manifest)? != lock.sources
++		{
++			return Err("project declarations or source map changed; run lock".into());
++		}
++		self.layout(&lock.sources)?;
++		let source = inventory::sources(&self.manifest, &mut Allowance::default())?;
++		if source != lock.inputs.source {
++			return Err("project source changed; run lock".into());
++		}
++		if let Some(i) = lock.shared()? {
++			let c = i.context();
++			if storage::root(&c.cache_root)? != c.cache_root {
++				return Err("cache root moved; run lock".into());
++			}
++			storage::project_context(&c.cache_root, &self.base)?;
++			cache_entry::environment(&i)?;
++			let stage = c.cache_root.join("entries").join(i.key()).join("assembly");
++			i.verify(&stage, full).map_err(|e| self.recovery(e))?;
++			shared::compatible_layout(&c.cache_root, &lock.inputs, &self.base)?;
++			let (manifest, main) = generate::git_wrapper(&lock.declarations, &self.base)?;
++			if i.wrapper() != (manifest.as_str(), main.as_str()) {
++				return Err("generated shared assembly changed; run lock".into());
++			}
++		} else if lock.inputs.native.is_some() {
++			return Err("override has native inputs".into());
++		}
++		commands::check()
++	}
++	pub(super) fn git_lock(&self, offline: bool) -> Result<(), String> {
++		let declarations = Declaration::read(&self.manifest)?;
++		let sources = Handoff::from_project(&self.manifest)?;
++		self.layout(&sources)?;
++		let before_source = inventory::sources(&self.manifest, &mut Allowance::default())?;
++		let (inputs, assembly, cargo_bytes) = if let Some(executable) = &declarations.executable {
++			let path = self.base.join(&executable.path);
++			let blake3 = assembly::executable_hash(&path)?;
++			if !sources.mounts.is_empty() {
++				crate::handshake::check(&path)?;
++			}
++			(
++				self.inputs(None)?,
++				Assembly::Executable {
++					path: path
++						.to_str()
++						.ok_or("executable path is not Unicode")?
++						.into(),
++					blake3,
++				},
++				None,
++			)
++		} else {
++			self.resolve_git(&declarations, offline)?
++		};
++		if inputs.source != before_source {
++			return Err("source changed during lock; retry lock".into());
++		}
++		let git = match &assembly {
++			Assembly::Shared { identity } => Identity::decode(identity.as_bytes())?.git().to_vec(),
++			_ => vec![],
++		};
++		let lock = Lock {
++			git,
++			format: 4,
++			declarations,
++			sources,
++			inputs,
++			assembly,
++		};
++		self.git_verify_inputs(&lock, true)?;
++		lock.validate()?;
++		let bytes = wire::pretty(&lock)?;
++		self.publish_pair(&bytes, cargo_bytes.as_deref())?;
++
++		if matches!(lock.assembly, Assembly::Executable { .. })
++			&& self.base.join("rnx.Cargo.lock").exists()
++		{
++			fs::remove_file(self.base.join("rnx.Cargo.lock")).map_err(err)?;
++		}
++		eprintln!("locked {}", self.manifest.display());
++		Ok(())
++	}
++	pub(super) fn git_checked_artifact(
++		&self,
++		lock: &Lock,
++		bytes: &[u8],
++		verify: bool,
++		refresh: bool,
++	) -> Result<(artifact::Checked, String), String> {
++		let lock_digest = hash(bytes);
++		let receipt_path = self.dot.join("receipt.json");
++		let receipt = match fs::symlink_metadata(&receipt_path) {
++			Err(e) if e.kind() == std::io::ErrorKind::NotFound => None,
++			Err(e) => return Err(err(e)),
++			Ok(m) if !m.is_file() => return Err("receipt is not a regular file".into()),
++			Ok(_) => {
++				let bytes = input::read(&receipt_path, input::DOCUMENT_LIMIT)?;
++				Some(
++					Receipt::decode(&bytes)
++						.map_err(|e| self.format_refusal("receipt", &bytes, e))?,
++				)
++			}
++		};
++		let identity = lock.shared()?;
++		let (path, digest, stamp) = match &lock.assembly {
++			Assembly::Shared { .. } => {
++				let identity = identity.as_ref().unwrap();
++				let r = receipt
++					.as_ref()
++					.ok_or("missing receipt; run build to attach shared assembly")?;
++				if r.assembly_key.is_none()
++					|| r.lock_blake3 != lock_digest
++					|| r.assembly_key.as_deref() != Some(identity.key())
++				{
++					return Err("shared receipt does not match lock; run build".into());
++				}
++				let (path, digest) = crate::cache_entry::ready(identity)?;
++				if r.executable_blake3 != digest {
++					return Err("shared receipt does not match ready artifact; run build".into());
++				}
++				(path, digest, r.stamp.as_ref())
++			}
++			Assembly::Executable { path, blake3 } => {
++				let r = receipt
++					.as_ref()
++					.ok_or_else(|| self.recovery("missing override receipt"))?;
++				if r.assembly_key.is_some()
++					|| r.lock_blake3 != lock_digest
++					|| r.executable_blake3 != *blake3
++				{
++					return Err(self.recovery("override receipt does not match lock"));
++				}
++				(PathBuf::from(path), blake3.clone(), r.stamp.as_ref())
++			}
++		};
++		let checked = artifact::check(&path, &digest, stamp, verify)?;
++		if refresh && stamp != Some(&checked.stamp()) {
++			fault("before-receipt-refresh")?;
++			checked.recheck()?;
++			self.atomic(
++				&receipt_path,
++				&wire::pretty(&Receipt {
++					format: 5,
++					assembly_key: identity.as_ref().map(|i| i.key().to_owned()),
++					lock_blake3: lock_digest,
++					executable_blake3: digest.clone(),
++					stamp: Some(checked.stamp()),
++				})?,
++			)?;
++		}
++
++		Ok((checked, digest))
++	}
++	pub(super) fn git_launch(self, mode: Launch, verify: bool) -> Result<(), String> {
++		let (lock, bytes) = self.read_git_lock()?;
++		self.git_verify_inputs(&lock, verify)?;
++		let (checked, digest) = self.git_checked_artifact(&lock, &bytes, verify, true)?;
++
++		let mut command = match mode {
++			Launch::Run(args) => {
++				let maps = self.dot.join("maps");
++				fs::create_dir_all(&maps).map_err(err)?;
++				let map_bytes = lock.sources.encode()?;
++				let map = maps.join(format!("{}.json", hash(&map_bytes)));
++				crate::maps::ensure(&map, &map_bytes, || self.atomic(&map, &map_bytes))?;
++				let mut command = assembly::command_checked(
++					&checked,
++					Some(&map),
++					Path::new(&lock.sources.entry),
++					&args,
++				)?;
++				command.env_remove(transition::CARRIER);
++				command
++			}
++			Launch::Session { flags } => {
++				let mut command = assembly::interactive_checked(&checked, &flags, None);
++				command.env(
++					transition::CARRIER,
++					transition::git_association(&self, &lock, &checked, &digest)?,
++				);
++				command
++			}
++			Launch::Eval { flags, source } => {
++				let mut command = assembly::interactive_checked(&checked, &flags, Some(&source));
++				command.env_remove(transition::CARRIER);
++				command
++			}
++		};
++		commands::check()?;
++		// Advisory lock descriptors are close-on-exec; the script is not a project
++		// writer. The immutable map/artifact outlive this process without a parent.
++		#[cfg(unix)]
++		{
++			use std::os::unix::process::CommandExt;
++			Err(command.exec().to_string())
++		}
++		#[cfg(not(unix))]
++		{
++			let _ = &mut command;
++			Err("run supervision is not implemented on this platform".into())
++		}
++	}
++
++	pub(super) fn git_build(&self, offline: bool) -> Result<(), String> {
++		let (lock, bytes) = self.read_git_lock()?;
++		let receipt = self.dot.join("receipt.json");
++		if receipt.exists() {
++			fs::remove_file(&receipt).map_err(err)?;
++		}
++		self.git_verify_inputs(&lock, true)?;
++		let recheck = || -> Result<(), String> {
++			self.git_verify_inputs(&lock, true)?;
++			if self.read_git_lock()?.1 != bytes {
++				return Err("lock changed during build; no receipt published".into());
++			}
++			Ok(())
++		};
++		let (checked, digest, key, _entry) = match &lock.assembly {
++			Assembly::Executable { path, blake3 } => (
++				artifact::check(Path::new(path), blake3, None, true)?,
++				blake3.clone(),
++				None,
++				None,
++			),
++			Assembly::Shared { .. } => {
++				let i = lock.shared()?.unwrap();
++				let cargo = input::read(&self.base.join("rnx.Cargo.lock"), input::DOCUMENT_LIMIT)?;
++				let entry = cache_entry::acquire(&i, &cargo, &self.base, offline, recheck)?;
++				let checked = artifact::check(
++					entry.artifact.path(),
++					&entry.digest,
++					Some(&entry.artifact.stamp()),
++					false,
++				)?;
++				(
++					checked,
++					entry.digest.clone(),
++					Some(i.key().to_owned()),
++					Some(entry),
++				)
++			}
++		};
++		fault("after-build")?;
++		recheck()?;
++		fault("before-shared-receipt")?;
++		recheck()?;
++		checked.recheck()?;
++		self.atomic(
++			&receipt,
++			&wire::pretty(&Receipt {
++				format: 5,
++				assembly_key: key,
++				lock_blake3: hash(&bytes),
++				executable_blake3: digest,
++				stamp: Some(checked.stamp()),
++			})?,
++		)?;
++		eprintln!("built or attached {}", checked.path().display());
++		Ok(())
++	}
++}
++
++impl Project {
++	pub(super) fn resolve_git(
++		&self,
++		declarations: &Declaration,
++		offline: bool,
++	) -> Result<(Inputs, Assembly, Option<Vec<u8>>), String> {
++		let root = shared::selected_root()?;
++		let source = inventory::sources(&self.manifest, &mut Allowance::default())?;
++		shared::compatible_layout(
++			&root,
++			&Inputs {
++				source,
++				native: None,
++			},
++			&self.base,
++		)?;
++		storage::project_context(&root, &self.base)?;
++		let resolver = shared::resolver(&root)?;
++		let stage = resolver.0.join("assembly");
++		storage::directory(&stage)?;
++		storage::directory(&stage.join("src"))?;
++		storage::guard(&root, &stage, &self.base)?;
++		let home = cargo_home()?.canonicalize().map_err(err)?;
++		let empty = wire::encode(&serde_json::json!({"workspace_root":stage,"packages":[]}))?;
++		storage::policy(&inventory::native(
++			&empty,
++			&stage,
++			&root,
++			&home,
++			&mut Allowance::default(),
++		)?)?;
++		let (manifest, main) = generate::git_wrapper(declarations, &self.base)?;
++		fs::write(stage.join("Cargo.toml"), &manifest).map_err(err)?;
++		fs::write(stage.join("src/main.rs"), &main).map_err(err)?;
++		if let Ok(old) = input::read(&self.base.join("rnx.Cargo.lock"), input::DOCUMENT_LIMIT) {
++			fs::write(stage.join("Cargo.lock"), old).map_err(err)?;
++		}
++		let metadata = |locked: bool| -> Result<Vec<u8>, String> {
++			storage::guard(&root, &stage, &self.base)?;
++			let mut cmd = Command::new("cargo");
++			cmd.current_dir(&stage)
++				.args(["metadata", "--format-version", "1"]);
++			if locked {
++				cmd.arg("--locked");
++			}
++			if offline {
++				cmd.arg("--offline");
++			}
++			let observation = git_inventory::acquisition::Observation::begin(&home)?;
++			let graph = commands::run(cmd, true)?;
++			observation.report(&git_inventory::packages(&graph)?)?;
++			Ok(graph)
++		};
++		let graph = metadata(false)?;
++		let source = inventory::sources(&self.manifest, &mut Allowance::default())?;
++		let (native, git) =
++			git_inventory::resolve(&graph, &stage, &root, &home, &mut Allowance::default())?;
++		let inputs = Inputs {
++			source,
++			native: Some(native),
++		};
++		shared::compatible_layout(&root, &inputs, &self.base)?;
++		if metadata(true)? != graph {
++			return Err("Cargo graph changed during lock; retry lock".into());
++		}
++		let lock = input::read(&stage.join("Cargo.lock"), input::DOCUMENT_LIMIT)?;
++		let (rustc, cargo, target) = versions(&stage)?;
++		let context = Context {
++			cache_root: root,
++			cargo_home: home,
++			rustup_home: std::env::var_os("RUSTUP_HOME").map(PathBuf::from),
++			rustup_toolchain: std::env::var("RUSTUP_TOOLCHAIN").ok(),
++			rustc,
++			cargo,
++			target,
++			profile: "release".into(),
++			features: vec!["project-sources".into()],
++		};
++		let identity = Identity::create(
++			declarations,
++			&self.base,
++			context,
++			inputs.native.clone().unwrap(),
++			git,
++			&lock,
++		)?;
++		identity.revalidate(&stage)?;
++		Ok((
++			inputs,
++			Assembly::Shared {
++				identity: String::from_utf8(identity.bytes().to_vec()).map_err(err)?,
++			},
++			Some(lock),
++		))
++	}
++}
+diff --git a/tools/project/src/workflow/shared.rs b/tools/project/src/workflow/shared.rs
+index ca66868..d414372 100644
+--- a/tools/project/src/workflow/shared.rs
++++ b/tools/project/src/workflow/shared.rs
+@@ -6,13 +6,13 @@ use crate::{
+ 	cache_storage as storage,
+ };
+ 
+-struct Resolver(PathBuf);
++pub(super) struct Resolver(pub(super) PathBuf);
+ impl Drop for Resolver {
+ 	fn drop(&mut self) {
+ 		let _ = fs::remove_dir_all(&self.0);
+ 	}
+ }
+-fn selected_root() -> Result<PathBuf, String> {
++pub(super) fn selected_root() -> Result<PathBuf, String> {
+ 	let root = if let Some(p) = std::env::var_os("RNX_PROJECT_CACHE") {
+ 		PathBuf::from(p)
+ 	} else if let Some(p) = std::env::var_os("XDG_CACHE_HOME") {
+@@ -34,7 +34,7 @@ fn selected_root() -> Result<PathBuf, String> {
+ 	builder.create(&root).map_err(err)?;
+ 	storage::root(&root)
+ }
+-fn resolver(root: &Path) -> Result<Resolver, String> {
++pub(super) fn resolver(root: &Path) -> Result<Resolver, String> {
+ 	storage::directory(&root.join("resolve"))?;
+ 	for n in 0..1000 {
+ 		let dir = root
+@@ -56,7 +56,11 @@ fn resolver(root: &Path) -> Result<Resolver, String> {
+ 	}
+ 	Err("cannot allocate private cache resolver".into())
+ }
+-fn compatible_layout(root: &Path, inputs: &Inputs, project: &Path) -> Result<(), String> {
++pub(super) fn compatible_layout(
++	root: &Path,
++	inputs: &Inputs,
++	project: &Path,
++) -> Result<(), String> {
+ 	for tree in inputs
+ 		.source
+ 		.trees
+@@ -116,8 +120,7 @@ impl Project {
+ 		if self.shared_inputs(&metadata, &stage, &c.cache_root, &c.cargo_home)? != lock.inputs {
+ 			return Err("project source or Cargo input changed; run lock".into());
+ 		}
+-		let (manifest, main) = generate::canonical_wrapper(&lock.declarations, &self.base)?;
+-		if identity.wrapper() != (manifest.as_str(), main.as_str()) {
++		if !generate::retained_wrapper(&lock.declarations, &self.base, identity.wrapper())? {
+ 			return Err("generated shared assembly changed; run lock".into());
+ 		}
+ 		commands::check()
+diff --git a/tools/project/src/workflow/transition.rs b/tools/project/src/workflow/transition.rs
+index b489b23..f8820c8 100644
+--- a/tools/project/src/workflow/transition.rs
++++ b/tools/project/src/workflow/transition.rs
+@@ -23,6 +23,47 @@ pub(super) fn association(
+ 	lock: &Lock,
+ 	checked: &artifact::Checked,
+ 	digest: &str,
++) -> Result<String, String> {
++	association_values(
++		p,
++		recipe(&lock.declarations)?,
++		roster(&lock.declarations),
++		checked,
++		digest,
++	)
++}
++pub(super) fn git_association(
++	p: &Project,
++	lock: &crate::schemas::Lock,
++	checked: &artifact::Checked,
++	digest: &str,
++) -> Result<String, String> {
++	association_values(
++		p,
++		git_recipe(&lock.declarations)?,
++		lock.declarations
++			.native
++			.keys()
++			.cloned()
++			.collect::<Vec<_>>()
++			.join("\n"),
++		checked,
++		digest,
++	)
++}
++fn git_recipe(m: &crate::schemas::Declaration) -> Result<String, String> {
++	Ok(hash(&wire::encode(&(
++		&m.runtime,
++		&m.executable,
++		&m.native,
++	))?))
++}
++fn association_values(
++	p: &Project,
++	recipe: String,
++	roster: String,
++	checked: &artifact::Checked,
++	digest: &str,
+ ) -> Result<String, String> {
+ 	let fields = protocol::Fields::from([
+ 		(1, text(&p.manifest)?),
+@@ -35,8 +76,8 @@ pub(super) fn association(
+ 					.map_err(err)?,
+ 			)?,
+ 		),
+-		(3, recipe(&lock.declarations)?),
+-		(4, roster(&lock.declarations)),
++		(3, recipe),
++		(4, roster),
+ 		(5, digest.into()),
+ 		(6, text(checked.path())?),
+ 	]);
+@@ -69,22 +110,43 @@ fn validate_association(
+ 	installed: &str,
+ ) -> Result<(), String> {
+ 	let a = protocol::capsule(capsule)?;
+-	let (lock, bytes) = p.read_lock()?;
+-	let current = Manifest::read(&p.manifest)?;
+-	if a[&1] != text(&p.manifest)?
+-		|| a[&3] != recipe(&current)?
+-		|| a[&3] != recipe(&lock.declarations)?
+-	{
++	let (current, locked, roster, checked, digest) = if p.new_lock()? {
++		let (lock, bytes) = p.read_git_lock()?;
++		let current = crate::schemas::Declaration::read(&p.manifest)?;
++		let (checked, digest) = p.git_checked_artifact(&lock, &bytes, false, false)?;
++		(
++			git_recipe(&current)?,
++			git_recipe(&lock.declarations)?,
++			current
++				.native
++				.keys()
++				.cloned()
++				.collect::<Vec<_>>()
++				.join("\n"),
++			checked,
++			digest,
++		)
++	} else {
++		let (lock, bytes) = p.read_lock()?;
++		let current = Manifest::read(&p.manifest)?;
++		let (checked, digest) = p.checked_artifact(&lock, &bytes, false, false)?;
++		(
++			recipe(&current)?,
++			recipe(&lock.declarations)?,
++			roster(&current),
++			checked,
++			digest,
++		)
++	};
++	if a[&1] != text(&p.manifest)? || a[&3] != current || a[&3] != locked {
+ 		return Err("session association declarations changed; reopen the project session".into());
+ 	}
+-	if a[&4] != installed || a[&4] != roster(&current) {
++	if a[&4] != installed || a[&4] != roster {
+ 		return Err(
+ 			"session association extension roster mismatch; reopen the project session".into(),
+ 		);
+ 	}
+-	// Source bytes may be stale; preparation resolves them. The lock pair,
+-	// receipt binding, ready document and artifact still have to be valid.
+-	let (checked, digest) = p.checked_artifact(&lock, &bytes, false, false)?;
++
+ 	if a[&5] != digest
+ 		|| a[&6] != text(checked.path())?
+ 		|| Path::new(executable).canonicalize().map_err(err)?
+@@ -287,11 +349,7 @@ fn describe(request: &protocol::Fields, proposed: Option<&Path>) -> Result<Descr
+ 		let raw = input::read(&p.manifest, input::MANIFEST_LIMIT)?;
+ 		(p.manifest, raw)
+ 	};
+-	let candidate = if let Some(git) = git {
+-		catalogue::git_candidate(original.clone(), &entries, git.url, git.revision)
+-	} else {
+-		catalogue::author(original.clone(), manifest.parent().unwrap(), &entries)?
+-	};
++	let candidate = catalogue::author(original.clone(), manifest.parent().unwrap(), &entries)?;
+ 	Ok(Description {
+ 		manifest,
+ 		original,
+@@ -441,12 +499,6 @@ pub(super) fn serve(args: Vec<OsString>) -> Result<(), String> {
+ 		if fresh.candidate.added.is_empty() {
+ 			return Ok(());
+ 		}
+-		if let Some(git) = fresh.git {
+-			return Err(format!(
+-				"Git-source preparation is not enabled in this checkpoint (0067 gate 3); no sources fetched or scratch written.\n{}",
+-				git.override_help()
+-			));
+-		}
+ 		if let Some(runtime) = &fresh.runtime {
+ 			runtime.validate()?;
+ 		}
+@@ -479,9 +531,7 @@ pub(super) fn serve(args: Vec<OsString>) -> Result<(), String> {
+ 			protocol::trace("tool-build");
+ 			fault("dep-build")?;
+ 			p.build(fresh.offline)?;
+-			let (lock, bytes) = p.read_lock()?;
+-			p.verify_inputs(&lock)?;
+-			let (checked, digest) = p.checked_artifact(&lock, &bytes, false, true)?;
++			let (checked, digest, bytes, replacement) = p.prepared_session()?;
+ 			checked.recheck()?;
+ 			phase = "startup check";
+ 			eprintln!("dependency phase: startup check");
+@@ -489,13 +539,16 @@ pub(super) fn serve(args: Vec<OsString>) -> Result<(), String> {
+ 			protocol::trace("tool-probe");
+ 			super::startup::check(&checked, request.get(&6).map(String::as_str).unwrap_or(""))?;
+ 			commands::check()?;
+-			p.verify_inputs(&lock)?;
+-			let (again, again_bytes) = p.read_lock()?;
+-			if again != lock || again_bytes != bytes {
+-				return Err("lock changed during startup check".into());
++			let (again, again_digest, again_bytes, again_association) = p.prepared_session()?;
++			if bytes != again_bytes
++				|| digest != again_digest
++				|| replacement != again_association
++				|| again.path() != checked.path()
++			{
++				return Err("lock or artifact changed during startup check".into());
+ 			}
+ 			checked.recheck()?;
+-			let replacement = association(&p, &lock, &checked, &digest)?;
++
+ 			let stamp = protocol::stamp(checked.path())?;
+ 			checked.recheck()?;
+ 			let mut ready =
+@@ -517,8 +570,12 @@ pub(super) fn serve(args: Vec<OsString>) -> Result<(), String> {
+ 		})();
+ 		prepare.map_err(|e| {
+ 			format!(
+-				"{phase}: {e}; project files may have been published; retry with:\n{}",
+-				crate::entry::recovery(&p.manifest).unwrap_or_else(|e| e)
++				"{phase}: {e}; project files may have been published; retry with:\n{}{}",
++				crate::entry::recovery(&p.manifest).unwrap_or_else(|e| e),
++				fresh
++					.git
++					.map(|c| format!("\n{}", c.override_help()))
++					.unwrap_or_default()
+ 			)
+ 		})
+ 	})();
+@@ -531,3 +588,21 @@ pub(super) fn serve(args: Vec<OsString>) -> Result<(), String> {
+ pub(super) fn serve(_: Vec<OsString>) -> Result<(), String> {
+ 	Err("dependency transitions require Unix supervision".into())
+ }
++
++impl Project {
++	fn prepared_session(&self) -> Result<(artifact::Checked, String, Vec<u8>, String), String> {
++		if self.new_lock()? {
++			let (lock, bytes) = self.read_git_lock()?;
++			self.git_verify_inputs(&lock, true)?;
++			let (checked, digest) = self.git_checked_artifact(&lock, &bytes, false, true)?;
++			let association = git_association(self, &lock, &checked, &digest)?;
++			Ok((checked, digest, bytes, association))
++		} else {
++			let (lock, bytes) = self.read_lock()?;
++			self.verify_inputs(&lock)?;
++			let (checked, digest) = self.checked_artifact(&lock, &bytes, false, true)?;
++			let association = association(self, &lock, &checked, &digest)?;
++			Ok((checked, digest, bytes, association))
++		}
++	}
++}

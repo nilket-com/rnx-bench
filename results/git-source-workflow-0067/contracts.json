@@ -1,0 +1,76 @@
+[
+  {
+    "case": "restored-mtime-native-edit-documented-miss",
+    "default": 0,
+    "verify": 1,
+    "reason": "rnx-project: Git checkout /home/me/work/rnx-bench/probes/git-source-workflow/target/cargo-home/git/checkouts/tiny-source-clean-b0d6efb34c9612e0/18aaea2 at 18aaea2045771a6bff818834c0327798193bff86: raw Git blob differs: src/lib.rs; project /home/me/work/rnx-bench/probes/git-source-workflow/target/tiny-a-clean/rnx.toml\n'/home/me/work/rnx-bench/probes/git-source-workflow/target/rnx-project' lock --manifest '/home/me/work/rnx-bench/probes/git-source-workflow/target/tiny-a-clean/rnx.toml'\n'/home/me/work/rnx-bench/probes/git-source-workflow/target/rnx-project' build --manifest '/home/me/work/rnx-bench/probes/git-source-workflow/target/tiny-a-clean/rnx.toml'\nRelocking retains old assemblies and runtimes; a new Polars assembly can use another approximately 1.5 GB.\n"
+  },
+  {
+    "case": "untracked",
+    "default": 0,
+    "verify": 1,
+    "reason": "rnx-project: Git checkout /home/me/work/rnx-bench/probes/git-source-workflow/target/cargo-home/git/checkouts/tiny-source-clean-b0d6efb34c9612e0/18aaea2 at 18aaea2045771a6bff818834c0327798193bff86: untracked Git source; project /home/me/work/rnx-bench/probes/git-source-workflow/target/tiny-a-clean/rnx.toml\n'/home/me/work/rnx-bench/probes/git-source-workflow/target/rnx-project' lock --manifest '/home/me/work/rnx-bench/probes/git-source-workflow/target/tiny-a-clean/rnx.toml'\n'/home/me/work/rnx-bench/probes/git-source-workflow/target/rnx-project' build --manifest '/home/me/work/rnx-bench/probes/git-source-workflow/target/tiny-a-clean/rnx.toml'\nRelocking retains old assemblies and runtimes; a new Polars assembly can use another approximately 1.5 GB.\n"
+  },
+  {
+    "case": "root-marker",
+    "default": 0,
+    "verify": 0,
+    "reason": ""
+  },
+  {
+    "case": "oversize-marker",
+    "default": 0,
+    "verify": 1,
+    "reason": "rnx-project: Git checkout /home/me/work/rnx-bench/probes/git-source-workflow/target/cargo-home/git/checkouts/tiny-source-clean-b0d6efb34c9612e0/18aaea2 at 18aaea2045771a6bff818834c0327798193bff86: Git input is not bounded regular file: /home/me/work/rnx-bench/probes/git-source-workflow/target/cargo-home/git/checkouts/tiny-source-clean-b0d6efb34c9612e0/18aaea2/.cargo-ok; project /home/me/work/rnx-bench/probes/git-source-workflow/target/tiny-a-clean/rnx.toml\n'/home/me/work/rnx-bench/probes/git-source-workflow/target/rnx-project' lock --manifest '/home/me/work/rnx-bench/probes/git-source-workflow/target/tiny-a-clean/rnx.toml'\n'/home/me/work/rnx-bench/probes/git-source-workflow/target/rnx-project' build --manifest '/home/me/work/rnx-bench/probes/git-source-workflow/target/tiny-a-clean/rnx.toml'\nRelocking retains old assemblies and runtimes; a new Polars assembly can use another approximately 1.5 GB.\n"
+  },
+  {
+    "case": "marker-symlink",
+    "default": 0,
+    "verify": 1,
+    "reason": "rnx-project: Git checkout /home/me/work/rnx-bench/probes/git-source-workflow/target/cargo-home/git/checkouts/tiny-source-clean-b0d6efb34c9612e0/18aaea2 at 18aaea2045771a6bff818834c0327798193bff86: Too many levels of symbolic links (os error 40); project /home/me/work/rnx-bench/probes/git-source-workflow/target/tiny-a-clean/rnx.toml\n'/home/me/work/rnx-bench/probes/git-source-workflow/target/rnx-project' lock --manifest '/home/me/work/rnx-bench/probes/git-source-workflow/target/tiny-a-clean/rnx.toml'\n'/home/me/work/rnx-bench/probes/git-source-workflow/target/rnx-project' build --manifest '/home/me/work/rnx-bench/probes/git-source-workflow/target/tiny-a-clean/rnx.toml'\nRelocking retains old assemblies and runtimes; a new Polars assembly can use another approximately 1.5 GB.\n"
+  },
+  {
+    "case": "nested-marker",
+    "default": 0,
+    "verify": 1,
+    "reason": "rnx-project: Git checkout /home/me/work/rnx-bench/probes/git-source-workflow/target/cargo-home/git/checkouts/tiny-source-clean-b0d6efb34c9612e0/18aaea2 at 18aaea2045771a6bff818834c0327798193bff86: untracked Git source; project /home/me/work/rnx-bench/probes/git-source-workflow/target/tiny-a-clean/rnx.toml\n'/home/me/work/rnx-bench/probes/git-source-workflow/target/rnx-project' lock --manifest '/home/me/work/rnx-bench/probes/git-source-workflow/target/tiny-a-clean/rnx.toml'\n'/home/me/work/rnx-bench/probes/git-source-workflow/target/rnx-project' build --manifest '/home/me/work/rnx-bench/probes/git-source-workflow/target/tiny-a-clean/rnx.toml'\nRelocking retains old assemblies and runtimes; a new Polars assembly can use another approximately 1.5 GB.\n"
+  },
+  {
+    "case": "mode-change",
+    "default": 0,
+    "verify": 1,
+    "reason": "rnx-project: Git checkout /home/me/work/rnx-bench/probes/git-source-workflow/target/cargo-home/git/checkouts/tiny-source-clean-b0d6efb34c9612e0/18aaea2 at 18aaea2045771a6bff818834c0327798193bff86: Git source executable mode differs; project /home/me/work/rnx-bench/probes/git-source-workflow/target/tiny-a-clean/rnx.toml\n'/home/me/work/rnx-bench/probes/git-source-workflow/target/rnx-project' lock --manifest '/home/me/work/rnx-bench/probes/git-source-workflow/target/tiny-a-clean/rnx.toml'\n'/home/me/work/rnx-bench/probes/git-source-workflow/target/rnx-project' build --manifest '/home/me/work/rnx-bench/probes/git-source-workflow/target/tiny-a-clean/rnx.toml'\nRelocking retains old assemblies and runtimes; a new Polars assembly can use another approximately 1.5 GB.\n"
+  },
+  {
+    "case": "tracked-symlink",
+    "default": 0,
+    "verify": 1,
+    "reason": "rnx-project: Git checkout /home/me/work/rnx-bench/probes/git-source-workflow/target/cargo-home/git/checkouts/tiny-source-clean-b0d6efb34c9612e0/18aaea2 at 18aaea2045771a6bff818834c0327798193bff86: Git source is not a regular file; project /home/me/work/rnx-bench/probes/git-source-workflow/target/tiny-a-clean/rnx.toml\n'/home/me/work/rnx-bench/probes/git-source-workflow/target/rnx-project' lock --manifest '/home/me/work/rnx-bench/probes/git-source-workflow/target/tiny-a-clean/rnx.toml'\n'/home/me/work/rnx-bench/probes/git-source-workflow/target/rnx-project' build --manifest '/home/me/work/rnx-bench/probes/git-source-workflow/target/tiny-a-clean/rnx.toml'\nRelocking retains old assemblies and runtimes; a new Polars assembly can use another approximately 1.5 GB.\n"
+  },
+  {
+    "case": "tracked-fifo",
+    "default": 0,
+    "verify": 1,
+    "reason": "rnx-project: Git checkout /home/me/work/rnx-bench/probes/git-source-workflow/target/cargo-home/git/checkouts/tiny-source-clean-b0d6efb34c9612e0/18aaea2 at 18aaea2045771a6bff818834c0327798193bff86: Git source is not a regular file; project /home/me/work/rnx-bench/probes/git-source-workflow/target/tiny-a-clean/rnx.toml\n'/home/me/work/rnx-bench/probes/git-source-workflow/target/rnx-project' lock --manifest '/home/me/work/rnx-bench/probes/git-source-workflow/target/tiny-a-clean/rnx.toml'\n'/home/me/work/rnx-bench/probes/git-source-workflow/target/rnx-project' build --manifest '/home/me/work/rnx-bench/probes/git-source-workflow/target/tiny-a-clean/rnx.toml'\nRelocking retains old assemblies and runtimes; a new Polars assembly can use another approximately 1.5 GB.\n"
+  },
+  {
+    "case": "staged-delete",
+    "default": 0,
+    "verify": 1,
+    "reason": "rnx-project: Git checkout /home/me/work/rnx-bench/probes/git-source-workflow/target/cargo-home/git/checkouts/tiny-source-clean-b0d6efb34c9612e0/18aaea2 at 18aaea2045771a6bff818834c0327798193bff86: Git tracked set differs; project /home/me/work/rnx-bench/probes/git-source-workflow/target/tiny-a-clean/rnx.toml\n'/home/me/work/rnx-bench/probes/git-source-workflow/target/rnx-project' lock --manifest '/home/me/work/rnx-bench/probes/git-source-workflow/target/tiny-a-clean/rnx.toml'\n'/home/me/work/rnx-bench/probes/git-source-workflow/target/rnx-project' build --manifest '/home/me/work/rnx-bench/probes/git-source-workflow/target/tiny-a-clean/rnx.toml'\nRelocking retains old assemblies and runtimes; a new Polars assembly can use another approximately 1.5 GB.\n"
+  },
+  {
+    "case": "lock-edited-checkout",
+    "status": 1
+  },
+  {
+    "case": "build-edited-checkout",
+    "status": 1
+  },
+  {
+    "case": "second-consumer-offline-attach-and-traced-launch",
+    "same_key": true,
+    "compiler_trapped": true,
+    "native_content_opens": 0
+  }
+]

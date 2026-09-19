@@ -1,0 +1,9 @@
+from common import *
+import sys
+D=T/'legacy-resume';D.mkdir();out=O/'legacy-resume';out.mkdir();old=T/'legacy/tools/project/target/debug/rnx-project';p=D/'app';p.mkdir();(p/'main.rn').write_text('pub fn main(_) {}\n');(p/'rnx.toml').write_text('format=1\n[application]\nentry="main.rn"\n[runtime]\npath='+json.dumps(str(T/'tiny-source-clean'))+'\n');e=ENV|{'RNX_PROJECT_CACHE':str(D/'cache')}
+for op in ['lock','build']:run([old,op,'--offline','--manifest',p/'rnx.toml'],env=e)
+r=json.loads((p/'.rnx/receipt.json').read_text());artifact=Path(e['RNX_PROJECT_CACHE'])/'entries'/r['assembly_key']/'artifacts'/r['executable_blake3'];(D/'setup.json').write_text(json.dumps({'old_tool':str(old),'artifact':str(artifact),'old_manifest':str(p/'rnx.toml')}));(D/'env.json').write_text(json.dumps(e))
+file=B/'probes/removal-commands/rebuild.py';s=file.read_text().replace("W=H/'target/real'",'W=Path('+repr(str(D))+')').replace("O=B/'results/removal-commands-0066'",'O=Path('+repr(str(out))+')').replace("T=H/'target/bin/rnx-project-support'",'T=Path('+repr(str(TOOL))+')').replace("receipt['executable_sha256']","receipt['executable_blake3']").replace("assert answer.stdout=='\"before\"\\n'","assert answer.stdout=='fixture runtime\\n'")
+script=out/'effective.py';script.write_text(s);save('legacy-resume-adaptation.json',{'original':str(file.relative_to(B)),'original_sha256':sha(file.read_bytes()),'effective_sha256':sha(s.encode()),'scope':'real old-tool rebuild and current removal, tiny native CLI fixture; no retained-output kernel claim'})
+loader='import sys;sys.dont_write_bytecode=True;exec(compile(open(sys.argv[1]).read(),sys.argv[2],"exec"),{"__name__":"__main__","__file__":sys.argv[2]})'
+r=run([sys.executable,'-c',loader,script,file],ok=False);(out/'replay.log').write_bytes(r.stdout+r.stderr);assert r.returncode==0,r.stderr.decode();print('Old-key rebuild and explicit resume pass',flush=True)

@@ -1,0 +1,39 @@
+[22;2t]2;rnx[?2004h[?2026h[K[1] > [6C[?2026llet held = 42; let value = fixture::value(); let q = fixture::pending(false);[?2004l
+[?2004h[?2026h[K[2] > [6C[?2026llet h = http::get("http://127.0.0.1:59327/hold"); let p = postgres::query("postgresql:///postgres?host=/tmp/rnx-p[?2026h[K[2] > let h = http::get("http://127.0.0.1:59327/hold"); let p = postgres::query("postgresql:///postgres?host=/tmp/rnx-pg
+[?2026l-contract-hnino8m6&application_name=rnx-pg-fixture", "SELECT 1 AS n FROM pg_sleep(12)", [], #{timeout_ms:15000});[?2004l
+[?2004h[?2026h[K[3] > [6C[?2026llet timer = time::sleep(40); select { _ = q => (), _ = timer => () };[?2004l
+[?2004h[?2026h[K[4] > [6C[?2026llet timer = time::sleep(40); select { _ = h => (), _ = timer => () };[?2004l
+[?2004h[?2026h[K[5] > [6C[?2026llet timer = time::sleep(40); select { _ = p => (), _ = timer => () }; fs::write_new("/home/me/work/rnx-bench/prob[?2026h[K[5] > let timer = time::sleep(40); select { _ = p => (), _ = timer => () }; fs::write_new("/home/me/work/rnx-bench/probe
+[?2026ls/git-source-workflow/target/stock-commit/pre-artifact/started", "ready").unwrap(); time::sleep(700).await;[?2004l
+[?2004h[?2026h[K[6] > [6C[?2026l:dep --offline polars[?2004l
+Project: /home/me/work/rnx-bench/probes/git-source-workflow/target/stock-commit/project/rnx.toml
+Adding: polars
+Already declared: (none)
+Offline: Cargo may not fetch sources.
+A first Polars build took about 100 seconds with registry sources cached; its retained shared entry is about 1.5 GB. A reusable entry avoids compilation.
+This prepares a new executable and restarts the session on success.
+Existing bindings and declarations will be lost. Saved history remains available with up-arrow; nothing is replayed.
+[?2004h[?2026h[KContinue? [y/N] [16C[?2026ly[?2004l
+dependency phase: author
+added polars
+Next:
+  '/home/me/work/rnx-bench/probes/git-source-workflow/target/stock-commit/rnx-project' project lock --manifest '/home/me/work/rnx-bench/probes/git-source-workflow/target/stock-commit/project/rnx.toml'
+  '/home/me/work/rnx-bench/probes/git-source-workflow/target/stock-commit/rnx-project' project build --manifest '/home/me/work/rnx-bench/probes/git-source-workflow/target/stock-commit/project/rnx.toml'
+  '/home/me/work/rnx-bench/probes/git-source-workflow/target/stock-commit/rnx-project' project session --manifest '/home/me/work/rnx-bench/probes/git-source-workflow/target/stock-commit/project/rnx.toml'
+dependency phase: resolve
+     Locking 1 package to latest Rust 1.98.1 compatible version
+      Adding rnx-polars v0.0.1 (/home/me/work/rnx-bench/probes/git-source-workflow/target/stock-commit/native/adapters/polars)
+locked /home/me/work/rnx-bench/probes/git-source-workflow/target/stock-commit/project/rnx.toml
+dependency phase: build/attach
+attached shared assembly 669561859910a7eacb9079256e956abd0e36e8fc578b883a1ebc04884c102452: /home/me/work/rnx-bench/probes/git-source-workflow/target/stock-commit/cache/entries/669561859910a7eacb9079256e956abd0e36e8fc578b883a1ebc04884c102452/artifacts/adef8311cd75801e9356fc0ebdd7783eda715577d6bd4b1c6ee9bf1db09aa3eb
+dependency phase: startup check
+dependency preparation refused: No such file or directory (os error 2)
+[?2004h[?2026h[K[6] > [6C[?2026lheld[?2004l
+[6] 42
+[?2004h[?2026h[K[7] > [6C[?2026lq.await[?2004l
+[7] Ok(73)
+[?2004h[?2026h[K[8] > [6C[?2026lh.await[?2004l
+[8] Ok({"body": "x", "headers": {"connection": ["close"], "content-length": ["1"]}, "status": 200, "url": "http://127.0.0.1:59327/hold"})
+[?2004h[?2026h[K[9] > [6C[?2026lassert!(p.await.unwrap().affected == 1);[?2004l
+[?2004h[?2026h[K[10] > [7C[?2026l:q[?2004l
+[23;2t

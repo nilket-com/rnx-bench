@@ -1,0 +1,51 @@
+[
+  {
+    "case": "hostile-clean-filter-positive-control",
+    "filtered_oid_equals_committed": true,
+    "stderr": "Git checkout /home/me/work/rnx-bench/probes/git-source-workflow/target/verification at 08938eebfd7e4b35ab13ef2499d915d6a3b3d59d: raw Git blob differs: src/lib.rs\n"
+  },
+  {
+    "case": "size-allowance-before-content",
+    "stderr": "Git checkout /home/me/work/rnx-bench/probes/git-source-workflow/target/verification at 08938eebfd7e4b35ab13ef2499d915d6a3b3d59d: Git input allowance exceeded: fingerprint exceeds byte allowance\n"
+  },
+  {
+    "case": "corrupt-blob",
+    "stderr": "Git checkout /home/me/work/rnx-bench/probes/git-source-workflow/target/verification at 08938eebfd7e4b35ab13ef2499d915d6a3b3d59d: missing, corrupt or changed Git blob\n"
+  },
+  {
+    "case": "missing-blob",
+    "stderr": "Git checkout /home/me/work/rnx-bench/probes/git-source-workflow/target/verification at 08938eebfd7e4b35ab13ef2499d915d6a3b3d59d: \"git\" failed: exit status: 2\n"
+  },
+  {
+    "case": "forged-blob-object-identity",
+    "stderr": "Git checkout /home/me/work/rnx-bench/probes/git-source-workflow/target/verification at 08938eebfd7e4b35ab13ef2499d915d6a3b3d59d: raw Git blob differs: src/lib.rs\n"
+  },
+  {
+    "case": "corrupt-commit",
+    "stderr": "Git checkout /home/me/work/rnx-bench/probes/git-source-workflow/target/verification at 08938eebfd7e4b35ab13ef2499d915d6a3b3d59d: \"git\" failed: exit status: 128: error: inflate: data stream error (incorrect header check)\nerror: unable to unpack 08938eebfd7e4b35ab13ef2499d915d6a3b3d59d header\nfatal: loose object 08938eebfd7e4b35ab13ef2499d915d6a3b3d59d (stored in .git/objects/08/938eebfd7e4b35ab13ef2499d915d6a3b3d59d) is corrupt\n\n"
+  },
+  {
+    "case": "missing-commit",
+    "stderr": "Git checkout /home/me/work/rnx-bench/probes/git-source-workflow/target/verification at 08938eebfd7e4b35ab13ef2499d915d6a3b3d59d: \"git\" failed: exit status: 128: fatal: git cat-file 08938eebfd7e4b35ab13ef2499d915d6a3b3d59d: bad file\n\n"
+  },
+  {
+    "case": "forged-commit-object-identity",
+    "stderr": "Git checkout /home/me/work/rnx-bench/probes/git-source-workflow/target/verification at 08938eebfd7e4b35ab13ef2499d915d6a3b3d59d: corrupt committed object identity\n"
+  },
+  {
+    "case": "corrupt-tree",
+    "stderr": "Git checkout /home/me/work/rnx-bench/probes/git-source-workflow/target/verification at 08938eebfd7e4b35ab13ef2499d915d6a3b3d59d: \"git\" failed: exit status: 128: error: inflate: data stream error (incorrect header check)\nerror: unable to unpack 332efec581acbe92024281a2f4700a2dc84c3267 header\nerror: inflate: data stream error (incorrect header check)\nerror: unable to unpack 332efec581acbe92024281a2f4700a2dc84c3267 header\nfatal: loose object 332efec581acbe92024281a2f4700a2dc84c3267 (stored in .git/objects/33/2efec581acbe92024281a2f4700a2dc84c3267) is corrupt\n\n"
+  },
+  {
+    "case": "missing-tree",
+    "stderr": "Git checkout /home/me/work/rnx-bench/probes/git-source-workflow/target/verification at 08938eebfd7e4b35ab13ef2499d915d6a3b3d59d: \"git\" failed: exit status: 2: error: 332efec581acbe92024281a2f4700a2dc84c3267: invalid sha1 pointer 332efec581acbe92024281a2f4700a2dc84c3267\nnotice: No default references\n\n"
+  },
+  {
+    "case": "forged-tree-object-identity",
+    "stderr": "Git checkout /home/me/work/rnx-bench/probes/git-source-workflow/target/verification at 08938eebfd7e4b35ab13ef2499d915d6a3b3d59d: \"git\" failed: exit status: 2: error: hash mismatch 332efec581acbe92024281a2f4700a2dc84c3267\nerror: 332efec581acbe92024281a2f4700a2dc84c3267: invalid sha1 pointer 332efec581acbe92024281a2f4700a2dc84c3267\nnotice: No default references\n\n"
+  },
+  {
+    "case": "symlink-component",
+    "stderr": "Git checkout /home/me/work/rnx-bench/probes/git-source-workflow/target/verification at 08938eebfd7e4b35ab13ef2499d915d6a3b3d59d: Git source has symlink/non-directory component\n"
+  }
+]

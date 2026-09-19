@@ -1,0 +1,17 @@
+[package]
+name = "rnx-project-app"
+version = "0.0.0"
+edition = "2024"
+publish = false
+
+[workspace]
+
+[dependencies.native_0]
+package = "publication-adapter"
+path = "/tmp/rnx-cache-publication-9xh4muu6/native/adapter"
+default-features = true
+
+[dependencies.rnx]
+path = "/tmp/rnx-cache-publication-9xh4muu6/native/runtime"
+default-features = false
+features = ["count-allocations", "project-sources"]
