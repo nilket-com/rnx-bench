@@ -1,0 +1,12 @@
+[22;2t]2;rnx[?2004h[?2026h[K[1] > [6C[?2026llet held = 42; let h = http::get("http://127.0.0.1:55981/hold");[?2004l
+[?2004h[?2026h[K[2] > [6C[?2026llet timer = time::sleep(10); select { _ = h => (), _ = timer => () };[?2004l
+[?2004h[?2026h[K[3] > [6C[?2026l:dep polars[?2004l
+dependency preparation refused: default runtime coordinates refused: https://github.com/nilket-com/rnx 1ad62fb3f7b1c7fb0cb8f81e0ba7bcad3e46e49f (dirty).
+Build-time checkout suggestion (not selected automatically):
+export RNX_DEP_RUNTIME='/home/me/work/rnx-bench/probes/stock-management/target/clean-source'
+[?2004h[?2026h[K[3] > [6C[?2026lheld[?2004l
+[3] 42
+[?2004h[?2026h[K[4] > [6C[?2026lh.await.unwrap().body[?2004l
+[4] "73"
+[?2004h[?2026h[K[5] > [6C[?2026l:q[?2004l
+[23;2t

@@ -1,0 +1,11 @@
+Traceback (most recent call last):
+  File "<string>", line 1, in <module>
+    import sys;sys.dont_write_bytecode=True;exec(compile(open(sys.argv[1]).read(),sys.argv[2],"exec"),{"__name__":"__main__","__file__":sys.argv[2]})
+                                            ~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/me/work/rnx-bench/probes/session-preparation/check.py", line 121, in <module>
+    journey('preserve-cargo-builder',{'PATH':str(traps)+':'+ENV['PATH'],'TRAP_MARKER':str(marker2)},cancel=True)
+    ~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/me/work/rnx-bench/probes/session-preparation/check.py", line 94, in journey
+    assert marker.exists();os.kill(t.p.pid,signal.SIGINT)
+           ~~~~~~~~~~~~~^^
+AssertionError

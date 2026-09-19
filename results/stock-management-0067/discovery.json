@@ -1,0 +1,47 @@
+{
+  "missing": {
+    "old_work_preserved": true,
+    "output": ":dep polars\r\ndependency preparation refused: cannot locate installed rnx management command; set RNX_PROJECT_TOOL to its absolute path\r\n\r[3] > \r"
+  },
+  "invalid-override": {
+    "old_work_preserved": true,
+    "output": ":dep polars\r\ndependency preparation refused: dependency manager /home/me/work/rnx-bench/probes/stock-management/target/discovery/absent: No such file or directory (os error 2)\r\n\r[3] > \r"
+  },
+  "relative-override": {
+    "old_work_preserved": true,
+    "output": ":dep polars\r\ndependency preparation refused: RNX_PROJECT_TOOL must be absolute\r\n\r[3] > \r"
+  },
+  "not-capable": {
+    "old_work_preserved": true,
+    "output": ":dep polars\r\ndependency preparation refused: Connection reset by peer (os error 104)\r\n\r[3] > \r"
+  },
+  "old-override": {
+    "old_work_preserved": true,
+    "output": ":dep polars\r\nrnx-project: private transition takes no arguments\r\ndependency preparation refused: Connection reset by peer (os error 104)\r\n\r[3] > \r"
+  },
+  "timeout": {
+    "old_work_preserved": true,
+    "output": ":dep polars\r\ndependency preparation refused: dependency tool response deadline exceeded\r\n\r[3] > \r"
+  },
+  "path-stock": {
+    "old_work_preserved": true,
+    "output": ":dep polars\r\ndependency preparation refused: custom executable needs a project association; open it through rnx project session\r\n\r[3] > \r"
+  },
+  "explicit-compat": {
+    "old_work_preserved": true,
+    "output": ":dep polars\r\ndependency preparation refused: custom executable needs a project association; open it through rnx project session\r\n\r[3] > \r"
+  },
+  "old-manager-issued-association": {
+    "interoperates": true,
+    "injected_failure_retains_started_work": true,
+    "output": "y\r\ndependency phase: author\r\ndependency preparation refused: author: injected failure at dep-author; project files may have been published; retry with rnx-project lock/build/session --manifest \"/home/me/work/rnx-bench/probes/stock-management/target/discovery/old-project/rnx.toml\"\r\n\r[3] > \r"
+  },
+  "quoted-recovery": {
+    "commands": [
+      "'/home/me/work/rnx-bench/probes/stock-management/target/discovery/manager'\\''s rnx' project lock --manifest '/home/me/work/rnx-bench/probes/stock-management/target/discovery/project'\\''s space/rnx'\\''s.toml'",
+      "'/home/me/work/rnx-bench/probes/stock-management/target/discovery/manager'\\''s rnx' project build --manifest '/home/me/work/rnx-bench/probes/stock-management/target/discovery/project'\\''s space/rnx'\\''s.toml'"
+    ],
+    "executed_exactly": true,
+    "manager_on_PATH": false
+  }
+}

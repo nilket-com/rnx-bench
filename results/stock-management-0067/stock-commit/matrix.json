@@ -1,0 +1,445 @@
+{
+  "cancel": {
+    "precommit_preserved": true,
+    "seconds_after_consent": 2.717004856,
+    "started_activity": "1903561|active|SELECT 1 AS n FROM pg_sleep(12)",
+    "socket_identities": [
+      "socket:[9328762]",
+      "socket:[9328765]"
+    ],
+    "pause_sockets": [
+      "socket:[9320705]",
+      "socket:[9328762]",
+      "socket:[9328765]"
+    ],
+    "before": [
+      "1903535 fixture builder",
+      "1903535 poll",
+      "1903535 operation polled"
+    ],
+    "at_pause": [
+      "1903535 fixture builder",
+      "1903535 poll",
+      "1903535 operation polled"
+    ],
+    "at_settlement": [
+      "1903535 fixture builder",
+      "1903535 poll",
+      "1903535 operation polled"
+    ],
+    "after_exit": [
+      "1903535 fixture builder",
+      "1903535 poll",
+      "1903535 operation polled",
+      "1903535 poll",
+      "1903535 operation dropped",
+      "1903535 context dropped",
+      "1903535 value dropped"
+    ],
+    "builders": [
+      "1904048 probe"
+    ],
+    "backend_residual_after_exit_seconds": 0.01935869100270793,
+    "timeline": [
+      "514428901809004\t1903579\ttool-author",
+      "514428914115287\t1903579\ttool-resolve",
+      "514430408180928\t1903579\ttool-build",
+      "514431430037476\t1903579\ttool-probe",
+      "514431561470918\t1903579\ttool-ready",
+      "514431571255122\t1903535\tbefore-commit"
+    ],
+    "status": 0
+  },
+  "pre-artifact": {
+    "precommit_preserved": true,
+    "seconds_after_consent": 1.559565799,
+    "started_activity": "1906597|active|SELECT 1 AS n FROM pg_sleep(12)",
+    "socket_identities": [
+      "socket:[9307967]",
+      "socket:[9325808]"
+    ],
+    "pause_sockets": [
+      "socket:[9307967]",
+      "socket:[9325808]",
+      "socket:[9335821]"
+    ],
+    "before": [
+      "1906492 fixture builder",
+      "1906492 poll",
+      "1906492 operation polled"
+    ],
+    "at_pause": [
+      "1906492 fixture builder",
+      "1906492 poll",
+      "1906492 operation polled"
+    ],
+    "at_settlement": [
+      "1906492 fixture builder",
+      "1906492 poll",
+      "1906492 operation polled"
+    ],
+    "after_exit": [
+      "1906492 fixture builder",
+      "1906492 poll",
+      "1906492 operation polled",
+      "1906492 poll",
+      "1906492 operation dropped",
+      "1906492 context dropped",
+      "1906492 value dropped"
+    ],
+    "builders": [
+      "1908019 probe"
+    ],
+    "backend_residual_after_exit_seconds": 0.031089186028111726,
+    "timeline": [
+      "514441118911372\t1906936\ttool-author",
+      "514441121082036\t1906936\ttool-resolve",
+      "514441887768037\t1906936\ttool-build",
+      "514442562717991\t1906936\ttool-probe",
+      "514442640631264\t1906936\ttool-ready",
+      "514442648736837\t1906492\tbefore-commit"
+    ],
+    "status": 0
+  },
+  "success": {
+    "precommit_preserved": false,
+    "seconds_after_consent": 2.401368018,
+    "started_activity": "1911017|active|SELECT 1 AS n FROM pg_sleep(12)",
+    "socket_identities": [
+      "socket:[9335006]",
+      "socket:[9335010]"
+    ],
+    "pause_sockets": [
+      "socket:[9320248]",
+      "socket:[9335006]",
+      "socket:[9335010]"
+    ],
+    "before": [
+      "1910632 fixture builder",
+      "1910632 poll",
+      "1910632 operation polled"
+    ],
+    "at_pause": [
+      "1910632 fixture builder",
+      "1910632 poll",
+      "1910632 operation polled"
+    ],
+    "at_settlement": [
+      "1910632 fixture builder",
+      "1910632 poll",
+      "1910632 operation polled",
+      "1910632 operation dropped",
+      "1910632 context dropped",
+      "1910632 value dropped",
+      "1910632 fixture builder"
+    ],
+    "after_exit": [
+      "1910632 fixture builder",
+      "1910632 poll",
+      "1910632 operation polled",
+      "1910632 operation dropped",
+      "1910632 context dropped",
+      "1910632 value dropped",
+      "1910632 fixture builder",
+      "1910632 context dropped"
+    ],
+    "builders": [
+      "1912124 probe",
+      "1910632 replacement"
+    ],
+    "backend_residual_after_exit_seconds": 8.847468939027749,
+    "timeline": [
+      "514453642048170\t1911423\ttool-author",
+      "514453651146462\t1911423\ttool-resolve",
+      "514455166969060\t1911423\ttool-build",
+      "514455847318221\t1911423\ttool-probe",
+      "514455942145588\t1911423\ttool-ready",
+      "514455951720716\t1910632\tbefore-commit",
+      "514456002566507\t1910632\tcleanup-begin",
+      "514456010861485\t1910632\tafter-cleanup",
+      "514456010902937\t1910632\tbefore-exec"
+    ],
+    "status": 0
+  },
+  "cleanup-failure": {
+    "precommit_preserved": false,
+    "seconds_after_consent": 1.400059323,
+    "started_activity": "1914506|active|SELECT 1 AS n FROM pg_sleep(12)",
+    "socket_identities": [
+      "socket:[9322431]",
+      "socket:[9324479]"
+    ],
+    "pause_sockets": [
+      "socket:[9322431]",
+      "socket:[9324479]",
+      "socket:[9340079]"
+    ],
+    "before": [
+      "1914479 fixture builder",
+      "1914479 poll",
+      "1914479 operation polled"
+    ],
+    "at_pause": [
+      "1914479 fixture builder",
+      "1914479 poll",
+      "1914479 operation polled"
+    ],
+    "at_settlement": [
+      "1914479 fixture builder",
+      "1914479 poll",
+      "1914479 operation polled",
+      "1914479 operation dropped",
+      "1914479 context dropped",
+      "1914479 value dropped"
+    ],
+    "after_exit": [
+      "1914479 fixture builder",
+      "1914479 poll",
+      "1914479 operation polled",
+      "1914479 operation dropped",
+      "1914479 context dropped",
+      "1914479 value dropped"
+    ],
+    "builders": [
+      "1914979 probe"
+    ],
+    "backend_residual_after_exit_seconds": 9.8707871689694,
+    "timeline": [
+      "514465800259882\t1914526\ttool-author",
+      "514465808206418\t1914526\ttool-resolve",
+      "514466508859214\t1914526\ttool-build",
+      "514467065122566\t1914526\ttool-probe",
+      "514467139652079\t1914526\ttool-ready",
+      "514467150525591\t1914479\tbefore-commit",
+      "514467170855136\t1914479\tcleanup-begin"
+    ],
+    "status": 1
+  },
+  "post-artifact": {
+    "precommit_preserved": false,
+    "seconds_after_consent": 1.821944678,
+    "started_activity": "1916372|active|SELECT 1 AS n FROM pg_sleep(12)",
+    "socket_identities": [
+      "socket:[9345351]",
+      "socket:[9345354]"
+    ],
+    "pause_sockets": [],
+    "before": [
+      "1916345 fixture builder",
+      "1916345 poll",
+      "1916345 operation polled"
+    ],
+    "at_pause": [
+      "1916345 fixture builder",
+      "1916345 poll",
+      "1916345 operation polled",
+      "1916345 operation dropped",
+      "1916345 context dropped",
+      "1916345 value dropped"
+    ],
+    "at_settlement": [
+      "1916345 fixture builder",
+      "1916345 poll",
+      "1916345 operation polled",
+      "1916345 operation dropped",
+      "1916345 context dropped",
+      "1916345 value dropped"
+    ],
+    "after_exit": [
+      "1916345 fixture builder",
+      "1916345 poll",
+      "1916345 operation polled",
+      "1916345 operation dropped",
+      "1916345 context dropped",
+      "1916345 value dropped"
+    ],
+    "builders": [
+      "1916828 probe"
+    ],
+    "backend_residual_after_exit_seconds": 9.460102868033573,
+    "timeline": [
+      "514478004853547\t1916384\ttool-author",
+      "514478007169803\t1916384\ttool-resolve",
+      "514478980124693\t1916384\ttool-build",
+      "514479691904116\t1916384\ttool-probe",
+      "514479789644275\t1916384\ttool-ready",
+      "514479801395645\t1916345\tbefore-commit",
+      "514479801484418\t1916345\tcleanup-begin",
+      "514479809169448\t1916345\tafter-cleanup"
+    ],
+    "status": 1
+  },
+  "exec-failure": {
+    "precommit_preserved": false,
+    "seconds_after_consent": 2.858033434,
+    "started_activity": "1920574|active|SELECT 1 AS n FROM pg_sleep(12)",
+    "socket_identities": [
+      "socket:[9347549]",
+      "socket:[9347552]"
+    ],
+    "pause_sockets": [],
+    "before": [
+      "1920396 fixture builder",
+      "1920396 poll",
+      "1920396 operation polled"
+    ],
+    "at_pause": [
+      "1920396 fixture builder",
+      "1920396 poll",
+      "1920396 operation polled",
+      "1920396 operation dropped",
+      "1920396 context dropped",
+      "1920396 value dropped"
+    ],
+    "at_settlement": [
+      "1920396 fixture builder",
+      "1920396 poll",
+      "1920396 operation polled",
+      "1920396 operation dropped",
+      "1920396 context dropped",
+      "1920396 value dropped"
+    ],
+    "after_exit": [
+      "1920396 fixture builder",
+      "1920396 poll",
+      "1920396 operation polled",
+      "1920396 operation dropped",
+      "1920396 context dropped",
+      "1920396 value dropped"
+    ],
+    "builders": [
+      "1922089 probe"
+    ],
+    "backend_residual_after_exit_seconds": 8.39473800000269,
+    "timeline": [
+      "514490302489991\t1921009\ttool-author",
+      "514490311408712\t1921009\ttool-resolve",
+      "514491699182471\t1921009\ttool-build",
+      "514492932987910\t1921009\ttool-probe",
+      "514493124558417\t1921009\ttool-ready",
+      "514493133874057\t1920396\tbefore-commit",
+      "514493133966587\t1920396\tcleanup-begin",
+      "514493141547517\t1920396\tafter-cleanup",
+      "514493141582434\t1920396\tbefore-exec"
+    ],
+    "status": 1
+  },
+  "replacement-error": {
+    "precommit_preserved": false,
+    "seconds_after_consent": 1.701777297,
+    "started_activity": "1924266|active|SELECT 1 AS n FROM pg_sleep(12)",
+    "socket_identities": [
+      "socket:[9362779]",
+      "socket:[9362783]"
+    ],
+    "pause_sockets": [
+      "socket:[9351509]",
+      "socket:[9362779]",
+      "socket:[9362783]"
+    ],
+    "before": [
+      "1924187 fixture builder",
+      "1924187 poll",
+      "1924187 operation polled"
+    ],
+    "at_pause": [
+      "1924187 fixture builder",
+      "1924187 poll",
+      "1924187 operation polled"
+    ],
+    "at_settlement": [
+      "1924187 fixture builder",
+      "1924187 poll",
+      "1924187 operation polled",
+      "1924187 operation dropped",
+      "1924187 context dropped",
+      "1924187 value dropped",
+      "1924187 fixture builder"
+    ],
+    "after_exit": [
+      "1924187 fixture builder",
+      "1924187 poll",
+      "1924187 operation polled",
+      "1924187 operation dropped",
+      "1924187 context dropped",
+      "1924187 value dropped",
+      "1924187 fixture builder"
+    ],
+    "builders": [
+      "1925235 probe",
+      "1924187 replacement"
+    ],
+    "backend_residual_after_exit_seconds": 9.552273884997703,
+    "timeline": [
+      "514502627068567\t1924468\ttool-author",
+      "514502640391531\t1924468\ttool-resolve",
+      "514503613942030\t1924468\ttool-build",
+      "514504175921451\t1924468\ttool-probe",
+      "514504255097248\t1924468\ttool-ready",
+      "514504266171805\t1924187\tbefore-commit",
+      "514504286507273\t1924187\tcleanup-begin",
+      "514504293542220\t1924187\tafter-cleanup",
+      "514504293560587\t1924187\tbefore-exec"
+    ],
+    "status": 1
+  },
+  "replacement-panic": {
+    "precommit_preserved": false,
+    "seconds_after_consent": 1.052963314,
+    "started_activity": "1928429|active|SELECT 1 AS n FROM pg_sleep(12)",
+    "socket_identities": [
+      "socket:[9370714]",
+      "socket:[9370717]"
+    ],
+    "pause_sockets": [
+      "socket:[9357072]",
+      "socket:[9370714]",
+      "socket:[9370717]"
+    ],
+    "before": [
+      "1928404 fixture builder",
+      "1928404 poll",
+      "1928404 operation polled"
+    ],
+    "at_pause": [
+      "1928404 fixture builder",
+      "1928404 poll",
+      "1928404 operation polled"
+    ],
+    "at_settlement": [
+      "1928404 fixture builder",
+      "1928404 poll",
+      "1928404 operation polled",
+      "1928404 operation dropped",
+      "1928404 context dropped",
+      "1928404 value dropped",
+      "1928404 fixture builder"
+    ],
+    "after_exit": [
+      "1928404 fixture builder",
+      "1928404 poll",
+      "1928404 operation polled",
+      "1928404 operation dropped",
+      "1928404 context dropped",
+      "1928404 value dropped",
+      "1928404 fixture builder"
+    ],
+    "builders": [
+      "1928931 probe",
+      "1928404 replacement"
+    ],
+    "backend_residual_after_exit_seconds": 10.205857302993536,
+    "timeline": [
+      "514514794328483\t1928513\ttool-author",
+      "514514805462874\t1928513\ttool-resolve",
+      "514515277108089\t1928513\ttool-build",
+      "514515719201275\t1928513\ttool-probe",
+      "514515780214315\t1928513\ttool-ready",
+      "514515789059460\t1928404\tbefore-commit",
+      "514515829593874\t1928404\tcleanup-begin",
+      "514515835887959\t1928404\tafter-cleanup",
+      "514515835910591\t1928404\tbefore-exec"
+    ],
+    "status": 1
+  }
+}

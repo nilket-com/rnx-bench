@@ -1,0 +1,200 @@
+{
+  "ordinary-0": {
+    "arguments": [
+      "version"
+    ],
+    "status": 0,
+    "stdout": "rnx 0.0.0\nrune 0.14.2\n",
+    "stderr": ""
+  },
+  "ordinary-1": {
+    "arguments": [
+      "--version"
+    ],
+    "status": 0,
+    "stdout": "rnx 0.0.0\nrune 0.14.2\n",
+    "stderr": ""
+  },
+  "ordinary-2": {
+    "arguments": [
+      "help"
+    ],
+    "status": 0,
+    "stdout": "rnx \u2014 a Rune scripting environment\n\n  rnx                       a session, the same as `rnx repl`\n  rnx repl                  a session: line editing, history, `:help`\n  rnx run [flags] FILE ...  run a file's `main`; arguments after FILE are its\n  rnx eval SOURCE           evaluate one expression and exit\n  rnx selfcheck             assert this build's own invariants and report\n  rnx version               this build, and the Rune it is pinned to\n  rnx help                  this\n\nFlags for `run`, before the file: --budget N, --debug-source.\n",
+    "stderr": ""
+  },
+  "ordinary-3": {
+    "arguments": [
+      "eval",
+      "42"
+    ],
+    "status": 0,
+    "stdout": "42\n",
+    "stderr": ""
+  },
+  "ordinary-4": {
+    "arguments": [
+      "eval",
+      "\"caf\u00e9\""
+    ],
+    "status": 0,
+    "stdout": "\"caf\u00e9\"\n",
+    "stderr": ""
+  },
+  "ordinary-5": {
+    "arguments": [
+      "eval",
+      "env::vars()?"
+    ],
+    "status": 0,
+    "stdout": "{\"A\": \"1\", \"E\": \"\", \"PATH\": \"/home/me/.local/bin:/home/me/.codex/packages/standalone/releases/0.155.0-x86_64-unknown-linux-musl/codex-path:/home/me/.codex/tmp/arg0/codex-arg06WIWFD:/home/me/.local/bin:/home/me/.bun/bin:/home/me/.juliaup/bin:/home/me/.deno/bin:/home/me/.local/bin:/home/me/.cargo/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin\"}\n",
+    "stderr": ""
+  },
+  "ordinary-6": {
+    "arguments": [
+      "eval",
+      "struct A; A.nope()"
+    ],
+    "status": 1,
+    "stdout": "",
+    "stderr": "runtime error at input 1, line 1, column 11: Missing instance function `0xccf66fe3be1d061b` for `A`\n  struct A; A.nope()\n            ^\n"
+  },
+  "ordinary-7": {
+    "arguments": [
+      "--color=never",
+      "eval",
+      "1 + 2"
+    ],
+    "status": 0,
+    "stdout": "3\n",
+    "stderr": ""
+  },
+  "ordinary-8": {
+    "arguments": [
+      "run",
+      "--budget",
+      "0",
+      "missing"
+    ],
+    "status": 1,
+    "stdout": "",
+    "stderr": "Error: \"--budget takes a whole number of instructions from 1 to 18446744073709551614, not `0`\"\n"
+  },
+  "ordinary-9": {
+    "arguments": [
+      "--bad"
+    ],
+    "status": 2,
+    "stdout": "",
+    "stderr": "rnx: `--bad` is not a command\n\nrnx \u2014 a Rune scripting environment\n\n  rnx                       a session, the same as `rnx repl`\n  rnx repl                  a session: line editing, history, `:help`\n  rnx run [flags] FILE ...  run a file's `main`; arguments after FILE are its\n  rnx eval SOURCE           evaluate one expression and exit\n  rnx selfcheck             assert this build's own invariants and report\n  rnx version               this build, and the Rune it is pinned to\n  rnx help                  this\n\nFlags for `run`, before the file: --budget N, --debug-source.\n"
+  },
+  "ordinary-10": {
+    "arguments": [
+      "session"
+    ],
+    "status": 2,
+    "stdout": "",
+    "stderr": "rnx: `session` is not a command\n\nrnx \u2014 a Rune scripting environment\n\n  rnx                       a session, the same as `rnx repl`\n  rnx repl                  a session: line editing, history, `:help`\n  rnx run [flags] FILE ...  run a file's `main`; arguments after FILE are its\n  rnx eval SOURCE           evaluate one expression and exit\n  rnx selfcheck             assert this build's own invariants and report\n  rnx version               this build, and the Rune it is pinned to\n  rnx help                  this\n\nFlags for `run`, before the file: --budget N, --debug-source.\n"
+  },
+  "ordinary-11": {
+    "arguments": [
+      "--no-splash",
+      "--color=never",
+      "repl"
+    ],
+    "status": 0,
+    "stdout": "9\n",
+    "stderr": ""
+  },
+  "ordinary-12": {
+    "arguments": [
+      "run",
+      "project",
+      "--verify",
+      "two words"
+    ],
+    "status": 0,
+    "stdout": "[\"--verify\", \"two words\"]\n",
+    "stderr": ""
+  },
+  "ordinary-13": {
+    "arguments": [
+      "run",
+      "runtime",
+      "--verify",
+      "two words"
+    ],
+    "status": 0,
+    "stdout": "[\"--verify\", \"two words\"]\n",
+    "stderr": ""
+  },
+  "ordinary-14": {
+    "arguments": [
+      "run",
+      "cache",
+      "--verify",
+      "two words"
+    ],
+    "status": 0,
+    "stdout": "[\"--verify\", \"two words\"]\n",
+    "stderr": ""
+  },
+  "selfcheck-/home/me/work/rnx-bench/probes/stock-management/target/baseline/target/debug/rnx": {
+    "status": 0,
+    "byte_comparison": false,
+    "reason": "selfcheck prints its measured elapsed time"
+  },
+  "selfcheck-/home/me/work/rnx-bench/probes/stock-management/target/rnx": {
+    "status": 0,
+    "byte_comparison": false,
+    "reason": "selfcheck prints its measured elapsed time"
+  },
+  "management-project,adapters": {
+    "status": 0,
+    "runner_entered": false
+  },
+  "management-project,help": {
+    "status": 0,
+    "runner_entered": false
+  },
+  "management-project,unknown": {
+    "status": 1,
+    "runner_entered": false
+  },
+  "management-runtime,show": {
+    "status": 1,
+    "runner_entered": false
+  },
+  "management-cache,list": {
+    "status": 1,
+    "runner_entered": false
+  },
+  "management-management-version": {
+    "status": 0,
+    "runner_entered": false
+  },
+  "settings-positive-control": true,
+  "capability-rnx": true,
+  "capability-rnx-project": true,
+  "dirty": {
+    "started_http_completed": true,
+    "binding_retained": true,
+    "fetches": 0,
+    "state_created": false,
+    "selected_store_ignored": true
+  },
+  "clean-decline": {
+    "started_http_completed": true,
+    "binding_retained": true,
+    "fetches": 0,
+    "state_created": false,
+    "selected_store_ignored": true
+  },
+  "clean-staged-refusal": {
+    "started_http_completed": true,
+    "binding_retained": true,
+    "fetches": 0,
+    "state_created": false,
+    "selected_store_ignored": true
+  }
+}

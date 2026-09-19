@@ -1,0 +1,31 @@
+[22;2t]2;rnx[?2004h[?2026h[K[1] > [6C[?2026llet held = 42; let value = fixture::value(); let q = fixture::pending(true);[?2004l
+[?2004h[?2026h[K[2] > [6C[?2026llet h = http::get("http://127.0.0.1:50849/hold"); let p = postgres::query("postgresql:///postgres?host=/tmp/rnx-p[?2026h[K[2] > let h = http::get("http://127.0.0.1:50849/hold"); let p = postgres::query("postgresql:///postgres?host=/tmp/rnx-pg
+[?2026l-contract-bfe6gl1w&application_name=rnx-pg-fixture", "SELECT 1 AS n FROM pg_sleep(12)", [], #{timeout_ms:15000});[?2004l
+[?2004h[?2026h[K[3] > [6C[?2026llet timer = time::sleep(40); select { _ = q => (), _ = timer => () };[?2004l
+[?2004h[?2026h[K[4] > [6C[?2026llet timer = time::sleep(40); select { _ = h => (), _ = timer => () };[?2004l
+[?2004h[?2026h[K[5] > [6C[?2026llet timer = time::sleep(40); select { _ = p => (), _ = timer => () }; fs::write_new("/home/me/work/rnx-bench/prob[?2026h[K[5] > let timer = time::sleep(40); select { _ = p => (), _ = timer => () }; fs::write_new("/home/me/work/rnx-bench/probe
+[?2026ls/stock-management/target/compat-commit/cleanup-failure/started", "ready").unwrap(); time::sleep(700).await;[?2004l
+[?2004h[?2026h[K[6] > [6C[?2026l:dep --offline polars[?2004l
+Project: /home/me/work/rnx-bench/probes/stock-management/target/compat-commit/project/rnx.toml
+Adding: polars
+Already declared: (none)
+Offline: Cargo may not fetch sources.
+A first Polars build took about 100 seconds with registry sources cached; its retained shared entry is about 1.5 GB. A reusable entry avoids compilation.
+This prepares a new executable and restarts the session on success.
+Existing bindings and declarations will be lost. Saved history remains available with up-arrow; nothing is replayed.
+[?2004h[?2026h[KContinue? [y/N] [16C[?2026ly[?2004l
+added polars
+Next:
+  '/home/me/work/rnx-bench/probes/stock-management/target/compat-commit/rnx-project' lock --manifest '/home/me/work/rnx-bench/probes/stock-management/target/compat-commit/project/rnx.toml'
+  '/home/me/work/rnx-bench/probes/stock-management/target/compat-commit/rnx-project' build --manifest '/home/me/work/rnx-bench/probes/stock-management/target/compat-commit/project/rnx.toml'
+  '/home/me/work/rnx-bench/probes/stock-management/target/compat-commit/rnx-project' session --manifest '/home/me/work/rnx-bench/probes/stock-management/target/compat-commit/project/rnx.toml'
+dependency phase: author
+dependency phase: resolve
+     Locking 1 package to latest Rust 1.98.1 compatible version
+      Adding rnx-polars v0.0.1 (/home/me/work/rnx-bench/probes/stock-management/target/compat-commit/native/adapters/polars)
+locked /home/me/work/rnx-bench/probes/stock-management/target/compat-commit/project/rnx.toml
+dependency phase: build/attach
+attached shared assembly 512ce84f613d607fcfc5c2ff01113fda8f6e99c894e1b13d7e2aec6d948c0dd0: /home/me/work/rnx-bench/probes/stock-management/target/compat-commit/cache/entries/512ce84f613d607fcfc5c2ff01113fda8f6e99c894e1b13d7e2aec6d948c0dd0/artifacts/016016e44243d1f803820d045a164bc6016591cc744b5eb1f8de7b02e86c3f3d
+dependency phase: startup check
+restart is beginning
+[23;2tError: "extension `fixture` lifecycle cleanup panicked: injected destructor failure"
