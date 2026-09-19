@@ -1,0 +1,188 @@
+{
+  "runtime_formats": {
+    "old": 1,
+    "new": 2,
+    "migration_preserved_old": true
+  },
+  "current_build": {
+    "seconds": 105.80903792398749,
+    "key": "e75fc56f74b27a7cac9303e96748a87ea7d37ecb42d86aac5d7eca017ecac8a9",
+    "receipt_format": 4
+  },
+  "live_inspection": {
+    "session_pid": 1338825,
+    "kernel_pid": 1338830,
+    "rounds": 2,
+    "writer_locks_free_with_readers": true,
+    "inspection_succeeds_with_writer_locks_held": true,
+    "cache_metadata_unchanged": true,
+    "runtime_bytes_unchanged": true,
+    "project_bytes_unchanged": true,
+    "kernelspec_unchanged": true,
+    "reports": [
+      {
+        "entries": [
+          {
+            "allocated": 1571573760,
+            "id": "88e6a07f33c97652d4aa92e58336016ec39f15f9858080b3f9c0bca5d3b1e1bc",
+            "location": "entries",
+            "logical": 1560141427,
+            "nodes": 3771,
+            "selected": false
+          },
+          {
+            "allocated": 1571008512,
+            "id": "e75fc56f74b27a7cac9303e96748a87ea7d37ecb42d86aac5d7eca017ecac8a9",
+            "location": "entries",
+            "logical": 1559556213,
+            "nodes": 3744,
+            "selected": false
+          }
+        ],
+        "reference_claim": "none; no reader lease",
+        "root": "/home/me/work/rnx-bench/probes/removal-ownership/target/real/cache"
+      },
+      {
+        "allocated": 1571573760,
+        "dry_run": true,
+        "id": "88e6a07f33c97652d4aa92e58336016ec39f15f9858080b3f9c0bca5d3b1e1bc",
+        "location": "entries",
+        "logical": 1560141427,
+        "nodes": 3771,
+        "writer": "not reserved"
+      },
+      {
+        "entries": [
+          {
+            "allocated": 11493376,
+            "id": "442b4f457ecefa68f57689994d2985e45e60d3cc43b6861081c51b3344f6ef6d",
+            "location": "entries",
+            "logical": 8475143,
+            "nodes": 1092,
+            "selected": true
+          },
+          {
+            "allocated": 11493376,
+            "id": "54430e47250ac6fba8c7d96573057ab016d93917c0f8f30da2f2c06f05272a93",
+            "location": "entries",
+            "logical": 8475023,
+            "nodes": 1092,
+            "selected": false
+          }
+        ],
+        "reference_claim": "none; no reader lease",
+        "root": "/home/me/work/rnx-bench/probes/removal-ownership/target/real/data ' private/rnx/runtimes"
+      },
+      {
+        "allocated": 11493376,
+        "dry_run": true,
+        "id": "54430e47250ac6fba8c7d96573057ab016d93917c0f8f30da2f2c06f05272a93",
+        "location": "entries",
+        "logical": 8475023,
+        "nodes": 1092,
+        "writer": "not reserved"
+      },
+      {
+        "entries": [
+          {
+            "allocated": 1571573760,
+            "id": "88e6a07f33c97652d4aa92e58336016ec39f15f9858080b3f9c0bca5d3b1e1bc",
+            "location": "entries",
+            "logical": 1560141427,
+            "nodes": 3771,
+            "selected": false
+          },
+          {
+            "allocated": 1571008512,
+            "id": "e75fc56f74b27a7cac9303e96748a87ea7d37ecb42d86aac5d7eca017ecac8a9",
+            "location": "entries",
+            "logical": 1559556213,
+            "nodes": 3744,
+            "selected": false
+          }
+        ],
+        "reference_claim": "none; no reader lease",
+        "root": "/home/me/work/rnx-bench/probes/removal-ownership/target/real/cache"
+      },
+      {
+        "allocated": 1571573760,
+        "dry_run": true,
+        "id": "88e6a07f33c97652d4aa92e58336016ec39f15f9858080b3f9c0bca5d3b1e1bc",
+        "location": "entries",
+        "logical": 1560141427,
+        "nodes": 3771,
+        "writer": "not reserved"
+      },
+      {
+        "entries": [
+          {
+            "allocated": 11493376,
+            "id": "442b4f457ecefa68f57689994d2985e45e60d3cc43b6861081c51b3344f6ef6d",
+            "location": "entries",
+            "logical": 8475143,
+            "nodes": 1092,
+            "selected": true
+          },
+          {
+            "allocated": 11493376,
+            "id": "54430e47250ac6fba8c7d96573057ab016d93917c0f8f30da2f2c06f05272a93",
+            "location": "entries",
+            "logical": 8475023,
+            "nodes": 1092,
+            "selected": false
+          }
+        ],
+        "reference_claim": "none; no reader lease",
+        "root": "/home/me/work/rnx-bench/probes/removal-ownership/target/real/data ' private/rnx/runtimes"
+      },
+      {
+        "allocated": 11493376,
+        "dry_run": true,
+        "id": "54430e47250ac6fba8c7d96573057ab016d93917c0f8f30da2f2c06f05272a93",
+        "location": "entries",
+        "logical": 8475023,
+        "nodes": 1092,
+        "writer": "not reserved"
+      }
+    ]
+  },
+  "removal": {
+    "consumers_reaped_before_removal": true,
+    "reports": [
+      [
+        {
+          "committed": true,
+          "pending": "/home/me/work/rnx-bench/probes/removal-ownership/target/real/cache/removing/88e6a07f33c97652d4aa92e58336016ec39f15f9858080b3f9c0bca5d3b1e1bc",
+          "resume_command": "'/home/me/work/rnx-bench/probes/removal-ownership/target/tool/target/release/rnx-removal-probe' cache remove 88e6a07f33c97652d4aa92e58336016ec39f15f9858080b3f9c0bca5d3b1e1bc --root '/home/me/work/rnx-bench/probes/removal-ownership/target/real/cache' --resume --quiescent"
+        },
+        {
+          "allocated_estimate_before": 1571573760,
+          "deleted_leaves": 3142,
+          "location": "entries",
+          "logical_before": 1560141427,
+          "removed": "88e6a07f33c97652d4aa92e58336016ec39f15f9858080b3f9c0bca5d3b1e1bc"
+        }
+      ],
+      [
+        {
+          "committed": true,
+          "pending": "/home/me/work/rnx-bench/probes/removal-ownership/target/real/data ' private/rnx/runtimes/removing/54430e47250ac6fba8c7d96573057ab016d93917c0f8f30da2f2c06f05272a93",
+          "resume_command": "'/home/me/work/rnx-bench/probes/removal-ownership/target/tool/target/release/rnx-removal-probe' runtime remove 54430e47250ac6fba8c7d96573057ab016d93917c0f8f30da2f2c06f05272a93 --root '/home/me/work/rnx-bench/probes/removal-ownership/target/real/data '\\'' private/rnx/runtimes' --resume --quiescent"
+        },
+        {
+          "allocated_estimate_before": 11493376,
+          "deleted_leaves": 807,
+          "location": "entries",
+          "logical_before": 8475023,
+          "removed": "54430e47250ac6fba8c7d96573057ab016d93917c0f8f30da2f2c06f05272a93"
+        }
+      ]
+    ],
+    "current_entry_unchanged": true,
+    "selection_unchanged": true,
+    "current_runtime_unchanged": true,
+    "projects_and_kernelspec_unchanged": true,
+    "locks_preserved": true,
+    "new_polars_eval": true
+  }
+}

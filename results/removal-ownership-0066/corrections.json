@@ -1,0 +1,17 @@
+[
+  {
+    "phase": "initial candidate clippy",
+    "finding": "duplicate dead_code attribute and unused fs::self import",
+    "resolution": "remove both; final strict clippy passes"
+  },
+  {
+    "phase": "initial filesystem matrix",
+    "finding": "openat2 returned EINVAL for O_PATH combined with O_NONBLOCK",
+    "resolution": "O_PATH opens omit O_NONBLOCK; all three resolve flags unchanged"
+  },
+  {
+    "phase": "second filesystem matrix",
+    "finding": "AF_UNIX fixture path exceeded socket address bound",
+    "resolution": "bind relative sock name from fixture entry; restore cwd"
+  }
+]

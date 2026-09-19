@@ -1,0 +1,40 @@
+{
+  "uid": 1003,
+  "entry_dev": 38,
+  "bind_dev": 38,
+  "tmpfs_dev": 117,
+  "mountinfo": [
+    "10639 10586 0:38 /rnx-0066-bwrap-9h1b9d7r/outside /tmp/rnx-0066-bwrap-9h1b9d7r/store/entries/aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/mnt rw,nosuid,nodev master:18 - tmpfs tmpfs rw,nr_inodes=1048576,inode64,usrquota",
+    "10640 10586 0:117 / /tmp/rnx-0066-bwrap-9h1b9d7r/store/entries/aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/out rw,nosuid,nodev,relatime - tmpfs tmpfs rw,mode=755,uid=1003,gid=1003,inode64"
+  ],
+  "unguarded_unlink_reaches_outside_fixture": true,
+  "command": [
+    "/usr/bin/bwrap",
+    "--unshare-user",
+    "--uid",
+    "1003",
+    "--gid",
+    "1003",
+    "--bind",
+    "/",
+    "/",
+    "--dev",
+    "/dev",
+    "--proc",
+    "/proc",
+    "--bind",
+    "/tmp/rnx-0066-bwrap-9h1b9d7r/outside",
+    "/tmp/rnx-0066-bwrap-9h1b9d7r/store/entries/aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/mnt",
+    "--tmpfs",
+    "/tmp/rnx-0066-bwrap-9h1b9d7r/store/entries/aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/out",
+    "--",
+    "python3",
+    "-c",
+    "import os,json,sys\nfrom pathlib import Path\np=Path(sys.argv[1]);e=Path(sys.argv[2]);uid=int(sys.argv[3]);assert os.getuid()==uid\nassert e.stat().st_dev==(e/'mnt').stat().st_dev==(p/'outside').stat().st_dev\nassert (e/'out').stat().st_dev!=e.stat().st_dev\nassert (e/'mnt/sentinel').read_text()=='fixture only'\nrows=[x for x in Path('/proc/self/mountinfo').read_text().splitlines() if str(e) in x]\nassert len(rows)==2,rows\nos.unlink(e/'mnt/sentinel')\nassert not (p/'outside/sentinel').exists()\nprint(json.dumps(dict(uid=uid,entry_dev=e.stat().st_dev,bind_dev=(e/'mnt').stat().st_dev,tmpfs_dev=(e/'out').stat().st_dev,mountinfo=rows,unguarded_unlink_reaches_outside_fixture=True)))\n",
+    "/tmp/rnx-0066-bwrap-9h1b9d7r",
+    "/tmp/rnx-0066-bwrap-9h1b9d7r/store/entries/aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+    "1003"
+  ],
+  "stderr": "",
+  "parent_has_no_mounts": true
+}
