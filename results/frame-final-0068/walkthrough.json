@@ -1,0 +1,93 @@
+{
+  "lines": 22,
+  "steps": [
+    {
+      "input": "fs::write_new(\"sales.csv\", \"region,item,qty,price\\nwest,apple,3,1.5\\nwest,pear,1,2.0\\neast,apple,5,1.5\\neast,plum,2,3.0\\nnorth,apple,4,1.5\\n\")?;",
+      "output": "fs::write_new(\"sales.csv\", \"region,item,qty,price\\nwest,apple,3,1.5\\nwest,pear,1,2.0\\neast,apple,5,1.5\\neast,plum\n2,3.0\\nnorth,apple,4,1.5\\n\")?;"
+    },
+    {
+      "input": "let sales = polars::read_csv(\"sales.csv\", [(\"region\",\"string\"),(\"item\",\"string\"),(\"qty\",\"i64\"),(\"price\",\"f64\")])?;",
+      "output": "let sales = polars::read_csv(\"sales.csv\", [(\"region\",\"string\"),(\"item\",\"string\"),(\"qty\",\"i64\"),(\"price\",\"f64\")])?"
+    },
+    {
+      "input": "sales",
+      "output": "[3] DataFrame: 5 rows × 4 columns\n\"region\": string | \"item\": string | \"qty\": i64 | \"price\": f64\n\"west\" | \"apple\" | 3 | 1.5\n\"west\" | \"pear\" | 1 | 2.0\n\"east\" | \"apple\" | 5 | 1.5\n\"east\" | \"plum\" | 2 | 3.0\n\"north\" | \"apple\" | 4 | 1.5"
+    },
+    {
+      "input": "let big = sales.lazy().filter(polars::col(\"qty\").gt(polars::lit(2)?)).collect()?;",
+      "output": ""
+    },
+    {
+      "input": "big",
+      "output": "[5] DataFrame: 3 rows × 4 columns\n\"region\": string | \"item\": string | \"qty\": i64 | \"price\": f64\n\"west\" | \"apple\" | 3 | 1.5\n\"east\" | \"apple\" | 5 | 1.5\n\"north\" | \"apple\" | 4 | 1.5"
+    },
+    {
+      "input": "let by_region = sales.lazy().group_by([polars::col(\"region\")])?.agg([polars::col(\"qty\").sum().alias(\"units\")])?.sort([\"region\"])?.collect()?;",
+      "output": "let by_region = sales.lazy().group_by([polars::col(\"region\")])?.agg([polars::col(\"qty\").sum().alias(\"units\")])?.s\nrt([\"region\"])?.collect()?;"
+    },
+    {
+      "input": "by_region",
+      "output": "[7] DataFrame: 3 rows × 2 columns\n\"region\": string | \"units\": i64\n\"east\" | 7\n\"north\" | 4\n\"west\" | 4"
+    },
+    {
+      "input": "let bumped = sales.lazy().group_by([polars::col(\"item\")])?.agg([(polars::col(\"qty\") + polars::lit(10)?).sum().alias(\"qty_plus_10\")])?.sort([\"item\"])?.collect()?;",
+      "output": "let bumped = sales.lazy().group_by([polars::col(\"item\")])?.agg([(polars::col(\"qty\") + polars::lit(10)?).sum().ali\ns(\"qty_plus_10\")])?.sort([\"item\"])?.collect()?;"
+    },
+    {
+      "input": "bumped",
+      "output": "[9] DataFrame: 3 rows × 2 columns\n\"item\": string | \"qty_plus_10\": i64\n\"apple\" | 42\n\"pear\" | 11\n\"plum\" | 12"
+    },
+    {
+      "input": "let oops = sales.lazy().filter(polars::col(\"missing\").gt(polars::lit(1)?)).collect();",
+      "output": ""
+    },
+    {
+      "input": "oops.is_err()",
+      "output": "[11] true"
+    },
+    {
+      "input": "match oops { Ok(_) => \"unexpected\", Err(e) => e }",
+      "output": "[12] \"polars collect: not found: unable to find column \\\"missing\\\"; valid columns: [\\\"region\\\", \\\"item\\\", \\\"qty\\\", \\\"price\\\"]\\n\\nResolved plan until failure:\\n\\n\\t---> FAILED HERE RESOLVING THIS_NODE <---\\nDF [\\\"region\\\", \\\"item\\\", \\\"qty\\\", \\\"price\\\"]; PROJECT */4 COLUMNS\""
+    },
+    {
+      "input": "sales",
+      "output": "[13] DataFrame: 5 rows × 4 columns\n\"region\": string | \"item\": string | \"qty\": i64 | \"price\": f64\n\"west\" | \"apple\" | 3 | 1.5\n\"west\" | \"pear\" | 1 | 2.0\n\"east\" | \"apple\" | 5 | 1.5\n\"east\" | \"plum\" | 2 | 3.0\n\"north\" | \"apple\" | 4 | 1.5"
+    },
+    {
+      "input": "by_region.write_parquet_new(\"sales.parquet\")?;",
+      "output": ""
+    },
+    {
+      "input": "let back = polars::read_parquet(\"sales.parquet\")?;",
+      "output": ""
+    },
+    {
+      "input": "back.preview()? == by_region.preview()?",
+      "output": "[16] true"
+    },
+    {
+      "input": "println!(\"{sales}\")",
+      "output": "DataFrame: 5 rows × 4 columns\n\"region\": string | \"item\": string | \"qty\": i64 | \"price\": f64\n\"west\" | \"apple\" | 3 | 1.5\n\"west\" | \"pear\" | 1 | 2.0\n\"east\" | \"apple\" | 5 | 1.5\n\"east\" | \"plum\" | 2 | 3.0\n\"north\" | \"apple\" | 4 | 1.5"
+    },
+    {
+      "input": "format!(\"{sales}\").len()",
+      "output": "[18] 227"
+    },
+    {
+      "input": "let text = sales.preview()?;",
+      "output": ""
+    },
+    {
+      "input": ":vars",
+      "output": "back: DataFrame = <::polars::DataFrame>\nbig: DataFrame = <::polars::DataFrame>\nbumped: DataFrame = <::polars::DataFrame>\nby_region: DataFrame = <::polars::DataFrame>\noops: Result = Err(\"polars collect: not found: unable to find column \\\"missing\\\"; valid columns: [\\\"region\\\", \\\"item\\\", \\\"qty\\\", \\\"price\\\"]\\n\\nResolved plan until failure:\\n\\n\\t---> FAILED HERE RESOLVING THIS_NODE <---\\nDF [\\\"region\\\", \\\"item\\\", \\\"qty\\\", \\\"price\\\"]; PROJECT */4 COLUMNS\")\nsales: DataFrame = <::polars::DataFrame>\ntext: String = \"DataFrame: 5 rows × 4 columns\\n\\\"region\\\": string | \\\"item\\\": string | \\\"qty\\\": i64 | \\\"price\\\": f64\\n\\\"west\\\" | \\\"apple\\\" | 3 | 1.5\\n\\\"west\\\" | \\\"pear\\\" | 1 | 2.0\\n\\\"east\\\" | \\\"apple\\\" | 5 | 1.5\\n\\\"east\\\" | \\\"plum\\\" | 2 | 3.0\\n\\\"north\\\" | \\\"apple\\\" | 4 | 1.5\\n\""
+    },
+    {
+      "input": ":reset",
+      "output": "session reset"
+    },
+    {
+      "input": "polars::lit(1)?",
+      "output": "[1] <::polars::Expr>"
+    }
+  ]
+}

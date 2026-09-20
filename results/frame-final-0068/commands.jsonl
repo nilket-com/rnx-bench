@@ -1,0 +1,49 @@
+{"args": ["git", "rev-parse", "--short", "HEAD"], "cwd": "/home/me/work/rnx", "status": 0, "seconds": 0.002}
+{"args": ["git", "-c", "color.ui=false", "diff", "80d40d2", "--", ".", ":(exclude)README.md", ":(exclude)plans/**"], "cwd": "/home/me/work/rnx", "status": 0, "seconds": 0.003}
+{"args": ["git", "worktree", "add", "--detach", "/home/me/work/rnx-bench/probes/frame-final/target/before", "73532b5"], "cwd": "/home/me/work/rnx", "status": 0, "seconds": 0.045}
+{"args": ["cargo", "build", "--release", "--locked", "--offline", "--bin", "rnx", "-j", "8"], "cwd": "/home/me/work/rnx-bench/probes/frame-final/target/before", "status": 0, "seconds": 46.289}
+{"args": ["cargo", "build", "--release", "--locked", "--offline", "--bin", "rnx", "-j", "8"], "cwd": "/home/me/work/rnx", "status": 0, "seconds": 9.322}
+{"args": ["/home/me/work/rnx-bench/probes/frame-final/target/stock", "project", "add", "polars", "--manifest", "/home/me/work/rnx-bench/probes/frame-final/target/present/rnx.toml"], "cwd": "/home/me/work/rnx-bench/probes/frame-final/target/present", "status": 0, "seconds": 0.004}
+{"args": ["/home/me/work/rnx-bench/probes/frame-final/target/stock", "project", "lock", "--manifest", "/home/me/work/rnx-bench/probes/frame-final/target/present/rnx.toml", "--offline"], "cwd": "/home/me/work/rnx-bench/probes/frame-final/target/present", "status": 0, "seconds": 0.984}
+{"args": ["/home/me/work/rnx-bench/probes/frame-final/target/stock", "project", "build", "--manifest", "/home/me/work/rnx-bench/probes/frame-final/target/present/rnx.toml", "--offline"], "cwd": "/home/me/work/rnx-bench/probes/frame-final/target/present", "status": 0, "seconds": 109.106}
+{"args": ["/home/me/work/rnx-bench/probes/frame-final/target/stock", "project", "add", "polars", "--manifest", "/home/me/work/rnx-bench/probes/frame-final/target/plain/rnx.toml"], "cwd": "/home/me/work/rnx-bench/probes/frame-final/target/plain", "status": 0, "seconds": 0.005}
+{"args": ["/home/me/work/rnx-bench/probes/frame-final/target/stock", "project", "lock", "--manifest", "/home/me/work/rnx-bench/probes/frame-final/target/plain/rnx.toml", "--offline"], "cwd": "/home/me/work/rnx-bench/probes/frame-final/target/plain", "status": 0, "seconds": 0.974}
+{"args": ["/home/me/work/rnx-bench/probes/frame-final/target/stock", "project", "build", "--manifest", "/home/me/work/rnx-bench/probes/frame-final/target/plain/rnx.toml", "--offline"], "cwd": "/home/me/work/rnx-bench/probes/frame-final/target/plain", "status": 0, "seconds": 111.682}
+{"args": ["cargo", "fmt", "--check"], "cwd": "/home/me/work/rnx", "status": 0, "seconds": 0.289}
+{"args": ["cargo", "fmt", "--manifest-path", "tools/project/Cargo.toml", "--check"], "cwd": "/home/me/work/rnx", "status": 0, "seconds": 0.234}
+{"args": ["cargo", "fmt", "--manifest-path", "adapters/polars/Cargo.toml", "--check"], "cwd": "/home/me/work/rnx", "status": 0, "seconds": 0.048}
+{"args": ["cargo", "test", "--locked", "--offline", "-j", "6", "--", "--test-threads=1"], "cwd": "/home/me/work/rnx", "status": 0, "seconds": 69.545}
+{"args": ["cargo", "test", "--locked", "--offline", "-j", "6", "--features", "test-support", "--", "--test-threads=1"], "cwd": "/home/me/work/rnx", "status": 0, "seconds": 95.764}
+{"args": ["cargo", "test", "--locked", "--offline", "-j", "6", "--no-default-features", "--features", "count-allocations,project-sources", "--", "--test-threads=1"], "cwd": "/home/me/work/rnx", "status": 0, "seconds": 71.101}
+{"args": ["cargo", "test", "--locked", "--offline", "--manifest-path", "tools/project/Cargo.toml", "-j", "4", "--", "--test-threads=1"], "cwd": "/home/me/work/rnx", "status": 0, "seconds": 3.091}
+{"args": ["cargo", "clippy", "--locked", "--offline", "--manifest-path", "tools/project/Cargo.toml", "--all-targets", "--", "-D", "warnings"], "cwd": "/home/me/work/rnx", "status": 0, "seconds": 1.025}
+{"args": ["cargo", "test", "--locked", "--offline", "--manifest-path", "adapters/polars/Cargo.toml", "-j", "4", "--", "--test-threads=1"], "cwd": "/home/me/work/rnx", "status": 0, "seconds": 1.408}
+{"args": ["cargo", "clippy", "--locked", "--offline", "--manifest-path", "adapters/polars/Cargo.toml", "--all-targets", "--", "-D", "warnings"], "cwd": "/home/me/work/rnx", "status": 0, "seconds": 0.672}
+{"args": ["cargo", "test", "--locked", "--offline", "--manifest-path", "tools/project/Cargo.toml", "-j", "4", "--features", "test-support", "--", "--test-threads=1"], "cwd": "/home/me/work/rnx", "status": 0, "seconds": 3.228}
+{"args": ["cargo", "clippy", "--locked", "--offline", "--manifest-path", "tools/project/Cargo.toml", "--all-targets", "--features", "test-support", "--", "-D", "warnings"], "cwd": "/home/me/work/rnx", "status": 0, "seconds": 0.131}
+{"args": ["cargo", "test", "--locked", "--offline", "--manifest-path", "adapters/polars/Cargo.toml", "-j", "4", "--features", "test-support", "--", "--test-threads=1"], "cwd": "/home/me/work/rnx", "status": 0, "seconds": 1.002}
+{"args": ["cargo", "clippy", "--locked", "--offline", "--manifest-path", "adapters/polars/Cargo.toml", "--all-targets", "--features", "test-support", "--", "-D", "warnings"], "cwd": "/home/me/work/rnx", "status": 0, "seconds": 0.475}
+{"args": ["bash", "scripts/third-party-notices.sh", "--check"], "cwd": "/home/me/work/rnx", "status": 0, "seconds": 14.061}
+{"args": ["python3", "tools/project/scripts/notices.py", "--check"], "cwd": "/home/me/work/rnx", "status": 0, "seconds": 0.167}
+{"args": ["python3", "adapters/polars/scripts/third-party-notices.py", "--check"], "cwd": "/home/me/work/rnx", "status": 0, "seconds": 0.697}
+{"args": ["/home/me/work/rnx-bench/probes/frame-final/target/stock", "selfcheck"], "cwd": "/home/me/work/rnx", "status": 0, "seconds": 0.145}
+{"args": ["cargo", "clippy", "--locked", "--offline", "--all-targets", "--", "-D", "warnings"], "cwd": "/home/me/work/rnx", "status": 101, "seconds": 2.169}
+{"args": ["cargo", "clippy", "--locked", "--offline", "--all-targets", "--", "-D", "warnings"], "cwd": "/home/me/work/rnx-bench/probes/frame-final/target/before", "status": 101, "seconds": 35.683}
+{"args": ["cargo", "test", "--locked", "--offline", "--manifest-path", "adapters/postgres/Cargo.toml", "-j", "4", "--", "--test-threads=1"], "cwd": "/home/me/work/rnx", "status": 0, "seconds": 4.654}
+{"args": ["python3", "adapters/postgres/scripts/third-party-notices.py", "--check"], "cwd": "/home/me/work/rnx", "status": 0, "seconds": 0.402}
+{"args": ["cargo", "test", "--locked", "--offline", "--manifest-path", "servers/http-postgres/Cargo.toml", "-j", "4", "--", "--test-threads=1"], "cwd": "/home/me/work/rnx", "status": 0, "seconds": 5.439}
+{"args": ["python3", "servers/http-postgres/scripts/third-party-notices.py", "--check"], "cwd": "/home/me/work/rnx", "status": 0, "seconds": 0.271}
+{"args": ["cargo", "tree", "--locked", "--offline", "--manifest-path", "/home/me/work/rnx/Cargo.toml", "--prefix", "none"], "cwd": "/home/me/work/rnx", "status": 0, "seconds": 0.106}
+{"args": ["cargo", "tree", "--locked", "--offline", "--manifest-path", "/home/me/work/rnx/Cargo.toml", "--prefix", "none", "--no-default-features", "--features", "count-allocations,project-sources"], "cwd": "/home/me/work/rnx", "status": 0, "seconds": 0.077}
+{"args": ["cargo", "tree", "--locked", "--offline", "--manifest-path", "/home/me/work/rnx/Cargo.toml", "--prefix", "none", "--features", "server-runtime"], "cwd": "/home/me/work/rnx", "status": 0, "seconds": 0.079}
+{"args": ["cargo", "tree", "--locked", "--offline", "--manifest-path", "/home/me/work/rnx/Cargo.toml", "--prefix", "none"], "cwd": "/home/me/work/rnx", "status": 0, "seconds": 0.093}
+{"args": ["cargo", "tree", "--locked", "--offline", "--manifest-path", "/home/me/work/rnx/Cargo.toml", "--prefix", "none", "--no-default-features", "--features", "count-allocations,project-sources"], "cwd": "/home/me/work/rnx", "status": 0, "seconds": 0.077}
+{"args": ["cargo", "tree", "--locked", "--offline", "--manifest-path", "/home/me/work/rnx/Cargo.toml", "--prefix", "none", "--features", "server-runtime"], "cwd": "/home/me/work/rnx", "status": 0, "seconds": 0.079}
+{"args": ["cargo", "tree", "--locked", "--offline", "--manifest-path", "/home/me/work/rnx/adapters/polars/Cargo.toml", "--prefix", "none"], "cwd": "/home/me/work/rnx", "status": 0, "seconds": 0.136}
+{"args": ["cargo", "tree", "--locked", "--offline", "--manifest-path", "/home/me/work/rnx/adapters/postgres/Cargo.toml", "--prefix", "none"], "cwd": "/home/me/work/rnx", "status": 0, "seconds": 0.081}
+{"args": ["cargo", "tree", "--locked", "--offline", "--manifest-path", "/home/me/work/rnx/servers/http-postgres/Cargo.toml", "--prefix", "none"], "cwd": "/home/me/work/rnx", "status": 0, "seconds": 0.081}
+{"args": ["nm", "-C", "/home/me/work/rnx-bench/probes/frame-final/target/cache/entries/0b1d84db7053de064869eefe48c36944c7eba27f5803e5d2f1ced65344482ab4/artifacts/63c8e398458fa8c7239f6d494e409f5c290f8ae847c12b495330941d0f2d4d31"], "cwd": "/home/me/work/rnx", "status": 0, "seconds": 1.336}
+{"args": ["nm", "-C", "/home/me/work/rnx-bench/probes/frame-final/target/cache/entries/6ea93ed27d08e7e37e34bde886b0208f879fb56a782d893795959100d4dcbc69/artifacts/025eeae5213d796c4c013945b998dd5063500b5d93566013542ab5d83219a876"], "cwd": "/home/me/work/rnx", "status": 0, "seconds": 1.328}
+{"args": ["cargo", "test", "--locked", "--offline", "--test", "release_metadata", "--", "--test-threads=1"], "cwd": "/home/me/work/rnx", "status": 0, "seconds": 17.185}
+{"args": ["pgrep", "-fa", "/home/me/work/rnx-bench/probes/frame-final/target"], "cwd": "/home/me/work/rnx", "status": 1, "seconds": 0.011}
+{"args": ["git", "worktree", "remove", "--force", "/home/me/work/rnx-bench/probes/frame-final/target/before"], "cwd": "/home/me/work/rnx", "status": 0, "seconds": 0.094}

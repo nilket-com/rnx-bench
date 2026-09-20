@@ -1,0 +1,18 @@
+{
+  "present": {
+    "manifest": "format = 1\n[application]\nentry = \"main.rn\"\n[runtime]\npath = \"/home/me/work/rnx\"\n\n\n[native.polars]\npath = \"/home/me/work/rnx/adapters/polars\"\npackage = \"rnx-polars\"\nbuilder = \"build\"\nhook = \"plain\"\npresentation = true\n",
+    "wrapper": "fn main() -> Result<(), Box<dyn std::error::Error>> {\n    rnx::main_with(rnx::Extensions::none().with(\"polars\", native_0::build).present(\"polars\", native_0::present))\n}\n",
+    "artifact": "/home/me/work/rnx-bench/probes/frame-final/target/cache/entries/0b1d84db7053de064869eefe48c36944c7eba27f5803e5d2f1ced65344482ab4/artifacts/63c8e398458fa8c7239f6d494e409f5c290f8ae847c12b495330941d0f2d4d31",
+    "artifact_sha256": "33d2218a95f5aabbe6c66833142aaff9d4404b7187517f835a8d2af7a2245f4e",
+    "artifact_size": 107620808,
+    "lock_build_seconds": 110.1
+  },
+  "plain": {
+    "manifest": "format = 1\n[application]\nentry = \"main.rn\"\n[runtime]\npath = \"/home/me/work/rnx\"\n\n\n[native.polars]\npath = \"/home/me/work/rnx/adapters/polars\"\npackage = \"rnx-polars\"\nbuilder = \"build\"\nhook = \"plain\"\n",
+    "wrapper": "fn main() -> Result<(), Box<dyn std::error::Error>> {\n    rnx::main_with(rnx::Extensions::none().with(\"polars\", native_0::build))\n}\n",
+    "artifact": "/home/me/work/rnx-bench/probes/frame-final/target/cache/entries/6ea93ed27d08e7e37e34bde886b0208f879fb56a782d893795959100d4dcbc69/artifacts/025eeae5213d796c4c013945b998dd5063500b5d93566013542ab5d83219a876",
+    "artifact_sha256": "9a5ae036cc6ee911545c53590cf240c337d7705e57eac9f7ae51a536c0b1c13e",
+    "artifact_size": 107602184,
+    "lock_build_seconds": 112.7
+  }
+}

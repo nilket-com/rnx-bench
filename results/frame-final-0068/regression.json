@@ -1,0 +1,329 @@
+[
+  {
+    "name": "root-fmt",
+    "args": [
+      "cargo",
+      "fmt",
+      "--check"
+    ],
+    "status": 0
+  },
+  {
+    "name": "tool-fmt",
+    "args": [
+      "cargo",
+      "fmt",
+      "--manifest-path",
+      "tools/project/Cargo.toml",
+      "--check"
+    ],
+    "status": 0
+  },
+  {
+    "name": "polars-fmt",
+    "args": [
+      "cargo",
+      "fmt",
+      "--manifest-path",
+      "adapters/polars/Cargo.toml",
+      "--check"
+    ],
+    "status": 0
+  },
+  {
+    "name": "root-default",
+    "args": [
+      "cargo",
+      "test",
+      "--locked",
+      "--offline",
+      "-j",
+      "6",
+      "--",
+      "--test-threads=1"
+    ],
+    "status": 0
+  },
+  {
+    "name": "root-support",
+    "args": [
+      "cargo",
+      "test",
+      "--locked",
+      "--offline",
+      "-j",
+      "6",
+      "--features",
+      "test-support",
+      "--",
+      "--test-threads=1"
+    ],
+    "status": 0
+  },
+  {
+    "name": "root-runner",
+    "args": [
+      "cargo",
+      "test",
+      "--locked",
+      "--offline",
+      "-j",
+      "6",
+      "--no-default-features",
+      "--features",
+      "count-allocations,project-sources",
+      "--",
+      "--test-threads=1"
+    ],
+    "status": 0
+  },
+  {
+    "name": "tool-default",
+    "args": [
+      "cargo",
+      "test",
+      "--locked",
+      "--offline",
+      "--manifest-path",
+      "tools/project/Cargo.toml",
+      "-j",
+      "4",
+      "--",
+      "--test-threads=1"
+    ],
+    "status": 0
+  },
+  {
+    "name": "tool-clippy-default",
+    "args": [
+      "cargo",
+      "clippy",
+      "--locked",
+      "--offline",
+      "--manifest-path",
+      "tools/project/Cargo.toml",
+      "--all-targets",
+      "--",
+      "-D",
+      "warnings"
+    ],
+    "status": 0
+  },
+  {
+    "name": "polars-default",
+    "args": [
+      "cargo",
+      "test",
+      "--locked",
+      "--offline",
+      "--manifest-path",
+      "adapters/polars/Cargo.toml",
+      "-j",
+      "4",
+      "--",
+      "--test-threads=1"
+    ],
+    "status": 0
+  },
+  {
+    "name": "polars-clippy-default",
+    "args": [
+      "cargo",
+      "clippy",
+      "--locked",
+      "--offline",
+      "--manifest-path",
+      "adapters/polars/Cargo.toml",
+      "--all-targets",
+      "--",
+      "-D",
+      "warnings"
+    ],
+    "status": 0
+  },
+  {
+    "name": "tool-support",
+    "args": [
+      "cargo",
+      "test",
+      "--locked",
+      "--offline",
+      "--manifest-path",
+      "tools/project/Cargo.toml",
+      "-j",
+      "4",
+      "--features",
+      "test-support",
+      "--",
+      "--test-threads=1"
+    ],
+    "status": 0
+  },
+  {
+    "name": "tool-clippy-support",
+    "args": [
+      "cargo",
+      "clippy",
+      "--locked",
+      "--offline",
+      "--manifest-path",
+      "tools/project/Cargo.toml",
+      "--all-targets",
+      "--features",
+      "test-support",
+      "--",
+      "-D",
+      "warnings"
+    ],
+    "status": 0
+  },
+  {
+    "name": "polars-support",
+    "args": [
+      "cargo",
+      "test",
+      "--locked",
+      "--offline",
+      "--manifest-path",
+      "adapters/polars/Cargo.toml",
+      "-j",
+      "4",
+      "--features",
+      "test-support",
+      "--",
+      "--test-threads=1"
+    ],
+    "status": 0
+  },
+  {
+    "name": "polars-clippy-support",
+    "args": [
+      "cargo",
+      "clippy",
+      "--locked",
+      "--offline",
+      "--manifest-path",
+      "adapters/polars/Cargo.toml",
+      "--all-targets",
+      "--features",
+      "test-support",
+      "--",
+      "-D",
+      "warnings"
+    ],
+    "status": 0
+  },
+  {
+    "name": "root-notices",
+    "args": [
+      "bash",
+      "scripts/third-party-notices.sh",
+      "--check"
+    ],
+    "status": 0
+  },
+  {
+    "name": "tool-notices",
+    "args": [
+      "python3",
+      "tools/project/scripts/notices.py",
+      "--check"
+    ],
+    "status": 0
+  },
+  {
+    "name": "polars-notices",
+    "args": [
+      "python3",
+      "adapters/polars/scripts/third-party-notices.py",
+      "--check"
+    ],
+    "status": 0
+  },
+  {
+    "name": "selfcheck",
+    "args": [
+      "/home/me/work/rnx-bench/probes/frame-final/target/stock",
+      "selfcheck"
+    ],
+    "status": 0
+  },
+  {
+    "name": "root-clippy",
+    "args": [
+      "cargo",
+      "clippy",
+      "--locked",
+      "--offline",
+      "--all-targets",
+      "--",
+      "-D",
+      "warnings"
+    ],
+    "status": 101
+  },
+  {
+    "name": "baseline-clippy",
+    "args": [
+      "cargo",
+      "clippy",
+      "--locked",
+      "--offline",
+      "--all-targets",
+      "--",
+      "-D",
+      "warnings"
+    ],
+    "status": 101
+  },
+  {
+    "name": "adapters-postgres-tests",
+    "args": [
+      "cargo",
+      "test",
+      "--locked",
+      "--offline",
+      "--manifest-path",
+      "adapters/postgres/Cargo.toml",
+      "-j",
+      "4",
+      "--",
+      "--test-threads=1"
+    ],
+    "status": 0
+  },
+  {
+    "name": "adapters-postgres-notices",
+    "args": [
+      "python3",
+      "adapters/postgres/scripts/third-party-notices.py",
+      "--check"
+    ],
+    "status": 0
+  },
+  {
+    "name": "servers-http-postgres-tests",
+    "args": [
+      "cargo",
+      "test",
+      "--locked",
+      "--offline",
+      "--manifest-path",
+      "servers/http-postgres/Cargo.toml",
+      "-j",
+      "4",
+      "--",
+      "--test-threads=1"
+    ],
+    "status": 0
+  },
+  {
+    "name": "servers-http-postgres-notices",
+    "args": [
+      "python3",
+      "servers/http-postgres/scripts/third-party-notices.py",
+      "--check"
+    ],
+    "status": 0
+  }
+]

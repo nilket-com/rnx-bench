@@ -1,0 +1,25 @@
+{
+  "cpu": 0,
+  "samples": 1000,
+  "cells": {
+    "small-present": "sales",
+    "small-suppress": "let _s = sales;",
+    "small-preview": "sales.preview()?",
+    "small-format": "format!(\"{sales}\").len()",
+    "large-present": "big",
+    "large-suppress": "let _b = big;",
+    "large-preview": "big.preview()?",
+    "large-collect": "let _c = big.lazy().filter(polars::col(\"c0\").gt(polars::lit(1_000_000)?)).collect()?;",
+    "large-collect-present": "big.lazy().filter(polars::col(\"c0\").gt(polars::lit(1_000_000)?)).collect()?",
+    "plain-value": "42"
+  },
+  "seeds": [
+    680200,
+    680300
+  ],
+  "warmups": {
+    "worker": 3,
+    "prompt": 5
+  },
+  "clock": "worker: request write to settled reply; prompt: PTY create-to-prompt; pinned core, interleaved"
+}

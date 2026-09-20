@@ -1,0 +1,228 @@
+{
+  "reads_ms": {
+    "sales_read_ms": 0.929912,
+    "big_read_ms": 94.98749
+  },
+  "texts": {
+    "small-present": {
+      "bytes": 227,
+      "render_bounded": true,
+      "head": "DataFrame: 5 rows × 4 columns\n\"region\": string | \"item\": string | \"qty\": i64 | \""
+    },
+    "small-suppress": {
+      "bytes": 0,
+      "render_bounded": null,
+      "head": ""
+    },
+    "small-preview": {
+      "bytes": 264,
+      "render_bounded": true,
+      "head": "\"DataFrame: 5 rows × 4 columns\\n\\\"region\\\": string | \\\"item\\\": string | \\\"qty\\\":"
+    },
+    "small-format": {
+      "bytes": 3,
+      "render_bounded": true,
+      "head": "227"
+    },
+    "large-present": {
+      "bytes": 569,
+      "render_bounded": true,
+      "head": "DataFrame: 200000 rows × 12 columns\n[199990 rows and 4 columns omitted by displa"
+    },
+    "large-suppress": {
+      "bytes": 0,
+      "render_bounded": null,
+      "head": ""
+    },
+    "large-preview": {
+      "bytes": 600,
+      "render_bounded": true,
+      "head": "\"DataFrame: 200000 rows × 12 columns\\n[199990 rows and 4 columns omitted by disp"
+    },
+    "large-collect": {
+      "bytes": 0,
+      "render_bounded": null,
+      "head": ""
+    },
+    "large-collect-present": {
+      "bytes": 965,
+      "render_bounded": true,
+      "head": "DataFrame: 116666 rows × 12 columns\n[116656 rows and 4 columns omitted by displa"
+    },
+    "plain-value": {
+      "bytes": 2,
+      "render_bounded": true,
+      "head": "42"
+    }
+  },
+  "worker": {
+    "small-present": [
+      {
+        "median_ms": 0.3620795,
+        "p10_ms": 0.348235,
+        "p90_ms": 0.382774
+      },
+      {
+        "median_ms": 0.356541,
+        "p10_ms": 0.346566,
+        "p90_ms": 0.38999
+      }
+    ],
+    "small-suppress": [
+      {
+        "median_ms": 0.2899985,
+        "p10_ms": 0.278479,
+        "p90_ms": 0.312554
+      },
+      {
+        "median_ms": 0.29734950000000004,
+        "p10_ms": 0.283916,
+        "p90_ms": 0.317547
+      }
+    ],
+    "small-preview": [
+      {
+        "median_ms": 0.3737855,
+        "p10_ms": 0.363161,
+        "p90_ms": 0.400342
+      },
+      {
+        "median_ms": 0.3877615,
+        "p10_ms": 0.371015,
+        "p90_ms": 0.410482
+      }
+    ],
+    "small-format": [
+      {
+        "median_ms": 0.31769499999999995,
+        "p10_ms": 0.309992,
+        "p90_ms": 0.344973
+      },
+      {
+        "median_ms": 0.3208875,
+        "p10_ms": 0.308733,
+        "p90_ms": 0.345464
+      }
+    ],
+    "large-present": [
+      {
+        "median_ms": 0.4467265,
+        "p10_ms": 0.426674,
+        "p90_ms": 0.464136
+      },
+      {
+        "median_ms": 0.4438585,
+        "p10_ms": 0.426355,
+        "p90_ms": 0.470789
+      }
+    ],
+    "large-suppress": [
+      {
+        "median_ms": 0.2923225,
+        "p10_ms": 0.281772,
+        "p90_ms": 0.325863
+      },
+      {
+        "median_ms": 0.2983095,
+        "p10_ms": 0.2823,
+        "p90_ms": 0.324823
+      }
+    ],
+    "large-preview": [
+      {
+        "median_ms": 0.450422,
+        "p10_ms": 0.436999,
+        "p90_ms": 0.490714
+      },
+      {
+        "median_ms": 0.4632265,
+        "p10_ms": 0.445181,
+        "p90_ms": 0.487783
+      }
+    ],
+    "large-collect": [
+      {
+        "median_ms": 0.7480395,
+        "p10_ms": 0.739274,
+        "p90_ms": 0.763265
+      },
+      {
+        "median_ms": 0.7487275,
+        "p10_ms": 0.741646,
+        "p90_ms": 0.77268
+      }
+    ],
+    "large-collect-present": [
+      {
+        "median_ms": 0.989682,
+        "p10_ms": 0.980661,
+        "p90_ms": 0.999007
+      },
+      {
+        "median_ms": 0.9924665,
+        "p10_ms": 0.979798,
+        "p90_ms": 1.009148
+      }
+    ],
+    "plain-value": [
+      {
+        "median_ms": 0.278027,
+        "p10_ms": 0.268793,
+        "p90_ms": 0.302474
+      },
+      {
+        "median_ms": 0.283496,
+        "p10_ms": 0.271024,
+        "p90_ms": 0.313748
+      }
+    ]
+  },
+  "prompt": {
+    "present": [
+      {
+        "median_ms": 5.0175149999999995,
+        "p10_ms": 4.828837,
+        "p90_ms": 5.182061
+      },
+      {
+        "median_ms": 5.024862000000001,
+        "p10_ms": 4.897121,
+        "p90_ms": 5.186379
+      }
+    ],
+    "plain": [
+      {
+        "median_ms": 5.005153,
+        "p10_ms": 4.831589,
+        "p90_ms": 5.144513
+      },
+      {
+        "median_ms": 5.024249,
+        "p10_ms": 4.893813,
+        "p90_ms": 5.190619
+      }
+    ]
+  },
+  "derived": {
+    "small_render_ms": [
+      0.072081,
+      0.05919149999999995
+    ],
+    "large_render_ms": [
+      0.15440400000000004,
+      0.14554899999999998
+    ],
+    "large_collect_ms": [
+      0.47001249999999994,
+      0.46523149999999996
+    ],
+    "large_present_after_collect_ms": [
+      0.24164249999999998,
+      0.24373900000000004
+    ],
+    "prompt_delta_ms": [
+      0.01236199999999954,
+      0.0006130000000004188
+    ]
+  }
+}
