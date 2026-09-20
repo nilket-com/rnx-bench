@@ -1,0 +1,498 @@
+{
+  "sequence": [
+    {
+      "after": "the first builds",
+      "seen": {
+        "runtime": {
+          "bare_frame": null,
+          "postgres": false,
+          "query": null,
+          "retained": null,
+          "configured": null,
+          "eval": "42"
+        },
+        "polars": {
+          "bare_frame": "presents",
+          "postgres": false,
+          "query": null,
+          "retained": null,
+          "configured": null
+        },
+        "postgres": {
+          "bare_frame": null,
+          "postgres": true,
+          "query": "{\"affected\": 1, \"columns\": [\"answer\", \"db\"], \"rows\": [{\"answer\": 42, \"db\": \"postgres\"}]}",
+          "retained": null,
+          "configured": null
+        },
+        "both": {
+          "bare_frame": "presents",
+          "postgres": true,
+          "query": "{\"affected\": 1, \"columns\": [\"answer\", \"db\"], \"rows\": [{\"answer\": 42, \"db\": \"postgres\"}]}",
+          "retained": null,
+          "configured": null
+        },
+        "configured": {
+          "bare_frame": null,
+          "postgres": false,
+          "query": null,
+          "retained": null,
+          "configured": "Ok(\"first\")"
+        },
+        "embedding-private": {
+          "bare_frame": null,
+          "postgres": false,
+          "query": null,
+          "retained": "Ok(\"cache-owned retained value\")",
+          "configured": null
+        },
+        "path-private": {
+          "bare_frame": null,
+          "postgres": false,
+          "query": null,
+          "retained": "Ok(\"cache-owned retained value\")",
+          "configured": null
+        }
+      }
+    },
+    {
+      "after": "a later shared build",
+      "seen": {
+        "runtime": {
+          "bare_frame": null,
+          "postgres": false,
+          "query": null,
+          "retained": null,
+          "configured": null,
+          "eval": "42"
+        },
+        "polars": {
+          "bare_frame": "presents",
+          "postgres": false,
+          "query": null,
+          "retained": null,
+          "configured": null
+        },
+        "postgres": {
+          "bare_frame": null,
+          "postgres": true,
+          "query": "{\"affected\": 1, \"columns\": [\"answer\", \"db\"], \"rows\": [{\"answer\": 42, \"db\": \"postgres\"}]}",
+          "retained": null,
+          "configured": null
+        },
+        "both": {
+          "bare_frame": "presents",
+          "postgres": true,
+          "query": "{\"affected\": 1, \"columns\": [\"answer\", \"db\"], \"rows\": [{\"answer\": 42, \"db\": \"postgres\"}]}",
+          "retained": null,
+          "configured": null
+        },
+        "configured": {
+          "bare_frame": null,
+          "postgres": false,
+          "query": null,
+          "retained": null,
+          "configured": "Ok(\"first\")"
+        },
+        "embedding-private": {
+          "bare_frame": null,
+          "postgres": false,
+          "query": null,
+          "retained": "Ok(\"cache-owned retained value\")",
+          "configured": null
+        },
+        "path-private": {
+          "bare_frame": null,
+          "postgres": false,
+          "query": null,
+          "retained": "Ok(\"cache-owned retained value\")",
+          "configured": null
+        },
+        "polars-plain": {
+          "bare_frame": "opaque",
+          "postgres": false,
+          "query": null,
+          "retained": null,
+          "configured": null
+        }
+      }
+    },
+    {
+      "after": "a same-revision build-script re-run",
+      "seen": {
+        "runtime": {
+          "bare_frame": null,
+          "postgres": false,
+          "query": null,
+          "retained": null,
+          "configured": null,
+          "eval": "42"
+        },
+        "polars": {
+          "bare_frame": "presents",
+          "postgres": false,
+          "query": null,
+          "retained": null,
+          "configured": null
+        },
+        "postgres": {
+          "bare_frame": null,
+          "postgres": true,
+          "query": "{\"affected\": 1, \"columns\": [\"answer\", \"db\"], \"rows\": [{\"answer\": 42, \"db\": \"postgres\"}]}",
+          "retained": null,
+          "configured": null
+        },
+        "both": {
+          "bare_frame": "presents",
+          "postgres": true,
+          "query": "{\"affected\": 1, \"columns\": [\"answer\", \"db\"], \"rows\": [{\"answer\": 42, \"db\": \"postgres\"}]}",
+          "retained": null,
+          "configured": null
+        },
+        "configured": {
+          "bare_frame": null,
+          "postgres": false,
+          "query": null,
+          "retained": null,
+          "configured": "Ok(\"second\")"
+        },
+        "embedding-private": {
+          "bare_frame": null,
+          "postgres": false,
+          "query": null,
+          "retained": "Ok(\"cache-owned retained value\")",
+          "configured": null
+        },
+        "path-private": {
+          "bare_frame": null,
+          "postgres": false,
+          "query": null,
+          "retained": "Ok(\"cache-owned retained value\")",
+          "configured": null
+        },
+        "polars-plain": {
+          "bare_frame": "opaque",
+          "postgres": false,
+          "query": null,
+          "retained": null,
+          "configured": null
+        },
+        "configured-with-polars": {
+          "bare_frame": "presents",
+          "postgres": false,
+          "query": null,
+          "retained": null,
+          "configured": "Ok(\"second\")"
+        }
+      }
+    },
+    {
+      "after": "a build-script change at a new revision",
+      "seen": {
+        "runtime": {
+          "bare_frame": null,
+          "postgres": false,
+          "query": null,
+          "retained": null,
+          "configured": null,
+          "eval": "42"
+        },
+        "polars": {
+          "bare_frame": "presents",
+          "postgres": false,
+          "query": null,
+          "retained": null,
+          "configured": null
+        },
+        "postgres": {
+          "bare_frame": null,
+          "postgres": true,
+          "query": "{\"affected\": 1, \"columns\": [\"answer\", \"db\"], \"rows\": [{\"answer\": 42, \"db\": \"postgres\"}]}",
+          "retained": null,
+          "configured": null
+        },
+        "both": {
+          "bare_frame": "presents",
+          "postgres": true,
+          "query": "{\"affected\": 1, \"columns\": [\"answer\", \"db\"], \"rows\": [{\"answer\": 42, \"db\": \"postgres\"}]}",
+          "retained": null,
+          "configured": null
+        },
+        "configured": {
+          "bare_frame": null,
+          "postgres": false,
+          "query": null,
+          "retained": null,
+          "configured": "Ok(\"second\")"
+        },
+        "embedding-private": {
+          "bare_frame": null,
+          "postgres": false,
+          "query": null,
+          "retained": "Ok(\"cache-owned retained value\")",
+          "configured": null
+        },
+        "path-private": {
+          "bare_frame": null,
+          "postgres": false,
+          "query": null,
+          "retained": "Ok(\"cache-owned retained value\")",
+          "configured": null
+        },
+        "polars-plain": {
+          "bare_frame": "opaque",
+          "postgres": false,
+          "query": null,
+          "retained": null,
+          "configured": null
+        },
+        "configured-with-polars": {
+          "bare_frame": "presents",
+          "postgres": false,
+          "query": null,
+          "retained": null,
+          "configured": "Ok(\"second\")"
+        },
+        "embedding-changed-private": {
+          "bare_frame": null,
+          "postgres": false,
+          "query": null,
+          "retained": "Ok(\"value at the third revision\")",
+          "configured": null
+        }
+      }
+    },
+    {
+      "after": "an entry removal",
+      "seen": {
+        "runtime": {
+          "bare_frame": null,
+          "postgres": false,
+          "query": null,
+          "retained": null,
+          "configured": null,
+          "eval": "42"
+        },
+        "polars": {
+          "bare_frame": "presents",
+          "postgres": false,
+          "query": null,
+          "retained": null,
+          "configured": null
+        },
+        "postgres": {
+          "bare_frame": null,
+          "postgres": true,
+          "query": "{\"affected\": 1, \"columns\": [\"answer\", \"db\"], \"rows\": [{\"answer\": 42, \"db\": \"postgres\"}]}",
+          "retained": null,
+          "configured": null
+        },
+        "both": {
+          "bare_frame": "presents",
+          "postgres": true,
+          "query": "{\"affected\": 1, \"columns\": [\"answer\", \"db\"], \"rows\": [{\"answer\": 42, \"db\": \"postgres\"}]}",
+          "retained": null,
+          "configured": null
+        },
+        "configured": {
+          "bare_frame": null,
+          "postgres": false,
+          "query": null,
+          "retained": null,
+          "configured": "Ok(\"second\")"
+        },
+        "embedding-private": {
+          "bare_frame": null,
+          "postgres": false,
+          "query": null,
+          "retained": "Ok(\"cache-owned retained value\")",
+          "configured": null
+        },
+        "path-private": {
+          "bare_frame": null,
+          "postgres": false,
+          "query": null,
+          "retained": "Ok(\"cache-owned retained value\")",
+          "configured": null
+        },
+        "configured-with-polars": {
+          "bare_frame": "presents",
+          "postgres": false,
+          "query": null,
+          "retained": null,
+          "configured": "Ok(\"second\")"
+        },
+        "embedding-changed-private": {
+          "bare_frame": null,
+          "postgres": false,
+          "query": null,
+          "retained": "Ok(\"value at the third revision\")",
+          "configured": null
+        }
+      }
+    },
+    {
+      "after": "the shared directory removal",
+      "seen": {
+        "runtime": {
+          "bare_frame": null,
+          "postgres": false,
+          "query": null,
+          "retained": null,
+          "configured": null,
+          "eval": "42"
+        },
+        "polars": {
+          "bare_frame": "presents",
+          "postgres": false,
+          "query": null,
+          "retained": null,
+          "configured": null
+        },
+        "postgres": {
+          "bare_frame": null,
+          "postgres": true,
+          "query": "{\"affected\": 1, \"columns\": [\"answer\", \"db\"], \"rows\": [{\"answer\": 42, \"db\": \"postgres\"}]}",
+          "retained": null,
+          "configured": null
+        },
+        "both": {
+          "bare_frame": "presents",
+          "postgres": true,
+          "query": "{\"affected\": 1, \"columns\": [\"answer\", \"db\"], \"rows\": [{\"answer\": 42, \"db\": \"postgres\"}]}",
+          "retained": null,
+          "configured": null
+        },
+        "configured": {
+          "bare_frame": null,
+          "postgres": false,
+          "query": null,
+          "retained": null,
+          "configured": "Err(\"/home/me/work/rnx-bench/probes/shared-build-lifetime/target/cache/build/70846f4b84dee8881d5cb4823aba56274651d9781db57ace1dd7475544d94824/release/build/rnx-probe-config-c29009a026c2d1de/out/retained.txt: No such file or directory (os error 2)\")"
+        },
+        "embedding-private": {
+          "bare_frame": null,
+          "postgres": false,
+          "query": null,
+          "retained": "Ok(\"cache-owned retained value\")",
+          "configured": null
+        },
+        "path-private": {
+          "bare_frame": null,
+          "postgres": false,
+          "query": null,
+          "retained": "Ok(\"cache-owned retained value\")",
+          "configured": null
+        },
+        "configured-with-polars": {
+          "bare_frame": "presents",
+          "postgres": false,
+          "query": null,
+          "retained": null,
+          "configured": "Err(\"/home/me/work/rnx-bench/probes/shared-build-lifetime/target/cache/build/70846f4b84dee8881d5cb4823aba56274651d9781db57ace1dd7475544d94824/release/build/rnx-probe-config-c29009a026c2d1de/out/retained.txt: No such file or directory (os error 2)\")"
+        },
+        "embedding-changed-private": {
+          "bare_frame": null,
+          "postgres": false,
+          "query": null,
+          "retained": "Ok(\"value at the third revision\")",
+          "configured": null
+        }
+      }
+    }
+  ],
+  "runtime": {
+    "build_seconds": 40.701,
+    "compiling_entries": 142,
+    "kind": {
+      "kind": "shared",
+      "key": "70846f4b84dee8881d5cb4823aba56274651d9781db57ace1dd7475544d94824"
+    }
+  },
+  "polars": {
+    "build_seconds": 111.914,
+    "compiling_entries": 229,
+    "kind": {
+      "kind": "shared",
+      "key": "70846f4b84dee8881d5cb4823aba56274651d9781db57ace1dd7475544d94824"
+    }
+  },
+  "postgres": {
+    "build_seconds": 35.932,
+    "compiling_entries": 39,
+    "kind": {
+      "kind": "shared",
+      "key": "70846f4b84dee8881d5cb4823aba56274651d9781db57ace1dd7475544d94824"
+    }
+  },
+  "both": {
+    "build_seconds": 40.207,
+    "compiling_entries": 13,
+    "kind": {
+      "kind": "shared",
+      "key": "70846f4b84dee8881d5cb4823aba56274651d9781db57ace1dd7475544d94824"
+    }
+  },
+  "configured": {
+    "build_seconds": 4.726,
+    "compiling_entries": 2,
+    "kind": {
+      "kind": "shared",
+      "key": "70846f4b84dee8881d5cb4823aba56274651d9781db57ace1dd7475544d94824"
+    }
+  },
+  "embedding-private": {
+    "build_seconds": 40.328,
+    "compiling_entries": 143,
+    "kind": {
+      "kind": "private"
+    }
+  },
+  "path-private": {
+    "build_seconds": 38.34,
+    "compiling_entries": 143,
+    "identity_format": 2
+  },
+  "polars-plain": {
+    "build_seconds": 4.905,
+    "compiling_entries": 1,
+    "kind": {
+      "kind": "shared",
+      "key": "70846f4b84dee8881d5cb4823aba56274651d9781db57ace1dd7475544d94824"
+    }
+  },
+  "configured-with-polars": {
+    "build_seconds": 5.266,
+    "compiling_entries": 2,
+    "kind": {
+      "kind": "shared",
+      "key": "70846f4b84dee8881d5cb4823aba56274651d9781db57ace1dd7475544d94824"
+    }
+  },
+  "embedding-changed-private": {
+    "build_seconds": 40.891,
+    "compiling_entries": 143,
+    "kind": {
+      "kind": "private"
+    }
+  },
+  "removal": {
+    "entry_removed": "ced43394622c",
+    "listing_before": {
+      "key": "70846f4b84dee8881d5cb4823aba56274651d9781db57ace1dd7475544d94824",
+      "kind": "build",
+      "referencing_entries": 6,
+      "scope": "local entries whose ready document names this key; not every consumer",
+      "status": "shared build directory",
+      "unreadable_entries": 0
+    },
+    "refused_without_quiescent": "'/home/me/work/rnx-bench/probes/shared-build-lifetime/target/product/target/release/rnx' cache remove build-70846f4b84dee8881d5cb4823aba56274651d9781db57ace1dd7",
+    "removed": {
+      "allocated_estimate_before": 2541387776,
+      "deleted_leaves": 4046,
+      "location": "build",
+      "logical_before": 2526847910,
+      "removed": "build-70846f4b84dee8881d5cb4823aba56274651d9781db57ace1dd7475544d94824"
+    }
+  }
+}

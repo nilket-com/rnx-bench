@@ -1,0 +1,9 @@
+{
+  "git_manifest": "format = 2\n[application]\nentry = \"main.rn\"\n[runtime]\ngit = \"file:///home/me/work/rnx-bench/probes/shared-build-lifetime/target/origin.git\"\nrev = \"31179333fc8d5d39e6d3596d8e619529a232bdd1\"\n\n\n[native.polars]\ngit = \"file:///home/me/work/rnx-bench/probes/shared-build-lifetime/target/origin.git\"\nrev = \"31179333fc8d5d39e6d3596d8e619529a232bdd1\"\npackage = \"rnx-polars\"\nbuilder = \"build\"\nhook = \"plain\"\npresentation = true\nshared_build = true\n\n[native.postgres]\ngit = \"file:///home/me/work/rnx-bench/probes/shared-build-lifetime/target/origin.git\"\nrev = \"31179333fc8d5d39e6d3596d8e619529a232bdd1\"\npackage = \"rnx-postgres\"\nbuilder = \"build\"\nhook = \"lifecycle\"\nshared_build = true\n",
+  "git_build": {
+    "kind": "shared",
+    "key": "70846f4b84dee8881d5cb4823aba56274651d9781db57ace1dd7475544d94824"
+  },
+  "existing_unchanged": true,
+  "path_manifest": "format = 1\n[application]\nentry = \"main.rn\"\n[runtime]\npath = \"/home/me/work/rnx-bench/probes/shared-build-lifetime/target/product\"\n\n\n[native.polars]\npath = \"/home/me/work/rnx-bench/probes/shared-build-lifetime/target/product/adapters/polars\"\npackage = \"rnx-polars\"\nbuilder = \"build\"\nhook = \"plain\"\npresentation = true\n"
+}
