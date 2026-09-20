@@ -1,0 +1,136 @@
+{
+  "cases": {
+    "a-polars-shared": {
+      "lock_seconds": 6.019,
+      "build_seconds": 114.78,
+      "compiling_entries": 308,
+      "build": {
+        "kind": "shared",
+        "key": "c2e7f1314c270721c85a970525d6716bb813227837532a720e1a2bbde0677a9a"
+      },
+      "wrapper": "rnx-app-c9cbf469ae94440f",
+      "entry": "73e2abe01eb3",
+      "behaviour": {
+        "bare_frame": "presents",
+        "postgres": false,
+        "retained": null
+      },
+      "ready_format": 3,
+      "note": "first Polars, declared: cold shared"
+    },
+    "b-polars-plain-shared": {
+      "lock_seconds": 5.005,
+      "build_seconds": 4.972,
+      "compiling_entries": 1,
+      "build": {
+        "kind": "shared",
+        "key": "c2e7f1314c270721c85a970525d6716bb813227837532a720e1a2bbde0677a9a"
+      },
+      "wrapper": "rnx-app-2c1e6fe6de65eea7",
+      "entry": "41f555337e4e",
+      "behaviour": {
+        "bare_frame": "opaque",
+        "postgres": false,
+        "retained": null
+      },
+      "ready_format": 3,
+      "note": "same natives, another wrapper"
+    },
+    "c-both-shared": {
+      "lock_seconds": 4.946,
+      "build_seconds": 39.949,
+      "compiling_entries": 31,
+      "build": {
+        "kind": "shared",
+        "key": "c2e7f1314c270721c85a970525d6716bb813227837532a720e1a2bbde0677a9a"
+      },
+      "wrapper": "rnx-app-e3ac0d35713eeb9a",
+      "entry": "95eee85ae042",
+      "behaviour": {
+        "bare_frame": "presents",
+        "postgres": true,
+        "retained": null
+      },
+      "ready_format": 3,
+      "note": "PostgreSQL added"
+    },
+    "d-polars-shared-rev2": {
+      "lock_seconds": 4.508,
+      "build_seconds": 9.293,
+      "compiling_entries": 3,
+      "build": {
+        "kind": "shared",
+        "key": "c2e7f1314c270721c85a970525d6716bb813227837532a720e1a2bbde0677a9a"
+      },
+      "wrapper": "rnx-app-26b1cb8076e12fd2",
+      "entry": "f31a87b740da",
+      "behaviour": {
+        "bare_frame": "presents",
+        "postgres": false,
+        "retained": null
+      },
+      "ready_format": 3,
+      "note": "runtime revision bump (same sources plus a directory)"
+    },
+    "e-polars-shared-again": {
+      "lock_seconds": 4.648,
+      "build_seconds": 2.51,
+      "compiling_entries": 0,
+      "build": {
+        "kind": "shared",
+        "key": "c2e7f1314c270721c85a970525d6716bb813227837532a720e1a2bbde0677a9a"
+      },
+      "wrapper": "rnx-app-c9cbf469ae94440f",
+      "entry": "73e2abe01eb3",
+      "behaviour": {
+        "bare_frame": "presents",
+        "postgres": false,
+        "retained": null
+      },
+      "ready_format": 3,
+      "note": "the first declaration again: attaches, builds nothing"
+    },
+    "f-polars-private": {
+      "lock_seconds": 4.931,
+      "build_seconds": 113.502,
+      "compiling_entries": 308,
+      "build": {
+        "kind": "private"
+      },
+      "wrapper": "rnx-app-c9cbf469ae94440f",
+      "entry": "b6a1bfdb377f",
+      "behaviour": {
+        "bare_frame": "presents",
+        "postgres": false,
+        "retained": null
+      },
+      "ready_format": 3,
+      "note": "undeclared: private, as today"
+    }
+  },
+  "seed": {
+    "runtime_records": 228,
+    "assembly_records": 387,
+    "shared_names": 215,
+    "exact_matches": 213,
+    "runtime_identities_absent": [
+      "block-buffer 0.10.4",
+      "cpufeatures 0.2.17",
+      "crypto-common 0.1.7",
+      "digest 0.10.7",
+      "rnx 0.0.0",
+      "sha2 0.10.9"
+    ]
+  },
+  "sizes": {
+    "shared_bytes": 1996032969,
+    "entries": {
+      "95eee85ae0429bd1b624b192a37ef0dd1816cc1a13b91e8989d367055487868b": 217639527,
+      "41f555337e4e91d6a42e486240bcc2ab23c78045de04ba9806d12b256a1a7ae5": 215474753,
+      "f31a87b740da0f2c5cc281be8b2b6b1d0569907344013a14854767885a637559": 215504577,
+      "b6a1bfdb377f2cd5c76fce02f1808a0d9ce0f721d6f606d515013c7818e19a3e": 1715083953,
+      "73e2abe01eb3b183bbf027f8f4c8aae33b1b145c3a3dc0dd63ea9248501698cd": 215504017
+    }
+  },
+  "key": "c2e7f1314c270721c85a970525d6716bb813227837532a720e1a2bbde0677a9a"
+}

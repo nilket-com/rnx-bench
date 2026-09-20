@@ -1,0 +1,79 @@
+{
+  "declared": {
+    "refused": true,
+    "message": "rnx: cache entry /home/me/work/rnx-bench/probes/shared-build-product/target/cache/entries/2b369d60700eca6febf19ece5f7a9e4f4ab6d2b24abd614ecd82abc4b6623454: shared build refused: the executable references the shared build directory /home/me/work/rnx-bench/probes/shared-build-product/target/cache/buil",
+    "entry": "2b369d60700e",
+    "launch_status": 1,
+    "build_kind": {
+      "kind": "shared",
+      "key": "c2e7f1314c270721c85a970525d6716bb813227837532a720e1a2bbde0677a9a"
+    }
+  },
+  "undeclared": {
+    "build_kind": "private",
+    "behaviour": {
+      "bare_frame": null,
+      "postgres": false,
+      "retained": "Ok(\"cache-owned retained value\")"
+    },
+    "build_seconds": 40.376
+  },
+  "concurrent": {
+    "first": {
+      "seconds": 7.138,
+      "entries": 3,
+      "behaviour": {
+        "bare_frame": "opaque",
+        "postgres": true,
+        "retained": null
+      }
+    },
+    "second": {
+      "seconds": 4.452,
+      "entries": 1,
+      "behaviour": {
+        "bare_frame": "opaque",
+        "postgres": false,
+        "retained": null
+      }
+    }
+  },
+  "removal": {
+    "busy_refusal": "rnx: busy: a builder holds the shared build directory build-c2e7f1314c270721c85a970525d6716bb813227837532a720e1a2bbde0677a9a at \"/home/me/work/rnx-bench/probes/shared-build-product/target/cache\": lock acquisition failed because the operation would block; wait for every build to finish, then retry",
+    "listing": {
+      "key": "c2e7f1314c270721c85a970525d6716bb813227837532a720e1a2bbde0677a9a",
+      "kind": "build",
+      "referencing_entries": 7,
+      "scope": "local entries whose ready document names this key; not every consumer",
+      "status": "shared build directory",
+      "unreadable_entries": 0
+    },
+    "listing_bytes": 2643459657
+  },
+  "interrupted_removal": {
+    "pending_listed_as": "build-c2e7f1314c270721c85a970525d6716bb813227837532a720e1a2bbde0677a9a",
+    "bare_resume": "rnx: no removing/c2e7f1314c270721c85a970525d6716bb813227837532a720e1a2bbde0677a9a in \"/home/me/work/rnx-bench/probes/shared-build-product/target/cache\"; nothing",
+    "resume_from_inside": "rnx: current executable or working directory is inside target",
+    "pending_dry_run": {
+      "key": "c2e7f1314c270721c85a970525d6716bb813227837532a720e1a2bbde0677a9a",
+      "kind": "build",
+      "referencing_entries": 7,
+      "scope": "local entries whose ready document names this key; not every consumer",
+      "status": "shared build directory",
+      "unreadable_entries": 0
+    },
+    "resume_while_building": "rnx: busy: a builder holds the shared build directory build-c2e7f1314c270721c85a970525d6716bb813227837532a720e1a2bbde0677a9a at \"/home/me/work/rnx-bench/probes/",
+    "rebuilt_directory_survives_resume": true,
+    "removed": {
+      "allocated_estimate_before": 2657439744,
+      "deleted_leaves": 3946,
+      "location": "removing",
+      "logical_before": 2643459657,
+      "removed": "build-c2e7f1314c270721c85a970525d6716bb813227837532a720e1a2bbde0677a9a"
+    }
+  },
+  "overrides": {
+    "environment": "rnx: unsupported build environment override CARGO_BUILD_BUILD_DIR; unset it",
+    "configuration": "rnx: unsupported Cargo configuration key build in /home/me/work/rnx-bench/probes/shared-build-product/target/cargo-home-config/config.toml; remove the unsupported setting before retrying; project-loca"
+  }
+}
