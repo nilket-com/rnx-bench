@@ -1,0 +1,322 @@
+{
+  "cases": {
+    "a-polars-private": {
+      "seconds": 112.542,
+      "entries": 308,
+      "behaviour": {
+        "bare_frame": "presents",
+        "postgres": false,
+        "retained": null
+      },
+      "exe_sha256": "33d2218a95f5",
+      "note": "today: cold, private"
+    },
+    "b-plain-private": {
+      "seconds": 111.7,
+      "entries": 308,
+      "behaviour": {
+        "bare_frame": "opaque",
+        "postgres": false,
+        "retained": null
+      },
+      "exe_sha256": "9a5ae036cc6e",
+      "note": "today: same natives, different wrapper, cold again"
+    },
+    "c-polars-shared": {
+      "seconds": 110.731,
+      "entries": 308,
+      "behaviour": {
+        "bare_frame": "presents",
+        "postgres": false,
+        "retained": null
+      },
+      "exe_sha256": "33d2218a95f5",
+      "note": "shared: cold"
+    },
+    "d-plain-shared": {
+      "seconds": 0.164,
+      "entries": 0,
+      "behaviour": {
+        "bare_frame": "presents",
+        "postgres": false,
+        "retained": null
+      },
+      "exe_sha256": "33d2218a95f5",
+      "note": "shared: warm after c; the wrong-binary control"
+    },
+    "d2-plain-relocated": {
+      "seconds": 0.171,
+      "entries": 0,
+      "behaviour": {
+        "bare_frame": "presents",
+        "postgres": false,
+        "retained": null
+      },
+      "exe_sha256": "33d2218a95f5",
+      "note": "warm state copied to another path (relocation control)"
+    },
+    "w1-present-disc": {
+      "seconds": 111.858,
+      "entries": 308,
+      "behaviour": {
+        "bare_frame": "presents",
+        "postgres": false,
+        "retained": null
+      },
+      "exe_sha256": "cfc5ae3381b3",
+      "note": "discriminated: cold"
+    },
+    "w2-plain-disc": {
+      "seconds": 0.612,
+      "entries": 1,
+      "behaviour": {
+        "bare_frame": "opaque",
+        "postgres": false,
+        "retained": null
+      },
+      "exe_sha256": "10ede8ab9cd8",
+      "note": "discriminated: plain after present"
+    },
+    "w3-present-disc-again": {
+      "seconds": 0.165,
+      "entries": 0,
+      "behaviour": {
+        "bare_frame": "presents",
+        "postgres": false,
+        "retained": null
+      },
+      "exe_sha256": "cfc5ae3381b3",
+      "note": "discriminated: present again"
+    },
+    "w4-plain-disc-again": {
+      "seconds": 0.167,
+      "entries": 0,
+      "behaviour": {
+        "bare_frame": "opaque",
+        "postgres": false,
+        "retained": null
+      },
+      "exe_sha256": "10ede8ab9cd8",
+      "note": "discriminated: plain again"
+    },
+    "w5-both-disc": {
+      "seconds": 38.136,
+      "entries": 30,
+      "behaviour": {
+        "bare_frame": "presents",
+        "postgres": true,
+        "retained": null
+      },
+      "exe_sha256": "aaa9c5b88438",
+      "note": "discriminated: PostgreSQL added, unseeded lock"
+    },
+    "w6-both-seeded-disc-mixed": {
+      "seconds": 106.401,
+      "entries": 173,
+      "behaviour": {
+        "bare_frame": "presents",
+        "postgres": true,
+        "retained": null
+      },
+      "exe_sha256": "e2012e2297df",
+      "note": "discriminated: seeded combined into an unseeded directory"
+    },
+    "s1-polars-seeded-disc": {
+      "seconds": 110.941,
+      "entries": 308,
+      "behaviour": {
+        "bare_frame": "presents",
+        "postgres": false,
+        "retained": null
+      },
+      "exe_sha256": "7ce18f08cc8b",
+      "note": "seeded: cold"
+    },
+    "s2-both-seeded-disc": {
+      "seconds": 37.276,
+      "entries": 31,
+      "behaviour": {
+        "bare_frame": "presents",
+        "postgres": true,
+        "retained": null
+      },
+      "exe_sha256": "e2012e2297df",
+      "note": "seeded: PostgreSQL added, seeded lock"
+    },
+    "r1-plain-disc-first": {
+      "seconds": 111.791,
+      "entries": 308,
+      "behaviour": {
+        "bare_frame": "opaque",
+        "postgres": false,
+        "retained": null
+      },
+      "exe_sha256": "10ede8ab9cd8",
+      "note": "discriminated: plain first, cold"
+    },
+    "r2-present-disc-second": {
+      "seconds": 0.637,
+      "entries": 1,
+      "behaviour": {
+        "bare_frame": "presents",
+        "postgres": false,
+        "retained": null
+      },
+      "exe_sha256": "cfc5ae3381b3",
+      "note": "discriminated: present second"
+    },
+    "g-polars-after-install": {
+      "seconds": 110.759,
+      "entries": 250,
+      "behaviour": {
+        "bare_frame": "presents",
+        "postgres": false,
+        "retained": null
+      },
+      "exe_sha256": "cfc5ae3381b3",
+      "note": "after the installation: unseeded"
+    },
+    "h-polars-seeded-after-install": {
+      "seconds": 110.365,
+      "entries": 225,
+      "behaviour": {
+        "bare_frame": "presents",
+        "postgres": false,
+        "retained": null
+      },
+      "exe_sha256": "7ce18f08cc8b",
+      "note": "after the installation: seeded"
+    }
+  },
+  "wrong_binary_control": {
+    "d_equals_c": true,
+    "d_behaviour": "presents",
+    "d_entries": 0
+  },
+  "overlap": {
+    "polars": {
+      "runtime_records": 228,
+      "assembly_records": 386,
+      "shared_names": 214,
+      "exact_package_matches": 192,
+      "names_with_exact_match": 190
+    },
+    "polars-plain": {
+      "runtime_records": 228,
+      "assembly_records": 386,
+      "shared_names": 214,
+      "exact_package_matches": 192,
+      "names_with_exact_match": 190
+    },
+    "polars-seeded": {
+      "runtime_records": 228,
+      "assembly_records": 387,
+      "shared_names": 215,
+      "exact_package_matches": 214,
+      "names_with_exact_match": 211
+    },
+    "both": {
+      "runtime_records": 228,
+      "assembly_records": 408,
+      "shared_names": 214,
+      "exact_package_matches": 192,
+      "names_with_exact_match": 190
+    },
+    "both-seeded": {
+      "runtime_records": 228,
+      "assembly_records": 409,
+      "shared_names": 215,
+      "exact_package_matches": 214,
+      "names_with_exact_match": 211
+    },
+    "retained": {
+      "runtime_records": 228,
+      "assembly_records": 387,
+      "shared_names": 214,
+      "exact_package_matches": 192,
+      "names_with_exact_match": 190
+    },
+    "retained-plain": {
+      "runtime_records": 228,
+      "assembly_records": 387,
+      "shared_names": 214,
+      "exact_package_matches": 192,
+      "names_with_exact_match": 190
+    }
+  },
+  "install": {
+    "plain": {
+      "seconds": 39.863,
+      "compiling_entries": 163,
+      "exe_sha256": "c08d129318ffb2f8a1da6a5d7f2a4e8b4eb09eaab318972cfbf9a6f6ab87131d",
+      "retained_fingerprints": 0,
+      "build_dir_bytes": 0
+    },
+    "shared": {
+      "seconds": 40.605,
+      "compiling_entries": 163,
+      "exe_sha256": "c08d129318ffb2f8a1da6a5d7f2a4e8b4eb09eaab318972cfbf9a6f6ab87131d",
+      "retained_fingerprints": 225,
+      "build_dir_bytes": 621339556
+    }
+  },
+  "lifetime": {
+    "l1": {
+      "entries": 309,
+      "seconds": 110.02,
+      "bare_frame": "presents",
+      "postgres": false,
+      "retained": "Ok(\"cache-owned retained value\")",
+      "embeds_shared_path": true
+    },
+    "l2": {
+      "entries": 1,
+      "seconds": 0.638,
+      "bare_frame": "opaque",
+      "postgres": false,
+      "retained": "Ok(\"cache-owned retained value\")"
+    },
+    "l1_after_l2": {
+      "bare_frame": "presents",
+      "postgres": false,
+      "retained": "Ok(\"cache-owned retained value\")"
+    },
+    "l3": {
+      "entries": 2,
+      "seconds": 0.875,
+      "bare_frame": "presents",
+      "postgres": false,
+      "retained": "Ok(\"cache-owned retained value\")"
+    },
+    "l1_after_l3": {
+      "bare_frame": "presents",
+      "postgres": false,
+      "retained": "Ok(\"cache-owned retained value\")"
+    },
+    "l4": {
+      "entries": 2,
+      "seconds": 0.977,
+      "bare_frame": "presents",
+      "postgres": false,
+      "retained": "Ok(\"REWRITTEN by a later build\")"
+    },
+    "l1_after_l4": {
+      "bare_frame": "presents",
+      "postgres": false,
+      "retained": "Ok(\"REWRITTEN by a later build\")"
+    },
+    "l1_after_removal": [
+      false,
+      "Err(\"/home/me/work/rnx-bench/probes/shared-build/target/builds/shared/release/build/rnx-probe-f37242abee57da6c/out/retained.txt: No such file or directory (os error 2)\")"
+    ],
+    "l3_after_removal": [
+      false,
+      "Err(\"/home/me/work/rnx-bench/probes/shared-build/target/builds/shared/release/build/rnx-probe-f37242abee57da6c/out/retained.txt: No such file or directory (os error 2)\")"
+    ]
+  },
+  "sizes": {
+    "shared_after_w4_bytes": 1604353300,
+    "install_bytes": 621339556,
+    "private_polars_target_bytes": 1604393238
+  }
+}

@@ -1,0 +1,54 @@
+{
+  "l1": {
+    "entries": 309,
+    "seconds": 110.02,
+    "bare_frame": "presents",
+    "postgres": false,
+    "retained": "Ok(\"cache-owned retained value\")",
+    "embeds_shared_path": true
+  },
+  "l2": {
+    "entries": 1,
+    "seconds": 0.638,
+    "bare_frame": "opaque",
+    "postgres": false,
+    "retained": "Ok(\"cache-owned retained value\")"
+  },
+  "l1_after_l2": {
+    "bare_frame": "presents",
+    "postgres": false,
+    "retained": "Ok(\"cache-owned retained value\")"
+  },
+  "l3": {
+    "entries": 2,
+    "seconds": 0.875,
+    "bare_frame": "presents",
+    "postgres": false,
+    "retained": "Ok(\"cache-owned retained value\")"
+  },
+  "l1_after_l3": {
+    "bare_frame": "presents",
+    "postgres": false,
+    "retained": "Ok(\"cache-owned retained value\")"
+  },
+  "l4": {
+    "entries": 2,
+    "seconds": 0.977,
+    "bare_frame": "presents",
+    "postgres": false,
+    "retained": "Ok(\"REWRITTEN by a later build\")"
+  },
+  "l1_after_l4": {
+    "bare_frame": "presents",
+    "postgres": false,
+    "retained": "Ok(\"REWRITTEN by a later build\")"
+  },
+  "l1_after_removal": [
+    false,
+    "Err(\"/home/me/work/rnx-bench/probes/shared-build/target/builds/shared/release/build/rnx-probe-f37242abee57da6c/out/retained.txt: No such file or directory (os error 2)\")"
+  ],
+  "l3_after_removal": [
+    false,
+    "Err(\"/home/me/work/rnx-bench/probes/shared-build/target/builds/shared/release/build/rnx-probe-f37242abee57da6c/out/retained.txt: No such file or directory (os error 2)\")"
+  ]
+}
