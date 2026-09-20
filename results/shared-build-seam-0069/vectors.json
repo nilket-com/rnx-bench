@@ -1,0 +1,43 @@
+{
+  "format1-plain": {
+    "omitted_equals_false": true,
+    "true_bytes": "{\"format\":1,\"application\":{\"entry\":\"main.rn\"},\"runtime\":{\"path\":\"../rnx\"},\"sources\":{},\"native\":{\"x\":{\"path\":\"../rnx/adapters/x\",\"package\":\"rnx-x\",\"builder\":\"build\",\"hook\":\"plain\",\"shared_build\":true}}}",
+    "refusals": {
+      "string": "TOML parse error at line 11, column 16\n   |\n11 | shared_build = \"yes\"\n   |                ^^^^^\ninvalid type: string \"yes\", expected a boolean",
+      "integer": "TOML parse error at line 11, column 16\n   |\n11 | shared_build = 1\n   |                ^\ninvalid type: integer `1`, expected a boolean",
+      "unknown-sibling": "TOML parse error at line 12, column 1\n   |\n12 | shared = true\n   | ^^^^^^\nunknown field `shared`, expected one of `path`, `package`, `builder`, `hook`, `present",
+      "duplicate": "TOML parse error at line 12, column 1\n   |\n12 | shared_build = true\n   | ^^^^^^^^^^^^\nduplicate key"
+    }
+  },
+  "format1-lifecycle": {
+    "omitted_equals_false": true,
+    "true_bytes": "{\"format\":1,\"application\":{\"entry\":\"main.rn\"},\"runtime\":{\"path\":\"../rnx\"},\"sources\":{},\"native\":{\"x\":{\"path\":\"../rnx/adapters/x\",\"package\":\"rnx-x\",\"builder\":\"build\",\"hook\":\"lifecycle\",\"shared_build\":true}}}",
+    "refusals": {
+      "string": "TOML parse error at line 11, column 16\n   |\n11 | shared_build = \"yes\"\n   |                ^^^^^\ninvalid type: string \"yes\", expected a boolean",
+      "integer": "TOML parse error at line 11, column 16\n   |\n11 | shared_build = 1\n   |                ^\ninvalid type: integer `1`, expected a boolean",
+      "unknown-sibling": "TOML parse error at line 12, column 1\n   |\n12 | shared = true\n   | ^^^^^^\nunknown field `shared`, expected one of `path`, `package`, `builder`, `hook`, `present",
+      "duplicate": "TOML parse error at line 12, column 1\n   |\n12 | shared_build = true\n   | ^^^^^^^^^^^^\nduplicate key"
+    }
+  },
+  "format2-plain": {
+    "omitted_equals_false": true,
+    "true_bytes": "{\"format\":2,\"application\":{\"entry\":\"main.rn\"},\"runtime\":{\"git\":\"https://example.invalid/rnx\",\"rev\":\"0123456789abcdef0123456789abcdef01234567\"},\"sources\":{},\"native\":{\"x\":{\"git\":\"https://example.invalid/rnx\",\"rev\":\"0123456789abcdef0123456789abcdef01234567\",\"package\":\"rnx-x\",\"builder\":\"build\",\"hook\":\"plain\",\"shared_build\":true}}}",
+    "refusals": {
+      "string": "TOML parse error at line 13, column 16\n   |\n13 | shared_build = \"yes\"\n   |                ^^^^^\ninvalid type: string \"yes\", expected a boolean",
+      "integer": "TOML parse error at line 13, column 16\n   |\n13 | shared_build = 1\n   |                ^\ninvalid type: integer `1`, expected a boolean",
+      "unknown-sibling": "TOML parse error at line 14, column 1\n   |\n14 | shared = true\n   | ^^^^^^\nunknown field `shared`, expected one of `path`, `git`, `rev`, `package`, `builder`, `h",
+      "duplicate": "TOML parse error at line 14, column 1\n   |\n14 | shared_build = true\n   | ^^^^^^^^^^^^\nduplicate key"
+    }
+  },
+  "format2-lifecycle": {
+    "omitted_equals_false": true,
+    "true_bytes": "{\"format\":2,\"application\":{\"entry\":\"main.rn\"},\"runtime\":{\"git\":\"https://example.invalid/rnx\",\"rev\":\"0123456789abcdef0123456789abcdef01234567\"},\"sources\":{},\"native\":{\"x\":{\"git\":\"https://example.invalid/rnx\",\"rev\":\"0123456789abcdef0123456789abcdef01234567\",\"package\":\"rnx-x\",\"builder\":\"build\",\"hook\":\"lifecycle\",\"shared_build\":true}}}",
+    "refusals": {
+      "string": "TOML parse error at line 13, column 16\n   |\n13 | shared_build = \"yes\"\n   |                ^^^^^\ninvalid type: string \"yes\", expected a boolean",
+      "integer": "TOML parse error at line 13, column 16\n   |\n13 | shared_build = 1\n   |                ^\ninvalid type: integer `1`, expected a boolean",
+      "unknown-sibling": "TOML parse error at line 14, column 1\n   |\n14 | shared = true\n   | ^^^^^^\nunknown field `shared`, expected one of `path`, `git`, `rev`, `package`, `builder`, `h",
+      "duplicate": "TOML parse error at line 14, column 1\n   |\n14 | shared_build = true\n   | ^^^^^^^^^^^^\nduplicate key"
+    }
+  },
+  "baseline_refusal": ": manifest /home/me/work/rnx-bench/probes/shared-build-seam/target/vectors/baseline-project/rnx.toml: TOML parse error at line 13, column 1\n   |\n13 | shared_build = true\n   | ^^^^^^^^^^^^\nunknown field `shared_build`, expected one of `path`, `git`, `rev`, `package`, `builder`, `hook`, `presentation`"
+}

@@ -1,0 +1,1001 @@
+diff --git a/tools/project/src/cache_entry.rs b/tools/project/src/cache_entry.rs
+index b0f0346..d0f660f 100644
+--- a/tools/project/src/cache_entry.rs
++++ b/tools/project/src/cache_entry.rs
+@@ -342,7 +342,12 @@ pub(crate) fn acquire(
+ 			{
+ 				return Err("generated assembly inputs changed during build".into());
+ 			}
+-			let source = entry.join("target/release/rnx-project-app");
++			// The executable carries the wrapper's package name: the placeholder
++			// for retained generator-two and -three wrappers, the digest name
++			// from generator four.
++			let source = entry
++				.join("target/release")
++				.join(crate::generate::executable_name(manifest)?);
+ 			storage::private_directory(&entry.join("target"))?;
+ 			storage::private_directory(&entry.join("target/release"))?;
+ 			let expected =
+diff --git a/tools/project/src/cache_identity.rs b/tools/project/src/cache_identity.rs
+index 58e5144..b59e637 100644
+--- a/tools/project/src/cache_identity.rs
++++ b/tools/project/src/cache_identity.rs
+@@ -5,7 +5,7 @@ use crate::{fingerprint, generate, input, inventory::Inventory, manifest::Manife
+ use serde::{Deserialize, Serialize};
+ 
+ use std::{
+-	collections::BTreeSet,
++	collections::{BTreeMap, BTreeSet},
+ 	path::{Component, Path, PathBuf},
+ };
+ 
+@@ -21,6 +21,143 @@ pub(crate) struct Context {
+ 	pub target: String,
+ 	pub profile: String,
+ 	pub features: Vec<String>,
++	/// Record 0069: where the assembly compiles. Absent in identities that
++	/// predate sharing (formats 2 and 3), which keeps their bytes canonical;
++	/// required from Git-source identity format 4.
++	#[serde(default, skip_serializing_if = "Option::is_none")]
++	pub build: Option<Build>,
++}
++/// The build directory an assembly is compiled in, fixed at lock time.
++#[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
++#[serde(tag = "kind", rename_all = "lowercase", deny_unknown_fields)]
++pub(crate) enum Build {
++	/// The entry's own target directory (every path-source assembly).
++	Private,
++	/// The cache root's shared build directory for this key.
++	Shared { key: String },
++}
++impl Build {
++	pub(crate) fn validate(&self) -> Result<(), String> {
++		match self {
++			Build::Private => Ok(()),
++			Build::Shared { key } if valid_digest(key) => Ok(()),
++			Build::Shared { .. } => Err("invalid shared build key".into()),
++		}
++	}
++}
++/// The shared build directory's key: BLAKE3 over a framed preimage with a
++/// domain tag of everything that must not differ between two assemblies
++/// sharing Cargo units — toolchain, target, profile, features, the canonical
++/// cache root and Cargo home, and the admitted Cargo configuration values.
++/// Package identities and per-unit features are left to Cargo's own
++/// fingerprints inside the directory.
++pub(crate) fn build_key(context: &Context, settings: &[String]) -> String {
++	let mut hasher = blake3::Hasher::new();
++	let mut frame = |part: &str| {
++		hasher.update(&(part.len() as u64).to_le_bytes());
++		hasher.update(part.as_bytes());
++	};
++	frame("rnx-build-key-1");
++	frame(&context.rustc);
++	frame(&context.cargo);
++	frame(&context.target);
++	frame(&context.profile);
++	frame(&context.features.len().to_string());
++	for f in &context.features {
++		frame(f);
++	}
++	frame(&context.cache_root.to_string_lossy());
++	frame(&context.cargo_home.to_string_lossy());
++	frame(&settings.len().to_string());
++	for s in settings {
++		frame(s);
++	}
++	hasher.finalize().to_hex().to_string()
++}
++/// The admitted Cargo configuration (0067: only `target.<triple>.linker`
++/// and `rustflags`) as the *effective* values Cargo would merge from the
++/// inventory's authenticated configuration files: the linker from the
++/// highest-precedence file that sets it, and `rustflags` joined in
++/// ascending precedence, higher-precedence items later, as Cargo joins
++/// arrays. Precedence follows Cargo's search: a file deeper in the build
++/// directory's ancestry outranks a shallower one; Cargo home's own file is
++/// the lowest. In one directory Cargo reads `config` *instead of*
++/// `config.toml` when both exist, so the masked file contributes nothing.
++/// Two arrangements with the same effective values share a key; swapping
++/// which file sets the linker changes it.
++pub(crate) fn admitted_settings(
++	context: &Context,
++	inventory: &Inventory,
++) -> Result<Vec<String>, String> {
++	let mut files = Vec::new();
++	for external in &inventory.external {
++		let Some(file) = &external.file else { continue };
++		let name = external.path.file_name().and_then(|s| s.to_str());
++		if !matches!(name, Some("config" | "config.toml")) {
++			continue;
++		}
++		let bytes = input::read(&external.path, input::MANIFEST_LIMIT)?;
++		if digest(&bytes) != file.blake3 {
++			return Err("Cargo configuration changed".into());
++		}
++		let config: toml::Value =
++			toml::from_str(std::str::from_utf8(&bytes).map_err(|e| e.to_string())?)
++				.map_err(|e| e.to_string())?;
++		crate::cache_storage::config_policy(&config, &external.path)?;
++		let in_home = external.path.parent() == Some(context.cargo_home.as_path());
++		let precedence = (
++			if in_home {
++				0
++			} else {
++				1 + external.path.components().count()
++			},
++			u8::from(name == Some("config")),
++		);
++		files.push((precedence, external.path.clone(), config));
++	}
++	// One file per directory: `config` masks a sibling `config.toml`.
++	let masked: BTreeSet<PathBuf> = files
++		.iter()
++		.filter(|(p, _, _)| p.1 == 1)
++		.filter_map(|(_, path, _)| Some(path.parent()?.join("config.toml")))
++		.collect();
++	files.retain(|(_, path, _)| !masked.contains(path));
++	files.sort_by(|a, b| (&a.0, &a.1).cmp(&(&b.0, &b.1)));
++	let mut linker: BTreeMap<String, String> = BTreeMap::new();
++	let mut rustflags: BTreeMap<String, Vec<toml::Value>> = BTreeMap::new();
++	for (_, _, config) in &files {
++		let Some(targets) = config.get("target").and_then(|v| v.as_table()) else {
++			continue;
++		};
++		for (triple, settings) in targets {
++			let Some(settings) = settings.as_table() else {
++				continue;
++			};
++			if let Some(v) = settings.get("linker").and_then(|v| v.as_str()) {
++				linker.insert(triple.clone(), v.to_owned());
++			}
++			if let Some(a) = settings.get("rustflags").and_then(|v| v.as_array()) {
++				rustflags
++					.entry(triple.clone())
++					.or_default()
++					.extend(a.iter().cloned());
++			}
++		}
++	}
++	let mut out = Vec::new();
++	for (triple, value) in &linker {
++		out.push(format!(
++			"target.{triple}.linker={}",
++			String::from_utf8(wire::encode(value)?).map_err(|e| e.to_string())?
++		));
++	}
++	for (triple, values) in &rustflags {
++		out.push(format!(
++			"target.{triple}.rustflags={}",
++			String::from_utf8(wire::encode(values)?).map_err(|e| e.to_string())?
++		));
++	}
++	Ok(out)
+ }
+ #[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
+ #[serde(deny_unknown_fields)]
+@@ -226,6 +363,9 @@ impl Document {
+ 			return Err("unsupported assembly identity/generator version".into());
+ 		}
+ 		let c = &self.context;
++		if c.build.is_some() {
++			return Err("path assembly identity carries a build kind".into());
++		}
+ 		for p in [&c.cache_root, &c.cargo_home] {
+ 			path(p)?;
+ 		}
+diff --git a/tools/project/src/cache_identity/tests.rs b/tools/project/src/cache_identity/tests.rs
+index 66674e6..2d0b61a 100644
+--- a/tools/project/src/cache_identity/tests.rs
++++ b/tools/project/src/cache_identity/tests.rs
+@@ -18,6 +18,7 @@ pub(super) fn document() -> Document {
+ 			target: "fixture-target".into(),
+ 			profile: "release".into(),
+ 			features: vec!["project-sources".into()],
++			build: None,
+ 		},
+ 		manifest: format!(
+ 			"[dependencies.rnx]\npath={}\n",
+@@ -141,3 +142,225 @@ fn inventory_associations_and_bounds_are_not_optional() {
+ 	doc.context.cache_root = doc.native.trees[0].root.join("cache");
+ 	assert!(Identity::from_document(doc).is_err());
+ }
++
++#[test]
++fn build_key_changes_with_each_named_input_and_nothing_else() {
++	let base = document().context;
++	let key = |c: &Context, s: &[String]| build_key(c, s);
++	let reference = key(&base, &[]);
++	assert!(valid_digest(&reference));
++	assert_eq!(reference, key(&base.clone(), &[]));
++	let mut changed = Vec::new();
++	for mutate in [
++		|c: &mut Context| c.rustc.push('!'),
++		|c: &mut Context| c.cargo.push('!'),
++		|c: &mut Context| c.target.push('!'),
++		|c: &mut Context| c.profile = "debug".into(),
++		|c: &mut Context| c.features.push("server-runtime".into()),
++		|c: &mut Context| c.cache_root.push("other"),
++		|c: &mut Context| c.cargo_home.push("other"),
++	] {
++		let mut c = base.clone();
++		mutate(&mut c);
++		changed.push(key(&c, &[]));
++	}
++	changed.push(key(
++		&base,
++		&["target.x86_64-unknown-linux-gnu.linker=\"clang\"".into()],
++	));
++	changed.push(key(
++		&base,
++		&[
++			"target.x86_64-unknown-linux-gnu.linker=\"clang\"".into(),
++			"target.x86_64-unknown-linux-gnu.rustflags=[\"-C\",\"link-arg=-fuse-ld=mold\"]".into(),
++		],
++	));
++	let mut unique: Vec<_> = changed.clone();
++	unique.push(reference.clone());
++	unique.sort();
++	unique.dedup();
++	assert_eq!(
++		unique.len(),
++		changed.len() + 1,
++		"some input did not change the key"
++	);
++	// Not inputs: the rustup fields, and the build kind itself.
++	let mut c = base.clone();
++	c.rustup_home = Some(PathBuf::from("/x"));
++	c.rustup_toolchain = Some("stable".into());
++	c.build = Some(Build::Private);
++	assert_eq!(key(&c, &[]), reference);
++	// Framing: two settings cannot masquerade as one.
++	assert_ne!(
++		key(&base, &["a=1".into(), "b=2".into()]),
++		key(&base, &["a=1b=2".into()])
++	);
++}
++#[test]
++fn a_path_identity_never_carries_a_build_kind() {
++	let mut d = document();
++	d.context.build = Some(Build::Private);
++	assert!(Identity::from_document(d).is_err());
++}
++
++/// Two configuration files as Cargo would find them: one in Cargo home
++/// (lowest precedence) and one deeper in the build directory's ancestry.
++mod settings_tests_support {
++	use super::*;
++	pub(super) fn arrangement(tag: &str, home_text: &str, deep_text: &str) -> (Context, Inventory) {
++		arrangement_with(tag, home_text, deep_text, None)
++	}
++	/// `deep_config` is a sibling `config` (no extension) beside the deeper
++	/// `config.toml`, which Cargo then reads instead of it.
++	pub(super) fn arrangement_with(
++		tag: &str,
++		home_text: &str,
++		deep_text: &str,
++		deep_config: Option<&str>,
++	) -> (Context, Inventory) {
++		let base = std::env::temp_dir().join(format!("rnx-settings-{}-{tag}", std::process::id()));
++		let _ = std::fs::remove_dir_all(&base);
++		let home = base.join("cargo");
++		let deep = base.join("cache").join("build").join(".cargo");
++		std::fs::create_dir_all(&home).unwrap();
++		std::fs::create_dir_all(&deep).unwrap();
++		let mut external = Vec::new();
++		let mut files = vec![
++			(home.join("config.toml"), home_text),
++			(deep.join("config.toml"), deep_text),
++		];
++		if let Some(text) = deep_config {
++			files.push((deep.join("config"), text));
++		}
++		for (path, text) in files {
++			std::fs::write(&path, text).unwrap();
++			external.push(External {
++				path: path.clone(),
++				file: Some(wire::File {
++					path: path.file_name().unwrap().to_str().unwrap().into(),
++					executable: false,
++					bytes: text.len() as u64,
++					blake3: blake3::hash(text.as_bytes()).to_hex().to_string(),
++				}),
++			});
++		}
++		let mut context = document().context;
++		context.cargo_home = home;
++		context.cache_root = base.join("cache");
++		let mut inventory = document().native;
++		inventory.external = external;
++		(context, inventory)
++	}
++	const T: &str = "[target.x86_64-unknown-linux-gnu]\n";
++	#[test]
++	fn the_effective_linker_follows_precedence_and_swapping_files_changes_the_key() {
++		let (c1, i1) = arrangement(
++			"a",
++			&format!("{T}linker = \"cc\"\n"),
++			&format!("{T}linker = \"clang\"\n"),
++		);
++		let (c2, i2) = arrangement(
++			"b",
++			&format!("{T}linker = \"clang\"\n"),
++			&format!("{T}linker = \"cc\"\n"),
++		);
++		let s1 = admitted_settings(&c1, &i1).unwrap();
++		let s2 = admitted_settings(&c2, &i2).unwrap();
++		assert_eq!(s1, vec!["target.x86_64-unknown-linux-gnu.linker=\"clang\""]);
++		assert_eq!(s2, vec!["target.x86_64-unknown-linux-gnu.linker=\"cc\""]);
++		assert_ne!(build_key(&c1, &s1), build_key(&c2, &s2));
++		// The same effective linker from a different arrangement shares the key.
++		let (c3, i3) = arrangement("c", "", &format!("{T}linker = \"clang\"\n"));
++		let s3 = admitted_settings(&c3, &i3).unwrap();
++		assert_eq!(s3, s1);
++	}
++	#[test]
++	fn rustflags_are_joined_in_precedence_order_and_repeats_are_kept() {
++		let once = format!("{T}rustflags = [\"-C\", \"link-arg=-fuse-ld=mold\"]\n");
++		let (c1, i1) = arrangement("d", &once, "");
++		let (c2, i2) = arrangement("e", &once, &once);
++		let s1 = admitted_settings(&c1, &i1).unwrap();
++		let s2 = admitted_settings(&c2, &i2).unwrap();
++		assert_eq!(
++			s1,
++			vec!["target.x86_64-unknown-linux-gnu.rustflags=[\"-C\",\"link-arg=-fuse-ld=mold\"]"]
++		);
++		assert_eq!(
++			s2,
++			vec![
++				"target.x86_64-unknown-linux-gnu.rustflags=[\"-C\",\"link-arg=-fuse-ld=mold\",\"-C\",\"link-arg=-fuse-ld=mold\"]"
++			]
++		);
++		assert_ne!(build_key(&c1, &s1), build_key(&c2, &s2));
++		// Order of joining: home first, deeper later.
++		let (c3, i3) = arrangement(
++			"f",
++			&format!("{T}rustflags = [\"-C\", \"a\"]\n"),
++			&format!("{T}rustflags = [\"-C\", \"b\"]\n"),
++		);
++		let (c4, i4) = arrangement(
++			"g",
++			&format!("{T}rustflags = [\"-C\", \"b\"]\n"),
++			&format!("{T}rustflags = [\"-C\", \"a\"]\n"),
++		);
++		assert_eq!(
++			admitted_settings(&c3, &i3).unwrap(),
++			vec!["target.x86_64-unknown-linux-gnu.rustflags=[\"-C\",\"a\",\"-C\",\"b\"]"]
++		);
++		assert_ne!(
++			admitted_settings(&c3, &i3).unwrap(),
++			admitted_settings(&c4, &i4).unwrap()
++		);
++	}
++}
++
++mod masking_tests {
++	use super::settings_tests_support::*;
++	use super::*;
++	const T: &str = "[target.x86_64-unknown-linux-gnu]\n";
++	/// The review's counterexample: an empty `config` beside a `config.toml`
++	/// naming clang. Cargo reads the empty file, so Cargo home's linker is
++	/// the effective one, and changing it must change the key.
++	#[test]
++	fn a_sibling_config_masks_config_toml_for_the_linker() {
++		let (c1, i1) = arrangement_with(
++			"h",
++			&format!("{T}linker = \"cc\"\n"),
++			&format!("{T}linker = \"clang\"\n"),
++			Some(""),
++		);
++		let (c2, i2) = arrangement_with(
++			"i",
++			&format!("{T}linker = \"clang\"\n"),
++			&format!("{T}linker = \"clang\"\n"),
++			Some(""),
++		);
++		let s1 = admitted_settings(&c1, &i1).unwrap();
++		let s2 = admitted_settings(&c2, &i2).unwrap();
++		assert_eq!(s1, vec!["target.x86_64-unknown-linux-gnu.linker=\"cc\""]);
++		assert_eq!(s2, vec!["target.x86_64-unknown-linux-gnu.linker=\"clang\""]);
++		assert_ne!(build_key(&c1, &s1), build_key(&c2, &s2));
++		// The unmasked sibling still wins when it is the one Cargo reads.
++		let (c3, i3) = arrangement_with(
++			"j",
++			&format!("{T}linker = \"cc\"\n"),
++			"",
++			Some(&format!("{T}linker = \"clang\"\n")),
++		);
++		assert_eq!(
++			admitted_settings(&c3, &i3).unwrap(),
++			vec!["target.x86_64-unknown-linux-gnu.linker=\"clang\""]
++		);
++	}
++	#[test]
++	fn a_sibling_config_masks_config_toml_for_rustflags() {
++		let flags = format!("{T}rustflags = [\"-C\", \"link-arg=-fuse-ld=mold\"]\n");
++		let (c1, i1) = arrangement_with("k", "", &flags, Some(""));
++		assert_eq!(admitted_settings(&c1, &i1).unwrap(), Vec::<String>::new());
++		let (c2, i2) = arrangement_with("l", &flags, &flags, Some(""));
++		assert_eq!(
++			admitted_settings(&c2, &i2).unwrap(),
++			vec!["target.x86_64-unknown-linux-gnu.rustflags=[\"-C\",\"link-arg=-fuse-ld=mold\"]"]
++		);
++	}
++}
+diff --git a/tools/project/src/catalogue.rs b/tools/project/src/catalogue.rs
+index 0b4c3f6..c5b1ba3 100644
+--- a/tools/project/src/catalogue.rs
++++ b/tools/project/src/catalogue.rs
+@@ -152,6 +152,7 @@ pub(crate) fn author(raw: Vec<u8>, base: &Path, entries: &[Entry]) -> Result<Can
+ 			builder: "build".into(),
+ 			hook,
+ 			presentation: entry.presentation,
++			shared_build: false,
+ 		};
+ 		if let Some(old) = original.native.get(&name) {
+ 			if canonical(&base.join(&old.path))? != adapter
+@@ -226,6 +227,7 @@ fn author_git(raw: Vec<u8>, base: &Path, entries: &[Entry]) -> Result<Candidate,
+ 				builder: n.builder.clone(),
+ 				hook: n.hook,
+ 				presentation: n.presentation,
++				shared_build: n.shared_build,
+ 			}
+ 		} else {
+ 			Native {
+@@ -236,6 +238,9 @@ fn author_git(raw: Vec<u8>, base: &Path, entries: &[Entry]) -> Result<Candidate,
+ 				builder: "build".into(),
+ 				hook: e.hook,
+ 				presentation: e.presentation,
++				// Record 0069 writes this only after gate 3 has shown the
++				// adapter's executables hold no reference to shared storage.
++				shared_build: false,
+ 			}
+ 		};
+ 		if let Some(old) = original.native.get(e.name) {
+@@ -244,6 +249,7 @@ fn author_git(raw: Vec<u8>, base: &Path, entries: &[Entry]) -> Result<Candidate,
+ 			// An existing declaration keeps its own presentation choice; the
+ 			// catalogue never rewrites it (record 0068).
+ 			expected.presentation = old.presentation;
++			expected.shared_build = old.shared_build;
+ 			if let (Some(a), Some(b)) = (&old.path, &n.path) {
+ 				comparison.path = Some(
+ 					canonical(&base.join(a))?
+diff --git a/tools/project/src/generate.rs b/tools/project/src/generate.rs
+index e680b57..9ca173d 100644
+--- a/tools/project/src/generate.rs
++++ b/tools/project/src/generate.rs
+@@ -83,7 +83,7 @@ fn wrapper_style(
+ 	main += ")\n}\n";
+ 	let cargo = Cargo {
+ 		package: Package {
+-			name: "rnx-project-app",
++			name: PLACEHOLDER,
+ 			version: "0.0.0",
+ 			edition: "2024",
+ 			publish: false,
+@@ -130,6 +130,29 @@ fn canonical_style(
+ pub(crate) fn git_wrapper(
+ 	declaration: &crate::schemas::Declaration,
+ 	base: &Path,
++) -> Result<(String, String), String> {
++	let (manifest, main) = git_wrapper_retained(declaration, base)?;
++	// Generator four: the package carries a digest of the wrapper computed
++	// while it still bears the placeholder name, so two wrappers that differ
++	// in any way are two Cargo units, whatever directory builds them.
++	let name = wrapper_name(&manifest, &main);
++	let named = manifest.replacen(
++		&format!("name = {PLACEHOLDER:?}"),
++		&format!("name = {name:?}"),
++		1,
++	);
++	if !named.contains(&format!("name = {name:?}")) {
++		return Err("generated wrapper has no package name to replace".into());
++	}
++	Ok((named, main))
++}
++
++/// Generator three's exact recipe: the placeholder-named wrapper. Retained
++/// format-three identities are verified and rebuilt against this, never
++/// against the digest-named form they predate.
++pub(crate) fn git_wrapper_retained(
++	declaration: &crate::schemas::Declaration,
++	base: &Path,
+ ) -> Result<(String, String), String> {
+ 	declaration.validate()?;
+ 	let runtime = declaration
+@@ -159,6 +182,7 @@ pub(crate) fn git_wrapper(
+ 					builder: n.builder.clone(),
+ 					hook: n.hook,
+ 					presentation: n.presentation,
++					shared_build: n.shared_build,
+ 				},
+ 			)
+ 		})
+@@ -203,6 +227,44 @@ pub(crate) fn git_wrapper(
+ 	}
+ 	Ok((toml::to_string(&doc).map_err(|e| e.to_string())?, main))
+ }
++/// The wrapper an identity of the given generator recorded, regenerated
++/// from the declarations: three keeps the placeholder name, four the digest.
++pub(crate) fn git_wrapper_for(
++	generator: u32,
++	declaration: &crate::schemas::Declaration,
++	base: &Path,
++) -> Result<(String, String), String> {
++	match generator {
++		3 => git_wrapper_retained(declaration, base),
++		4 => git_wrapper(declaration, base),
++		_ => Err("unsupported wrapper generator".into()),
++	}
++}
++
++pub(crate) const PLACEHOLDER: &str = "rnx-project-app";
++/// The wrapper's own name: BLAKE3 over a framed preimage of the generated
++/// manifest (placeholder name) and `main`, with a domain tag, so neither the
++/// name nor the assembly key that later hashes the named manifest is an
++/// input. Equal wrapper content yields the same name, which is the same
++/// unit; a one-byte difference yields a different one.
++pub(crate) fn wrapper_name(manifest: &str, main: &str) -> String {
++	let mut hasher = blake3::Hasher::new();
++	hasher.update(b"rnx-wrapper-name-1\n");
++	for part in [manifest, main] {
++		hasher.update(&(part.len() as u64).to_le_bytes());
++		hasher.update(part.as_bytes());
++	}
++	format!("rnx-app-{}", hasher.finalize().to_hex())
++}
++/// The executable a generated wrapper produces, from its manifest.
++pub(crate) fn executable_name(manifest: &str) -> Result<String, String> {
++	let doc: toml::Value = toml::from_str(manifest).map_err(|e| e.to_string())?;
++	doc.get("package")
++		.and_then(|p| p.get("name"))
++		.and_then(|n| n.as_str())
++		.map(str::to_owned)
++		.ok_or_else(|| "generated wrapper has no package name".into())
++}
+ 
+ /// Generator two predates the stock-management feature. Its exact historical
+ /// wrapper remains a valid recipe only for retained identity-two envelopes.
+@@ -219,3 +281,61 @@ pub(crate) fn retained_wrapper(
+ 	}
+ 	Ok(false)
+ }
++
++#[cfg(test)]
++mod name_tests {
++	use super::*;
++	#[test]
++	fn wrapper_name_is_a_full_digest_over_framed_content() {
++		let a = wrapper_name("[package]\nname = \"rnx-project-app\"\n", "fn main() {}\n");
++		assert!(a.starts_with("rnx-app-") && a.len() == "rnx-app-".len() + 64);
++		assert_eq!(
++			a,
++			wrapper_name("[package]\nname = \"rnx-project-app\"\n", "fn main() {}\n")
++		);
++		assert_ne!(
++			a,
++			wrapper_name("[package]\nname = \"rnx-project-app\"\n", "fn main() { }\n")
++		);
++		assert_ne!(
++			a,
++			wrapper_name(
++				"[package]\nname = \"rnx-project-app\"\n\n",
++				"fn main() {}\n"
++			)
++		);
++		// Framing: moving a byte across the boundary changes the name.
++		assert_ne!(wrapper_name("ab", "c"), wrapper_name("a", "bc"));
++		assert_ne!(wrapper_name("", "abc"), wrapper_name("abc", ""));
++	}
++	#[test]
++	fn each_generator_regenerates_its_own_recipe() {
++		let d: crate::schemas::Declaration = serde_json::from_value(serde_json::json!({
++			"format": 2, "application": {"entry": "main.rn"},
++			"runtime": {"git": "https://example.invalid/rnx", "rev": "0123456789abcdef0123456789abcdef01234567"},
++		}))
++		.unwrap();
++		let base = std::env::temp_dir();
++		let (three, main3) = git_wrapper_for(3, &d, &base).unwrap();
++		let (four, main4) = git_wrapper_for(4, &d, &base).unwrap();
++		assert_eq!(main3, main4);
++		assert_eq!(executable_name(&three).unwrap(), PLACEHOLDER);
++		assert_eq!(
++			executable_name(&four).unwrap(),
++			wrapper_name(&three, &main3)
++		);
++		assert_eq!(
++			three.replacen(PLACEHOLDER, &executable_name(&four).unwrap(), 1),
++			four
++		);
++		assert!(git_wrapper_for(2, &d, &base).is_err());
++	}
++	#[test]
++	fn executable_name_reads_the_package() {
++		assert_eq!(
++			executable_name("[package]\nname = \"rnx-app-00\"\n").unwrap(),
++			"rnx-app-00"
++		);
++		assert!(executable_name("[package]\nversion = \"0.0.0\"\n").is_err());
++	}
++}
+diff --git a/tools/project/src/manifest.rs b/tools/project/src/manifest.rs
+index 21fe069..d073aef 100644
+--- a/tools/project/src/manifest.rs
++++ b/tools/project/src/manifest.rs
+@@ -49,6 +49,11 @@ pub(crate) struct Native {
+ 	/// `present` registrar. Omitted when false so existing bytes are kept.
+ 	#[serde(default, skip_serializing_if = "std::ops::Not::not")]
+ 	pub presentation: bool,
++	/// Record 0069: the adapter author's statement that nothing in this
++	/// native's dependency graph reads retained build output at runtime, so
++	/// its assembly may build in the shared directory. Omitted when false.
++	#[serde(default, skip_serializing_if = "std::ops::Not::not")]
++	pub shared_build: bool,
+ }
+ #[derive(Debug, Clone, Copy, PartialEq, Serialize, Deserialize)]
+ #[serde(rename_all = "lowercase")]
+diff --git a/tools/project/src/new_identity.rs b/tools/project/src/new_identity.rs
+index 491417a..b0395ed 100644
+--- a/tools/project/src/new_identity.rs
++++ b/tools/project/src/new_identity.rs
+@@ -116,10 +116,13 @@ impl Identity {
+ 		native.trees.sort_by(|a, b| a.root.cmp(&b.root));
+ 		native.packages.sort_by(|a, b| a.id.cmp(&b.id));
+ 		native.external.sort_by(|a, b| a.path.cmp(&b.path));
++		if context.build.is_none() {
++			return Err("Git-source assembly identity requires a build kind".into());
++		}
+ 		let (manifest, main) = crate::generate::git_wrapper(manifest, base)?;
+ 		Self::from_document(Document {
+-			format: 3,
+-			generator: 3,
++			format: 4,
++			generator: 4,
+ 			context,
+ 			manifest,
+ 			main,
+@@ -162,6 +165,10 @@ impl Identity {
+ 	pub(crate) fn context(&self) -> &Context {
+ 		&self.document.context
+ 	}
++	/// Which wrapper recipe this identity recorded (decision 5 of 0069).
++	pub(crate) fn generator(&self) -> u32 {
++		self.document.generator
++	}
+ 	pub(crate) fn wrapper(&self) -> (&str, &str) {
+ 		(&self.document.manifest, &self.document.main)
+ 	}
+@@ -210,8 +217,24 @@ fn strictly_sorted<T: Ord>(values: impl IntoIterator<Item = T>) -> Result<(), St
+ }
+ impl Document {
+ 	fn validate(&self) -> Result<(), String> {
+-		if self.format != 3 || self.generator != 3 {
+-			return Err("unsupported assembly identity/generator version".into());
++		// Format 3 predates sharing: no build kind, placeholder wrapper name.
++		// Format 4 records the build kind and names the wrapper by digest.
++		match (self.format, self.generator, &self.context.build) {
++			(3, 3, None) => {}
++			(4, 4, Some(build)) => {
++				build.validate()?;
++				// The recorded name must be the digest of the recorded wrapper.
++				let name = crate::generate::executable_name(&self.manifest)?;
++				let placeholder = self.manifest.replacen(
++					&format!("name = {name:?}"),
++					&format!("name = {:?}", crate::generate::PLACEHOLDER),
++					1,
++				);
++				if name != crate::generate::wrapper_name(&placeholder, &self.main) {
++					return Err("generator-four wrapper name does not match its content".into());
++				}
++			}
++			_ => return Err("unsupported assembly identity/generator version".into()),
+ 		}
+ 		let c = &self.context;
+ 		for p in [&c.cache_root, &c.cargo_home] {
+@@ -397,3 +420,154 @@ pub(crate) fn canonical(bytes: &[u8]) -> Result<Vec<u8>, String> {
+ 	let d = serde_json::from_slice(bytes).map_err(|e| format!("identity: {e}"))?;
+ 	Ok(Identity::from_document(d)?.bytes)
+ }
++
++#[cfg(test)]
++mod format_tests {
++	use super::*;
++	use crate::cache_identity::Build;
++	/// A retained format-three document: placeholder wrapper, no build kind.
++	fn retained() -> Document {
++		let base = std::env::temp_dir().join("rnx-identity-shape");
++		let native = base.join("native");
++		let manifest = format!(
++			"[package]\nname = \"rnx-project-app\"\n\n[dependencies.rnx]\npath = {}\n",
++			toml::Value::String(native.to_str().unwrap().into())
++		);
++		Document {
++			format: 3,
++			generator: 3,
++			context: Context {
++				cache_root: base.join("cache"),
++				cargo_home: base.join("cargo"),
++				rustup_home: None,
++				rustup_toolchain: None,
++				rustc: "rustc fixture".into(),
++				cargo: "cargo fixture".into(),
++				target: "fixture-target".into(),
++				profile: "release".into(),
++				features: vec!["project-sources".into()],
++				build: None,
++			},
++			manifest,
++			main: "fn main() { rnx::main_with(rnx::Extensions::none()) }\n".into(),
++			cargo_lock_blake3: "a".repeat(64),
++			native: Inventory {
++				platform: "fixture-platform".into(),
++				packages: vec![crate::inventory::Association {
++					id: "fixture-package-id".into(),
++					name: "rnx".into(),
++					manifest: native.join("Cargo.toml"),
++					root: native.clone(),
++				}],
++				trees: vec![fingerprint::Tree {
++					root: native.clone(),
++					blake3: "b".repeat(64),
++					files: vec![wire::File {
++						path: "Cargo.toml".into(),
++						bytes: 0,
++						executable: false,
++						blake3: "c".repeat(64),
++					}],
++				}],
++				external: vec![],
++			},
++			git: vec![],
++		}
++	}
++	/// The same wrapper as generator four names it.
++	fn current(build: Build) -> Document {
++		let mut d = retained();
++		d.format = 4;
++		d.generator = 4;
++		d.context.build = Some(build);
++		let name = crate::generate::wrapper_name(&d.manifest, &d.main);
++		d.manifest =
++			d.manifest
++				.replacen("name = \"rnx-project-app\"", &format!("name = {name:?}"), 1);
++		d
++	}
++	#[test]
++	fn retained_format_three_still_decodes_without_a_build_kind() {
++		let old = Identity::from_document(retained()).unwrap();
++		let again = Identity::decode(old.bytes()).unwrap();
++		assert_eq!(old.key(), again.key());
++		assert!(old.context().build.is_none());
++		assert!(!String::from_utf8_lossy(old.bytes()).contains("\"build\""));
++		assert_eq!(
++			crate::generate::executable_name(old.wrapper().0).unwrap(),
++			"rnx-project-app"
++		);
++	}
++	#[test]
++	fn format_four_requires_a_valid_build_kind_and_the_digest_name() {
++		for build in [
++			Build::Private,
++			Build::Shared {
++				key: "d".repeat(64),
++			},
++		] {
++			let good = Identity::from_document(current(build.clone())).unwrap();
++			let again = Identity::decode(good.bytes()).unwrap();
++			assert_eq!(good.key(), again.key());
++			assert_eq!(again.context().build.as_ref(), Some(&build));
++			let name = crate::generate::executable_name(good.wrapper().0).unwrap();
++			assert!(name.starts_with("rnx-app-") && name.len() == 72);
++		}
++		let mut d = current(Build::Private);
++		d.context.build = None;
++		assert!(
++			Identity::from_document(d).is_err(),
++			"format four without a build kind"
++		);
++		let mut d = retained();
++		d.context.build = Some(Build::Private);
++		assert!(
++			Identity::from_document(d).is_err(),
++			"format three with a build kind"
++		);
++		for (format, generator) in [(3, 4), (4, 3), (5, 5)] {
++			let mut d = current(Build::Private);
++			d.format = format;
++			d.generator = generator;
++			assert!(Identity::from_document(d).is_err(), "{format}/{generator}");
++		}
++		let mut d = current(Build::Private);
++		d.main.push('\n');
++		assert!(
++			Identity::from_document(d).is_err(),
++			"name must match the wrapper content"
++		);
++		let mut d = current(Build::Private);
++		d.manifest = d.manifest.replacen("rnx-app-", "rnx-app-0", 1);
++		assert!(Identity::from_document(d).is_err(), "a tampered name");
++		let d = current(Build::Shared {
++			key: "not-hex".into(),
++		});
++		assert!(
++			Identity::from_document(d).is_err(),
++			"a malformed shared key"
++		);
++	}
++	#[test]
++	fn equal_wrappers_share_a_name_and_a_one_call_difference_does_not() {
++		let a = current(Build::Private);
++		let mut b = current(Build::Private);
++		b.main = b.main.replace(
++			"rnx::Extensions::none()",
++			"rnx::Extensions::none().with(\"x\", x::build)",
++		);
++		let b_name = crate::generate::wrapper_name(&retained().manifest, &b.main);
++		b.manifest = retained().manifest.replacen(
++			"name = \"rnx-project-app\"",
++			&format!("name = {b_name:?}"),
++			1,
++		);
++		let a = Identity::from_document(a).unwrap();
++		let b = Identity::from_document(b).unwrap();
++		assert_ne!(
++			crate::generate::executable_name(a.wrapper().0).unwrap(),
++			crate::generate::executable_name(b.wrapper().0).unwrap()
++		);
++		assert_ne!(a.key(), b.key());
++	}
++}
+diff --git a/tools/project/src/schemas.rs b/tools/project/src/schemas.rs
+index b066c3b..87b8354 100644
+--- a/tools/project/src/schemas.rs
++++ b/tools/project/src/schemas.rs
+@@ -58,6 +58,8 @@ pub(crate) struct Native {
+ 	pub hook: manifest::Hook,
+ 	#[serde(default, skip_serializing_if = "std::ops::Not::not")]
+ 	pub presentation: bool,
++	#[serde(default, skip_serializing_if = "std::ops::Not::not")]
++	pub shared_build: bool,
+ }
+ #[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
+ #[serde(deny_unknown_fields)]
+@@ -104,6 +106,9 @@ impl Declaration {
+ 			if n.presentation {
+ 				v["native"][name]["presentation"] = true.into();
+ 			}
++			if n.shared_build {
++				v["native"][name]["shared_build"] = true.into();
++			}
+ 		}
+ 		let old: manifest::Manifest = serde_json::from_value(v).map_err(|e| e.to_string())?;
+ 		old.validate()
+diff --git a/tools/project/src/workflow/git_sources.rs b/tools/project/src/workflow/git_sources.rs
+index fac5b29..3dc6d73 100644
+--- a/tools/project/src/workflow/git_sources.rs
++++ b/tools/project/src/workflow/git_sources.rs
+@@ -2,7 +2,7 @@
+ use super::*;
+ use crate::{
+ 	cache_entry,
+-	cache_identity::Context,
++	cache_identity::{self, Context},
+ 	cache_storage as storage, git_inventory,
+ 	new_identity::Identity,
+ 	schemas::{Assembly, Declaration, Lock, Receipt},
+@@ -52,7 +52,11 @@ impl Project {
+ 			let stage = c.cache_root.join("entries").join(i.key()).join("assembly");
+ 			i.verify(&stage, full).map_err(|e| self.recovery(e))?;
+ 			shared::compatible_layout(&c.cache_root, &lock.inputs, &self.base)?;
+-			let (manifest, main) = generate::git_wrapper(&lock.declarations, &self.base)?;
++			// The recipe the lock recorded, not the one a newer tool would
++			// write: a retained generator-three lock keeps launching and
++			// rebuilding its placeholder-named wrapper.
++			let (manifest, main) =
++				generate::git_wrapper_for(i.generator(), &lock.declarations, &self.base)?;
+ 			if i.wrapper() != (manifest.as_str(), main.as_str()) {
+ 				return Err("generated shared assembly changed; run lock".into());
+ 			}
+@@ -362,7 +366,7 @@ impl Project {
+ 		}
+ 		let lock = input::read(&stage.join("Cargo.lock"), input::DOCUMENT_LIMIT)?;
+ 		let (rustc, cargo, target) = versions(&stage)?;
+-		let context = Context {
++		let mut context = Context {
+ 			cache_root: root,
+ 			cargo_home: home,
+ 			rustup_home: std::env::var_os("RUSTUP_HOME").map(PathBuf::from),
+@@ -372,7 +376,19 @@ impl Project {
+ 			target,
+ 			profile: "release".into(),
+ 			features: vec!["project-sources".into()],
++			build: None,
+ 		};
++		// Record 0069, one eligibility rule, decided here and nowhere else: a
++		// Git runtime, every native Git, every native declaring shared_build.
++		context.build = Some(if shared_build_eligible(declarations) {
++			let settings =
++				cache_identity::admitted_settings(&context, inputs.native.as_ref().unwrap())?;
++			cache_identity::Build::Shared {
++				key: cache_identity::build_key(&context, &settings),
++			}
++		} else {
++			cache_identity::Build::Private
++		});
+ 		let identity = Identity::create(
+ 			declarations,
+ 			&self.base,
+@@ -391,3 +407,61 @@ impl Project {
+ 		))
+ 	}
+ }
++
++/// Record 0069's one eligibility rule: a Git runtime, every native a Git
++/// declaration, every native declaring `shared_build`. A path native with the
++/// declaration disqualifies; a Git runtime with no natives qualifies.
++pub(crate) fn shared_build_eligible(declarations: &Declaration) -> bool {
++	declarations
++		.runtime
++		.as_ref()
++		.is_some_and(|r| r.git.is_some())
++		&& declarations
++			.native
++			.values()
++			.all(|n| n.git.is_some() && n.shared_build)
++}
++
++#[cfg(test)]
++mod eligibility_tests {
++	use super::*;
++	use crate::schemas::{Declaration, Native};
++	fn declaration(runtime_git: bool, natives: &[(bool, bool)]) -> Declaration {
++		let mut d: Declaration = serde_json::from_value(serde_json::json!({
++			"format": 2, "application": {"entry": "main.rn"},
++			"runtime": if runtime_git { serde_json::json!({"git": "https://example.invalid/rnx", "rev": "0123456789abcdef0123456789abcdef01234567"}) } else { serde_json::json!({"path": "../rnx"}) },
++		}))
++		.unwrap();
++		for (i, (git, shared)) in natives.iter().enumerate() {
++			d.native.insert(
++				format!("n{i}"),
++				Native {
++					path: (!git).then(|| "../adapter".into()),
++					git: git.then(|| "https://example.invalid/rnx".into()),
++					rev: git.then(|| "0123456789abcdef0123456789abcdef01234567".into()),
++					package: "rnx-n".into(),
++					builder: "build".into(),
++					hook: crate::manifest::Hook::Plain,
++					presentation: false,
++					shared_build: *shared,
++				},
++			);
++		}
++		d
++	}
++	#[test]
++	fn one_rule_git_runtime_git_natives_all_declared() {
++		assert!(shared_build_eligible(&declaration(
++			true,
++			&[(true, true), (true, true)]
++		)));
++		assert!(shared_build_eligible(&declaration(true, &[])));
++		assert!(!shared_build_eligible(&declaration(
++			true,
++			&[(true, true), (true, false)]
++		)));
++		assert!(!shared_build_eligible(&declaration(true, &[(false, true)])));
++		assert!(!shared_build_eligible(&declaration(false, &[(true, true)])));
++		assert!(!shared_build_eligible(&declaration(false, &[])));
++	}
++}
+diff --git a/tools/project/src/workflow/shared.rs b/tools/project/src/workflow/shared.rs
+index d414372..5897790 100644
+--- a/tools/project/src/workflow/shared.rs
++++ b/tools/project/src/workflow/shared.rs
+@@ -191,6 +191,8 @@ impl Project {
+ 			target,
+ 			profile: "release".into(),
+ 			features: vec!["project-sources".into()],
++			// Path assemblies keep the retained identity format: no build kind.
++			build: None,
+ 		};
+ 		let identity = Identity::create(
+ 			declarations,

@@ -1,0 +1,84 @@
+{
+  "polars": {
+    "format": 4,
+    "generator": 4,
+    "build": {
+      "kind": "private"
+    },
+    "wrapper": "rnx-app-0d5698c53722f97350e28b4180ce4b0d93c0b20f8bc465e0b5fa7b7479299c2c",
+    "key": "bb6bc3221ef5643d",
+    "main": "fn main() -> Result<(), Box<dyn std::error::Error>> {\n    rnx::main_with(rnx::Extensions::none().with(\"polars\", native_0::build).present(\"polars\", native_0::present))\n}\n"
+  },
+  "polars-again": {
+    "format": 4,
+    "generator": 4,
+    "build": {
+      "kind": "private"
+    },
+    "wrapper": "rnx-app-0d5698c53722f97350e28b4180ce4b0d93c0b20f8bc465e0b5fa7b7479299c2c",
+    "key": "bb6bc3221ef5643d",
+    "main": "fn main() -> Result<(), Box<dyn std::error::Error>> {\n    rnx::main_with(rnx::Extensions::none().with(\"polars\", native_0::build).present(\"polars\", native_0::present))\n}\n"
+  },
+  "polars-shared": {
+    "format": 4,
+    "generator": 4,
+    "build": {
+      "kind": "shared",
+      "key": "899a714b862a576f4c98118d5663c4497b8fa9280841d71c2f1a7f828e398659"
+    },
+    "wrapper": "rnx-app-0d5698c53722f97350e28b4180ce4b0d93c0b20f8bc465e0b5fa7b7479299c2c",
+    "key": "7f6832753273d2e3",
+    "main": "fn main() -> Result<(), Box<dyn std::error::Error>> {\n    rnx::main_with(rnx::Extensions::none().with(\"polars\", native_0::build).present(\"polars\", native_0::present))\n}\n"
+  },
+  "polars-plain-shared": {
+    "format": 4,
+    "generator": 4,
+    "build": {
+      "kind": "shared",
+      "key": "899a714b862a576f4c98118d5663c4497b8fa9280841d71c2f1a7f828e398659"
+    },
+    "wrapper": "rnx-app-93ae1dc8ee6d62a988b0fb54acbb9212de7661b2d831d95502592a39d9710bf8",
+    "key": "d0e207257f3c530a",
+    "main": "fn main() -> Result<(), Box<dyn std::error::Error>> {\n    rnx::main_with(rnx::Extensions::none().with(\"polars\", native_0::build))\n}\n"
+  },
+  "both-shared": {
+    "format": 4,
+    "generator": 4,
+    "build": {
+      "kind": "shared",
+      "key": "899a714b862a576f4c98118d5663c4497b8fa9280841d71c2f1a7f828e398659"
+    },
+    "wrapper": "rnx-app-a49e70d134c4d4aed21ad59d94242318db78435dfbef383c93ef794398cd95b5",
+    "key": "320d8c2e386b2394",
+    "main": "fn main() -> Result<(), Box<dyn std::error::Error>> {\n    rnx::main_with(rnx::Extensions::none().with(\"polars\", native_0::build).present(\"polars\", native_0::present).with_lifecycle(\"postgres\", native_1::build))\n}\n"
+  },
+  "both-one-declared": {
+    "format": 4,
+    "generator": 4,
+    "build": {
+      "kind": "private"
+    },
+    "wrapper": "rnx-app-a49e70d134c4d4aed21ad59d94242318db78435dfbef383c93ef794398cd95b5",
+    "key": "661fbe9a2433f4d9",
+    "main": "fn main() -> Result<(), Box<dyn std::error::Error>> {\n    rnx::main_with(rnx::Extensions::none().with(\"polars\", native_0::build).present(\"polars\", native_0::present).with_lifecycle(\"postgres\", native_1::build))\n}\n"
+  },
+  "none": {
+    "format": 4,
+    "generator": 4,
+    "build": {
+      "kind": "shared",
+      "key": "899a714b862a576f4c98118d5663c4497b8fa9280841d71c2f1a7f828e398659"
+    },
+    "wrapper": "rnx-app-ccd865568a0febde157792921f6308e4731927a996fbb9da6c3ffd02cb120f3b",
+    "key": "3b881e8b7e41a9a3",
+    "main": "fn main() -> Result<(), Box<dyn std::error::Error>> {\n    rnx::main_with(rnx::Extensions::none())\n}\n"
+  },
+  "path-native-declared": {
+    "format": 4,
+    "generator": 4,
+    "build": {
+      "kind": "private"
+    },
+    "wrapper": "rnx-app-c4740da98a70bf3ff08b4fd948e7deee38c40f0cb2ec9e03471f8c8f671b688e"
+  }
+}

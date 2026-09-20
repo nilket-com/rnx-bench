@@ -1,0 +1,84 @@
+
+running 70 tests
+test artifact::tests::metadata_default_and_explicit_hash_have_the_documented_difference ... ok
+test artifact::tests::receipt_versions_and_fields_are_validated ... ok
+test artifact::tests::replacement_mode_and_pre_epoch_time_are_observed ... ok
+test cache_entry::encoding_tests::ready_format_and_artifact_binding_are_strict ... ok
+test cache_identity::tests::a_path_identity_never_carries_a_build_kind ... ok
+test cache_identity::tests::build_context_changes_cannot_reuse_a_key ... ok
+test cache_identity::tests::build_key_changes_with_each_named_input_and_nothing_else ... ok
+test cache_identity::tests::inventory_associations_and_bounds_are_not_optional ... ok
+test cache_identity::tests::masking_tests::a_sibling_config_masks_config_toml_for_rustflags ... ok
+test cache_identity::tests::masking_tests::a_sibling_config_masks_config_toml_for_the_linker ... ok
+test cache_identity::tests::persisted_identity_is_strict_and_canonical ... ok
+test cache_identity::tests::settings_tests_support::rustflags_are_joined_in_precedence_order_and_repeats_are_kept ... ok
+test cache_identity::tests::settings_tests_support::the_effective_linker_follows_precedence_and_swapping_files_changes_the_key ... ok
+test cache_storage::config_tests::admits_slim_linker_config_and_refuses_unmodelled_settings ... ok
+test dep_wire::tests::framing ... ok
+test entry::tests::checkout_hint_is_only_for_acquisition_failure ... ok
+test entry::tests::command_prefix_quotes_the_executable_and_selects_only_the_project_group ... ok
+test entry::tests::coordinates_gate_dirty_not_unverified_and_restore_frontend ... ok
+test fingerprint::tests::allowances_span_roots_and_bound_empty_entries ... ok
+test fingerprint::tests::duplicate_framed_names_refuse ... ok
+test fingerprint::tests::independent_v2_vectors_and_order ... ok
+test fingerprint::tests::modes_symlinks_special_and_non_unicode_refuse ... ok
+test fingerprint::tests::native_working_tree_not_index_and_ignored_qualification ... ok
+test fingerprint::tests::nested_observations_end_after_each_call ... ok
+test fingerprint::tests::shared_reader_refuses_early_eof_and_growth_for_single_and_tree ... ok
+test fingerprint::tests::single_file_matches_tree_record_and_shared_allowance ... ok
+test fingerprint::tests::single_file_preserves_modes_and_refusals ... ok
+test fingerprint::tests::source_exclusions_are_exact_and_scoped ... ok
+test fingerprint::tests::submodules_and_unmerged_entries_refuse ... ok
+test fingerprint::tests::v1_and_v2_preserve_read_failures_and_accounting ... ok
+test fingerprint::tests::versioned_encoding_and_changes ... ok
+test generate::name_tests::each_generator_regenerates_its_own_recipe ... ok
+test generate::name_tests::executable_name_reads_the_package ... ok
+test generate::name_tests::wrapper_name_is_a_full_digest_over_framed_content ... ok
+test graph::tests::cycle_names_edge_and_does_not_reread_ancestor ... ok
+test graph::tests::depth_16_passes_17_refuses_before_read ... ok
+test graph::tests::diamond_expands_twice_but_reads_each_manifest_once ... ok
+test graph::tests::exactly_64_manifests_then_refuse_before_the_next_read ... ok
+test graph::tests::lexical_back_edge_is_detected_by_canonical_identity ... ok
+test graph::tests::mounts_256_can_share_one_manifest_and_257_refuses ... ok
+test handshake::tests::capability_stream_limit_is_independent_of_process_scheduling ... ok
+test inventory::tests::declared_source_root_symlink_is_not_hidden_by_canonicalization ... ok
+test inventory::tests::external_configuration_creation_and_include_stop ... ok
+test inventory::tests::external_workspace_redirect_is_recorded ... ok
+test inventory::tests::real_cargo_transitive_mutation_preserves_lock_but_changes_identity ... ok
+test inventory::tests::repository_audit ... ignored, requires the explicitly named, staged rnx repository and an external evidence path
+test inventory::tests::shared_roots_keep_associations_but_hash_once ... ok
+test inventory::tests::source_diamond_hashes_once_and_outside_manifest_is_an_input ... ok
+test maintenance::tests::maintenance_refuses_ambiguous_or_mutating_annotations_before_open ... ok
+test maps::tests::identical_reuses_missing_and_different_publish_and_failure_survives ... ok
+test maps::tests::oversized_and_non_regular_maps_never_publish ... ok
+test maps::tests::symlink_and_fifo_never_publish_or_block ... ok
+test maps::tests::unreadable_map_refuses_without_publication ... ok
+test new_identity::format_tests::equal_wrappers_share_a_name_and_a_one_call_difference_does_not ... ok
+test new_identity::format_tests::format_four_requires_a_valid_build_kind_and_the_digest_name ... ok
+test new_identity::format_tests::retained_format_three_still_decodes_without_a_build_kind ... ok
+test runtime_install::unix::encoding_tests::installation_and_selection_formats_are_strict ... ok
+test tests::assembly_stages_without_overwriting_and_verifies_before_launch ... ok
+test tests::capability_refuses_bad_replies_and_retires_timed_out_child ... ok
+test tests::declared_table_limits_and_duplicate_json_aliases ... ok
+test tests::inventory_limits_paths_and_hashes ... ok
+test tests::locks_are_strict_documents_not_verified_content ... ok
+test tests::manifest_read_bound_utf8_and_regular_files ... ok
+test tests::manifest_to_runner_handoff ... ignored, requires an explicitly built project-sources rnx binary
+test tests::manifests_round_trip_and_reject_conflicts_and_unknowns ... ok
+test tests::native_generation_is_ordered_and_cannot_inject_rust ... ok
+test tests::real_manifests_expand_transitives_diamond_and_cycle ... ok
+test tests::shared_lock_current_schema_and_legacy_names ... ok
+test workflow::git_sources::eligibility_tests::one_rule_git_runtime_git_natives_all_declared ... ok
+test workflow::transition::scratch_directory_tests::legacy_history_parent_is_repaired_only_during_preparation ... ok
+
+test result: ok. 68 passed; 0 failed; 2 ignored; 0 measured; 0 filtered out; finished in 2.92s
+
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+   Compiling rnx-project v0.0.0 (/home/me/work/rnx-bench/probes/shared-build-seam/target/candidate/tools/project)
+    Finished `test` profile [unoptimized] target(s) in 3.49s
+     Running unittests src/lib.rs (target/debug/deps/rnx_project-deab5448ad02fb69)
+   Doc-tests rnx_project
