@@ -1,0 +1,88 @@
+{
+  "artifact": "/home/me/work/rnx-bench/probes/frame-journey/target/cache/entries/287dafda8cdf79cd2c3921046569bf5f9e2bc1225e1ba8ee2ab64f6f8f36e560/artifacts/2e1b00ee1107e333dea6e1d5e5c7a2c992164c78cdac2ef6f03f3d381a878c20",
+  "banner": "\r[1] > \r",
+  "steps": [
+    {
+      "name": "read",
+      "input": "let sales = polars::read_csv(\"sales.csv\", [(\"region\",\"string\"),(\"item\",\"string\"),(\"qty\",\"i64\"),(\"price\",\"f64\")])?;",
+      "output": ""
+    },
+    {
+      "name": "bare",
+      "input": "sales",
+      "output": "[2] DataFrame: 5 rows × 4 columns\n\"region\": string | \"item\": string | \"qty\": i64 | \"price\": f64\n\"west\" | \"apple\" | 3 | 1.5\n\"west\" | \"pear\" | 1 | 2.0\n\"east\" | \"apple\" | 5 | 1.5\n\"east\" | \"plum\" | 2 | 3.0\n\"north\" | \"apple\" | 4 | 1.5"
+    },
+    {
+      "name": "filter",
+      "input": "let big = sales.lazy().filter(polars::col(\"qty\").gt(polars::lit(2)?)).collect()?;",
+      "output": ""
+    },
+    {
+      "name": "filtered",
+      "input": "big",
+      "output": "[4] DataFrame: 3 rows × 4 columns\n\"region\": string | \"item\": string | \"qty\": i64 | \"price\": f64\n\"west\" | \"apple\" | 3 | 1.5\n\"east\" | \"apple\" | 5 | 1.5\n\"north\" | \"apple\" | 4 | 1.5"
+    },
+    {
+      "name": "error",
+      "input": "sales.lazy().filter(polars::col(\"missing\").gt(polars::lit(1)?)).collect()?",
+      "output": "runtime error (position not in your input; :debug shows the generated source): Expected type `::std::tuple::Tuple` but found `::std::result::Result`"
+    },
+    {
+      "name": "recover",
+      "input": "sales",
+      "output": "[6] DataFrame: 5 rows × 4 columns\n\"region\": string | \"item\": string | \"qty\": i64 | \"price\": f64\n\"west\" | \"apple\" | 3 | 1.5\n\"west\" | \"pear\" | 1 | 2.0\n\"east\" | \"apple\" | 5 | 1.5\n\"east\" | \"plum\" | 2 | 3.0\n\"north\" | \"apple\" | 4 | 1.5"
+    },
+    {
+      "name": "big-again",
+      "input": "big",
+      "output": "[7] DataFrame: 3 rows × 4 columns\n\"region\": string | \"item\": string | \"qty\": i64 | \"price\": f64\n\"west\" | \"apple\" | 3 | 1.5\n\"east\" | \"apple\" | 5 | 1.5\n\"north\" | \"apple\" | 4 | 1.5"
+    },
+    {
+      "name": "wide-read",
+      "input": "let wide = polars::read_csv(\"wide.csv\", [(\"c0\",\"i64\"),(\"c1\",\"i64\"),(\"c2\",\"i64\"),(\"c3\",\"i64\"),(\"c4\",\"i64\"),(\"c5\",\"i64\"),(\"c6\",\"i64\"),(\"c7\",\"i64\"),(\"c8\",\"i64\"),(\"c9\",\"i64\"),(\"c10\",\"i64\"),(\"c11\",\"i64\")])?;",
+      "output": ""
+    },
+    {
+      "name": "wide",
+      "input": "wide",
+      "output": "[9] DataFrame: 15 rows × 12 columns\n[5 rows and 4 columns omitted by display limits]\n\"c0\": i64 | \"c1\": i64 | \"c2\": i64 | \"c3\": i64 | \"c4\": i64 | \"c5\": i64 | \"c6\": i64 | \"c7\": i64\n0 | 1 | 2 | 3 | 4 | 5 | 6 | 7\n100 | 101 | 102 | 103 | 104 | 105 | 106 | 107\n200 | 201 | 202 | 203 | 204 | 205 | 206 | 207\n300 | 301 | 302 | 303 | 304 | 305 | 306 | 307\n400 | 401 | 402 | 403 | 404 | 405 | 406 | 407\n500 | 501 | 502 | 503 | 504 | 505 | 506 | 507\n600 | 601 | 602 | 603 | 604 | 605 | 606 | 607\n700 | 701 | 702 | 703 | 704 | 705 | 706 | 707\n800 | 801 | 802 | 803 | 804 | 805 | 806 | 807\n900 | 901 | 902 | 903 | 904 | 905 | 906 | 907"
+    },
+    {
+      "name": "suppressed",
+      "input": "let x = sales;",
+      "output": ""
+    },
+    {
+      "name": "explicit",
+      "input": "println!(\"{sales}\")",
+      "output": "DataFrame: 5 rows × 4 columns\n\"region\": string | \"item\": string | \"qty\": i64 | \"price\": f64\n\"west\" | \"apple\" | 3 | 1.5\n\"west\" | \"pear\" | 1 | 2.0\n\"east\" | \"apple\" | 5 | 1.5\n\"east\" | \"plum\" | 2 | 3.0\n\"north\" | \"apple\" | 4 | 1.5"
+    },
+    {
+      "name": "numbered-after-suppression",
+      "input": "x",
+      "output": "[12] DataFrame: 5 rows × 4 columns\n\"region\": string | \"item\": string | \"qty\": i64 | \"price\": f64\n\"west\" | \"apple\" | 3 | 1.5\n\"west\" | \"pear\" | 1 | 2.0\n\"east\" | \"apple\" | 5 | 1.5\n\"east\" | \"plum\" | 2 | 3.0\n\"north\" | \"apple\" | 4 | 1.5"
+    },
+    {
+      "name": "vars",
+      "input": ":vars",
+      "output": "big: DataFrame = <::polars::DataFrame>\nsales: DataFrame = <::polars::DataFrame>\nwide: DataFrame = <::polars::DataFrame>\nx: DataFrame = <::polars::DataFrame>"
+    },
+    {
+      "name": "reset",
+      "input": ":reset",
+      "output": "session reset"
+    },
+    {
+      "name": "gone",
+      "input": "sales",
+      "output": "error at input 1, line 1, column 1: No local variable `sales`\n  sales\n  ^"
+    },
+    {
+      "name": "after-reset",
+      "input": "polars::read_csv(\"sales.csv\", [(\"region\",\"string\"),(\"item\",\"string\"),(\"qty\",\"i64\"),(\"price\",\"f64\")])?",
+      "output": "[2] DataFrame: 5 rows × 4 columns\n\"region\": string | \"item\": string | \"qty\": i64 | \"price\": f64\n\"west\" | \"apple\" | 3 | 1.5\n\"west\" | \"pear\" | 1 | 2.0\n\"east\" | \"apple\" | 5 | 1.5\n\"east\" | \"plum\" | 2 | 3.0\n\"north\" | \"apple\" | 4 | 1.5"
+    }
+  ],
+  "history": "#V2\nlet sales = polars::read_csv(\"sales.csv\", [(\"region\",\"string\"),(\"item\",\"string\"),(\"qty\",\"i64\"),(\"price\",\"f64\")])?;\nsales\nlet big = sales.lazy().filter(polars::col(\"qty\").gt(polars::lit(2)?)).collect()?;\nbig\nsales.lazy().filter(polars::col(\"missing\").gt(polars::lit(1)?)).collect()?\nsales\nbig\nlet wide = polars::read_csv(\"wide.csv\", [(\"c0\",\"i64\"),(\"c1\",\"i64\"),(\"c2\",\"i64\"),(\"c3\",\"i64\"),(\"c4\",\"i64\"),(\"c5\",\"i64\"),(\"c6\",\"i64\"),(\"c7\",\"i64\"),(\"c8\",\"i64\"),(\"c9\",\"i64\"),(\"c10\",\"i64\"),(\"c11\",\"i64\")])?;\nwide\nlet x = sales;\nprintln!(\"{sales}\")\nx\n:vars\n:reset\nsales\npolars::read_csv(\"sales.csv\", [(\"region\",\"string\"),(\"item\",\"string\"),(\"qty\",\"i64\"),(\"price\",\"f64\")])?\n:quit\n",
+  "recalled": "\r[1] > :quit\r\r[1] > polars::read_csv(\"sales.csv\", [(\"region\",\"string\"),(\"item\",\"string\"),(\"qty\",\"i64\"),(\"price\",\"f64\")])?\r"
+}

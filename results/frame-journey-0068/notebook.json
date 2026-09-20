@@ -1,0 +1,90 @@
+{
+  "artifact": "/home/me/work/rnx-bench/probes/frame-journey/target/cache/entries/287dafda8cdf79cd2c3921046569bf5f9e2bc1225e1ba8ee2ab64f6f8f36e560/artifacts/2e1b00ee1107e333dea6e1d5e5c7a2c992164c78cdac2ef6f03f3d381a878c20",
+  "kernelspec": {
+    "argv": [
+      "/tmp/rnx frame journey 48zsj_zs/bin with spaces/rnx-jupyter",
+      "--connection-file",
+      "{connection_file}",
+      "--rnx",
+      "/home/me/work/rnx-bench/probes/frame-journey/target/cache/entries/287dafda8cdf79cd2c3921046569bf5f9e2bc1225e1ba8ee2ab64f6f8f36e560/artifacts/2e1b00ee1107e333dea6e1d5e5c7a2c992164c78cdac2ef6f03f3d381a878c20"
+    ],
+    "display_name": "Rune (rnx)",
+    "interrupt_mode": "message",
+    "language": "rune"
+  },
+  "first_worker": [
+    3614780
+  ],
+  "second_worker": [
+    3614792
+  ],
+  "error_name": "RuntimeError",
+  "error_value": "runtime error (position not in your input; :debug shows the generated source): Expected type `::std::tuple::Tuple` but found `::std::result::Result`",
+  "cells": [
+    {
+      "source": "let sales = polars::read_csv(\"sales.csv\", [(\"region\",\"string\"),(\"item\",\"string\"),(\"qty\",\"i64\"),(\"price\",\"f64\")])?;",
+      "execution_count": 1,
+      "outputs": []
+    },
+    {
+      "source": "sales",
+      "execution_count": 2,
+      "outputs": [
+        [
+          "execute_result",
+          "DataFrame: 5 rows × 4 columns\n\"region\": string | \"item\": string | \"qty\": i64 | \"price\": f64\n\"west\" | \"apple\" | 3 | 1.5\n\"west\" | \"pear\" | 1 | 2.0\n\"east\" | \"apple\" | 5 | 1.5\n\"east\" | \"plum\" | 2 | 3.0\n\"north\" | \"apple\" | 4 | 1.5\n"
+        ]
+      ]
+    },
+    {
+      "source": "sales.lazy().filter(polars::col(\"missing\").gt(polars::lit(1)?)).collect()?",
+      "execution_count": 3,
+      "outputs": [
+        [
+          "error",
+          "RuntimeError"
+        ]
+      ]
+    },
+    {
+      "source": "sales",
+      "execution_count": 4,
+      "outputs": [
+        [
+          "execute_result",
+          "DataFrame: 5 rows × 4 columns\n\"region\": string | \"item\": string | \"qty\": i64 | \"price\": f64\n\"west\" | \"apple\" | 3 | 1.5\n\"west\" | \"pear\" | 1 | 2.0\n\"east\" | \"apple\" | 5 | 1.5\n\"east\" | \"plum\" | 2 | 3.0\n\"north\" | \"apple\" | 4 | 1.5\n"
+        ]
+      ]
+    },
+    {
+      "source": "[sales]",
+      "execution_count": 5,
+      "outputs": [
+        [
+          "execute_result",
+          "[<::polars::DataFrame>]"
+        ]
+      ]
+    },
+    {
+      "source": "sales",
+      "execution_count": 1,
+      "outputs": [
+        [
+          "error",
+          "CompileError"
+        ]
+      ]
+    },
+    {
+      "source": "polars::read_csv(\"sales.csv\", [(\"region\",\"string\"),(\"item\",\"string\"),(\"qty\",\"i64\"),(\"price\",\"f64\")])?",
+      "execution_count": 2,
+      "outputs": [
+        [
+          "execute_result",
+          "DataFrame: 5 rows × 4 columns\n\"region\": string | \"item\": string | \"qty\": i64 | \"price\": f64\n\"west\" | \"apple\" | 3 | 1.5\n\"west\" | \"pear\" | 1 | 2.0\n\"east\" | \"apple\" | 5 | 1.5\n\"east\" | \"plum\" | 2 | 3.0\n\"north\" | \"apple\" | 4 | 1.5\n"
+        ]
+      ]
+    }
+  ]
+}

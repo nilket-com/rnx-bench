@@ -1,0 +1,13 @@
+{
+  "product_rev": "a8e0f4e",
+  "rnx_sha256": "0c0d69de61b03a3ca0535fd4ad412102d0b2a3e64fa4fe154a93e427180839f4",
+  "kernel_sha256": "05aedaea48c128b58ef18a2b2bc75a55c748ef1fe92fd82d7f428e050c50f8b5",
+  "product_build_seconds": 46.2,
+  "project_seconds": 111.7,
+  "manifest": "format = 1\n[application]\nentry = \"main.rn\"\n[runtime]\npath = \"/home/me/work/rnx-bench/probes/frame-journey/target/product\"\n\n\n[native.polars]\npath = \"/home/me/work/rnx-bench/probes/frame-journey/target/product/adapters/polars\"\npackage = \"rnx-polars\"\nbuilder = \"build\"\nhook = \"plain\"\npresentation = true\n",
+  "wrapper": "fn main() -> Result<(), Box<dyn std::error::Error>> {\n    rnx::main_with(rnx::Extensions::none().with(\"polars\", native_0::build).present(\"polars\", native_0::present))\n}\n",
+  "lock_assembly_keys": [
+    "identity",
+    "kind"
+  ]
+}
