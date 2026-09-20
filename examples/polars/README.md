@@ -19,11 +19,15 @@ At the prompt, use a fresh output filename (existing files are refused):
 ```rune
 fs::write_new("explore.csv", "category,value\na,1\na,2\nb,3\n").unwrap();
 let frame = polars::read_csv("explore.csv", [("category", "string"), ("value", "i64")]).unwrap();
-println!("{}", frame.preview().unwrap());
+frame
 let result = frame.lazy().filter(polars::col("value").gt(polars::lit(1).unwrap())).collect().unwrap();
-println!("{}", result.preview().unwrap());
+result
 result.write_parquet_new("explore.parquet").unwrap();
 ```
+
+A bare frame prints its bounded preview because the manifest declares
+`presentation = true` (record 0068); `println!("{}", frame.preview().unwrap())`
+prints the same text and works without it.
 
 The working directory stays where you launched the command. The session does not
 run main.rn or import mapped Rune packages; it opens the executable's native
