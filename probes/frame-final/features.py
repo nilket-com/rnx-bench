@@ -12,7 +12,7 @@ for name, manifest, flags in [('stock', R / 'Cargo.toml', []), ('runner', R / 'C
     assert ('rnx-project v' in text) == (name in ('stock', 'server')), name
     if name in ['stock', 'runner', 'server']:
         assert 'polars v' not in text and 'tokio-postgres v' not in text, name
-    checks.append({'name': name, 'management': name == 'stock', 'packages': len(set(text.split('\n')) - {''})})
+    checks.append({'name': name, 'management': 'rnx-project v' in text, 'packages': len(set(text.split('\n')) - {''})})
 projects = json.loads((O / 'projects.json').read_text())
 for name, project in projects.items():
     symbols = run(['nm', '-C', project['artifact']]).stdout
