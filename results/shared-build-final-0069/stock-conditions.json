@@ -1,0 +1,44 @@
+{
+  "cpu": 0,
+  "seed": 690001,
+  "samples": 2400,
+  "warmups": 5,
+  "binaries": {
+    "baseline": {
+      "path": "/home/me/work/rnx-bench/probes/shared-build-final/target/baseline",
+      "sha256": "ad415c78aa580aa7eb636662d21d5e4f45e31b210f1aa1499891d75b641e0aab",
+      "size": 18734528
+    },
+    "stock": {
+      "path": "/home/me/work/rnx-bench/probes/shared-build-final/target/stock",
+      "sha256": "436371033ec5971cc545074404af9c731566938bd783bb3c69fa531ecc4220e4",
+      "size": 18881032
+    }
+  },
+  "commands": {
+    "version": [
+      "version"
+    ],
+    "eval": [
+      "--color=never",
+      "eval",
+      "42"
+    ],
+    "json": [
+      "--color=never",
+      "run",
+      "/home/me/work/rnx-bench/scripts/json.rn"
+    ],
+    "prompt": [
+      "--no-splash",
+      "--color=never",
+      "repl"
+    ]
+  },
+  "outputs": {
+    "version": "rnx 0.0.0\nrune 0.14.2\n",
+    "eval": "42\n",
+    "json": "{\"b\":\"hello\",\"a\":[9999,2,3]}\n"
+  },
+  "clock": "spawn/capture/wait or PTY create-to-prompt; persistent cell send-to-prompt; pinned core, warm, interleaved"
+}
