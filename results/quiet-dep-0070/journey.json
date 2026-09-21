@@ -1,0 +1,61 @@
+{
+  "first": {
+    "seconds": 119.4,
+    "lines": [
+      ":dep polars"
+    ],
+    "line_count": 0,
+    "log_bytes": 18308,
+    "log_compiling_lines": 308,
+    "log_first_line": "reopen this scratch session with: '/home/me/work/rnx-bench/probes/quiet-dep/targ"
+  },
+  "attach": {
+    "seconds": 8.2,
+    "line_count": 0
+  },
+  "postgres": {
+    "seconds": 43.7,
+    "line_count": 0
+  },
+  "verbose": {
+    "notice_lines": 11,
+    "line_count": 197,
+    "first_lines": [
+      "y",
+      "added polars",
+      "Next:",
+      "  '/home/me/work/rnx-bench/probes/quiet-dep/target/install-product/bin/rnx' project lock --manifest '/home/me/work/rnx-bench/probes/quiet-dep/target/homes/quiet/state/rnx/sessions/session-1463027-1789965831169001157/rnx.toml'",
+      "  '/home/me/work/rnx-bench/probes/quiet-dep/target/install-product/bin/rnx' project build --manifest '/home/me/work/rnx-bench/probes/quiet-dep/target/homes/quiet/state/rnx/sessions/session-1463027-1789965831169001157/rnx.toml'",
+      "  '/home/me/work/rnx-bench/probes/quiet-dep/target/install-product/bin/rnx' project session --manifest '/home/me/work/rnx-bench/probes/quiet-dep/target/homes/quiet/state/rnx/sessions/session-1463027-1789965831169001157/rnx.toml'",
+      "dependency phase: author",
+      "dependency phase: resolve"
+    ]
+  },
+  "failure": {
+    "lines": [
+      "resolve: Cargo Git acquisition failed: \"cargo\" failed: exit status: 101",
+      "made scratch directory private: /home/me/work/rnx-bench/probes/quiet-dep/target/homes/offline/state/rnx",
+      "dependency phase: author",
+      "added polars",
+      "Next:",
+      "  '/home/me/work/rnx-bench/probes/quiet-dep/target/install-product/bin/rnx' project lock --manifest '/home/me/work/rnx-bench/probes/quiet-dep/target/homes/offline/state/rnx/sessions/session-1464190-1789965838489667535/rnx.toml'",
+      "  '/home/me/work/rnx-bench/probes/quiet-dep/target/install-product/bin/rnx' project build --manifest '/home/me/work/rnx-bench/probes/quiet-dep/target/homes/offline/state/rnx/sessions/session-1464190-1789965838489667535/rnx.toml'",
+      "  '/home/me/work/rnx-bench/probes/quiet-dep/target/install-product/bin/rnx' project session --manifest '/home/me/work/rnx-bench/probes/quiet-dep/target/homes/offline/state/rnx/sessions/session-1464190-1789965838489667535/rnx.toml'",
+      "dependency phase: resolve",
+      "error: failed to get `rnx-polars` as a dependency of package `rnx-app-7e90ff5a893e1711dd1cc50647a388e5242f8cb6bf695ba0fc8d3091cc76bb23 v0.0.0 (/home/me/work/rnx-bench/probes/quiet-dep/target/homes/offline/cache/rnx/assemblies/resolve/1464190-0/assembly)`",
+      "Caused by:",
+      "  failed to load source for dependency `rnx-polars`",
+      "Caused by:",
+      "  unable to update file:///home/me/work/rnx-bench/probes/quiet-dep/target/origin.git?rev=b28def7f4b820be3cabe3f0b7d1f04af464687b2",
+      "Caused by:",
+      "  can't checkout from 'file:///home/me/work/rnx-bench/probes/quiet-dep/target/origin.git': you are in the offline mode (--offline)",
+      "/home/me/work/rnx-bench/probes/quiet-dep/target/homes/offline/state/rnx/sessions/session-1464190-1789965838489667535/.rnx/dep.log"
+    ]
+  },
+  "interrupt": {
+    "lines": [
+      "^Cinterrupted; old session unchanged"
+    ],
+    "no_build_processes_after": true
+  }
+}
