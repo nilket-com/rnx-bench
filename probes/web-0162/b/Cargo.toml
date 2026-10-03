@@ -1,0 +1,12 @@
+[package]
+name = "web0162-b"
+version = "0.0.0"
+edition = "2024"
+publish = false
+
+[workspace]
+
+[dependencies]
+rnx = { path = "../../../../rnx", default-features = false, features = ["server-runtime"] }
+axum = { version = "0.8", default-features = false, features = ["http1", "tokio"] }
+tokio = { version = "1", features = ["rt", "rt-multi-thread", "net", "macros", "sync"] }

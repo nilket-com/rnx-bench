@@ -1,0 +1,7 @@
+// rnx 0162 R3: failures on the same worker, each followed by a healthy request.
+pub fn main(request) {
+	if request.path == "/panic" { panic("handler failed on purpose"); }
+	if request.path == "/loop" { loop {} }
+	if request.path == "/refuse" { return #{status: 99, headers: #{}, body: ""}; }
+	#{status: 200, headers: #{}, body: "healthy"}
+}
