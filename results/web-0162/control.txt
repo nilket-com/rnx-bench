@@ -1,0 +1,11 @@
+/ok: 200 in 12.6 ms
+/panic: 500 in 7.5 ms
+/ok: 200 in 5.1 ms
+/loop: 500 in 88.1 ms
+/ok: 200 in 3.6 ms
+/refuse: 500 in 3.1 ms
+/ok: 200 in 3.1 ms
+{'event': 'handler_error', 'worker': 0, 'reason': 'vm: Panicked: handler failed on purpose', 'close': 'vm'}
+{'event': 'handler_error', 'worker': 0, 'reason': 'vm: the budget of 10000000 instructions was exhausted', 'close': 'vm'}
+{'event': 'handler_error', 'worker': 0, 'reason': 'status', 'close': 'closed'}
+control ok: every failure returned 500 with its invocation closed, and the same worker served the next request

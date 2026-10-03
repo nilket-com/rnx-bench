@@ -1,0 +1,12 @@
+pass: a complete good run
+pass: a missing p50: p50 is None
+pass: a NaN p99: p99 is nan
+pass: zero requests per second: requestsPerSec is 0
+pass: a 500 among the statuses: statuses {'200': 1000, '500': 3}, errors {}
+pass: an error reported: statuses {'200': 1000}, errors {'timeout': 1}
+pass: a missing summary: missing field 'summary'
+pass: a connection count below the concurrency: 31 established connections for concurrency 32
+pass: a missing connection sample: None established connections for concurrency 32
+pass: no connection check without keep-alive
+pass: oha not runnable: oha could not run
+pass: oha against a closed port (non-zero exit or errors): statuses {}, errors {'Connection refused (os error 111)': 116774}

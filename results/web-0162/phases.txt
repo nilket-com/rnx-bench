@@ -1,0 +1,9 @@
+pass: a complete stream is summarized
+pass: a partial stream (one record short) is refused: Refused: 659 phase records, expected 660
+pass: a stream with an extra record is refused: Refused: 661 phase records, expected 660
+pass: a non-finite record is refused: Refused: an incomplete or non-finite phase record: {"event":"phases","prepare_us":1.0,"ru
+pass: a record missing a phase is refused: Refused: an incomplete or non-finite phase record: {"event":"phases","prepare_us":1.0}
+pass: an undrained 4,096-byte stderr pipe blocks the sample (the old harness's hazard): TimeoutError: timed out
+/: median over 200 requests (µs): {'prepare_us': 2728.3, 'run_us': 79.8, 'convert_us': 2.2, 'close_us': 169.9}
+/hello/world: median over 200 requests (µs): {'prepare_us': 2685.0, 'run_us': 22.3, 'convert_us': 1.6, 'close_us': 166.4}
+/static/site.css: median over 200 requests (µs): {'prepare_us': 2695.1, 'run_us': 11.4, 'convert_us': 1.9, 'close_us': 166.4}
