@@ -1,0 +1,11 @@
+   Compiling rnx v0.0.0 (/home/me/work/rnx)
+    Finished `test` profile [unoptimized] target(s) in 3.85s
+     Running unittests src/lib.rs (target/debug/deps/rnx-c1201d7b5028e0a6)
+
+running 1 test
+outer rows: 52 bytes, routes() has 131072 rows, limit 256
+handler bytes: 213 bytes, route row 1: route string has 10485760 bytes, limit 256
+pattern bytes: 214 bytes, route row 1: route string has 10485761 bytes, limit 1024
+test http_server::routes::allocation_controls::decoder_refuses_huge_preexisting_values_before_copying ... ok
+
+test result: ok. 1 passed; 0 failed; 0 ignored; 0 measured; 207 filtered out; finished in 0.03s

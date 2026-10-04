@@ -1,0 +1,55 @@
+{
+  "passed": true,
+  "conditions": [
+    {
+      "route": "/",
+      "concurrency": 1,
+      "keepalive": true,
+      "main_rps": 11305.158502980119,
+      "routes_rps": 11355.722811210888,
+      "routes_over_main": 1.0044726757450981,
+      "percent": 0.44726757450981314,
+      "passed": true
+    },
+    {
+      "route": "/",
+      "concurrency": 32,
+      "keepalive": true,
+      "main_rps": 16030.578863074077,
+      "routes_rps": 16702.11465554635,
+      "routes_over_main": 1.0418909259739293,
+      "percent": 4.189092597392929,
+      "passed": true
+    },
+    {
+      "route": "/hello/world",
+      "concurrency": 1,
+      "keepalive": false,
+      "main_rps": 15929.970546492692,
+      "routes_rps": 16039.601147006331,
+      "routes_over_main": 1.0068820341000428,
+      "percent": 0.6882034100042844,
+      "passed": true
+    },
+    {
+      "route": "/hello/world",
+      "concurrency": 1,
+      "keepalive": true,
+      "main_rps": 29814.678771539828,
+      "routes_rps": 31374.49959448665,
+      "routes_over_main": 1.0523172104217262,
+      "percent": 5.231721042172621,
+      "passed": true
+    },
+    {
+      "route": "/hello/world",
+      "concurrency": 32,
+      "keepalive": true,
+      "main_rps": 69188.00442527671,
+      "routes_rps": 77146.72439622316,
+      "routes_over_main": 1.1150303443068934,
+      "percent": 11.50303443068934,
+      "passed": true
+    }
+  ]
+}
