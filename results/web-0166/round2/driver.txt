@@ -1,0 +1,30 @@
+A 26 fixtures + 3-response reuse PASS
+B 26 fixtures + 3-response reuse PASS
+{"case": "load", "rep": 0, "impl": "A", "route": "/hello/world", "concurrency": 1, "keepalive": false, "ok": true, "codes": {"200": 160479}, "errors": {}, "rps": 16045.201487527946, "successful": 160479, "p50_ms": 0.050701, "p99_ms": 0.280598, "connections": 0, "rss_kib": 22668}
+{"case": "load", "rep": 0, "impl": "B", "route": "/hello/world", "concurrency": 1, "keepalive": false, "ok": true, "codes": {"200": 191840}, "errors": {}, "rps": 19180.699636473724, "successful": 191840, "p50_ms": 0.050338, "p99_ms": 0.071078, "connections": 0, "rss_kib": 22996}
+{"case": "load", "rep": 1, "impl": "B", "route": "/hello/world", "concurrency": 1, "keepalive": false, "ok": true, "codes": {"200": 167056}, "errors": {}, "rps": 16703.163932067277, "successful": 167056, "p50_ms": 0.051310999999999996, "p99_ms": 0.22237, "connections": 0}
+{"case": "load", "rep": 1, "impl": "A", "route": "/hello/world", "concurrency": 1, "keepalive": false, "ok": true, "codes": {"200": 162063}, "errors": {}, "rps": 16204.151882022023, "successful": 162063, "p50_ms": 0.050561, "p99_ms": 0.27463, "connections": 0}
+{"case": "load", "rep": 2, "impl": "A", "route": "/hello/world", "concurrency": 1, "keepalive": false, "ok": true, "codes": {"200": 165713}, "errors": {}, "rps": 16568.695482256797, "successful": 165713, "p50_ms": 0.050748, "p99_ms": 0.244103, "connections": 0}
+{"case": "load", "rep": 2, "impl": "B", "route": "/hello/world", "concurrency": 1, "keepalive": false, "ok": true, "codes": {"200": 183952}, "errors": {}, "rps": 18392.146258156812, "successful": 183952, "p50_ms": 0.051322, "p99_ms": 0.088792, "connections": 0}
+swap: 6 measured rows + 12 full artifacts, identities/commands/exits/fields/summary PASS
+A 26 fixtures + 3-response reuse PASS
+B 26 fixtures + 3-response reuse PASS
+{"case": "load", "rep": 0, "impl": "A", "route": "/hello/world", "concurrency": 1, "keepalive": false, "ok": true, "codes": {"200": 167851}, "errors": {}, "rps": 16782.345016954954, "successful": 167851, "p50_ms": 0.051396, "p99_ms": 0.216941, "connections": 2, "rss_kib": 22988}
+{"case": "load", "rep": 0, "impl": "B", "route": "/hello/world", "concurrency": 1, "keepalive": false, "ok": true, "codes": {"200": 164055}, "errors": {}, "rps": 16403.084819633008, "successful": 164055, "p50_ms": 0.051933, "p99_ms": 0.232511, "connections": 0, "rss_kib": 23100}
+{"case": "load", "rep": 1, "impl": "B", "route": "/hello/world", "concurrency": 1, "keepalive": false, "ok": true, "codes": {"200": 168242}, "errors": {}, "rps": 16821.026926897284, "successful": 168242, "p50_ms": 0.051845999999999996, "p99_ms": 0.201241, "connections": 1}
+{"case": "load", "rep": 1, "impl": "A", "route": "/hello/world", "concurrency": 1, "keepalive": false, "ok": true, "codes": {"200": 189550}, "errors": {}, "rps": 18951.82190454863, "successful": 189550, "p50_ms": 0.050585, "p99_ms": 0.079638, "connections": 0}
+{"case": "load", "rep": 2, "impl": "A", "route": "/hello/world", "concurrency": 1, "keepalive": false, "ok": true, "codes": {"200": 184338}, "errors": {}, "rps": 18430.735296787232, "successful": 184338, "p50_ms": 0.050918000000000005, "p99_ms": 0.106782, "connections": 0}
+{"case": "load", "rep": 2, "impl": "B", "route": "/hello/world", "concurrency": 1, "keepalive": false, "ok": true, "codes": {"200": 174296}, "errors": {}, "rps": 17427.754364214547, "successful": 174296, "p50_ms": 0.051727999999999996, "p99_ms": 0.15493, "connections": 0}
+aa: 6 measured rows + 12 full artifacts, identities/commands/exits/fields/summary PASS
+swap: 6 measured rows + 12 full artifacts, identities/commands/exits/fields/summary PASS
+aa: 6 measured rows + 12 full artifacts, identities/commands/exits/fields/summary PASS
+{
+  "swap_old_B_over_new_A": 1.1350267753638064,
+  "aa_B_over_A": 0.9126617389936393,
+  "decision": "c",
+  "rule": {
+    "a": "SWAP old_B/new_A <= .95 and AA B/A < 1: slot effect; run corrected ABBA gate",
+    "b": "SWAP new_A/old_B <= .95 and abs(AA B/A-1) <= .02: source effect; profile",
+    "c": "otherwise stop and report"
+  }
+}

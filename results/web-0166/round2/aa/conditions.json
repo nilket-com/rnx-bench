@@ -1,0 +1,15 @@
+{
+  "kind": "aa",
+  "mapping": {
+    "A": "before.rn",
+    "B": "before.rn"
+  },
+  "binary_sha256": "8ec20aca0de0a294bfdb0024a89c7e69296d1bf9004237c0176e0599ce818fd8",
+  "server_cpus": "2,4",
+  "load_cpus": "8,10,12,14",
+  "decision_rule": {
+    "a": "SWAP old_B/new_A <= .95 and AA B/A < 1: slot effect; run corrected ABBA gate",
+    "b": "SWAP new_A/old_B <= .95 and abs(AA B/A-1) <= .02: source effect; profile",
+    "c": "otherwise stop and report"
+  }
+}

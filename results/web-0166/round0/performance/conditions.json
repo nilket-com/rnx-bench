@@ -1,0 +1,40 @@
+{
+  "binary": "/home/me/work/rnx-bench/probes/web-0166/target/stock",
+  "binary_sha256": "ad07cdfa4299a3e0f90ed25c1d3e427f053a70862c89f807e97f29c193412d36",
+  "sources": {
+    "before.rn": "536329c164274e295dd2f4935348bc6f93e5948e6ffa9b0da2bbb474b31d48a4",
+    "after.rn": "0670e7374778faf59711174043ee87a209129a1afb2a9f8cc75ef34274565805"
+  },
+  "server_cpus": "2,4",
+  "load_cpus": "8,10,12,14",
+  "conditions": [
+    [
+      "/",
+      1,
+      true
+    ],
+    [
+      "/",
+      32,
+      true
+    ],
+    [
+      "/hello/world",
+      1,
+      true
+    ],
+    [
+      "/hello/world",
+      32,
+      true
+    ],
+    [
+      "/hello/world",
+      1,
+      false
+    ]
+  ],
+  "repetitions": 3,
+  "warmup_seconds": 3,
+  "measured_seconds": 10
+}

@@ -1,0 +1,35 @@
+{
+  "argv": [
+    "perf",
+    "stat",
+    "-j",
+    "--cputype",
+    "core",
+    "-e",
+    "instructions:u,cycles:u",
+    "-p",
+    "2044550",
+    "-D",
+    "-1",
+    "--control",
+    "fifo:/home/me/work/rnx-bench/results/web-0166/round3/ka-1-rep-0-block-2/old.ctl,/home/me/work/rnx-bench/results/web-0166/round3/ka-1-rep-0-block-2/old.ack",
+    "-o",
+    "/home/me/work/rnx-bench/results/web-0166/round3/ka-1-rep-0-block-2/old.perf-raw.jsonl"
+  ],
+  "exit": -2,
+  "stdout": "",
+  "stderr": "Events disabled\nEvents enabled\nEvents disabled\n",
+  "raw": "{\"counter-value\" : \"36722769537.000000\", \"unit\" : \"\", \"event\" : \"cpu_core/instructions/u\", \"event-runtime\" : 8020652954, \"pcnt-running\" : 100.00}\n{\"counter-value\" : \"19891394718.000000\", \"unit\" : \"\", \"event\" : \"cpu_core/cycles/u\", \"event-runtime\" : 8020652954, \"pcnt-running\" : 100.00}\n",
+  "window": {
+    "enabled_ns": 1856701656809986,
+    "disabled_ns": 1856711725504134,
+    "oha_spawn_ns": 1856701657200590,
+    "oha_exit_ns": 1856711724824293
+  },
+  "tids": [
+    2044550,
+    2044551,
+    2044552,
+    2044553
+  ]
+}

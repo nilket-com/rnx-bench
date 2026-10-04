@@ -1,0 +1,164 @@
+A 26 fixtures + 3-response reuse PASS
+B 26 fixtures + 3-response reuse PASS
+{"case": "load", "rep": 0, "impl": "A", "route": "/", "concurrency": 1, "keepalive": true, "ok": true, "codes": {"200": 115560}, "errors": {}, "rps": 11554.402398200085, "successful": 115560, "p50_ms": 0.085089, "p99_ms": 0.093281, "connections": 1, "rss_kib": 22840}
+{"case": "load", "rep": 0, "impl": "B", "route": "/", "concurrency": 1, "keepalive": true, "ok": true, "codes": {"200": 133110}, "errors": {}, "rps": 13310.147085774744, "successful": 133110, "p50_ms": 0.07414899999999999, "p99_ms": 0.078822, "connections": 1, "rss_kib": 22632}
+{"case": "load", "rep": 0, "impl": "A", "route": "/", "concurrency": 32, "keepalive": true, "ok": true, "codes": {"200": 149914}, "errors": {}, "rps": 14986.330431634751, "successful": 149914, "p50_ms": 1.85988, "p99_ms": 2.801167, "connections": 32, "rss_kib": 22840}
+{"case": "load", "rep": 0, "impl": "B", "route": "/", "concurrency": 32, "keepalive": true, "ok": true, "codes": {"200": 205762}, "errors": {}, "rps": 20570.02099402063, "successful": 205762, "p50_ms": 1.297819, "p99_ms": 2.1085269999999996, "connections": 32, "rss_kib": 22632}
+{"case": "load", "rep": 0, "impl": "A", "route": "/hello/world", "concurrency": 1, "keepalive": true, "ok": true, "codes": {"200": 318246}, "errors": {}, "rps": 31820.87168529438, "successful": 318246, "p50_ms": 0.030194, "p99_ms": 0.043994, "connections": 1, "rss_kib": 22840}
+{"case": "load", "rep": 0, "impl": "B", "route": "/hello/world", "concurrency": 1, "keepalive": true, "ok": true, "codes": {"200": 325539}, "errors": {}, "rps": 32551.216839002296, "successful": 325539, "p50_ms": 0.029501, "p99_ms": 0.041125999999999996, "connections": 1, "rss_kib": 22632}
+{"case": "load", "rep": 0, "impl": "A", "route": "/hello/world", "concurrency": 32, "keepalive": true, "ok": true, "codes": {"200": 748392}, "errors": {}, "rps": 74826.97064656968, "successful": 748392, "p50_ms": 0.425113, "p99_ms": 0.6142489999999999, "connections": 32, "rss_kib": 22840}
+{"case": "load", "rep": 0, "impl": "B", "route": "/hello/world", "concurrency": 32, "keepalive": true, "ok": true, "codes": {"200": 787242}, "errors": {}, "rps": 78710.9749268951, "successful": 787242, "p50_ms": 0.404215, "p99_ms": 0.594837, "connections": 32, "rss_kib": 22632}
+{"case": "load", "rep": 0, "impl": "A", "route": "/hello/world", "concurrency": 1, "keepalive": false, "ok": true, "codes": {"200": 169449}, "errors": {}, "rps": 16943.334788286928, "successful": 169449, "p50_ms": 0.051147, "p99_ms": 0.217084, "connections": 2, "rss_kib": 22840}
+{"case": "load", "rep": 0, "impl": "B", "route": "/hello/world", "concurrency": 1, "keepalive": false, "ok": true, "codes": {"200": 164344}, "errors": {}, "rps": 16430.2020850103, "successful": 164344, "p50_ms": 0.050478, "p99_ms": 0.287397, "connections": 2, "rss_kib": 22632}
+{"case": "load", "rep": 1, "impl": "B", "route": "/", "concurrency": 1, "keepalive": true, "ok": true, "codes": {"200": 133094}, "errors": {}, "rps": 13306.621911341123, "successful": 133094, "p50_ms": 0.07413, "p99_ms": 0.078357, "connections": 1}
+{"case": "load", "rep": 1, "impl": "A", "route": "/", "concurrency": 1, "keepalive": true, "ok": true, "codes": {"200": 116127}, "errors": {}, "rps": 11611.254135284687, "successful": 116127, "p50_ms": 0.085118, "p99_ms": 0.089793, "connections": 1}
+{"case": "load", "rep": 1, "impl": "B", "route": "/", "concurrency": 32, "keepalive": true, "ok": true, "codes": {"200": 206343}, "errors": {}, "rps": 20628.772448221796, "successful": 206343, "p50_ms": 1.2921, "p99_ms": 2.103073, "connections": 32}
+{"case": "load", "rep": 1, "impl": "A", "route": "/", "concurrency": 32, "keepalive": true, "ok": true, "codes": {"200": 149975}, "errors": {}, "rps": 14993.068885450706, "successful": 149975, "p50_ms": 1.859752, "p99_ms": 2.80823, "connections": 32}
+{"case": "load", "rep": 1, "impl": "B", "route": "/hello/world", "concurrency": 1, "keepalive": true, "ok": true, "codes": {"200": 327458}, "errors": {}, "rps": 32740.685459657878, "successful": 327458, "p50_ms": 0.029541, "p99_ms": 0.035176000000000006, "connections": 1}
+{"case": "load", "rep": 1, "impl": "A", "route": "/hello/world", "concurrency": 1, "keepalive": true, "ok": true, "codes": {"200": 318911}, "errors": {}, "rps": 31885.733924329288, "successful": 318911, "p50_ms": 0.030032, "p99_ms": 0.043532, "connections": 1}
+{"case": "load", "rep": 1, "impl": "B", "route": "/hello/world", "concurrency": 32, "keepalive": true, "ok": true, "codes": {"200": 787814}, "errors": {}, "rps": 78769.9299875378, "successful": 787814, "p50_ms": 0.40432599999999996, "p99_ms": 0.5950219999999999, "connections": 32}
+{"case": "load", "rep": 1, "impl": "A", "route": "/hello/world", "concurrency": 32, "keepalive": true, "ok": true, "codes": {"200": 748312}, "errors": {}, "rps": 74817.28556352992, "successful": 748312, "p50_ms": 0.425243, "p99_ms": 0.611135, "connections": 32}
+{"case": "load", "rep": 1, "impl": "B", "route": "/hello/world", "concurrency": 1, "keepalive": false, "ok": true, "codes": {"200": 165591}, "errors": {}, "rps": 16556.168049988242, "successful": 165591, "p50_ms": 0.050701, "p99_ms": 0.257796, "connections": 0}
+{"case": "load", "rep": 1, "impl": "A", "route": "/hello/world", "concurrency": 1, "keepalive": false, "ok": true, "codes": {"200": 176211}, "errors": {}, "rps": 17618.046646286413, "successful": 176211, "p50_ms": 0.051066999999999994, "p99_ms": 0.181853, "connections": 2}
+{"case": "load", "rep": 2, "impl": "A", "route": "/", "concurrency": 1, "keepalive": true, "ok": true, "codes": {"200": 115814}, "errors": {}, "rps": 11578.93460513862, "successful": 115814, "p50_ms": 0.085269, "p99_ms": 0.09132, "connections": 1}
+{"case": "load", "rep": 2, "impl": "B", "route": "/", "concurrency": 1, "keepalive": true, "ok": true, "codes": {"200": 133103}, "errors": {}, "rps": 13307.632785760594, "successful": 133103, "p50_ms": 0.07408500000000001, "p99_ms": 0.079171, "connections": 1}
+{"case": "load", "rep": 2, "impl": "A", "route": "/", "concurrency": 32, "keepalive": true, "ok": true, "codes": {"200": 149895}, "errors": {}, "rps": 14985.196077858163, "successful": 149895, "p50_ms": 1.865043, "p99_ms": 2.816134, "connections": 32}
+{"case": "load", "rep": 2, "impl": "B", "route": "/", "concurrency": 32, "keepalive": true, "ok": true, "codes": {"200": 206237}, "errors": {}, "rps": 20617.60659213909, "successful": 206237, "p50_ms": 1.295614, "p99_ms": 2.1137859999999997, "connections": 32}
+{"case": "load", "rep": 2, "impl": "A", "route": "/hello/world", "concurrency": 1, "keepalive": true, "ok": true, "codes": {"200": 313701}, "errors": {}, "rps": 31365.715693987153, "successful": 313701, "p50_ms": 0.03028, "p99_ms": 0.056113, "connections": 1}
+{"case": "load", "rep": 2, "impl": "B", "route": "/hello/world", "concurrency": 1, "keepalive": true, "ok": true, "codes": {"200": 323248}, "errors": {}, "rps": 32319.760996975176, "successful": 323248, "p50_ms": 0.029667, "p99_ms": 0.042443, "connections": 1}
+{"case": "load", "rep": 2, "impl": "A", "route": "/hello/world", "concurrency": 32, "keepalive": true, "ok": true, "codes": {"200": 746550}, "errors": {}, "rps": 74639.9283697839, "successful": 746550, "p50_ms": 0.425682, "p99_ms": 0.604073, "connections": 32}
+{"case": "load", "rep": 2, "impl": "B", "route": "/hello/world", "concurrency": 32, "keepalive": true, "ok": true, "codes": {"200": 789356}, "errors": {}, "rps": 78916.05553131303, "successful": 789356, "p50_ms": 0.40364900000000004, "p99_ms": 0.5811949999999999, "connections": 32}
+{"case": "load", "rep": 2, "impl": "A", "route": "/hello/world", "concurrency": 1, "keepalive": false, "ok": true, "codes": {"200": 160301}, "errors": {}, "rps": 16027.302349430205, "successful": 160301, "p50_ms": 0.051733, "p99_ms": 0.258337, "connections": 1}
+{"case": "load", "rep": 2, "impl": "B", "route": "/hello/world", "concurrency": 1, "keepalive": false, "ok": true, "codes": {"200": 163406}, "errors": {}, "rps": 16337.943236402705, "successful": 163406, "p50_ms": 0.050587999999999994, "p99_ms": 0.26344900000000004, "connections": 0}
+[
+  {
+    "impl": "A",
+    "route": "/",
+    "c": 1,
+    "ka": true,
+    "rps": 11578.93460513862,
+    "rps_range": [
+      11554.402398200085,
+      11611.254135284687
+    ],
+    "p50_ms": 0.085118,
+    "p99_ms": 0.09132
+  },
+  {
+    "impl": "B",
+    "route": "/",
+    "c": 1,
+    "ka": true,
+    "rps": 13307.632785760594,
+    "rps_range": [
+      13306.621911341123,
+      13310.147085774744
+    ],
+    "p50_ms": 0.07413,
+    "p99_ms": 0.078822
+  },
+  {
+    "impl": "A",
+    "route": "/",
+    "c": 32,
+    "ka": true,
+    "rps": 14986.330431634751,
+    "rps_range": [
+      14985.196077858163,
+      14993.068885450706
+    ],
+    "p50_ms": 1.85988,
+    "p99_ms": 2.80823
+  },
+  {
+    "impl": "B",
+    "route": "/",
+    "c": 32,
+    "ka": true,
+    "rps": 20617.60659213909,
+    "rps_range": [
+      20570.02099402063,
+      20628.772448221796
+    ],
+    "p50_ms": 1.295614,
+    "p99_ms": 2.1085269999999996
+  },
+  {
+    "impl": "A",
+    "route": "/hello/world",
+    "c": 1,
+    "ka": true,
+    "rps": 31820.87168529438,
+    "rps_range": [
+      31365.715693987153,
+      31885.733924329288
+    ],
+    "p50_ms": 0.030194,
+    "p99_ms": 0.043994
+  },
+  {
+    "impl": "B",
+    "route": "/hello/world",
+    "c": 1,
+    "ka": true,
+    "rps": 32551.216839002296,
+    "rps_range": [
+      32319.760996975176,
+      32740.685459657878
+    ],
+    "p50_ms": 0.029541,
+    "p99_ms": 0.041125999999999996
+  },
+  {
+    "impl": "A",
+    "route": "/hello/world",
+    "c": 32,
+    "ka": true,
+    "rps": 74817.28556352992,
+    "rps_range": [
+      74639.9283697839,
+      74826.97064656968
+    ],
+    "p50_ms": 0.425243,
+    "p99_ms": 0.611135
+  },
+  {
+    "impl": "B",
+    "route": "/hello/world",
+    "c": 32,
+    "ka": true,
+    "rps": 78769.9299875378,
+    "rps_range": [
+      78710.9749268951,
+      78916.05553131303
+    ],
+    "p50_ms": 0.404215,
+    "p99_ms": 0.594837
+  },
+  {
+    "impl": "A",
+    "route": "/hello/world",
+    "c": 1,
+    "ka": false,
+    "rps": 16943.334788286928,
+    "rps_range": [
+      16027.302349430205,
+      17618.046646286413
+    ],
+    "p50_ms": 0.051147,
+    "p99_ms": 0.217084
+  },
+  {
+    "impl": "B",
+    "route": "/hello/world",
+    "c": 1,
+    "ka": false,
+    "rps": 16430.2020850103,
+    "rps_range": [
+      16337.943236402705,
+      16556.168049988242
+    ],
+    "p50_ms": 0.050587999999999994,
+    "p99_ms": 0.26344900000000004
+  }
+]

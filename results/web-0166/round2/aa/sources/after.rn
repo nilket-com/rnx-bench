@@ -1,0 +1,127 @@
+// rnx 0162, implementation B: the skeleton site in Rune. Every request reaches `main(request)`
+// through rnx::server (record 0056): request is #{method, path, query, headers, body}, and the
+// result is #{status, headers, body}. Routing, escaping, percent-decoding and form parsing are
+// written here by hand: rnx has no route table, HTML escape or URL decoding today (the gaps).
+
+const HTML = "text/html; charset=utf-8";
+
+const CSS = ":root { color-scheme: light dark; --ink: #1d1d1f; --paper: #fbfbfd; --accent: #3b5bdb; }\n* { box-sizing: border-box; }\nbody { margin: 0; font: 16px/1.6 system-ui, sans-serif; color: var(--ink); background: var(--paper); }\nheader, main, footer { max-width: 46rem; margin: 0 auto; padding: 1rem; }\nheader { display: flex; justify-content: space-between; align-items: baseline; }\n.brand { font-weight: 700; font-size: 1.25rem; text-decoration: none; color: var(--ink); }\nnav a { margin-left: 1rem; color: var(--accent); }\nh1 { line-height: 1.2; }\nform label { display: block; margin: 0.75rem 0; }\nfooter { color: #6e6e73; font-size: 0.875rem; }\n";
+
+fn features() {
+	[
+		("Rune scripts, Rust speed", "Write small programs in Rune and run them on a Rust host."),
+		("Batteries included", "JSON, files, paths, time, text, environment and HTTP are built in."),
+		("DataFrames", "Polars is available as an adapter, with tables that read well."),
+		("Tensors and models", "Candle runs small models on the CPU, from tensors to text embeddings."),
+		("Notebooks", "A Jupyter kernel runs Rune cells, with HTML tables for frames and tensors."),
+		("Bounded by design", "Every displayed value, request body and instruction count has a limit."),
+		("Servers", "A Rust host can run Rune handlers with per-request ownership and budgets."),
+		("Offline first", "After setup nothing reaches the network unless a program asks it to."),
+	]
+}
+
+// no Vec::join in Rune today
+fn join(parts, separator) {
+	let out = "";
+	for (i, part) in parts.iter().enumerate() {
+		if i > 0 { out += separator; }
+		out += part;
+	}
+	out
+}
+
+// assembled on every request: the work under test
+fn home() {
+	let items = [];
+	let sections = [];
+	for (t, d) in features() {
+		let (t, d) = (escape(t), escape(d));
+		items.push(`<li><strong>${t}</strong> ${d}</li>`);
+		sections.push(`<section>\n<h2>${t}</h2>\n<p>${d} ${d}${d}${d}</p>\n</section>`);
+	}
+	page("Home", `<h1>nilket</h1>\n<p>Tools for working with data in Rune, on a Rust foundation.</p>\n<ul>\n${join(items, "\n")}\n</ul>\n${join(sections, "\n")}`)
+}
+
+fn escape(s) {
+	s.replace("&", "&amp;").replace("<", "&lt;").replace(">", "&gt;").replace("\"", "&quot;").replace("'", "&#39;")
+}
+
+fn page(title, body) {
+	`<!doctype html>\n<html lang="en">\n<head>\n<meta charset="utf-8">\n<meta name="viewport" content="width=device-width, initial-scale=1">\n<title>${title} · nilket</title>\n<link rel="stylesheet" href="/static/site.css">\n</head>\n<body>\n<header><a class="brand" href="/">nilket</a><nav><a href="/">Home</a><a href="/hello/world">Hello</a><a href="/contact">Contact</a></nav></header>\n<main>\n${body}\n</main>\n<footer>© 2026 nilket</footer>\n</body>\n</html>\n`
+}
+
+fn respond(status, body, content_type, extra) {
+	let headers = #{"content-type": [content_type]};
+	for (k, v) in extra { headers[k] = [v]; }
+	#{status: status, headers: headers, body: body}
+}
+
+fn html(status, body) { respond(status, body, HTML, []) }
+fn not_allowed(allow) { respond(405, page("Method not allowed", "<h1>Method not allowed</h1>"), HTML, [("allow", allow)]) }
+fn bad() { html(400, page("Bad request", "<h1>Bad request</h1>")) }
+
+fn hex(b) {
+	if b >= 48 && b <= 57 { Some(b - 48) } else if b >= 65 && b <= 70 { Some(b - 55) } else if b >= 97 && b <= 102 { Some(b - 87) } else { None }
+}
+
+// percent-decoding as UTF-8; a `%` without two hex digits stays as it is; Err on invalid UTF-8
+fn decode(s) {
+	let bytes = s.as_bytes();
+	let out = Bytes::new();
+	let i = 0;
+	while i < bytes.len() {
+		let b = bytes[i];
+		if b == 37 && i + 2 < bytes.len() {
+			if let (Some(h), Some(l)) = (hex(bytes[i + 1]), hex(bytes[i + 2])) {
+				out.push(h * 16 + l);
+				i += 3;
+				continue;
+			}
+		}
+		out.push(b);
+		i += 1;
+	}
+	String::from_utf8(out)
+}
+
+// application/x-www-form-urlencoded: the first of duplicate names; Err on invalid UTF-8
+fn form(body) {
+	let fields = #{};
+	if body.len() > 0 {
+		for pair in body.split("&") {
+			let (k, v) = match pair.split_once("=") { Some(kv) => kv, None => (pair, "") };
+			let k = decode(k.replace("+", " "))?;
+			let v = decode(v.replace("+", " "))?;
+			if fields.get(k).is_none() { fields[k] = v; }
+		}
+	}
+	Ok(fields)
+}
+
+fn field(fields, name) { match fields.get(name) { Some(v) => v, None => "" } }
+
+pub fn routes() {
+	[("GET", "/", "index"), ("GET", "/static/site.css", "stylesheet"),
+	 ("GET", "/contact", "contact_form"), ("POST", "/contact", "contact_post"),
+	 ("GET", "/hello/{name}", "hello")]
+}
+pub fn index(_) { html(200, home()) }
+pub fn stylesheet(_) {
+	respond(200, CSS, "text/css; charset=utf-8", [("cache-control", "public, max-age=3600")])
+}
+pub fn contact_form(_) {
+	html(200, page("Contact", "<h1>Contact</h1>\n<form method=\"post\" action=\"/contact\">\n<label>Name <input name=\"name\"></label>\n<label>Message <textarea name=\"message\"></textarea></label>\n<button>Send</button>\n</form>"))
+}
+pub fn contact_post(request) {
+	let text = match String::from_utf8(request.body) { Ok(t) => t, Err(_) => return bad() };
+	let fields = match form(text) { Ok(f) => f, Err(_) => return bad() };
+	html(200, page("Thanks", `<h1>Thanks, ${escape(field(fields, "name"))}</h1>\n<p>You wrote: ${escape(field(fields, "message"))}</p>`))
+}
+pub fn hello(request) {
+	html(200, page("Hello", `<h1>Hello, ${escape(request.params.name)}!</h1>\n<p>This page was made for you.</p>`))
+}
+pub fn not_found(request) {
+	html(404, page("Not found", `<h1>Not found</h1>\n<p>No page at ${escape(request.path)}.</p>`))
+}
+pub fn method_not_allowed(request) { not_allowed(request.allow) }
+pub fn bad_request(_) { bad() }

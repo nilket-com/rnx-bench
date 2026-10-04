@@ -1,0 +1,10 @@
+{
+  "swap_old_B_over_new_A": 1.1350267753638064,
+  "aa_B_over_A": 0.9126617389936393,
+  "decision": "c",
+  "rule": {
+    "a": "SWAP old_B/new_A <= .95 and AA B/A < 1: slot effect; run corrected ABBA gate",
+    "b": "SWAP new_A/old_B <= .95 and abs(AA B/A-1) <= .02: source effect; profile",
+    "c": "otherwise stop and report"
+  }
+}
