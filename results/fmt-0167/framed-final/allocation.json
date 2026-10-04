@@ -1,0 +1,25 @@
+{
+  "argv": [
+    "/home/me/work/rnx-bench/probes/fmt-0167/target/test-support",
+    "--rnx-fmt-test",
+    "allocation"
+  ],
+  "binary_sha256": "210ba0b6b385c7ad78d0023cf4add354945c2494a6d7e194f71b56788dca65c1",
+  "cpu_user_seconds": 0.198276,
+  "cpu_system_seconds": 0.20542500000000002,
+  "cpu_scope": "entire CLI and reaped worker, an upper bound on worker CPU",
+  "source": "pub fn main(){println!(\"x\",",
+  "exit": 2,
+  "elapsed": 0.41892845602706075,
+  "worker_peak_kib": {
+    "VmPeak": 494956,
+    "VmSize": 494956,
+    "VmHWM": 366620,
+    "VmRSS": 365736
+  },
+  "worker_threads": [
+    1
+  ],
+  "stdout": "",
+  "stderr": "formatter worker exit status: 2: Failed to format source\n\n"
+}

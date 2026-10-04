@@ -1,0 +1,23 @@
+   Compiling rnx v0.0.0 (/tmp/rnx-0167-base-check)
+   Compiling rune v0.14.2
+    Finished `release` profile [optimized] target(s) in 34.05s
+     Running unittests src/lib.rs (/home/me/work/rnx/target/release/deps/rnx-2993e842267499e6)
+
+running 1 test
+test inspect::tests::both_commands_answer_when_the_session_is_over_its_ceiling ... FAILED
+
+failures:
+
+---- inspect::tests::both_commands_answer_when_the_session_is_over_its_ceiling stdout ----
+
+thread 'inspect::tests::both_commands_answer_when_the_session_is_over_its_ceiling' (2100202) panicked at src/inspect.rs:526:9:
+expected the ceiling to refuse evaluation
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+
+failures:
+    inspect::tests::both_commands_answer_when_the_session_is_over_its_ceiling
+
+test result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 178 filtered out; finished in 0.01s
+
+error: test failed, to rerun pass `--lib`

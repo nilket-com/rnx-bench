@@ -1,0 +1,57 @@
+{
+  "upstream_commit": "bb8e69372353c50e271c9f115bc771c77aa6b83e",
+  "binary_sha256": "0f2c9b2b3b0441d78058c3304f2c99fc06ae46c6fb1628dc2f348d51d43692d1",
+  "address_space_bytes": 1000000000,
+  "cpu_seconds": 2,
+  "wall_seconds": 5,
+  "cases": [
+    {
+      "name": "macro",
+      "source": "pub fn main() { println!(\"x\",\n",
+      "args": [],
+      "exit": 1,
+      "stdout": "",
+      "stderr": "error: Failed to format source; 1 diagnostics\n"
+    },
+    {
+      "name": "macro-strict",
+      "source": "pub fn main() { println!(\"x\",\n",
+      "args": [
+        "fmt.error-recovery=false"
+      ],
+      "exit": 1,
+      "stdout": "",
+      "stderr": "error: Failed to format source; 1 diagnostics\n"
+    },
+    {
+      "name": "call",
+      "source": "pub fn main() { foo(1,\n",
+      "args": [
+        "fmt.error-recovery=false"
+      ],
+      "exit": 0,
+      "stdout": "pub fn main() {\n    foo(1)\n}\n",
+      "stderr": ""
+    },
+    {
+      "name": "template",
+      "source": "pub fn main(){let x=`a { b`;}",
+      "args": [
+        "fmt.error-recovery=false"
+      ],
+      "exit": 0,
+      "stdout": "pub fn main() {\n    let x = `a { b`;\n}\n",
+      "stderr": ""
+    },
+    {
+      "name": "tabs",
+      "source": "fn a(){let x=1;}",
+      "args": [
+        "fmt.indent=tab"
+      ],
+      "exit": 0,
+      "stdout": "fn a() {\n\tlet x = 1;\n}\n",
+      "stderr": ""
+    }
+  ]
+}

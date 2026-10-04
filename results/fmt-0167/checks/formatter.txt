@@ -1,0 +1,29 @@
+   Compiling rnx v0.0.0 (/home/me/work/rnx)
+    Finished `release` profile [optimized] target(s) in 6.94s
+     Running tests/source_fmt.rs (target/release/deps/source_fmt-9ec12101f843c668)
+
+running 8 tests
+rnx fmt: /tmp/rnx-fmt-test-2160088-0/fifo.rn: input must be a regular file
+rnx fmt: duplicate file identity
+rnx fmt: /tmp/rnx-fmt-test-2160088-0: input must be a regular file
+rnx fmt: /tmp/rnx-fmt-test-2160088-6/link.rn: Too many levels of symbolic links (os error 40)
+rnx fmt: in-place formatting refuses hard-linked files
+formatted: --check
+formatted: /tmp/rnx-fmt-test-2160088-6/a.rn
+test collection_caps_precede_any_formatter_attempt ... ok
+rnx fmt: invalid utf-8 sequence of 1 bytes from index 0
+test later_invalid_file_never_changes_earlier_file ... ok
+rnx fmt: input exceeds 1 MiB
+formatted: /tmp/rnx-fmt-test-2160088-1/dense.rn
+rnx fmt: want 1 to 128 explicit files
+test fifo_directory_dash_paths_and_unchanged_inode ... ok
+rnx fmt: --stdin cannot be combined with --check or files
+rnx fmt: duplicate --check
+rnx fmt: unknown formatter option (use -- before dash-prefixed files)
+test refused_inputs_and_aliases_leave_files_unchanged ... ok
+test publication_failures_are_honest_and_stages_are_cleaned ... ok
+test files_check_and_stdin_are_bounded_and_preserve_source ... ok
+test known_upstream_corruptions_are_refused_before_publication ... ok
+test worker_controls_are_lean_and_fail_closed ... ok
+
+test result: ok. 8 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 5.04s

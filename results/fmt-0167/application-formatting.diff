@@ -1,0 +1,162 @@
+diff --git a/site.rn b/site.rn
+index 3ebcf4f..8c9a07c 100644
+--- a/site.rn
++++ b/site.rn
+@@ -25 +25,3 @@ fn join(parts, separator) {
+-		if i > 0 { out += separator; }
++		if i > 0 {
++			out += separator;
++		}
+@@ -40 +42,4 @@ fn home() {
+-	page("Home", `<h1>nilket</h1>\n<p>Tools for working with data in Rune, on a Rust foundation.</p>\n<ul>\n${join(items, "\n")}\n</ul>\n${join(sections, "\n")}`)
++	page(
++		"Home",
++		`<h1>nilket</h1>\n<p>Tools for working with data in Rune, on a Rust foundation.</p>\n<ul>\n${join(items, "\n")}\n</ul>\n${join(sections, "\n")}`
++	)
+@@ -44 +49,6 @@ fn escape(s) {
+-	s.replace("&", "&amp;").replace("<", "&lt;").replace(">", "&gt;").replace("\"", "&quot;").replace("'", "&#39;")
++	s
++		.replace("&", "&amp;")
++		.replace("<", "&lt;")
++		.replace(">", "&gt;")
++		.replace("\"", "&quot;")
++		.replace("'", "&#39;")
+@@ -52,3 +62,18 @@ fn respond(status, body, content_type, extra) {
+-	let headers = #{"content-type": [content_type]};
+-	for (k, v) in extra { headers[k] = [v]; }
+-	#{status: status, headers: headers, body: body}
++	let headers = #{ "content-type": [content_type] };
++	for (k, v) in extra {
++		headers[k] = [v];
++	}
++	#{ status: status, headers: headers, body: body }
++}
++
++fn html(status, body) {
++	respond(status, body, HTML, [])
++}
++
++fn not_allowed(allow) {
++	respond(
++		405,
++		page("Method not allowed", "<h1>Method not allowed</h1>"),
++		HTML,
++		[("allow", allow)]
++	)
+@@ -57,3 +82,3 @@ fn respond(status, body, content_type, extra) {
+-fn html(status, body) { respond(status, body, HTML, []) }
+-fn not_allowed(allow) { respond(405, page("Method not allowed", "<h1>Method not allowed</h1>"), HTML, [("allow", allow)]) }
+-fn bad() { html(400, page("Bad request", "<h1>Bad request</h1>")) }
++fn bad() {
++	html(400, page("Bad request", "<h1>Bad request</h1>"))
++}
+@@ -62 +87,9 @@ fn hex(b) {
+-	if b >= 48 && b <= 57 { Some(b - 48) } else if b >= 65 && b <= 70 { Some(b - 55) } else if b >= 97 && b <= 102 { Some(b - 87) } else { None }
++	if b >= 48 && b <= 57 {
++		Some(b - 48)
++	} else if b >= 65 && b <= 70 {
++		Some(b - 55)
++	} else if b >= 97 && b <= 102 {
++		Some(b - 87)
++	} else {
++		None
++	}
+@@ -90 +123,4 @@ fn form(body) {
+-			let (k, v) = match pair.split_once("=") { Some(kv) => kv, None => (pair, "") };
++			let (k, v) = match pair.split_once("=") {
++				Some(kv) => kv,
++				None => (pair, "")
++			};
+@@ -93 +129,3 @@ fn form(body) {
+-			if fields.get(k).is_none() { fields[k] = v; }
++			if fields.get(k).is_none() {
++				fields[k] = v;
++			}
+@@ -99 +137,6 @@ fn form(body) {
+-fn field(fields, name) { match fields.get(name) { Some(v) => v, None => "" } }
++fn field(fields, name) {
++	match fields.get(name) {
++		Some(v) => v,
++		None => ""
++	}
++}
+@@ -102,3 +145,11 @@ pub fn routes() {
+-	[("GET", "/", "index"), ("GET", "/static/site.css", "stylesheet"),
+-	 ("GET", "/contact", "contact_form"), ("POST", "/contact", "contact_post"),
+-	 ("GET", "/hello/{name}", "hello")]
++	[
++		("GET", "/", "index"),
++		("GET", "/static/site.css", "stylesheet"),
++		("GET", "/contact", "contact_form"),
++		("POST", "/contact", "contact_post"),
++		("GET", "/hello/{name}", "hello")
++	]
++}
++
++pub fn index(_) {
++	html(200, home())
+@@ -106 +157 @@ pub fn routes() {
+-pub fn index(_) { html(200, home()) }
++
+@@ -109,0 +161 @@ pub fn stylesheet(_) {
++
+@@ -111 +163,7 @@ pub fn contact_form(_) {
+-	html(200, page("Contact", "<h1>Contact</h1>\n<form method=\"post\" action=\"/contact\">\n<label>Name <input name=\"name\"></label>\n<label>Message <textarea name=\"message\"></textarea></label>\n<button>Send</button>\n</form>"))
++	html(
++		200,
++		page(
++			"Contact",
++			"<h1>Contact</h1>\n<form method=\"post\" action=\"/contact\">\n<label>Name <input name=\"name\"></label>\n<label>Message <textarea name=\"message\"></textarea></label>\n<button>Send</button>\n</form>"
++		)
++	)
+@@ -112,0 +171 @@ pub fn contact_form(_) {
++
+@@ -114,3 +173,15 @@ pub fn contact_post(request) {
+-	let text = match String::from_utf8(request.body) { Ok(t) => t, Err(_) => return bad() };
+-	let fields = match form(text) { Ok(f) => f, Err(_) => return bad() };
+-	html(200, page("Thanks", `<h1>Thanks, ${escape(field(fields, "name"))}</h1>\n<p>You wrote: ${escape(field(fields, "message"))}</p>`))
++	let text = match String::from_utf8(request.body) {
++		Ok(t) => t,
++		Err(_) => return bad()
++	};
++	let fields = match form(text) {
++		Ok(f) => f,
++		Err(_) => return bad()
++	};
++	html(
++		200,
++		page(
++			"Thanks",
++			`<h1>Thanks, ${escape(field(fields, "name"))}</h1>\n<p>You wrote: ${escape(field(fields, "message"))}</p>`
++		)
++	)
+@@ -117,0 +189 @@ pub fn contact_post(request) {
++
+@@ -119 +191,7 @@ pub fn hello(request) {
+-	html(200, page("Hello", `<h1>Hello, ${escape(request.params.name)}!</h1>\n<p>This page was made for you.</p>`))
++	html(
++		200,
++		page(
++			"Hello",
++			`<h1>Hello, ${escape(request.params.name)}!</h1>\n<p>This page was made for you.</p>`
++		)
++	)
+@@ -120,0 +199 @@ pub fn hello(request) {
++
+@@ -122 +201,12 @@ pub fn not_found(request) {
+-	html(404, page("Not found", `<h1>Not found</h1>\n<p>No page at ${escape(request.path)}.</p>`))
++	html(
++		404,
++		page("Not found", `<h1>Not found</h1>\n<p>No page at ${escape(request.path)}.</p>`)
++	)
++}
++
++pub fn method_not_allowed(request) {
++	not_allowed(request.allow)
++}
++
++pub fn bad_request(_) {
++	bad()
+@@ -124,2 +213,0 @@ pub fn not_found(request) {
+-pub fn method_not_allowed(request) { not_allowed(request.allow) }
+-pub fn bad_request(_) { bad() }
