@@ -1,0 +1,6 @@
+options refused before source opening
+Traceback (most recent call last):
+  File "/home/me/work/rnx-bench/probes/web-0164/host_controls.py", line 90, in <module>
+    assert b'log_summary' in log.read_bytes() and b'log-secret-canary' not in log.read_bytes(),log.read_bytes()
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: b'{"detail":"127.0.0.1:34171","event":"ready"}\n{"detail":"Panicked: log-secret-canary","event":"invocation_error"}\n{"detail":"Panicked: log-secret-canary","event":"handler_error"}\n{"detail":"Panicked: fixture failure","event":"invocation_error"}\n{"detail":"Panicked: fixture failure","event":"handler_error"}\n{"detail":"response wants a string or bytes","event":"handler_error"}\n{"detail":"response header reserved for the transport","event":"handler_error"}\n{"detail":"response status forbids a body","event":"handler_error"}\n{"detail":"the budget of 2000000 instructions was exhausted","event":"invocation_error"}\n{"detail":"the budget of 2000000 instructions was exhausted","event":"handler_error"}\n{"detail":"invalid HTTP header parsed","event":"connection_error"}\n{"detail":"message head is too large","event":"connection_error"}\n{"detail":"signal","event":"shutdown"}\n{"event":"log_summary","dropped":0}\n'

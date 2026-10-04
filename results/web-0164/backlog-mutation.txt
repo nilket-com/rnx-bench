@@ -1,0 +1,9 @@
+options refused before source opening
+wire, keep-alive, limits, invalid outputs, instruction exhaustion, reuse and diagnostic privacy passed
+deadline, disconnect, bounded admission and queue expiry passed
+grace cancellation and joins passed
+active request drains within grace
+Traceback (most recent call last):
+  File "/home/me/work/rnx-bench/probes/web-0164/host_controls.py", line 121, in <module>
+    data=waiting.recv(1);raise AssertionError(('connection 257 accepted/reset while full',data))
+ConnectionResetError: [Errno 104] Connection reset by peer

@@ -1,0 +1,15 @@
+A 26 fixtures + 3-response reuse PASS
+B 26 fixtures + 3-response reuse PASS
+C 26 fixtures + 3-response reuse PASS
+Traceback (most recent call last):
+  File "/home/me/work/rnx-bench/probes/web-0164/run.py", line 80, in <module>
+    main(sys.argv[1])
+    ~~~~^^^^^^^^^^^^^
+  File "/home/me/work/rnx-bench/probes/web-0164/run.py", line 64, in main
+    r=b.measure(name,procs[name],route,c,ka,rep==0)
+  File "/home/me/work/rnx-bench/probes/web-0162/bench.py", line 161, in measure
+    return {**validate(result, concurrency, keepalive, sample.get("connections")), **sample}
+              ~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/me/work/rnx-bench/probes/web-0162/bench.py", line 136, in validate
+    raise Refused(f"statuses {codes!r}, errors {errors!r}")
+web0162.Refused: statuses {'200': 687952}, errors {'aborted due to deadline': 1}

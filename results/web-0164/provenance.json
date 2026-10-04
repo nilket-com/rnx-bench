@@ -1,0 +1,113 @@
+{
+  "rnx_revision_before_evidence": "bb707d1",
+  "baseline_revision": "f86c714",
+  "conditions": {
+    "server_cpus": [
+      2,
+      4
+    ],
+    "load_cpus": [
+      8,
+      10,
+      12,
+      14
+    ],
+    "workers": 2,
+    "warm_s": 3,
+    "measure_s": 10,
+    "repetitions": 3,
+    "protocol": "HTTP/1.1",
+    "logs": "off",
+    "product_budget": 2000000,
+    "prototype_0162_0163_budget": 10000000
+  },
+  "files": {
+    "/home/me/work/rnx-bench/probes/web-0162/b/site.rn": {
+      "sha256": "d0cce9970dfed82998ac358243713b17c9e0062b5289fa0b3e8815246745e2c8",
+      "bytes": 6275
+    },
+    "/home/me/work/rnx-bench/probes/web-0162/a/src/main.rs": {
+      "sha256": "e88e76a1db698c16e9d2d234b3241e49d2b4c208f606903e46a0cce3f7eb7312",
+      "bytes": 5192
+    },
+    "/home/me/work/rnx-bench/probes/web-0162/a/Cargo.lock": {
+      "sha256": "ce2b46e9c6143930adb0ecba092acfb710191c1c8a2df1d653c5ce59a6a7b86a",
+      "bytes": 9855
+    },
+    "/home/me/work/rnx-bench/probes/web-0162/a/target/release/web0162-a": {
+      "sha256": "e31ad5cf0b3772f81fa34a20a80d15916488100c0c15fdd1ad9cd2475984edc2",
+      "bytes": 1752760
+    },
+    "/home/me/work/rnx-bench/probes/web-0162/c/app.py": {
+      "sha256": "8e21d1388494a1ae306351481424b248c6b9a2e257c258ce5612626af9b5e934",
+      "bytes": 3741
+    },
+    "/home/me/work/rnx-bench/probes/web-0162/fixtures/cases.json": {
+      "sha256": "68ca535e36c964d49afdeb6a14c336f54d9f0e7360ede0e281f4290cde99de64",
+      "bytes": 22722
+    },
+    "/home/me/work/rnx-bench/probes/web-0164/target/stock": {
+      "sha256": "63b99db37dad05bf7273bad5e8a3240d5aaebad27c7cbef6135b3e20c3b5915b",
+      "bytes": 19919976
+    },
+    "/home/me/work/rnx-bench/probes/web-0164/target/baseline": {
+      "sha256": "7fa0f82a08cf59a4088eba52b64ba94b8ddad8bfd041f4a5d274644bd547f0cc",
+      "bytes": 19016472
+    },
+    "Cargo.lock": {
+      "sha256": "155ecb8afdd9302339a750ee921cf356fbd9b0cee2d1800b667ddc3c5500f7ce",
+      "bytes": 56528
+    },
+    "probes/web-0164/gunicorn_ready.py": {
+      "sha256": "fc2d3db5e41ad30df71fbcd817f12b849ec2406fabd34c3a38e8fe6bb0f2c1fa",
+      "bytes": 221
+    },
+    "probes/web-0164/host_controls.py": {
+      "sha256": "c3bf7273fb8d4bde8574f8742cf7f945f047d74dcd50b987ac79aa1f0d8078a8",
+      "bytes": 8426
+    },
+    "probes/web-0164/logging_cost.py": {
+      "sha256": "e24aa1a3b977a7a2b1dc2ec138d62a82b23517074ee0cb87bc92d2c1346753d8",
+      "bytes": 2333
+    },
+    "probes/web-0164/readiness.py": {
+      "sha256": "a42ff15362ea4bde86d6306016ddc69f72634c33c965db0fb02c8826a789ee9f",
+      "bytes": 2384
+    },
+    "probes/web-0164/run.py": {
+      "sha256": "6256b492427217ad79ad1d90646a5efe9b37480fcc2c1e335dfc0457fb7f20c8",
+      "bytes": 4708
+    },
+    "probes/web-0164/saved_controls.py": {
+      "sha256": "650254a8bc1cfb0913af58f72031e1d1ac67a23b6c787d82cd17de5645f5d5b7",
+      "bytes": 1975
+    },
+    "probes/web-0164/startup.py": {
+      "sha256": "0723927b8b95d0968fd062c3cae0fb5ea78a851c8c267ab4f094aad4ca5b4733",
+      "bytes": 4102
+    },
+    "probes/web-0164/startup_common.py": {
+      "sha256": "4adc4eedce0d87db01ab415a1521dbc211c39b75bbad7e862dbabf3f87ad59bf",
+      "bytes": 2052
+    },
+    "probes/web-0164/validate_saved.py": {
+      "sha256": "0a9f3d9a88ebca496126519eea9805644d9009eabc42e342b155da7324e314e2",
+      "bytes": 1920
+    },
+    "probes/web-0164/summarize_logging.py": {
+      "sha256": "ec1506eeee6b833d9c9a2b42cee796d80ed43d302e828ec6cafc7a7e23f74fdb",
+      "bytes": 1234
+    }
+  },
+  "tools": {
+    "rustc": "rustc 1.98.1 (48a229cea 2026-09-01)",
+    "oha": "oha 1.16.0",
+    "gunicorn": "gunicorn (version 26.2.0)",
+    "python": "Python 3.14.4"
+  },
+  "measurement_sets": {
+    "pre-hardening": "before runtime diagnostic privacy correction",
+    "pre-r1": "after privacy correction, before backlog admission correction",
+    "matched": "clean bb707d1 with both corrections"
+  }
+}
