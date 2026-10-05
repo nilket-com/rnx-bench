@@ -90,15 +90,14 @@ def controls(j,out):
 def measure(j,out):
  s=subjects(out);original=sorted(os.sched_getaffinity(0));os.sched_setaffinity(0,{4})
  clock=P/'target/clock'
- def timed(cmd,expected,label):
-  _,so,se=j.run([clock,'1',str(len(cmd)),*cmd],label,deadline=30);assert not se
-  lines=so.decode().splitlines();assert len(lines)==4 and lines[1]=='0'
-  ns=int(lines[0]);assert ns>0 and bytes.fromhex(lines[2])==expected and not bytes.fromhex(lines[3])
-  return ns
+ from resident import run_plan
+ def checked(rows,expected):
+  for r in rows:assert r['status']==0 and r['stdout']==expected and not r['stderr']
+  return rows
  pre={}
  for name,cmd,expected in [('true',['/bin/true'],b''),('cached',[str(P/'target/cached')],b'42\n')]:
   f=out/(name+'-hyperfine.json');j.run(['hyperfine','-N','--output','pipe','--warmup','5','--runs','50','--export-json',f,*cmd],'clock-'+name,deadline=60)
-  native=[timed(cmd,expected,'clock-'+name) for _ in range(55)][5:]
+  native=[r['ns'] for r in checked(run_plan(j,out,[cmd]*55,'calibration-'+name),expected)][5:]
   ref=statistics.median(json.loads(f.read_text())['results'][0]['times'])*1e9;med=statistics.median(native)
   pre[name]=dict(native_ns=native,reference_ns=ref,passed=abs(med-ref)<=150000)
  write(out,'clock-preflight.json',pre);assert all(r['passed'] for r in pre.values()),'STOP clock gate'
@@ -117,32 +116,33 @@ def measure(j,out):
    cases.append(dict(subject=lua,mode='run',work=work,command=[s['lua'][lua]['path'],str(ROOT/'probes/lua-rust-0001'/(work+'.lua'))],expected=expect.decode()))
  assert len(cases)==36
  write(out,'cases.json',cases)
- for c in cases:
-  for _ in range(2 if c['work'] in ('numeric','strings','fib') else 5):timed(c['command'],c['expected'].encode(),'warmup-'+c['subject'])
+ warm=[c for c in cases for _ in range(2 if c['work'] in ('numeric','strings','fib') else 5)]
+ warmrows=run_plan(j,out,[c['command'] for c in warm],'warmups')
+ for c,r in zip(warm,warmrows):checked([r],c['expected'].encode())
  with (out/'samples.jsonl').open('w') as f:
   for repeat in range(3):
    tasks=[(c,i) for c in cases for i in range(5 if c['work'] in ('numeric','strings','fib') else 30)];random.Random(16900+repeat).shuffle(tasks)
-   for c,i in tasks:
-    ns=timed(c['command'],c['expected'].encode(),'timed-'+c['subject'])
-    f.write(json.dumps(dict(subject=c['subject'],mode=c['mode'],work=c['work'],repeat=repeat,sample=i,ns=ns,affinity=[4],raw=str((j.out/(f'{j.serial:05d}-timed-'+c['subject']+'.stdout')).relative_to(out))))+'\n');f.flush()
+   rows=run_plan(j,out,[c['command'] for c,i in tasks],'round-'+str(repeat),deadline=180)
+   for (c,i),r in zip(tasks,rows):
+    checked([r],c['expected'].encode())
+    f.write(json.dumps(dict(subject=c['subject'],mode=c['mode'],work=c['work'],repeat=repeat,sample=i,ns=r['ns'],affinity=[4],raw=r['raw'],plan=r['plan'],index=r['index']))+'\n');f.flush()
   os.sched_setaffinity(0,original)
-  for subject in ('old','new','stock','lua54','luajit'):
-   c=next(c for c in cases if c['subject']==subject and (c['work']=='answer' if subject!='stock' else c['mode']=='eval'))
-   for i in range(30):
-    ns=timed(c['command'],c['expected'].encode(),'unpinned-'+subject);f.write(json.dumps(dict(subject=subject,mode='unpinned',work=c['work'],repeat=0,sample=i,ns=ns,affinity=original,raw=str((j.out/(f'{j.serial:05d}-unpinned-'+subject+'.stdout')).relative_to(out))))+'\n');f.flush()
+  tasks=[(next(c for c in cases if c['subject']==subject and (c['work']=='answer' if subject!='stock' else c['mode']=='eval')),i) for subject in ('old','new','stock','lua54','luajit') for i in range(30)]
+  rows=run_plan(j,out,[c['command'] for c,i in tasks],'unpinned')
+  for (c,i),r in zip(tasks,rows):
+   checked([r],c['expected'].encode())
+   f.write(json.dumps(dict(subject=c['subject'],mode='unpinned',work=c['work'],repeat=0,sample=i,ns=r['ns'],affinity=original,raw=r['raw'],plan=r['plan'],index=r['index']))+'\n');f.flush()
  os.sched_setaffinity(0,{4})
  # Primary reused calls: three processes, 20 checked outputs and per-call intervals each.
  reused=[]
- for base in ('old','new'):
-  for work in ('answer','numeric','fib'):
-   for repeat in range(3):
-    cmd=engine(s,base,'reuse',work)
-    _,so,se=j.run([clock,'1',str(len(cmd)),*cmd],'primary-reused-calls',deadline=30)
-    lines=so.decode().splitlines();assert len(lines)==4 and lines[1]=='0'
-    stderr=bytes.fromhex(lines[3]).decode();parts=stderr.split();assert len(parts)==6 and parts[0]=='PHASES' and parts[-1]=='20'
-    assert bytes.fromhex(lines[2])==expected[work]*20
-    values=list(map(int,parts[1:]));assert all(v>0 for v in values) and values[0]<=values[1]<=values[2]
-    reused.append(dict(base=base,work=work,repeat=repeat,process_ns=int(lines[0]),context_ns=values[0],runtime_cumulative_ns=values[1],compile_cumulative_ns=values[2],calls_ns=values[3],calls=values[4]))
+ reuse_tasks=[(base,work,repeat) for base in ('old','new') for work in ('answer','numeric','fib') for repeat in range(3)]
+ reuse_rows=run_plan(j,out,[engine(s,base,'reuse',work) for base,work,rep in reuse_tasks],'primary-reused-calls')
+ for (base,work,repeat),r in zip(reuse_tasks,reuse_rows):
+  assert r['status']==0
+  parts=r['stderr'].decode().split();assert len(parts)==6 and parts[0]=='PHASES' and parts[-1]=='20'
+  assert r['stdout']==expected[work]*20
+  values=list(map(int,parts[1:]));assert all(v>0 for v in values) and values[0]<=values[1]<=values[2]
+  reused.append(dict(base=base,work=work,repeat=repeat,process_ns=r['ns'],context_ns=values[0],runtime_cumulative_ns=values[1],compile_cumulative_ns=values[2],calls_ns=values[3],calls=values[4]))
  write(out,'reused-calls.json',reused)
  # Complete context phase observations and diagnostic-overhead gate, separately from primary table.
  diag=[];plain=[]

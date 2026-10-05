@@ -16,6 +16,16 @@ def analyse(out):
  check_binary(subjects['binaries'])
  for file,digest in subjects['metadata']['external_sources'].items():assert hashlib.sha256(pathlib.Path(file).read_bytes()).hexdigest()==digest,'external source changed '+file
  for file,digest in subjects['sources'].items():assert hashlib.sha256((P/file).read_bytes()).hexdigest()==digest,'source changed '+file
+ from resident import encode,parse
+ receipts={}
+ for receiptfile in (out/'plans').glob('*.json'):
+  receipt=json.loads(receiptfile.read_text());declared=encode(receipt['commands'])
+  assert (out/receipt['plan']).read_bytes()==declared
+  records,executed=parse((out/receipt['native_raw']).read_bytes(),receipt['commands'])
+  assert len(records)==receipt['count'] and executed==declared
+  assert hashlib.sha256(declared).hexdigest()==receipt['declared_sha256']==receipt['executed_sha256']
+  receipts[str(receiptfile.relative_to(out))]=(receipt,records)
+ assert set(pathlib.Path(k).stem for k in receipts if not pathlib.Path(k).stem.startswith('control-'))=={'calibration-true','calibration-cached','warmups','round-0','round-1','round-2','unpinned','primary-reused-calls'}
  clock=read('clock-preflight.json');assert set(clock)=={'true','cached'}
  for v in clock.values():
   stats(v['native_ns']);assert len(v['native_ns'])==50 and math.isfinite(v['reference_ns']) and v['reference_ns']>0
@@ -38,6 +48,10 @@ def analyse(out):
   assert int(capture[0])==r['ns'] and r['ns']>0
   expected_text='42\n' if r['mode']=='unpinned' else expected[key]['expected']
   assert bytes.fromhex(capture[2])==expected_text.encode(),'retained stdout mismatch'
+  receipt,records=receipts[r['plan']];record=records[r['index']]
+  assert record['ns']==r['ns'] and record['status']==0 and record['stdout']==expected_text.encode() and not record['stderr']
+  targetkey=(r['subject'],'eval','literal-42') if r['mode']=='unpinned' and r['subject']=='stock' else (r['subject'],'run','answer') if r['mode']=='unpinned' else key
+  assert receipt['commands'][r['index']]==list(map(str,expected[targetkey]['command']))
   groups[key].append(r['ns']/1e6)
  assert set(groups)==want|{(base,'unpinned','literal-42' if base=='stock' else 'answer') for base in ('old','new','stock','lua54','luajit')},'unexpected or missing measurement identity'
  for key,v in groups.items():assert len(v)==(30 if key[1]=='unpinned' else 15 if key[2] in ('numeric','strings','fib') else 90)
