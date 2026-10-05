@@ -1,0 +1,700 @@
+{
+ "subjects": {
+  "old": "a60e6ff590515aa2e38375f97ff9f3cacc93efff763dcf22964e6a021e673497",
+  "new": "904b03b542c40b2a9c9ee00133a0b4fd51591b29d393b86a6264598dc60d92ef"
+ },
+ "patches": {
+  "main-opcount.patch": "7837936914c21033bafdb191f26181e9ccbbf6b801c4ee0c55a8e67894149157",
+  "old-opcount.patch": "ae900ad09e5a85a5a43be64a562856277b392e92467f48b8ec4b9c42bc63ff1c"
+ },
+ "workloads": {
+  "old-empty": {
+   "counts": {
+    "Allocate": 1,
+    "ReturnUnit": 1
+   },
+   "total": 2
+  },
+  "old-answer": {
+   "counts": {
+    "Allocate": 1,
+    "Call": 1,
+    "ReturnUnit": 1,
+    "String": 1,
+    "StringConcat": 1
+   },
+   "total": 5
+  },
+  "old-numeric": {
+   "counts": {
+    "Allocate": 1,
+    "Arithmetic": 2000000,
+    "Call": 1,
+    "CallAssociated": 1,
+    "CallFn": 1000001,
+    "Copy": 2000003,
+    "Drop": 1000001,
+    "IterNext": 1000001,
+    "Jump": 1000000,
+    "LoadInstanceFn": 1,
+    "Range": 1,
+    "ReturnUnit": 1,
+    "Store": 1000003,
+    "StringConcat": 1
+   },
+   "total": 9000016
+  },
+  "old-while": {
+   "counts": {
+    "Allocate": 1,
+    "Arithmetic": 2000000,
+    "AssignArithmetic": 1000000,
+    "Call": 1,
+    "Copy": 1,
+    "Drop": 1000000,
+    "Jump": 1000001,
+    "JumpIf": 1000001,
+    "Op": 1000001,
+    "ReturnUnit": 1,
+    "Store": 3000003,
+    "StringConcat": 1
+   },
+   "total": 10000011
+  },
+  "old-fib": {
+   "counts": {
+    "Allocate": 635622,
+    "Arithmetic": 953430,
+    "Call": 2,
+    "CallOffset": 635620,
+    "Jump": 317810,
+    "JumpIf": 635621,
+    "Op": 635621,
+    "Return": 635621,
+    "ReturnUnit": 1,
+    "Store": 1271242,
+    "StringConcat": 1
+   },
+   "total": 5720591
+  },
+  "old-calls": {
+   "counts": {
+    "Allocate": 1000001,
+    "Arithmetic": 1000000,
+    "AssignArithmetic": 1000000,
+    "Call": 1000001,
+    "Copy": 1000001,
+    "Drop": 1000000,
+    "Jump": 1000001,
+    "JumpIf": 1000001,
+    "Op": 1000001,
+    "Return": 1000000,
+    "ReturnUnit": 1,
+    "Store": 3000003,
+    "StringConcat": 1
+   },
+   "total": 13000011
+  },
+  "old-compare": {
+   "counts": {
+    "Allocate": 1,
+    "Arithmetic": 2000000,
+    "AssignArithmetic": 1461539,
+    "Call": 1,
+    "Copy": 1,
+    "Drop": 1461539,
+    "Jump": 1538462,
+    "JumpIf": 2000001,
+    "Op": 2000001,
+    "ReturnUnit": 1,
+    "Store": 5461542,
+    "StringConcat": 1
+   },
+   "total": 15923089
+  },
+  "old-vector": {
+   "counts": {
+    "Allocate": 1,
+    "Arithmetic": 100000,
+    "AssignArithmetic": 2100010,
+    "Call": 1,
+    "CallAssociated": 100000,
+    "Copy": 100001,
+    "Drop": 1100010,
+    "IndexGet": 1000000,
+    "Jump": 1100022,
+    "JumpIf": 1100022,
+    "Op": 1100022,
+    "ReturnUnit": 1,
+    "Store": 2300045,
+    "StringConcat": 1,
+    "Vec": 1
+   },
+   "total": 10100137
+  },
+  "old-strings": {
+   "counts": {
+    "Allocate": 1,
+    "Arithmetic": 1,
+    "Call": 3,
+    "CallAssociated": 60004,
+    "CallFn": 40002,
+    "Copy": 160006,
+    "Drop": 20002,
+    "IndexGet": 20002,
+    "IterNext": 40002,
+    "Jump": 40001,
+    "JumpIf": 20000,
+    "LoadInstanceFn": 2,
+    "Op": 20000,
+    "Range": 4,
+    "ReturnUnit": 1,
+    "Store": 20006,
+    "String": 40000,
+    "StringConcat": 20003,
+    "Vec": 1
+   },
+   "total": 500041
+  },
+  "new-empty": {
+   "counts": {
+    "Allocate": 1,
+    "ReturnUnit": 1
+   },
+   "total": 2
+  },
+  "new-answer": {
+   "counts": {
+    "Allocate": 2,
+    "Call": 1,
+    "Return": 1,
+    "ReturnUnit": 1,
+    "String": 2,
+    "StringConcat": 1
+   },
+   "total": 8
+  },
+  "new-numeric": {
+   "counts": {
+    "Allocate": 2,
+    "Arithmetic": 2000000,
+    "Call": 1,
+    "CallAssociated": 1,
+    "CallFn": 1000001,
+    "Copy": 2000003,
+    "Drop": 1000001,
+    "IterNext": 1000001,
+    "Jump": 1000000,
+    "LoadInstanceFn": 1,
+    "Range": 1,
+    "Return": 1,
+    "ReturnUnit": 1,
+    "Store": 1000003,
+    "String": 1,
+    "StringConcat": 1
+   },
+   "total": 9000019
+  },
+  "new-while": {
+   "counts": {
+    "Allocate": 2,
+    "Arithmetic": 2000000,
+    "AssignArithmetic": 1000000,
+    "Call": 1,
+    "Copy": 1,
+    "Drop": 1000000,
+    "Jump": 1000001,
+    "JumpIf": 1000001,
+    "Op": 1000001,
+    "Return": 1,
+    "ReturnUnit": 1,
+    "Store": 3000003,
+    "String": 1,
+    "StringConcat": 1
+   },
+   "total": 10000014
+  },
+  "new-fib": {
+   "counts": {
+    "Allocate": 635623,
+    "Arithmetic": 953430,
+    "Call": 2,
+    "CallOffset": 635620,
+    "Jump": 317810,
+    "JumpIf": 635621,
+    "Op": 635621,
+    "Return": 635622,
+    "ReturnUnit": 1,
+    "Store": 1271242,
+    "String": 1,
+    "StringConcat": 1
+   },
+   "total": 5720594
+  },
+  "new-calls": {
+   "counts": {
+    "Allocate": 1000002,
+    "Arithmetic": 1000000,
+    "AssignArithmetic": 1000000,
+    "Call": 1000001,
+    "Copy": 1000001,
+    "Drop": 1000000,
+    "Jump": 1000001,
+    "JumpIf": 1000001,
+    "Op": 1000001,
+    "Return": 1000001,
+    "ReturnUnit": 1,
+    "Store": 3000003,
+    "String": 1,
+    "StringConcat": 1
+   },
+   "total": 13000014
+  },
+  "new-compare": {
+   "counts": {
+    "Allocate": 2,
+    "Arithmetic": 2000000,
+    "AssignArithmetic": 1461539,
+    "Call": 1,
+    "Copy": 1,
+    "Drop": 1461539,
+    "Jump": 1538462,
+    "JumpIf": 2000001,
+    "Op": 2000001,
+    "Return": 1,
+    "ReturnUnit": 1,
+    "Store": 5461542,
+    "String": 1,
+    "StringConcat": 1
+   },
+   "total": 15923092
+  },
+  "new-vector": {
+   "counts": {
+    "Allocate": 2,
+    "Arithmetic": 100000,
+    "AssignArithmetic": 2100010,
+    "Call": 1,
+    "CallAssociated": 100000,
+    "Copy": 100011,
+    "Drop": 1100010,
+    "IndexGet": 1000000,
+    "Jump": 1100022,
+    "JumpIf": 1100022,
+    "Op": 1100022,
+    "Return": 1,
+    "ReturnUnit": 1,
+    "Store": 2300045,
+    "String": 1,
+    "StringConcat": 1,
+    "Vec": 1
+   },
+   "total": 10100150
+  },
+  "new-strings": {
+   "counts": {
+    "Allocate": 5,
+    "Arithmetic": 1,
+    "Call": 3,
+    "CallAssociated": 60004,
+    "CallFn": 40002,
+    "Copy": 160006,
+    "Drop": 20002,
+    "IndexGet": 20002,
+    "IterNext": 40002,
+    "Jump": 40001,
+    "JumpIf": 20000,
+    "LoadInstanceFn": 2,
+    "Op": 20000,
+    "Range": 4,
+    "Return": 4,
+    "ReturnUnit": 1,
+    "Store": 20006,
+    "String": 40004,
+    "StringConcat": 20003,
+    "Vec": 1
+   },
+   "total": 500053
+  }
+ },
+ "corpus": {
+  "old-answer": {
+   "same": true,
+   "status": [
+    0,
+    0
+   ]
+  },
+  "old-async": {
+   "same": true,
+   "status": [
+    0,
+    0
+   ]
+  },
+  "old-budget": {
+   "same": true,
+   "status": [
+    1,
+    1
+   ]
+  },
+  "old-closure": {
+   "same": true,
+   "status": [
+    0,
+    0
+   ]
+  },
+  "old-divide-zero": {
+   "same": true,
+   "status": [
+    1,
+    1
+   ]
+  },
+  "old-empty": {
+   "same": true,
+   "status": [
+    0,
+    0
+   ]
+  },
+  "old-expression-100": {
+   "same": true,
+   "status": [
+    0,
+    0
+   ]
+  },
+  "old-expression-1000": {
+   "same": true,
+   "status": [
+    0,
+    0
+   ]
+  },
+  "old-expression-10000": {
+   "same": false,
+   "status": [
+    -6,
+    -6
+   ]
+  },
+  "old-fib": {
+   "same": true,
+   "status": [
+    0,
+    0
+   ]
+  },
+  "old-floats": {
+   "same": true,
+   "status": [
+    0,
+    0
+   ]
+  },
+  "old-int-boundaries": {
+   "same": true,
+   "status": [
+    0,
+    0
+   ]
+  },
+  "old-iterator-trait": {
+   "same": true,
+   "status": [
+    0,
+    0
+   ]
+  },
+  "old-literal-100": {
+   "same": true,
+   "status": [
+    0,
+    0
+   ]
+  },
+  "old-literal-1000": {
+   "same": true,
+   "status": [
+    0,
+    0
+   ]
+  },
+  "old-literal-10000": {
+   "same": false,
+   "status": [
+    -6,
+    -6
+   ]
+  },
+  "old-numeric": {
+   "same": true,
+   "status": [
+    0,
+    0
+   ]
+  },
+  "old-object-alias": {
+   "same": true,
+   "status": [
+    0,
+    0
+   ]
+  },
+  "old-overflow": {
+   "same": true,
+   "status": [
+    1,
+    1
+   ]
+  },
+  "old-recursion-10000": {
+   "same": true,
+   "status": [
+    0,
+    0
+   ]
+  },
+  "old-recursion-100000": {
+   "same": true,
+   "status": [
+    0,
+    0
+   ]
+  },
+  "old-recursion-1000000": {
+   "same": true,
+   "status": [
+    0,
+    0
+   ]
+  },
+  "old-strings": {
+   "same": true,
+   "status": [
+    0,
+    0
+   ]
+  },
+  "old-sum-untyped": {
+   "same": false,
+   "status": [
+    1,
+    1
+   ]
+  },
+  "old-undefined": {
+   "same": true,
+   "status": [
+    1,
+    1
+   ]
+  },
+  "old-unicode": {
+   "same": true,
+   "status": [
+    0,
+    0
+   ]
+  },
+  "old-vec-alias": {
+   "same": true,
+   "status": [
+    0,
+    0
+   ]
+  },
+  "new-answer": {
+   "same": true,
+   "status": [
+    0,
+    0
+   ]
+  },
+  "new-async": {
+   "same": true,
+   "status": [
+    0,
+    0
+   ]
+  },
+  "new-budget": {
+   "same": true,
+   "status": [
+    1,
+    1
+   ]
+  },
+  "new-closure": {
+   "same": true,
+   "status": [
+    0,
+    0
+   ]
+  },
+  "new-divide-zero": {
+   "same": true,
+   "status": [
+    1,
+    1
+   ]
+  },
+  "new-empty": {
+   "same": true,
+   "status": [
+    0,
+    0
+   ]
+  },
+  "new-expression-100": {
+   "same": true,
+   "status": [
+    0,
+    0
+   ]
+  },
+  "new-expression-1000": {
+   "same": true,
+   "status": [
+    0,
+    0
+   ]
+  },
+  "new-expression-10000": {
+   "same": true,
+   "status": [
+    0,
+    0
+   ]
+  },
+  "new-fib": {
+   "same": true,
+   "status": [
+    0,
+    0
+   ]
+  },
+  "new-floats": {
+   "same": true,
+   "status": [
+    0,
+    0
+   ]
+  },
+  "new-int-boundaries": {
+   "same": true,
+   "status": [
+    0,
+    0
+   ]
+  },
+  "new-iterator-trait": {
+   "same": true,
+   "status": [
+    0,
+    0
+   ]
+  },
+  "new-literal-100": {
+   "same": true,
+   "status": [
+    0,
+    0
+   ]
+  },
+  "new-literal-1000": {
+   "same": true,
+   "status": [
+    0,
+    0
+   ]
+  },
+  "new-literal-10000": {
+   "same": true,
+   "status": [
+    0,
+    0
+   ]
+  },
+  "new-numeric": {
+   "same": true,
+   "status": [
+    0,
+    0
+   ]
+  },
+  "new-object-alias": {
+   "same": true,
+   "status": [
+    0,
+    0
+   ]
+  },
+  "new-overflow": {
+   "same": true,
+   "status": [
+    1,
+    1
+   ]
+  },
+  "new-recursion-10000": {
+   "same": true,
+   "status": [
+    0,
+    0
+   ]
+  },
+  "new-recursion-100000": {
+   "same": true,
+   "status": [
+    0,
+    0
+   ]
+  },
+  "new-recursion-1000000": {
+   "same": true,
+   "status": [
+    0,
+    0
+   ]
+  },
+  "new-strings": {
+   "same": true,
+   "status": [
+    0,
+    0
+   ]
+  },
+  "new-sum-untyped": {
+   "same": false,
+   "status": [
+    1,
+    1
+   ]
+  },
+  "new-undefined": {
+   "same": true,
+   "status": [
+    1,
+    1
+   ]
+  },
+  "new-unicode": {
+   "same": true,
+   "status": [
+    0,
+    0
+   ]
+  },
+  "new-vec-alias": {
+   "same": true,
+   "status": [
+    0,
+    0
+   ]
+  }
+ }
+}

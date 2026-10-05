@@ -1,0 +1,48 @@
+diff -ru /tmp/claude-1003/-home-me-work/9bcf5c32-b0f3-444d-855a-462dd5ef3ac1/scratchpad/opcount/rune-old.orig/Cargo.toml /tmp/claude-1003/-home-me-work/9bcf5c32-b0f3-444d-855a-462dd5ef3ac1/scratchpad/opcount/rune-old/Cargo.toml
+--- /tmp/claude-1003/-home-me-work/9bcf5c32-b0f3-444d-855a-462dd5ef3ac1/scratchpad/opcount/rune-old.orig/Cargo.toml	2026-10-05 12:45:03.371493603 -0500
++++ /tmp/claude-1003/-home-me-work/9bcf5c32-b0f3-444d-855a-462dd5ef3ac1/scratchpad/opcount/rune-old/Cargo.toml	2026-10-05 12:45:11.221536397 -0500
+@@ -42,6 +42,7 @@
+ ]
+ 
+ [features]
++op-count = []
+ alloc = [
+     "anyhow",
+     "rune-alloc/alloc",
+diff -ru /tmp/claude-1003/-home-me-work/9bcf5c32-b0f3-444d-855a-462dd5ef3ac1/scratchpad/opcount/rune-old.orig/src/runtime/mod.rs /tmp/claude-1003/-home-me-work/9bcf5c32-b0f3-444d-855a-462dd5ef3ac1/scratchpad/opcount/rune-old/src/runtime/mod.rs
+--- /tmp/claude-1003/-home-me-work/9bcf5c32-b0f3-444d-855a-462dd5ef3ac1/scratchpad/opcount/rune-old.orig/src/runtime/mod.rs	2026-10-05 12:45:03.380557730 -0500
++++ /tmp/claude-1003/-home-me-work/9bcf5c32-b0f3-444d-855a-462dd5ef3ac1/scratchpad/opcount/rune-old/src/runtime/mod.rs	2026-10-05 12:45:11.220938303 -0500
+@@ -6,6 +6,9 @@
+ #[macro_use]
+ mod macros;
+ 
++#[cfg(feature = "op-count")]
++pub(crate) mod op_count;
++
+ mod steps_between;
+ use self::steps_between::StepsBetween;
+ 
+Only in /tmp/claude-1003/-home-me-work/9bcf5c32-b0f3-444d-855a-462dd5ef3ac1/scratchpad/opcount/rune-old/src/runtime: op_count.rs
+diff -ru /tmp/claude-1003/-home-me-work/9bcf5c32-b0f3-444d-855a-462dd5ef3ac1/scratchpad/opcount/rune-old.orig/src/runtime/vm.rs /tmp/claude-1003/-home-me-work/9bcf5c32-b0f3-444d-855a-462dd5ef3ac1/scratchpad/opcount/rune-old/src/runtime/vm.rs
+--- /tmp/claude-1003/-home-me-work/9bcf5c32-b0f3-444d-855a-462dd5ef3ac1/scratchpad/opcount/rune-old.orig/src/runtime/vm.rs	2026-10-05 12:45:03.381078231 -0500
++++ /tmp/claude-1003/-home-me-work/9bcf5c32-b0f3-444d-855a-462dd5ef3ac1/scratchpad/opcount/rune-old/src/runtime/vm.rs	2026-10-05 12:45:11.221451596 -0500
+@@ -3025,6 +3025,9 @@
+         // unit.
+         let _guard = runtime::env::Guard::new(self.context.clone(), self.unit.clone(), diagnostics);
+ 
++        #[cfg(feature = "op-count")]
++        let _op_count_report = crate::runtime::op_count::Report;
++
+         let mut budget = budget::acquire();
+ 
+         loop {
+@@ -3044,6 +3047,9 @@
+             self.ip = self.ip.wrapping_add(inst_len);
+             self.last_ip_len = inst_len as u8;
+ 
++            #[cfg(feature = "op-count")]
++            crate::runtime::op_count::hit(&inst, core::mem::discriminant(&inst));
++
+             match inst {
+                 Inst::Allocate { size } => {
+                     vm_try!(self.op_allocate(size));

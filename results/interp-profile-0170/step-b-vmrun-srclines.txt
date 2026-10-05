@@ -1,0 +1,38 @@
+== old-while (Vm::run self by source line, all 3 repeats)
+    24.95%          1761  inst.rs:1214
+    18.01%          1271  vm.rs:0
+    15.43%          1089  vm.rs:1320
+     6.46%           456  vm.rs:3047
+     5.50%           388  inst.rs:1218
+
+== new-while (Vm::run self by source line, all 3 repeats)
+    26.21%          1771  memory.rs:487
+    22.37%          1512  mod.rs:968
+
+
+== old-fib (Vm::run self by source line, all 3 repeats)
+    34.12%          2297  vm.rs:0
+    13.44%           905  inst.rs:1214
+     7.68%           517  value.rs:1612
+     4.96%           334  vm.rs:3047
+
+
+== new-fib (Vm::run self by source line, all 3 repeats)
+    20.57%          1528  memory.rs:487
+    12.70%           943  mod.rs:968
+     5.64%           419  value.rs:1802
+
+
+== old-numeric (Vm::run self by source line, all 3 repeats)
+    20.14%          1379  inst.rs:1214
+     9.74%           667  value.rs:1612
+     7.74%           530  vm.rs:0
+
+
+== new-numeric (Vm::run self by source line, all 3 repeats)
+    10.34%           723  mod.rs:968
+     7.12%           498  value.rs:1802
+     5.92%           414  memory.rs:487
+     4.22%           295  vm.rs:3181
+
+

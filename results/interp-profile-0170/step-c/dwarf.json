@@ -1,0 +1,309 @@
+{
+ "period": 1000000,
+ "markers": [
+  [
+   "run",
+   "<rune::runtime::vm::Vm>::(run|call|execute|complete)|VmExecution|vm_call|Vm>::call_"
+  ],
+  [
+   "registration",
+   "Context>::(with_config|with_default_modules|install)|modules::[a-z_]+::module|Module>::"
+  ],
+  [
+   "compile",
+   "rune::prepare|Build<.*>::build|Build>::build|rune::compile::compile|compile::v1|rune::build"
+  ]
+ ],
+ "result": {
+  "old-numeric": {
+   "invocations": 5,
+   "samples": 6848,
+   "counts": {
+    "unclassified": 6819,
+    "registration": 9,
+    "run": 20
+   },
+   "shares": {
+    "unclassified": 0.9957651869158879,
+    "registration": 0.001314252336448598,
+    "run": 0.0029205607476635513
+   },
+   "unclassified_share": 0.9957651869158879,
+   "split_sufficient": false,
+   "lost": 0,
+   "throttle": 0
+  },
+  "old-while": {
+   "invocations": 7,
+   "samples": 7057,
+   "counts": {
+    "unclassified": 4205,
+    "registration": 25,
+    "run": 2827
+   },
+   "shares": {
+    "unclassified": 0.595862264418308,
+    "registration": 0.003542581833640357,
+    "run": 0.4005951537480516
+   },
+   "unclassified_share": 0.595862264418308,
+   "split_sufficient": false,
+   "lost": 3,
+   "throttle": 0
+  },
+  "old-fib": {
+   "invocations": 10,
+   "samples": 6732,
+   "counts": {
+    "unclassified": 6310,
+    "registration": 19,
+    "run": 403
+   },
+   "shares": {
+    "unclassified": 0.9373143196672609,
+    "registration": 0.002822341057635175,
+    "run": 0.05986333927510398
+   },
+   "unclassified_share": 0.9373143196672609,
+   "split_sufficient": false,
+   "lost": 0,
+   "throttle": 0
+  },
+  "old-calls": {
+   "invocations": 5,
+   "samples": 7407,
+   "counts": {
+    "unclassified": 6196,
+    "registration": 11,
+    "run": 1200
+   },
+   "shares": {
+    "unclassified": 0.8365060078304307,
+    "registration": 0.0014850816794923722,
+    "run": 0.16200891049007696
+   },
+   "unclassified_share": 0.8365060078304307,
+   "split_sufficient": false,
+   "lost": 0,
+   "throttle": 0
+  },
+  "old-compare": {
+   "invocations": 5,
+   "samples": 7667,
+   "counts": {
+    "unclassified": 6172,
+    "registration": 11,
+    "run": 1484
+   },
+   "shares": {
+    "unclassified": 0.8050084778922656,
+    "registration": 0.0014347202295552368,
+    "run": 0.1935568018781792
+   },
+   "unclassified_share": 0.8050084778922656,
+   "split_sufficient": false,
+   "lost": 0,
+   "throttle": 0
+  },
+  "old-vector": {
+   "invocations": 6,
+   "samples": 7233,
+   "counts": {
+    "unclassified": 4562,
+    "registration": 11,
+    "run": 2660
+   },
+   "shares": {
+    "unclassified": 0.6307203096916909,
+    "registration": 0.0015208074104797456,
+    "run": 0.3677588828978294
+   },
+   "unclassified_share": 0.6307203096916909,
+   "split_sufficient": false,
+   "lost": 0,
+   "throttle": 0
+  },
+  "old-strings": {
+   "invocations": 35,
+   "samples": 6687,
+   "counts": {
+    "unclassified": 5980,
+    "registration": 87,
+    "run": 620
+   },
+   "shares": {
+    "unclassified": 0.8942724689696426,
+    "registration": 0.01301031852848811,
+    "run": 0.0927172125018693
+   },
+   "unclassified_share": 0.8942724689696426,
+   "split_sufficient": false,
+   "lost": 0,
+   "throttle": 0
+  },
+  "old-answer": {
+   "invocations": 243,
+   "samples": 6564,
+   "counts": {
+    "unclassified": 5969,
+    "registration": 594,
+    "compile": 1
+   },
+   "shares": {
+    "unclassified": 0.9093540524070689,
+    "registration": 0.09049360146252285,
+    "compile": 0.00015234613040828764
+   },
+   "unclassified_share": 0.9093540524070689,
+   "split_sufficient": false,
+   "lost": 0,
+   "throttle": 0
+  },
+  "new-numeric": {
+   "invocations": 4,
+   "samples": 6994,
+   "counts": {
+    "unclassified": 6988,
+    "registration": 6
+   },
+   "shares": {
+    "unclassified": 0.9991421218187018,
+    "registration": 0.0008578781812982557
+   },
+   "unclassified_share": 0.9991421218187018,
+   "split_sufficient": false,
+   "lost": 0,
+   "throttle": 0
+  },
+  "new-while": {
+   "invocations": 6,
+   "samples": 6759,
+   "counts": {
+    "unclassified": 4233,
+    "registration": 15,
+    "run": 2511
+   },
+   "shares": {
+    "unclassified": 0.6262760763426543,
+    "registration": 0.0022192632046160675,
+    "run": 0.3715046604527297
+   },
+   "unclassified_share": 0.6262760763426543,
+   "split_sufficient": false,
+   "lost": 0,
+   "throttle": 0
+  },
+  "new-fib": {
+   "invocations": 9,
+   "samples": 7403,
+   "counts": {
+    "unclassified": 7358,
+    "registration": 14,
+    "run": 31
+   },
+   "shares": {
+    "unclassified": 0.9939213832230177,
+    "registration": 0.0018911252195056058,
+    "run": 0.004187491557476698
+   },
+   "unclassified_share": 0.9939213832230177,
+   "split_sufficient": false,
+   "lost": 26,
+   "throttle": 0
+  },
+  "new-calls": {
+   "invocations": 4,
+   "samples": 7043,
+   "counts": {
+    "unclassified": 7005,
+    "registration": 6,
+    "run": 32
+   },
+   "shares": {
+    "unclassified": 0.994604571915377,
+    "registration": 0.0008519096975720574,
+    "run": 0.004543518387050973
+   },
+   "unclassified_share": 0.994604571915377,
+   "split_sufficient": false,
+   "lost": 0,
+   "throttle": 0
+  },
+  "new-compare": {
+   "invocations": 4,
+   "samples": 6772,
+   "counts": {
+    "unclassified": 6745,
+    "run": 19,
+    "registration": 8
+   },
+   "shares": {
+    "unclassified": 0.996012994683993,
+    "run": 0.0028056704075605436,
+    "registration": 0.0011813349084465446
+   },
+   "unclassified_share": 0.996012994683993,
+   "split_sufficient": false,
+   "lost": 4,
+   "throttle": 0
+  },
+  "new-vector": {
+   "invocations": 6,
+   "samples": 7778,
+   "counts": {
+    "unclassified": 7733,
+    "registration": 11,
+    "run": 34
+   },
+   "shares": {
+    "unclassified": 0.9942144510156853,
+    "registration": 0.001414245307276935,
+    "run": 0.004371303677037799
+   },
+   "unclassified_share": 0.9942144510156853,
+   "split_sufficient": false,
+   "lost": 0,
+   "throttle": 0
+  },
+  "new-strings": {
+   "invocations": 30,
+   "samples": 6723,
+   "counts": {
+    "unclassified": 6516,
+    "registration": 60,
+    "run": 147
+   },
+   "shares": {
+    "unclassified": 0.9692101740294511,
+    "registration": 0.00892458723784025,
+    "run": 0.02186523873270861
+   },
+   "unclassified_share": 0.9692101740294511,
+   "split_sufficient": false,
+   "lost": 0,
+   "throttle": 0
+  },
+  "new-answer": {
+   "invocations": 223,
+   "samples": 6462,
+   "counts": {
+    "unclassified": 6115,
+    "registration": 347
+   },
+   "shares": {
+    "unclassified": 0.9463014546580006,
+    "registration": 0.05369854534199938
+   },
+   "unclassified_share": 0.9463014546580006,
+   "split_sufficient": false,
+   "lost": 18,
+   "throttle": 0
+  }
+ },
+ "ledger": {
+  "started": 1791222154.1812072,
+  "load_before": "0.55",
+  "ended": 1791222169.579394,
+  "load_after": "0.89"
+ }
+}

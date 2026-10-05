@@ -1,0 +1,17 @@
+validation: all 9 workloads x 2 engines x 2 builds exact
+baseline old numeric: 1378161601 vs 1378164363 (1.0000)
+baseline old fib: 679037492 vs 679040402 (1.0000)
+baseline new numeric: 1756642709 vs 1756638881 (1.0000)
+Traceback (most recent call last):
+  File "/home/me/work/rnx-bench-w3-0170/probes/interp-profile-0170/counts.py", line 202, in <module>
+    main(sys.argv[1])  # usage: counts.py OUT [symbolized|s2]
+    ~~~~^^^^^^^^^^^^^
+  File "/home/me/work/rnx-bench-w3-0170/probes/interp-profile-0170/counts.py", line 167, in main
+    vals = [fifo_counts(base, w)["instructions"] for _ in range(3)]
+            ~~~~~~~~~~~^^^^^^^^^
+  File "/home/me/work/rnx-bench-w3-0170/probes/interp-profile-0170/counts.py", line 127, in fifo_counts
+    return parse_stat(raw.read_text())
+  File "/home/me/work/rnx-bench-w3-0170/probes/interp-profile-0170/counts.py", line 81, in parse_stat
+    assert name not in out and float(row["pcnt-running"]) >= 99, row
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: {'counter-value': '891648374.000000', 'unit': '', 'event': 'cpu_core/instructions/u', 'event-runtime': 46581727, 'pcnt-running': 84.0}

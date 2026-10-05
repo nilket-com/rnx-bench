@@ -1,0 +1,15 @@
+[package]
+name = "opcount-old"
+version = "0.0.0"
+edition = "2024"
+[workspace]
+[features]
+allocation = []
+counter = []
+[dependencies]
+rune = { version = "=0.14.2", default-features = false, features = ["std", "fmt", "op-count"] }
+futures = "0.3"
+[patch.crates-io]
+rune = { path = "/tmp/claude-1003/-home-me-work/9bcf5c32-b0f3-444d-855a-462dd5ef3ac1/scratchpad/opcount/rune-old" }
+[profile.release]
+opt-level = 3

@@ -1,0 +1,1078 @@
+{
+ "subjects": {
+  "old": "a60e6ff590515aa2e38375f97ff9f3cacc93efff763dcf22964e6a021e673497",
+  "new": "904b03b542c40b2a9c9ee00133a0b4fd51591b29d393b86a6264598dc60d92ef"
+ },
+ "patches": {
+  "main-opcount.patch": "7837936914c21033bafdb191f26181e9ccbbf6b801c4ee0c55a8e67894149157",
+  "old-opcount.patch": "ae900ad09e5a85a5a43be64a562856277b392e92467f48b8ec4b9c42bc63ff1c"
+ },
+ "workloads": {
+  "old-empty": {
+   "counts": {
+    "Allocate": 1,
+    "ReturnUnit": 1
+   },
+   "total": 2
+  },
+  "old-answer": {
+   "counts": {
+    "Allocate": 1,
+    "Call": 1,
+    "ReturnUnit": 1,
+    "String": 1,
+    "StringConcat": 1
+   },
+   "total": 5
+  },
+  "old-numeric": {
+   "counts": {
+    "Allocate": 1,
+    "Arithmetic": 2000000,
+    "Call": 1,
+    "CallAssociated": 1,
+    "CallFn": 1000001,
+    "Copy": 2000003,
+    "Drop": 1000001,
+    "IterNext": 1000001,
+    "Jump": 1000000,
+    "LoadInstanceFn": 1,
+    "Range": 1,
+    "ReturnUnit": 1,
+    "Store": 1000003,
+    "StringConcat": 1
+   },
+   "total": 9000016
+  },
+  "old-while": {
+   "counts": {
+    "Allocate": 1,
+    "Arithmetic": 2000000,
+    "AssignArithmetic": 1000000,
+    "Call": 1,
+    "Copy": 1,
+    "Drop": 1000000,
+    "Jump": 1000001,
+    "JumpIf": 1000001,
+    "Op": 1000001,
+    "ReturnUnit": 1,
+    "Store": 3000003,
+    "StringConcat": 1
+   },
+   "total": 10000011
+  },
+  "old-fib": {
+   "counts": {
+    "Allocate": 635622,
+    "Arithmetic": 953430,
+    "Call": 2,
+    "CallOffset": 635620,
+    "Jump": 317810,
+    "JumpIf": 635621,
+    "Op": 635621,
+    "Return": 635621,
+    "ReturnUnit": 1,
+    "Store": 1271242,
+    "StringConcat": 1
+   },
+   "total": 5720591
+  },
+  "old-calls": {
+   "counts": {
+    "Allocate": 1000001,
+    "Arithmetic": 1000000,
+    "AssignArithmetic": 1000000,
+    "Call": 1000001,
+    "Copy": 1000001,
+    "Drop": 1000000,
+    "Jump": 1000001,
+    "JumpIf": 1000001,
+    "Op": 1000001,
+    "Return": 1000000,
+    "ReturnUnit": 1,
+    "Store": 3000003,
+    "StringConcat": 1
+   },
+   "total": 13000011
+  },
+  "old-compare": {
+   "counts": {
+    "Allocate": 1,
+    "Arithmetic": 2000000,
+    "AssignArithmetic": 1461539,
+    "Call": 1,
+    "Copy": 1,
+    "Drop": 1461539,
+    "Jump": 1538462,
+    "JumpIf": 2000001,
+    "Op": 2000001,
+    "ReturnUnit": 1,
+    "Store": 5461542,
+    "StringConcat": 1
+   },
+   "total": 15923089
+  },
+  "old-vector": {
+   "counts": {
+    "Allocate": 1,
+    "Arithmetic": 100000,
+    "AssignArithmetic": 2100010,
+    "Call": 1,
+    "CallAssociated": 100000,
+    "Copy": 100001,
+    "Drop": 1100010,
+    "IndexGet": 1000000,
+    "Jump": 1100022,
+    "JumpIf": 1100022,
+    "Op": 1100022,
+    "ReturnUnit": 1,
+    "Store": 2300045,
+    "StringConcat": 1,
+    "Vec": 1
+   },
+   "total": 10100137
+  },
+  "old-strings": {
+   "counts": {
+    "Allocate": 1,
+    "Arithmetic": 1,
+    "Call": 3,
+    "CallAssociated": 60004,
+    "CallFn": 40002,
+    "Copy": 160006,
+    "Drop": 20002,
+    "IndexGet": 20002,
+    "IterNext": 40002,
+    "Jump": 40001,
+    "JumpIf": 20000,
+    "LoadInstanceFn": 2,
+    "Op": 20000,
+    "Range": 4,
+    "ReturnUnit": 1,
+    "Store": 20006,
+    "String": 40000,
+    "StringConcat": 20003,
+    "Vec": 1
+   },
+   "total": 500041
+  },
+  "new-empty": {
+   "counts": {
+    "Allocate": 1,
+    "ReturnUnit": 1
+   },
+   "total": 2
+  },
+  "new-answer": {
+   "counts": {
+    "Allocate": 2,
+    "Call": 1,
+    "Return": 1,
+    "ReturnUnit": 1,
+    "String": 2,
+    "StringConcat": 1
+   },
+   "total": 8
+  },
+  "new-numeric": {
+   "counts": {
+    "Allocate": 2,
+    "Arithmetic": 2000000,
+    "Call": 1,
+    "CallAssociated": 1,
+    "CallFn": 1000001,
+    "Copy": 2000003,
+    "Drop": 1000001,
+    "IterNext": 1000001,
+    "Jump": 1000000,
+    "LoadInstanceFn": 1,
+    "Range": 1,
+    "Return": 1,
+    "ReturnUnit": 1,
+    "Store": 1000003,
+    "String": 1,
+    "StringConcat": 1
+   },
+   "total": 9000019
+  },
+  "new-while": {
+   "counts": {
+    "Allocate": 2,
+    "Arithmetic": 2000000,
+    "AssignArithmetic": 1000000,
+    "Call": 1,
+    "Copy": 1,
+    "Drop": 1000000,
+    "Jump": 1000001,
+    "JumpIf": 1000001,
+    "Op": 1000001,
+    "Return": 1,
+    "ReturnUnit": 1,
+    "Store": 3000003,
+    "String": 1,
+    "StringConcat": 1
+   },
+   "total": 10000014
+  },
+  "new-fib": {
+   "counts": {
+    "Allocate": 635623,
+    "Arithmetic": 953430,
+    "Call": 2,
+    "CallOffset": 635620,
+    "Jump": 317810,
+    "JumpIf": 635621,
+    "Op": 635621,
+    "Return": 635622,
+    "ReturnUnit": 1,
+    "Store": 1271242,
+    "String": 1,
+    "StringConcat": 1
+   },
+   "total": 5720594
+  },
+  "new-calls": {
+   "counts": {
+    "Allocate": 1000002,
+    "Arithmetic": 1000000,
+    "AssignArithmetic": 1000000,
+    "Call": 1000001,
+    "Copy": 1000001,
+    "Drop": 1000000,
+    "Jump": 1000001,
+    "JumpIf": 1000001,
+    "Op": 1000001,
+    "Return": 1000001,
+    "ReturnUnit": 1,
+    "Store": 3000003,
+    "String": 1,
+    "StringConcat": 1
+   },
+   "total": 13000014
+  },
+  "new-compare": {
+   "counts": {
+    "Allocate": 2,
+    "Arithmetic": 2000000,
+    "AssignArithmetic": 1461539,
+    "Call": 1,
+    "Copy": 1,
+    "Drop": 1461539,
+    "Jump": 1538462,
+    "JumpIf": 2000001,
+    "Op": 2000001,
+    "Return": 1,
+    "ReturnUnit": 1,
+    "Store": 5461542,
+    "String": 1,
+    "StringConcat": 1
+   },
+   "total": 15923092
+  },
+  "new-vector": {
+   "counts": {
+    "Allocate": 2,
+    "Arithmetic": 100000,
+    "AssignArithmetic": 2100010,
+    "Call": 1,
+    "CallAssociated": 100000,
+    "Copy": 100011,
+    "Drop": 1100010,
+    "IndexGet": 1000000,
+    "Jump": 1100022,
+    "JumpIf": 1100022,
+    "Op": 1100022,
+    "Return": 1,
+    "ReturnUnit": 1,
+    "Store": 2300045,
+    "String": 1,
+    "StringConcat": 1,
+    "Vec": 1
+   },
+   "total": 10100150
+  },
+  "new-strings": {
+   "counts": {
+    "Allocate": 5,
+    "Arithmetic": 1,
+    "Call": 3,
+    "CallAssociated": 60004,
+    "CallFn": 40002,
+    "Copy": 160006,
+    "Drop": 20002,
+    "IndexGet": 20002,
+    "IterNext": 40002,
+    "Jump": 40001,
+    "JumpIf": 20000,
+    "LoadInstanceFn": 2,
+    "Op": 20000,
+    "Range": 4,
+    "Return": 4,
+    "ReturnUnit": 1,
+    "Store": 20006,
+    "String": 40004,
+    "StringConcat": 20003,
+    "Vec": 1
+   },
+   "total": 500053
+  }
+ },
+ "corpus": {
+  "old-answer": {
+   "raw_identical": true,
+   "identical_after_normalizing": true,
+   "on": [
+    0,
+    "42\n",
+    ""
+   ],
+   "off": [
+    0,
+    "42\n",
+    ""
+   ]
+  },
+  "old-async": {
+   "raw_identical": true,
+   "identical_after_normalizing": true,
+   "on": [
+    0,
+    "42\n",
+    ""
+   ],
+   "off": [
+    0,
+    "42\n",
+    ""
+   ]
+  },
+  "old-budget": {
+   "raw_identical": true,
+   "identical_after_normalizing": true,
+   "on": [
+    1,
+    "",
+    "vm: VmError { error: VmErrorAt { kind: Halted { halt: Limited } }, chain: [], stacktrace: [] }\n"
+   ],
+   "off": [
+    1,
+    "",
+    "vm: VmError { error: VmErrorAt { kind: Halted { halt: Limited } }, chain: [], stacktrace: [] }\n"
+   ]
+  },
+  "old-closure": {
+   "raw_identical": true,
+   "identical_after_normalizing": true,
+   "on": [
+    0,
+    "42\n",
+    ""
+   ],
+   "off": [
+    0,
+    "42\n",
+    ""
+   ]
+  },
+  "old-divide-zero": {
+   "raw_identical": true,
+   "identical_after_normalizing": true,
+   "on": [
+    1,
+    "",
+    "vm: VmError { error: VmErrorAt { kind: DivideByZero }, chain: [], stacktrace: [VmErrorLocation { unit: Unit { logic: Logic { storage: ArrayUnit { instructions: [Allocate { size: 5 }, Store { value: Integer(0), out: keep(1) }, Store { value: Integer(1), out: keep(4) }, Arithmetic { op: Div, a: 4, b: 1, out: keep(3) }, StringConcat { addr: 3, len: 1, size_hint: 0, out: keep(2) }, Call { hash: 0xc8b50f980c2726a3, addr: 2, args: 1, out: discard }, ReturnUnit] }, functions: {0x1c69d5964e831fc1: Offset { offset: 0, call: Immediate, args: 1, captures: None }}, static_strings: [], static_bytes: [], static_object_keys: [], drop_sets: [], rtti: {}, constants: {0xfd33a2d595b4aa41: String(\"main\")} }, debug: Some(DebugInfo { instructions: {5: DebugInst { source_id: 0, span: 30:48, comment: None, labels: [] }, 4: DebugInst { source_id: 0, span: 30:48, comment: None, labels: [] }, 6: DebugInst { source_id: 0, span: 0:51, comment: None, labels: [] }, 3: DebugInst { source_id: 0, span: 44:47, comment: None, labels: [] }, 2: DebugInst { source_id: 0, span: 44:45, comment: None, labels: [] }, 1: DebugInst { source_id: 0, span: 27:28, comment: None, labels: [] }}, functions: {0x1c69d5964e831fc1: DebugSignature { path: main, args: Named([\"_args\"]) }}, functions_rev: {0: 0x1c69d5964e831fc1}, hash_to_ident: {} }) }, ip: 3, frames: [] }] }\n"
+   ],
+   "off": [
+    1,
+    "",
+    "vm: VmError { error: VmErrorAt { kind: DivideByZero }, chain: [], stacktrace: [VmErrorLocation { unit: Unit { logic: Logic { storage: ArrayUnit { instructions: [Allocate { size: 5 }, Store { value: Integer(0), out: keep(1) }, Store { value: Integer(1), out: keep(4) }, Arithmetic { op: Div, a: 4, b: 1, out: keep(3) }, StringConcat { addr: 3, len: 1, size_hint: 0, out: keep(2) }, Call { hash: 0xc8b50f980c2726a3, addr: 2, args: 1, out: discard }, ReturnUnit] }, functions: {0x1c69d5964e831fc1: Offset { offset: 0, call: Immediate, args: 1, captures: None }}, static_strings: [], static_bytes: [], static_object_keys: [], drop_sets: [], rtti: {}, constants: {0xfd33a2d595b4aa41: String(\"main\")} }, debug: Some(DebugInfo { instructions: {5: DebugInst { source_id: 0, span: 30:48, comment: None, labels: [] }, 4: DebugInst { source_id: 0, span: 30:48, comment: None, labels: [] }, 6: DebugInst { source_id: 0, span: 0:51, comment: None, labels: [] }, 3: DebugInst { source_id: 0, span: 44:47, comment: None, labels: [] }, 2: DebugInst { source_id: 0, span: 44:45, comment: None, labels: [] }, 1: DebugInst { source_id: 0, span: 27:28, comment: None, labels: [] }}, functions: {0x1c69d5964e831fc1: DebugSignature { path: main, args: Named([\"_args\"]) }}, functions_rev: {0: 0x1c69d5964e831fc1}, hash_to_ident: {} }) }, ip: 3, frames: [] }] }\n"
+   ]
+  },
+  "old-empty": {
+   "raw_identical": true,
+   "identical_after_normalizing": true,
+   "on": [
+    0,
+    "",
+    ""
+   ],
+   "off": [
+    0,
+    "",
+    ""
+   ]
+  },
+  "old-expression-100": {
+   "raw_identical": true,
+   "identical_after_normalizing": true,
+   "on": [
+    0,
+    "1\n",
+    ""
+   ],
+   "off": [
+    0,
+    "1\n",
+    ""
+   ]
+  },
+  "old-expression-1000": {
+   "raw_identical": true,
+   "identical_after_normalizing": true,
+   "on": [
+    0,
+    "1\n",
+    ""
+   ],
+   "off": [
+    0,
+    "1\n",
+    ""
+   ]
+  },
+  "old-expression-10000": {
+   "raw_identical": false,
+   "identical_after_normalizing": true,
+   "on": [
+    -6,
+    "",
+    "\nthread 'main' (2512428) has overflowed its stack\nfatal runtime error: stack overflow, aborting\n"
+   ],
+   "off": [
+    -6,
+    "",
+    "\nthread 'main' (2512442) has overflowed its stack\nfatal runtime error: stack overflow, aborting\n"
+   ]
+  },
+  "old-fib": {
+   "raw_identical": true,
+   "identical_after_normalizing": true,
+   "on": [
+    0,
+    "196418\n",
+    ""
+   ],
+   "off": [
+    0,
+    "196418\n",
+    ""
+   ]
+  },
+  "old-floats": {
+   "raw_identical": true,
+   "identical_after_normalizing": true,
+   "on": [
+    0,
+    "0.75\n3.0\n",
+    ""
+   ],
+   "off": [
+    0,
+    "0.75\n3.0\n",
+    ""
+   ]
+  },
+  "old-int-boundaries": {
+   "raw_identical": true,
+   "identical_after_normalizing": true,
+   "on": [
+    0,
+    "9223372036854775807\n-9223372036854775808\n",
+    ""
+   ],
+   "off": [
+    0,
+    "9223372036854775807\n-9223372036854775808\n",
+    ""
+   ]
+  },
+  "old-iterator-trait": {
+   "raw_identical": true,
+   "identical_after_normalizing": true,
+   "on": [
+    0,
+    "12\n",
+    ""
+   ],
+   "off": [
+    0,
+    "12\n",
+    ""
+   ]
+  },
+  "old-literal-100": {
+   "raw_identical": true,
+   "identical_after_normalizing": true,
+   "on": [
+    0,
+    "1\n",
+    ""
+   ],
+   "off": [
+    0,
+    "1\n",
+    ""
+   ]
+  },
+  "old-literal-1000": {
+   "raw_identical": true,
+   "identical_after_normalizing": true,
+   "on": [
+    0,
+    "1\n",
+    ""
+   ],
+   "off": [
+    0,
+    "1\n",
+    ""
+   ]
+  },
+  "old-literal-10000": {
+   "raw_identical": false,
+   "identical_after_normalizing": true,
+   "on": [
+    -6,
+    "",
+    "\nthread 'main' (2512461) has overflowed its stack\nfatal runtime error: stack overflow, aborting\n"
+   ],
+   "off": [
+    -6,
+    "",
+    "\nthread 'main' (2512551) has overflowed its stack\nfatal runtime error: stack overflow, aborting\n"
+   ]
+  },
+  "old-numeric": {
+   "raw_identical": true,
+   "identical_after_normalizing": true,
+   "on": [
+    0,
+    "3\n",
+    ""
+   ],
+   "off": [
+    0,
+    "3\n",
+    ""
+   ]
+  },
+  "old-object-alias": {
+   "raw_identical": true,
+   "identical_after_normalizing": true,
+   "on": [
+    0,
+    "2\n",
+    ""
+   ],
+   "off": [
+    0,
+    "2\n",
+    ""
+   ]
+  },
+  "old-overflow": {
+   "raw_identical": true,
+   "identical_after_normalizing": true,
+   "on": [
+    1,
+    "",
+    "vm: VmError { error: VmErrorAt { kind: Overflow }, chain: [], stacktrace: [VmErrorLocation { unit: Unit { logic: Logic { storage: ArrayUnit { instructions: [Allocate { size: 5 }, Store { value: Integer(9223372036854775807), out: keep(1) }, Store { value: Integer(1), out: keep(4) }, Arithmetic { op: Add, a: 1, b: 4, out: keep(3) }, StringConcat { addr: 3, len: 1, size_hint: 0, out: keep(2) }, Call { hash: 0xc8b50f980c2726a3, addr: 2, args: 1, out: discard }, ReturnUnit] }, functions: {0x1c69d5964e831fc1: Offset { offset: 0, call: Immediate, args: 1, captures: None }}, static_strings: [], static_bytes: [], static_object_keys: [], drop_sets: [], rtti: {}, constants: {0xfd33a2d595b4aa41: String(\"main\")} }, debug: Some(DebugInfo { instructions: {5: DebugInst { source_id: 0, span: 48:66, comment: None, labels: [] }, 4: DebugInst { source_id: 0, span: 48:66, comment: None, labels: [] }, 6: DebugInst { source_id: 0, span: 0:69, comment: None, labels: [] }, 3: DebugInst { source_id: 0, span: 62:65, comment: None, labels: [] }, 2: DebugInst { source_id: 0, span: 64:65, comment: None, labels: [] }, 1: DebugInst { source_id: 0, span: 27:46, comment: None, labels: [] }}, functions: {0x1c69d5964e831fc1: DebugSignature { path: main, args: Named([\"_args\"]) }}, functions_rev: {0: 0x1c69d5964e831fc1}, hash_to_ident: {} }) }, ip: 3, frames: [] }] }\n"
+   ],
+   "off": [
+    1,
+    "",
+    "vm: VmError { error: VmErrorAt { kind: Overflow }, chain: [], stacktrace: [VmErrorLocation { unit: Unit { logic: Logic { storage: ArrayUnit { instructions: [Allocate { size: 5 }, Store { value: Integer(9223372036854775807), out: keep(1) }, Store { value: Integer(1), out: keep(4) }, Arithmetic { op: Add, a: 1, b: 4, out: keep(3) }, StringConcat { addr: 3, len: 1, size_hint: 0, out: keep(2) }, Call { hash: 0xc8b50f980c2726a3, addr: 2, args: 1, out: discard }, ReturnUnit] }, functions: {0x1c69d5964e831fc1: Offset { offset: 0, call: Immediate, args: 1, captures: None }}, static_strings: [], static_bytes: [], static_object_keys: [], drop_sets: [], rtti: {}, constants: {0xfd33a2d595b4aa41: String(\"main\")} }, debug: Some(DebugInfo { instructions: {5: DebugInst { source_id: 0, span: 48:66, comment: None, labels: [] }, 4: DebugInst { source_id: 0, span: 48:66, comment: None, labels: [] }, 6: DebugInst { source_id: 0, span: 0:69, comment: None, labels: [] }, 3: DebugInst { source_id: 0, span: 62:65, comment: None, labels: [] }, 2: DebugInst { source_id: 0, span: 64:65, comment: None, labels: [] }, 1: DebugInst { source_id: 0, span: 27:46, comment: None, labels: [] }}, functions: {0x1c69d5964e831fc1: DebugSignature { path: main, args: Named([\"_args\"]) }}, functions_rev: {0: 0x1c69d5964e831fc1}, hash_to_ident: {} }) }, ip: 3, frames: [] }] }\n"
+   ]
+  },
+  "old-recursion-10000": {
+   "raw_identical": true,
+   "identical_after_normalizing": true,
+   "on": [
+    0,
+    "10000\n",
+    ""
+   ],
+   "off": [
+    0,
+    "10000\n",
+    ""
+   ]
+  },
+  "old-recursion-100000": {
+   "raw_identical": true,
+   "identical_after_normalizing": true,
+   "on": [
+    0,
+    "100000\n",
+    ""
+   ],
+   "off": [
+    0,
+    "100000\n",
+    ""
+   ]
+  },
+  "old-recursion-1000000": {
+   "raw_identical": true,
+   "identical_after_normalizing": true,
+   "on": [
+    0,
+    "1000000\n",
+    ""
+   ],
+   "off": [
+    0,
+    "1000000\n",
+    ""
+   ]
+  },
+  "old-strings": {
+   "raw_identical": true,
+   "identical_after_normalizing": true,
+   "on": [
+    0,
+    "208893\nitem:1|item:2|item:\nitem:19999|item:20000\n",
+    ""
+   ],
+   "off": [
+    0,
+    "208893\nitem:1|item:2|item:\nitem:19999|item:20000\n",
+    ""
+   ]
+  },
+  "old-sum-untyped": {
+   "raw_identical": false,
+   "identical_after_normalizing": true,
+   "on": [
+    1,
+    "",
+    "vm: VmError { error: VmErrorAt { kind: MissingInstanceFunction { hash: 0xa001a74c0870db97, instance: Any(AnyTypeInfo { full_name: 0x5844cf52d110, hash: 0xf42162e28d142851 }) } }, chain: [], stacktrace: [VmErrorLocation { unit: Unit { logic: Logic { storage: ArrayUnit { instructions: [Allocate { size: 8 }, Store { value: Integer(1), out: keep(5) }, Store { value: Integer(2), out: keep(6) }, Store { value: Integer(3), out: keep(7) }, Vec { addr: 5, count: 3, out: keep(4) }, CallAssociated { hash: 0xbb7bdba9d3036269, addr: 4, args: 1, out: keep(3) }, CallAssociated { hash: 0xa87ba55489100c4, addr: 3, args: 1, out: keep(2) }, StringConcat { addr: 2, len: 1, size_hint: 0, out: keep(1) }, Call { hash: 0xc8b50f980c2726a3, addr: 1, args: 1, out: discard }, ReturnUnit] }, functions: {0x1c69d5964e831fc1: Offset { offset: 0, call: Immediate, args: 1, captures: None }}, static_strings: [], static_bytes: [], static_object_keys: [], drop_sets: [], rtti: {}, constants: {0xfd33a2d595b4aa41: String(\"main\")} }, debug: Some(DebugInfo { instructions: {6: DebugInst { source_id: 0, span: 35:55, comment: None, labels: [] }, 7: DebugInst { source_id: 0, span: 21:56, comment: None, labels: [] }, 3: DebugInst { source_id: 0, span: 40:41, comment: None, labels: [] }, 8: DebugInst { source_id: 0, span: 21:56, comment: None, labels: [] }, 9: DebugInst { source_id: 0, span: 0:59, comment: None, labels: [] }, 5: DebugInst { source_id: 0, span: 35:49, comment: None, labels: [] }, 4: DebugInst { source_id: 0, span: 35:42, comment: None, labels: [] }, 2: DebugInst { source_id: 0, span: 38:39, comment: None, labels: [] }, 1: DebugInst { source_id: 0, span: 36:37, comment: None, labels: [] }}, functions: {0x1c69d5964e831fc1: DebugSignature { path: main, args: Named([\"_args\"]) }}, functions_rev: {0: 0x1c69d5964e831fc1}, hash_to_ident: {0xa87ba55489100c4: \"sum\", 0xbb7bdba9d3036269: \"iter\"} }) }, ip: 6, frames: [] }] }\n"
+   ],
+   "off": [
+    1,
+    "",
+    "vm: VmError { error: VmErrorAt { kind: MissingInstanceFunction { hash: 0xa001a74c0870db97, instance: Any(AnyTypeInfo { full_name: 0x600308c80340, hash: 0xf42162e28d142851 }) } }, chain: [], stacktrace: [VmErrorLocation { unit: Unit { logic: Logic { storage: ArrayUnit { instructions: [Allocate { size: 8 }, Store { value: Integer(1), out: keep(5) }, Store { value: Integer(2), out: keep(6) }, Store { value: Integer(3), out: keep(7) }, Vec { addr: 5, count: 3, out: keep(4) }, CallAssociated { hash: 0xbb7bdba9d3036269, addr: 4, args: 1, out: keep(3) }, CallAssociated { hash: 0xa87ba55489100c4, addr: 3, args: 1, out: keep(2) }, StringConcat { addr: 2, len: 1, size_hint: 0, out: keep(1) }, Call { hash: 0xc8b50f980c2726a3, addr: 1, args: 1, out: discard }, ReturnUnit] }, functions: {0x1c69d5964e831fc1: Offset { offset: 0, call: Immediate, args: 1, captures: None }}, static_strings: [], static_bytes: [], static_object_keys: [], drop_sets: [], rtti: {}, constants: {0xfd33a2d595b4aa41: String(\"main\")} }, debug: Some(DebugInfo { instructions: {6: DebugInst { source_id: 0, span: 35:55, comment: None, labels: [] }, 7: DebugInst { source_id: 0, span: 21:56, comment: None, labels: [] }, 3: DebugInst { source_id: 0, span: 40:41, comment: None, labels: [] }, 8: DebugInst { source_id: 0, span: 21:56, comment: None, labels: [] }, 9: DebugInst { source_id: 0, span: 0:59, comment: None, labels: [] }, 5: DebugInst { source_id: 0, span: 35:49, comment: None, labels: [] }, 4: DebugInst { source_id: 0, span: 35:42, comment: None, labels: [] }, 2: DebugInst { source_id: 0, span: 38:39, comment: None, labels: [] }, 1: DebugInst { source_id: 0, span: 36:37, comment: None, labels: [] }}, functions: {0x1c69d5964e831fc1: DebugSignature { path: main, args: Named([\"_args\"]) }}, functions_rev: {0: 0x1c69d5964e831fc1}, hash_to_ident: {0xa87ba55489100c4: \"sum\", 0xbb7bdba9d3036269: \"iter\"} }) }, ip: 6, frames: [] }] }\n"
+   ]
+  },
+  "old-undefined": {
+   "raw_identical": true,
+   "identical_after_normalizing": true,
+   "on": [
+    1,
+    "",
+    "compile: BuildError { kind: Default }; diagnostics=Diagnostics { diagnostics: [Fatal(FatalDiagnostic { source_id: 0, kind: CompileError(Error { span: 21:27, kind: MissingLocal { name: \"absent\" } }) })], mode: All, has_error: true, has_warning: false }\n"
+   ],
+   "off": [
+    1,
+    "",
+    "compile: BuildError { kind: Default }; diagnostics=Diagnostics { diagnostics: [Fatal(FatalDiagnostic { source_id: 0, kind: CompileError(Error { span: 21:27, kind: MissingLocal { name: \"absent\" } }) })], mode: All, has_error: true, has_warning: false }\n"
+   ]
+  },
+  "old-unicode": {
+   "raw_identical": true,
+   "identical_after_normalizing": true,
+   "on": [
+    0,
+    "7\na\ud83e\udd80\u00e9\n",
+    ""
+   ],
+   "off": [
+    0,
+    "7\na\ud83e\udd80\u00e9\n",
+    ""
+   ]
+  },
+  "old-vec-alias": {
+   "raw_identical": true,
+   "identical_after_normalizing": true,
+   "on": [
+    0,
+    "2\n",
+    ""
+   ],
+   "off": [
+    0,
+    "2\n",
+    ""
+   ]
+  },
+  "new-answer": {
+   "raw_identical": true,
+   "identical_after_normalizing": true,
+   "on": [
+    0,
+    "42\n",
+    ""
+   ],
+   "off": [
+    0,
+    "42\n",
+    ""
+   ]
+  },
+  "new-async": {
+   "raw_identical": true,
+   "identical_after_normalizing": true,
+   "on": [
+    0,
+    "42\n",
+    ""
+   ],
+   "off": [
+    0,
+    "42\n",
+    ""
+   ]
+  },
+  "new-budget": {
+   "raw_identical": true,
+   "identical_after_normalizing": true,
+   "on": [
+    1,
+    "",
+    "vm: VmError { error: VmErrorAt { kind: Halted { halt: Limited } }, chain: [], stacktrace: [] }\n"
+   ],
+   "off": [
+    1,
+    "",
+    "vm: VmError { error: VmErrorAt { kind: Halted { halt: Limited } }, chain: [], stacktrace: [] }\n"
+   ]
+  },
+  "new-closure": {
+   "raw_identical": true,
+   "identical_after_normalizing": true,
+   "on": [
+    0,
+    "42\n",
+    ""
+   ],
+   "off": [
+    0,
+    "42\n",
+    ""
+   ]
+  },
+  "new-divide-zero": {
+   "raw_identical": true,
+   "identical_after_normalizing": true,
+   "on": [
+    1,
+    "",
+    "vm: VmError { error: VmErrorAt { kind: DivideByZero }, chain: [], stacktrace: [VmErrorLocation { unit: Unit { logic: Logic { storage: ArrayUnit { instructions: [Allocate { size: 5 }, Store { value: Integer(0), out: keep(1) }, Store { value: Integer(1), out: keep(4) }, Arithmetic { op: Div, a: 4, b: 1, out: keep(3) }, StringConcat { addr: 3, len: 1, size_hint: 0, out: keep(2) }, Call { hash: 0xc8b50f980c2726a3, addr: 2, args: 1, out: discard }, ReturnUnit] }, functions: {0x1c69d5964e831fc1: Offset { offset: 0, call: Immediate, args: 1, captures: None }}, static_strings: [], static_bytes: [], static_object_keys: [], drop_sets: [], rtti: {}, constants: {0xfd33a2d595b4aa41: \"main\"}, globals: [], globals_rev: {} }, debug: Some(DebugInfo { instructions: {5: DebugInst { source_id: 0, span: 30:48, comment: None, labels: [] }, 4: DebugInst { source_id: 0, span: 0:47, comment: None, labels: [] }, 6: DebugInst { source_id: 0, span: 0:51, comment: None, labels: [] }, 3: DebugInst { source_id: 0, span: 44:47, comment: None, labels: [] }, 2: DebugInst { source_id: 0, span: 44:45, comment: None, labels: [] }, 1: DebugInst { source_id: 0, span: 27:28, comment: None, labels: [] }}, functions: {0x1c69d5964e831fc1: DebugSignature { path: main, args: Named([\"_args\"]) }}, functions_rev: {0: 0x1c69d5964e831fc1}, hash_to_ident: {}, globals: [] }) }, ip: 3, frames: [] }] }\n"
+   ],
+   "off": [
+    1,
+    "",
+    "vm: VmError { error: VmErrorAt { kind: DivideByZero }, chain: [], stacktrace: [VmErrorLocation { unit: Unit { logic: Logic { storage: ArrayUnit { instructions: [Allocate { size: 5 }, Store { value: Integer(0), out: keep(1) }, Store { value: Integer(1), out: keep(4) }, Arithmetic { op: Div, a: 4, b: 1, out: keep(3) }, StringConcat { addr: 3, len: 1, size_hint: 0, out: keep(2) }, Call { hash: 0xc8b50f980c2726a3, addr: 2, args: 1, out: discard }, ReturnUnit] }, functions: {0x1c69d5964e831fc1: Offset { offset: 0, call: Immediate, args: 1, captures: None }}, static_strings: [], static_bytes: [], static_object_keys: [], drop_sets: [], rtti: {}, constants: {0xfd33a2d595b4aa41: \"main\"}, globals: [], globals_rev: {} }, debug: Some(DebugInfo { instructions: {5: DebugInst { source_id: 0, span: 30:48, comment: None, labels: [] }, 4: DebugInst { source_id: 0, span: 0:47, comment: None, labels: [] }, 6: DebugInst { source_id: 0, span: 0:51, comment: None, labels: [] }, 3: DebugInst { source_id: 0, span: 44:47, comment: None, labels: [] }, 2: DebugInst { source_id: 0, span: 44:45, comment: None, labels: [] }, 1: DebugInst { source_id: 0, span: 27:28, comment: None, labels: [] }}, functions: {0x1c69d5964e831fc1: DebugSignature { path: main, args: Named([\"_args\"]) }}, functions_rev: {0: 0x1c69d5964e831fc1}, hash_to_ident: {}, globals: [] }) }, ip: 3, frames: [] }] }\n"
+   ]
+  },
+  "new-empty": {
+   "raw_identical": true,
+   "identical_after_normalizing": true,
+   "on": [
+    0,
+    "",
+    ""
+   ],
+   "off": [
+    0,
+    "",
+    ""
+   ]
+  },
+  "new-expression-100": {
+   "raw_identical": true,
+   "identical_after_normalizing": true,
+   "on": [
+    0,
+    "1\n",
+    ""
+   ],
+   "off": [
+    0,
+    "1\n",
+    ""
+   ]
+  },
+  "new-expression-1000": {
+   "raw_identical": true,
+   "identical_after_normalizing": true,
+   "on": [
+    0,
+    "1\n",
+    ""
+   ],
+   "off": [
+    0,
+    "1\n",
+    ""
+   ]
+  },
+  "new-expression-10000": {
+   "raw_identical": true,
+   "identical_after_normalizing": true,
+   "on": [
+    0,
+    "1\n",
+    ""
+   ],
+   "off": [
+    0,
+    "1\n",
+    ""
+   ]
+  },
+  "new-fib": {
+   "raw_identical": true,
+   "identical_after_normalizing": true,
+   "on": [
+    0,
+    "196418\n",
+    ""
+   ],
+   "off": [
+    0,
+    "196418\n",
+    ""
+   ]
+  },
+  "new-floats": {
+   "raw_identical": true,
+   "identical_after_normalizing": true,
+   "on": [
+    0,
+    "0.75\n3.0\n",
+    ""
+   ],
+   "off": [
+    0,
+    "0.75\n3.0\n",
+    ""
+   ]
+  },
+  "new-int-boundaries": {
+   "raw_identical": true,
+   "identical_after_normalizing": true,
+   "on": [
+    0,
+    "9223372036854775807\n-9223372036854775808\n",
+    ""
+   ],
+   "off": [
+    0,
+    "9223372036854775807\n-9223372036854775808\n",
+    ""
+   ]
+  },
+  "new-iterator-trait": {
+   "raw_identical": true,
+   "identical_after_normalizing": true,
+   "on": [
+    0,
+    "12\n",
+    ""
+   ],
+   "off": [
+    0,
+    "12\n",
+    ""
+   ]
+  },
+  "new-literal-100": {
+   "raw_identical": true,
+   "identical_after_normalizing": true,
+   "on": [
+    0,
+    "1\n",
+    ""
+   ],
+   "off": [
+    0,
+    "1\n",
+    ""
+   ]
+  },
+  "new-literal-1000": {
+   "raw_identical": true,
+   "identical_after_normalizing": true,
+   "on": [
+    0,
+    "1\n",
+    ""
+   ],
+   "off": [
+    0,
+    "1\n",
+    ""
+   ]
+  },
+  "new-literal-10000": {
+   "raw_identical": true,
+   "identical_after_normalizing": true,
+   "on": [
+    0,
+    "1\n",
+    ""
+   ],
+   "off": [
+    0,
+    "1\n",
+    ""
+   ]
+  },
+  "new-numeric": {
+   "raw_identical": true,
+   "identical_after_normalizing": true,
+   "on": [
+    0,
+    "3\n",
+    ""
+   ],
+   "off": [
+    0,
+    "3\n",
+    ""
+   ]
+  },
+  "new-object-alias": {
+   "raw_identical": true,
+   "identical_after_normalizing": true,
+   "on": [
+    0,
+    "2\n",
+    ""
+   ],
+   "off": [
+    0,
+    "2\n",
+    ""
+   ]
+  },
+  "new-overflow": {
+   "raw_identical": true,
+   "identical_after_normalizing": true,
+   "on": [
+    1,
+    "",
+    "vm: VmError { error: VmErrorAt { kind: Overflow }, chain: [], stacktrace: [VmErrorLocation { unit: Unit { logic: Logic { storage: ArrayUnit { instructions: [Allocate { size: 5 }, Store { value: Integer(9223372036854775807), out: keep(1) }, Store { value: Integer(1), out: keep(4) }, Arithmetic { op: Add, a: 1, b: 4, out: keep(3) }, StringConcat { addr: 3, len: 1, size_hint: 0, out: keep(2) }, Call { hash: 0xc8b50f980c2726a3, addr: 2, args: 1, out: discard }, ReturnUnit] }, functions: {0x1c69d5964e831fc1: Offset { offset: 0, call: Immediate, args: 1, captures: None }}, static_strings: [], static_bytes: [], static_object_keys: [], drop_sets: [], rtti: {}, constants: {0xfd33a2d595b4aa41: \"main\"}, globals: [], globals_rev: {} }, debug: Some(DebugInfo { instructions: {5: DebugInst { source_id: 0, span: 48:66, comment: None, labels: [] }, 4: DebugInst { source_id: 0, span: 0:65, comment: None, labels: [] }, 6: DebugInst { source_id: 0, span: 0:69, comment: None, labels: [] }, 3: DebugInst { source_id: 0, span: 62:65, comment: None, labels: [] }, 2: DebugInst { source_id: 0, span: 64:65, comment: None, labels: [] }, 1: DebugInst { source_id: 0, span: 27:46, comment: None, labels: [] }}, functions: {0x1c69d5964e831fc1: DebugSignature { path: main, args: Named([\"_args\"]) }}, functions_rev: {0: 0x1c69d5964e831fc1}, hash_to_ident: {}, globals: [] }) }, ip: 3, frames: [] }] }\n"
+   ],
+   "off": [
+    1,
+    "",
+    "vm: VmError { error: VmErrorAt { kind: Overflow }, chain: [], stacktrace: [VmErrorLocation { unit: Unit { logic: Logic { storage: ArrayUnit { instructions: [Allocate { size: 5 }, Store { value: Integer(9223372036854775807), out: keep(1) }, Store { value: Integer(1), out: keep(4) }, Arithmetic { op: Add, a: 1, b: 4, out: keep(3) }, StringConcat { addr: 3, len: 1, size_hint: 0, out: keep(2) }, Call { hash: 0xc8b50f980c2726a3, addr: 2, args: 1, out: discard }, ReturnUnit] }, functions: {0x1c69d5964e831fc1: Offset { offset: 0, call: Immediate, args: 1, captures: None }}, static_strings: [], static_bytes: [], static_object_keys: [], drop_sets: [], rtti: {}, constants: {0xfd33a2d595b4aa41: \"main\"}, globals: [], globals_rev: {} }, debug: Some(DebugInfo { instructions: {5: DebugInst { source_id: 0, span: 48:66, comment: None, labels: [] }, 4: DebugInst { source_id: 0, span: 0:65, comment: None, labels: [] }, 6: DebugInst { source_id: 0, span: 0:69, comment: None, labels: [] }, 3: DebugInst { source_id: 0, span: 62:65, comment: None, labels: [] }, 2: DebugInst { source_id: 0, span: 64:65, comment: None, labels: [] }, 1: DebugInst { source_id: 0, span: 27:46, comment: None, labels: [] }}, functions: {0x1c69d5964e831fc1: DebugSignature { path: main, args: Named([\"_args\"]) }}, functions_rev: {0: 0x1c69d5964e831fc1}, hash_to_ident: {}, globals: [] }) }, ip: 3, frames: [] }] }\n"
+   ]
+  },
+  "new-recursion-10000": {
+   "raw_identical": true,
+   "identical_after_normalizing": true,
+   "on": [
+    0,
+    "10000\n",
+    ""
+   ],
+   "off": [
+    0,
+    "10000\n",
+    ""
+   ]
+  },
+  "new-recursion-100000": {
+   "raw_identical": true,
+   "identical_after_normalizing": true,
+   "on": [
+    0,
+    "100000\n",
+    ""
+   ],
+   "off": [
+    0,
+    "100000\n",
+    ""
+   ]
+  },
+  "new-recursion-1000000": {
+   "raw_identical": true,
+   "identical_after_normalizing": true,
+   "on": [
+    0,
+    "1000000\n",
+    ""
+   ],
+   "off": [
+    0,
+    "1000000\n",
+    ""
+   ]
+  },
+  "new-strings": {
+   "raw_identical": true,
+   "identical_after_normalizing": true,
+   "on": [
+    0,
+    "208893\nitem:1|item:2|item:\nitem:19999|item:20000\n",
+    ""
+   ],
+   "off": [
+    0,
+    "208893\nitem:1|item:2|item:\nitem:19999|item:20000\n",
+    ""
+   ]
+  },
+  "new-sum-untyped": {
+   "raw_identical": false,
+   "identical_after_normalizing": true,
+   "on": [
+    1,
+    "",
+    "vm: VmError { error: VmErrorAt { kind: MissingInstanceFunction { hash: 0xa001a74c0870db97, instance: Any(AnyTypeInfo { full_name: 0x5b87710becc0, hash: 0xf42162e28d142851 }) } }, chain: [], stacktrace: [VmErrorLocation { unit: Unit { logic: Logic { storage: ArrayUnit { instructions: [Allocate { size: 8 }, Store { value: Integer(1), out: keep(5) }, Store { value: Integer(2), out: keep(6) }, Store { value: Integer(3), out: keep(7) }, Vec { addr: 5, count: 3, out: keep(4) }, CallAssociated { hash: 0xbb7bdba9d3036269, addr: 4, args: 1, out: keep(3) }, CallAssociated { hash: 0xa87ba55489100c4, addr: 3, args: 1, out: keep(2) }, StringConcat { addr: 2, len: 1, size_hint: 0, out: keep(1) }, Call { hash: 0xc8b50f980c2726a3, addr: 1, args: 1, out: discard }, ReturnUnit] }, functions: {0x1c69d5964e831fc1: Offset { offset: 0, call: Immediate, args: 1, captures: None }}, static_strings: [], static_bytes: [], static_object_keys: [], drop_sets: [], rtti: {}, constants: {0xfd33a2d595b4aa41: \"main\"}, globals: [], globals_rev: {} }, debug: Some(DebugInfo { instructions: {6: DebugInst { source_id: 0, span: 35:55, comment: None, labels: [] }, 7: DebugInst { source_id: 0, span: 0:55, comment: None, labels: [] }, 3: DebugInst { source_id: 0, span: 40:41, comment: None, labels: [] }, 8: DebugInst { source_id: 0, span: 21:56, comment: None, labels: [] }, 9: DebugInst { source_id: 0, span: 0:59, comment: None, labels: [] }, 5: DebugInst { source_id: 0, span: 35:49, comment: None, labels: [] }, 4: DebugInst { source_id: 0, span: 35:42, comment: None, labels: [] }, 2: DebugInst { source_id: 0, span: 38:39, comment: None, labels: [] }, 1: DebugInst { source_id: 0, span: 36:37, comment: None, labels: [] }}, functions: {0x1c69d5964e831fc1: DebugSignature { path: main, args: Named([\"_args\"]) }}, functions_rev: {0: 0x1c69d5964e831fc1}, hash_to_ident: {0xa87ba55489100c4: \"sum\", 0xbb7bdba9d3036269: \"iter\"}, globals: [] }) }, ip: 6, frames: [] }] }\n"
+   ],
+   "off": [
+    1,
+    "",
+    "vm: VmError { error: VmErrorAt { kind: MissingInstanceFunction { hash: 0xa001a74c0870db97, instance: Any(AnyTypeInfo { full_name: 0x622fc78c96d0, hash: 0xf42162e28d142851 }) } }, chain: [], stacktrace: [VmErrorLocation { unit: Unit { logic: Logic { storage: ArrayUnit { instructions: [Allocate { size: 8 }, Store { value: Integer(1), out: keep(5) }, Store { value: Integer(2), out: keep(6) }, Store { value: Integer(3), out: keep(7) }, Vec { addr: 5, count: 3, out: keep(4) }, CallAssociated { hash: 0xbb7bdba9d3036269, addr: 4, args: 1, out: keep(3) }, CallAssociated { hash: 0xa87ba55489100c4, addr: 3, args: 1, out: keep(2) }, StringConcat { addr: 2, len: 1, size_hint: 0, out: keep(1) }, Call { hash: 0xc8b50f980c2726a3, addr: 1, args: 1, out: discard }, ReturnUnit] }, functions: {0x1c69d5964e831fc1: Offset { offset: 0, call: Immediate, args: 1, captures: None }}, static_strings: [], static_bytes: [], static_object_keys: [], drop_sets: [], rtti: {}, constants: {0xfd33a2d595b4aa41: \"main\"}, globals: [], globals_rev: {} }, debug: Some(DebugInfo { instructions: {6: DebugInst { source_id: 0, span: 35:55, comment: None, labels: [] }, 7: DebugInst { source_id: 0, span: 0:55, comment: None, labels: [] }, 3: DebugInst { source_id: 0, span: 40:41, comment: None, labels: [] }, 8: DebugInst { source_id: 0, span: 21:56, comment: None, labels: [] }, 9: DebugInst { source_id: 0, span: 0:59, comment: None, labels: [] }, 5: DebugInst { source_id: 0, span: 35:49, comment: None, labels: [] }, 4: DebugInst { source_id: 0, span: 35:42, comment: None, labels: [] }, 2: DebugInst { source_id: 0, span: 38:39, comment: None, labels: [] }, 1: DebugInst { source_id: 0, span: 36:37, comment: None, labels: [] }}, functions: {0x1c69d5964e831fc1: DebugSignature { path: main, args: Named([\"_args\"]) }}, functions_rev: {0: 0x1c69d5964e831fc1}, hash_to_ident: {0xa87ba55489100c4: \"sum\", 0xbb7bdba9d3036269: \"iter\"}, globals: [] }) }, ip: 6, frames: [] }] }\n"
+   ]
+  },
+  "new-undefined": {
+   "raw_identical": true,
+   "identical_after_normalizing": true,
+   "on": [
+    1,
+    "",
+    "compile: BuildError { kind: Default }; diagnostics=Diagnostics { diagnostics: [Fatal(FatalDiagnostic { source_id: 0, kind: CompileError(Error { span: 21:27, kind: MissingLocal { name: \"absent\" } }) })], mode: All, has_error: true, has_warning: false }\n"
+   ],
+   "off": [
+    1,
+    "",
+    "compile: BuildError { kind: Default }; diagnostics=Diagnostics { diagnostics: [Fatal(FatalDiagnostic { source_id: 0, kind: CompileError(Error { span: 21:27, kind: MissingLocal { name: \"absent\" } }) })], mode: All, has_error: true, has_warning: false }\n"
+   ]
+  },
+  "new-unicode": {
+   "raw_identical": true,
+   "identical_after_normalizing": true,
+   "on": [
+    0,
+    "7\na\ud83e\udd80\u00e9\n",
+    ""
+   ],
+   "off": [
+    0,
+    "7\na\ud83e\udd80\u00e9\n",
+    ""
+   ]
+  },
+  "new-vec-alias": {
+   "raw_identical": true,
+   "identical_after_normalizing": true,
+   "on": [
+    0,
+    "2\n",
+    ""
+   ],
+   "off": [
+    0,
+    "2\n",
+    ""
+   ]
+  }
+ }
+}

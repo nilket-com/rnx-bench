@@ -1,0 +1,32 @@
+validation: all 9 workloads x 2 engines x 2 builds exact
+baseline old numeric: 1378161609 vs 1378164363 (1.0000)
+baseline old fib: 679037491 vs 679040402 (1.0000)
+baseline new numeric: 1756642686 vs 1756638881 (1.0000)
+baseline new fib: 830603228 vs 830599527 (1.0000)
+counts old done
+counts new done
+{
+ "gate_baseline_2pct": true,
+ "gate_representative_3pct": true,
+ "candidate": "s2",
+ "candidate_over_primary": {
+  "old-empty": 0.999998576683373,
+  "old-answer": 1.0000074949230993,
+  "old-numeric": 0.9934714076094613,
+  "old-fib": 0.9915807893544965,
+  "old-strings": 0.997395630368639,
+  "old-while": 0.9892116178698382,
+  "old-compare": 0.9887881726050856,
+  "old-calls": 0.9906395702109909,
+  "old-vector": 0.9899837069046429,
+  "new-empty": 0.9999922181188743,
+  "new-answer": 0.9999619940406522,
+  "new-numeric": 0.994878166109216,
+  "new-fib": 0.9931159526366381,
+  "new-strings": 0.9869104079599019,
+  "new-while": 0.9911975522492784,
+  "new-compare": 0.9906864101930909,
+  "new-calls": 0.9926682561990091,
+  "new-vector": 0.9906773462993833
+ }
+}

@@ -1,0 +1,20 @@
+[package]
+name = "interp-old"
+version = "0.0.0"
+edition = "2024"
+[workspace]
+[features]
+allocation = []
+counter = []
+[dependencies]
+rune = { version = "=0.14.2", default-features = false, features = ["std", "fmt"] }
+futures = "0.3"
+[profile.release]
+opt-level = 3
+[profile.profiling]
+inherits = "release"
+debug = "line-tables-only"
+
+[profile.profiling2]
+inherits = "release"
+debug = "line-tables-only"
