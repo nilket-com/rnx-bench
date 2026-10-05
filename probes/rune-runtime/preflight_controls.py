@@ -1,5 +1,5 @@
 """Fatal source gates run before a sentinel standing in for builds/measurements."""
-import pathlib, shutil, tempfile
+import pathlib, shutil, tempfile,subprocess,sys
 from runner import preflight,P,ROOT
 preflight()
 passed=[]
@@ -22,4 +22,8 @@ with tempfile.TemporaryDirectory(prefix='rune-preflight-') as d:
  refusal('fixture-extra',lambda:preflight(fixtures=p/'fixtures'))
  (p/'fixtures/extra.rn').unlink()
  preflight(fixtures=p/'fixtures')
+with tempfile.TemporaryDirectory() as d:
+ r=subprocess.run([sys.executable,str(P/'runner.py'),'--out',d],capture_output=True,text=True,timeout=10)
+ assert r.returncode!=0 and 'output already exists' in r.stderr
+ passed.append('existing-output')
 print('PASS: unmodified inputs; '+', '.join(passed)+' refused before downstream sentinel')

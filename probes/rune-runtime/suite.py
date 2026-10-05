@@ -14,7 +14,7 @@ def profile_valid(rows,enabled):
   assert r['iteration']==i and r['enabled']==enabled and math.isfinite(r['construct_ns']) and r['construct_ns']>0 and math.isfinite(r['drop_ns']) and r['drop_ns']>0
   if i==0:assert r['inventory'] and 'defaults:true' in r['inventory']
   if enabled:
-   want=[(m,p) for m in modules for p in ['construct']+phases+['install']]
+   want=[(m,p) for m in modules for p in ['module-construction']+phases+['install']]
    got=[(v['module'],v['phase']) for v in r['rows']]
    assert got==want,(len(got),len(want),'incomplete module/stage coverage')
    for m in modules:
@@ -52,8 +52,18 @@ def controls(j,out):
   for stdio in (False,True):
    _,so,se=j.run(profile(s,enabled,stdio),f'profile-{enabled}-{stdio}');assert not so
    rows=parsed(se);profile_valid(rows,enabled);inventories[(enabled,stdio)]=rows[0]['inventory']
-  for name,expected in [('iterator-trait',b'12\n'),('vec-alias',b'2\n'),('closure',b'42\n'),('collections',b'42\n1\n5\n')]:
-   _,so,se=j.run(profile(s,enabled,True,fixture=name),'profile-control-'+name);assert so==expected;profile_valid(parsed(se),enabled)
+  # Every fixture in the baseline corpus is checked in both diagnostic modes.
+  for fixture in sorted(F.glob('*.rn')):
+   name=fixture.stem
+   errors={'sum-untyped':'MissingInstanceFunction','overflow':'Overflow','divide-zero':'DivideByZero','undefined':'MissingLocal','budget':'Limited'}
+   command=profile(s,enabled,True,fixture=name)+(['100'] if name=='budget' else [])
+   if name in errors:
+    _,so,se=j.run(command,'profile-error-'+name,allowed=(1,));assert not so and errors[name].encode() in se
+   else:
+    _,so,se=j.run(command,'profile-corpus-'+name,deadline=10,limits=True)
+    _,expected,primaryerr=j.run(engine(s,'new','async' if name=='async' else 'run',name),'profile-primary-oracle-'+name,deadline=10,limits=True)
+    assert not primaryerr and so==expected;profile_valid(parsed(se),enabled)
+
  for stdio in (False,True):assert inventories[(False,stdio)]==inventories[(True,stdio)]
  write(out,'correctness.json',records);write(out,'inventory.json',{str(k):v for k,v in inventories.items()})
  # Corruption controls for diagnostic report coverage and parent/child intervals.
@@ -74,7 +84,7 @@ def controls(j,out):
  try:profile_valid(parsed(se),True)
  except AssertionError:corrupt.append('actual-private-module-omission')
  else:raise RuntimeError('actual omitted module accepted')
- _,so,se=j.run(profile(s,True,True,kind='negative',fixture='collections'),'omitted-collection-capability',allowed=(101,));assert b'MissingItem' in se or b'MissingType' in se
+ _,so,se=j.run(profile(s,True,True,kind='negative',fixture='collections'),'omitted-collection-capability',allowed=(1,));assert b'MissingItem' in se or b'MissingType' in se
  write(out,'profile-controls.json',corrupt)
 def measure(j,out):
  s=subjects(out);original=sorted(os.sched_getaffinity(0));os.sched_setaffinity(0,{4})
@@ -120,6 +130,19 @@ def measure(j,out):
    for i in range(30):
     ns=timed(c['command'],c['expected'].encode(),'unpinned-'+subject);f.write(json.dumps(dict(subject=subject,mode='unpinned',work=c['work'],repeat=0,sample=i,ns=ns,affinity=original))+'\n');f.flush()
  os.sched_setaffinity(0,{4})
+ # Primary reused calls: three processes, 20 checked outputs and per-call intervals each.
+ reused=[]
+ for base in ('old','new'):
+  for work in ('answer','numeric','fib'):
+   for repeat in range(3):
+    cmd=engine(s,base,'reuse',work)
+    _,so,se=j.run([clock,'1',str(len(cmd)),*cmd],'primary-reused-calls',deadline=30)
+    lines=so.decode().splitlines();assert len(lines)==4 and lines[1]=='0'
+    stderr=bytes.fromhex(lines[3]).decode();parts=stderr.split();assert len(parts)==6 and parts[0]=='PHASES' and parts[-1]=='20'
+    assert bytes.fromhex(lines[2])==expected[work]*20
+    values=list(map(int,parts[1:]));assert all(v>0 for v in values) and values[0]<=values[1]<=values[2]
+    reused.append(dict(base=base,work=work,repeat=repeat,process_ns=int(lines[0]),context_ns=values[0],runtime_cumulative_ns=values[1],compile_cumulative_ns=values[2],calls_ns=values[3],calls=values[4]))
+ write(out,'reused-calls.json',reused)
  # Complete context phase observations and diagnostic-overhead gate, separately from primary table.
  diag=[];plain=[]
  for repeat in range(3):
