@@ -1,6 +1,10 @@
 # Standing Rune / rnx / Lua runtime suite (0169)
 
-Run `probes/rune-runtime/run.sh --out /absolute/new/results/directory`.
+Run `TMPDIR=/absolute/results-parent probes/rune-runtime/run.sh --out /absolute/results-parent/new-directory`.
+The final corruption controls use hard-linked clones; TMPDIR must be on the
+results filesystem. Attempt 5b measured and analysed successfully, then its
+default /tmp clone placement failed EXDEV; a reviewed read-only replay with
+TMPDIR corrected passed. No deciding observations were rerun for that repair.
 The output must not exist. Sources are pinned to Rune main bb8e6937 and stock
 rnx b240937; the shipping Rune dependency is unchanged. The isolated diagnostic
 worktree `/tmp/rune-0169-profile` is constructed by `make_profile.py`, with its
