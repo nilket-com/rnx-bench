@@ -127,7 +127,7 @@ def measure(j,out):
     checked([r],c['expected'].encode())
     f.write(json.dumps(dict(subject=c['subject'],mode=c['mode'],work=c['work'],repeat=repeat,sample=i,ns=r['ns'],affinity=[4],raw=r['raw'],plan=r['plan'],index=r['index']))+'\n');f.flush()
   os.sched_setaffinity(0,original)
-  tasks=[(next(c for c in cases if c['subject']==subject and (c['work']=='answer' if subject!='stock' else c['mode']=='eval')),i) for subject in ('old','new','stock','lua54','luajit') for i in range(30)]
+  tasks=[(next(c for c in cases if c['subject']==subject and (c['work']=='answer' and c['mode']=='run' if subject!='stock' else c['mode']=='eval')),i) for subject in ('old','new','stock','lua54','luajit') for i in range(30)]
   rows=run_plan(j,out,[c['command'] for c,i in tasks],'unpinned')
   for (c,i),r in zip(tasks,rows):
    checked([r],c['expected'].encode())
