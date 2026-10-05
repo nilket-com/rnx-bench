@@ -1,0 +1,46 @@
+   Compiling rune-tracing v0.15.0 (/home/me/work/.worktrees/rune-0175/crates/rune-tracing)
+   Compiling rune v0.15.0 (/home/me/work/.worktrees/rune-0175/crates/rune)
+error[E0425]: cannot find function `__explicit_scope_active` in module `crate::alloc::limit`
+    --> crates/rune/src/runtime/vm.rs:3092:74
+     |
+3092 |         if args != 1 || budget::remaining() == 0 || crate::alloc::limit::__explicit_scope_active() {
+     |                                                                          ^^^^^^^^^^^^^^^^^^^^^^^ not found in `crate::alloc::limit`
+
+error[E0425]: cannot find function `__explicit_scope_active` in module `limit`
+   --> crates/rune/src/tests/range_iteration_boundaries.rs:127:21
+    |
+127 |     assert!(!limit::__explicit_scope_active());
+    |                     ^^^^^^^^^^^^^^^^^^^^^^^ not found in `limit`
+
+error[E0425]: cannot find function `__explicit_scope_active` in module `limit`
+   --> crates/rune/src/tests/range_iteration_boundaries.rs:129:24
+    |
+129 |         assert!(limit::__explicit_scope_active());
+    |                        ^^^^^^^^^^^^^^^^^^^^^^^ not found in `limit`
+
+error[E0425]: cannot find function `__explicit_scope_active` in module `limit`
+   --> crates/rune/src/tests/range_iteration_boundaries.rs:141:21
+    |
+141 |     assert!(!limit::__explicit_scope_active());
+    |                     ^^^^^^^^^^^^^^^^^^^^^^^ not found in `limit`
+
+error[E0425]: cannot find function `__explicit_scope_active` in module `limit`
+   --> crates/rune/src/tests/range_iteration_boundaries.rs:151:24
+    |
+151 |         assert!(limit::__explicit_scope_active());
+    |                        ^^^^^^^^^^^^^^^^^^^^^^^ not found in `limit`
+
+error[E0425]: cannot find function `__explicit_scope_active` in module `limit`
+   --> crates/rune/src/tests/range_iteration_boundaries.rs:166:21
+    |
+166 |     assert!(!limit::__explicit_scope_active());
+    |                     ^^^^^^^^^^^^^^^^^^^^^^^ not found in `limit`
+
+error[E0425]: cannot find function `__explicit_scope_active` in module `limit`
+   --> crates/rune/src/tests/range_iteration_boundaries.rs:169:21
+    |
+169 |     assert!(!limit::__explicit_scope_active());
+    |                     ^^^^^^^^^^^^^^^^^^^^^^^ not found in `limit`
+
+For more information about this error, try `rustc --explain E0425`.
+error: could not compile `rune` (lib test) due to 7 previous errors

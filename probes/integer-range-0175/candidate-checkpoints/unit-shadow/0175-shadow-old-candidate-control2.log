@@ -1,0 +1,25 @@
+   Compiling rune-alloc v0.15.0 (/home/me/work/.worktrees/rune-0175/crates/rune-alloc)
+   Compiling rune-core v0.15.0 (/home/me/work/.worktrees/rune-0175/crates/rune-core)
+   Compiling rune-macros v0.15.0 (/home/me/work/.worktrees/rune-0175/crates/rune-macros)
+   Compiling rune v0.15.0 (/home/me/work/.worktrees/rune-0175/crates/rune)
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 15.31s
+     Running unittests src/lib.rs (target/debug/deps/rune-5edcdc0a44cc82a7)
+
+running 1 test
+test tests::range_iteration_boundaries::unit_function_shadows_native_range_callable ... FAILED
+
+failures:
+
+---- tests::range_iteration_boundaries::unit_function_shadows_native_range_callable stdout ----
+
+thread 'tests::range_iteration_boundaries::unit_function_shadows_native_range_callable' (2964999) panicked at crates/rune/src/tests/range_iteration_boundaries.rs:588:26:
+unit callable must take precedence: Ok(Exited(Some(0)))
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+
+failures:
+    tests::range_iteration_boundaries::unit_function_shadows_native_range_callable
+
+test result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 609 filtered out; finished in 0.16s
+
+error: test failed, to rerun pass `-p rune --lib`

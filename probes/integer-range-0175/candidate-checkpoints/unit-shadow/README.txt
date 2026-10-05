@@ -1,0 +1,4 @@
+Base-first source audit control; no timing.
+Base fork branch codex/0175-shadow-base eaa59fc2 (parent c2b68025). Initial capture failed to compile because unit has no Named impl; assertion uses Value::unit().type_info() instead. Corrected capture passed, temporary capture writer removed, golden committed, base replay passed.
+The first old-candidate control failed to compile: sharing a target directory across base and candidate worktrees reused a base rune-alloc artifact lacking the new query. This is not counted as a semantic control. cargo clean -p rune-alloc forced the candidate dependency rebuild; future base builds use separate targets.
+Old candidate 9676ee81 (f57fb10c plus the base shadow fixture) in the named non-tracing configuration then FAILED at the intended assertion, unit callable must take precedence. Exit 101 AND the intended assertion text were required. Fixed candidate 75925ed9 is being tested separately. No measurement occurred.

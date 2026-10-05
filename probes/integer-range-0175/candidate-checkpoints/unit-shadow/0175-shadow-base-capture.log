@@ -1,0 +1,34 @@
+   Compiling rune-alloc-macros v0.15.0 (/home/me/work/.worktrees/rune-0175-shadow-base/crates/rune-alloc-macros)
+   Compiling rune-tracing-macros v0.15.0 (/home/me/work/.worktrees/rune-0175-shadow-base/crates/rune-tracing-macros)
+   Compiling rune-tracing v0.15.0 (/home/me/work/.worktrees/rune-0175-shadow-base/crates/rune-tracing)
+   Compiling rune-alloc v0.15.0 (/home/me/work/.worktrees/rune-0175-shadow-base/crates/rune-alloc)
+   Compiling rune-core v0.15.0 (/home/me/work/.worktrees/rune-0175-shadow-base/crates/rune-core)
+   Compiling rune-macros v0.15.0 (/home/me/work/.worktrees/rune-0175-shadow-base/crates/rune-macros)
+   Compiling rune v0.15.0 (/home/me/work/.worktrees/rune-0175-shadow-base/crates/rune)
+error[E0277]: the trait bound `(): named::Named` is not satisfied
+   --> crates/rune/src/tests/range_iteration_boundaries.rs:506:59
+    |
+506 |                     assert_eq!(*actual, TypeInfo::named::<()>());
+    |                                                           ^^ the trait `named::Named` is not implemented for `()`
+    |
+    = help: the following other types implement trait `named::Named`:
+              GeneratorState
+              NativeStruct
+              NativeStructWithProtocol
+              NativeStructWithoutProtocol
+              ParseCharError
+              ParseFloatError
+              ParseIntError
+              RuneIter
+            and 68 others
+note: required by a bound in `runtime::type_info::TypeInfo::named`
+   --> crates/rune/src/runtime/type_info.rs:61:12
+    |
+ 59 |     pub const fn named<T>() -> Self
+    |                  ----- required by a bound in this associated function
+ 60 |     where
+ 61 |         T: Named + TypeHash,
+    |            ^^^^^ required by this bound in `TypeInfo::named`
+
+For more information about this error, try `rustc --explain E0277`.
+error: could not compile `rune` (lib test) due to 1 previous error
