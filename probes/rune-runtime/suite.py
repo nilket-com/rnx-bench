@@ -87,6 +87,15 @@ def controls(j,out):
  else:raise RuntimeError('actual omitted module accepted')
  _,so,se=j.run(profile(s,True,True,kind='negative',fixture='collections'),'omitted-collection-capability',allowed=(1,));assert b'MissingItem' in se or b'MissingType' in se
  write(out,'profile-controls.json',corrupt)
+def late_cases(cases):
+ result=[]
+ for subject in ('old','new','stock','lua54','luajit'):
+  mode='eval' if subject=='stock' else 'run';work='literal-42' if subject=='stock' else 'answer'
+  matches=[c for c in cases if (c['subject'],c['mode'],c['work'])==(subject,mode,work)]
+  assert len(matches)==1,'late selector must identify exactly one '+subject+' '+mode
+  c=matches[0];assert c['expected']=='42\n','late selector expected output'
+  result.append(c)
+ return result
 def measure(j,out):
  s=subjects(out);original=sorted(os.sched_getaffinity(0));os.sched_setaffinity(0,{4})
  clock=P/'target/clock'
@@ -115,6 +124,7 @@ def measure(j,out):
   for lua in ('lua54','luajit'):
    cases.append(dict(subject=lua,mode='run',work=work,command=[s['lua'][lua]['path'],str(ROOT/'probes/lua-rust-0001'/(work+'.lua'))],expected=expect.decode()))
  assert len(cases)==36
+ late=late_cases(cases)
  write(out,'cases.json',cases)
  warm=[c for c in cases for _ in range(2 if c['work'] in ('numeric','strings','fib') else 5)]
  warmrows=run_plan(j,out,[c['command'] for c in warm],'warmups')
@@ -127,7 +137,7 @@ def measure(j,out):
     checked([r],c['expected'].encode())
     f.write(json.dumps(dict(subject=c['subject'],mode=c['mode'],work=c['work'],repeat=repeat,sample=i,ns=r['ns'],affinity=[4],raw=r['raw'],plan=r['plan'],index=r['index']))+'\n');f.flush()
   os.sched_setaffinity(0,original)
-  tasks=[(next(c for c in cases if c['subject']==subject and (c['work']=='answer' and c['mode']=='run' if subject!='stock' else c['mode']=='eval')),i) for subject in ('old','new','stock','lua54','luajit') for i in range(30)]
+  tasks=[(c,i) for c in late for i in range(30)]
   rows=run_plan(j,out,[c['command'] for c,i in tasks],'unpinned')
   for (c,i),r in zip(tasks,rows):
    checked([r],c['expected'].encode())
