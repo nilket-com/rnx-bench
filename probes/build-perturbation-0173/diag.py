@@ -185,5 +185,12 @@ def main(out):
 		print(name, " ".join(f"{k}:{v['change'] * 100:+.2f}%" for k, v in rows.items()), flush=True)
 
 
+
+# HISTORICAL PRODUCER (0173 run1). It captures the raw inherited environment for condition E2, and its retained output
+# was redacted after capture (results/build-perturbation-0173/REDACTION.md). Do not rerun as is: a new run must
+# capture with redaction at source and include a fake-secret sentinel control.
+if __name__ == "__main__" and not __import__("os").environ.get("RNX0173_ALLOW_HISTORICAL_RERUN"):
+	raise SystemExit("diag.py is a historical producer; see the comment above")
+
 if __name__ == "__main__":
 	main(sys.argv[1])
