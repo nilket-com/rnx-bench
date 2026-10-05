@@ -21,6 +21,14 @@ class Jobs:
    try:pid,status=os.waitpid(-1,os.WNOHANG)
    except ChildProcessError:break
    if pid:continue
+   # Remaining children are adopted from our owned commands, never unrelated agents.
+   children=pathlib.Path(f'/proc/{os.getpid()}/task/{os.getpid()}/children').read_text().split()
+   for child in children:
+    try:
+     group=os.getpgid(int(child))
+     if group!=os.getpgrp():os.killpg(group,signal.SIGKILL)
+     else:os.kill(int(child),signal.SIGKILL)
+    except ProcessLookupError:pass
    if time.monotonic()>end:raise RuntimeError('owned descendants still live after cleanup')
    time.sleep(.01)
  def run(self,argv,label,deadline=30,expected=None,env=None,cwd=None,allowed=(0,),limits=None):
@@ -57,8 +65,12 @@ def stop_registered(ledger):
  ledger=pathlib.Path(ledger)
  if not ledger.exists():return
  live={}
- for line in ledger.read_text().splitlines():
-  r=json.loads(line)
+ lines=ledger.read_text().splitlines()
+ for index,line in enumerate(lines):
+  try:r=json.loads(line)
+  except json.JSONDecodeError:
+   if index==len(lines)-1:continue # A killed worker may leave only its final append torn.
+   raise
   if r['kind']=='job-start':live[r['pid']]=r
   elif r['kind']=='job-end':live.pop(r['pid'],None)
  for pid,r in live.items():

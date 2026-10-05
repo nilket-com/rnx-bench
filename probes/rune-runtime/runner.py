@@ -90,5 +90,6 @@ def main():
   j.run([sys.executable,P/'analysis_controls.py',out],'analysis-controls',deadline=60)
   (out/'COMPLETE').write_text('PASS\n')
  finally:
-  stop_registered(out/'jobs/ledger.jsonl');j.cleanup()
+  try:stop_registered(out/'jobs/ledger.jsonl')
+  finally:j.cleanup()
 if __name__=='__main__':main()
