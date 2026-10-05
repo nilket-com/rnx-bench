@@ -8,7 +8,13 @@ patch and collector retained here. Normal main measurements use the clean fork.
 
 The command checks lifecycle/admission and source refusal controls, builds
 primary/counter/allocation subjects, runs semantic and robustness controls, checks
-the native clock against hyperfine, then measures randomized primary invocations.
+the native pipe-capturing clock against Hyperfine -N --output=pipe, then measures
+randomized primary invocations. The median agreement gate remains 0.15 ms.
+Matched pre-run diagnostics showed a consistent native-minus-Hyperfine offset
+of +0.110 to +0.145 ms. This is a systematic offset, not noise; report the
+contemporary offset alongside sub-ms medians and do not compare those directly
+with another record's Hyperfine medians without this caveat. The gate does not
+establish precision below its agreement bound.
 Each heavy phase holds `/tmp/rnx-runtime-bench.lock`; queue wait is outside its
 execution deadline. Commands own process groups with bounded kill/reap cleanup.
 The durable ledger records admission, commands, exit status and load averages.
