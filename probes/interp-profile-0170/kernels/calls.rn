@@ -1,0 +1,2 @@
+fn inc(x) { x + 1 }
+pub fn main(_args) { let x = 0; let i = 0; while i < 1000000 { x = inc(x); i += 1; } println!("{}", x); }

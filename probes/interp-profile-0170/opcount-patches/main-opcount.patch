@@ -1,0 +1,100 @@
+[1mdiff --git a/crates/rune/Cargo.toml b/crates/rune/Cargo.toml[m
+[1mindex 4cf8587a..60003acf 100644[m
+[1m--- a/crates/rune/Cargo.toml[m
+[1m+++ b/crates/rune/Cargo.toml[m
+[36m@@ -17,6 +17,7 @@[m [mcategories = ["parser-implementations"][m
+ unexpected_cfgs = { level = "warn", check-cfg = ['cfg(rune_nightly, rune_docsrs, rune_byte_code)'] }[m
+ [m
+ [features][m
+[32m+[m[32mop-count = [][m
+ default = ["emit", "std", "anyhow"][m
+ tracing = ["tracing/enabled"][m
+ emit = ["std", "anyhow", "codespan-reporting"][m
+[1mdiff --git a/crates/rune/src/runtime/mod.rs b/crates/rune/src/runtime/mod.rs[m
+[1mindex b736a14a..b2efcef8 100644[m
+[1m--- a/crates/rune/src/runtime/mod.rs[m
+[1m+++ b/crates/rune/src/runtime/mod.rs[m
+[36m@@ -6,6 +6,9 @@[m [mmod tests;[m
+ #[macro_use][m
+ mod macros;[m
+ [m
+[32m+[m[32m#[cfg(feature = "op-count")][m
+[32m+[m[32mpub(crate) mod op_count;[m
+[32m+[m
+ mod steps_between;[m
+ use self::steps_between::StepsBetween;[m
+ [m
+[1mdiff --git a/crates/rune/src/runtime/op_count.rs b/crates/rune/src/runtime/op_count.rs[m
+[1mnew file mode 100644[m
+[1mindex 00000000..73793b6d[m
+[1m--- /dev/null[m
+[1m+++ b/crates/rune/src/runtime/op_count.rs[m
+[36m@@ -0,0 +1,44 @@[m
+[32m+[m[32m//! rnx 0170 diagnostic only: count executed instructions by kind. Never enabled in timed or profiled builds.[m
+[32m+[m[32muse std::cell::RefCell;[m
+[32m+[m[32muse std::collections::HashMap;[m
+[32m+[m[32muse std::fmt::Debug;[m
+[32m+[m[32muse std::hash::Hash;[m
+[32m+[m
+[32m+[m[32mthread_local! {[m
+[32m+[m	[32mstatic COUNTS: RefCell<HashMap<String, u64>> = RefCell::new(HashMap::new());[m
+[32m+[m	[32mstatic NAMES: RefCell<HashMap<u64, String>> = RefCell::new(HashMap::new());[m
+[32m+[m[32m}[m
+[32m+[m
+[32m+[m[32m/// The variant name of an instruction, computed once per discriminant.[m
+[32m+[m[32mpub(crate) fn hit<K: Debug>(kind: &K, discriminant: impl Hash) {[m
+[32m+[m	[32muse std::hash::Hasher;[m
+[32m+[m	[32mlet mut h = std::collections::hash_map::DefaultHasher::new();[m
+[32m+[m	[32mdiscriminant.hash(&mut h);[m
+[32m+[m	[32mlet key = h.finish();[m
+[32m+[m	[32mlet name = NAMES.with(|n| {[m
+[32m+[m		[32mn.borrow_mut()[m
+[32m+[m			[32m.entry(key)[m
+[32m+[m			[32m.or_insert_with(|| {[m
+[32m+[m				[32mlet s = format!("{kind:?}");[m
+[32m+[m				[32ms.split(|c: char| c == ' ' || c == '{' || c == '(').next().unwrap_or("").to_owned()[m
+[32m+[m			[32m})[m
+[32m+[m			[32m.clone()[m
+[32m+[m	[32m});[m
+[32m+[m	[32mCOUNTS.with(|c| *c.borrow_mut().entry(name).or_insert(0) += 1);[m
+[32m+[m[32m}[m
+[32m+[m
+[32m+[m[32m/// Writes the cumulative counts to $RUNE_OP_COUNT_OUT whenever a run() frame ends.[m
+[32m+[m[32mpub(crate) struct Report;[m
+[32m+[m
+[32m+[m[32mimpl Drop for Report {[m
+[32m+[m	[32mfn drop(&mut self) {[m
+[32m+[m		[32mlet Ok(path) = std::env::var("RUNE_OP_COUNT_OUT") else { return };[m
+[32m+[m		[32mCOUNTS.with(|c| {[m
+[32m+[m			[32mlet c = c.borrow();[m
+[32m+[m			[32mlet mut rows: Vec<_> = c.iter().collect();[m
+[32m+[m			[32mrows.sort();[m
+[32m+[m			[32mlet body: Vec<String> = rows.iter().map(|(k, v)| format!("\"{k}\": {v}")).collect();[m
+[32m+[m			[32mlet _ = std::fs::write(path, format!("{{{}}}\n", body.join(", ")));[m
+[32m+[m		[32m});[m
+[32m+[m	[32m}[m
+[32m+[m[32m}[m
+[1mdiff --git a/crates/rune/src/runtime/vm.rs b/crates/rune/src/runtime/vm.rs[m
+[1mindex 56065c78..7aa4b57c 100644[m
+[1m--- a/crates/rune/src/runtime/vm.rs[m
+[1m+++ b/crates/rune/src/runtime/vm.rs[m
+[36m@@ -3161,6 +3161,9 @@[m [mimpl Vm {[m
+             diagnostics,[m
+         );[m
+ [m
+[32m+[m[32m        #[cfg(feature = "op-count")][m
+[32m+[m[32m        let _op_count_report = crate::runtime::op_count::Report;[m
+[32m+[m
+         loop {[m
+             if !budget::take() {[m
+                 return Ok(VmHalt::Limited);[m
+[36m@@ -3178,6 +3181,9 @@[m [mimpl Vm {[m
+             self.ip = self.ip.wrapping_add(inst_len);[m
+             self.last_ip_len = inst_len as u8;[m
+ [m
+[32m+[m[32m            #[cfg(feature = "op-count")][m
+[32m+[m[32m            crate::runtime::op_count::hit(&inst.kind, core::mem::discriminant(&inst.kind));[m
+[32m+[m
+             match inst.kind {[m
+                 inst::Kind::Allocate { size } => {[m
+                     self.op_allocate(size)?;[m
