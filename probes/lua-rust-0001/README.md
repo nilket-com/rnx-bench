@@ -58,3 +58,14 @@ One unpinned control is retained for each subject, after the primary shuffled
 comparison. Changing affinity and chronological load can affect these results;
 no scheduler explanation was measured. No full Lua test suite was run, so project
 conformance and broad benchmark claims are unverified.
+
+### Later native-observer audit (0169)
+
+The native rows here used a new measuring helper per observation. Later matched
+0169 calibration blocks observed approximately +0.12–0.15 ms native-minus-
+Hyperfine offsets for that observer architecture (and larger offsets in failed
+full-runner checks). This is a systematic observer limitation; it is not a
+retrospectively measured correction for these historical samples. Read sub-ms
+Lua/cached-Rust rows with that caveat, and do not subtract a later offset.
+Full rustc builds of 23–58 ms remain far above a terminal refresh interval;
+the historical corpus conclusions are not remeasured or revised by this note.
