@@ -3,6 +3,15 @@ import json,os,pathlib,signal,sys,time
 from resident import run_plan,parse
 P=pathlib.Path(__file__).resolve().parent
 def controls(j,out):
+ from suite import late_cases
+ cases=[dict(subject=b,mode='run',work='answer',expected='42\n') for b in ('old','new','lua54','luajit')]+[dict(subject='stock',mode='eval',work='literal-42',expected='42\n')]+[dict(subject=b,mode='compile',work='answer',expected='') for b in ('old','new')]
+ chosen=late_cases(cases);assert [(c['subject'],c['mode']) for c in chosen]==[('old','run'),('new','run'),('stock','eval'),('lua54','run'),('luajit','run')]
+ for corrupted in ([c for c in cases if not(c['subject']=='old' and c['mode']=='run')],cases+[cases[0]],[dict(c,expected='') if c is cases[0] else c for c in cases]):
+  try:late_cases(corrupted)
+  except AssertionError:pass
+  else:raise RuntimeError('late selector corruption accepted')
+ (out/'late-selector-control.json').write_text(json.dumps(dict(selected=chosen,refused=['missing-run','duplicate-run','wrong-expected-output']),indent=2)+'\n')
+
  cmd=[sys.executable,'-c','import os;print(os.getpid())']
  rows=run_plan(j,out,[cmd]*6,'control-fresh-pids')
  pids=[int(r['stdout']) for r in rows];assert len(set(pids))==6 and all(r['status']==0 and not r['stderr'] for r in rows)
