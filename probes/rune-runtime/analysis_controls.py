@@ -1,5 +1,5 @@
 """Mutate retained observations independently; agreeing corruptions must not report PASS."""
-import json,pathlib,sys,tempfile
+import json,pathlib,sys,tempfile,os
 from analyse import analyse
 out=pathlib.Path(sys.argv[1]).resolve();analyse(out)
 mutations={
@@ -18,12 +18,16 @@ mutations={
  'rss-missing':('rss.json',lambda v:v.pop()),
 }
 passed=[]
+mutations.update({'sample-nonfinite':('samples.jsonl',lambda v:v[0].update(ns=float('nan'))),'sample-forged-positive':('samples.jsonl',lambda v:v[0].update(ns=v[0]['ns']+1)),'sample-missing':('samples.jsonl',lambda v:v.pop())})
 for name,(file,change) in mutations.items():
  with tempfile.TemporaryDirectory(prefix='rune-analysis-controls-') as d:
   p=pathlib.Path(d)
   for f in out.iterdir():
-   if f.is_file() and f.name not in ('analysis.json','REPORT.md','baseline-reproduction.json','analysis-controls.json'): (p/f.name).symlink_to(f)
-  v=json.loads((out/file).read_text());change(v);(p/file).unlink();(p/file).write_text(json.dumps(v))
+   if f.is_dir():
+    import shutil
+    shutil.copytree(f,p/f.name,copy_function=os.link)
+   elif f.is_file() and f.name not in ('analysis.json','REPORT.md','baseline-reproduction.json','analysis-controls.json'): (p/f.name).symlink_to(f)
+  v=[json.loads(line) for line in (out/file).read_text().splitlines()] if file.endswith('.jsonl') else json.loads((out/file).read_text());change(v);(p/file).unlink();(p/file).write_text(''.join(json.dumps(row)+'\n' for row in v) if file.endswith('.jsonl') else json.dumps(v))
   try:analyse(p)
   except (AssertionError,KeyError,ValueError):passed.append(name)
   else:raise RuntimeError('accepted corrupt evidence: '+name)

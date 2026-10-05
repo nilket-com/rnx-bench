@@ -30,6 +30,11 @@ def analyse(out):
   else:
    assert key in expected and r['repeat'] in range(3) and r['affinity']==[4]
    assert r['sample'] in range(5 if r['work'] in ('numeric','strings','fib') else 30)
+  raw=out/r['raw'];assert raw.is_file() and raw.resolve().is_relative_to(out.resolve())
+  capture=raw.read_text().splitlines();assert len(capture)==4 and capture[1]=='0' and not bytes.fromhex(capture[3])
+  assert int(capture[0])==r['ns'] and r['ns']>0
+  expected_text='42\n' if r['mode']=='unpinned' else expected[key]['expected']
+  assert bytes.fromhex(capture[2])==expected_text.encode(),'retained stdout mismatch'
   groups[key].append(r['ns']/1e6)
  assert len(groups)==41
  for key,v in groups.items():assert len(v)==(30 if key[1]=='unpinned' else 15 if key[2] in ('numeric','strings','fib') else 90)
