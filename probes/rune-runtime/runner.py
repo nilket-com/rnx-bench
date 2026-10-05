@@ -20,6 +20,10 @@ def preflight(fork=FORK,fixtures=None):
   if f.name=='collections.rn':continue # New capability fixture, hashed separately.
   expected=subprocess.check_output(['git','-C',str(ROOT),'show','20f9806:probes/rune-base-0168/fixtures/'+f.name])
   assert f.read_bytes()==expected,'fixture drift: '+f.name
+ for f in (ROOT/'probes/lua-rust-0001').iterdir():
+  if f.suffix not in ('.lua','.py'):continue
+  expected=subprocess.check_output(['git','-C',str(ROOT),'show','20f9806:'+str(f.relative_to(ROOT))])
+  assert f.read_bytes()==expected,'Lua/oracle source drift: '+f.name
  for name in ('lua54','luajit'):assert (pathlib.Path.home()/'.local/bin'/name).is_file(),name+' unavailable'
  assert git(PROFILE,'rev-parse','HEAD')==PIN,'wrong diagnostic pin'
  patch=subprocess.check_output(['git','-C',str(PROFILE),'diff','--','crates/rune/Cargo.toml','crates/rune/src/lib.rs','crates/rune/src/compile/context.rs'])
@@ -51,6 +55,7 @@ def build(j,out):
    'uname':subprocess.check_output(['uname','-a'],text=True),'cpu':subprocess.check_output(['lscpu'],text=True),
    'lua_versions':{n:subprocess.check_output([str(pathlib.Path.home()/'.local/bin'/n),'-v'],stderr=subprocess.STDOUT,text=True) for n in ('lua54','luajit')},
    'features':{b:subprocess.check_output(['cargo','tree','--locked','-e','features','--manifest-path',str(P/b/'Cargo.toml')],text=True) for b in ('old','new','profile')},
+   'external_sources':{str(f):digest(f) for f in list((ROOT/'probes/lua-rust-0001').glob('*.lua'))+list((ROOT/'probes/lua-rust-0001').glob('*.py'))+[ROOT/'probes/rustc-42/clock.rs']},
    'cpu4_scaling':{f.name:f.read_text() for f in pathlib.Path('/sys/devices/system/cpu/cpu4/cpufreq').glob('scaling_*') if f.is_file()}
   }),indent=2)+'\n')
 def worker(phase,out):
@@ -67,7 +72,7 @@ def worker(phase,out):
    from suite import controls,measure
    (controls if phase=='controls' else measure)(j,out)
  finally:
-  j.cleanup();j.event('lock-release',phase=phase,lock=LOCK,load1=os.getloadavg()[0])
+  j.cleanup();j.event('cpu-policy-after',phase=phase,policy={f.name:f.read_text() for f in pathlib.Path('/sys/devices/system/cpu/cpu4/cpufreq').glob('scaling_*') if f.is_file()});j.event('lock-release',phase=phase,lock=LOCK,load1=os.getloadavg()[0])
 def main():
  a=argparse.ArgumentParser();a.add_argument('--out',type=pathlib.Path,required=True);a.add_argument('--worker',choices=['build','controls','measurement']);args=a.parse_args()
  out=args.out.resolve()

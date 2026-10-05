@@ -14,6 +14,7 @@ def analyse(out):
   else:
    for child in v.values():check_binary(child)
  check_binary(subjects['binaries'])
+ for file,digest in subjects['metadata']['external_sources'].items():assert hashlib.sha256(pathlib.Path(file).read_bytes()).hexdigest()==digest,'external source changed '+file
  for file,digest in subjects['sources'].items():assert hashlib.sha256((P/file).read_bytes()).hexdigest()==digest,'source changed '+file
  clock=read('clock-preflight.json');assert set(clock)=={'true','cached'}
  for v in clock.values():
@@ -97,10 +98,25 @@ def analyse(out):
     assert list(v)==[r[n] for n in ('calls','allocated_bytes','live_bytes','peak_bytes')]
     assert all(type(n) is int and n>=0 for n in v) and v[3]>=v[2]
    else:assert type(r['maxrss_kib']) is int and r['maxrss_kib']>0
- report=dict(reused_calls=reused,wall_ms=[dict(subject=k[0],mode=k[1],work=k[2],**stats(v)) for k,v in sorted(groups.items(),key=str)],profile=[dict(stdio=k[0],module=k[1],phase=k[2],**stats(v),event_vectors=events[k]) for k,v in sorted(by.items())])
+ module_totals=collections.defaultdict(list);stage_totals=collections.defaultdict(list)
+ for r in diag:
+  if not r['enabled']:continue
+  for context in r['rows']:
+   modules=collections.defaultdict(dict);stages=collections.defaultdict(int)
+   for row in context['rows']:
+    modules[row['module']][row['phase']]=row['ns']
+    if row['phase'] not in ('module-construction','install'):stages[row['phase']]+=row['ns']
+   for module,values in modules.items():module_totals[(r['stdio'],module)].append(values['module-construction']+values['install'])
+   for phase,ns in stages.items():stage_totals[(r['stdio'],phase)].append(ns)
+ report=dict(modules=[dict(stdio=k[0],module=k[1],**stats(v)) for k,v in module_totals.items()],stages=[dict(stdio=k[0],stage=k[1],**stats(v)) for k,v in stage_totals.items()],reused_calls=reused,wall_ms=[dict(subject=k[0],mode=k[1],work=k[2],**stats(v)) for k,v in sorted(groups.items(),key=str)],profile=[dict(stdio=k[0],module=k[1],phase=k[2],**stats(v),event_vectors=events[k]) for k,v in sorted(by.items())])
  (out/'analysis.json').write_text(json.dumps(report,indent=2)+'\n')
  lines=['# Standing runtime baseline (0169)','', '| Subject | Mode / workload | Median ms | p10–p90 ms |', '|---|---|---:|---:|']
  for r in report['wall_ms']:lines.append(f"| {r['subject']} | {r['mode']} {r['work'] or ''} | {r['median']:.3f} | {r['p10']:.3f}–{r['p90']:.3f} |")
+ for stdio in (False,True):
+  lines+=['',f'## Complete registration diagnostic: stdio={stdio}','', '| Module (construction + install, paired) | Median ms |','|---|---:|']
+  for row in sorted((r for r in report['modules'] if r['stdio']==stdio),key=lambda r:-r['median'])[:10]:lines.append(f"| {row['module']} | {row['median']/1e6:.3f} |")
+  lines+=['','| Install stage (summed across modules per context) | Median ms |','|---|---:|']
+  for row in sorted((r for r in report['stages'] if r['stdio']==stdio),key=lambda r:-r['median']):lines.append(f"| {row['stage']} | {row['median']/1e6:.3f} |")
  lines+=['','Diagnostic timings are separate, with complete module/stage hierarchy and overhead in JSON. Nested event counts do not add to parent event counts. No optimization chosen.','']
  (out/'REPORT.md').write_text('\n'.join(lines))
  print('PASS: 2265 primary samples, 84 counter windows, 34-module diagnostic coverage; baseline reproduced')
