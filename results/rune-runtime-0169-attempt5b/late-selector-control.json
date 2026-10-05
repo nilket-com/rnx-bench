@@ -1,0 +1,39 @@
+{
+  "selected": [
+    {
+      "subject": "old",
+      "mode": "run",
+      "work": "answer",
+      "expected": "42\n"
+    },
+    {
+      "subject": "new",
+      "mode": "run",
+      "work": "answer",
+      "expected": "42\n"
+    },
+    {
+      "subject": "stock",
+      "mode": "eval",
+      "work": "literal-42",
+      "expected": "42\n"
+    },
+    {
+      "subject": "lua54",
+      "mode": "run",
+      "work": "answer",
+      "expected": "42\n"
+    },
+    {
+      "subject": "luajit",
+      "mode": "run",
+      "work": "answer",
+      "expected": "42\n"
+    }
+  ],
+  "refused": [
+    "missing-run",
+    "duplicate-run",
+    "wrong-expected-output"
+  ]
+}
