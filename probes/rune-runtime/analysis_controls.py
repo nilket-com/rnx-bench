@@ -6,6 +6,7 @@ mutations={
  'clock-failed':('clock-preflight.json',lambda v:v['true'].update(passed=False)),
  'clock-forged-pass':('clock-preflight.json',lambda v:v['true'].update(reference_ns=1e12,passed=True)),
  'case-missing':('cases.json',lambda v:v.pop()),
+ 'reuse-missing':('reused-calls.json',lambda v:v.pop()),
  'profile-missing':('profile.json',lambda v:v.pop()),
  'profile-duplicate':('profile.json',lambda v:v.__setitem__(0,v[1])),
  'profile-stage-missing':('profile.json',lambda v:next(r for r in v if r['enabled'])['rows'][0]['rows'].pop()),

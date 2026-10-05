@@ -18,7 +18,7 @@ def replace(m):
  result=f'''        #[cfg(feature = "registration-profile")]
         {{
             crate::registration_profile::set_module("{name}");
-            let module = {{ let _mark = crate::registration_profile::mark("construct"); {expr} }};
+            let module = {{ let _mark = crate::registration_profile::mark("module-construction"); {expr} }};
             let _mark = crate::registration_profile::mark("install");
             {before}
             this.install(module)?;

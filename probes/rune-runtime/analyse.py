@@ -41,6 +41,11 @@ def analyse(out):
  (out/'baseline-reproduction.json').write_text(json.dumps(dict(warnings=warnings,passed=not warnings),indent=2)+'\n')
  # A warning is a stop, not averaged away by another workload.
  assert not warnings,'STOP baseline reproduction warning; attribution not emitted'
+ reused=read('reused-calls.json');assert len(reused)==18
+ assert {(r['base'],r['work'],r['repeat']) for r in reused}=={(b,w,rep) for b in ('old','new') for w in ('answer','numeric','fib') for rep in range(3)}
+ for r in reused:
+  assert r['calls']==20;stats([r['process_ns'],r['context_ns'],r['runtime_cumulative_ns'],r['compile_cumulative_ns'],r['calls_ns']])
+  assert r['context_ns']<=r['runtime_cumulative_ns']<=r['compile_cumulative_ns'] and r['process_ns']>r['calls_ns']
  diag=read('profile.json');plain=read('unmodified-context.json');assert len(diag)==12 and len(plain)==120
  for r in diag:assert len(r['rows'])==20;profile_valid(r['rows'],r['enabled'])
  overhead=read('profile-overhead.json')
@@ -92,7 +97,7 @@ def analyse(out):
     assert list(v)==[r[n] for n in ('calls','allocated_bytes','live_bytes','peak_bytes')]
     assert all(type(n) is int and n>=0 for n in v) and v[3]>=v[2]
    else:assert type(r['maxrss_kib']) is int and r['maxrss_kib']>0
- report=dict(wall_ms=[dict(subject=k[0],mode=k[1],work=k[2],**stats(v)) for k,v in sorted(groups.items(),key=str)],profile=[dict(stdio=k[0],module=k[1],phase=k[2],**stats(v),event_vectors=events[k]) for k,v in sorted(by.items())])
+ report=dict(reused_calls=reused,wall_ms=[dict(subject=k[0],mode=k[1],work=k[2],**stats(v)) for k,v in sorted(groups.items(),key=str)],profile=[dict(stdio=k[0],module=k[1],phase=k[2],**stats(v),event_vectors=events[k]) for k,v in sorted(by.items())])
  (out/'analysis.json').write_text(json.dumps(report,indent=2)+'\n')
  lines=['# Standing runtime baseline (0169)','', '| Subject | Mode / workload | Median ms | p10–p90 ms |', '|---|---|---:|---:|']
  for r in report['wall_ms']:lines.append(f"| {r['subject']} | {r['mode']} {r['work'] or ''} | {r['median']:.3f} | {r['p10']:.3f}–{r['p90']:.3f} |")
