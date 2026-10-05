@@ -97,7 +97,7 @@ def measure(j,out):
   return ns
  pre={}
  for name,cmd,expected in [('true',['/bin/true'],b''),('cached',[str(P/'target/cached')],b'42\n')]:
-  f=out/(name+'-hyperfine.json');j.run(['hyperfine','-N','--warmup','5','--runs','50','--export-json',f,*cmd],'clock-'+name,deadline=60)
+  f=out/(name+'-hyperfine.json');j.run(['hyperfine','-N','--output','pipe','--warmup','5','--runs','50','--export-json',f,*cmd],'clock-'+name,deadline=60)
   native=[timed(cmd,expected,'clock-'+name) for _ in range(55)][5:]
   ref=statistics.median(json.loads(f.read_text())['results'][0]['times'])*1e9;med=statistics.median(native)
   pre[name]=dict(native_ns=native,reference_ns=ref,passed=abs(med-ref)<=150000)
