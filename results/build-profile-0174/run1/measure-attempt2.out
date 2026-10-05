@@ -1,0 +1,11 @@
+Traceback (most recent call last):
+  File "/home/me/work/rnx-bench-w-0174/probes/build-profile-0174/measure.py", line 322, in <module>
+    main(sys.argv[1])
+    ~~~~^^^^^^^^^^^^^
+  File "/home/me/work/rnx-bench-w-0174/probes/build-profile-0174/measure.py", line 231, in main
+    res["rehearsal"] = rehearse(out, sentinel)
+                       ~~~~~~~~^^^^^^^^^^^^^^^
+  File "/home/me/work/rnx-bench-w-0174/probes/build-profile-0174/measure.py", line 198, in rehearse
+    s = perf(BIN["base-p0"], ["floor"], "")
+             ~~~^^^^^^^^^^^
+TypeError: 'PosixPath' object is not subscriptable
