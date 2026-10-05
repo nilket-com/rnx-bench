@@ -123,12 +123,12 @@ def measure(j,out):
    tasks=[(c,i) for c in cases for i in range(5 if c['work'] in ('numeric','strings','fib') else 30)];random.Random(16900+repeat).shuffle(tasks)
    for c,i in tasks:
     ns=timed(c['command'],c['expected'].encode(),'timed-'+c['subject'])
-    f.write(json.dumps(dict(subject=c['subject'],mode=c['mode'],work=c['work'],repeat=repeat,sample=i,ns=ns,affinity=[4]))+'\n');f.flush()
+    f.write(json.dumps(dict(subject=c['subject'],mode=c['mode'],work=c['work'],repeat=repeat,sample=i,ns=ns,affinity=[4],raw=str((j.out/(f'{j.serial:05d}-timed-'+c['subject']+'.stdout')).relative_to(out))))+'\n');f.flush()
   os.sched_setaffinity(0,original)
   for subject in ('old','new','stock','lua54','luajit'):
    c=next(c for c in cases if c['subject']==subject and (c['work']=='answer' if subject!='stock' else c['mode']=='eval'))
    for i in range(30):
-    ns=timed(c['command'],c['expected'].encode(),'unpinned-'+subject);f.write(json.dumps(dict(subject=subject,mode='unpinned',work=c['work'],repeat=0,sample=i,ns=ns,affinity=original))+'\n');f.flush()
+    ns=timed(c['command'],c['expected'].encode(),'unpinned-'+subject);f.write(json.dumps(dict(subject=subject,mode='unpinned',work=c['work'],repeat=0,sample=i,ns=ns,affinity=original,raw=str((j.out/(f'{j.serial:05d}-unpinned-'+subject+'.stdout')).relative_to(out))))+'\n');f.flush()
  os.sched_setaffinity(0,{4})
  # Primary reused calls: three processes, 20 checked outputs and per-call intervals each.
  reused=[]
