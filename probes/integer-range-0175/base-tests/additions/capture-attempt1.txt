@@ -1,0 +1,22 @@
+   Compiling rune v0.15.0 (/home/me/work/.worktrees/rune-0175/crates/rune)
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 18.92s
+     Running unittests src/lib.rs (target/debug/deps/rune-bbae58d822b0514a)
+
+running 4 tests
+test tests::range_iteration_boundaries::observers::diagnostics_preserve_every_observed_boundary ... ok
+test tests::range_iteration_boundaries::observers::owning_old_output_preserves_drop_and_slot_boundaries ... ok
+
+thread 'tests::range_iteration_boundaries::observers::whole_execution_inside_explicit_memory_scopes' (2931831) panicked at crates/rune/src/tests/range_iteration_boundaries.rs:17:51:
+called `Result::unwrap()` on an `Err` value: AllocError { error: AllocError { error: AllocError { layout: Layout { size: 524288, align: 8 (1 << 3) } } } }
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+test tests::range_iteration_boundaries::observers::whole_execution_inside_explicit_memory_scopes ... FAILED
+test tests::range_iteration_boundaries::observers::other_receiver_and_user_iterator_keep_their_protocols ... ok
+
+failures:
+
+failures:
+    tests::range_iteration_boundaries::observers::whole_execution_inside_explicit_memory_scopes
+
+test result: FAILED. 3 passed; 1 failed; 0 ignored; 0 measured; 604 filtered out; finished in 0.31s
+
+error: test failed, to rerun pass `-p rune --lib`
