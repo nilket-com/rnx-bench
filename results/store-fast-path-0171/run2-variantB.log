@@ -1,0 +1,148 @@
+correctness: all 35 identical (after the two known normalizations); fixtures match oracles
+base reproduction: {'numeric': 1.0, 'fib': 1.0}
+pmu done
+wall done
+{
+ "decision": "STOP",
+ "rows": {
+  "empty": {
+   "base_instr": 28398911.0,
+   "cand_instr": 28908974.0,
+   "instr_change": 0.017960653491255307,
+   "base_wall_ms": 3.9395914999999997,
+   "cand_wall_ms": 3.979185,
+   "wall_change": 0.010050153677100937,
+   "base_wall_p10_p90_ms": 0.13823810000000103
+  },
+  "answer": {
+   "base_instr": 29915120.0,
+   "cand_instr": 30375545.0,
+   "instr_change": 0.01539104640061617,
+   "base_wall_ms": 4.273603,
+   "cand_wall_ms": 4.3124970000000005,
+   "wall_change": 0.009100985749027402,
+   "base_wall_p10_p90_ms": 0.2137223999999991
+  },
+  "numeric": {
+   "base_instr": 1757097554.0,
+   "cand_instr": 1709557048.0,
+   "instr_change": -0.02705627009255973,
+   "base_wall_ms": 125.2886055,
+   "cand_wall_ms": 110.64355850000001,
+   "wall_change": -0.11689049408407692,
+   "base_wall_p10_p90_ms": 2.9410576999999876
+  },
+  "while": {
+   "base_instr": 1136115233.0,
+   "cand_instr": 1084574993.0,
+   "instr_change": -0.04536532783202285,
+   "base_wall_ms": 69.493908,
+   "cand_wall_ms": 65.229558,
+   "wall_change": -0.06136293270483517,
+   "base_wall_p10_p90_ms": 0.5486605000000111
+  },
+  "fib": {
+   "base_instr": 831058164.0,
+   "cand_instr": 802915010.0,
+   "instr_change": -0.03386424105930563,
+   "base_wall_ms": 53.4012405,
+   "cand_wall_ms": 50.126213,
+   "wall_change": -0.06132867831038491,
+   "base_wall_p10_p90_ms": 1.1956071999999907
+  },
+  "calls": {
+   "base_instr": 1773172740.0,
+   "cand_instr": 1720632961.0,
+   "instr_change": -0.029630378256322643,
+   "base_wall_ms": 94.626553,
+   "cand_wall_ms": 90.62638150000001,
+   "wall_change": -0.042273245438835705,
+   "base_wall_p10_p90_ms": 1.4766585000000134
+  },
+  "compare": {
+   "base_instr": 1709629912.0,
+   "cand_instr": 1645243152.0,
+   "instr_change": -0.03766122688194984,
+   "base_wall_ms": 106.9942565,
+   "cand_wall_ms": 99.90429900000001,
+   "wall_change": -0.06626484198242921,
+   "base_wall_p10_p90_ms": 1.2763679999999908
+  },
+  "vector": {
+   "base_instr": 1308713198.0,
+   "cand_instr": 1286572996.0,
+   "instr_change": -0.01691753551032804,
+   "base_wall_ms": 83.9576015,
+   "cand_wall_ms": 79.98982950000001,
+   "wall_change": -0.04725923476982585,
+   "base_wall_p10_p90_ms": 0.6828675000000004
+  },
+  "strings": {
+   "base_instr": 227725581.0,
+   "cand_instr": 226804981.0,
+   "instr_change": -0.004042584921542081,
+   "base_wall_ms": 19.1631125,
+   "cand_wall_ms": 18.618441,
+   "wall_change": -0.028422914075153516,
+   "base_wall_p10_p90_ms": 0.3010282999999987
+  },
+  "overwrite_inline": {
+   "base_instr": 1137223174.0,
+   "cand_instr": 1087683330.0,
+   "instr_change": -0.04356211263770815,
+   "base_wall_ms": 68.25216950000001,
+   "cand_wall_ms": 66.181967,
+   "wall_change": -0.03033167319318708,
+   "base_wall_p10_p90_ms": 0.3290017000000063
+  },
+  "overwrite_mixed": {
+   "base_instr": 746302334.0,
+   "cand_instr": 734162454.0,
+   "instr_change": -0.01626670512328854,
+   "base_wall_ms": 50.445598000000004,
+   "cand_wall_ms": 47.954691999999994,
+   "wall_change": -0.04937806466284744,
+   "base_wall_p10_p90_ms": 0.40280529999999715
+  },
+  "overwrite_deep": {
+   "base_instr": 254491794.0,
+   "cand_instr": 254751963.0,
+   "instr_change": 0.0010223080120217443,
+   "base_wall_ms": 22.205869999999997,
+   "cand_wall_ms": 21.143584,
+   "wall_change": -0.04783807164501985,
+   "base_wall_p10_p90_ms": 0.8194538000000016
+  },
+  "overwrite_alias": {
+   "base_instr": 30342964.0,
+   "cand_instr": 30803107.0,
+   "instr_change": 0.015164734730595208,
+   "base_wall_ms": 4.344823,
+   "cand_wall_ms": 4.388974,
+   "wall_change": 0.010161748821528649,
+   "base_wall_p10_p90_ms": 0.18259390000000053
+  }
+ },
+ "regressions": [
+  [
+   "empty",
+   "instructions",
+   0.017960653491255307
+  ],
+  [
+   "answer",
+   "instructions",
+   0.01539104640061617
+  ],
+  [
+   "overwrite_alias",
+   "instructions",
+   0.015164734730595208
+  ]
+ ],
+ "disagreements": [],
+ "gate_wins": [
+  "while",
+  "fib"
+ ]
+}

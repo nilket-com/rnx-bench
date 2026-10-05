@@ -1,0 +1,148 @@
+correctness: all 35 identical (after the two known normalizations); fixtures match oracles
+base reproduction: {'numeric': 1.0, 'fib': 1.0}
+pmu done
+wall done
+{
+ "decision": "STOP",
+ "rows": {
+  "empty": {
+   "base_instr": 28398618.0,
+   "cand_instr": 28908742.0,
+   "instr_change": 0.017962986790413638,
+   "base_wall_ms": 3.946733,
+   "cand_wall_ms": 3.9813545,
+   "wall_change": 0.008772192089001152,
+   "base_wall_p10_p90_ms": 0.12961129999999965
+  },
+  "answer": {
+   "base_instr": 29915798.0,
+   "cand_instr": 30375336.0,
+   "instr_change": 0.015361047697941999,
+   "base_wall_ms": 4.2518905,
+   "cand_wall_ms": 4.3037975,
+   "wall_change": 0.01220798136734702,
+   "base_wall_p10_p90_ms": 0.10766780000000065
+  },
+  "numeric": {
+   "base_instr": 1757097355.0,
+   "cand_instr": 1709557664.0,
+   "instr_change": -0.027055809323667246,
+   "base_wall_ms": 125.17818,
+   "cand_wall_ms": 110.7864955,
+   "wall_change": -0.11496959374229598,
+   "base_wall_p10_p90_ms": 1.6033676999999926
+  },
+  "while": {
+   "base_instr": 1136115463.0,
+   "cand_instr": 1084575355.0,
+   "instr_change": -0.045365202462700704,
+   "base_wall_ms": 69.467084,
+   "cand_wall_ms": 65.223668,
+   "wall_change": -0.06108527601360081,
+   "base_wall_p10_p90_ms": 0.44472749999999905
+  },
+  "fib": {
+   "base_instr": 831057772.0,
+   "cand_instr": 802915202.0,
+   "instr_change": -0.03386355431376675,
+   "base_wall_ms": 53.3017255,
+   "cand_wall_ms": 50.136264999999995,
+   "wall_change": -0.0593875802388425,
+   "base_wall_p10_p90_ms": 0.5913639000000117
+  },
+  "calls": {
+   "base_instr": 1773173213.0,
+   "cand_instr": 1720633238.0,
+   "instr_change": -0.02963048088861464,
+   "base_wall_ms": 94.85516799999999,
+   "cand_wall_ms": 90.773908,
+   "wall_change": -0.04302622710024595,
+   "base_wall_p10_p90_ms": 1.553373999999991
+  },
+  "compare": {
+   "base_instr": 1709629848.0,
+   "cand_instr": 1645243137.0,
+   "instr_change": -0.0376611996306232,
+   "base_wall_ms": 107.057094,
+   "cand_wall_ms": 99.8498525,
+   "wall_change": -0.06732147521209575,
+   "base_wall_p10_p90_ms": 1.107913900000014
+  },
+  "vector": {
+   "base_instr": 1308713348.0,
+   "cand_instr": 1286572901.0,
+   "instr_change": -0.016917720778072187,
+   "base_wall_ms": 84.0332925,
+   "cand_wall_ms": 79.9856075,
+   "wall_change": -0.04816763546424174,
+   "base_wall_p10_p90_ms": 2.2145564000000064
+  },
+  "strings": {
+   "base_instr": 227725975.0,
+   "cand_instr": 226805193.0,
+   "instr_change": -0.004043377133416626,
+   "base_wall_ms": 19.106652,
+   "cand_wall_ms": 18.567716,
+   "wall_change": -0.028206720884433323,
+   "base_wall_p10_p90_ms": 0.26261729999999517
+  },
+  "overwrite_inline": {
+   "base_instr": 1137223423.0,
+   "cand_instr": 1087683166.0,
+   "instr_change": -0.04356246626481941,
+   "base_wall_ms": 68.3058615,
+   "cand_wall_ms": 66.2364985,
+   "wall_change": -0.03029554059573658,
+   "base_wall_p10_p90_ms": 0.6130970999999903
+  },
+  "overwrite_mixed": {
+   "base_instr": 746302316.0,
+   "cand_instr": 734162026.0,
+   "instr_change": -0.016267254890845018,
+   "base_wall_ms": 50.460888499999996,
+   "cand_wall_ms": 47.9946725,
+   "wall_change": -0.04887381243792399,
+   "base_wall_p10_p90_ms": 0.7323066000000082
+  },
+  "overwrite_deep": {
+   "base_instr": 254491437.0,
+   "cand_instr": 254752043.0,
+   "instr_change": 0.0010240265962269124,
+   "base_wall_ms": 22.241947000000003,
+   "cand_wall_ms": 21.206055,
+   "wall_change": -0.04657380039616155,
+   "base_wall_p10_p90_ms": 0.7954615000000018
+  },
+  "overwrite_alias": {
+   "base_instr": 30343090.0,
+   "cand_instr": 30803012.0,
+   "instr_change": 0.015157388387273762,
+   "base_wall_ms": 4.3542925,
+   "cand_wall_ms": 4.384562,
+   "wall_change": 0.006951645990709299,
+   "base_wall_p10_p90_ms": 0.20025780000000015
+  }
+ },
+ "regressions": [
+  [
+   "empty",
+   "instructions",
+   0.017962986790413638
+  ],
+  [
+   "answer",
+   "instructions",
+   0.015361047697941999
+  ],
+  [
+   "overwrite_alias",
+   "instructions",
+   0.015157388387273762
+  ]
+ ],
+ "disagreements": [],
+ "gate_wins": [
+  "while",
+  "fib"
+ ]
+}

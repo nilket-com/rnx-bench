@@ -1,0 +1,1912 @@
+{
+ "binaries": {
+  "base": "b32fda805c3891430a71c784670a54343b1de6c95991ab197d8c51761d6d9a03",
+  "cand": "c1e069405050cfd57f62ed679ffa58e35a05c53dcb8ce0e9f614f8b81bca1ddf"
+ },
+ "correctness": {
+  "fixtures/answer": {
+   "same": true,
+   "raw_identical": true,
+   "base": [
+    0,
+    "42\n",
+    ""
+   ],
+   "cand": [
+    0,
+    "42\n",
+    ""
+   ]
+  },
+  "fixtures/async": {
+   "same": true,
+   "raw_identical": true,
+   "base": [
+    0,
+    "42\n",
+    ""
+   ],
+   "cand": [
+    0,
+    "42\n",
+    ""
+   ]
+  },
+  "fixtures/budget": {
+   "same": true,
+   "raw_identical": true,
+   "base": [
+    1,
+    "",
+    "vm: VmError { error: VmErrorAt { kind: Halted { halt: Limited } }, chain: [], stacktrace: [] }\n"
+   ],
+   "cand": [
+    1,
+    "",
+    "vm: VmError { error: VmErrorAt { kind: Halted { halt: Limited } }, chain: [], stacktrace: [] }\n"
+   ]
+  },
+  "fixtures/closure": {
+   "same": true,
+   "raw_identical": true,
+   "base": [
+    0,
+    "42\n",
+    ""
+   ],
+   "cand": [
+    0,
+    "42\n",
+    ""
+   ]
+  },
+  "fixtures/divide-zero": {
+   "same": true,
+   "raw_identical": true,
+   "base": [
+    1,
+    "",
+    "vm: VmError { error: VmErrorAt { kind: DivideByZero }, chain: [], stacktrace: [VmErrorLocation { unit: Unit { logic: Logic { storage: ArrayUnit { instructions: [Allocate { size: 5 }, Store { value: Integer(0), out: keep(1) }, Store { value: Integer(1), out: keep(4) }, Arithmetic { op: Div, a: 4, b: 1, out: keep(3) }, StringConcat { addr: 3, len: 1, size_hint: 0, out: keep(2) }, Call { hash: 0xc8b50f980c2726a3, addr: 2, args: 1, out: discard }, ReturnUnit] }, functions: {0x1c69d5964e831fc1: Offset { offset: 0, call: Immediate, args: 1, captures: None }}, static_strings: [], static_bytes: [], static_object_keys: [], drop_sets: [], rtti: {}, constants: {0xfd33a2d595b4aa41: \"main\"}, globals: [], globals_rev: {} }, debug: Some(DebugInfo { instructions: {5: DebugInst { source_id: 0, span: 30:48, comment: None, labels: [] }, 4: DebugInst { source_id: 0, span: 0:47, comment: None, labels: [] }, 6: DebugInst { source_id: 0, span: 0:51, comment: None, labels: [] }, 3: DebugInst { source_id: 0, span: 44:47, comment: None, labels: [] }, 2: DebugInst { source_id: 0, span: 44:45, comment: None, labels: [] }, 1: DebugInst { source_id: 0, span: 27:28, comment: None, labels: [] }}, functions: {0x1c69d5964e831fc1: DebugSignature { path: main, args: Named([\"_args\"]) }}, functions_rev: {0: 0x1c69d5964e831fc1}, hash_to_ident: {}, globals: [] }) }, ip: 3, frames: [] }] }\n"
+   ],
+   "cand": [
+    1,
+    "",
+    "vm: VmError { error: VmErrorAt { kind: DivideByZero }, chain: [], stacktrace: [VmErrorLocation { unit: Unit { logic: Logic { storage: ArrayUnit { instructions: [Allocate { size: 5 }, Store { value: Integer(0), out: keep(1) }, Store { value: Integer(1), out: keep(4) }, Arithmetic { op: Div, a: 4, b: 1, out: keep(3) }, StringConcat { addr: 3, len: 1, size_hint: 0, out: keep(2) }, Call { hash: 0xc8b50f980c2726a3, addr: 2, args: 1, out: discard }, ReturnUnit] }, functions: {0x1c69d5964e831fc1: Offset { offset: 0, call: Immediate, args: 1, captures: None }}, static_strings: [], static_bytes: [], static_object_keys: [], drop_sets: [], rtti: {}, constants: {0xfd33a2d595b4aa41: \"main\"}, globals: [], globals_rev: {} }, debug: Some(DebugInfo { instructions: {5: DebugInst { source_id: 0, span: 30:48, comment: None, labels: [] }, 4: DebugInst { source_id: 0, span: 0:47, comment: None, labels: [] }, 6: DebugInst { source_id: 0, span: 0:51, comment: None, labels: [] }, 3: DebugInst { source_id: 0, span: 44:47, comment: None, labels: [] }, 2: DebugInst { source_id: 0, span: 44:45, comment: None, labels: [] }, 1: DebugInst { source_id: 0, span: 27:28, comment: None, labels: [] }}, functions: {0x1c69d5964e831fc1: DebugSignature { path: main, args: Named([\"_args\"]) }}, functions_rev: {0: 0x1c69d5964e831fc1}, hash_to_ident: {}, globals: [] }) }, ip: 3, frames: [] }] }\n"
+   ]
+  },
+  "fixtures/empty": {
+   "same": true,
+   "raw_identical": true,
+   "base": [
+    0,
+    "",
+    ""
+   ],
+   "cand": [
+    0,
+    "",
+    ""
+   ]
+  },
+  "fixtures/expression-100": {
+   "same": true,
+   "raw_identical": true,
+   "base": [
+    0,
+    "1\n",
+    ""
+   ],
+   "cand": [
+    0,
+    "1\n",
+    ""
+   ]
+  },
+  "fixtures/expression-1000": {
+   "same": true,
+   "raw_identical": true,
+   "base": [
+    0,
+    "1\n",
+    ""
+   ],
+   "cand": [
+    0,
+    "1\n",
+    ""
+   ]
+  },
+  "fixtures/expression-10000": {
+   "same": true,
+   "raw_identical": true,
+   "base": [
+    0,
+    "1\n",
+    ""
+   ],
+   "cand": [
+    0,
+    "1\n",
+    ""
+   ]
+  },
+  "fixtures/fib": {
+   "same": true,
+   "raw_identical": true,
+   "base": [
+    0,
+    "196418\n",
+    ""
+   ],
+   "cand": [
+    0,
+    "196418\n",
+    ""
+   ]
+  },
+  "fixtures/floats": {
+   "same": true,
+   "raw_identical": true,
+   "base": [
+    0,
+    "0.75\n3.0\n",
+    ""
+   ],
+   "cand": [
+    0,
+    "0.75\n3.0\n",
+    ""
+   ]
+  },
+  "fixtures/int-boundaries": {
+   "same": true,
+   "raw_identical": true,
+   "base": [
+    0,
+    "9223372036854775807\n-9223372036854775808\n",
+    ""
+   ],
+   "cand": [
+    0,
+    "9223372036854775807\n-9223372036854775808\n",
+    ""
+   ]
+  },
+  "fixtures/iterator-trait": {
+   "same": true,
+   "raw_identical": true,
+   "base": [
+    0,
+    "12\n",
+    ""
+   ],
+   "cand": [
+    0,
+    "12\n",
+    ""
+   ]
+  },
+  "fixtures/literal-100": {
+   "same": true,
+   "raw_identical": true,
+   "base": [
+    0,
+    "1\n",
+    ""
+   ],
+   "cand": [
+    0,
+    "1\n",
+    ""
+   ]
+  },
+  "fixtures/literal-1000": {
+   "same": true,
+   "raw_identical": true,
+   "base": [
+    0,
+    "1\n",
+    ""
+   ],
+   "cand": [
+    0,
+    "1\n",
+    ""
+   ]
+  },
+  "fixtures/literal-10000": {
+   "same": true,
+   "raw_identical": true,
+   "base": [
+    0,
+    "1\n",
+    ""
+   ],
+   "cand": [
+    0,
+    "1\n",
+    ""
+   ]
+  },
+  "fixtures/numeric": {
+   "same": true,
+   "raw_identical": true,
+   "base": [
+    0,
+    "3\n",
+    ""
+   ],
+   "cand": [
+    0,
+    "3\n",
+    ""
+   ]
+  },
+  "fixtures/object-alias": {
+   "same": true,
+   "raw_identical": true,
+   "base": [
+    0,
+    "2\n",
+    ""
+   ],
+   "cand": [
+    0,
+    "2\n",
+    ""
+   ]
+  },
+  "fixtures/overflow": {
+   "same": true,
+   "raw_identical": true,
+   "base": [
+    1,
+    "",
+    "vm: VmError { error: VmErrorAt { kind: Overflow }, chain: [], stacktrace: [VmErrorLocation { unit: Unit { logic: Logic { storage: ArrayUnit { instructions: [Allocate { size: 5 }, Store { value: Integer(9223372036854775807), out: keep(1) }, Store { value: Integer(1), out: keep(4) }, Arithmetic { op: Add, a: 1, b: 4, out: keep(3) }, StringConcat { addr: 3, len: 1, size_hint: 0, out: keep(2) }, Call { hash: 0xc8b50f980c2726a3, addr: 2, args: 1, out: discard }, ReturnUnit] }, functions: {0x1c69d5964e831fc1: Offset { offset: 0, call: Immediate, args: 1, captures: None }}, static_strings: [], static_bytes: [], static_object_keys: [], drop_sets: [], rtti: {}, constants: {0xfd33a2d595b4aa41: \"main\"}, globals: [], globals_rev: {} }, debug: Some(DebugInfo { instructions: {5: DebugInst { source_id: 0, span: 48:66, comment: None, labels: [] }, 4: DebugInst { source_id: 0, span: 0:65, comment: None, labels: [] }, 6: DebugInst { source_id: 0, span: 0:69, comment: None, labels: [] }, 3: DebugInst { source_id: 0, span: 62:65, comment: None, labels: [] }, 2: DebugInst { source_id: 0, span: 64:65, comment: None, labels: [] }, 1: DebugInst { source_id: 0, span: 27:46, comment: None, labels: [] }}, functions: {0x1c69d5964e831fc1: DebugSignature { path: main, args: Named([\"_args\"]) }}, functions_rev: {0: 0x1c69d5964e831fc1}, hash_to_ident: {}, globals: [] }) }, ip: 3, frames: [] }] }\n"
+   ],
+   "cand": [
+    1,
+    "",
+    "vm: VmError { error: VmErrorAt { kind: Overflow }, chain: [], stacktrace: [VmErrorLocation { unit: Unit { logic: Logic { storage: ArrayUnit { instructions: [Allocate { size: 5 }, Store { value: Integer(9223372036854775807), out: keep(1) }, Store { value: Integer(1), out: keep(4) }, Arithmetic { op: Add, a: 1, b: 4, out: keep(3) }, StringConcat { addr: 3, len: 1, size_hint: 0, out: keep(2) }, Call { hash: 0xc8b50f980c2726a3, addr: 2, args: 1, out: discard }, ReturnUnit] }, functions: {0x1c69d5964e831fc1: Offset { offset: 0, call: Immediate, args: 1, captures: None }}, static_strings: [], static_bytes: [], static_object_keys: [], drop_sets: [], rtti: {}, constants: {0xfd33a2d595b4aa41: \"main\"}, globals: [], globals_rev: {} }, debug: Some(DebugInfo { instructions: {5: DebugInst { source_id: 0, span: 48:66, comment: None, labels: [] }, 4: DebugInst { source_id: 0, span: 0:65, comment: None, labels: [] }, 6: DebugInst { source_id: 0, span: 0:69, comment: None, labels: [] }, 3: DebugInst { source_id: 0, span: 62:65, comment: None, labels: [] }, 2: DebugInst { source_id: 0, span: 64:65, comment: None, labels: [] }, 1: DebugInst { source_id: 0, span: 27:46, comment: None, labels: [] }}, functions: {0x1c69d5964e831fc1: DebugSignature { path: main, args: Named([\"_args\"]) }}, functions_rev: {0: 0x1c69d5964e831fc1}, hash_to_ident: {}, globals: [] }) }, ip: 3, frames: [] }] }\n"
+   ]
+  },
+  "fixtures/recursion-10000": {
+   "same": true,
+   "raw_identical": true,
+   "base": [
+    0,
+    "10000\n",
+    ""
+   ],
+   "cand": [
+    0,
+    "10000\n",
+    ""
+   ]
+  },
+  "fixtures/recursion-100000": {
+   "same": true,
+   "raw_identical": true,
+   "base": [
+    0,
+    "100000\n",
+    ""
+   ],
+   "cand": [
+    0,
+    "100000\n",
+    ""
+   ]
+  },
+  "fixtures/recursion-1000000": {
+   "same": true,
+   "raw_identical": true,
+   "base": [
+    0,
+    "1000000\n",
+    ""
+   ],
+   "cand": [
+    0,
+    "1000000\n",
+    ""
+   ]
+  },
+  "fixtures/strings": {
+   "same": true,
+   "raw_identical": true,
+   "base": [
+    0,
+    "208893\nitem:1|item:2|item:\nitem:19999|item:20000\n",
+    ""
+   ],
+   "cand": [
+    0,
+    "208893\nitem:1|item:2|item:\nitem:19999|item:20000\n",
+    ""
+   ]
+  },
+  "fixtures/sum-untyped": {
+   "same": true,
+   "raw_identical": false,
+   "base": [
+    1,
+    "",
+    "vm: VmError { error: VmErrorAt { kind: MissingInstanceFunction { hash: 0xa001a74c0870db97, instance: Any(AnyTypeInfo { full_name: 0x61e1b96e76d0, hash: 0xf42162e28d142851 }) } }, chain: [], stacktrace: [VmErrorLocation { unit: Unit { logic: Logic { storage: ArrayUnit { instructions: [Allocate { size: 8 }, Store { value: Integer(1), out: keep(5) }, Store { value: Integer(2), out: keep(6) }, Store { value: Integer(3), out: keep(7) }, Vec { addr: 5, count: 3, out: keep(4) }, CallAssociated { hash: 0xbb7bdba9d3036269, addr: 4, args: 1, out: keep(3) }, CallAssociated { hash: 0xa87ba55489100c4, addr: 3, args: 1, out: keep(2) }, StringConcat { addr: 2, len: 1, size_hint: 0, out: keep(1) }, Call { hash: 0xc8b50f980c2726a3, addr: 1, args: 1, out: discard }, ReturnUnit] }, functions: {0x1c69d5964e831fc1: Offset { offset: 0, call: Immediate, args: 1, captures: None }}, static_strings: [], static_bytes: [], static_object_keys: [], drop_sets: [], rtti: {}, constants: {0xfd33a2d595b4aa41: \"main\"}, globals: [], globals_rev: {} }, debug: Some(DebugInfo { instructions: {6: DebugInst { source_id: 0, span: 35:55, comment: None, labels: [] }, 7: DebugInst { source_id: 0, span: 0:55, comment: None, labels: [] }, 3: DebugInst { source_id: 0, span: 40:41, comment: None, labels: [] }, 8: DebugInst { source_id: 0, span: 21:56, comment: None, labels: [] }, 9: DebugInst { source_id: 0, span: 0:59, comment: None, labels: [] }, 5: DebugInst { source_id: 0, span: 35:49, comment: None, labels: [] }, 4: DebugInst { source_id: 0, span: 35:42, comment: None, labels: [] }, 2: DebugInst { source_id: 0, span: 38:39, comment: None, labels: [] }, 1: DebugInst { source_id: 0, span: 36:37, comment: None, labels: [] }}, functions: {0x1c69d5964e831fc1: DebugSignature { path: main, args: Named([\"_args\"]) }}, functions_rev: {0: 0x1c69d5964e831fc1}, hash_to_ident: {0xa87ba55489100c4: \"sum\", 0xbb7bdba9d3036269: \"iter\"}, globals: [] }) }, ip: 6, frames: [] }] }\n"
+   ],
+   "cand": [
+    1,
+    "",
+    "vm: VmError { error: VmErrorAt { kind: MissingInstanceFunction { hash: 0xa001a74c0870db97, instance: Any(AnyTypeInfo { full_name: 0x5ae377dc78d0, hash: 0xf42162e28d142851 }) } }, chain: [], stacktrace: [VmErrorLocation { unit: Unit { logic: Logic { storage: ArrayUnit { instructions: [Allocate { size: 8 }, Store { value: Integer(1), out: keep(5) }, Store { value: Integer(2), out: keep(6) }, Store { value: Integer(3), out: keep(7) }, Vec { addr: 5, count: 3, out: keep(4) }, CallAssociated { hash: 0xbb7bdba9d3036269, addr: 4, args: 1, out: keep(3) }, CallAssociated { hash: 0xa87ba55489100c4, addr: 3, args: 1, out: keep(2) }, StringConcat { addr: 2, len: 1, size_hint: 0, out: keep(1) }, Call { hash: 0xc8b50f980c2726a3, addr: 1, args: 1, out: discard }, ReturnUnit] }, functions: {0x1c69d5964e831fc1: Offset { offset: 0, call: Immediate, args: 1, captures: None }}, static_strings: [], static_bytes: [], static_object_keys: [], drop_sets: [], rtti: {}, constants: {0xfd33a2d595b4aa41: \"main\"}, globals: [], globals_rev: {} }, debug: Some(DebugInfo { instructions: {6: DebugInst { source_id: 0, span: 35:55, comment: None, labels: [] }, 7: DebugInst { source_id: 0, span: 0:55, comment: None, labels: [] }, 3: DebugInst { source_id: 0, span: 40:41, comment: None, labels: [] }, 8: DebugInst { source_id: 0, span: 21:56, comment: None, labels: [] }, 9: DebugInst { source_id: 0, span: 0:59, comment: None, labels: [] }, 5: DebugInst { source_id: 0, span: 35:49, comment: None, labels: [] }, 4: DebugInst { source_id: 0, span: 35:42, comment: None, labels: [] }, 2: DebugInst { source_id: 0, span: 38:39, comment: None, labels: [] }, 1: DebugInst { source_id: 0, span: 36:37, comment: None, labels: [] }}, functions: {0x1c69d5964e831fc1: DebugSignature { path: main, args: Named([\"_args\"]) }}, functions_rev: {0: 0x1c69d5964e831fc1}, hash_to_ident: {0xa87ba55489100c4: \"sum\", 0xbb7bdba9d3036269: \"iter\"}, globals: [] }) }, ip: 6, frames: [] }] }\n"
+   ]
+  },
+  "fixtures/undefined": {
+   "same": true,
+   "raw_identical": true,
+   "base": [
+    1,
+    "",
+    "compile: BuildError { kind: Default }; diagnostics=Diagnostics { diagnostics: [Fatal(FatalDiagnostic { source_id: 0, kind: CompileError(Error { span: 21:27, kind: MissingLocal { name: \"absent\" } }) })], mode: All, has_error: true, has_warning: false }\n"
+   ],
+   "cand": [
+    1,
+    "",
+    "compile: BuildError { kind: Default }; diagnostics=Diagnostics { diagnostics: [Fatal(FatalDiagnostic { source_id: 0, kind: CompileError(Error { span: 21:27, kind: MissingLocal { name: \"absent\" } }) })], mode: All, has_error: true, has_warning: false }\n"
+   ]
+  },
+  "fixtures/unicode": {
+   "same": true,
+   "raw_identical": true,
+   "base": [
+    0,
+    "7\na\ud83e\udd80\u00e9\n",
+    ""
+   ],
+   "cand": [
+    0,
+    "7\na\ud83e\udd80\u00e9\n",
+    ""
+   ]
+  },
+  "fixtures/vec-alias": {
+   "same": true,
+   "raw_identical": true,
+   "base": [
+    0,
+    "2\n",
+    ""
+   ],
+   "cand": [
+    0,
+    "2\n",
+    ""
+   ]
+  },
+  "fixtures/calls": {
+   "same": true,
+   "raw_identical": true,
+   "base": [
+    0,
+    "1000000\n",
+    ""
+   ],
+   "cand": [
+    0,
+    "1000000\n",
+    ""
+   ]
+  },
+  "fixtures/compare": {
+   "same": true,
+   "raw_identical": true,
+   "base": [
+    0,
+    "461539\n",
+    ""
+   ],
+   "cand": [
+    0,
+    "461539\n",
+    ""
+   ]
+  },
+  "fixtures/overwrite_alias": {
+   "same": true,
+   "raw_identical": true,
+   "base": [
+    0,
+    "0 5 4 4\n",
+    ""
+   ],
+   "cand": [
+    0,
+    "0 5 4 4\n",
+    ""
+   ]
+  },
+  "fixtures/overwrite_deep": {
+   "same": true,
+   "raw_identical": true,
+   "base": [
+    0,
+    "1 2 1\n",
+    ""
+   ],
+   "cand": [
+    0,
+    "1 2 1\n",
+    ""
+   ]
+  },
+  "fixtures/overwrite_inline": {
+   "same": true,
+   "raw_identical": true,
+   "base": [
+    0,
+    "2999997\n",
+    ""
+   ],
+   "cand": [
+    0,
+    "2999997\n",
+    ""
+   ]
+  },
+  "fixtures/overwrite_mixed": {
+   "same": true,
+   "raw_identical": true,
+   "base": [
+    0,
+    "89999700000\n",
+    ""
+   ],
+   "cand": [
+    0,
+    "89999700000\n",
+    ""
+   ]
+  },
+  "fixtures/vector": {
+   "same": true,
+   "raw_identical": true,
+   "base": [
+    0,
+    "47996850\n",
+    ""
+   ],
+   "cand": [
+    0,
+    "47996850\n",
+    ""
+   ]
+  },
+  "fixtures/while": {
+   "same": true,
+   "raw_identical": true,
+   "base": [
+    0,
+    "3\n",
+    ""
+   ],
+   "cand": [
+    0,
+    "3\n",
+    ""
+   ]
+  }
+ },
+ "base_reproduction": {
+  "numeric": {
+   "median": 1757097589.0,
+   "ref": 1757100000.0,
+   "ratio": 0.9999986278527119
+  },
+  "fib": {
+   "median": 831058099.0,
+   "ref": 831060000.0,
+   "ratio": 0.9999977125598634
+  }
+ },
+ "pmu": {
+  "base-empty": {
+   "instructions": [
+    28398618.0,
+    28398496.0,
+    28399249.0,
+    28398596.0,
+    28399070.0
+   ],
+   "cycles": [
+    12746241.0,
+    12884994.0,
+    12641155.0,
+    14452805.0,
+    12499320.0
+   ]
+  },
+  "base-answer": {
+   "instructions": [
+    29915968.0,
+    29915506.0,
+    29915798.0,
+    29915500.0,
+    29915876.0
+   ],
+   "cycles": [
+    13713297.0,
+    13605281.0,
+    13640904.0,
+    13758697.0,
+    13774809.0
+   ]
+  },
+  "base-numeric": {
+   "instructions": [
+    1757097093.0,
+    1757098644.0,
+    1757098274.0,
+    1757097099.0,
+    1757097355.0
+   ],
+   "cycles": [
+    494352200.0,
+    494585766.0,
+    499945555.0,
+    494445164.0,
+    495490198.0
+   ]
+  },
+  "base-while": {
+   "instructions": [
+    1136115463.0,
+    1136115737.0,
+    1136115079.0,
+    1136115232.0,
+    1136115701.0
+   ],
+   "cycles": [
+    281576332.0,
+    272323615.0,
+    271922022.0,
+    272159759.0,
+    272277510.0
+   ]
+  },
+  "base-fib": {
+   "instructions": [
+    831058136.0,
+    831057495.0,
+    831057311.0,
+    831058325.0,
+    831057772.0
+   ],
+   "cycles": [
+    208941766.0,
+    209411610.0,
+    209237706.0,
+    208294652.0,
+    210044107.0
+   ]
+  },
+  "base-calls": {
+   "instructions": [
+    1773173794.0,
+    1773172695.0,
+    1773172486.0,
+    1773173213.0,
+    1773173370.0
+   ],
+   "cycles": [
+    374021085.0,
+    374031484.0,
+    373879347.0,
+    374104452.0,
+    377241025.0
+   ]
+  },
+  "base-compare": {
+   "instructions": [
+    1709629913.0,
+    1709629848.0,
+    1709629037.0,
+    1709629829.0,
+    1709630334.0
+   ],
+   "cycles": [
+    423687280.0,
+    424034971.0,
+    423922112.0,
+    422764324.0,
+    422899518.0
+   ]
+  },
+  "base-vector": {
+   "instructions": [
+    1308713348.0,
+    1308712942.0,
+    1308713899.0,
+    1308713318.0,
+    1308713627.0
+   ],
+   "cycles": [
+    329206465.0,
+    327992385.0,
+    328162336.0,
+    328193228.0,
+    328777224.0
+   ]
+  },
+  "base-strings": {
+   "instructions": [
+    227726117.0,
+    227725671.0,
+    227726223.0,
+    227725975.0,
+    227725688.0
+   ],
+   "cycles": [
+    70768398.0,
+    70438973.0,
+    70332408.0,
+    71342209.0,
+    70587167.0
+   ]
+  },
+  "base-overwrite_inline": {
+   "instructions": [
+    1137223400.0,
+    1137224084.0,
+    1137223685.0,
+    1137223323.0,
+    1137223423.0
+   ],
+   "cycles": [
+    268923513.0,
+    268210848.0,
+    268396968.0,
+    268031843.0,
+    268715325.0
+   ]
+  },
+  "base-overwrite_mixed": {
+   "instructions": [
+    746302378.0,
+    746301581.0,
+    746302537.0,
+    746302198.0,
+    746302316.0
+   ],
+   "cycles": [
+    197636188.0,
+    196668973.0,
+    197221549.0,
+    197198112.0,
+    197596040.0
+   ]
+  },
+  "base-overwrite_deep": {
+   "instructions": [
+    254491218.0,
+    254491774.0,
+    254491760.0,
+    254491424.0,
+    254491437.0
+   ],
+   "cycles": [
+    73570709.0,
+    73216544.0,
+    72899312.0,
+    73039232.0,
+    73190274.0
+   ]
+  },
+  "base-overwrite_alias": {
+   "instructions": [
+    30343461.0,
+    30343017.0,
+    30342619.0,
+    30344012.0,
+    30343090.0
+   ],
+   "cycles": [
+    14077468.0,
+    13987592.0,
+    14083918.0,
+    14117678.0,
+    13987359.0
+   ]
+  },
+  "cand-empty": {
+   "instructions": [
+    28909215.0,
+    28908804.0,
+    28908374.0,
+    28908742.0,
+    28908337.0
+   ],
+   "cycles": [
+    12928874.0,
+    12670399.0,
+    12778833.0,
+    12727950.0,
+    12804955.0
+   ]
+  },
+  "cand-answer": {
+   "instructions": [
+    30375336.0,
+    30374923.0,
+    30374953.0,
+    30375587.0,
+    30375493.0
+   ],
+   "cycles": [
+    13748596.0,
+    13699894.0,
+    13737310.0,
+    13758418.0,
+    13895562.0
+   ]
+  },
+  "cand-numeric": {
+   "instructions": [
+    1709557115.0,
+    1709557870.0,
+    1709557664.0,
+    1709556947.0,
+    1709558366.0
+   ],
+   "cycles": [
+    437997047.0,
+    437344299.0,
+    437799212.0,
+    437012648.0,
+    436966543.0
+   ]
+  },
+  "cand-while": {
+   "instructions": [
+    1084575640.0,
+    1084575010.0,
+    1084575355.0,
+    1084575599.0,
+    1084575170.0
+   ],
+   "cycles": [
+    255173503.0,
+    255255548.0,
+    255218928.0,
+    255243731.0,
+    255400928.0
+   ]
+  },
+  "cand-fib": {
+   "instructions": [
+    802915582.0,
+    802914862.0,
+    802915284.0,
+    802914549.0,
+    802915202.0
+   ],
+   "cycles": [
+    195778427.0,
+    196189632.0,
+    195307899.0,
+    195823956.0,
+    200400871.0
+   ]
+  },
+  "cand-calls": {
+   "instructions": [
+    1720633732.0,
+    1720632770.0,
+    1720633279.0,
+    1720633238.0,
+    1720633199.0
+   ],
+   "cycles": [
+    358576510.0,
+    357425899.0,
+    362731101.0,
+    359394461.0,
+    359251693.0
+   ]
+  },
+  "cand-compare": {
+   "instructions": [
+    1645242889.0,
+    1645243279.0,
+    1645243137.0,
+    1645243689.0,
+    1645243043.0
+   ],
+   "cycles": [
+    392910685.0,
+    394812077.0,
+    393110233.0,
+    393580934.0,
+    393345044.0
+   ]
+  },
+  "cand-vector": {
+   "instructions": [
+    1286572799.0,
+    1286572901.0,
+    1286572761.0,
+    1286572984.0,
+    1286572956.0
+   ],
+   "cycles": [
+    312634120.0,
+    313410262.0,
+    313055322.0,
+    312506990.0,
+    313391661.0
+   ]
+  },
+  "cand-strings": {
+   "instructions": [
+    226805267.0,
+    226804538.0,
+    226805193.0,
+    226805297.0,
+    226804632.0
+   ],
+   "cycles": [
+    68487840.0,
+    68628934.0,
+    68441243.0,
+    68619431.0,
+    68353457.0
+   ]
+  },
+  "cand-overwrite_inline": {
+   "instructions": [
+    1087683249.0,
+    1087683105.0,
+    1087682772.0,
+    1087683166.0,
+    1087683573.0
+   ],
+   "cycles": [
+    259791968.0,
+    259499403.0,
+    259351526.0,
+    259988143.0,
+    259862582.0
+   ]
+  },
+  "cand-overwrite_mixed": {
+   "instructions": [
+    734161910.0,
+    734162374.0,
+    734162026.0,
+    734161595.0,
+    734162105.0
+   ],
+   "cycles": [
+    188554847.0,
+    188462717.0,
+    188225367.0,
+    187411842.0,
+    188259848.0
+   ]
+  },
+  "cand-overwrite_deep": {
+   "instructions": [
+    254752043.0,
+    254752232.0,
+    254751681.0,
+    254751642.0,
+    254752442.0
+   ],
+   "cycles": [
+    69030164.0,
+    70403570.0,
+    70003058.0,
+    69140971.0,
+    68784669.0
+   ]
+  },
+  "cand-overwrite_alias": {
+   "instructions": [
+    30803012.0,
+    30802931.0,
+    30803430.0,
+    30803412.0,
+    30802688.0
+   ],
+   "cycles": [
+    14101403.0,
+    14099115.0,
+    14176712.0,
+    14189340.0,
+    14209801.0
+   ]
+  }
+ },
+ "wall_ms": {
+  "base-empty": [
+   4.314053,
+   4.105288,
+   4.053855,
+   4.040837,
+   3.922692,
+   3.980279,
+   3.931285,
+   3.944901,
+   3.93267,
+   3.95919,
+   3.966106,
+   3.941607,
+   3.930566,
+   3.9243,
+   3.952762,
+   3.996445,
+   3.991856,
+   3.951705,
+   3.922791,
+   3.946831,
+   3.957782,
+   3.909213,
+   3.9437,
+   3.936794,
+   3.929308,
+   4.006452,
+   3.938813,
+   3.946635,
+   3.932764,
+   3.962581
+  ],
+  "base-answer": [
+   4.33766,
+   4.27886,
+   4.224557,
+   4.214768,
+   4.226315,
+   4.327474,
+   4.267662,
+   4.253186,
+   4.250507,
+   4.271343,
+   4.315843,
+   4.250595,
+   4.211492,
+   4.236165,
+   4.226237,
+   4.258299,
+   4.24108,
+   4.25998,
+   4.23149,
+   4.227683,
+   4.338413,
+   4.262892,
+   4.237694,
+   4.217986,
+   4.228243,
+   4.283508,
+   4.269549,
+   4.259189,
+   4.24876,
+   4.278404
+  ],
+  "base-numeric": [
+   126.650993,
+   125.193433,
+   125.33786,
+   125.260339,
+   126.85405,
+   125.045904,
+   125.059324,
+   125.60396,
+   124.992852,
+   125.162927,
+   125.380883,
+   125.021585,
+   125.146869,
+   125.435611,
+   125.240427,
+   124.740785,
+   125.281109,
+   126.109075,
+   125.41519,
+   124.926186,
+   131.526352,
+   125.094882,
+   125.134292,
+   125.543699,
+   125.032344,
+   124.998667,
+   125.480267,
+   125.123117,
+   125.110719,
+   125.067551
+  ],
+  "base-while": [
+   69.469919,
+   69.610192,
+   69.467271,
+   69.773104,
+   69.773597,
+   69.565128,
+   69.306506,
+   69.43742,
+   70.05234,
+   69.317415,
+   69.585548,
+   69.328042,
+   69.466897,
+   69.702189,
+   69.900409,
+   69.376855,
+   69.474822,
+   69.492024,
+   69.335824,
+   69.655545,
+   69.47405,
+   69.361619,
+   69.337811,
+   69.474586,
+   69.37759,
+   69.426419,
+   69.450088,
+   69.397122,
+   69.375104,
+   69.455119
+  ],
+  "base-fib": [
+   53.314939,
+   53.305092,
+   53.194201,
+   53.223667,
+   53.111183,
+   53.465446,
+   53.272408,
+   53.286668,
+   53.067636,
+   53.32245,
+   53.509284,
+   53.488923,
+   53.150661,
+   53.298359,
+   53.514338,
+   53.248338,
+   53.296702,
+   53.609734,
+   53.297762,
+   54.581316,
+   55.365441,
+   53.715031,
+   53.331385,
+   53.328828,
+   53.135641,
+   53.399104,
+   53.130727,
+   53.132415,
+   53.102944,
+   53.324705
+  ],
+  "base-calls": [
+   95.481611,
+   95.407159,
+   95.477701,
+   95.880627,
+   94.647277,
+   94.68918,
+   97.827082,
+   95.432435,
+   95.609366,
+   94.619517,
+   94.79266,
+   94.790726,
+   94.481072,
+   94.78087,
+   94.9157,
+   94.237304,
+   94.767936,
+   95.707677,
+   96.033085,
+   94.839752,
+   94.352825,
+   95.683154,
+   95.193233,
+   96.963812,
+   94.870584,
+   94.605072,
+   94.671417,
+   94.658056,
+   94.871106,
+   94.46262
+  ],
+  "base-compare": [
+   106.915799,
+   107.303395,
+   107.528335,
+   107.533378,
+   107.029375,
+   107.941152,
+   107.148087,
+   106.975278,
+   107.034343,
+   107.362024,
+   107.087199,
+   107.079845,
+   106.724572,
+   108.871953,
+   107.308619,
+   107.183702,
+   107.439384,
+   106.857397,
+   106.908902,
+   106.990322,
+   106.908179,
+   106.841858,
+   107.424164,
+   106.768793,
+   111.825937,
+   107.198403,
+   106.791602,
+   106.8864,
+   106.939235,
+   106.800189
+  ],
+  "base-vector": [
+   83.830056,
+   83.936434,
+   84.895449,
+   84.305682,
+   83.832337,
+   84.713429,
+   83.776117,
+   84.054479,
+   83.851164,
+   83.633996,
+   84.151192,
+   83.889881,
+   84.150327,
+   83.872083,
+   84.147076,
+   84.162949,
+   84.027281,
+   93.717919,
+   84.581858,
+   83.825856,
+   86.099016,
+   88.552317,
+   84.331871,
+   84.014631,
+   83.635306,
+   83.869257,
+   84.039304,
+   83.762768,
+   84.132493,
+   83.82905
+  ],
+  "base-strings": [
+   19.146628,
+   19.289042,
+   19.298174,
+   19.034243,
+   19.091388,
+   19.258013,
+   19.049952,
+   19.191236,
+   19.132156,
+   19.174462,
+   19.424954,
+   19.108311,
+   19.085914,
+   19.191177,
+   19.072514,
+   19.189981,
+   19.031782,
+   19.104993,
+   19.038248,
+   19.066625,
+   19.128289,
+   19.080539,
+   19.086242,
+   19.050261,
+   19.04636,
+   19.320173,
+   19.142395,
+   19.211105,
+   19.089515,
+   19.029001
+  ],
+  "base-overwrite_inline": [
+   68.298458,
+   68.87619,
+   68.325587,
+   68.891617,
+   68.18935,
+   68.450151,
+   68.25239,
+   68.511264,
+   68.312259,
+   68.310319,
+   68.574496,
+   68.403775,
+   68.231354,
+   68.299152,
+   68.163317,
+   68.208051,
+   68.314405,
+   68.320257,
+   68.362483,
+   68.296027,
+   68.083246,
+   68.801742,
+   68.129233,
+   68.216916,
+   68.295345,
+   68.476376,
+   68.301404,
+   68.230794,
+   68.206616,
+   68.344142
+  ],
+  "base-overwrite_mixed": [
+   50.373438,
+   50.344176,
+   50.211693,
+   50.4674,
+   50.241057,
+   50.827526,
+   50.594716,
+   51.062227,
+   50.411368,
+   50.298531,
+   50.534071,
+   50.563788,
+   50.403047,
+   50.354378,
+   52.841433,
+   51.016876,
+   50.364915,
+   50.264211,
+   50.652426,
+   50.399738,
+   50.715177,
+   50.278445,
+   50.43935,
+   50.699832,
+   50.544306,
+   50.550538,
+   50.569364,
+   50.411853,
+   50.454377,
+   50.576007
+  ],
+  "base-overwrite_deep": [
+   22.776705,
+   22.386073,
+   22.153097,
+   22.242839,
+   22.138151,
+   22.895097,
+   22.507358,
+   22.241959,
+   22.454572,
+   22.19557,
+   22.306935,
+   22.056227,
+   22.235333,
+   22.019171,
+   22.232364,
+   22.853214,
+   22.208728,
+   22.203588,
+   22.071622,
+   22.339271,
+   22.973659,
+   22.241935,
+   22.405807,
+   21.929427,
+   22.379927,
+   22.359348,
+   22.049421,
+   22.058246,
+   22.214418,
+   22.271802
+  ],
+  "base-overwrite_alias": [
+   4.453227,
+   4.322072,
+   4.341231,
+   4.366562,
+   4.345664,
+   4.40743,
+   4.373048,
+   4.361893,
+   4.331105,
+   4.347982,
+   4.530113,
+   4.370389,
+   4.384335,
+   4.531145,
+   4.328058,
+   4.360603,
+   4.312387,
+   4.335385,
+   4.332253,
+   4.344522,
+   4.586592,
+   4.403104,
+   4.323018,
+   4.434373,
+   4.334619,
+   4.393078,
+   4.416732,
+   4.345297,
+   4.321982,
+   4.347745
+  ],
+  "cand-empty": [
+   4.09245,
+   3.99728,
+   3.981384,
+   4.002912,
+   3.980209,
+   3.977459,
+   3.987165,
+   3.974973,
+   3.96536,
+   3.973314,
+   4.021743,
+   3.98126,
+   3.994932,
+   3.974183,
+   3.991592,
+   4.032556,
+   3.999529,
+   3.982356,
+   3.985654,
+   3.996157,
+   4.033915,
+   3.966398,
+   3.969123,
+   3.981325,
+   3.974778,
+   3.977217,
+   3.980027,
+   3.998005,
+   3.979719,
+   3.971712
+  ],
+  "cand-answer": [
+   4.350146,
+   4.363141,
+   4.317237,
+   4.275575,
+   4.254242,
+   4.271403,
+   4.254662,
+   4.282618,
+   4.302513,
+   4.333267,
+   4.311308,
+   4.271956,
+   4.30049,
+   4.317155,
+   4.310858,
+   4.417852,
+   4.324467,
+   4.310386,
+   4.275629,
+   4.271013,
+   4.357028,
+   4.327426,
+   4.340496,
+   4.308667,
+   4.297805,
+   4.26621,
+   4.303541,
+   4.304054,
+   4.270887,
+   4.301779
+  ],
+  "cand-numeric": [
+   111.102734,
+   110.759771,
+   110.484009,
+   110.447635,
+   110.904378,
+   112.812174,
+   111.130452,
+   110.658251,
+   111.259201,
+   111.03438,
+   111.561181,
+   110.499372,
+   113.89465,
+   110.662006,
+   110.690771,
+   110.81322,
+   110.611901,
+   111.198942,
+   110.467157,
+   110.901406,
+   111.341502,
+   110.547288,
+   111.166937,
+   111.202173,
+   110.618847,
+   116.494175,
+   110.587498,
+   110.505943,
+   110.380485,
+   110.492539
+  ],
+  "cand-while": [
+   65.329631,
+   65.441277,
+   65.221889,
+   65.250176,
+   65.268006,
+   65.731637,
+   65.241437,
+   65.219178,
+   65.308093,
+   65.08944,
+   65.075412,
+   65.225447,
+   67.381698,
+   66.043667,
+   65.18717,
+   65.153168,
+   65.451483,
+   65.654293,
+   65.192108,
+   65.099617,
+   65.261514,
+   65.325785,
+   65.061163,
+   65.119033,
+   65.889536,
+   65.063595,
+   64.959496,
+   65.172374,
+   65.141491,
+   64.972803
+  ],
+  "cand-fib": [
+   50.375744,
+   50.183474,
+   50.061353,
+   50.027901,
+   52.606534,
+   50.069981,
+   51.231326,
+   50.116886,
+   51.130755,
+   50.066604,
+   50.203933,
+   50.146471,
+   50.313858,
+   50.113271,
+   49.937706,
+   50.512842,
+   50.025522,
+   50.185155,
+   50.066532,
+   50.044875,
+   50.353563,
+   50.066031,
+   49.989431,
+   50.126059,
+   50.154594,
+   50.049898,
+   66.733664,
+   64.677373,
+   49.981044,
+   50.167717
+  ],
+  "cand-calls": [
+   90.621935,
+   90.503299,
+   90.604363,
+   90.67235,
+   90.940268,
+   90.99787,
+   90.80738,
+   90.505869,
+   91.147125,
+   90.485469,
+   90.533397,
+   90.665176,
+   91.557165,
+   90.823627,
+   90.775118,
+   90.844028,
+   90.599064,
+   90.828767,
+   90.599373,
+   91.225015,
+   90.866634,
+   91.884902,
+   90.737104,
+   91.47069,
+   91.122731,
+   90.562036,
+   90.637444,
+   90.772698,
+   91.115872,
+   90.48775
+  ],
+  "cand-compare": [
+   100.058591,
+   99.750023,
+   99.956487,
+   100.24666,
+   99.827511,
+   101.383857,
+   99.852916,
+   99.531645,
+   99.739293,
+   100.010333,
+   99.907797,
+   99.769498,
+   99.63277,
+   100.748636,
+   100.465976,
+   99.889949,
+   99.575305,
+   99.678387,
+   99.601392,
+   99.846789,
+   99.829501,
+   100.129081,
+   99.534247,
+   99.50357,
+   100.00999,
+   99.842713,
+   100.087968,
+   100.023462,
+   99.697523,
+   100.28752
+  ],
+  "cand-vector": [
+   79.844346,
+   79.768132,
+   80.491471,
+   79.706111,
+   80.088995,
+   80.237222,
+   80.003736,
+   79.859505,
+   79.903203,
+   79.858477,
+   80.21376,
+   80.056778,
+   79.931967,
+   81.4729,
+   80.273447,
+   80.176454,
+   79.959089,
+   79.908087,
+   79.80583,
+   79.991868,
+   80.04579,
+   79.865065,
+   81.269258,
+   79.923844,
+   79.833745,
+   79.828813,
+   79.979347,
+   80.099854,
+   80.287591,
+   80.010602
+  ],
+  "cand-strings": [
+   18.649401,
+   18.983456,
+   18.8311,
+   18.565408,
+   18.573038,
+   18.579403,
+   18.670482,
+   18.500076,
+   18.572575,
+   18.514421,
+   18.757436,
+   18.525901,
+   18.780624,
+   18.53608,
+   18.544254,
+   18.578801,
+   18.562784,
+   18.570024,
+   18.54102,
+   18.562164,
+   18.99069,
+   18.551784,
+   18.593666,
+   18.429751,
+   18.503545,
+   18.619823,
+   18.51463,
+   18.581863,
+   18.557286,
+   18.474716
+  ],
+  "cand-overwrite_inline": [
+   66.425863,
+   66.23467,
+   71.773828,
+   68.403082,
+   66.789219,
+   66.198844,
+   66.651792,
+   66.419708,
+   66.135489,
+   66.04541,
+   66.131125,
+   66.16085,
+   66.661521,
+   66.354982,
+   66.325391,
+   66.398959,
+   66.112275,
+   66.462172,
+   66.295799,
+   66.238327,
+   66.406253,
+   66.206192,
+   66.190991,
+   66.230724,
+   66.154144,
+   66.114221,
+   66.356555,
+   66.1996,
+   66.109579,
+   66.176413
+  ],
+  "cand-overwrite_mixed": [
+   48.03576,
+   48.119296,
+   48.696421,
+   47.991315,
+   47.800159,
+   47.858466,
+   47.913536,
+   47.89537,
+   47.907642,
+   47.86291,
+   47.866311,
+   47.866867,
+   48.124715,
+   47.937601,
+   47.99803,
+   48.076009,
+   48.536792,
+   48.008209,
+   48.025752,
+   48.015519,
+   48.03872,
+   47.937175,
+   47.890256,
+   48.381986,
+   48.014005,
+   47.976589,
+   48.277587,
+   47.776287,
+   47.803835,
+   48.512627
+  ],
+  "cand-overwrite_deep": [
+   21.243218,
+   21.304337,
+   21.033178,
+   21.077074,
+   21.156917,
+   21.142982,
+   21.341478,
+   21.107,
+   21.079045,
+   21.523848,
+   21.916739,
+   21.37272,
+   21.727164,
+   21.144086,
+   20.975697,
+   21.324944,
+   21.375738,
+   21.031794,
+   21.290857,
+   21.033484,
+   21.200882,
+   21.392127,
+   21.211228,
+   20.995393,
+   21.303912,
+   21.162464,
+   21.087826,
+   21.21626,
+   21.231476,
+   21.036916
+  ],
+  "cand-overwrite_alias": [
+   4.553878,
+   4.355978,
+   4.35125,
+   4.367241,
+   4.376827,
+   4.502643,
+   4.408701,
+   4.385286,
+   4.380521,
+   4.420412,
+   4.624933,
+   4.411679,
+   4.37618,
+   4.400305,
+   4.384583,
+   4.48414,
+   4.409682,
+   4.375083,
+   4.40837,
+   4.357785,
+   4.5166,
+   4.384541,
+   4.367464,
+   4.364533,
+   4.371277,
+   4.42591,
+   4.384876,
+   4.345591,
+   4.334619,
+   4.361983
+  ]
+ },
+ "decision": {
+  "decision": "STOP",
+  "rows": {
+   "empty": {
+    "base_instr": 28398618.0,
+    "cand_instr": 28908742.0,
+    "instr_change": 0.017962986790413638,
+    "base_wall_ms": 3.946733,
+    "cand_wall_ms": 3.9813545,
+    "wall_change": 0.008772192089001152,
+    "base_wall_p10_p90_ms": 0.12961129999999965
+   },
+   "answer": {
+    "base_instr": 29915798.0,
+    "cand_instr": 30375336.0,
+    "instr_change": 0.015361047697941999,
+    "base_wall_ms": 4.2518905,
+    "cand_wall_ms": 4.3037975,
+    "wall_change": 0.01220798136734702,
+    "base_wall_p10_p90_ms": 0.10766780000000065
+   },
+   "numeric": {
+    "base_instr": 1757097355.0,
+    "cand_instr": 1709557664.0,
+    "instr_change": -0.027055809323667246,
+    "base_wall_ms": 125.17818,
+    "cand_wall_ms": 110.7864955,
+    "wall_change": -0.11496959374229598,
+    "base_wall_p10_p90_ms": 1.6033676999999926
+   },
+   "while": {
+    "base_instr": 1136115463.0,
+    "cand_instr": 1084575355.0,
+    "instr_change": -0.045365202462700704,
+    "base_wall_ms": 69.467084,
+    "cand_wall_ms": 65.223668,
+    "wall_change": -0.06108527601360081,
+    "base_wall_p10_p90_ms": 0.44472749999999905
+   },
+   "fib": {
+    "base_instr": 831057772.0,
+    "cand_instr": 802915202.0,
+    "instr_change": -0.03386355431376675,
+    "base_wall_ms": 53.3017255,
+    "cand_wall_ms": 50.136264999999995,
+    "wall_change": -0.0593875802388425,
+    "base_wall_p10_p90_ms": 0.5913639000000117
+   },
+   "calls": {
+    "base_instr": 1773173213.0,
+    "cand_instr": 1720633238.0,
+    "instr_change": -0.02963048088861464,
+    "base_wall_ms": 94.85516799999999,
+    "cand_wall_ms": 90.773908,
+    "wall_change": -0.04302622710024595,
+    "base_wall_p10_p90_ms": 1.553373999999991
+   },
+   "compare": {
+    "base_instr": 1709629848.0,
+    "cand_instr": 1645243137.0,
+    "instr_change": -0.0376611996306232,
+    "base_wall_ms": 107.057094,
+    "cand_wall_ms": 99.8498525,
+    "wall_change": -0.06732147521209575,
+    "base_wall_p10_p90_ms": 1.107913900000014
+   },
+   "vector": {
+    "base_instr": 1308713348.0,
+    "cand_instr": 1286572901.0,
+    "instr_change": -0.016917720778072187,
+    "base_wall_ms": 84.0332925,
+    "cand_wall_ms": 79.9856075,
+    "wall_change": -0.04816763546424174,
+    "base_wall_p10_p90_ms": 2.2145564000000064
+   },
+   "strings": {
+    "base_instr": 227725975.0,
+    "cand_instr": 226805193.0,
+    "instr_change": -0.004043377133416626,
+    "base_wall_ms": 19.106652,
+    "cand_wall_ms": 18.567716,
+    "wall_change": -0.028206720884433323,
+    "base_wall_p10_p90_ms": 0.26261729999999517
+   },
+   "overwrite_inline": {
+    "base_instr": 1137223423.0,
+    "cand_instr": 1087683166.0,
+    "instr_change": -0.04356246626481941,
+    "base_wall_ms": 68.3058615,
+    "cand_wall_ms": 66.2364985,
+    "wall_change": -0.03029554059573658,
+    "base_wall_p10_p90_ms": 0.6130970999999903
+   },
+   "overwrite_mixed": {
+    "base_instr": 746302316.0,
+    "cand_instr": 734162026.0,
+    "instr_change": -0.016267254890845018,
+    "base_wall_ms": 50.460888499999996,
+    "cand_wall_ms": 47.9946725,
+    "wall_change": -0.04887381243792399,
+    "base_wall_p10_p90_ms": 0.7323066000000082
+   },
+   "overwrite_deep": {
+    "base_instr": 254491437.0,
+    "cand_instr": 254752043.0,
+    "instr_change": 0.0010240265962269124,
+    "base_wall_ms": 22.241947000000003,
+    "cand_wall_ms": 21.206055,
+    "wall_change": -0.04657380039616155,
+    "base_wall_p10_p90_ms": 0.7954615000000018
+   },
+   "overwrite_alias": {
+    "base_instr": 30343090.0,
+    "cand_instr": 30803012.0,
+    "instr_change": 0.015157388387273762,
+    "base_wall_ms": 4.3542925,
+    "cand_wall_ms": 4.384562,
+    "wall_change": 0.006951645990709299,
+    "base_wall_p10_p90_ms": 0.20025780000000015
+   }
+  },
+  "regressions": [
+   [
+    "empty",
+    "instructions",
+    0.017962986790413638
+   ],
+   [
+    "answer",
+    "instructions",
+    0.015361047697941999
+   ],
+   [
+    "overwrite_alias",
+    "instructions",
+    0.015157388387273762
+   ]
+  ],
+  "disagreements": [],
+  "gate_wins": [
+   "while",
+   "fib"
+  ]
+ },
+ "ledger": {
+  "started": 1791224711.5927129,
+  "load_before": "1.92",
+  "ended": 1791224766.139511,
+  "load_after": "1.43"
+ }
+}
