@@ -1,0 +1,165 @@
+{
+ "started": 1791244405.6324556,
+ "load_before": "3.47",
+ "env": {
+  "PATH": "/usr/bin:/bin",
+  "HOME": "/home/me",
+  "LANG": "C.UTF-8"
+ },
+ "sources": {
+  "base": "eaa59fc208c136ead86f8c4fa565431ea18de88b",
+  "cand": "863370da279031b369ebb0ac1c0d80cd9ca159f6"
+ },
+ "identity": {
+  "base-primary": {
+   "sha256": "7a66b042e8656c4a0cbb4c4641b827c34c6f458bc1e442e87b556612d8d05014",
+   "text_sha256": "3f829d83686e78bb17d10770c354b63be7cdd6d7c69f93f99a9a6120d886eef1"
+  },
+  "base-counter": {
+   "sha256": "09f50d367129669cdb17c6e8b64ce46090371307a16e0a5f29c0c0787f3710d2",
+   "text_sha256": "2f318f6ed721affc6faf56d8878bd91c782ef65ef6671fc498dd33ce904fc7d6"
+  },
+  "base-allocation": {
+   "sha256": "f714a18a841d8812fe54b928dd99b7262061f90b8d6892ba6cad6266fde54009",
+   "text_sha256": "f0245f2d430fc540894d73817c1fc25ad9eec2032970f6a8bc41ac1817cb06cf"
+  },
+  "cand-primary": {
+   "sha256": "ec6962fb7f917af29a84c77622bed5d4fb779b2e4628c972dbdc048435a6fa58",
+   "text_sha256": "0f9e072f5f509bdb7792a833c2c624c995976be2207793d4ebc37cfdd5f407ec"
+  },
+  "cand-counter": {
+   "sha256": "a2bef1cb4d8b9222b1c524e905cd37907c51b5957945ecd10016a3a13675ead4",
+   "text_sha256": "7a8d74771123fc11e09af856c4fec0e2c25d4d32d17f6192b76d000ee78908c5"
+  },
+  "cand-allocation": {
+   "sha256": "b1e0126e01bdaa1adedc5b3ae9533ca43a6dcaf18cf92066bba8fcaf4fd213eb",
+   "text_sha256": "f50d359af3520ce259336ed5c9131c945ed6636ca00d1938d7eb85f2e85e20c7"
+  }
+ },
+ "clock": {
+  "sha256": "6607cef2f8785caef3aaf913dc3ade6fbc512bf51179b8ba87f65c3c788c80fa"
+ },
+ "lua": {
+  "lua54": {
+   "path": "/home/me/.local/bin/lua54",
+   "sha256": "cfb2dc058fa441a527d9a84cc084f09828fcd48cddb757caf64caa21c935f6ec",
+   "version": "Lua 5.4.7  Copyright (C) 1994-2024 Lua.org, PUC-Rio"
+  },
+  "luajit": {
+   "path": "/home/me/.local/bin/luajit",
+   "sha256": "a1ff02fbce1ed98f3e384e560158a456ffc26d43badac7a31e424af616c68320",
+   "version": "LuaJIT 2.1.1788856981 -- Copyright (C) 2005-2026 Mike Pall. https://luajit.org/"
+  }
+ },
+ "rehearsal": {
+  "files": [
+   "rehearsal/command.log",
+   "rehearsal/commands.jsonl",
+   "rehearsal/rehearsal.tar.xz",
+   "rehearsal/result.json"
+  ],
+  "occurrences": 0
+ },
+ "controls_start": [
+  {
+   "argv": [
+    "perf",
+    "stat",
+    "--",
+    "/usr/bin/grep",
+    "Cpus_allowed_list",
+    "/proc/self/status"
+   ],
+   "env": {
+    "PATH": "/usr/bin:/bin",
+    "HOME": "/home/me",
+    "LANG": "C.UTF-8"
+   },
+   "status": 0,
+   "stdout": "Cpus_allowed_list:\t4\n"
+  },
+  {
+   "argv": [
+    "perf",
+    "stat",
+    "--",
+    "/usr/bin/grep",
+    "Cpus_allowed_list",
+    "/proc/self/status"
+   ],
+   "env": {
+    "PATH": "/usr/bin:/bin",
+    "HOME": "/home/me",
+    "LANG": "C.UTF-8"
+   },
+   "status": 0,
+   "stdout": "Cpus_allowed_list:\t4\n"
+  },
+  {
+   "argv": [
+    "perf",
+    "stat",
+    "--",
+    "/usr/bin/grep",
+    "Cpus_allowed_list",
+    "/proc/self/status"
+   ],
+   "env": {
+    "PATH": "/usr/bin:/bin",
+    "HOME": "/home/me",
+    "LANG": "C.UTF-8"
+   },
+   "status": 0,
+   "stdout": "Cpus_allowed_list:\t4\n"
+  },
+  {
+   "argv": [
+    "perf",
+    "stat",
+    "--",
+    "/usr/bin/grep",
+    "Cpus_allowed_list",
+    "/proc/self/status"
+   ],
+   "env": {
+    "PATH": "/usr/bin:/bin",
+    "HOME": "/home/me",
+    "LANG": "C.UTF-8"
+   },
+   "status": 0,
+   "stdout": "Cpus_allowed_list:\t4\n"
+  },
+  {
+   "argv": [
+    "perf",
+    "stat",
+    "--",
+    "/usr/bin/grep",
+    "Cpus_allowed_list",
+    "/proc/self/status"
+   ],
+   "env": {
+    "PATH": "/usr/bin:/bin",
+    "HOME": "/home/me",
+    "LANG": "C.UTF-8"
+   },
+   "status": 0,
+   "stdout": "Cpus_allowed_list:\t4\n"
+  }
+ ],
+ "correctness": {
+  "checked": 40,
+  "all_identical": true
+ },
+ "allocation": {
+  "context_delta": 1,
+  "context_delta_is_plus_one": true,
+  "numeric_calls": [
+   1036660,
+   36661
+  ],
+  "rises": {}
+ },
+ "ended": 1791244410.3288615,
+ "rehearsal_only": true
+}
