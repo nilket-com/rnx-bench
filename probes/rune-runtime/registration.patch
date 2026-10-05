@@ -1,0 +1,480 @@
+[1mdiff --git a/crates/rune/Cargo.toml b/crates/rune/Cargo.toml[m
+[1mindex 4cf8587a..0b7242f4 100644[m
+[1m--- a/crates/rune/Cargo.toml[m
+[1m+++ b/crates/rune/Cargo.toml[m
+[36m@@ -17,6 +17,8 @@[m [mcategories = ["parser-implementations"][m
+ unexpected_cfgs = { level = "warn", check-cfg = ['cfg(rune_nightly, rune_docsrs, rune_byte_code)'] }[m
+ [m
+ [features][m
+[32m+[m[32mregistration-profile = ["std"][m
+[32m+[m[32mregistration-omit-control = ["registration-profile"][m
+ default = ["emit", "std", "anyhow"][m
+ tracing = ["tracing/enabled"][m
+ emit = ["std", "anyhow", "codespan-reporting"][m
+[1mdiff --git a/crates/rune/src/compile/context.rs b/crates/rune/src/compile/context.rs[m
+[1mindex 95702d93..ca559bdc 100644[m
+[1m--- a/crates/rune/src/compile/context.rs[m
+[1m+++ b/crates/rune/src/compile/context.rs[m
+[36m@@ -193,6 +193,8 @@[m [mimpl TraitContext<'_> {[m
+         name: AssociatedName,[m
+         handler: &FunctionHandler,[m
+     ) -> Result<(), ContextError> {[m
+[32m+[m[32m        #[cfg(feature = "registration-profile")][m
+[32m+[m[32m        crate::registration_profile::hit(2);[m
+         let function = ModuleFunction {[m
+             handler: handler.clone(),[m
+             trait_hash: Some(self.trait_hash),[m
+[36m@@ -347,42 +349,316 @@[m [mimpl Context {[m
+         // NB: Order is important, since later modules might use types defined[m
+         // in previous modules.[m
+ [m
+[32m+[m[32m        #[cfg(feature = "registration-profile")][m
+[32m+[m[32m        {[m
+[32m+[m[32m            crate::registration_profile::set_module("iter");[m
+[32m+[m[32m            let module = { let _mark = crate::registration_profile::mark("construct"); crate::modules::iter::module()? };[m
+[32m+[m[32m            let _mark = crate::registration_profile::mark("install");[m
+[32m+[m[32m            this.install(module)?;[m
+[32m+[m[32m        }[m
+[32m+[m[32m        #[cfg(not(feature = "registration-profile"))][m
+         this.install(crate::modules::iter::module()?)?;[m
+[32m+[m[32m        #[cfg(feature = "registration-profile")][m
+[32m+[m[32m        {[m
+[32m+[m[32m            crate::registration_profile::set_module("core");[m
+[32m+[m[32m            let module = { let _mark = crate::registration_profile::mark("construct"); crate::modules::core::module()? };[m
+[32m+[m[32m            let _mark = crate::registration_profile::mark("install");[m
+[32m+[m[32m            this.install(module)?;[m
+[32m+[m[32m        }[m
+[32m+[m[32m        #[cfg(not(feature = "registration-profile"))][m
+         this.install(crate::modules::core::module()?)?;[m
+[32m+[m[32m        #[cfg(feature = "registration-profile")][m
+[32m+[m[32m        {[m
+[32m+[m[32m            crate::registration_profile::set_module("cmp");[m
+[32m+[m[32m            let module = { let _mark = crate::registration_profile::mark("construct"); crate::modules::cmp::module()? };[m
+[32m+[m[32m            let _mark = crate::registration_profile::mark("install");[m
+[32m+[m[32m            this.install(module)?;[m
+[32m+[m[32m        }[m
+[32m+[m[32m        #[cfg(not(feature = "registration-profile"))][m
+         this.install(crate::modules::cmp::module()?)?;[m
+[32m+[m[32m        #[cfg(feature = "registration-profile")][m
+[32m+[m[32m        {[m
+[32m+[m[32m            crate::registration_profile::set_module("any");[m
+[32m+[m[32m            let module = { let _mark = crate::registration_profile::mark("construct"); crate::modules::any::module()? };[m
+[32m+[m[32m            let _mark = crate::registration_profile::mark("install");[m
+[32m+[m[32m            this.install(module)?;[m
+[32m+[m[32m        }[m
+[32m+[m[32m        #[cfg(not(feature = "registration-profile"))][m
+         this.install(crate::modules::any::module()?)?;[m
+[32m+[m[32m        #[cfg(feature = "registration-profile")][m
+[32m+[m[32m        {[m
+[32m+[m[32m            crate::registration_profile::set_module("clone");[m
+[32m+[m[32m            let module = { let _mark = crate::registration_profile::mark("construct"); crate::modules::clone::module()? };[m
+[32m+[m[32m            let _mark = crate::registration_profile::mark("install");[m
+[32m+[m[32m            this.install(module)?;[m
+[32m+[m[32m        }[m
+[32m+[m[32m        #[cfg(not(feature = "registration-profile"))][m
+         this.install(crate::modules::clone::module()?)?;[m
+[32m+[m[32m        #[cfg(feature = "registration-profile")][m
+[32m+[m[32m        {[m
+[32m+[m[32m            crate::registration_profile::set_module("num");[m
+[32m+[m[32m            let module = { let _mark = crate::registration_profile::mark("construct"); crate::modules::num::module()? };[m
+[32m+[m[32m            let _mark = crate::registration_profile::mark("install");[m
+[32m+[m[32m            this.install(module)?;[m
+[32m+[m[32m        }[m
+[32m+[m[32m        #[cfg(not(feature = "registration-profile"))][m
+         this.install(crate::modules::num::module()?)?;[m
+[32m+[m[32m        #[cfg(feature = "registration-profile")][m
+[32m+[m[32m        {[m
+[32m+[m[32m            crate::registration_profile::set_module("hash");[m
+[32m+[m[32m            let module = { let _mark = crate::registration_profile::mark("construct"); crate::modules::hash::module()? };[m
+[32m+[m[32m            let _mark = crate::registration_profile::mark("install");[m
+[32m+[m[32m            this.install(module)?;[m
+[32m+[m[32m        }[m
+[32m+[m[32m        #[cfg(not(feature = "registration-profile"))][m
+         this.install(crate::modules::hash::module()?)?;[m
+ [m
+[32m+[m[32m        #[cfg(feature = "registration-profile")][m
+[32m+[m[32m        {[m
+[32m+[m[32m            crate::registration_profile::set_module("string");[m
+[32m+[m[32m            let module = { let _mark = crate::registration_profile::mark("construct"); crate::modules::string::module()? };[m
+[32m+[m[32m            let _mark = crate::registration_profile::mark("install");[m
+[32m+[m[32m            this.install(module)?;[m
+[32m+[m[32m        }[m
+[32m+[m[32m        #[cfg(not(feature = "registration-profile"))][m
+         this.install(crate::modules::string::module()?)?;[m
+[32m+[m[32m        #[cfg(feature = "registration-profile")][m
+[32m+[m[32m        {[m
+[32m+[m[32m            crate::registration_profile::set_module("bytes");[m
+[32m+[m[32m            let module = { let _mark = crate::registration_profile::mark("construct"); crate::modules::bytes::module()? };[m
+[32m+[m[32m            let _mark = crate::registration_profile::mark("install");[m
+[32m+[m[32m            this.install(module)?;[m
+[32m+[m[32m        }[m
+[32m+[m[32m        #[cfg(not(feature = "registration-profile"))][m
+         this.install(crate::modules::bytes::module()?)?;[m
+ [m
+[32m+[m[32m        #[cfg(feature = "registration-profile")][m
+[32m+[m[32m        {[m
+[32m+[m[32m            crate::registration_profile::set_module("collections");[m
+[32m+[m[32m            let module = { let _mark = crate::registration_profile::mark("construct"); crate::modules::collections::module()? };[m
+[32m+[m[32m            let _mark = crate::registration_profile::mark("install");[m
+[32m+[m[32m            this.install(module)?;[m
+[32m+[m[32m        }[m
+[32m+[m[32m        #[cfg(not(feature = "registration-profile"))][m
+         this.install(crate::modules::collections::module()?)?;[m
+[32m+[m[32m        #[cfg(feature = "registration-profile")][m
+[32m+[m[32m        {[m
+[32m+[m[32m            crate::registration_profile::set_module("collections::hash_map");[m
+[32m+[m[32m            let module = { let _mark = crate::registration_profile::mark("construct"); crate::modules::collections::hash_map::module()? };[m
+[32m+[m[32m            let _mark = crate::registration_profile::mark("install");[m
+[32m+[m[32m            #[cfg(not(feature = "registration-omit-control"))][m
+[32m+[m[32m            this.install(module)?;[m
+[32m+[m[32m            #[cfg(feature = "registration-omit-control")] let _ = module;[m
+[32m+[m[32m        }[m
+[32m+[m[32m        #[cfg(not(feature = "registration-profile"))][m
+         this.install(crate::modules::collections::hash_map::module()?)?;[m
+[32m+[m[32m        #[cfg(feature = "registration-profile")][m
+[32m+[m[32m        {[m
+[32m+[m[32m            crate::registration_profile::set_module("collections::hash_set");[m
+[32m+[m[32m            let module = { let _mark = crate::registration_profile::mark("construct"); crate::modules::collections::hash_set::module()? };[m
+[32m+[m[32m            let _mark = crate::registration_profile::mark("install");[m
+[32m+[m[32m            this.install(module)?;[m
+[32m+[m[32m        }[m
+[32m+[m[32m        #[cfg(not(feature = "registration-profile"))][m
+         this.install(crate::modules::collections::hash_set::module()?)?;[m
+[32m+[m[32m        #[cfg(feature = "registration-profile")][m
+[32m+[m[32m        {[m
+[32m+[m[32m            crate::registration_profile::set_module("collections::vec_deque");[m
+[32m+[m[32m            let module = { let _mark = crate::registration_profile::mark("construct"); crate::modules::collections::vec_deque::module()? };[m
+[32m+[m[32m            let _mark = crate::registration_profile::mark("install");[m
+[32m+[m[32m            this.install(module)?;[m
+[32m+[m[32m        }[m
+[32m+[m[32m        #[cfg(not(feature = "registration-profile"))][m
+         this.install(crate::modules::collections::vec_deque::module()?)?;[m
+ [m
+[32m+[m[32m        #[cfg(feature = "registration-profile")][m
+[32m+[m[32m        {[m
+[32m+[m[32m            crate::registration_profile::set_module("char");[m
+[32m+[m[32m            let module = { let _mark = crate::registration_profile::mark("construct"); crate::modules::char::module()? };[m
+[32m+[m[32m            let _mark = crate::registration_profile::mark("install");[m
+[32m+[m[32m            this.install(module)?;[m
+[32m+[m[32m        }[m
+[32m+[m[32m        #[cfg(not(feature = "registration-profile"))][m
+         this.install(crate::modules::char::module()?)?;[m
+[32m+[m[32m        #[cfg(feature = "registration-profile")][m
+[32m+[m[32m        {[m
+[32m+[m[32m            crate::registration_profile::set_module("f64");[m
+[32m+[m[32m            let module = { let _mark = crate::registration_profile::mark("construct"); crate::modules::f64::module()? };[m
+[32m+[m[32m            let _mark = crate::registration_profile::mark("install");[m
+[32m+[m[32m            this.install(module)?;[m
+[32m+[m[32m        }[m
+[32m+[m[32m        #[cfg(not(feature = "registration-profile"))][m
+         this.install(crate::modules::f64::module()?)?;[m
+[32m+[m[32m        #[cfg(feature = "registration-profile")][m
+[32m+[m[32m        {[m
+[32m+[m[32m            crate::registration_profile::set_module("f64::consts");[m
+[32m+[m[32m            let module = { let _mark = crate::registration_profile::mark("construct"); crate::modules::f64::consts::module()? };[m
+[32m+[m[32m            let _mark = crate::registration_profile::mark("install");[m
+[32m+[m[32m            this.install(module)?;[m
+[32m+[m[32m        }[m
+[32m+[m[32m        #[cfg(not(feature = "registration-profile"))][m
+         this.install(crate::modules::f64::consts::module()?)?;[m
+[32m+[m[32m        #[cfg(feature = "registration-profile")][m
+[32m+[m[32m        {[m
+[32m+[m[32m            crate::registration_profile::set_module("tuple");[m
+[32m+[m[32m            let module = { let _mark = crate::registration_profile::mark("construct"); crate::modules::tuple::module()? };[m
+[32m+[m[32m            let _mark = crate::registration_profile::mark("install");[m
+[32m+[m[32m            this.install(module)?;[m
+[32m+[m[32m        }[m
+[32m+[m[32m        #[cfg(not(feature = "registration-profile"))][m
+         this.install(crate::modules::tuple::module()?)?;[m
+[32m+[m[32m        #[cfg(feature = "registration-profile")][m
+[32m+[m[32m        {[m
+[32m+[m[32m            crate::registration_profile::set_module("fmt");[m
+[32m+[m[32m            let module = { let _mark = crate::registration_profile::mark("construct"); crate::modules::fmt::module()? };[m
+[32m+[m[32m            let _mark = crate::registration_profile::mark("install");[m
+[32m+[m[32m            this.install(module)?;[m
+[32m+[m[32m        }[m
+[32m+[m[32m        #[cfg(not(feature = "registration-profile"))][m
+         this.install(crate::modules::fmt::module()?)?;[m
+[32m+[m[32m        #[cfg(feature = "registration-profile")][m
+[32m+[m[32m        {[m
+[32m+[m[32m            crate::registration_profile::set_module("future");[m
+[32m+[m[32m            let module = { let _mark = crate::registration_profile::mark("construct"); crate::modules::future::module()? };[m
+[32m+[m[32m            let _mark = crate::registration_profile::mark("install");[m
+[32m+[m[32m            this.install(module)?;[m
+[32m+[m[32m        }[m
+[32m+[m[32m        #[cfg(not(feature = "registration-profile"))][m
+         this.install(crate::modules::future::module()?)?;[m
+[32m+[m[32m        #[cfg(feature = "registration-profile")][m
+[32m+[m[32m        {[m
+[32m+[m[32m            crate::registration_profile::set_module("i64");[m
+[32m+[m[32m            let module = { let _mark = crate::registration_profile::mark("construct"); crate::modules::i64::module()? };[m
+[32m+[m[32m            let _mark = crate::registration_profile::mark("install");[m
+[32m+[m[32m            this.install(module)?;[m
+[32m+[m[32m        }[m
+[32m+[m[32m        #[cfg(not(feature = "registration-profile"))][m
+         this.install(crate::modules::i64::module()?)?;[m
+[32m+[m[32m        #[cfg(feature = "registration-profile")][m
+[32m+[m[32m        {[m
+[32m+[m[32m            crate::registration_profile::set_module("u64");[m
+[32m+[m[32m            let module = { let _mark = crate::registration_profile::mark("construct"); crate::modules::u64::module()? };[m
+[32m+[m[32m            let _mark = crate::registration_profile::mark("install");[m
+[32m+[m[32m            this.install(module)?;[m
+[32m+[m[32m        }[m
+[32m+[m[32m        #[cfg(not(feature = "registration-profile"))][m
+         this.install(crate::modules::u64::module()?)?;[m
+[32m+[m[32m        #[cfg(feature = "registration-profile")][m
+[32m+[m[32m        {[m
+[32m+[m[32m            crate::registration_profile::set_module("io");[m
+[32m+[m[32m            let module = { let _mark = crate::registration_profile::mark("construct"); crate::modules::io::module(stdio)? };[m
+[32m+[m[32m            let _mark = crate::registration_profile::mark("install");[m
+[32m+[m[32m            this.install(module)?;[m
+[32m+[m[32m        }[m
+[32m+[m[32m        #[cfg(not(feature = "registration-profile"))][m
+         this.install(crate::modules::io::module(stdio)?)?;[m
+[32m+[m[32m        #[cfg(feature = "registration-profile")][m
+[32m+[m[32m        {[m
+[32m+[m[32m            crate::registration_profile::set_module("macros");[m
+[32m+[m[32m            let module = { let _mark = crate::registration_profile::mark("construct"); crate::modules::macros::module()? };[m
+[32m+[m[32m            let _mark = crate::registration_profile::mark("install");[m
+[32m+[m[32m            this.install(module)?;[m
+[32m+[m[32m        }[m
+[32m+[m[32m        #[cfg(not(feature = "registration-profile"))][m
+         this.install(crate::modules::macros::module()?)?;[m
+[32m+[m[32m        #[cfg(feature = "registration-profile")][m
+[32m+[m[32m        {[m
+[32m+[m[32m            crate::registration_profile::set_module("macros::builtin");[m
+[32m+[m[32m            let module = { let _mark = crate::registration_profile::mark("construct"); crate::modules::macros::builtin::module()? };[m
+[32m+[m[32m            let _mark = crate::registration_profile::mark("install");[m
+[32m+[m[32m            this.install(module)?;[m
+[32m+[m[32m        }[m
+[32m+[m[32m        #[cfg(not(feature = "registration-profile"))][m
+         this.install(crate::modules::macros::builtin::module()?)?;[m
+[32m+[m[32m        #[cfg(feature = "registration-profile")][m
+[32m+[m[32m        {[m
+[32m+[m[32m            crate::registration_profile::set_module("mem");[m
+[32m+[m[32m            let module = { let _mark = crate::registration_profile::mark("construct"); crate::modules::mem::module()? };[m
+[32m+[m[32m            let _mark = crate::registration_profile::mark("install");[m
+[32m+[m[32m            this.install(module)?;[m
+[32m+[m[32m        }[m
+[32m+[m[32m        #[cfg(not(feature = "registration-profile"))][m
+         this.install(crate::modules::mem::module()?)?;[m
+[32m+[m[32m        #[cfg(feature = "registration-profile")][m
+[32m+[m[32m        {[m
+[32m+[m[32m            crate::registration_profile::set_module("object");[m
+[32m+[m[32m            let module = { let _mark = crate::registration_profile::mark("construct"); crate::modules::object::module()? };[m
+[32m+[m[32m            let _mark = crate::registration_profile::mark("install");[m
+[32m+[m[32m            this.install(module)?;[m
+[32m+[m[32m        }[m
+[32m+[m[32m        #[cfg(not(feature = "registration-profile"))][m
+         this.install(crate::modules::object::module()?)?;[m
+[32m+[m[32m        #[cfg(feature = "registration-profile")][m
+[32m+[m[32m        {[m
+[32m+[m[32m            crate::registration_profile::set_module("ops");[m
+[32m+[m[32m            let module = { let _mark = crate::registration_profile::mark("construct"); crate::modules::ops::module()? };[m
+[32m+[m[32m            let _mark = crate::registration_profile::mark("install");[m
+[32m+[m[32m            this.install(module)?;[m
+[32m+[m[32m        }[m
+[32m+[m[32m        #[cfg(not(feature = "registration-profile"))][m
+         this.install(crate::modules::ops::module()?)?;[m
+[32m+[m[32m        #[cfg(feature = "registration-profile")][m
+[32m+[m[32m        {[m
+[32m+[m[32m            crate::registration_profile::set_module("ops::generator");[m
+[32m+[m[32m            let module = { let _mark = crate::registration_profile::mark("construct"); crate::modules::ops::generator::module()? };[m
+[32m+[m[32m            let _mark = crate::registration_profile::mark("install");[m
+[32m+[m[32m            this.install(module)?;[m
+[32m+[m[32m        }[m
+[32m+[m[32m        #[cfg(not(feature = "registration-profile"))][m
+         this.install(crate::modules::ops::generator::module()?)?;[m
+[32m+[m[32m        #[cfg(feature = "registration-profile")][m
+[32m+[m[32m        {[m
+[32m+[m[32m            crate::registration_profile::set_module("option");[m
+[32m+[m[32m            let module = { let _mark = crate::registration_profile::mark("construct"); crate::modules::option::module()? };[m
+[32m+[m[32m            let _mark = crate::registration_profile::mark("install");[m
+[32m+[m[32m            this.install(module)?;[m
+[32m+[m[32m        }[m
+[32m+[m[32m        #[cfg(not(feature = "registration-profile"))][m
+         this.install(crate::modules::option::module()?)?;[m
+[32m+[m[32m        #[cfg(feature = "registration-profile")][m
+[32m+[m[32m        {[m
+[32m+[m[32m            crate::registration_profile::set_module("result");[m
+[32m+[m[32m            let module = { let _mark = crate::registration_profile::mark("construct"); crate::modules::result::module()? };[m
+[32m+[m[32m            let _mark = crate::registration_profile::mark("install");[m
+[32m+[m[32m            this.install(module)?;[m
+[32m+[m[32m        }[m
+[32m+[m[32m        #[cfg(not(feature = "registration-profile"))][m
+         this.install(crate::modules::result::module()?)?;[m
+[32m+[m[32m        #[cfg(feature = "registration-profile")][m
+[32m+[m[32m        {[m
+[32m+[m[32m            crate::registration_profile::set_module("stream");[m
+[32m+[m[32m            let module = { let _mark = crate::registration_profile::mark("construct"); crate::modules::stream::module()? };[m
+[32m+[m[32m            let _mark = crate::registration_profile::mark("install");[m
+[32m+[m[32m            this.install(module)?;[m
+[32m+[m[32m        }[m
+[32m+[m[32m        #[cfg(not(feature = "registration-profile"))][m
+         this.install(crate::modules::stream::module()?)?;[m
+[32m+[m[32m        #[cfg(feature = "registration-profile")][m
+[32m+[m[32m        {[m
+[32m+[m[32m            crate::registration_profile::set_module("test");[m
+[32m+[m[32m            let module = { let _mark = crate::registration_profile::mark("construct"); crate::modules::test::module()? };[m
+[32m+[m[32m            let _mark = crate::registration_profile::mark("install");[m
+[32m+[m[32m            this.install(module)?;[m
+[32m+[m[32m        }[m
+[32m+[m[32m        #[cfg(not(feature = "registration-profile"))][m
+         this.install(crate::modules::test::module()?)?;[m
+[32m+[m[32m        #[cfg(feature = "registration-profile")][m
+[32m+[m[32m        {[m
+[32m+[m[32m            crate::registration_profile::set_module("vec");[m
+[32m+[m[32m            let module = { let _mark = crate::registration_profile::mark("construct"); crate::modules::vec::module()? };[m
+[32m+[m[32m            let _mark = crate::registration_profile::mark("install");[m
+[32m+[m[32m            this.install(module)?;[m
+[32m+[m[32m        }[m
+[32m+[m[32m        #[cfg(not(feature = "registration-profile"))][m
+         this.install(crate::modules::vec::module()?)?;[m
+[32m+[m[32m        #[cfg(feature = "registration-profile")][m
+[32m+[m[32m        {[m
+[32m+[m[32m            crate::registration_profile::set_module("slice");[m
+[32m+[m[32m            let module = { let _mark = crate::registration_profile::mark("construct"); crate::modules::slice::module()? };[m
+[32m+[m[32m            let _mark = crate::registration_profile::mark("install");[m
+[32m+[m[32m            this.install(module)?;[m
+[32m+[m[32m        }[m
+[32m+[m[32m        #[cfg(not(feature = "registration-profile"))][m
+         this.install(crate::modules::slice::module()?)?;[m
+         this.has_default_modules = true;[m
+         Ok(this)[m
+[36m@@ -393,6 +669,22 @@[m [mimpl Context {[m
+         Self::with_config(true)[m
+     }[m
+ [m
+[32m+[m[32m    /// Diagnostic inventory for the isolated registration probe.[m
+[32m+[m[32m    #[cfg(feature = "registration-profile")][m
+[32m+[m[32m    pub fn registration_inventory(&self) -> std::vec::Vec<std::string::String> {[m
+[32m+[m[32m        let mut rows = std::vec::Vec::new();[m
+[32m+[m[32m        rows.push(std::format!("defaults:{}",self.has_default_modules));[m
+[32m+[m[32m        for (h, _) in self.functions.iter() { rows.push(std::format!("functions:{:?}",h)); }[m
+[32m+[m[32m        for (h, _) in self.types.iter() { rows.push(std::format!("types:{:?}",h)); }[m
+[32m+[m[32m        for (h, _) in self.traits.iter() { rows.push(std::format!("traits:{:?}",h)); }[m
+[32m+[m[32m        for (h, _) in self.macros.iter() { rows.push(std::format!("macros:{:?}",h)); }[m
+[32m+[m[32m        for (h, _) in self.attribute_macros.iter() { rows.push(std::format!("attribute_macros:{:?}",h)); }[m
+[32m+[m[32m        for (h, _) in self.constants.iter() { rows.push(std::format!("constants:{:?}",h)); }[m
+[32m+[m[32m        for (h, _) in self.construct.iter() { rows.push(std::format!("construct:{:?}",h)); }[m
+[32m+[m[32m        for m in &self.meta { rows.push(std::format!("meta:{:?}:{:?}:{:?}",m.hash,m.item,core::mem::discriminant(&m.kind))); }[m
+[32m+[m[32m        rows.sort(); rows[m
+[32m+[m[32m    }[m
+[32m+[m
+     /// Construct a runtime context used when executing the virtual machine.[m
+     ///[m
+     /// This is not a cheap operation, since it requires cloning things out of[m
+[36m@@ -442,44 +734,84 @@[m [mimpl Context {[m
+             self.crates.try_insert(name.try_into()?)?;[m
+         }[m
+ [m
+[32m+[m[32m        {[m
+[32m+[m[32m            #[cfg(feature = "registration-profile")][m
+[32m+[m[32m            let _stage = crate::registration_profile::mark("module");[m
+         tracing::trace!("module");[m
+         self.install_module(module)?;[m
+ [m
+[32m+[m
+[32m+[m[32m        }[m
+[32m+[m[32m        {[m
+[32m+[m[32m            #[cfg(feature = "registration-profile")][m
+[32m+[m[32m            let _stage = crate::registration_profile::mark("types");[m
+         tracing::trace!(types = module.types.len(), "types");[m
+         for ty in &module.types {[m
+             self.install_type(ty)?;[m
+         }[m
+ [m
+[32m+[m
+[32m+[m[32m        }[m
+[32m+[m[32m        {[m
+[32m+[m[32m            #[cfg(feature = "registration-profile")][m
+[32m+[m[32m            let _stage = crate::registration_profile::mark("traits");[m
+         tracing::trace!(traits = module.traits.len(), "traits");[m
+         for t in &module.traits {[m
+             self.install_trait(t)?;[m
+         }[m
+ [m
+[32m+[m
+[32m+[m[32m        }[m
+[32m+[m[32m        {[m
+[32m+[m[32m            #[cfg(feature = "registration-profile")][m
+[32m+[m[32m            let _stage = crate::registration_profile::mark("items");[m
+         tracing::trace!(items = module.items.len(), "items");[m
+         for item in &module.items {[m
+             self.install_item(item)?;[m
+         }[m
+ [m
+[32m+[m
+[32m+[m[32m        }[m
+[32m+[m[32m        {[m
+[32m+[m[32m            #[cfg(feature = "registration-profile")][m
+[32m+[m[32m            let _stage = crate::registration_profile::mark("associated");[m
+         tracing::trace!(associated = module.associated.len(), "associated");[m
+         for assoc in &module.associated {[m
+             self.install_associated(assoc)?;[m
+         }[m
+ [m
+[32m+[m
+[32m+[m[32m        }[m
+[32m+[m[32m        {[m
+[32m+[m[32m            #[cfg(feature = "registration-profile")][m
+[32m+[m[32m            let _stage = crate::registration_profile::mark("trait_impls");[m
+         tracing::trace!(trait_impls = module.trait_impls.len(), "trait impls");[m
+         for t in &module.trait_impls {[m
+             self.install_trait_impl(t)?;[m
+         }[m
+ [m
+[32m+[m
+[32m+[m[32m        }[m
+[32m+[m[32m        {[m
+[32m+[m[32m            #[cfg(feature = "registration-profile")][m
+[32m+[m[32m            let _stage = crate::registration_profile::mark("reexports");[m
+         tracing::trace!(reexports = module.reexports.len(), "reexports");[m
+         for r in &module.reexports {[m
+             self.install_reexport(r)?;[m
+         }[m
+ [m
+[32m+[m
+[32m+[m[32m        }[m
+[32m+[m[32m        {[m
+[32m+[m[32m            #[cfg(feature = "registration-profile")][m
+[32m+[m[32m            let _stage = crate::registration_profile::mark("construct");[m
+         tracing::trace!(construct = module.construct.len(), "construct");[m
+         for (hash, type_info, construct) in &module.construct {[m
+             self.install_construct(*hash, type_info, construct)?;[m
+         }[m
+ [m
+[32m+[m[32m        }[m
+[32m+[m
+         Ok(())[m
+     }[m
+ [m
+[36m@@ -637,6 +969,8 @@[m [mimpl Context {[m
+     /// Install the given meta.[m
+     #[tracing::instrument(skip_all)][m
+     fn install_meta(&mut self, meta: ContextMeta) -> Result<(), ContextError> {[m
+[32m+[m[32m        #[cfg(feature = "registration-profile")][m
+[32m+[m[32m        crate::registration_profile::hit(0);[m
+         if let Some(item) = &meta.item {[m
+             tracing::trace!(?item);[m
+ [m
+[36m@@ -946,6 +1280,8 @@[m [mimpl Context {[m
+     }[m
+ [m
+     fn install_trait_impl(&mut self, i: &ModuleTraitImpl) -> Result<(), ContextError> {[m
+[32m+[m[32m        #[cfg(feature = "registration-profile")][m
+[32m+[m[32m        crate::registration_profile::hit(1);[m
+         if !self.types.contains_key(&i.hash) {[m
+             return Err(ContextError::MissingType {[m
+                 item: i.item.try_to_owned()?,[m
+[1mdiff --git a/crates/rune/src/lib.rs b/crates/rune/src/lib.rs[m
+[1mindex cb5ef571..da8c7160 100644[m
+[1m--- a/crates/rune/src/lib.rs[m
+[1m+++ b/crates/rune/src/lib.rs[m
+[36m@@ -1002,3 +1002,6 @@[m [mrune_macros::binding! {[m
+ }[m
+ [m
+ vm_error!(crate::alloc::Error);[m
+[32m+[m
+[32m+[m[32m#[cfg(feature = "registration-profile")][m
+[32m+[m[32mpub mod registration_profile;[m

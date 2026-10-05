@@ -1,0 +1,9 @@
+use std::collections::{HashMap, HashSet, VecDeque};
+pub fn main(_args) {
+ let m = HashMap::new(); m.insert("answer", 42);
+ let s = HashSet::new(); s.insert(7);
+ let d = VecDeque::new(); d.push_back(2); d.push_back(3);
+ println!("{}", m.get("answer").unwrap());
+ println!("{}", s.iter().count());
+ println!("{}", d.iter().sum::<i64>());
+}
