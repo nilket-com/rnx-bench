@@ -1,0 +1,32 @@
+   Compiling syn v3.0.6
+   Compiling syn v2.0.119
+   Compiling serde_core v1.0.229
+   Compiling ahash v0.8.12
+   Compiling serde v1.0.229
+    Checking syntree v0.18.0
+    Checking once_cell v1.21.4
+   Compiling pin-project-internal v1.1.13
+   Compiling serde_derive v1.0.229
+   Compiling musli-macros v0.1.7
+   Compiling rune-alloc-macros v0.15.0 (/home/me/work/.worktrees/rune-0175/crates/rune-alloc-macros)
+   Compiling rune-tracing-macros v0.15.0 (/home/me/work/.worktrees/rune-0175/crates/rune-tracing-macros)
+   Compiling pin-project v1.1.13
+    Checking rune-tracing v0.15.0 (/home/me/work/.worktrees/rune-0175/crates/rune-tracing)
+   Compiling musli-core v0.1.7
+    Checking rune-alloc v0.15.0 (/home/me/work/.worktrees/rune-0175/crates/rune-alloc)
+    Checking rune-core v0.15.0 (/home/me/work/.worktrees/rune-0175/crates/rune-core)
+   Compiling rune-macros v0.15.0 (/home/me/work/.worktrees/rune-0175/crates/rune-macros)
+    Checking rune v0.15.0 (/home/me/work/.worktrees/rune-0175/crates/rune)
+warning: method `native_intrinsic` is never used
+   --> crates/rune/src/runtime/function.rs:176:19
+    |
+ 51 | impl Function {
+    | ------------- method in this implementation
+...
+176 |     pub(crate) fn native_intrinsic(&self) -> u8 {
+    |                   ^^^^^^^^^^^^^^^^
+    |
+    = note: `#[warn(dead_code)]` (part of `#[warn(unused)]`) on by default
+
+warning: `rune` (lib) generated 1 warning
+    Finished `dev` profile [unoptimized + debuginfo] target(s) in 20.39s

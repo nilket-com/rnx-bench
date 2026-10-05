@@ -1,0 +1,185 @@
+   Compiling rune v0.15.0 (/home/me/work/.worktrees/rune-0175/crates/rune)
+error[E0603]: module `vm` is private
+   --> crates/rune/src/tests/range_iteration_boundaries.rs:84:21
+    |
+ 84 |     crate::runtime::vm::range_next_test_reset();
+    |                     ^^  --------------------- function `range_next_test_reset` is not publicly re-exported
+    |                     |
+    |                     private module
+    |
+note: the module `vm` is defined here
+   --> crates/rune/src/runtime/mod.rs:198:1
+    |
+198 | mod vm;
+    | ^^^^^^^
+
+error[E0603]: module `vm` is private
+   --> crates/rune/src/tests/range_iteration_boundaries.rs:422:29
+    |
+422 |             crate::runtime::vm::range_next_test_reset();
+    |                             ^^  --------------------- function `range_next_test_reset` is not publicly re-exported
+    |                             |
+    |                             private module
+    |
+note: the module `vm` is defined here
+   --> crates/rune/src/runtime/mod.rs:198:1
+    |
+198 | mod vm;
+    | ^^^^^^^
+
+error[E0603]: module `vm` is private
+   --> crates/rune/src/tests/range_iteration_boundaries.rs:466:40
+    |
+466 |             let hits = crate::runtime::vm::range_next_test_counts().0;
+    |                                        ^^  ---------------------- function `range_next_test_counts` is not publicly re-exported
+    |                                        |
+    |                                        private module
+    |
+note: the module `vm` is defined here
+   --> crates/rune/src/runtime/mod.rs:198:1
+    |
+198 | mod vm;
+    | ^^^^^^^
+
+error[E0603]: module `vm` is private
+   --> crates/rune/src/tests/range_iteration_observers.rs:33:21
+    |
+ 33 |     crate::runtime::vm::range_next_test_reset();
+    |                     ^^  --------------------- function `range_next_test_reset` is not publicly re-exported
+    |                     |
+    |                     private module
+    |
+note: the module `vm` is defined here
+   --> crates/rune/src/runtime/mod.rs:198:1
+    |
+198 | mod vm;
+    | ^^^^^^^
+
+error[E0603]: module `vm` is private
+   --> crates/rune/src/tests/range_iteration_observers.rs:84:32
+    |
+ 84 |     assert_eq!(crate::runtime::vm::range_next_test_counts().0, 0);
+    |                                ^^  ---------------------- function `range_next_test_counts` is not publicly re-exported
+    |                                |
+    |                                private module
+    |
+note: the module `vm` is defined here
+   --> crates/rune/src/runtime/mod.rs:198:1
+    |
+198 | mod vm;
+    | ^^^^^^^
+
+error[E0603]: module `vm` is private
+   --> crates/rune/src/tests/range_iteration_observers.rs:123:21
+    |
+123 |     crate::runtime::vm::range_next_test_reset();
+    |                     ^^  --------------------- function `range_next_test_reset` is not publicly re-exported
+    |                     |
+    |                     private module
+    |
+note: the module `vm` is defined here
+   --> crates/rune/src/runtime/mod.rs:198:1
+    |
+198 | mod vm;
+    | ^^^^^^^
+
+error[E0603]: module `vm` is private
+   --> crates/rune/src/tests/range_iteration_observers.rs:130:32
+    |
+130 |     assert_eq!(crate::runtime::vm::range_next_test_counts().0, 0);
+    |                                ^^  ---------------------- function `range_next_test_counts` is not publicly re-exported
+    |                                |
+    |                                private module
+    |
+note: the module `vm` is defined here
+   --> crates/rune/src/runtime/mod.rs:198:1
+    |
+198 | mod vm;
+    | ^^^^^^^
+
+error[E0603]: module `vm` is private
+   --> crates/rune/src/tests/range_iteration_observers.rs:135:21
+    |
+135 |     crate::runtime::vm::range_next_test_reset();
+    |                     ^^  --------------------- function `range_next_test_reset` is not publicly re-exported
+    |                     |
+    |                     private module
+    |
+note: the module `vm` is defined here
+   --> crates/rune/src/runtime/mod.rs:198:1
+    |
+198 | mod vm;
+    | ^^^^^^^
+
+error[E0603]: module `vm` is private
+   --> crates/rune/src/tests/range_iteration_observers.rs:156:32
+    |
+156 |     assert_eq!(crate::runtime::vm::range_next_test_counts().0, 0);
+    |                                ^^  ---------------------- function `range_next_test_counts` is not publicly re-exported
+    |                                |
+    |                                private module
+    |
+note: the module `vm` is defined here
+   --> crates/rune/src/runtime/mod.rs:198:1
+    |
+198 | mod vm;
+    | ^^^^^^^
+
+error[E0603]: module `vm` is private
+   --> crates/rune/src/tests/range_iteration_observers.rs:200:21
+    |
+200 |     crate::runtime::vm::range_next_test_reset();
+    |                     ^^  --------------------- function `range_next_test_reset` is not publicly re-exported
+    |                     |
+    |                     private module
+    |
+note: the module `vm` is defined here
+   --> crates/rune/src/runtime/mod.rs:198:1
+    |
+198 | mod vm;
+    | ^^^^^^^
+
+error[E0603]: module `vm` is private
+   --> crates/rune/src/tests/range_iteration_observers.rs:256:32
+    |
+256 |     assert_eq!(crate::runtime::vm::range_next_test_counts().0, 0);
+    |                                ^^  ---------------------- function `range_next_test_counts` is not publicly re-exported
+    |                                |
+    |                                private module
+    |
+note: the module `vm` is defined here
+   --> crates/rune/src/runtime/mod.rs:198:1
+    |
+198 | mod vm;
+    | ^^^^^^^
+
+error[E0603]: module `vm` is private
+   --> crates/rune/src/tests/range_iteration_boundaries.rs:484:25
+    |
+484 |         crate::runtime::vm::range_next_test_reset();
+    |                         ^^  --------------------- function `range_next_test_reset` is not publicly re-exported
+    |                         |
+    |                         private module
+    |
+note: the module `vm` is defined here
+   --> crates/rune/src/runtime/mod.rs:198:1
+    |
+198 | mod vm;
+    | ^^^^^^^
+
+error[E0603]: module `vm` is private
+   --> crates/rune/src/tests/range_iteration_boundaries.rs:489:36
+    |
+489 |         assert_eq!(crate::runtime::vm::range_next_test_counts(), (3, 1));
+    |                                    ^^  ---------------------- function `range_next_test_counts` is not publicly re-exported
+    |                                    |
+    |                                    private module
+    |
+note: the module `vm` is defined here
+   --> crates/rune/src/runtime/mod.rs:198:1
+    |
+198 | mod vm;
+    | ^^^^^^^
+
+For more information about this error, try `rustc --explain E0603`.
+error: could not compile `rune` (lib test) due to 13 previous errors

@@ -1,0 +1,37 @@
+    Checking rune v0.15.0 (/home/me/work/.worktrees/rune-0175/crates/rune)
+error[E0277]: expected an `FnOnce()` closure, found `core::option::Option<i64>`
+    --> crates/rune/src/runtime/vm.rs:3120:58
+     |
+3120 |                     (&mut self.stack as &mut dyn Memory).store(out, Some(value))?;
+     |                                                          ^^^^^ expected an `FnOnce()` closure, found `core::option::Option<i64>`
+     |
+     = help: the trait `FnOnce()` is not implemented for `core::option::Option<i64>`
+     = note: wrap the `core::option::Option<i64>` in a closure with no arguments: `|| { /* code */ }`
+help: the trait `IntoOutput` is implemented for `core::option::Option<runtime::value::Value>`
+    --> crates/rune/src/runtime/value/macros.rs:67:13
+     |
+  67 |               impl $crate::runtime::IntoOutput for $ty {
+     |               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+     |
+    ::: crates/rune/src/runtime/value.rs:1734:1
+     |
+1734 | / any_from! {
+1735 | |     crate::alloc::String,
+1736 | |     super::Bytes,
+1737 | |     super::Format,
+...    |
+1748 | |     Result<Value, Value>,
+1749 | | }
+     | |_- in this macro invocation
+note: required for `core::option::Option<i64>` to implement `IntoOutput`
+    --> crates/rune/src/runtime/into_output.rs:49:12
+     |
+  49 | impl<F, O> IntoOutput for F
+     |            ^^^^^^^^^^     ^
+  50 | where
+  51 |     F: FnOnce() -> O,
+     |        ------------- unsatisfied trait bound introduced here
+     = note: this error originates in the macro `any_from` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+For more information about this error, try `rustc --explain E0277`.
+error: could not compile `rune` (lib) due to 1 previous error

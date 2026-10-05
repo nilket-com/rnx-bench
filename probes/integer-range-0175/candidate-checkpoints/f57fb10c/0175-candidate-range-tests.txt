@@ -1,0 +1,159 @@
+   Compiling rune-alloc v0.15.0 (/home/me/work/.worktrees/rune-0175/crates/rune-alloc)
+   Compiling rune-core v0.15.0 (/home/me/work/.worktrees/rune-0175/crates/rune-core)
+   Compiling rune-macros v0.15.0 (/home/me/work/.worktrees/rune-0175/crates/rune-macros)
+   Compiling rune v0.15.0 (/home/me/work/.worktrees/rune-0175/crates/rune)
+warning: field `intrinsic` is never read
+   --> crates/rune/src/internal_macros.rs:119:13
+    |
+119 |               intrinsic: u8,
+    |               ^^^^^^^^^
+    |
+   ::: crates/rune/src/compile/context.rs:27:1
+    |
+ 27 | / crate::declare_dyn_fn! {
+ 28 | |     struct MacroHandlerVtable;
+    | |            ------------------ field in this struct
+ 29 | |
+ 30 | |     /// A (type erased) macro handler.
+...   |
+ 34 | | }
+    | |_- in this macro invocation
+    |
+    = note: `#[warn(dead_code)]` (part of `#[warn(unused)]`) on by default
+    = note: this warning originates in the macro `crate::declare_dyn_fn` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+warning: method `intrinsic` is never used
+   --> crates/rune/src/internal_macros.rs:138:27
+    |
+128 |           impl $name {
+    |           ---------- method in this implementation
+...
+138 |               pub(crate) fn intrinsic(&self) -> u8 {
+    |                             ^^^^^^^^^
+    |
+   ::: crates/rune/src/compile/context.rs:27:1
+    |
+ 27 | / crate::declare_dyn_fn! {
+ 28 | |     struct MacroHandlerVtable;
+ 29 | |
+ 30 | |     /// A (type erased) macro handler.
+...   |
+ 34 | | }
+    | |_- in this macro invocation
+    |
+    = note: this warning originates in the macro `crate::declare_dyn_fn` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+warning: field `intrinsic` is never read
+   --> crates/rune/src/internal_macros.rs:119:13
+    |
+119 |               intrinsic: u8,
+    |               ^^^^^^^^^
+    |
+   ::: crates/rune/src/compile/context.rs:36:1
+    |
+ 36 | / crate::declare_dyn_fn! {
+ 37 | |     struct TraitHandlerVtable;
+    | |            ------------------ field in this struct
+ 38 | |
+ 39 | |     /// Invoked when types implement a trait.
+...   |
+ 43 | | }
+    | |_- in this macro invocation
+    |
+    = note: this warning originates in the macro `crate::declare_dyn_fn` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+warning: method `intrinsic` is never used
+   --> crates/rune/src/internal_macros.rs:138:27
+    |
+128 |           impl $name {
+    |           ---------- method in this implementation
+...
+138 |               pub(crate) fn intrinsic(&self) -> u8 {
+    |                             ^^^^^^^^^
+    |
+   ::: crates/rune/src/compile/context.rs:36:1
+    |
+ 36 | / crate::declare_dyn_fn! {
+ 37 | |     struct TraitHandlerVtable;
+ 38 | |
+ 39 | |     /// Invoked when types implement a trait.
+...   |
+ 43 | | }
+    | |_- in this macro invocation
+    |
+    = note: this warning originates in the macro `crate::declare_dyn_fn` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+warning: field `intrinsic` is never read
+   --> crates/rune/src/internal_macros.rs:119:13
+    |
+119 |               intrinsic: u8,
+    |               ^^^^^^^^^
+    |
+   ::: crates/rune/src/compile/context.rs:45:1
+    |
+ 45 | / crate::declare_dyn_fn! {
+ 46 | |     struct AttributeMacroHandlerVtable;
+    | |            --------------------------- field in this struct
+ 47 | |
+ 48 | |     /// A (type erased) attribute macro handler.
+...   |
+ 52 | | }
+    | |_- in this macro invocation
+    |
+    = note: this warning originates in the macro `crate::declare_dyn_fn` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+warning: method `intrinsic` is never used
+   --> crates/rune/src/internal_macros.rs:138:27
+    |
+128 |           impl $name {
+    |           ---------- method in this implementation
+...
+138 |               pub(crate) fn intrinsic(&self) -> u8 {
+    |                             ^^^^^^^^^
+    |
+   ::: crates/rune/src/compile/context.rs:45:1
+    |
+ 45 | / crate::declare_dyn_fn! {
+ 46 | |     struct AttributeMacroHandlerVtable;
+ 47 | |
+ 48 | |     /// A (type erased) attribute macro handler.
+...   |
+ 52 | | }
+    | |_- in this macro invocation
+    |
+    = note: this warning originates in the macro `crate::declare_dyn_fn` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+warning: `rune` (lib test) generated 6 warnings
+warning: `rune` (lib) generated 6 warnings (6 duplicates)
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 25.39s
+     Running unittests src/lib.rs (target/debug/deps/rune-bbae58d822b0514a)
+
+running 13 tests
+test tests::range_iteration_boundaries::memory_future_restores_after_pending_and_ready ... ok
+test tests::range_iteration_boundaries::nested_memory_limits_restore_on_return_and_unwind ... ok
+test tests::range_iteration_boundaries::next_allocation_failure_keeps_the_base_boundary ... ok
+test tests::range_iteration_boundaries::every_one_permit_boundary_matches_base ... ok
+test tests::range_iteration_boundaries::observers::diagnostics_preserve_every_observed_boundary ... ok
+test tests::range_iteration_boundaries::a_borrowed_range_is_not_advanced_by_a_failed_next ... ok
+test tests::range_iteration_boundaries::observers::owning_old_output_preserves_drop_and_slot_boundaries ... ok
+test tests::range_iteration_boundaries::observers::other_receiver_and_user_iterator_keep_their_protocols ... ok
+test tests::range_iteration_boundaries::observers::whole_execution_inside_explicit_memory_scopes ... ok
+test tests::range_iteration_boundaries::range_control_flow_and_fallback_results ... ok
+test tests::range_iteration_boundaries::both_dispatch_forms_finish_after_budget_resume ... ok
+test tests::range_iteration_boundaries::unusual_next_units_preserve_errors_and_raw_slots ... ok
+test tests::range_iteration_boundaries::every_budget_prefix_and_resume_matches_base_steps ... ok
+
+test result: ok. 13 passed; 0 failed; 0 ignored; 0 measured; 595 filtered out; finished in 2.85s
+
+     Running tests/derive_from_value.rs (target/debug/deps/derive_from_value-15b2c16ac541408d)
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 1 filtered out; finished in 0.00s
+
+     Running tests/ui.rs (target/debug/deps/ui-29de5a159e2f7672)
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 1 filtered out; finished in 0.00s
+
