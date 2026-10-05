@@ -1,0 +1,20 @@
+correctness: 36 identical; allocation context calls base/cand 32304 30027
+calibration: {'true': 0.077, 'floor': -0.022}
+Traceback (most recent call last):
+  File "/home/me/work/rnx-bench-w2-0172/probes/borrow-context-type-0172/measure.py", line 280, in <module>
+    main(sys.argv[1])
+    ~~~~^^^^^^^^^^^^^
+  File "/home/me/work/rnx-bench-w2-0172/probes/borrow-context-type-0172/measure.py", line 214, in main
+    got = statistics.median(fifo("base", mode, work, tmp) for _ in range(3))
+  File "/usr/lib/python3.14/statistics.py", line 340, in median
+    data = sorted(data)
+  File "/home/me/work/rnx-bench-w2-0172/probes/borrow-context-type-0172/measure.py", line 214, in <genexpr>
+    got = statistics.median(fifo("base", mode, work, tmp) for _ in range(3))
+                            ~~~~^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/me/work/rnx-bench-w2-0172/probes/borrow-context-type-0172/measure.py", line 117, in fifo
+    return parse(raw.read_text())["instructions"]
+           ~~~~~^^^^^^^^^^^^^^^^^
+  File "/home/me/work/rnx-bench-w2-0172/probes/borrow-context-type-0172/measure.py", line 71, in parse
+    assert float(row["pcnt-running"]) >= 99, row
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: {'counter-value': '<not counted>', 'unit': '', 'event': 'cpu_core/instructions/u', 'event-runtime': 0, 'pcnt-running': 0.0}

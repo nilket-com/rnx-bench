@@ -1,0 +1,16 @@
+correctness: 36 identical; allocation context calls base/cand 32304 30027
+calibration: {'true': -0.019, 'floor': -0.023}
+Traceback (most recent call last):
+  File "/home/me/work/rnx-bench-w2-0172/probes/borrow-context-type-0172/measure.py", line 286, in <module>
+    main(sys.argv[1])
+    ~~~~^^^^^^^^^^^^^
+  File "/home/me/work/rnx-bench-w2-0172/probes/borrow-context-type-0172/measure.py", line 223, in main
+    r71 = json.loads(R0171.read_text())["pmu"]
+                     ~~~~~~~~~~~~~~~^^
+  File "/usr/lib/python3.14/pathlib/__init__.py", line 788, in read_text
+    with self.open(mode='r', encoding=encoding, errors=errors, newline=newline) as f:
+         ~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.14/pathlib/__init__.py", line 772, in open
+    return io.open(self, mode, buffering, encoding, errors, newline)
+           ~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: '/home/me/work/rnx-bench/results/store-fast-path-0171/run1/measure.json'

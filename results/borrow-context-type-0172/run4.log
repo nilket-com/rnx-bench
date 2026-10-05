@@ -1,0 +1,21 @@
+correctness: 36 identical; allocation context calls base/cand 32304 30027
+calibration: {'true': -0.02, 'floor': -0.021}
+base reproduction: all gated rows within 2%; descriptive: {'0169 fifo floor None': -111, '0169 fifo empty-context None': -109}
+pmu done
+wall done
+{
+ "decision": "STOP",
+ "regressions": [
+  [
+   "run-while",
+   "instructions",
+   0.005305804026423555
+  ],
+  [
+   "run-compare",
+   "instructions",
+   0.006990359625827169
+  ]
+ ],
+ "disagreements": []
+}

@@ -1,0 +1,10 @@
+correctness: 36 identical; allocation context calls base/cand 32304 30027
+calibration: {'true': -0.016, 'floor': -0.024}
+Traceback (most recent call last):
+  File "/home/me/work/rnx-bench-w2-0172/probes/borrow-context-type-0172/measure.py", line 317, in <module>
+    main(sys.argv[1])
+    ~~~~^^^^^^^^^^^^^
+  File "/home/me/work/rnx-bench-w2-0172/probes/borrow-context-type-0172/measure.py", line 261, in main
+    assert not bad, ("base reproduction", bad)
+           ^^^^^^^
+AssertionError: ('base reproduction', {'0169 fifo floor None': 0.9518229166666666, '0169 fifo empty-context None': 0.9607065609228551})
