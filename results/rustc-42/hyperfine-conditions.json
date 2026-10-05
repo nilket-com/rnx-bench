@@ -1,0 +1,85 @@
+{
+  "commands": {
+    "build-print-default": [
+      "/home/me/.rustup/toolchains/stable-x86_64-unknown-linux-gnu/bin/rustc",
+      "--edition=2024",
+      "--crate-name",
+      "forty_two",
+      "/home/me/work/rnx-bench/probes/rustc-42/print.rs",
+      "-o",
+      "/home/me/work/rnx-bench/probes/rustc-42/target/sample"
+    ],
+    "print-metadata": [
+      "/home/me/.rustup/toolchains/stable-x86_64-unknown-linux-gnu/bin/rustc",
+      "--edition=2024",
+      "--crate-name",
+      "forty_two",
+      "--emit=metadata",
+      "/home/me/work/rnx-bench/probes/rustc-42/print.rs",
+      "-o",
+      "/home/me/work/rnx-bench/probes/rustc-42/target/sample"
+    ],
+    "print-obj": [
+      "/home/me/.rustup/toolchains/stable-x86_64-unknown-linux-gnu/bin/rustc",
+      "--edition=2024",
+      "--crate-name",
+      "forty_two",
+      "--emit=obj",
+      "/home/me/work/rnx-bench/probes/rustc-42/print.rs",
+      "-o",
+      "/home/me/work/rnx-bench/probes/rustc-42/target/sample"
+    ],
+    "cached-print-default": [
+      "/home/me/work/rnx-bench/probes/rustc-42/target/warm-print-default"
+    ],
+    "true": [
+      "/bin/true"
+    ],
+    "python": [
+      "/usr/bin/python3",
+      "-c",
+      "print(42)"
+    ],
+    "rnx-eval": [
+      "/home/me/work/rnx-bench/probes/fmt-0167/target/stock",
+      "--color=never",
+      "eval",
+      "42"
+    ]
+  },
+  "argv": [
+    "hyperfine",
+    "-N",
+    "--warmup",
+    "5",
+    "--runs",
+    "50",
+    "--export-json",
+    "/home/me/work/rnx-bench/results/rustc-42/hyperfine.json",
+    "--command-name",
+    "build-print-default",
+    "/home/me/.rustup/toolchains/stable-x86_64-unknown-linux-gnu/bin/rustc --edition=2024 --crate-name forty_two /home/me/work/rnx-bench/probes/rustc-42/print.rs -o /home/me/work/rnx-bench/probes/rustc-42/target/sample",
+    "--command-name",
+    "print-metadata",
+    "/home/me/.rustup/toolchains/stable-x86_64-unknown-linux-gnu/bin/rustc --edition=2024 --crate-name forty_two --emit=metadata /home/me/work/rnx-bench/probes/rustc-42/print.rs -o /home/me/work/rnx-bench/probes/rustc-42/target/sample",
+    "--command-name",
+    "print-obj",
+    "/home/me/.rustup/toolchains/stable-x86_64-unknown-linux-gnu/bin/rustc --edition=2024 --crate-name forty_two --emit=obj /home/me/work/rnx-bench/probes/rustc-42/print.rs -o /home/me/work/rnx-bench/probes/rustc-42/target/sample",
+    "--command-name",
+    "cached-print-default",
+    "/home/me/work/rnx-bench/probes/rustc-42/target/warm-print-default",
+    "--command-name",
+    "true",
+    "/bin/true",
+    "--command-name",
+    "python",
+    "/usr/bin/python3 -c 'print(42)'",
+    "--command-name",
+    "rnx-eval",
+    "/home/me/work/rnx-bench/probes/fmt-0167/target/stock --color=never eval 42"
+  ],
+  "purpose": "independent direct-exec timing check; existing output overwritten by rustc (still fresh compilation, no cache); no compile-and-run wrapper",
+  "affinity": [
+    4
+  ]
+}

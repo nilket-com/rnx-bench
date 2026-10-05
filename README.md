@@ -184,3 +184,14 @@ for its old revisions. `probes/jupyter-notebook/startup.py` intentionally
 requires the old 0047 worker hash. Neither is a current-head comparison.
 The new `probes/namespaces` comparison records separate before/after sources
 and requires equal successful outputs before timing them.
+
+
+## Standalone Rust compiler “42” probe
+
+A separate [raw rustc probe](results/rustc-42/summary.md) measures fresh compile,
+compile-and-run and existing-executable times against contemporaneous runtimes.
+On this machine, default standalone compile+link had a 37.6 ms median; none of
+2,340 full-build samples across the tested configurations fit within 16.7 ms.
+Object/metadata-only emission often did, but does not produce a runnable program.
+This is a tiny warm-cache, one-machine measurement, not a general compiler-speed
+claim. Exact commands, phase labels, frame fractions and clock audits are retained.

@@ -1,0 +1,44 @@
+Benchmark 1: build-print-default
+  Time (mean ± σ):      38.6 ms ±   2.4 ms    [User: 18.0 ms, System: 20.0 ms]
+  Range (min … max):    36.2 ms …  52.8 ms    50 runs
+
+Benchmark 2: print-metadata
+  Time (mean ± σ):       9.4 ms ±   0.1 ms    [User: 3.3 ms, System: 6.0 ms]
+  Range (min … max):     9.2 ms …   9.6 ms    50 runs
+
+Benchmark 3: print-obj
+  Time (mean ± σ):      14.3 ms ±   0.9 ms    [User: 6.0 ms, System: 7.0 ms]
+  Range (min … max):    12.7 ms …  15.8 ms    50 runs
+
+Benchmark 4: cached-print-default
+  Time (mean ± σ):     387.1 µs ± 200.1 µs    [User: 239.9 µs, System: 82.3 µs]
+  Range (min … max):   336.1 µs … 1765.9 µs    50 runs
+
+Benchmark 5: true
+  Time (mean ± σ):     246.6 µs ±  17.2 µs    [User: 175.6 µs, System: 40.3 µs]
+  Range (min … max):   231.5 µs … 323.7 µs    50 runs
+
+Benchmark 6: python
+  Time (mean ± σ):       8.2 ms ±   0.3 ms    [User: 6.7 ms, System: 1.4 ms]
+  Range (min … max):     8.0 ms …   9.7 ms    50 runs
+
+Benchmark 7: rnx-eval
+  Time (mean ± σ):       4.0 ms ±   0.0 ms    [User: 2.9 ms, System: 1.1 ms]
+  Range (min … max):     4.0 ms …   4.1 ms    50 runs
+
+Summary
+  true ran
+    1.57 ± 0.82 times faster than cached-print-default
+   16.41 ± 1.14 times faster than rnx-eval
+   33.12 ± 2.54 times faster than python
+   38.02 ± 2.68 times faster than print-metadata
+   58.19 ± 5.46 times faster than print-obj
+  156.62 ± 14.50 times faster than build-print-default
+
+  Warning: Statistical outliers were detected. Consider re-running this benchmark on a quiet system without any interferences from other programs. It might help to use the '--warmup' or '--prepare' options.
+
+  Warning: Statistical outliers were detected. Consider re-running this benchmark on a quiet system without any interferences from other programs. It might help to use the '--warmup' or '--prepare' options.
+
+  Warning: Statistical outliers were detected. Consider re-running this benchmark on a quiet system without any interferences from other programs. It might help to use the '--warmup' or '--prepare' options.
+
+  Warning: Statistical outliers were detected. Consider re-running this benchmark on a quiet system without any interferences from other programs. It might help to use the '--warmup' or '--prepare' options.
