@@ -22,6 +22,9 @@ def analyse(out):
   assert v['passed'] is True and abs(statistics.median(v['native_ns'])-v['reference_ns'])<=150000
  cases=read('cases.json');assert len(cases)==36
  expected={(c['subject'],c['mode'],c['work']):c for c in cases};assert len(expected)==36
+ works=('empty','answer','numeric','strings','fib')
+ want={(base,mode,None) for base in ('old','new') for mode in ('floor','empty-context','context','runtime')}|{(base,'compile','answer') for base in ('old','new')}|{(base,'run',work) for base in ('old','new','stock','lua54','luajit') for work in works}|{('stock','eval','literal-42')}
+ assert set(expected)==want,'closed measurement matrix changed'
  rows=[json.loads(l) for l in (out/'samples.jsonl').read_text().splitlines()];assert len(rows)==2265,len(rows)
  groups=collections.defaultdict(list);seen=set()
  for r in rows:
@@ -36,7 +39,7 @@ def analyse(out):
   expected_text='42\n' if r['mode']=='unpinned' else expected[key]['expected']
   assert bytes.fromhex(capture[2])==expected_text.encode(),'retained stdout mismatch'
   groups[key].append(r['ns']/1e6)
- assert len(groups)==41
+ assert set(groups)==want|{(base,'unpinned','literal-42' if base=='stock' else 'answer') for base in ('old','new','stock','lua54','luajit')},'unexpected or missing measurement identity'
  for key,v in groups.items():assert len(v)==(30 if key[1]=='unpinned' else 15 if key[2] in ('numeric','strings','fib') else 90)
  baseline=json.loads(subprocess.check_output(['git','-C',str(ROOT),'show','20f9806:results/rune-base-0168/analysis.json']))
  warnings=[]
@@ -53,7 +56,12 @@ def analyse(out):
   assert r['calls']==20;stats([r['process_ns'],r['context_ns'],r['runtime_cumulative_ns'],r['compile_cumulative_ns'],r['calls_ns']])
   assert r['context_ns']<=r['runtime_cumulative_ns']<=r['compile_cumulative_ns'] and r['process_ns']>r['calls_ns']
  diag=read('profile.json');plain=read('unmodified-context.json');assert len(diag)==12 and len(plain)==120
- for r in diag:assert len(r['rows'])==20;profile_valid(r['rows'],r['enabled'])
+ inventories=read('inventory.json');assert set(inventories)=={str((en,st)) for en in (False,True) for st in (False,True)}
+ for st in (False,True):assert inventories[str((False,st))]==inventories[str((True,st))]
+ for r in diag:
+  assert len(r['rows'])==20;profile_valid(r['rows'],r['enabled'])
+  assert r['rows'][0]['inventory']==inventories[str((r['enabled'],r['stdio']))],'altered context inventory'
+  assert all(c['inventory'] is None for c in r['rows'][1:])
  overhead=read('profile-overhead.json')
  plainkeys={(r['repeat'],r['stdio'],r['iteration']) for r in plain};assert len(plainkeys)==120
  assert plainkeys=={(rep,stdio,i) for rep in range(3) for stdio in (False,True) for i in range(20)}

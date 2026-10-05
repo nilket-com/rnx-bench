@@ -9,6 +9,7 @@ mutations={
  'reuse-missing':('reused-calls.json',lambda v:v.pop()),
  'profile-missing':('profile.json',lambda v:v.pop()),
  'profile-duplicate':('profile.json',lambda v:v.__setitem__(0,v[1])),
+ 'inventory-altered':('profile.json',lambda v:v[0]['rows'][0]['inventory'].append('forged:function')),
  'profile-stage-missing':('profile.json',lambda v:next(r for r in v if r['enabled'])['rows'][0]['rows'].pop()),
  'overhead-forged':('profile-overhead.json',lambda v:v.update(ratio=0.01)),
  'plain-nonfinite':('unmodified-context.json',lambda v:v[0].update(context_ns=float('nan'))),

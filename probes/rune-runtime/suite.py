@@ -81,6 +81,7 @@ def controls(j,out):
   except AssertionError:corrupt.append(change)
   else:raise RuntimeError('corruption accepted '+change)
  _,so,se=j.run(profile(s,True,True,kind='negative'),'actual-private-omission');assert not so
+ assert parsed(se)[0]['inventory']!=good[0]['inventory'],'omission did not change inventory'
  try:profile_valid(parsed(se),True)
  except AssertionError:corrupt.append('actual-private-module-omission')
  else:raise RuntimeError('actual omitted module accepted')
