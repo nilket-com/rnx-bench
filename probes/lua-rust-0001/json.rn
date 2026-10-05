@@ -1,0 +1,1 @@
+pub fn main(_args) { let text=json::stringify(#{answer:42})?; let value=json::parse(text)?; println!("{}",value.answer); }
