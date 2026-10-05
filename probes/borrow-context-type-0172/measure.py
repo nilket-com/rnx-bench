@@ -331,5 +331,11 @@ def main(out):
 	print(json.dumps({k: v for k, v in res["decision"].items() if k != "rows"}, indent=1))
 
 
+
+# HISTORICAL PRODUCER (rnx 0172). It records the raw inherited environment; the retained output was redacted after
+# capture (results/borrow-context-type-0172/REDACTION.md). Do not rerun as is: a new run must redact at capture and include a fake-secret sentinel control.
+if __name__ == "__main__" and not __import__("os").environ.get("RNX_ALLOW_HISTORICAL_RERUN"):
+	raise SystemExit("historical producer; see the comment above")
+
 if __name__ == "__main__":
 	main(sys.argv[1])
