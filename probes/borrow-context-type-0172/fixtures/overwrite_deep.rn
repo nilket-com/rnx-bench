@@ -1,0 +1,1 @@
+pub fn main(_args) { let v = []; let d = 0; while d < 100000 { v = [v]; d += 1; } let keep = 0; let depth = 0; let w = v; while depth < 3 { w = w[0]; depth += 1; } keep = w.len(); v = 1; w = 2; println!("{} {} {}", v, w, keep); }
