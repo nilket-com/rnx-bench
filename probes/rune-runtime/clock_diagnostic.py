@@ -3,8 +3,9 @@ import hashlib,json,os,pathlib,random,statistics,subprocess,sys
 from jobs import Jobs
 P=pathlib.Path(__file__).resolve().parent
 out=pathlib.Path(sys.argv[1]);out.mkdir(parents=True,exist_ok=False);os.sched_setaffinity(0,{4});j=Jobs(out/'jobs')
-commands={'true':['/bin/true'],'cached':[str(P/'target/cached')]};modes=['ordinary','new-session','owned-group','journaled-session'];rows=[]
+commands={'true':['/bin/true'],'cached':[str(P/'target/cached')]};modes=['ordinary','new-session','owned-group','journaled-session','journaled-observer0'];rows=[]
 options={'ordinary':{},'new-session':{'start_new_session':True},'owned-group':{'process_group':0}}
+j.event('lock-acquired',phase='clock-diagnostic',load1=os.getloadavg()[0])
 try:
  for mode,opts in options.items():
   p=subprocess.Popen(['/bin/sleep','.1'],**opts)
@@ -14,7 +15,11 @@ try:
   finally:p.wait(timeout=2)
  def observe(mode,name):
   cmd=commands[name];argv=[str(P/'target/clock'),'1',str(len(cmd)),*cmd]
-  if mode=='journaled-session':_,so,se=j.run(argv,'clock-'+name,deadline=10)
+  if mode in ('journaled-session','journaled-observer0'):
+   affinity=os.sched_getaffinity(0)
+   if mode=='journaled-observer0':os.sched_setaffinity(0,{0});argv=['taskset','-c','4',*argv]
+   try:_,so,se=j.run(argv,'clock-'+name,deadline=10)
+   finally:os.sched_setaffinity(0,affinity)
   else:
    r=subprocess.run(argv,capture_output=True,timeout=10,**options[mode]);assert r.returncode==0;so,se=r.stdout,r.stderr
   assert not se
@@ -36,4 +41,5 @@ try:
  value=dict(clock_sha256=hashlib.sha256((P/'target/clock').read_bytes()).hexdigest(),rows=rows,summary=summary,affinity=list(os.sched_getaffinity(0)),cpu_policy={f.name:f.read_text() for f in pathlib.Path('/sys/devices/system/cpu/cpu4/cpufreq').glob('scaling_*') if f.is_file()})
  (out/'diagnostic.json').write_text(json.dumps(value,indent=2)+'\n')
  print(json.dumps(summary,indent=2))
-finally:j.cleanup()
+finally:
+ j.cleanup();j.event('lock-release',phase='clock-diagnostic',load1=os.getloadavg()[0])
