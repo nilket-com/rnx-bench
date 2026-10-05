@@ -33,11 +33,9 @@ def fresh(path):
 
 def step(out, ledger, label, argv, env, cwd=None, timeout=3600):
 	began = time.monotonic()
-	try:
-		r = run_bounded(argv, timeout, env, cwd=cwd)
-		status, log = r.returncode, r.stdout + r.stderr
-	except subprocess.TimeoutExpired:
-		status, log = "timeout", ""
+	r = run_bounded(argv, timeout, env, cwd=cwd)
+	# A deadline keeps whatever the step wrote before it was killed.
+	status, log = ("timeout" if r.timed_out else r.returncode), r.stdout + r.stderr
 	elapsed = time.monotonic() - began
 	(out / f"{label}.log").write_text(log)
 	ledger.write(kind="step", label=label, argv=argv, env=env, cwd=str(cwd) if cwd else None, status=status, seconds=elapsed)

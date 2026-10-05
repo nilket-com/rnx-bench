@@ -21,17 +21,113 @@ def text_sha(p):
 	return hashlib.sha256(r.stdout).hexdigest()
 
 
-def run_bounded(argv, timeout, env, stdin=None, cwd=None):
-	"""Run in its own process group; on deadline kill the whole group and reap it before raising."""
-	p = subprocess.Popen(argv, stdin=subprocess.PIPE if stdin is not None else subprocess.DEVNULL, stdout=subprocess.PIPE,
-		stderr=subprocess.PIPE, text=True, env=env, cwd=cwd, start_new_session=True)
+class Result:
+	"""A finished (or deadline-killed) process: status, raw output and how it ended. Never raises for the child."""
+
+	def __init__(self, argv, returncode, stdout, stderr, timed_out, interrupted, reaped):
+		self.args, self.returncode, self.stdout, self.stderr = argv, returncode, stdout, stderr
+		self.timed_out, self.interrupted, self.reaped = timed_out, interrupted, reaped
+
+	def record(self):
+		return {"argv": self.args, "status": self.returncode, "stdout": self.stdout, "stderr": self.stderr,
+			"timed_out": self.timed_out, "interrupted": self.interrupted, "reaped": self.reaped}
+
+
+def kill_group(pid):
+	"""SIGKILL every remaining member of a process group; absent groups are fine."""
 	try:
-		out, err = p.communicate(stdin, timeout=timeout)
-	except subprocess.TimeoutExpired:
-		os.killpg(p.pid, signal.SIGKILL)
-		p.communicate()
-		raise
-	return subprocess.CompletedProcess(argv, p.returncode, out, err)
+		os.killpg(pid, signal.SIGKILL)
+	except ProcessLookupError:
+		pass
+
+
+def group_alive(pid):
+	try:
+		os.killpg(pid, 0)
+		return True
+	except ProcessLookupError:
+		return False
+
+
+def run_bounded(argv, timeout, env, stdin=None, cwd=None, scratch=None):
+	"""Run argv as the leader of its own process group, output to files (no pipe a descendant could hold open).
+	On every outcome (exit, deadline, interrupt or any other unwind) the whole group is killed and the leader reaped
+	with a bounded wait; the partial output is always returned or attached to the propagating exception."""
+	import tempfile
+	with tempfile.TemporaryDirectory(dir=scratch) as d:
+		out_path, err_path = pathlib.Path(d) / "stdout", pathlib.Path(d) / "stderr"
+		timed_out = interrupted = False
+		with out_path.open("wb") as out_f, err_path.open("wb") as err_f:
+			p = subprocess.Popen(argv, stdin=subprocess.PIPE if stdin is not None else subprocess.DEVNULL, stdout=out_f, stderr=err_f,
+				env=env, cwd=cwd, start_new_session=True)
+		reaped = False
+		try:
+			if stdin is not None:
+				try:
+					p.stdin.write(stdin.encode())
+					p.stdin.close()
+				except BrokenPipeError:
+					pass
+			try:
+				p.wait(timeout=timeout)
+			except subprocess.TimeoutExpired:
+				timed_out = True
+		except BaseException as error:
+			interrupted = True
+			kill_group(p.pid)
+			try:
+				p.wait(timeout=10)
+				reaped = True
+			except subprocess.TimeoutExpired:
+				pass
+			error.partial = Result(argv, p.returncode, out_path.read_bytes().decode(errors="replace"),
+				err_path.read_bytes().decode(errors="replace"), timed_out, True, reaped).record()
+			raise
+		finally:
+			if not interrupted:
+				kill_group(p.pid)
+				try:
+					p.wait(timeout=10)
+					reaped = True
+				except subprocess.TimeoutExpired:
+					pass
+		return Result(argv, p.returncode, out_path.read_bytes().decode(errors="replace"), err_path.read_bytes().decode(errors="replace"),
+			timed_out, False, reaped)
+
+
+class LineReader:
+	"""Newline-terminated lines from a nonblocking fd, each before a monotonic deadline. `seen` keeps every byte ever
+	read (including a trailing partial line), so a failure can retain the protocol bytes."""
+
+	def __init__(self, fd):
+		os.set_blocking(fd, False)
+		self.fd, self.seen, self.pending = fd, bytearray(), bytearray()
+
+	def line(self, deadline):
+		import select as _select
+		while True:
+			nl = self.pending.find(b"\n")
+			if nl >= 0:
+				line = bytes(self.pending[:nl + 1])
+				del self.pending[:nl + 1]
+				return line.decode(errors="replace")
+			left = deadline - time.monotonic()
+			if left <= 0 or not _select.select([self.fd], [], [], left)[0]:
+				raise TimeoutError(f"no complete line before deadline; partial={bytes(self.pending)!r}")
+			try:
+				chunk = os.read(self.fd, 4096)
+			except BlockingIOError:
+				continue
+			if not chunk:
+				raise EOFError(f"stream closed; partial={bytes(self.pending)!r}")
+			self.seen += chunk
+			self.pending += chunk
+
+
+def digest_tree(root, patterns):
+	"""sha256 per file for the given glob patterns under root (sorted, relative paths)."""
+	root = pathlib.Path(root)
+	return {str(p.relative_to(root)): sha(p) for pattern in patterns for p in sorted(root.glob(pattern)) if p.is_file()}
 
 
 def new_sentinel():
