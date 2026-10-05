@@ -1,0 +1,63 @@
+    Updating crates.io index
+     Locking 80 packages to latest Rust 1.98.1 compatible versions
+   Compiling proc-macro2 v1.0.107
+   Compiling quote v1.0.47
+   Compiling unicode-ident v1.0.26
+   Compiling zerocopy v0.8.59
+   Compiling version_check v0.9.5
+   Compiling autocfg v1.5.1
+   Compiling serde_core v1.0.229
+   Compiling portable-atomic v1.15.0
+   Compiling serde v1.0.229
+   Compiling futures-core v0.3.34
+   Compiling cfg-if v1.0.5
+   Compiling futures-sink v0.3.34
+   Compiling once_cell v1.21.4
+   Compiling critical-section v1.2.0
+   Compiling pin-project-lite v0.2.17
+   Compiling slab v0.4.12
+   Compiling memchr v2.8.3
+   Compiling futures-io v0.3.34
+   Compiling futures-task v0.3.34
+   Compiling anyhow v1.0.104
+   Compiling twox-hash v2.1.5
+   Compiling itoa v1.0.18
+   Compiling syntree v0.18.0
+   Compiling ryu v1.0.23
+   Compiling futures-channel v0.3.34
+   Compiling ahash v0.8.12
+   Compiling num-traits v0.2.19
+   Compiling syn v2.0.119
+   Compiling syn v3.0.6
+   Compiling num-integer v0.1.47
+   Compiling num-complex v0.4.6
+   Compiling num-bigint v0.4.8
+   Compiling num-iter v0.1.46
+   Compiling num-rational v0.4.2
+   Compiling serde_derive v1.0.229
+   Compiling futures-macro v0.3.34
+   Compiling num v0.4.3
+   Compiling futures-util v0.3.34
+   Compiling pin-project-internal v1.1.13
+   Compiling rune-alloc-macros v0.14.2
+   Compiling musli-macros v0.0.124
+   Compiling rune-tracing-macros v0.14.2
+   Compiling rune-tracing v0.14.2
+   Compiling pin-project v1.1.13
+   Compiling musli-core v0.0.124
+   Compiling rune-alloc v0.14.2
+   Compiling futures-executor v0.3.34
+   Compiling musli v0.0.124
+   Compiling futures v0.3.34
+   Compiling rune-core v0.14.2
+   Compiling rune-macros v0.14.2
+   Compiling rune v0.14.2
+   Compiling rune-base-old v0.0.0 (/home/me/work/rnx-bench/probes/rune-base-0168/old)
+error[E0599]: no method named `map_err` found for enum `VmResult<T>` in the current scope
+  --> src/../../harness.rs:31:95
+   |
+31 |     vm.execute(["main"], ((),)).map_err(|e|format!("execute: {e:?}"))?.async_complete().await.map_err(|e|format!("vm: {e:?}"))
+   |                                                                                               ^^^^^^^ method not found in `VmResult<Value>`
+
+For more information about this error, try `rustc --explain E0599`.
+error: could not compile `rune-base-old` (bin "rune-base-old") due to 1 previous error

@@ -1,0 +1,317 @@
+{
+  "limits": {
+    "address_space_bytes": 2147483648,
+    "cpu_soft_s": 5,
+    "cpu_hard_s": 6,
+    "wall_s": 10,
+    "core_bytes": 0
+  },
+  "rows": [
+    {
+      "command": [
+        "/home/me/work/rnx-bench/probes/rune-base-0168/old/target/release/primary",
+        "run",
+        "/home/me/work/rnx-bench/probes/rune-base-0168/fixtures/recursion-10000.rn",
+        "1000000000"
+      ],
+      "status": 0,
+      "stdout": "10000\n",
+      "stderr": "",
+      "outcome": "correct",
+      "base": "old",
+      "kind": "recursion",
+      "depth": 10000,
+      "expected": "10000\n",
+      "source_bytes": 109
+    },
+    {
+      "command": [
+        "/home/me/work/rnx-bench/probes/rune-base-0168/new/target/release/primary",
+        "run",
+        "/home/me/work/rnx-bench/probes/rune-base-0168/fixtures/recursion-10000.rn",
+        "1000000000"
+      ],
+      "status": 0,
+      "stdout": "10000\n",
+      "stderr": "",
+      "outcome": "correct",
+      "base": "new",
+      "kind": "recursion",
+      "depth": 10000,
+      "expected": "10000\n",
+      "source_bytes": 109
+    },
+    {
+      "command": [
+        "/home/me/work/rnx-bench/probes/rune-base-0168/old/target/release/primary",
+        "run",
+        "/home/me/work/rnx-bench/probes/rune-base-0168/fixtures/recursion-100000.rn",
+        "1000000000"
+      ],
+      "status": 0,
+      "stdout": "100000\n",
+      "stderr": "",
+      "outcome": "correct",
+      "base": "old",
+      "kind": "recursion",
+      "depth": 100000,
+      "expected": "100000\n",
+      "source_bytes": 110
+    },
+    {
+      "command": [
+        "/home/me/work/rnx-bench/probes/rune-base-0168/new/target/release/primary",
+        "run",
+        "/home/me/work/rnx-bench/probes/rune-base-0168/fixtures/recursion-100000.rn",
+        "1000000000"
+      ],
+      "status": 0,
+      "stdout": "100000\n",
+      "stderr": "",
+      "outcome": "correct",
+      "base": "new",
+      "kind": "recursion",
+      "depth": 100000,
+      "expected": "100000\n",
+      "source_bytes": 110
+    },
+    {
+      "command": [
+        "/home/me/work/rnx-bench/probes/rune-base-0168/old/target/release/primary",
+        "run",
+        "/home/me/work/rnx-bench/probes/rune-base-0168/fixtures/recursion-1000000.rn",
+        "1000000000"
+      ],
+      "status": 0,
+      "stdout": "1000000\n",
+      "stderr": "",
+      "outcome": "correct",
+      "base": "old",
+      "kind": "recursion",
+      "depth": 1000000,
+      "expected": "1000000\n",
+      "source_bytes": 111
+    },
+    {
+      "command": [
+        "/home/me/work/rnx-bench/probes/rune-base-0168/new/target/release/primary",
+        "run",
+        "/home/me/work/rnx-bench/probes/rune-base-0168/fixtures/recursion-1000000.rn",
+        "1000000000"
+      ],
+      "status": 0,
+      "stdout": "1000000\n",
+      "stderr": "",
+      "outcome": "correct",
+      "base": "new",
+      "kind": "recursion",
+      "depth": 1000000,
+      "expected": "1000000\n",
+      "source_bytes": 111
+    },
+    {
+      "command": [
+        "/home/me/work/rnx-bench/probes/rune-base-0168/old/target/release/primary",
+        "run",
+        "/home/me/work/rnx-bench/probes/rune-base-0168/fixtures/expression-100.rn",
+        "1000000000"
+      ],
+      "status": 0,
+      "stdout": "1\n",
+      "stderr": "",
+      "outcome": "correct",
+      "base": "old",
+      "kind": "expression",
+      "depth": 100,
+      "expected": "1\n",
+      "source_bytes": 241
+    },
+    {
+      "command": [
+        "/home/me/work/rnx-bench/probes/rune-base-0168/new/target/release/primary",
+        "run",
+        "/home/me/work/rnx-bench/probes/rune-base-0168/fixtures/expression-100.rn",
+        "1000000000"
+      ],
+      "status": 0,
+      "stdout": "1\n",
+      "stderr": "",
+      "outcome": "correct",
+      "base": "new",
+      "kind": "expression",
+      "depth": 100,
+      "expected": "1\n",
+      "source_bytes": 241
+    },
+    {
+      "command": [
+        "/home/me/work/rnx-bench/probes/rune-base-0168/old/target/release/primary",
+        "run",
+        "/home/me/work/rnx-bench/probes/rune-base-0168/fixtures/expression-1000.rn",
+        "1000000000"
+      ],
+      "status": 0,
+      "stdout": "1\n",
+      "stderr": "",
+      "outcome": "correct",
+      "base": "old",
+      "kind": "expression",
+      "depth": 1000,
+      "expected": "1\n",
+      "source_bytes": 2041
+    },
+    {
+      "command": [
+        "/home/me/work/rnx-bench/probes/rune-base-0168/new/target/release/primary",
+        "run",
+        "/home/me/work/rnx-bench/probes/rune-base-0168/fixtures/expression-1000.rn",
+        "1000000000"
+      ],
+      "status": 0,
+      "stdout": "1\n",
+      "stderr": "",
+      "outcome": "correct",
+      "base": "new",
+      "kind": "expression",
+      "depth": 1000,
+      "expected": "1\n",
+      "source_bytes": 2041
+    },
+    {
+      "command": [
+        "/home/me/work/rnx-bench/probes/rune-base-0168/old/target/release/primary",
+        "run",
+        "/home/me/work/rnx-bench/probes/rune-base-0168/fixtures/expression-10000.rn",
+        "1000000000"
+      ],
+      "status": -6,
+      "stdout": "",
+      "stderr": "\nthread 'main' (2446999) has overflowed its stack\nfatal runtime error: stack overflow, aborting\n",
+      "outcome": "signal:6",
+      "base": "old",
+      "kind": "expression",
+      "depth": 10000,
+      "expected": "1\n",
+      "source_bytes": 20041
+    },
+    {
+      "command": [
+        "/home/me/work/rnx-bench/probes/rune-base-0168/new/target/release/primary",
+        "run",
+        "/home/me/work/rnx-bench/probes/rune-base-0168/fixtures/expression-10000.rn",
+        "1000000000"
+      ],
+      "status": 0,
+      "stdout": "1\n",
+      "stderr": "",
+      "outcome": "correct",
+      "base": "new",
+      "kind": "expression",
+      "depth": 10000,
+      "expected": "1\n",
+      "source_bytes": 20041
+    },
+    {
+      "command": [
+        "/home/me/work/rnx-bench/probes/rune-base-0168/old/target/release/primary",
+        "run",
+        "/home/me/work/rnx-bench/probes/rune-base-0168/fixtures/literal-100.rn",
+        "1000000000"
+      ],
+      "status": 0,
+      "stdout": "1\n",
+      "stderr": "",
+      "outcome": "correct",
+      "base": "old",
+      "kind": "literal",
+      "depth": 100,
+      "expected": "1\n",
+      "source_bytes": 256
+    },
+    {
+      "command": [
+        "/home/me/work/rnx-bench/probes/rune-base-0168/new/target/release/primary",
+        "run",
+        "/home/me/work/rnx-bench/probes/rune-base-0168/fixtures/literal-100.rn",
+        "1000000000"
+      ],
+      "status": 0,
+      "stdout": "1\n",
+      "stderr": "",
+      "outcome": "correct",
+      "base": "new",
+      "kind": "literal",
+      "depth": 100,
+      "expected": "1\n",
+      "source_bytes": 256
+    },
+    {
+      "command": [
+        "/home/me/work/rnx-bench/probes/rune-base-0168/old/target/release/primary",
+        "run",
+        "/home/me/work/rnx-bench/probes/rune-base-0168/fixtures/literal-1000.rn",
+        "1000000000"
+      ],
+      "status": 0,
+      "stdout": "1\n",
+      "stderr": "",
+      "outcome": "correct",
+      "base": "old",
+      "kind": "literal",
+      "depth": 1000,
+      "expected": "1\n",
+      "source_bytes": 2056
+    },
+    {
+      "command": [
+        "/home/me/work/rnx-bench/probes/rune-base-0168/new/target/release/primary",
+        "run",
+        "/home/me/work/rnx-bench/probes/rune-base-0168/fixtures/literal-1000.rn",
+        "1000000000"
+      ],
+      "status": 0,
+      "stdout": "1\n",
+      "stderr": "",
+      "outcome": "correct",
+      "base": "new",
+      "kind": "literal",
+      "depth": 1000,
+      "expected": "1\n",
+      "source_bytes": 2056
+    },
+    {
+      "command": [
+        "/home/me/work/rnx-bench/probes/rune-base-0168/old/target/release/primary",
+        "run",
+        "/home/me/work/rnx-bench/probes/rune-base-0168/fixtures/literal-10000.rn",
+        "1000000000"
+      ],
+      "status": -6,
+      "stdout": "",
+      "stderr": "\nthread 'main' (2447011) has overflowed its stack\nfatal runtime error: stack overflow, aborting\n",
+      "outcome": "signal:6",
+      "base": "old",
+      "kind": "literal",
+      "depth": 10000,
+      "expected": "1\n",
+      "source_bytes": 20056
+    },
+    {
+      "command": [
+        "/home/me/work/rnx-bench/probes/rune-base-0168/new/target/release/primary",
+        "run",
+        "/home/me/work/rnx-bench/probes/rune-base-0168/fixtures/literal-10000.rn",
+        "1000000000"
+      ],
+      "status": 0,
+      "stdout": "1\n",
+      "stderr": "",
+      "outcome": "correct",
+      "base": "new",
+      "kind": "literal",
+      "depth": 10000,
+      "expected": "1\n",
+      "source_bytes": 20056
+    }
+  ]
+}

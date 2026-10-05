@@ -1,0 +1,428 @@
+[
+  {
+    "command": [
+      "/home/me/work/rnx-bench/probes/rune-base-0168/old/target/release/primary",
+      "run",
+      "/home/me/work/rnx-bench/probes/rune-base-0168/fixtures/int-boundaries.rn",
+      "1000000000"
+    ],
+    "status": 0,
+    "stdout": "9223372036854775807\n-9223372036854775808\n",
+    "stderr": "",
+    "outcome": "correct",
+    "base": "old",
+    "name": "int-boundaries",
+    "expected": "9223372036854775807\n-9223372036854775808\n",
+    "passed": true
+  },
+  {
+    "command": [
+      "/home/me/work/rnx-bench/probes/rune-base-0168/new/target/release/primary",
+      "run",
+      "/home/me/work/rnx-bench/probes/rune-base-0168/fixtures/int-boundaries.rn",
+      "1000000000"
+    ],
+    "status": 0,
+    "stdout": "9223372036854775807\n-9223372036854775808\n",
+    "stderr": "",
+    "outcome": "correct",
+    "base": "new",
+    "name": "int-boundaries",
+    "expected": "9223372036854775807\n-9223372036854775808\n",
+    "passed": true
+  },
+  {
+    "command": [
+      "/home/me/work/rnx-bench/probes/rune-base-0168/old/target/release/primary",
+      "run",
+      "/home/me/work/rnx-bench/probes/rune-base-0168/fixtures/floats.rn",
+      "1000000000"
+    ],
+    "status": 0,
+    "stdout": "0.75\n3.0\n",
+    "stderr": "",
+    "outcome": "correct",
+    "base": "old",
+    "name": "floats",
+    "expected": "0.75\n3.0\n",
+    "passed": true
+  },
+  {
+    "command": [
+      "/home/me/work/rnx-bench/probes/rune-base-0168/new/target/release/primary",
+      "run",
+      "/home/me/work/rnx-bench/probes/rune-base-0168/fixtures/floats.rn",
+      "1000000000"
+    ],
+    "status": 0,
+    "stdout": "0.75\n3.0\n",
+    "stderr": "",
+    "outcome": "correct",
+    "base": "new",
+    "name": "floats",
+    "expected": "0.75\n3.0\n",
+    "passed": true
+  },
+  {
+    "command": [
+      "/home/me/work/rnx-bench/probes/rune-base-0168/old/target/release/primary",
+      "run",
+      "/home/me/work/rnx-bench/probes/rune-base-0168/fixtures/unicode.rn",
+      "1000000000"
+    ],
+    "status": 0,
+    "stdout": "7\na\ud83e\udd80\u00e9\n",
+    "stderr": "",
+    "outcome": "correct",
+    "base": "old",
+    "name": "unicode",
+    "expected": "7\na\ud83e\udd80\u00e9\n",
+    "passed": true
+  },
+  {
+    "command": [
+      "/home/me/work/rnx-bench/probes/rune-base-0168/new/target/release/primary",
+      "run",
+      "/home/me/work/rnx-bench/probes/rune-base-0168/fixtures/unicode.rn",
+      "1000000000"
+    ],
+    "status": 0,
+    "stdout": "7\na\ud83e\udd80\u00e9\n",
+    "stderr": "",
+    "outcome": "correct",
+    "base": "new",
+    "name": "unicode",
+    "expected": "7\na\ud83e\udd80\u00e9\n",
+    "passed": true
+  },
+  {
+    "command": [
+      "/home/me/work/rnx-bench/probes/rune-base-0168/old/target/release/primary",
+      "run",
+      "/home/me/work/rnx-bench/probes/rune-base-0168/fixtures/vec-alias.rn",
+      "1000000000"
+    ],
+    "status": 0,
+    "stdout": "2\n",
+    "stderr": "",
+    "outcome": "correct",
+    "base": "old",
+    "name": "vec-alias",
+    "expected": "2\n",
+    "passed": true
+  },
+  {
+    "command": [
+      "/home/me/work/rnx-bench/probes/rune-base-0168/new/target/release/primary",
+      "run",
+      "/home/me/work/rnx-bench/probes/rune-base-0168/fixtures/vec-alias.rn",
+      "1000000000"
+    ],
+    "status": 0,
+    "stdout": "2\n",
+    "stderr": "",
+    "outcome": "correct",
+    "base": "new",
+    "name": "vec-alias",
+    "expected": "2\n",
+    "passed": true
+  },
+  {
+    "command": [
+      "/home/me/work/rnx-bench/probes/rune-base-0168/old/target/release/primary",
+      "run",
+      "/home/me/work/rnx-bench/probes/rune-base-0168/fixtures/object-alias.rn",
+      "1000000000"
+    ],
+    "status": 0,
+    "stdout": "2\n",
+    "stderr": "",
+    "outcome": "correct",
+    "base": "old",
+    "name": "object-alias",
+    "expected": "2\n",
+    "passed": true
+  },
+  {
+    "command": [
+      "/home/me/work/rnx-bench/probes/rune-base-0168/new/target/release/primary",
+      "run",
+      "/home/me/work/rnx-bench/probes/rune-base-0168/fixtures/object-alias.rn",
+      "1000000000"
+    ],
+    "status": 0,
+    "stdout": "2\n",
+    "stderr": "",
+    "outcome": "correct",
+    "base": "new",
+    "name": "object-alias",
+    "expected": "2\n",
+    "passed": true
+  },
+  {
+    "command": [
+      "/home/me/work/rnx-bench/probes/rune-base-0168/old/target/release/primary",
+      "run",
+      "/home/me/work/rnx-bench/probes/rune-base-0168/fixtures/closure.rn",
+      "1000000000"
+    ],
+    "status": 0,
+    "stdout": "42\n",
+    "stderr": "",
+    "outcome": "correct",
+    "base": "old",
+    "name": "closure",
+    "expected": "42\n",
+    "passed": true
+  },
+  {
+    "command": [
+      "/home/me/work/rnx-bench/probes/rune-base-0168/new/target/release/primary",
+      "run",
+      "/home/me/work/rnx-bench/probes/rune-base-0168/fixtures/closure.rn",
+      "1000000000"
+    ],
+    "status": 0,
+    "stdout": "42\n",
+    "stderr": "",
+    "outcome": "correct",
+    "base": "new",
+    "name": "closure",
+    "expected": "42\n",
+    "passed": true
+  },
+  {
+    "command": [
+      "/home/me/work/rnx-bench/probes/rune-base-0168/old/target/release/primary",
+      "run",
+      "/home/me/work/rnx-bench/probes/rune-base-0168/fixtures/iterator-trait.rn",
+      "1000000000"
+    ],
+    "status": 0,
+    "stdout": "12\n",
+    "stderr": "",
+    "outcome": "correct",
+    "base": "old",
+    "name": "iterator-trait",
+    "expected": "12\n",
+    "passed": true
+  },
+  {
+    "command": [
+      "/home/me/work/rnx-bench/probes/rune-base-0168/new/target/release/primary",
+      "run",
+      "/home/me/work/rnx-bench/probes/rune-base-0168/fixtures/iterator-trait.rn",
+      "1000000000"
+    ],
+    "status": 0,
+    "stdout": "12\n",
+    "stderr": "",
+    "outcome": "correct",
+    "base": "new",
+    "name": "iterator-trait",
+    "expected": "12\n",
+    "passed": true
+  },
+  {
+    "command": [
+      "/home/me/work/rnx-bench/probes/rune-base-0168/old/target/release/primary",
+      "run",
+      "/home/me/work/rnx-bench/probes/rune-base-0168/fixtures/sum-untyped.rn",
+      "1000000000"
+    ],
+    "status": 1,
+    "stdout": "",
+    "stderr": "vm: VmError { error: VmErrorAt { kind: MissingInstanceFunction { hash: 0xa001a74c0870db97, instance: Any(AnyTypeInfo { full_name: 0x63e9ddb2d340, hash: 0xf42162e28d142851 }) } }, chain: [], stacktrace: [VmErrorLocation { unit: Unit { logic: Logic { storage: ArrayUnit { instructions: [Allocate { size: 8 }, Store { value: Integer(1), out: keep(5) }, Store { value: Integer(2), out: keep(6) }, Store { value: Integer(3), out: keep(7) }, Vec { addr: 5, count: 3, out: keep(4) }, CallAssociated { hash: 0xbb7bdba9d3036269, addr: 4, args: 1, out: keep(3) }, CallAssociated { hash: 0xa87ba55489100c4, addr: 3, args: 1, out: keep(2) }, StringConcat { addr: 2, len: 1, size_hint: 0, out: keep(1) }, Call { hash: 0xc8b50f980c2726a3, addr: 1, args: 1, out: discard }, ReturnUnit] }, functions: {0x1c69d5964e831fc1: Offset { offset: 0, call: Immediate, args: 1, captures: None }}, static_strings: [], static_bytes: [], static_object_keys: [], drop_sets: [], rtti: {}, constants: {0xfd33a2d595b4aa41: String(\"main\")} }, debug: Some(DebugInfo { instructions: {6: DebugInst { source_id: 0, span: 35:55, comment: None, labels: [] }, 7: DebugInst { source_id: 0, span: 21:56, comment: None, labels: [] }, 3: DebugInst { source_id: 0, span: 40:41, comment: None, labels: [] }, 8: DebugInst { source_id: 0, span: 21:56, comment: None, labels: [] }, 9: DebugInst { source_id: 0, span: 0:59, comment: None, labels: [] }, 5: DebugInst { source_id: 0, span: 35:49, comment: None, labels: [] }, 4: DebugInst { source_id: 0, span: 35:42, comment: None, labels: [] }, 2: DebugInst { source_id: 0, span: 38:39, comment: None, labels: [] }, 1: DebugInst { source_id: 0, span: 36:37, comment: None, labels: [] }}, functions: {0x1c69d5964e831fc1: DebugSignature { path: main, args: Named([\"_args\"]) }}, functions_rev: {0: 0x1c69d5964e831fc1}, hash_to_ident: {0xa87ba55489100c4: \"sum\", 0xbb7bdba9d3036269: \"iter\"} }) }, ip: 6, frames: [] }] }\n",
+    "outcome": "vm-error",
+    "base": "old",
+    "name": "sum-untyped",
+    "expected": null,
+    "passed": true,
+    "semantic_error": "MissingInstanceFunction"
+  },
+  {
+    "command": [
+      "/home/me/work/rnx-bench/probes/rune-base-0168/new/target/release/primary",
+      "run",
+      "/home/me/work/rnx-bench/probes/rune-base-0168/fixtures/sum-untyped.rn",
+      "1000000000"
+    ],
+    "status": 1,
+    "stdout": "",
+    "stderr": "vm: VmError { error: VmErrorAt { kind: MissingInstanceFunction { hash: 0xa001a74c0870db97, instance: Any(AnyTypeInfo { full_name: 0x5b11685e56d0, hash: 0xf42162e28d142851 }) } }, chain: [], stacktrace: [VmErrorLocation { unit: Unit { logic: Logic { storage: ArrayUnit { instructions: [Allocate { size: 8 }, Store { value: Integer(1), out: keep(5) }, Store { value: Integer(2), out: keep(6) }, Store { value: Integer(3), out: keep(7) }, Vec { addr: 5, count: 3, out: keep(4) }, CallAssociated { hash: 0xbb7bdba9d3036269, addr: 4, args: 1, out: keep(3) }, CallAssociated { hash: 0xa87ba55489100c4, addr: 3, args: 1, out: keep(2) }, StringConcat { addr: 2, len: 1, size_hint: 0, out: keep(1) }, Call { hash: 0xc8b50f980c2726a3, addr: 1, args: 1, out: discard }, ReturnUnit] }, functions: {0x1c69d5964e831fc1: Offset { offset: 0, call: Immediate, args: 1, captures: None }}, static_strings: [], static_bytes: [], static_object_keys: [], drop_sets: [], rtti: {}, constants: {0xfd33a2d595b4aa41: \"main\"}, globals: [], globals_rev: {} }, debug: Some(DebugInfo { instructions: {6: DebugInst { source_id: 0, span: 35:55, comment: None, labels: [] }, 7: DebugInst { source_id: 0, span: 0:55, comment: None, labels: [] }, 3: DebugInst { source_id: 0, span: 40:41, comment: None, labels: [] }, 8: DebugInst { source_id: 0, span: 21:56, comment: None, labels: [] }, 9: DebugInst { source_id: 0, span: 0:59, comment: None, labels: [] }, 5: DebugInst { source_id: 0, span: 35:49, comment: None, labels: [] }, 4: DebugInst { source_id: 0, span: 35:42, comment: None, labels: [] }, 2: DebugInst { source_id: 0, span: 38:39, comment: None, labels: [] }, 1: DebugInst { source_id: 0, span: 36:37, comment: None, labels: [] }}, functions: {0x1c69d5964e831fc1: DebugSignature { path: main, args: Named([\"_args\"]) }}, functions_rev: {0: 0x1c69d5964e831fc1}, hash_to_ident: {0xa87ba55489100c4: \"sum\", 0xbb7bdba9d3036269: \"iter\"}, globals: [] }) }, ip: 6, frames: [] }] }\n",
+    "outcome": "vm-error",
+    "base": "new",
+    "name": "sum-untyped",
+    "expected": null,
+    "passed": true,
+    "semantic_error": "MissingInstanceFunction"
+  },
+  {
+    "command": [
+      "/home/me/work/rnx-bench/probes/rune-base-0168/old/target/release/primary",
+      "async",
+      "/home/me/work/rnx-bench/probes/rune-base-0168/fixtures/async.rn",
+      "1000000000"
+    ],
+    "status": 0,
+    "stdout": "42\n",
+    "stderr": "",
+    "outcome": "correct",
+    "base": "old",
+    "name": "async",
+    "expected": "42\n",
+    "passed": true
+  },
+  {
+    "command": [
+      "/home/me/work/rnx-bench/probes/rune-base-0168/new/target/release/primary",
+      "async",
+      "/home/me/work/rnx-bench/probes/rune-base-0168/fixtures/async.rn",
+      "1000000000"
+    ],
+    "status": 0,
+    "stdout": "42\n",
+    "stderr": "",
+    "outcome": "correct",
+    "base": "new",
+    "name": "async",
+    "expected": "42\n",
+    "passed": true
+  },
+  {
+    "command": [
+      "/home/me/work/rnx-bench/probes/rune-base-0168/old/target/release/primary",
+      "run",
+      "/home/me/work/rnx-bench/probes/rune-base-0168/fixtures/overflow.rn",
+      "1000000000"
+    ],
+    "status": 1,
+    "stdout": "",
+    "stderr": "vm: VmError { error: VmErrorAt { kind: Overflow }, chain: [], stacktrace: [VmErrorLocation { unit: Unit { logic: Logic { storage: ArrayUnit { instructions: [Allocate { size: 5 }, Store { value: Integer(9223372036854775807), out: keep(1) }, Store { value: Integer(1), out: keep(4) }, Arithmetic { op: Add, a: 1, b: 4, out: keep(3) }, StringConcat { addr: 3, len: 1, size_hint: 0, out: keep(2) }, Call { hash: 0xc8b50f980c2726a3, addr: 2, args: 1, out: discard }, ReturnUnit] }, functions: {0x1c69d5964e831fc1: Offset { offset: 0, call: Immediate, args: 1, captures: None }}, static_strings: [], static_bytes: [], static_object_keys: [], drop_sets: [], rtti: {}, constants: {0xfd33a2d595b4aa41: String(\"main\")} }, debug: Some(DebugInfo { instructions: {5: DebugInst { source_id: 0, span: 48:66, comment: None, labels: [] }, 4: DebugInst { source_id: 0, span: 48:66, comment: None, labels: [] }, 6: DebugInst { source_id: 0, span: 0:69, comment: None, labels: [] }, 3: DebugInst { source_id: 0, span: 62:65, comment: None, labels: [] }, 2: DebugInst { source_id: 0, span: 64:65, comment: None, labels: [] }, 1: DebugInst { source_id: 0, span: 27:46, comment: None, labels: [] }}, functions: {0x1c69d5964e831fc1: DebugSignature { path: main, args: Named([\"_args\"]) }}, functions_rev: {0: 0x1c69d5964e831fc1}, hash_to_ident: {} }) }, ip: 3, frames: [] }] }\n",
+    "outcome": "vm-error",
+    "base": "old",
+    "name": "overflow",
+    "expected": null,
+    "passed": true,
+    "semantic_error": "Overflow"
+  },
+  {
+    "command": [
+      "/home/me/work/rnx-bench/probes/rune-base-0168/new/target/release/primary",
+      "run",
+      "/home/me/work/rnx-bench/probes/rune-base-0168/fixtures/overflow.rn",
+      "1000000000"
+    ],
+    "status": 1,
+    "stdout": "",
+    "stderr": "vm: VmError { error: VmErrorAt { kind: Overflow }, chain: [], stacktrace: [VmErrorLocation { unit: Unit { logic: Logic { storage: ArrayUnit { instructions: [Allocate { size: 5 }, Store { value: Integer(9223372036854775807), out: keep(1) }, Store { value: Integer(1), out: keep(4) }, Arithmetic { op: Add, a: 1, b: 4, out: keep(3) }, StringConcat { addr: 3, len: 1, size_hint: 0, out: keep(2) }, Call { hash: 0xc8b50f980c2726a3, addr: 2, args: 1, out: discard }, ReturnUnit] }, functions: {0x1c69d5964e831fc1: Offset { offset: 0, call: Immediate, args: 1, captures: None }}, static_strings: [], static_bytes: [], static_object_keys: [], drop_sets: [], rtti: {}, constants: {0xfd33a2d595b4aa41: \"main\"}, globals: [], globals_rev: {} }, debug: Some(DebugInfo { instructions: {5: DebugInst { source_id: 0, span: 48:66, comment: None, labels: [] }, 4: DebugInst { source_id: 0, span: 0:65, comment: None, labels: [] }, 6: DebugInst { source_id: 0, span: 0:69, comment: None, labels: [] }, 3: DebugInst { source_id: 0, span: 62:65, comment: None, labels: [] }, 2: DebugInst { source_id: 0, span: 64:65, comment: None, labels: [] }, 1: DebugInst { source_id: 0, span: 27:46, comment: None, labels: [] }}, functions: {0x1c69d5964e831fc1: DebugSignature { path: main, args: Named([\"_args\"]) }}, functions_rev: {0: 0x1c69d5964e831fc1}, hash_to_ident: {}, globals: [] }) }, ip: 3, frames: [] }] }\n",
+    "outcome": "vm-error",
+    "base": "new",
+    "name": "overflow",
+    "expected": null,
+    "passed": true,
+    "semantic_error": "Overflow"
+  },
+  {
+    "command": [
+      "/home/me/work/rnx-bench/probes/rune-base-0168/old/target/release/primary",
+      "run",
+      "/home/me/work/rnx-bench/probes/rune-base-0168/fixtures/divide-zero.rn",
+      "1000000000"
+    ],
+    "status": 1,
+    "stdout": "",
+    "stderr": "vm: VmError { error: VmErrorAt { kind: DivideByZero }, chain: [], stacktrace: [VmErrorLocation { unit: Unit { logic: Logic { storage: ArrayUnit { instructions: [Allocate { size: 5 }, Store { value: Integer(0), out: keep(1) }, Store { value: Integer(1), out: keep(4) }, Arithmetic { op: Div, a: 4, b: 1, out: keep(3) }, StringConcat { addr: 3, len: 1, size_hint: 0, out: keep(2) }, Call { hash: 0xc8b50f980c2726a3, addr: 2, args: 1, out: discard }, ReturnUnit] }, functions: {0x1c69d5964e831fc1: Offset { offset: 0, call: Immediate, args: 1, captures: None }}, static_strings: [], static_bytes: [], static_object_keys: [], drop_sets: [], rtti: {}, constants: {0xfd33a2d595b4aa41: String(\"main\")} }, debug: Some(DebugInfo { instructions: {5: DebugInst { source_id: 0, span: 30:48, comment: None, labels: [] }, 4: DebugInst { source_id: 0, span: 30:48, comment: None, labels: [] }, 6: DebugInst { source_id: 0, span: 0:51, comment: None, labels: [] }, 3: DebugInst { source_id: 0, span: 44:47, comment: None, labels: [] }, 2: DebugInst { source_id: 0, span: 44:45, comment: None, labels: [] }, 1: DebugInst { source_id: 0, span: 27:28, comment: None, labels: [] }}, functions: {0x1c69d5964e831fc1: DebugSignature { path: main, args: Named([\"_args\"]) }}, functions_rev: {0: 0x1c69d5964e831fc1}, hash_to_ident: {} }) }, ip: 3, frames: [] }] }\n",
+    "outcome": "vm-error",
+    "base": "old",
+    "name": "divide-zero",
+    "expected": null,
+    "passed": true,
+    "semantic_error": "DivideByZero"
+  },
+  {
+    "command": [
+      "/home/me/work/rnx-bench/probes/rune-base-0168/new/target/release/primary",
+      "run",
+      "/home/me/work/rnx-bench/probes/rune-base-0168/fixtures/divide-zero.rn",
+      "1000000000"
+    ],
+    "status": 1,
+    "stdout": "",
+    "stderr": "vm: VmError { error: VmErrorAt { kind: DivideByZero }, chain: [], stacktrace: [VmErrorLocation { unit: Unit { logic: Logic { storage: ArrayUnit { instructions: [Allocate { size: 5 }, Store { value: Integer(0), out: keep(1) }, Store { value: Integer(1), out: keep(4) }, Arithmetic { op: Div, a: 4, b: 1, out: keep(3) }, StringConcat { addr: 3, len: 1, size_hint: 0, out: keep(2) }, Call { hash: 0xc8b50f980c2726a3, addr: 2, args: 1, out: discard }, ReturnUnit] }, functions: {0x1c69d5964e831fc1: Offset { offset: 0, call: Immediate, args: 1, captures: None }}, static_strings: [], static_bytes: [], static_object_keys: [], drop_sets: [], rtti: {}, constants: {0xfd33a2d595b4aa41: \"main\"}, globals: [], globals_rev: {} }, debug: Some(DebugInfo { instructions: {5: DebugInst { source_id: 0, span: 30:48, comment: None, labels: [] }, 4: DebugInst { source_id: 0, span: 0:47, comment: None, labels: [] }, 6: DebugInst { source_id: 0, span: 0:51, comment: None, labels: [] }, 3: DebugInst { source_id: 0, span: 44:47, comment: None, labels: [] }, 2: DebugInst { source_id: 0, span: 44:45, comment: None, labels: [] }, 1: DebugInst { source_id: 0, span: 27:28, comment: None, labels: [] }}, functions: {0x1c69d5964e831fc1: DebugSignature { path: main, args: Named([\"_args\"]) }}, functions_rev: {0: 0x1c69d5964e831fc1}, hash_to_ident: {}, globals: [] }) }, ip: 3, frames: [] }] }\n",
+    "outcome": "vm-error",
+    "base": "new",
+    "name": "divide-zero",
+    "expected": null,
+    "passed": true,
+    "semantic_error": "DivideByZero"
+  },
+  {
+    "command": [
+      "/home/me/work/rnx-bench/probes/rune-base-0168/old/target/release/primary",
+      "run",
+      "/home/me/work/rnx-bench/probes/rune-base-0168/fixtures/undefined.rn",
+      "1000000000"
+    ],
+    "status": 1,
+    "stdout": "",
+    "stderr": "compile: BuildError { kind: Default }; diagnostics=Diagnostics { diagnostics: [Fatal(FatalDiagnostic { source_id: 0, kind: CompileError(Error { span: 21:27, kind: MissingLocal { name: \"absent\" } }) })], mode: All, has_error: true, has_warning: false }\n",
+    "outcome": "compile-error",
+    "base": "old",
+    "name": "undefined",
+    "expected": null,
+    "passed": true,
+    "semantic_error": "MissingLocal"
+  },
+  {
+    "command": [
+      "/home/me/work/rnx-bench/probes/rune-base-0168/new/target/release/primary",
+      "run",
+      "/home/me/work/rnx-bench/probes/rune-base-0168/fixtures/undefined.rn",
+      "1000000000"
+    ],
+    "status": 1,
+    "stdout": "",
+    "stderr": "compile: BuildError { kind: Default }; diagnostics=Diagnostics { diagnostics: [Fatal(FatalDiagnostic { source_id: 0, kind: CompileError(Error { span: 21:27, kind: MissingLocal { name: \"absent\" } }) })], mode: All, has_error: true, has_warning: false }\n",
+    "outcome": "compile-error",
+    "base": "new",
+    "name": "undefined",
+    "expected": null,
+    "passed": true,
+    "semantic_error": "MissingLocal"
+  },
+  {
+    "command": [
+      "/home/me/work/rnx-bench/probes/rune-base-0168/old/target/release/primary",
+      "run",
+      "/home/me/work/rnx-bench/probes/rune-base-0168/fixtures/budget.rn",
+      "100"
+    ],
+    "status": 1,
+    "stdout": "",
+    "stderr": "vm: VmError { error: VmErrorAt { kind: Halted { halt: Limited } }, chain: [], stacktrace: [] }\n",
+    "outcome": "vm-error",
+    "base": "old",
+    "name": "budget",
+    "expected": null,
+    "passed": true,
+    "semantic_error": "Limited"
+  },
+  {
+    "command": [
+      "/home/me/work/rnx-bench/probes/rune-base-0168/new/target/release/primary",
+      "run",
+      "/home/me/work/rnx-bench/probes/rune-base-0168/fixtures/budget.rn",
+      "100"
+    ],
+    "status": 1,
+    "stdout": "",
+    "stderr": "vm: VmError { error: VmErrorAt { kind: Halted { halt: Limited } }, chain: [], stacktrace: [] }\n",
+    "outcome": "vm-error",
+    "base": "new",
+    "name": "budget",
+    "expected": null,
+    "passed": true,
+    "semantic_error": "Limited"
+  }
+]

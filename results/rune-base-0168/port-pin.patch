@@ -1,0 +1,286 @@
+[1mdiff --git a/Cargo.lock b/Cargo.lock[m
+[1mindex 6883ea3..efbca1d 100644[m
+[1m--- a/Cargo.lock[m
+[1m+++ b/Cargo.lock[m
+[36m@@ -59,12 +59,6 @@[m [mversion = "1.1.2"[m
+ source = "registry+https://github.com/rust-lang/crates.io-index"[m
+ checksum = "1505bd5d3d116872e7271a6d4e16d81d0c8570876c8de68093a09ac269d8aac0"[m
+ [m
+[31m-[[package]][m
+[31m-name = "autocfg"[m
+[31m-version = "1.5.1"[m
+[31m-source = "registry+https://github.com/rust-lang/crates.io-index"[m
+[31m-checksum = "f2032f911046de80f0a198e0901378627c33f59ea0ac00e363d481118bd70a53"[m
+[31m-[m
+ [[package]][m
+ name = "axum"[m
+ version = "0.8.9"[m
+[36m@@ -822,9 +816,9 @@[m [mdependencies = [[m
+ [m
+ [[package]][m
+ name = "musli"[m
+[31m-version = "0.0.124"[m
+[32m+[m[32mversion = "0.1.8"[m
+ source = "registry+https://github.com/rust-lang/crates.io-index"[m
+[31m-checksum = "8b310b280353d9e1c92861820321f8742b02666acaf984a29cd8946965444384"[m
+[32m+[m[32mchecksum = "8185bb48d06d8fee380b69da15dd7fbc4e07837a0f16b821100aeee2cbb5512b"[m
+ dependencies = [[m
+  "loom",[m
+  "musli-core",[m
+[36m@@ -834,22 +828,22 @@[m [mdependencies = [[m
+ [m
+ [[package]][m
+ name = "musli-core"[m
+[31m-version = "0.0.124"[m
+[32m+[m[32mversion = "0.1.7"[m
+ source = "registry+https://github.com/rust-lang/crates.io-index"[m
+[31m-checksum = "d00e227a374e92550ce2eb5002ae116e02a43926d7243c95997138406ae4e157"[m
+[32m+[m[32mchecksum = "0e1cfc4a7a715d50ea600040608a185588a3448740496cdbac397ab61405ec53"[m
+ dependencies = [[m
+  "musli-macros",[m
+ ][m
+ [m
+ [[package]][m
+ name = "musli-macros"[m
+[31m-version = "0.0.124"[m
+[32m+[m[32mversion = "0.1.7"[m
+ source = "registry+https://github.com/rust-lang/crates.io-index"[m
+[31m-checksum = "e7427c9aa85c882cd4dbe712d2fcdc511db05d595f7787e6747c90cd7d67efc4"[m
+[32m+[m[32mchecksum = "6a997b2365215ab07528dc4944ef84bc41b6758a9ac1efa0c58466102d0e1b0e"[m
+ dependencies = [[m
+  "proc-macro2",[m
+  "quote",[m
+[31m- "syn 2.0.119",[m
+[32m+[m[32m "syn 3.0.5",[m
+ ][m
+ [m
+ [[package]][m
+[36m@@ -882,78 +876,6 @@[m [mdependencies = [[m
+  "windows-sys 0.61.2",[m
+ ][m
+ [m
+[31m-[[package]][m
+[31m-name = "num"[m
+[31m-version = "0.4.3"[m
+[31m-source = "registry+https://github.com/rust-lang/crates.io-index"[m
+[31m-checksum = "35bd024e8b2ff75562e5f34e7f4905839deb4b22955ef5e73d2fea1b9813cb23"[m
+[31m-dependencies = [[m
+[31m- "num-bigint",[m
+[31m- "num-complex",[m
+[31m- "num-integer",[m
+[31m- "num-iter",[m
+[31m- "num-rational",[m
+[31m- "num-traits",[m
+[31m-][m
+[31m-[m
+[31m-[[package]][m
+[31m-name = "num-bigint"[m
+[31m-version = "0.4.8"[m
+[31m-source = "registry+https://github.com/rust-lang/crates.io-index"[m
+[31m-checksum = "c89e69e7e0f03bea5ef08013795c25018e101932225a656383bd384495ecc367"[m
+[31m-dependencies = [[m
+[31m- "num-integer",[m
+[31m- "num-traits",[m
+[31m-][m
+[31m-[m
+[31m-[[package]][m
+[31m-name = "num-complex"[m
+[31m-version = "0.4.6"[m
+[31m-source = "registry+https://github.com/rust-lang/crates.io-index"[m
+[31m-checksum = "73f88a1307638156682bada9d7604135552957b7818057dcef22705b4d509495"[m
+[31m-dependencies = [[m
+[31m- "num-traits",[m
+[31m-][m
+[31m-[m
+[31m-[[package]][m
+[31m-name = "num-integer"[m
+[31m-version = "0.1.47"[m
+[31m-source = "registry+https://github.com/rust-lang/crates.io-index"[m
+[31m-checksum = "7ce2d95d4b3734dc35aa2f45e1aa22cd416814592a4f9d9205e11affd5b8e10b"[m
+[31m-dependencies = [[m
+[31m- "num-traits",[m
+[31m-][m
+[31m-[m
+[31m-[[package]][m
+[31m-name = "num-iter"[m
+[31m-version = "0.1.46"[m
+[31m-source = "registry+https://github.com/rust-lang/crates.io-index"[m
+[31m-checksum = "c92800bd69a1eac91786bcfe9da64a897eb72911b8dc3095decbd07429e8048b"[m
+[31m-dependencies = [[m
+[31m- "num-integer",[m
+[31m- "num-traits",[m
+[31m-][m
+[31m-[m
+[31m-[[package]][m
+[31m-name = "num-rational"[m
+[31m-version = "0.4.2"[m
+[31m-source = "registry+https://github.com/rust-lang/crates.io-index"[m
+[31m-checksum = "f83d14da390562dca69fc84082e73e548e1ad308d24accdedd2720017cb37824"[m
+[31m-dependencies = [[m
+[31m- "num-bigint",[m
+[31m- "num-integer",[m
+[31m- "num-traits",[m
+[31m-][m
+[31m-[m
+[31m-[[package]][m
+[31m-name = "num-traits"[m
+[31m-version = "0.2.19"[m
+[31m-source = "registry+https://github.com/rust-lang/crates.io-index"[m
+[31m-checksum = "071dfc062690e90b734c0b2273ce72ad0ffa95f0c74596bc250dcfd960262841"[m
+[31m-dependencies = [[m
+[31m- "autocfg",[m
+[31m-][m
+[31m-[m
+ [[package]][m
+ name = "once_cell"[m
+ version = "1.21.4"[m
+[36m@@ -1153,6 +1075,15 @@[m [mversion = "0.8.11"[m
+ source = "registry+https://github.com/rust-lang/crates.io-index"[m
+ checksum = "d6f6ff9a378485b298a5286656da665ba74413d36db0979633275d2e708145d4"[m
+ [m
+[32m+[m[32m[[package]][m
+[32m+[m[32mname = "relative-path"[m
+[32m+[m[32mversion = "2.0.1"[m
+[32m+[m[32msource = "registry+https://github.com/rust-lang/crates.io-index"[m
+[32m+[m[32mchecksum = "bca40a312222d8ba74837cb474edef44b37f561da5f773981007a10bbaa992b0"[m
+[32m+[m[32mdependencies = [[m
+[32m+[m[32m "serde",[m
+[32m+[m[32m][m
+[32m+[m
+ [[package]][m
+ name = "reqwest"[m
+ version = "0.12.28"[m
+[36m@@ -1244,19 +1175,16 @@[m [mdependencies = [[m
+ [m
+ [[package]][m
+ name = "rune"[m
+[31m-version = "0.14.2"[m
+[31m-source = "registry+https://github.com/rust-lang/crates.io-index"[m
+[31m-checksum = "e7a577a0dc4b3e4cfe89247325b14b5f30096ddc82fa51fffb1d823fbc85b410"[m
+[32m+[m[32mversion = "0.15.0"[m
+ dependencies = [[m
+  "anyhow",[m
+  "futures-core",[m
+  "futures-util",[m
+  "itoa",[m
+[31m- "memchr",[m
+  "musli",[m
+[31m- "num",[m
+  "once_cell",[m
+  "pin-project",[m
+[32m+[m[32m "relative-path",[m
+  "rune-alloc",[m
+  "rune-core",[m
+  "rune-macros",[m
+[36m@@ -1264,16 +1192,16 @@[m [mdependencies = [[m
+  "ryu",[m
+  "serde",[m
+  "syntree",[m
+[32m+[m[32m "tokio",[m
+  "unicode-ident",[m
+ ][m
+ [m
+ [[package]][m
+ name = "rune-alloc"[m
+[31m-version = "0.14.2"[m
+[31m-source = "registry+https://github.com/rust-lang/crates.io-index"[m
+[31m-checksum = "702abcb136e7e4ff61c29006f018ab535728388b950bfbd50a0a66d7a2db1ff6"[m
+[32m+[m[32mversion = "0.15.0"[m
+ dependencies = [[m
+  "ahash",[m
+[32m+[m[32m "musli-core",[m
+  "pin-project",[m
+  "rune-alloc-macros",[m
+  "serde",[m
+[36m@@ -1281,22 +1209,17 @@[m [mdependencies = [[m
+ [m
+ [[package]][m
+ name = "rune-alloc-macros"[m
+[31m-version = "0.14.2"[m
+[31m-source = "registry+https://github.com/rust-lang/crates.io-index"[m
+[31m-checksum = "98fa2ddc4ebb390a257f05659081e5f4a1419ca65f0c7a3f4b02547860dd93f4"[m
+[32m+[m[32mversion = "0.15.0"[m
+ dependencies = [[m
+  "proc-macro2",[m
+  "quote",[m
+[31m- "syn 2.0.119",[m
+[32m+[m[32m "syn 3.0.5",[m
+ ][m
+ [m
+ [[package]][m
+ name = "rune-core"[m
+[31m-version = "0.14.2"[m
+[31m-source = "registry+https://github.com/rust-lang/crates.io-index"[m
+[31m-checksum = "8fab02420e2189ad2d8d9efceca5319782873eb547c61b68732746cc161547aa"[m
+[32m+[m[32mversion = "0.15.0"[m
+ dependencies = [[m
+[31m- "musli",[m
+  "rune-alloc",[m
+  "serde",[m
+  "twox-hash",[m
+[36m@@ -1304,34 +1227,28 @@[m [mdependencies = [[m
+ [m
+ [[package]][m
+ name = "rune-macros"[m
+[31m-version = "0.14.2"[m
+[31m-source = "registry+https://github.com/rust-lang/crates.io-index"[m
+[31m-checksum = "d314f34d8b30569189d90ac0f96eeedf629492c10d18146b40cfb76bd3fd2d52"[m
+[32m+[m[32mversion = "0.15.0"[m
+ dependencies = [[m
+  "proc-macro2",[m
+  "quote",[m
+  "rune-core",[m
+[31m- "syn 2.0.119",[m
+[32m+[m[32m "syn 3.0.5",[m
+ ][m
+ [m
+ [[package]][m
+ name = "rune-tracing"[m
+[31m-version = "0.14.2"[m
+[31m-source = "registry+https://github.com/rust-lang/crates.io-index"[m
+[31m-checksum = "f5b903935dfcb0ab9eec395f4c2e04b174448bb8d1fd35ef5181ad67140239a9"[m
+[32m+[m[32mversion = "0.15.0"[m
+ dependencies = [[m
+  "rune-tracing-macros",[m
+ ][m
+ [m
+ [[package]][m
+ name = "rune-tracing-macros"[m
+[31m-version = "0.14.2"[m
+[31m-source = "registry+https://github.com/rust-lang/crates.io-index"[m
+[31m-checksum = "75193c702bddd8a5b74b1f9a5a992cef3c6b2df2909d6f0bb0f4b0f3ec8a2f66"[m
+[32m+[m[32mversion = "0.15.0"[m
+ dependencies = [[m
+  "proc-macro2",[m
+  "quote",[m
+[31m- "syn 2.0.119",[m
+[32m+[m[32m "syn 3.0.5",[m
+ ][m
+ [m
+ [[package]][m
+[1mdiff --git a/Cargo.toml b/Cargo.toml[m
+[1mindex d3a62e0..cb83a48 100644[m
+[1m--- a/Cargo.toml[m
+[1m+++ b/Cargo.toml[m
+[36m@@ -57,7 +57,7 @@[m [mhyper = { version = "=1.11.1", default-features = false, features = ["server", "[m
+ hyper-util = { version = "=0.1.20", default-features = false, features = ["server", "http1", "service", "tokio"], optional = true }[m
+ rnx-project = { path = "tools/project", optional = true }[m
+ serde = { version = "1", features = ["derive"], optional = true }[m
+[31m-rune = { version = "=0.14.2", default-features = false, features = ["std", "fmt"] }[m
+[32m+[m[32mrune = { path = "/home/me/work/rune/crates/rune", default-features = false, features = ["std", "fmt", "anyhow"] }[m
+ serde_json = "1.0.149"[m
+ jiff = { version = "=0.2.24", default-features = false, features = ["std", "tz-system", "tzdb-zoneinfo"] }[m
+ libc = "0.2.177"[m
+[1mdiff --git a/tools/project/Cargo.toml b/tools/project/Cargo.toml[m
+[1mindex bd17c5a..e1622a0 100644[m
+[1m--- a/tools/project/Cargo.toml[m
+[1m+++ b/tools/project/Cargo.toml[m
+[36m@@ -8,7 +8,7 @@[m [mpublish = false[m
+ [dependencies][m
+ sha2 = "=0.10.9" # Legacy installation verification only.[m
+ blake3 = "=1.8.7"[m
+[31m-rune = { version = "=0.14.2", default-features = false, features = ["std"] }[m
+[32m+[m[32mrune = { path = "/home/me/work/rune/crates/rune", default-features = false, features = ["std", "anyhow"] }[m
+ serde = { version = "1", features = ["derive"] }[m
+ serde_json = "1"[m
+ toml = "=0.9.12"[m

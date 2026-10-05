@@ -1,0 +1,45 @@
+   Compiling rune-base-new v0.0.0 (/home/me/work/rnx-bench/probes/rune-base-0168/new)
+error[E0603]: module `hash_map` is private
+  --> src/registration.rs:14:98
+   |
+14 | ...dule=rune::modules::collections::hash_map::module().unwrap(); let construct=t.elapsed().as_nanos(); let a=alloc_track::snapshot()...
+   |                                     ^^^^^^^^  ------ function `module` is not publicly re-exported
+   |                                     |
+   |                                     private module
+   |
+note: the module `hash_map` is defined here
+  --> /home/me/work/rune/crates/rune/src/modules/collections/mod.rs:3:1
+   |
+ 3 | pub(crate) mod hash_map;
+   | ^^^^^^^^^^^^^^^^^^^^^^^
+
+error[E0603]: module `hash_set` is private
+  --> src/registration.rs:15:98
+   |
+15 | ...dule=rune::modules::collections::hash_set::module().unwrap(); let construct=t.elapsed().as_nanos(); let a=alloc_track::snapshot()...
+   |                                     ^^^^^^^^  ------ function `module` is not publicly re-exported
+   |                                     |
+   |                                     private module
+   |
+note: the module `hash_set` is defined here
+  --> /home/me/work/rune/crates/rune/src/modules/collections/mod.rs:6:1
+   |
+ 6 | pub(crate) mod hash_set;
+   | ^^^^^^^^^^^^^^^^^^^^^^^
+
+error[E0603]: module `vec_deque` is private
+  --> src/registration.rs:16:98
+   |
+16 | ...dule=rune::modules::collections::vec_deque::module().unwrap(); let construct=t.elapsed().as_nanos(); let a=alloc_track::snapshot(...
+   |                                     ^^^^^^^^^  ------ function `module` is not publicly re-exported
+   |                                     |
+   |                                     private module
+   |
+note: the module `vec_deque` is defined here
+  --> /home/me/work/rune/crates/rune/src/modules/collections/mod.rs:9:1
+   |
+ 9 | pub(crate) mod vec_deque;
+   | ^^^^^^^^^^^^^^^^^^^^^^^^
+
+For more information about this error, try `rustc --explain E0603`.
+error: could not compile `rune-base-new` (bin "rune-base-new") due to 3 previous errors

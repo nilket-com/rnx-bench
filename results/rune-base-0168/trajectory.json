@@ -1,0 +1,3796 @@
+{
+  "base": "971350fde49f3ee8ee05f0e8f4416919f298738c",
+  "tip": "bb8e69372353c50e271c9f115bc771c77aa6b83e",
+  "last_commit": "2026-08-29T14:38:13+02:00\nFix nightly build\n",
+  "upstream_head_survey": "bb8e69372353c50e271c9f115bc771c77aa6b83e\tHEAD",
+  "survey_utc": "2026-10-05T16:59:39.383280+00:00",
+  "crates_max_stable": "0.14.2",
+  "rows": [
+    {
+      "sha": "158e76e8629808ec72eaa631b984d12770d7c266",
+      "date": "2025-04-19T10:33:55+02:00",
+      "title": "wasm: do not publish",
+      "paths": [
+        "crates/rune-wasm/Cargo.toml"
+      ],
+      "areas": {
+        "deps": 1
+      }
+    },
+    {
+      "sha": "21462e1d8682c9c72ee324afebf2a8b0b09c6ab5",
+      "date": "2025-04-20T17:10:14+02:00",
+      "title": "alloc: Document TryClone derive",
+      "paths": [
+        "crates/rune-alloc-macros/Cargo.toml",
+        "crates/rune-alloc-macros/src/lib.rs"
+      ],
+      "areas": {
+        "alloc": 2
+      }
+    },
+    {
+      "sha": "2542cc00c4aa4e0ae3fbaa2db09f5c9fd76e5eaa",
+      "date": "2025-04-21T04:42:25+02:00",
+      "title": "Support musli serialization and documentation",
+      "paths": [
+        "book/src/field_functions.md",
+        "crates/rune-alloc-macros/src/lib.rs",
+        "crates/rune-alloc/Cargo.toml",
+        "crates/rune-alloc/src/clone.rs",
+        "crates/rune-alloc/src/lib.rs",
+        "crates/rune-alloc/src/musli.rs",
+        "crates/rune-core/Cargo.toml",
+        "crates/rune-core/src/item.rs",
+        "crates/rune-core/src/item/musli.rs",
+        "crates/rune-macros/src/any.rs",
+        "crates/rune-macros/src/context.rs",
+        "crates/rune/Cargo.toml",
+        "crates/rune/src/any.rs",
+        "crates/rune/src/ast/local.rs",
+        "crates/rune/src/ast/span.rs",
+        "crates/rune/src/cli/loader.rs",
+        "crates/rune/src/lib.rs",
+        "crates/rune/src/musli.rs",
+        "crates/rune/src/runtime/bytes.rs",
+        "crates/rune/src/runtime/const_value.rs",
+        "crates/rune/src/runtime/debug.rs",
+        "crates/rune/src/runtime/label.rs",
+        "crates/rune/src/runtime/static_string.rs",
+        "crates/rune/src/runtime/unit.rs",
+        "crates/rune/src/runtime/unit/byte_code.rs",
+        "crates/rune/src/runtime/unit/storage.rs",
+        "crates/rune/src/runtime/value/rtti.rs",
+        "crates/rune/src/sources.rs"
+      ],
+      "areas": {
+        "VM": 9,
+        "alloc": 5,
+        "compiler": 4,
+        "deps": 2,
+        "other": 8
+      }
+    },
+    {
+      "sha": "03faf1f5a6eaf1379d07000a205eb22aaa82f71b",
+      "date": "2025-04-21T05:17:00+02:00",
+      "title": "Make musli and serde optional features",
+      "paths": [
+        ".github/workflows/ci.yml",
+        "crates/rune/Cargo.toml",
+        "crates/rune/src/ast/span.rs",
+        "crates/rune/src/lib.rs",
+        "crates/rune/src/runtime/bytes.rs",
+        "crates/rune/src/runtime/call.rs",
+        "crates/rune/src/runtime/const_value.rs",
+        "crates/rune/src/runtime/debug.rs",
+        "crates/rune/src/runtime/format.rs",
+        "crates/rune/src/runtime/inst.rs",
+        "crates/rune/src/runtime/label.rs",
+        "crates/rune/src/runtime/static_string.rs",
+        "crates/rune/src/runtime/type_.rs",
+        "crates/rune/src/runtime/unit.rs",
+        "crates/rune/src/runtime/unit/storage.rs",
+        "crates/rune/src/runtime/value/inline.rs",
+        "crates/rune/src/runtime/value/rtti.rs",
+        "crates/rune/src/sources.rs"
+      ],
+      "areas": {
+        "VM": 13,
+        "compiler": 1,
+        "deps": 1,
+        "other": 3
+      }
+    },
+    {
+      "sha": "1d923a5612d7c92b5925d3f86bc6670fa2f45388",
+      "date": "2025-04-21T13:44:05+02:00",
+      "title": "rune: Fix optional features",
+      "paths": [
+        ".github/workflows/ci.yml",
+        "crates/rune-alloc/Cargo.toml",
+        "crates/rune-alloc/src/musli.rs",
+        "crates/rune-alloc/src/tests.rs",
+        "crates/rune-alloc/src/vec/mod.rs",
+        "crates/rune-alloc/src/vec_deque/mod.rs",
+        "crates/rune-core/Cargo.toml",
+        "crates/rune-shim/Cargo.toml",
+        "crates/rune-shim/src/lib.rs",
+        "crates/rune/Cargo.toml",
+        "crates/rune/src/ast/span.rs",
+        "crates/rune/src/ast/spanned.rs",
+        "crates/rune/src/compile/context.rs",
+        "crates/rune/src/compile/error.rs",
+        "crates/rune/src/hashbrown/table.rs",
+        "crates/rune/src/lib.rs",
+        "crates/rune/src/modules/collections/mod.rs",
+        "crates/rune/src/modules/iter.rs",
+        "crates/rune/src/query/query.rs",
+        "crates/rune/src/runtime/args.rs",
+        "crates/rune/src/runtime/bytes.rs",
+        "crates/rune/src/runtime/call.rs",
+        "crates/rune/src/runtime/format.rs",
+        "crates/rune/src/runtime/from_value.rs",
+        "crates/rune/src/runtime/guarded_args.rs",
+        "crates/rune/src/runtime/mod.rs",
+        "crates/rune/src/runtime/ref.rs",
+        "crates/rune/src/runtime/to_value.rs",
+        "crates/rune/src/runtime/tuple.rs",
+        "crates/rune/src/runtime/unit.rs",
+        "crates/rune/src/runtime/unit/byte_code.rs",
+        "crates/rune/src/runtime/unit/storage.rs",
+        "crates/rune/src/runtime/value.rs",
+        "crates/rune/src/runtime/value/rtti.rs",
+        "crates/rune/src/runtime/vec.rs",
+        "crates/rune/src/runtime/vm_error.rs",
+        "crates/rune/src/sources.rs",
+        "crates/rune/src/support.rs"
+      ],
+      "areas": {
+        "VM": 17,
+        "alloc": 5,
+        "compiler": 4,
+        "deps": 3,
+        "modules": 2,
+        "other": 7
+      }
+    },
+    {
+      "sha": "ef14cb78fc0f4196fb0f3d581fe18204bce92c3a",
+      "date": "2025-04-21T16:16:08+02:00",
+      "title": "rune: Tweak documentation",
+      "paths": [
+        "crates/rune-macros/Cargo.toml",
+        "crates/rune-macros/src/context.rs",
+        "crates/rune-macros/src/function.rs",
+        "crates/rune-macros/src/item.rs",
+        "crates/rune-macros/src/lib.rs",
+        "crates/rune-macros/src/macro_.rs",
+        "crates/rune-macros/src/module.rs",
+        "crates/rune-macros/src/to_value.rs",
+        "crates/rune-modules/src/base64.rs",
+        "crates/rune-modules/src/http.rs",
+        "crates/rune-modules/src/json.rs",
+        "crates/rune-modules/src/process.rs",
+        "crates/rune-modules/src/signal.rs",
+        "crates/rune/src/any.rs",
+        "crates/rune/src/ast/spanned.rs",
+        "crates/rune/src/lib.rs",
+        "crates/rune/src/macros/mod.rs",
+        "crates/rune/src/module/module.rs",
+        "crates/rune/src/module/module_meta.rs",
+        "crates/rune/src/modules/any.rs",
+        "crates/rune/src/modules/bytes.rs",
+        "crates/rune/src/modules/capture_io.rs",
+        "crates/rune/src/modules/char.rs",
+        "crates/rune/src/modules/clone.rs",
+        "crates/rune/src/modules/cmp.rs",
+        "crates/rune/src/modules/collections/hash_map.rs",
+        "crates/rune/src/modules/collections/hash_set.rs",
+        "crates/rune/src/modules/collections/mod.rs",
+        "crates/rune/src/modules/collections/vec_deque.rs",
+        "crates/rune/src/modules/core.rs",
+        "crates/rune/src/modules/disable_io.rs",
+        "crates/rune/src/modules/f64.rs",
+        "crates/rune/src/modules/fmt.rs",
+        "crates/rune/src/modules/future.rs",
+        "crates/rune/src/modules/hash.rs",
+        "crates/rune/src/modules/i64.rs",
+        "crates/rune/src/modules/io.rs",
+        "crates/rune/src/modules/iter.rs",
+        "crates/rune/src/modules/macros.rs",
+        "crates/rune/src/modules/macros/builtin.rs",
+        "crates/rune/src/modules/mem.rs",
+        "crates/rune/src/modules/num.rs",
+        "crates/rune/src/modules/object.rs",
+        "crates/rune/src/modules/ops.rs",
+        "crates/rune/src/modules/ops/generator.rs",
+        "crates/rune/src/modules/option.rs",
+        "crates/rune/src/modules/result.rs",
+        "crates/rune/src/modules/slice.rs",
+        "crates/rune/src/modules/stream.rs",
+        "crates/rune/src/modules/string.rs",
+        "crates/rune/src/modules/test.rs",
+        "crates/rune/src/modules/tuple.rs",
+        "crates/rune/src/modules/u64.rs",
+        "crates/rune/src/modules/vec.rs",
+        "crates/rune/src/runtime/bytes.rs",
+        "crates/rune/src/tests/bug_344.rs"
+      ],
+      "areas": {
+        "VM": 1,
+        "compiler": 9,
+        "modules": 35,
+        "other": 10,
+        "tests": 1
+      }
+    },
+    {
+      "sha": "fceab6b5ded26d600a93371707f8a4dfebdf48eb",
+      "date": "2025-04-21T19:14:06+02:00",
+      "title": "rune: Remove deprecated types and functions",
+      "paths": [
+        "crates/rune-modules/src/lib.rs",
+        "crates/rune-modules/src/test.rs",
+        "crates/rune/src/module/item_fn_mut.rs",
+        "crates/rune/src/module/module.rs",
+        "crates/rune/src/runtime/from_value.rs",
+        "crates/rune/src/runtime/function.rs",
+        "crates/rune/src/runtime/mod.rs",
+        "crates/rune/src/workspace/error.rs"
+      ],
+      "areas": {
+        "VM": 3,
+        "other": 5
+      }
+    },
+    {
+      "sha": "88c9e41f3e8c9af29781c08452d036d2bbc00f5c",
+      "date": "2025-04-21T19:36:54+02:00",
+      "title": "rune: Introduce Shared<T> again",
+      "paths": [
+        "crates/rune/src/runtime/any_obj.rs",
+        "crates/rune/src/runtime/from_value.rs",
+        "crates/rune/src/runtime/mod.rs",
+        "crates/rune/src/runtime/shared.rs",
+        "crates/rune/src/runtime/value.rs"
+      ],
+      "areas": {
+        "VM": 5
+      }
+    },
+    {
+      "sha": "a0a0f2b8f07b005ec4efe305353d0b62f339aec9",
+      "date": "2025-04-21T19:36:54+02:00",
+      "title": "rune: Fix and add more documentation",
+      "paths": [
+        "crates/rune/src/any.rs",
+        "crates/rune/src/lib.rs",
+        "crates/rune/src/runtime/const_value.rs"
+      ],
+      "areas": {
+        "VM": 1,
+        "other": 2
+      }
+    },
+    {
+      "sha": "ad53a83bde744f32714b5afd00e20b86c7368b28",
+      "date": "2025-04-22T04:55:44+02:00",
+      "title": "Cleanup uses (#926)",
+      "paths": [
+        "crates/rune-alloc/src/alloc/global.rs",
+        "crates/rune-alloc/src/borrow/mod.rs",
+        "crates/rune-alloc/src/boxed.rs",
+        "crates/rune-alloc/src/clone.rs",
+        "crates/rune-alloc/src/hashbrown/map.rs",
+        "crates/rune-alloc/src/hashbrown/raw/mod.rs",
+        "crates/rune-alloc/src/string/mod.rs",
+        "crates/rune-alloc/src/string/serde.rs",
+        "crates/rune-alloc/src/testing/mod.rs",
+        "crates/rune-alloc/src/vec/mod.rs",
+        "crates/rune-alloc/src/vec/partial_eq.rs",
+        "crates/rune-core/src/item/into_component.rs",
+        "crates/rune-macros/src/any.rs",
+        "crates/rune/src/compile/context.rs",
+        "crates/rune/src/compile/error.rs",
+        "crates/rune/src/compile/options.rs",
+        "crates/rune/src/compile/unit_builder.rs",
+        "crates/rune/src/diagnostics/emit.rs",
+        "crates/rune/src/diagnostics/fatal.rs",
+        "crates/rune/src/diagnostics/mod.rs",
+        "crates/rune/src/doc/templating.rs",
+        "crates/rune/src/exported_macros.rs",
+        "crates/rune/src/function/mod.rs",
+        "crates/rune/src/function_meta.rs",
+        "crates/rune/src/hashbrown/table.rs",
+        "crates/rune/src/languageserver/connection.rs",
+        "crates/rune/src/languageserver/mod.rs",
+        "crates/rune/src/lib.rs",
+        "crates/rune/src/module/module.rs",
+        "crates/rune/src/module/module_meta.rs",
+        "crates/rune/src/module/module_raw_function_builder.rs",
+        "crates/rune/src/module/trait_mut.rs",
+        "crates/rune/src/module/type_mut.rs",
+        "crates/rune/src/module/variant_mut.rs",
+        "crates/rune/src/modules/any.rs",
+        "crates/rune/src/modules/bytes.rs",
+        "crates/rune/src/modules/capture_io.rs",
+        "crates/rune/src/modules/clone.rs",
+        "crates/rune/src/modules/cmp.rs",
+        "crates/rune/src/modules/collections/hash_map.rs",
+        "crates/rune/src/modules/collections/hash_set.rs",
+        "crates/rune/src/modules/collections/vec_deque.rs",
+        "crates/rune/src/modules/core.rs",
+        "crates/rune/src/modules/disable_io.rs",
+        "crates/rune/src/modules/fmt.rs",
+        "crates/rune/src/modules/future.rs",
+        "crates/rune/src/modules/inner_macros.rs",
+        "crates/rune/src/modules/io.rs",
+        "crates/rune/src/modules/iter.rs",
+        "crates/rune/src/modules/mem.rs",
+        "crates/rune/src/modules/object.rs",
+        "crates/rune/src/modules/ops.rs",
+        "crates/rune/src/modules/ops/generator.rs",
+        "crates/rune/src/modules/option.rs",
+        "crates/rune/src/modules/result.rs",
+        "crates/rune/src/modules/string.rs",
+        "crates/rune/src/modules/test.rs",
+        "crates/rune/src/modules/tuple.rs",
+        "crates/rune/src/modules/vec.rs",
+        "crates/rune/src/query/query.rs",
+        "crates/rune/src/runtime/any_obj.rs",
+        "crates/rune/src/runtime/args.rs",
+        "crates/rune/src/runtime/awaited.rs",
+        "crates/rune/src/runtime/bytes.rs",
+        "crates/rune/src/runtime/call.rs",
+        "crates/rune/src/runtime/const_value.rs",
+        "crates/rune/src/runtime/control_flow.rs",
+        "crates/rune/src/runtime/env.rs",
+        "crates/rune/src/runtime/format.rs",
+        "crates/rune/src/runtime/from_value.rs",
+        "crates/rune/src/runtime/function.rs",
+        "crates/rune/src/runtime/generator.rs",
+        "crates/rune/src/runtime/guarded_args.rs",
+        "crates/rune/src/runtime/label.rs",
+        "crates/rune/src/runtime/mod.rs",
+        "crates/rune/src/runtime/object.rs",
+        "crates/rune/src/runtime/panic.rs",
+        "crates/rune/src/runtime/protocol_caller.rs",
+        "crates/rune/src/runtime/range.rs",
+        "crates/rune/src/runtime/range_from.rs",
+        "crates/rune/src/runtime/range_inclusive.rs",
+        "crates/rune/src/runtime/range_to.rs",
+        "crates/rune/src/runtime/range_to_inclusive.rs",
+        "crates/rune/src/runtime/ref.rs",
+        "crates/rune/src/runtime/runtime_context.rs",
+        "crates/rune/src/runtime/shared.rs",
+        "crates/rune/src/runtime/stream.rs",
+        "crates/rune/src/runtime/to_value.rs",
+        "crates/rune/src/runtime/tuple.rs",
+        "crates/rune/src/runtime/type.rs",
+        "crates/rune/src/runtime/type_.rs",
+        "crates/rune/src/runtime/type_info.rs",
+        "crates/rune/src/runtime/unit.rs",
+        "crates/rune/src/runtime/value.rs",
+        "crates/rune/src/runtime/value/dynamic.rs",
+        "crates/rune/src/runtime/value/serde.rs",
+        "crates/rune/src/runtime/vec.rs",
+        "crates/rune/src/runtime/vm.rs",
+        "crates/rune/src/runtime/vm_call.rs",
+        "crates/rune/src/runtime/vm_diagnostics.rs",
+        "crates/rune/src/runtime/vm_error.rs",
+        "crates/rune/src/runtime/vm_execution.rs",
+        "crates/rune/src/shared/caller.rs",
+        "crates/rune/src/tests.rs"
+      ],
+      "areas": {
+        "VM": 42,
+        "alloc": 11,
+        "compiler": 5,
+        "modules": 25,
+        "other": 21
+      }
+    },
+    {
+      "sha": "b8f49258173ab4ece091ebfe023141f07583a2ef",
+      "date": "2025-04-22T05:14:36+02:00",
+      "title": "rune: Support using Shared<T> as field",
+      "paths": [
+        "crates/rune/src/runtime/any_obj.rs",
+        "crates/rune/src/runtime/shared.rs",
+        "crates/rune/src/runtime/tests.rs",
+        "crates/rune/src/runtime/value.rs",
+        "crates/rune/src/runtime/vm_error.rs",
+        "crates/rune/src/tests.rs",
+        "crates/rune/src/tests/getter_setter.rs"
+      ],
+      "areas": {
+        "VM": 5,
+        "other": 1,
+        "tests": 1
+      }
+    },
+    {
+      "sha": "4390c7c9040c0555afe3c86db780412c178e6c01",
+      "date": "2025-04-29T15:27:15+02:00",
+      "title": "rune: Rename and make more things public",
+      "paths": [
+        "crates/rune/src/build.rs",
+        "crates/rune/src/cli/doc.rs",
+        "crates/rune/src/cli/mod.rs",
+        "crates/rune/src/cli/tests.rs",
+        "crates/rune/src/compile/options.rs",
+        "crates/rune/src/languageserver/state.rs",
+        "crates/rune/src/runtime/access.rs",
+        "crates/rune/src/runtime/any_obj.rs",
+        "crates/rune/src/runtime/function.rs",
+        "crates/rune/src/runtime/mod.rs",
+        "crates/rune/src/runtime/shared.rs",
+        "crates/rune/src/runtime/value.rs",
+        "crates/rune/src/runtime/value/any_sequence.rs",
+        "crates/rune/src/runtime/value/dynamic.rs",
+        "crates/rune/src/runtime/value/tests.rs",
+        "crates/rune/src/runtime/vm.rs",
+        "crates/rune/src/runtime/vm_error.rs",
+        "crates/rune/src/worker/mod.rs"
+      ],
+      "areas": {
+        "VM": 11,
+        "compiler": 1,
+        "other": 6
+      }
+    },
+    {
+      "sha": "a8c4f97f27b1ffb70d4fd5512d71d4b57917cce7",
+      "date": "2025-04-29T15:27:15+02:00",
+      "title": "alloc: Remove unsafe",
+      "paths": [
+        "crates/rune-alloc/src/vec/mod.rs"
+      ],
+      "areas": {
+        "alloc": 1
+      }
+    },
+    {
+      "sha": "cce28450d2452ae4a9d83a4569d8e6994e8ac83c",
+      "date": "2025-05-18T11:05:20+02:00",
+      "title": "rune: Try to clean up AnyObj impl",
+      "paths": [
+        "crates/rune/src/runtime/access.rs",
+        "crates/rune/src/runtime/any_obj.rs",
+        "crates/rune/src/runtime/any_obj_vtable.rs",
+        "crates/rune/src/runtime/mod.rs",
+        "crates/rune/src/runtime/shared.rs",
+        "crates/rune/src/runtime/value.rs"
+      ],
+      "areas": {
+        "VM": 6
+      }
+    },
+    {
+      "sha": "998f47ec7bbec3ba98555f6e31a24fbaf02cfcdc",
+      "date": "2025-05-18T11:05:20+02:00",
+      "title": "rune: Improve docs",
+      "paths": [
+        "crates/rune-alloc/src/lib.rs",
+        "crates/rune-core/src/hash.rs",
+        "crates/rune-core/src/hash/into_hash.rs",
+        "crates/rune-core/src/params.rs",
+        "crates/rune-core/src/protocol.rs",
+        "crates/rune/src/diagnostics/runtime_warning.rs",
+        "crates/rune/src/doc/build.rs",
+        "crates/rune/src/hash.rs",
+        "crates/rune/src/languageserver/completion.rs",
+        "crates/rune/src/lib.rs"
+      ],
+      "areas": {
+        "alloc": 1,
+        "other": 9
+      }
+    },
+    {
+      "sha": "f9c26c3c093bcaf3556be46990ae9a51934e5e76",
+      "date": "2025-05-18T12:34:42+02:00",
+      "title": "Bump MSRV to 1.82",
+      "paths": [
+        ".github/workflows/ci.yml",
+        "crates/rune-alloc-macros/Cargo.toml",
+        "crates/rune-alloc-macros/src/lib.rs",
+        "crates/rune-alloc/Cargo.toml",
+        "crates/rune-alloc/src/hashbrown/raw/mod.rs",
+        "crates/rune-alloc/src/lib.rs",
+        "crates/rune-cli/Cargo.toml",
+        "crates/rune-cli/src/main.rs",
+        "crates/rune-core/Cargo.toml",
+        "crates/rune-core/src/lib.rs",
+        "crates/rune-languageserver/Cargo.toml",
+        "crates/rune-languageserver/src/main.rs",
+        "crates/rune-macros/Cargo.toml",
+        "crates/rune-macros/src/lib.rs",
+        "crates/rune-modules/Cargo.toml",
+        "crates/rune-modules/src/lib.rs",
+        "crates/rune-tracing-macros/Cargo.toml",
+        "crates/rune-tracing-macros/src/lib.rs",
+        "crates/rune-tracing/Cargo.toml",
+        "crates/rune-tracing/src/lib.rs",
+        "crates/rune-wasm/Cargo.toml",
+        "crates/rune-wasm/src/lib.rs",
+        "crates/rune/Cargo.toml",
+        "crates/rune/src/compile/options.rs",
+        "crates/rune/src/lib.rs",
+        "crates/rune/src/runtime/format.rs"
+      ],
+      "areas": {
+        "LSP": 2,
+        "VM": 1,
+        "alloc": 5,
+        "compiler": 3,
+        "deps": 7,
+        "other": 8
+      }
+    },
+    {
+      "sha": "3e1b99dfafc738da299abcb70900e940f3db9426",
+      "date": "2025-06-01T01:35:30+02:00",
+      "title": "rune-modules: Switch to upstream rand",
+      "paths": [
+        ".github/workflows/ci.yml",
+        "crates/rune-macros/src/any.rs",
+        "crates/rune-modules/Cargo.toml",
+        "crates/rune-modules/src/http.rs",
+        "crates/rune-modules/src/rand.rs",
+        "crates/rune/Cargo.toml",
+        "crates/rune/src/lib.rs",
+        "crates/rune/src/runtime/any_obj.rs",
+        "crates/rune/src/runtime/value.rs",
+        "crates/rune/src/runtime/vec.rs",
+        "crates/rune/src/runtime/vec_tuple.rs",
+        "crates/rune/src/runtime/vm_error.rs",
+        "crates/rune/src/shared/fixed_vec.rs",
+        "scripts/rand.rn"
+      ],
+      "areas": {
+        "VM": 5,
+        "compiler": 1,
+        "deps": 2,
+        "other": 6
+      }
+    },
+    {
+      "sha": "53ba36614359abc79c81380bc4506f7be9e68c33",
+      "date": "2025-06-01T10:01:09+02:00",
+      "title": "modules: Add ThreadRng and OsRng support",
+      "paths": [
+        ".github/workflows/ci.yml",
+        "crates/rune-alloc/src/path.rs",
+        "crates/rune-core/src/item/item.rs",
+        "crates/rune-core/src/item/item_buf.rs",
+        "crates/rune-macros/src/any.rs",
+        "crates/rune-macros/src/context.rs",
+        "crates/rune-modules/Cargo.toml",
+        "crates/rune-modules/src/rand.rs",
+        "crates/rune-modules/src/rand/error.rs",
+        "crates/rune-modules/src/rand/macros.rs",
+        "crates/rune-modules/src/rand/mod.rs",
+        "crates/rune-modules/src/rand/os_error.rs",
+        "crates/rune-modules/src/rand/os_rng.rs",
+        "crates/rune-modules/src/rand/small_rng.rs",
+        "crates/rune-modules/src/rand/std_rng.rs",
+        "crates/rune-modules/src/rand/thread_rng.rs",
+        "crates/rune-modules/src/rand/try_from_rng_error.rs",
+        "crates/rune/src/compile/error.rs",
+        "crates/rune/src/hir/lowering.rs",
+        "crates/rune/src/hir/lowering2.rs"
+      ],
+      "areas": {
+        "alloc": 1,
+        "compiler": 3,
+        "deps": 1,
+        "other": 15
+      }
+    },
+    {
+      "sha": "9a33cb36de5b0bc8f89e88d10a77af7920cd0733",
+      "date": "2025-06-02T05:32:03+02:00",
+      "title": "rune: More documentation for Any",
+      "paths": [
+        "crates/rune-macros/src/any.rs",
+        "crates/rune-macros/src/context.rs",
+        "crates/rune-modules/src/rand/mod.rs",
+        "crates/rune-modules/src/rand/os_rng.rs",
+        "crates/rune/src/any.rs"
+      ],
+      "areas": {
+        "compiler": 2,
+        "other": 3
+      }
+    },
+    {
+      "sha": "7f0048d68460d70a4d9be847b2712fa8458d1906",
+      "date": "2025-06-02T05:32:03+02:00",
+      "title": "rune: Support and document more sophisticated constructors",
+      "paths": [
+        "crates/rune-macros/src/any.rs",
+        "crates/rune-macros/src/context.rs",
+        "crates/rune-modules/src/rand/mod.rs",
+        "crates/rune-modules/src/rand/os_rng.rs",
+        "crates/rune/src/any.rs",
+        "crates/rune/src/compile/context.rs",
+        "crates/rune/src/compile/context_error.rs",
+        "crates/rune/src/module/mod.rs",
+        "crates/rune/src/module/module_meta.rs",
+        "crates/rune/src/module/type_mut.rs",
+        "crates/rune/src/module/variant_mut.rs",
+        "crates/rune/src/tests.rs",
+        "crates/rune/src/tests/derive_constructor.rs"
+      ],
+      "areas": {
+        "compiler": 4,
+        "other": 8,
+        "tests": 1
+      }
+    },
+    {
+      "sha": "37c7aee55a99b726f161c593fe29d8210b501022",
+      "date": "2025-06-02T06:53:19+02:00",
+      "title": "Bump some deps",
+      "paths": [
+        "benches/Cargo.toml",
+        "crates/rune/Cargo.toml",
+        "crates/rune/src/cli/mod.rs"
+      ],
+      "areas": {
+        "deps": 2,
+        "other": 1
+      }
+    },
+    {
+      "sha": "802b3aecac59a7f4ceb32551d1cc54a5a14fe4b6",
+      "date": "2025-06-02T13:38:54+02:00",
+      "title": "rune: Add support for Protocol::NOT / Protocol::NEG",
+      "paths": [
+        "crates/rune-core/src/protocol.rs",
+        "crates/rune/src/runtime/vm.rs",
+        "crates/rune/src/tests/external_ops.rs"
+      ],
+      "areas": {
+        "VM": 1,
+        "other": 1,
+        "tests": 1
+      }
+    },
+    {
+      "sha": "10dd6f64baaa3b37982e4b52f734007cbb7011bc",
+      "date": "2025-06-02T14:40:58+02:00",
+      "title": "rune: minor rename",
+      "paths": [
+        "crates/rune/src/runtime/vm.rs"
+      ],
+      "areas": {
+        "VM": 1
+      }
+    },
+    {
+      "sha": "77b73cc19dc60133844404d02bd0ba8cb806820a",
+      "date": "2025-06-03T15:29:51+02:00",
+      "title": "rune: Rewrite VmExecution with more shared impls (#936)",
+      "paths": [
+        "crates/rune-macros/src/any.rs",
+        "crates/rune-macros/src/context.rs",
+        "crates/rune-macros/src/lib.rs",
+        "crates/rune-wasm/src/lib.rs",
+        "crates/rune/src/cli/run.rs",
+        "crates/rune/src/cli/tests.rs",
+        "crates/rune/src/internal_macros.rs",
+        "crates/rune/src/lib.rs",
+        "crates/rune/src/parse/lexer.rs",
+        "crates/rune/src/parse/parser.rs",
+        "crates/rune/src/runtime/args.rs",
+        "crates/rune/src/runtime/awaited.rs",
+        "crates/rune/src/runtime/budget.rs",
+        "crates/rune/src/runtime/call.rs",
+        "crates/rune/src/runtime/future.rs",
+        "crates/rune/src/runtime/generator.rs",
+        "crates/rune/src/runtime/generator_state.rs",
+        "crates/rune/src/runtime/guarded_args.rs",
+        "crates/rune/src/runtime/mod.rs",
+        "crates/rune/src/runtime/stream.rs",
+        "crates/rune/src/runtime/vm.rs",
+        "crates/rune/src/runtime/vm_call.rs",
+        "crates/rune/src/runtime/vm_diagnostics.rs",
+        "crates/rune/src/runtime/vm_error.rs",
+        "crates/rune/src/runtime/vm_execution.rs",
+        "crates/rune/src/runtime/vm_halt.rs",
+        "crates/rune/src/tests.rs",
+        "crates/rune/src/tests/deprecation.rs",
+        "examples/examples/custom_instance_fn.rs",
+        "examples/examples/minimal.rs",
+        "examples/examples/parsing_in_macro.rs",
+        "examples/examples/proxy.rs",
+        "examples/examples/tokio_spawn.rs",
+        "no-std/examples/minimal.rs"
+      ],
+      "areas": {
+        "VM": 16,
+        "compiler": 5,
+        "other": 12,
+        "tests": 1
+      }
+    },
+    {
+      "sha": "3998c34ec9346f41a16bfb144b0025fed0a7f047",
+      "date": "2025-06-05T08:29:14+02:00",
+      "title": "Rework and deprecate facilities related to error handling (#937)",
+      "paths": [
+        ".github/workflows/ci.yml",
+        "crates/rune-alloc-macros/Cargo.toml",
+        "crates/rune-alloc-macros/src/lib.rs",
+        "crates/rune-alloc/Cargo.toml",
+        "crates/rune-alloc/src/lib.rs",
+        "crates/rune-alloc/src/ptr.rs",
+        "crates/rune-alloc/src/slice/iter/macros.rs",
+        "crates/rune-alloc/src/str.rs",
+        "crates/rune-alloc/src/vec/drain.rs",
+        "crates/rune-alloc/src/vec/into_iter.rs",
+        "crates/rune-alloc/src/vec/mod.rs",
+        "crates/rune-alloc/src/vec_deque/drain.rs",
+        "crates/rune-cli/Cargo.toml",
+        "crates/rune-cli/src/main.rs",
+        "crates/rune-core/Cargo.toml",
+        "crates/rune-core/src/lib.rs",
+        "crates/rune-languageserver/Cargo.toml",
+        "crates/rune-languageserver/src/main.rs",
+        "crates/rune-macros/Cargo.toml",
+        "crates/rune-macros/src/any.rs",
+        "crates/rune-macros/src/context.rs",
+        "crates/rune-macros/src/from_value.rs",
+        "crates/rune-macros/src/function.rs",
+        "crates/rune-macros/src/lib.rs",
+        "crates/rune-modules/Cargo.toml",
+        "crates/rune-modules/src/base64.rs",
+        "crates/rune-modules/src/http.rs",
+        "crates/rune-modules/src/json.rs",
+        "crates/rune-modules/src/lib.rs",
+        "crates/rune-modules/src/process.rs",
+        "crates/rune-modules/src/rand/error.rs",
+        "crates/rune-modules/src/rand/macros.rs",
+        "crates/rune-modules/src/rand/os_error.rs",
+        "crates/rune-modules/src/rand/try_from_rng_error.rs",
+        "crates/rune-modules/src/time.rs",
+        "crates/rune-modules/src/toml.rs",
+        "crates/rune-tracing-macros/Cargo.toml",
+        "crates/rune-tracing-macros/src/lib.rs",
+        "crates/rune-tracing/Cargo.toml",
+        "crates/rune-tracing/src/lib.rs",
+        "crates/rune-wasm/Cargo.toml",
+        "crates/rune-wasm/src/lib.rs",
+        "crates/rune-wasm/src/time.rs",
+        "crates/rune/Cargo.toml",
+        "crates/rune/src/cli/benches.rs",
+        "crates/rune/src/compile/context.rs",
+        "crates/rune/src/exported_macros.rs",
+        "crates/rune/src/function/mod.rs",
+        "crates/rune/src/function_meta.rs",
+        "crates/rune/src/hashbrown/table.rs",
+        "crates/rune/src/internal_macros.rs",
+        "crates/rune/src/lib.rs",
+        "crates/rune/src/module/item_fn_mut.rs",
+        "crates/rune/src/module/module.rs",
+        "crates/rune/src/module/module_constant_builder.rs",
+        "crates/rune/src/module/module_raw_function_builder.rs",
+        "crates/rune/src/module/type_mut.rs",
+        "crates/rune/src/module/variant_mut.rs",
+        "crates/rune/src/modules/any.rs",
+        "crates/rune/src/modules/bytes.rs",
+        "crates/rune/src/modules/capture_io.rs",
+        "crates/rune/src/modules/char.rs",
+        "crates/rune/src/modules/clone.rs",
+        "crates/rune/src/modules/cmp.rs",
+        "crates/rune/src/modules/collections/hash_map.rs",
+        "crates/rune/src/modules/collections/hash_set.rs",
+        "crates/rune/src/modules/collections/vec_deque.rs",
+        "crates/rune/src/modules/core.rs",
+        "crates/rune/src/modules/disable_io.rs",
+        "crates/rune/src/modules/f64.rs",
+        "crates/rune/src/modules/fmt.rs",
+        "crates/rune/src/modules/future.rs",
+        "crates/rune/src/modules/i64.rs",
+        "crates/rune/src/modules/inner_macros.rs",
+        "crates/rune/src/modules/io.rs",
+        "crates/rune/src/modules/iter.rs",
+        "crates/rune/src/modules/mem.rs",
+        "crates/rune/src/modules/object.rs",
+        "crates/rune/src/modules/ops.rs",
+        "crates/rune/src/modules/ops/generator.rs",
+        "crates/rune/src/modules/option.rs",
+        "crates/rune/src/modules/result.rs",
+        "crates/rune/src/modules/string.rs",
+        "crates/rune/src/modules/test.rs",
+        "crates/rune/src/modules/tuple.rs",
+        "crates/rune/src/modules/u64.rs",
+        "crates/rune/src/modules/vec.rs",
+        "crates/rune/src/runtime/awaited.rs",
+        "crates/rune/src/runtime/bytes.rs",
+        "crates/rune/src/runtime/call.rs",
+        "crates/rune/src/runtime/control_flow.rs",
+        "crates/rune/src/runtime/env.rs",
+        "crates/rune/src/runtime/fmt.rs",
+        "crates/rune/src/runtime/format.rs",
+        "crates/rune/src/runtime/function.rs",
+        "crates/rune/src/runtime/future.rs",
+        "crates/rune/src/runtime/generator.rs",
+        "crates/rune/src/runtime/generator_state.rs",
+        "crates/rune/src/runtime/inst.rs",
+        "crates/rune/src/runtime/iterator.rs",
+        "crates/rune/src/runtime/mod.rs",
+        "crates/rune/src/runtime/object.rs",
+        "crates/rune/src/runtime/panic.rs",
+        "crates/rune/src/runtime/protocol_caller.rs",
+        "crates/rune/src/runtime/range.rs",
+        "crates/rune/src/runtime/range_from.rs",
+        "crates/rune/src/runtime/range_full.rs",
+        "crates/rune/src/runtime/range_inclusive.rs",
+        "crates/rune/src/runtime/range_to.rs",
+        "crates/rune/src/runtime/range_to_inclusive.rs",
+        "crates/rune/src/runtime/runtime_context.rs",
+        "crates/rune/src/runtime/select.rs",
+        "crates/rune/src/runtime/stack.rs",
+        "crates/rune/src/runtime/stream.rs",
+        "crates/rune/src/runtime/tests.rs",
+        "crates/rune/src/runtime/to_value.rs",
+        "crates/rune/src/runtime/tuple.rs",
+        "crates/rune/src/runtime/value.rs",
+        "crates/rune/src/runtime/value/any_sequence.rs",
+        "crates/rune/src/runtime/vec.rs",
+        "crates/rune/src/runtime/vm.rs",
+        "crates/rune/src/runtime/vm_diagnostics.rs",
+        "crates/rune/src/runtime/vm_error.rs",
+        "crates/rune/src/runtime/vm_execution.rs",
+        "crates/rune/src/shared/caller.rs",
+        "crates/rune/src/tests.rs",
+        "crates/rune/src/tests/bug_344.rs",
+        "crates/rune/src/tests/bug_700.rs",
+        "crates/rune/src/tests/debug_fmt.rs",
+        "crates/rune/src/tests/reference_error.rs",
+        "crates/rune/src/tests/vm_closures.rs",
+        "crates/rune/src/tests/vm_function.rs",
+        "examples/examples/checked_add_assign.rs",
+        "examples/examples/lookup_function.rs",
+        "examples/examples/rune_function.rs",
+        "examples/examples/vec_args.rs"
+      ],
+      "areas": {
+        "LSP": 2,
+        "VM": 37,
+        "alloc": 11,
+        "compiler": 7,
+        "deps": 7,
+        "modules": 29,
+        "other": 37,
+        "tests": 6
+      }
+    },
+    {
+      "sha": "f23ab8fefda46d7a7d0ce8c3388a64602300bd89",
+      "date": "2025-06-05T11:16:29+02:00",
+      "title": "alloc: Add rune::alloc::sync::Arc",
+      "paths": [
+        "crates/rune-alloc/src/boxed.rs",
+        "crates/rune-alloc/src/lib.rs",
+        "crates/rune-alloc/src/sync.rs"
+      ],
+      "areas": {
+        "alloc": 3
+      }
+    },
+    {
+      "sha": "24921ff715211ce35c9015bb896a3b6074a1da35",
+      "date": "2025-06-05T12:48:37+02:00",
+      "title": "rune: Make FunctionHandler fallible",
+      "paths": [
+        "crates/rune/src/compile/context.rs",
+        "crates/rune/src/function_meta.rs",
+        "crates/rune/src/module/module.rs",
+        "crates/rune/src/module/module_meta.rs",
+        "crates/rune/src/module/module_raw_function_builder.rs",
+        "crates/rune/src/module/type_mut.rs",
+        "crates/rune/src/module/variant_mut.rs",
+        "crates/rune/src/modules/iter.rs",
+        "crates/rune/src/runtime/function.rs",
+        "crates/rune/src/runtime/function_handler.rs",
+        "crates/rune/src/runtime/mod.rs",
+        "crates/rune/src/runtime/protocol_caller.rs",
+        "crates/rune/src/runtime/runtime_context.rs",
+        "crates/rune/src/runtime/tests.rs",
+        "crates/rune/src/runtime/vm.rs",
+        "crates/rune/src/shared/caller.rs",
+        "crates/rune/src/tests/bug_344.rs"
+      ],
+      "areas": {
+        "VM": 7,
+        "compiler": 1,
+        "modules": 1,
+        "other": 7,
+        "tests": 1
+      }
+    },
+    {
+      "sha": "c5f88a139505aa88cd30d57ba3642e684f3e1839",
+      "date": "2025-06-05T13:32:36+02:00",
+      "title": "rune: Rename InstAddress to Address and hide more",
+      "paths": [
+        "crates/rune/src/compile/assembly.rs",
+        "crates/rune/src/compile/context.rs",
+        "crates/rune/src/compile/unit_builder.rs",
+        "crates/rune/src/compile/v1/assemble.rs",
+        "crates/rune/src/compile/v1/breaks.rs",
+        "crates/rune/src/compile/v1/linear.rs",
+        "crates/rune/src/compile/v1/needs.rs",
+        "crates/rune/src/compile/v1/scopes.rs",
+        "crates/rune/src/function/mod.rs",
+        "crates/rune/src/module/module.rs",
+        "crates/rune/src/module/module_raw_function_builder.rs",
+        "crates/rune/src/modules/capture_io.rs",
+        "crates/rune/src/modules/disable_io.rs",
+        "crates/rune/src/modules/io.rs",
+        "crates/rune/src/modules/iter.rs",
+        "crates/rune/src/runtime/function.rs",
+        "crates/rune/src/runtime/function_handler.rs",
+        "crates/rune/src/runtime/inst.rs",
+        "crates/rune/src/runtime/mod.rs",
+        "crates/rune/src/runtime/stack.rs",
+        "crates/rune/src/runtime/tests.rs",
+        "crates/rune/src/runtime/unit.rs",
+        "crates/rune/src/runtime/vm.rs",
+        "crates/rune/src/runtime/vm_execution.rs",
+        "crates/rune/src/runtime/vm_halt.rs",
+        "crates/rune/src/shared/caller.rs",
+        "crates/rune/src/tests.rs",
+        "crates/rune/src/tests/bug_344.rs"
+      ],
+      "areas": {
+        "VM": 10,
+        "compiler": 8,
+        "modules": 4,
+        "other": 5,
+        "tests": 1
+      }
+    },
+    {
+      "sha": "6cb6745128dfdee73497a7bf1bbbdbedb0653f64",
+      "date": "2025-06-05T19:55:35+02:00",
+      "title": "rune: Update comments",
+      "paths": [
+        "crates/rune/src/modules/option.rs"
+      ],
+      "areas": {
+        "modules": 1
+      }
+    },
+    {
+      "sha": "7f0cc363e7150b252e57e111eeb0dbe06188fe4c",
+      "date": "2025-06-06T12:06:29+02:00",
+      "title": "rune: Fix nightly build",
+      "paths": [
+        "crates/rune/src/grammar/tree.rs",
+        "crates/rune/src/runtime/value/any_sequence.rs"
+      ],
+      "areas": {
+        "VM": 1,
+        "other": 1
+      }
+    },
+    {
+      "sha": "0d5011f8d48d2907c567d369ee14ca0d77d6bc70",
+      "date": "2025-06-06T12:06:29+02:00",
+      "title": "rune: Remove InstVariant",
+      "paths": [
+        "crates/rune/src/compile/v1/assemble.rs",
+        "crates/rune/src/runtime/const_value.rs",
+        "crates/rune/src/runtime/inst.rs",
+        "crates/rune/src/runtime/mod.rs",
+        "crates/rune/src/runtime/vm.rs"
+      ],
+      "areas": {
+        "VM": 4,
+        "compiler": 1
+      }
+    },
+    {
+      "sha": "cefc08950c1c6c8b3e4e38bef7ba417aee6949c8",
+      "date": "2025-06-06T12:06:29+02:00",
+      "title": "rune: Rework constant value",
+      "paths": [
+        "crates/rune-alloc/src/string/try_to_string.rs",
+        "crates/rune/src/compile/context.rs",
+        "crates/rune/src/compile/error.rs",
+        "crates/rune/src/compile/unit_builder.rs",
+        "crates/rune/src/compile/v1/assemble.rs",
+        "crates/rune/src/hir/lowering.rs",
+        "crates/rune/src/hir/lowering2.rs",
+        "crates/rune/src/runtime/const_value.rs",
+        "crates/rune/src/runtime/mod.rs",
+        "crates/rune/src/runtime/tuple.rs",
+        "crates/rune/src/runtime/value.rs",
+        "crates/rune/src/runtime/vm_error.rs",
+        "crates/rune/src/tests/bug_700.rs"
+      ],
+      "areas": {
+        "VM": 5,
+        "alloc": 1,
+        "compiler": 4,
+        "other": 2,
+        "tests": 1
+      }
+    },
+    {
+      "sha": "7f575cf1c96918c4b38e172c84618e1c10cb377d",
+      "date": "2025-06-06T12:06:29+02:00",
+      "title": "rune: Remove TypeCheck",
+      "paths": [
+        "crates/rune/src/compile/context.rs",
+        "crates/rune/src/compile/v1/assemble.rs",
+        "crates/rune/src/hir/hir.rs",
+        "crates/rune/src/hir/lowering.rs",
+        "crates/rune/src/hir/lowering2.rs",
+        "crates/rune/src/runtime/inst.rs",
+        "crates/rune/src/runtime/mod.rs",
+        "crates/rune/src/runtime/vm.rs"
+      ],
+      "areas": {
+        "VM": 3,
+        "compiler": 2,
+        "other": 3
+      }
+    },
+    {
+      "sha": "08d051f3d6fed05dae6010a5965f4551a1fdac57",
+      "date": "2025-06-06T12:06:29+02:00",
+      "title": "rune-core: Fix typo",
+      "paths": [
+        "crates/rune-core/src/item/item.rs",
+        "crates/rune/src/doc/build.rs"
+      ],
+      "areas": {
+        "other": 2
+      }
+    },
+    {
+      "sha": "46bafaa27fc3f5f428056d84b2256197dbb2e114",
+      "date": "2025-06-06T12:06:29+02:00",
+      "title": "rune: Sort object assignments",
+      "paths": [
+        "crates/rune/src/compile/v1/assemble.rs"
+      ],
+      "areas": {
+        "compiler": 1
+      }
+    },
+    {
+      "sha": "a4dda9fb47b8c3362ce455e9b7b6b83d07204226",
+      "date": "2025-06-06T15:02:12+02:00",
+      "title": "rune: Remove Inst::MatchVariant",
+      "paths": [
+        "crates/rune/src/compile/v1/assemble.rs",
+        "crates/rune/src/modules/option.rs",
+        "crates/rune/src/modules/result.rs",
+        "crates/rune/src/runtime/inst.rs",
+        "crates/rune/src/runtime/vm.rs"
+      ],
+      "areas": {
+        "VM": 2,
+        "compiler": 1,
+        "modules": 2
+      }
+    },
+    {
+      "sha": "670fd12f087d00e2f349d2c6aec514d680a13035",
+      "date": "2025-06-06T15:02:12+02:00",
+      "title": "rune: Remove Inst::IsUnit",
+      "paths": [
+        "crates/rune/src/compile/v1/assemble.rs",
+        "crates/rune/src/runtime/inst.rs",
+        "crates/rune/src/runtime/vm.rs"
+      ],
+      "areas": {
+        "VM": 2,
+        "compiler": 1
+      }
+    },
+    {
+      "sha": "ee7bdd3797e709fa746f9239727c102933b12ca3",
+      "date": "2025-06-06T15:02:12+02:00",
+      "title": "rune: Rework MatchSequence",
+      "paths": [
+        "crates/rune/src/compile/v1/assemble.rs",
+        "crates/rune/src/hir/hir.rs",
+        "crates/rune/src/hir/lowering.rs",
+        "crates/rune/src/hir/lowering2.rs",
+        "crates/rune/src/runtime/protocol_caller.rs",
+        "crates/rune/src/runtime/vm.rs",
+        "crates/rune/src/runtime/vm_execution.rs",
+        "crates/rune/src/tests/external_match.rs"
+      ],
+      "areas": {
+        "VM": 3,
+        "compiler": 1,
+        "other": 3,
+        "tests": 1
+      }
+    },
+    {
+      "sha": "0f04e241fd574c2783f97c6ba954ff2308778159",
+      "date": "2025-06-06T16:47:10+02:00",
+      "title": "rune: Short circuit Ordering::IS_VARIANT",
+      "paths": [
+        "crates/rune/src/modules/cmp.rs",
+        "crates/rune/src/runtime/vm.rs"
+      ],
+      "areas": {
+        "VM": 1,
+        "modules": 1
+      }
+    },
+    {
+      "sha": "92fdedc2ef1a68ec557176dfa6a41f2486da6a16",
+      "date": "2025-06-07T07:38:46+02:00",
+      "title": "rune: Move to rune-alloc version of Arc",
+      "paths": [
+        "README.md",
+        "benches/benches/comparison.rs",
+        "benches/benches/main.rs",
+        "book/src/field_functions.md",
+        "crates/rune-alloc/src/boxed.rs",
+        "crates/rune-alloc/src/hashbrown/raw/mod.rs",
+        "crates/rune-alloc/src/lib.rs",
+        "crates/rune-alloc/src/musli.rs",
+        "crates/rune-alloc/src/raw_vec.rs",
+        "crates/rune-alloc/src/serde/de.rs",
+        "crates/rune-alloc/src/serde/ser.rs",
+        "crates/rune-alloc/src/sync.rs",
+        "crates/rune-macros/src/const_value.rs",
+        "crates/rune-macros/src/context.rs",
+        "crates/rune-macros/src/function.rs",
+        "crates/rune-macros/src/macro_.rs",
+        "crates/rune-macros/src/module.rs",
+        "crates/rune-wasm/src/lib.rs",
+        "crates/rune/README.md",
+        "crates/rune/src/alloc.rs",
+        "crates/rune/src/any.rs",
+        "crates/rune/src/ast/mod.rs",
+        "crates/rune/src/build.rs",
+        "crates/rune/src/cli/benches.rs",
+        "crates/rune/src/cli/loader.rs",
+        "crates/rune/src/cli/run.rs",
+        "crates/rune/src/cli/tests.rs",
+        "crates/rune/src/compile/context.rs",
+        "crates/rune/src/compile/unit_builder.rs",
+        "crates/rune/src/function_meta.rs",
+        "crates/rune/src/hashbrown/table.rs",
+        "crates/rune/src/internal_macros.rs",
+        "crates/rune/src/lib.rs",
+        "crates/rune/src/macros/macro_compiler.rs",
+        "crates/rune/src/macros/mod.rs",
+        "crates/rune/src/module/module.rs",
+        "crates/rune/src/module/module_meta.rs",
+        "crates/rune/src/module/trait_mut.rs",
+        "crates/rune/src/modules/collections/hash_set.rs",
+        "crates/rune/src/runtime/budget.rs",
+        "crates/rune/src/runtime/const_value.rs",
+        "crates/rune/src/runtime/dynamic.rs",
+        "crates/rune/src/runtime/env.rs",
+        "crates/rune/src/runtime/from_value.rs",
+        "crates/rune/src/runtime/function.rs",
+        "crates/rune/src/runtime/function_handler.rs",
+        "crates/rune/src/runtime/generator_state.rs",
+        "crates/rune/src/runtime/mod.rs",
+        "crates/rune/src/runtime/object.rs",
+        "crates/rune/src/runtime/ref.rs",
+        "crates/rune/src/runtime/runtime_context.rs",
+        "crates/rune/src/runtime/to_value.rs",
+        "crates/rune/src/runtime/type_info.rs",
+        "crates/rune/src/runtime/unit.rs",
+        "crates/rune/src/runtime/value.rs",
+        "crates/rune/src/runtime/value/any_sequence.rs",
+        "crates/rune/src/runtime/value/data.rs",
+        "crates/rune/src/runtime/value/rtti.rs",
+        "crates/rune/src/runtime/vm.rs",
+        "crates/rune/src/runtime/vm_call.rs",
+        "crates/rune/src/runtime/vm_error.rs",
+        "crates/rune/src/runtime/vm_execution.rs",
+        "crates/rune/src/tests.rs",
+        "crates/rune/src/tests/bug_326.rs",
+        "crates/rune/src/tests/bug_700.rs",
+        "crates/rune/src/tests/bug_905.rs",
+        "crates/rune/src/tests/builtin_macros.rs",
+        "crates/rune/src/tests/custom_macros.rs",
+        "crates/rune/src/tests/deprecation.rs",
+        "crates/rune/src/tests/external_constructor.rs",
+        "crates/rune/src/tests/external_generic.rs",
+        "crates/rune/src/tests/external_ops.rs",
+        "crates/rune/src/tests/function_guardedargs.rs",
+        "crates/rune/src/tests/getter_setter.rs",
+        "crates/rune/src/tests/macros.rs",
+        "crates/rune/src/tests/reference_error.rs",
+        "crates/rune/src/tests/vm_function.rs",
+        "crates/rune/src/worker/mod.rs",
+        "editors/code/README.md",
+        "examples/examples/checked_add_assign.rs",
+        "examples/examples/concat_idents.rs",
+        "examples/examples/custom_instance_fn.rs",
+        "examples/examples/custom_mul.rs",
+        "examples/examples/external_enum.rs",
+        "examples/examples/external_struct.rs",
+        "examples/examples/hot_reloading.rs",
+        "examples/examples/hot_reloading/path_reloader.rs",
+        "examples/examples/lookup_function.rs",
+        "examples/examples/minimal.rs",
+        "examples/examples/native_function.rs",
+        "examples/examples/object.rs",
+        "examples/examples/parsing_in_macro.rs",
+        "examples/examples/proxy.rs",
+        "examples/examples/references.rs",
+        "examples/examples/rune_function.rs",
+        "examples/examples/rune_function_macro.rs",
+        "examples/examples/simple_external.rs",
+        "examples/examples/tokio_spawn.rs",
+        "examples/examples/tuple.rs",
+        "examples/examples/vec_args.rs",
+        "examples/examples/vec_tuple.rs",
+        "examples/examples/vector.rs",
+        "no-std/examples/minimal.rs"
+      ],
+      "areas": {
+        "VM": 23,
+        "alloc": 8,
+        "compiler": 8,
+        "modules": 1,
+        "other": 47,
+        "tests": 16
+      }
+    },
+    {
+      "sha": "f98ba4df81e6e04daaeca35df7bbc107cbcfb2e5",
+      "date": "2025-06-07T07:38:46+02:00",
+      "title": "rune: Refactor Stack",
+      "paths": [
+        "crates/rune/src/runtime/stack.rs"
+      ],
+      "areas": {
+        "VM": 1
+      }
+    },
+    {
+      "sha": "422b7d50390416c6da2e24715e305607ae4b7a5c",
+      "date": "2025-06-07T13:13:45+02:00",
+      "title": "rune: Rework Output::store and seal IntoOutput trait",
+      "paths": [
+        "crates/rune/src/runtime/bytes.rs",
+        "crates/rune/src/runtime/inst.rs",
+        "crates/rune/src/runtime/into_output.rs",
+        "crates/rune/src/runtime/mod.rs",
+        "crates/rune/src/runtime/value.rs",
+        "crates/rune/src/runtime/value/any_sequence.rs",
+        "crates/rune/src/runtime/value/macros.rs",
+        "crates/rune/src/runtime/vm_error.rs"
+      ],
+      "areas": {
+        "VM": 8
+      }
+    },
+    {
+      "sha": "22d81bea9764587015d938c2b16de47cc07613f1",
+      "date": "2025-06-07T13:13:45+02:00",
+      "title": "rune: Move store method onto Memory trait",
+      "paths": [
+        "crates/rune/src/function/mod.rs",
+        "crates/rune/src/module/module.rs",
+        "crates/rune/src/modules/capture_io.rs",
+        "crates/rune/src/modules/disable_io.rs",
+        "crates/rune/src/modules/io.rs",
+        "crates/rune/src/modules/iter.rs",
+        "crates/rune/src/runtime/awaited.rs",
+        "crates/rune/src/runtime/function.rs",
+        "crates/rune/src/runtime/inst.rs",
+        "crates/rune/src/runtime/into_output.rs",
+        "crates/rune/src/runtime/memory.rs",
+        "crates/rune/src/runtime/mod.rs",
+        "crates/rune/src/runtime/stack.rs",
+        "crates/rune/src/runtime/vm.rs",
+        "crates/rune/src/runtime/vm_call.rs",
+        "crates/rune/src/runtime/vm_execution.rs"
+      ],
+      "areas": {
+        "VM": 10,
+        "modules": 4,
+        "other": 2
+      }
+    },
+    {
+      "sha": "61745b5f07b49c5c134e1f6d0321d1532969b8fd",
+      "date": "2025-06-07T13:13:45+02:00",
+      "title": "rune: Clean up errors",
+      "paths": [
+        "crates/rune/src/diagnostics/emit.rs",
+        "crates/rune/src/runtime/access.rs",
+        "crates/rune/src/runtime/mod.rs",
+        "crates/rune/src/runtime/vm_error.rs"
+      ],
+      "areas": {
+        "VM": 3,
+        "other": 1
+      }
+    },
+    {
+      "sha": "08c5958c0a0c74e0f0af0945655c94a688950d19",
+      "date": "2025-06-07T13:13:45+02:00",
+      "title": "all: Bump dependencies",
+      "paths": [
+        "benches/Cargo.toml",
+        "crates/rune-alloc/Cargo.toml",
+        "crates/rune-alloc/src/hashbrown/map.rs",
+        "crates/rune-modules/Cargo.toml",
+        "crates/rune/Cargo.toml",
+        "crates/rune/src/ace/mod.rs",
+        "crates/rune/src/doc/build.rs",
+        "crates/rune/src/doc/markdown.rs",
+        "examples/Cargo.toml"
+      ],
+      "areas": {
+        "alloc": 2,
+        "deps": 4,
+        "other": 3
+      }
+    },
+    {
+      "sha": "ab1878a50e7491a3972f89bb125b23b752d034d9",
+      "date": "2025-06-07T17:02:49+02:00",
+      "title": "rune: Make SourceLine and similar APIs public",
+      "paths": [
+        "crates/rune-wasm/src/lib.rs",
+        "crates/rune/src/diagnostics/emit.rs",
+        "crates/rune/src/indexing/indexer.rs",
+        "crates/rune/src/languageserver/state.rs",
+        "crates/rune/src/source.rs",
+        "crates/rune/src/worker/mod.rs"
+      ],
+      "areas": {
+        "compiler": 1,
+        "other": 5
+      }
+    },
+    {
+      "sha": "d36b83c25fb2c044b5bf258cb95482160dd8505c",
+      "date": "2025-06-07T20:34:39+02:00",
+      "title": "all: Refactor many type bounds",
+      "paths": [
+        "crates/rune-alloc/src/borrow/mod.rs",
+        "crates/rune-alloc/src/btree/append.rs",
+        "crates/rune-alloc/src/btree/fix.rs",
+        "crates/rune-alloc/src/btree/map.rs",
+        "crates/rune-alloc/src/btree/map/tests.rs",
+        "crates/rune-alloc/src/btree/merge_iter.rs",
+        "crates/rune-alloc/src/btree/navigate.rs",
+        "crates/rune-alloc/src/btree/node.rs",
+        "crates/rune-alloc/src/btree/remove.rs",
+        "crates/rune-alloc/src/iter/ext.rs",
+        "crates/rune-alloc/src/iter/join.rs",
+        "crates/rune-alloc/src/raw_vec.rs",
+        "crates/rune-alloc/src/slice.rs",
+        "crates/rune-alloc/src/str.rs",
+        "crates/rune-alloc/src/string/mod.rs",
+        "crates/rune-alloc/src/string/serde.rs",
+        "crates/rune-alloc/src/sync.rs",
+        "crates/rune-core/src/item/internal.rs",
+        "crates/rune-core/src/item/into_component.rs",
+        "crates/rune-core/src/item/item_buf.rs",
+        "crates/rune-core/src/item/serde.rs",
+        "crates/rune/src/ast/span.rs",
+        "crates/rune/src/compile/context.rs",
+        "crates/rune/src/compile/names.rs",
+        "crates/rune/src/compile/prelude.rs",
+        "crates/rune/src/compile/unit_builder.rs",
+        "crates/rune/src/compile/v1/scopes.rs",
+        "crates/rune/src/doc/build.rs",
+        "crates/rune/src/doc/context.rs",
+        "crates/rune/src/doc/markdown.rs",
+        "crates/rune/src/macros/token_stream.rs",
+        "crates/rune/src/module/enum_mut.rs",
+        "crates/rune/src/module/trait_mut.rs",
+        "crates/rune/src/module/type_mut.rs",
+        "crates/rune/src/module/variant_mut.rs",
+        "crates/rune/src/query/query.rs",
+        "tools/builder/src/main.rs"
+      ],
+      "areas": {
+        "alloc": 17,
+        "compiler": 6,
+        "other": 14
+      }
+    },
+    {
+      "sha": "fad9cf2c84e746147b1419d404da25821dbd5550",
+      "date": "2025-06-08T15:25:26+02:00",
+      "title": "all: Refactor remaining type bounds",
+      "paths": [
+        "crates/rune-alloc/src/borrow/mod.rs",
+        "crates/rune-alloc/src/boxed.rs",
+        "crates/rune-alloc/src/btree/append.rs",
+        "crates/rune-alloc/src/btree/fix.rs",
+        "crates/rune-alloc/src/btree/map.rs",
+        "crates/rune-alloc/src/btree/map/entry.rs",
+        "crates/rune-alloc/src/btree/map/tests.rs",
+        "crates/rune-alloc/src/btree/merge_iter.rs",
+        "crates/rune-alloc/src/btree/navigate.rs",
+        "crates/rune-alloc/src/btree/node.rs",
+        "crates/rune-alloc/src/btree/node/tests.rs",
+        "crates/rune-alloc/src/btree/remove.rs",
+        "crates/rune-alloc/src/btree/set.rs",
+        "crates/rune-alloc/src/btree/set/tests.rs",
+        "crates/rune-alloc/src/btree/split.rs",
+        "crates/rune-alloc/src/fmt/impls.rs",
+        "crates/rune-alloc/src/fmt/mod.rs",
+        "crates/rune-alloc/src/hashbrown/map.rs",
+        "crates/rune-alloc/src/hashbrown/raw/mod.rs",
+        "crates/rune-alloc/src/hashbrown/set.rs",
+        "crates/rune-alloc/src/iter/try_cloned.rs",
+        "crates/rune-alloc/src/iter/try_from_iterator.rs",
+        "crates/rune-alloc/src/ptr/unique.rs",
+        "crates/rune-alloc/src/serde/de.rs",
+        "crates/rune-alloc/src/slice/iter.rs",
+        "crates/rune-alloc/src/string/mod.rs",
+        "crates/rune-alloc/src/testing/ord_chaos.rs",
+        "crates/rune-alloc/src/vec/drain.rs",
+        "crates/rune-alloc/src/vec/into_iter.rs",
+        "crates/rune-alloc/src/vec/is_zero.rs",
+        "crates/rune-alloc/src/vec/mod.rs",
+        "crates/rune-alloc/src/vec/spec_extend.rs",
+        "crates/rune-alloc/src/vec/spec_from_elem.rs",
+        "crates/rune-alloc/src/vec/splice.rs",
+        "crates/rune-alloc/src/vec_deque/drain.rs",
+        "crates/rune-alloc/src/vec_deque/into_iter.rs",
+        "crates/rune-alloc/src/vec_deque/iter.rs",
+        "crates/rune-alloc/src/vec_deque/iter_mut.rs",
+        "crates/rune-alloc/src/vec_deque/mod.rs",
+        "crates/rune-core/src/item/item_buf.rs",
+        "crates/rune-core/src/protocol.rs",
+        "crates/rune/src/workspace/spanned_value.rs"
+      ],
+      "areas": {
+        "alloc": 39,
+        "other": 3
+      }
+    },
+    {
+      "sha": "bf7c6a1b66dbe8989dc688e18dc051f856270cad",
+      "date": "2025-06-19T21:56:45+02:00",
+      "title": "rune: Handle diverging if statement (fixes #952)",
+      "paths": [
+        "crates/rune/src/compile/v1/assemble.rs",
+        "crates/rune/tests/diverging.rn",
+        "crates/rune/tests/ifs.rn"
+      ],
+      "areas": {
+        "compiler": 1,
+        "tests": 2
+      }
+    },
+    {
+      "sha": "a3d55e8cba3afe3e1025a3e56bed54b85d265ec7",
+      "date": "2025-07-13T04:50:26+02:00",
+      "title": "Fix clippy lints",
+      "paths": [
+        "crates/rune-alloc/src/btree/map/tests.rs",
+        "crates/rune-alloc/src/hashbrown/map.rs",
+        "crates/rune-cli/build.rs",
+        "crates/rune-core/src/item/component.rs",
+        "crates/rune-core/src/item/component_ref.rs",
+        "crates/rune-core/src/item/item.rs",
+        "crates/rune-core/src/item/item_buf.rs",
+        "crates/rune-languageserver/build.rs",
+        "crates/rune-languageserver/src/main.rs",
+        "crates/rune-macros/src/context.rs",
+        "crates/rune-macros/src/to_tokens.rs",
+        "crates/rune-wasm/src/lib.rs",
+        "crates/rune/src/ast/token.rs",
+        "crates/rune/src/cli/benches.rs",
+        "crates/rune/src/cli/format.rs",
+        "crates/rune/src/cli/mod.rs",
+        "crates/rune/src/cli/run.rs",
+        "crates/rune/src/compile/error.rs",
+        "crates/rune/src/compile/meta.rs",
+        "crates/rune/src/compile/unit_builder.rs",
+        "crates/rune/src/diagnostics/emit.rs",
+        "crates/rune/src/doc/markdown.rs",
+        "crates/rune/src/hir/arena.rs",
+        "crates/rune/src/languageserver/state.rs",
+        "crates/rune/src/languageserver/url.rs",
+        "crates/rune/src/macros/format_args.rs",
+        "crates/rune/src/modules/capture_io.rs",
+        "crates/rune/src/modules/io.rs",
+        "crates/rune/src/parse/expectation.rs",
+        "crates/rune/src/runtime/format.rs",
+        "crates/rune/src/runtime/inst.rs",
+        "crates/rune/src/runtime/tuple.rs",
+        "crates/rune/src/tests/bug_344.rs",
+        "crates/rune/src/tests/compiler_docs.rs",
+        "crates/rune/src/tests/debug_fmt.rs",
+        "crates/rune/src/tests/rename_type.rs",
+        "examples/examples/checked_add_assign.rs",
+        "examples/examples/custom_instance_fn.rs",
+        "examples/examples/custom_mul.rs",
+        "examples/examples/external_enum.rs",
+        "examples/examples/external_struct.rs",
+        "examples/examples/hot_reloading.rs",
+        "examples/examples/minimal.rs",
+        "examples/examples/native_function.rs",
+        "examples/examples/parsing_in_macro.rs",
+        "examples/examples/references.rs",
+        "examples/examples/rune_function_macro.rs",
+        "examples/examples/simple_external.rs",
+        "examples/examples/tuple.rs",
+        "examples/examples/vec_args.rs",
+        "examples/examples/vec_tuple.rs",
+        "examples/examples/vector.rs",
+        "tools/builder/src/main.rs",
+        "tools/site/src/main.rs"
+      ],
+      "areas": {
+        "LSP": 2,
+        "VM": 3,
+        "alloc": 2,
+        "compiler": 7,
+        "modules": 2,
+        "other": 34,
+        "tests": 4
+      }
+    },
+    {
+      "sha": "a51a6a9aba598b719ff174106c4a6ed14d8ddb88",
+      "date": "2025-07-22T19:50:36+02:00",
+      "title": "Refine support for workspaces (#950)",
+      "paths": [
+        "book/src/SUMMARY.md",
+        "book/src/workspaces.md",
+        "crates/rune-macros/src/parse.rs",
+        "crates/rune/src/cli/mod.rs",
+        "crates/rune/src/languageserver/state.rs",
+        "crates/rune/src/tests.rs",
+        "crates/rune/src/tests/workspace/Rune.toml",
+        "crates/rune/src/tests/workspace/mod.rs",
+        "crates/rune/src/tests/workspace/nested/package-b/Rune.toml",
+        "crates/rune/src/tests/workspace/nested/package-b/benches/collatz.rn",
+        "crates/rune/src/tests/workspace/nested/package-b/benches/multi-file-bench/collatz.rn",
+        "crates/rune/src/tests/workspace/nested/package-b/benches/multi-file-bench/main.rn",
+        "crates/rune/src/tests/workspace/nested/package-b/examples/multi-file-example/lib.rn",
+        "crates/rune/src/tests/workspace/nested/package-b/examples/multi-file-example/main.rn",
+        "crates/rune/src/tests/workspace/nested/package-b/examples/simple.rn",
+        "crates/rune/src/tests/workspace/nested/package-b/src/bin/multi-file-executable/main.rn",
+        "crates/rune/src/tests/workspace/nested/package-b/src/bin/multi-file-executable/module/mod.rn",
+        "crates/rune/src/tests/workspace/nested/package-b/src/bin/named-executable.rn",
+        "crates/rune/src/tests/workspace/nested/package-b/src/lib.rn",
+        "crates/rune/src/tests/workspace/nested/package-b/src/main.rn",
+        "crates/rune/src/tests/workspace/nested/package-b/tests/fire/lib.rn",
+        "crates/rune/src/tests/workspace/nested/package-b/tests/fire/main.rn",
+        "crates/rune/src/tests/workspace/nested/package-b/tests/smoke.rn",
+        "crates/rune/src/tests/workspace/package-a/Rune.toml",
+        "crates/rune/src/tests/workspace/package-a/benches/collatz.rn",
+        "crates/rune/src/tests/workspace/package-a/benches/multi-file-bench/collatz.rn",
+        "crates/rune/src/tests/workspace/package-a/benches/multi-file-bench/main.rn",
+        "crates/rune/src/tests/workspace/package-a/examples/multi-file-example/lib.rn",
+        "crates/rune/src/tests/workspace/package-a/examples/multi-file-example/main.rn",
+        "crates/rune/src/tests/workspace/package-a/examples/simple.rn",
+        "crates/rune/src/tests/workspace/package-a/src/bin/multi-file-executable/main.rn",
+        "crates/rune/src/tests/workspace/package-a/src/bin/multi-file-executable/module/mod.rn",
+        "crates/rune/src/tests/workspace/package-a/src/bin/named-executable.rn",
+        "crates/rune/src/tests/workspace/package-a/src/lib.rn",
+        "crates/rune/src/tests/workspace/package-a/src/main.rn",
+        "crates/rune/src/tests/workspace/package-a/tests/fire/lib.rn",
+        "crates/rune/src/tests/workspace/package-a/tests/fire/main.rn",
+        "crates/rune/src/tests/workspace/package-a/tests/smoke.rn",
+        "crates/rune/src/workspace/manifest.rs",
+        "crates/rune/src/workspace/mod.rs",
+        "examples/examples/module.rn",
+        "examples/examples/test.rn",
+        "examples/examples/test/main.rn",
+        "examples/examples/test/module.rn"
+      ],
+      "areas": {
+        "compiler": 1,
+        "other": 11,
+        "tests": 32
+      }
+    },
+    {
+      "sha": "2d69c58311b86c39eff4226e2d8e668d791b7245",
+      "date": "2025-08-11T08:49:59+02:00",
+      "title": "Fix docs",
+      "paths": [
+        "crates/rune-alloc/src/hashbrown/serde.rs",
+        "crates/rune-alloc/src/vec/mod.rs",
+        "crates/rune/src/build.rs"
+      ],
+      "areas": {
+        "alloc": 2,
+        "other": 1
+      }
+    },
+    {
+      "sha": "61d267a9f27843dbc48a46b49385be2bc7230f9e",
+      "date": "2025-08-13T20:55:01+02:00",
+      "title": "Add constant vec example",
+      "paths": [
+        "crates/rune/src/module/module.rs"
+      ],
+      "areas": {
+        "other": 1
+      }
+    },
+    {
+      "sha": "07374eff9814f1256917fa52dbe22112756ff9e4",
+      "date": "2025-08-20T19:39:08+02:00",
+      "title": "Fixes #958",
+      "paths": [
+        "book/src/streams.md"
+      ],
+      "areas": {
+        "other": 1
+      }
+    },
+    {
+      "sha": "f80e596a9a71bd1b3a6b09ca7b25066103d268b2",
+      "date": "2025-09-24T15:28:43+02:00",
+      "title": "Fix lints",
+      "paths": [
+        "crates/rune-alloc/src/hashbrown/raw/bitmask.rs",
+        "crates/rune-alloc/src/raw_vec.rs"
+      ],
+      "areas": {
+        "alloc": 2
+      }
+    },
+    {
+      "sha": "184b7636230a521d4c1c7c62d274e65917d932a7",
+      "date": "2025-10-10T04:20:04+02:00",
+      "title": "Add std::f64::consts module and more f64 mathematical functions (#966)",
+      "paths": [
+        "crates/rune/src/compile/context.rs",
+        "crates/rune/src/modules/f64.rs",
+        "crates/rune/src/modules/test.rs",
+        "crates/rune/src/tests.rs",
+        "crates/rune/src/tests/external_constructor.rs",
+        "crates/rune/src/tests/f64.rs",
+        "crates/rune/src/tests/macros.rs",
+        "examples/examples/hot_reloading/path_reloader.rs"
+      ],
+      "areas": {
+        "compiler": 1,
+        "modules": 2,
+        "other": 2,
+        "tests": 3
+      }
+    },
+    {
+      "sha": "022d54f808ccea75a363e508cdca548dfc70c856",
+      "date": "2025-10-10T05:38:39+02:00",
+      "title": "build(deps-dev): bump form-data from 3.0.1 to 3.0.4 in /editors/code",
+      "paths": [
+        "editors/code/package-lock.json",
+        "editors/code/yarn.lock"
+      ],
+      "areas": {
+        "other": 2
+      }
+    },
+    {
+      "sha": "c6c58aac816bed07fbfcbe00335ed9ad028fd047",
+      "date": "2025-10-10T06:13:34+02:00",
+      "title": "build(deps): bump brace-expansion from 1.1.11 to 1.1.12 in /editors/code",
+      "paths": [
+        "editors/code/package-lock.json",
+        "editors/code/yarn.lock"
+      ],
+      "areas": {
+        "other": 2
+      }
+    },
+    {
+      "sha": "2cac7d63a40555c66de45229b978bceaa8873c73",
+      "date": "2025-10-10T08:47:50+02:00",
+      "title": "Refactor language server input/output handling (#967)",
+      "paths": [
+        "crates/rune-languageserver/src/main.rs",
+        "crates/rune/src/cli/languageserver.rs",
+        "crates/rune/src/languageserver/connection.rs",
+        "crates/rune/src/languageserver/mod.rs",
+        "crates/rune/src/languageserver/state.rs"
+      ],
+      "areas": {
+        "LSP": 1,
+        "other": 4
+      }
+    },
+    {
+      "sha": "62f0a5111b696f21fd5f1dd06ed88f458feb401f",
+      "date": "2025-10-10T11:48:09+02:00",
+      "title": "rune: Remove boxing and mutex in lsp and introduce builder (#969)",
+      "paths": [
+        "crates/rune-cli/Cargo.toml",
+        "crates/rune-languageserver/Cargo.toml",
+        "crates/rune-languageserver/src/main.rs",
+        "crates/rune/Cargo.toml",
+        "crates/rune/src/cli/languageserver.rs",
+        "crates/rune/src/languageserver/connection.rs",
+        "crates/rune/src/languageserver/fs.rs",
+        "crates/rune/src/languageserver/mod.rs",
+        "crates/rune/src/languageserver/state.rs"
+      ],
+      "areas": {
+        "LSP": 2,
+        "deps": 2,
+        "other": 5
+      }
+    },
+    {
+      "sha": "f67a45eac99ed609facc2b11d75352e556ffa0a0",
+      "date": "2025-10-10T13:39:01+02:00",
+      "title": "rune: Make languageserver reading re-entrant",
+      "paths": [
+        ".gitignore",
+        "crates/rune/src/languageserver/connection.rs",
+        "crates/rune/src/languageserver/envelope.rs",
+        "crates/rune/src/languageserver/mod.rs",
+        "crates/rune/src/languageserver/state.rs"
+      ],
+      "areas": {
+        "other": 5
+      }
+    },
+    {
+      "sha": "f448c78e81c144aa85964233eb25c9626d96218a",
+      "date": "2025-11-26T09:10:55+01:00",
+      "title": "Fix lints and bump MSRV to 1.91",
+      "paths": [
+        ".github/workflows/ci.yml",
+        "crates/rune-alloc-macros/Cargo.toml",
+        "crates/rune-alloc-macros/src/lib.rs",
+        "crates/rune-alloc/Cargo.toml",
+        "crates/rune-alloc/src/lib.rs",
+        "crates/rune-cli/Cargo.toml",
+        "crates/rune-cli/src/main.rs",
+        "crates/rune-core/Cargo.toml",
+        "crates/rune-core/src/lib.rs",
+        "crates/rune-languageserver/Cargo.toml",
+        "crates/rune-languageserver/src/main.rs",
+        "crates/rune-macros/Cargo.toml",
+        "crates/rune-macros/src/context.rs",
+        "crates/rune-macros/src/lib.rs",
+        "crates/rune-modules/Cargo.toml",
+        "crates/rune-modules/src/lib.rs",
+        "crates/rune-tracing-macros/Cargo.toml",
+        "crates/rune-tracing-macros/src/lib.rs",
+        "crates/rune-tracing/Cargo.toml",
+        "crates/rune-tracing/src/lib.rs",
+        "crates/rune-wasm/Cargo.toml",
+        "crates/rune-wasm/src/lib.rs",
+        "crates/rune/Cargo.toml",
+        "crates/rune/src/ast/vis.rs",
+        "crates/rune/src/fmt/format.rs",
+        "crates/rune/src/lib.rs",
+        "crates/rune/src/runtime/any_obj_vtable.rs",
+        "crates/rune/src/runtime/format.rs",
+        "crates/rune/src/tests/external_constructor.rs"
+      ],
+      "areas": {
+        "LSP": 2,
+        "VM": 2,
+        "alloc": 4,
+        "compiler": 4,
+        "deps": 7,
+        "fmt": 1,
+        "other": 8,
+        "tests": 1
+      }
+    },
+    {
+      "sha": "734b79e27f89bc830c2cc42bea08f3aaaddcd366",
+      "date": "2026-01-04T02:23:32+01:00",
+      "title": "Implement bitwise operations",
+      "paths": [
+        "crates/rune/src/compile/ir.rs",
+        "crates/rune/src/compile/ir/compiler.rs",
+        "crates/rune/src/compile/ir/eval.rs",
+        "crates/rune/tests/bitwise_ops.rn"
+      ],
+      "areas": {
+        "compiler": 3,
+        "tests": 1
+      }
+    },
+    {
+      "sha": "0e8063fd2103f61388434d0387cf6399debd3a4c",
+      "date": "2026-01-08T08:43:10+01:00",
+      "title": "Bump dependencies",
+      "paths": [
+        ".github/workflows/ci.yml",
+        ".github/workflows/release.yml",
+        "benches/Cargo.toml",
+        "crates/rune-alloc-macros/Cargo.toml",
+        "crates/rune-alloc-macros/src/lib.rs",
+        "crates/rune-alloc/Cargo.toml",
+        "crates/rune-alloc/src/alloc/allocator.rs",
+        "crates/rune-alloc/src/alloc/global.rs",
+        "crates/rune-alloc/src/boxed.rs",
+        "crates/rune-alloc/src/btree/borrow.rs",
+        "crates/rune-alloc/src/btree/map.rs",
+        "crates/rune-alloc/src/btree/mem.rs",
+        "crates/rune-alloc/src/btree/navigate.rs",
+        "crates/rune-alloc/src/btree/node.rs",
+        "crates/rune-alloc/src/hashbrown/raw/mod.rs",
+        "crates/rune-alloc/src/hashbrown/raw/neon.rs",
+        "crates/rune-alloc/src/hashbrown/raw/sse2.rs",
+        "crates/rune-alloc/src/lib.rs",
+        "crates/rune-alloc/src/musli.rs",
+        "crates/rune-alloc/src/ptr.rs",
+        "crates/rune-alloc/src/ptr/unique.rs",
+        "crates/rune-alloc/src/raw_vec.rs",
+        "crates/rune-alloc/src/slice/iter.rs",
+        "crates/rune-alloc/src/slice/iter/macros.rs",
+        "crates/rune-alloc/src/vec/drain.rs",
+        "crates/rune-alloc/src/vec/into_iter.rs",
+        "crates/rune-alloc/src/vec/mod.rs",
+        "crates/rune-alloc/src/vec_deque/drain.rs",
+        "crates/rune-cli/Cargo.toml",
+        "crates/rune-cli/src/main.rs",
+        "crates/rune-core/Cargo.toml",
+        "crates/rune-core/src/hash.rs",
+        "crates/rune-core/src/item/musli.rs",
+        "crates/rune-core/src/lib.rs",
+        "crates/rune-languageserver/Cargo.toml",
+        "crates/rune-languageserver/src/main.rs",
+        "crates/rune-macros/Cargo.toml",
+        "crates/rune-macros/src/lib.rs",
+        "crates/rune-modules/Cargo.toml",
+        "crates/rune-modules/src/http.rs",
+        "crates/rune-modules/src/lib.rs",
+        "crates/rune-tracing-macros/Cargo.toml",
+        "crates/rune-tracing-macros/src/lib.rs",
+        "crates/rune-tracing/Cargo.toml",
+        "crates/rune-tracing/src/lib.rs",
+        "crates/rune-wasm/Cargo.toml",
+        "crates/rune-wasm/src/lib.rs",
+        "crates/rune/Cargo.toml",
+        "crates/rune/src/ast/span.rs",
+        "crates/rune/src/diagnostics/emit.rs",
+        "crates/rune/src/lib.rs",
+        "crates/rune/src/musli.rs",
+        "crates/rune/src/runtime/bytes.rs",
+        "crates/rune/src/runtime/call.rs",
+        "crates/rune/src/runtime/const_value.rs",
+        "crates/rune/src/runtime/debug.rs",
+        "crates/rune/src/runtime/format.rs",
+        "crates/rune/src/runtime/inst.rs",
+        "crates/rune/src/runtime/label.rs",
+        "crates/rune/src/runtime/static_string.rs",
+        "crates/rune/src/runtime/type.rs",
+        "crates/rune/src/runtime/unit.rs",
+        "crates/rune/src/runtime/unit/byte_code.rs",
+        "crates/rune/src/runtime/unit/storage.rs",
+        "crates/rune/src/runtime/value/inline.rs",
+        "crates/rune/src/runtime/value/rtti.rs",
+        "crates/rune/src/sources.rs",
+        "crates/rune/src/workspace/emit.rs",
+        "tools/builder/Cargo.toml",
+        "tools/generate/Cargo.toml",
+        "tools/generate/README.md",
+        "tools/site/Cargo.toml"
+      ],
+      "areas": {
+        "LSP": 2,
+        "VM": 14,
+        "alloc": 25,
+        "compiler": 3,
+        "deps": 11,
+        "other": 17
+      }
+    },
+    {
+      "sha": "cea79e41c81b885c55ed7146eb086235adbeb459",
+      "date": "2026-01-08T08:43:10+01:00",
+      "title": "Fix book config",
+      "paths": [
+        "book/book.toml"
+      ],
+      "areas": {
+        "other": 1
+      }
+    },
+    {
+      "sha": "0f3da609a3eed8ac951f52a072a01ebe59c24f60",
+      "date": "2026-01-08T10:35:35+01:00",
+      "title": "Fix path change for mdbook 0.5.x",
+      "paths": [
+        ".github/workflows/site.yml"
+      ],
+      "areas": {
+        "other": 1
+      }
+    },
+    {
+      "sha": "529144bdf4a2a95933fd1f3776e93dd162655608",
+      "date": "2026-01-20T03:08:31+01:00",
+      "title": "Rework how path is used",
+      "paths": [
+        "crates/rune-alloc/Cargo.toml",
+        "crates/rune-alloc/src/borrow/mod.rs",
+        "crates/rune-alloc/src/boxed.rs",
+        "crates/rune-alloc/src/clone.rs",
+        "crates/rune-alloc/src/lib.rs",
+        "crates/rune-alloc/src/path.rs",
+        "crates/rune/src/alloc.rs",
+        "crates/rune/src/compile/error.rs",
+        "crates/rune/src/compile/meta.rs",
+        "crates/rune/src/compile/source_loader.rs",
+        "crates/rune/src/indexing/index.rs",
+        "crates/rune/src/indexing/index2.rs",
+        "crates/rune/src/indexing/indexer.rs",
+        "crates/rune/src/internal_macros.rs",
+        "crates/rune/src/languageserver/mod.rs",
+        "crates/rune/src/languageserver/state.rs",
+        "crates/rune/src/lib.rs",
+        "crates/rune/src/modules/capture_io.rs",
+        "crates/rune/src/query/mod.rs",
+        "crates/rune/src/query/query.rs",
+        "crates/rune/src/runtime/from_value.rs",
+        "crates/rune/src/runtime/to_value.rs",
+        "crates/rune/src/source.rs",
+        "crates/rune/src/sources.rs",
+        "crates/rune/src/worker/mod.rs",
+        "crates/rune/src/worker/task.rs"
+      ],
+      "areas": {
+        "VM": 2,
+        "alloc": 6,
+        "compiler": 6,
+        "modules": 1,
+        "other": 11
+      }
+    },
+    {
+      "sha": "46bab7dc5bd2f1c6b9c033f715ff7d0dc44b3670",
+      "date": "2026-01-22T05:39:59+01:00",
+      "title": "Remove dynamic allocation with numbers",
+      "paths": [
+        "crates/rune-modules/src/rand/macros.rs",
+        "crates/rune/Cargo.toml",
+        "crates/rune/src/ast/expr_object.rs",
+        "crates/rune/src/ast/ident.rs",
+        "crates/rune/src/ast/label.rs",
+        "crates/rune/src/ast/lit_byte.rs",
+        "crates/rune/src/ast/lit_byte_str.rs",
+        "crates/rune/src/ast/lit_char.rs",
+        "crates/rune/src/ast/lit_number.rs",
+        "crates/rune/src/ast/lit_str.rs",
+        "crates/rune/src/ast/path.rs",
+        "crates/rune/src/ast/token.rs",
+        "crates/rune/src/compile/attrs.rs",
+        "crates/rune/src/compile/compile.rs",
+        "crates/rune/src/compile/error.rs",
+        "crates/rune/src/compile/meta.rs",
+        "crates/rune/src/compile/mod.rs",
+        "crates/rune/src/compile/num.rs",
+        "crates/rune/src/grammar/grammar.rs",
+        "crates/rune/src/hir/lowering.rs",
+        "crates/rune/src/hir/lowering2.rs",
+        "crates/rune/src/indexing/index.rs",
+        "crates/rune/src/indexing/index2.rs",
+        "crates/rune/src/indexing/indexer.rs",
+        "crates/rune/src/internal_macros.rs",
+        "crates/rune/src/macros/format_args.rs",
+        "crates/rune/src/macros/macro_context.rs",
+        "crates/rune/src/parse/resolve.rs",
+        "crates/rune/src/query/query.rs",
+        "crates/rune/src/tests.rs",
+        "crates/rune/src/tests/compiler_literals.rs",
+        "crates/rune/src/tests/literals.rs",
+        "crates/rune/src/tests/vm_literals.rs",
+        "crates/rune/src/worker/import.rs",
+        "crates/rune/src/worker/mod.rs",
+        "crates/rune/tests/literals.rn"
+      ],
+      "areas": {
+        "compiler": 20,
+        "deps": 1,
+        "other": 11,
+        "tests": 4
+      }
+    },
+    {
+      "sha": "f71b852afe9920446249f61927966a9b84e84d4d",
+      "date": "2026-01-22T07:44:33+01:00",
+      "title": "Add support for scripts",
+      "paths": [
+        "README.md",
+        "book/src/SUMMARY.md",
+        "book/src/scripts.md",
+        "crates/rune-wasm/src/lib.rs",
+        "crates/rune/README.md",
+        "crates/rune/src/build.rs",
+        "crates/rune/src/compile/compile.rs",
+        "crates/rune/src/diagnostics/emit.rs",
+        "crates/rune/src/diagnostics/fatal.rs",
+        "crates/rune/src/diagnostics/mod.rs",
+        "crates/rune/src/diagnostics/runtime.rs",
+        "crates/rune/src/diagnostics/runtime_warning.rs",
+        "crates/rune/src/hir/lowering.rs",
+        "crates/rune/src/hir/lowering2.rs",
+        "crates/rune/src/languageserver/state.rs",
+        "crates/rune/src/lib.rs",
+        "crates/rune/src/macros/macro_context.rs",
+        "crates/rune/src/parse/mod.rs",
+        "crates/rune/src/query/query.rs",
+        "crates/rune/src/tests.rs",
+        "crates/rune/src/tests/deprecation.rs",
+        "crates/rune/src/tests/scripts.rs",
+        "crates/rune/src/worker/mod.rs",
+        "crates/rune/src/worker/task.rs",
+        "examples/examples/scripts.rs"
+      ],
+      "areas": {
+        "compiler": 2,
+        "other": 21,
+        "tests": 2
+      }
+    },
+    {
+      "sha": "fd3c63d47b84de29ed398deeed05b283b40d53de",
+      "date": "2026-01-22T16:07:04+01:00",
+      "title": "Bump dependencies",
+      "paths": [
+        "editors/code/package-lock.json",
+        "editors/code/yarn.lock"
+      ],
+      "areas": {
+        "other": 2
+      }
+    },
+    {
+      "sha": "f7a4ab021a5fa8de8cf16001030d5c54c6fb2088",
+      "date": "2026-03-05T06:11:05+01:00",
+      "title": "build(deps): bump @tootallnate/once and @vscode/test-electron",
+      "paths": [
+        "editors/code/package-lock.json",
+        "editors/code/package.json",
+        "editors/code/yarn.lock"
+      ],
+      "areas": {
+        "other": 3
+      }
+    },
+    {
+      "sha": "5d5ecdc417a5014d50b1ab2447be6986af38c5dd",
+      "date": "2026-03-06T10:24:18+01:00",
+      "title": "build(deps): bump minimatch from 3.1.2 to 3.1.5 in /editors/code",
+      "paths": [
+        "editors/code/package-lock.json",
+        "editors/code/yarn.lock"
+      ],
+      "areas": {
+        "other": 2
+      }
+    },
+    {
+      "sha": "31c88ac9eec6ad2da82f66a2bd421a2cf8f44ff9",
+      "date": "2026-04-28T09:33:26+02:00",
+      "title": "Build test v2 compiler",
+      "paths": [
+        ".github/workflows/ci.yml",
+        "crates/rune/src/grammar/tree.rs",
+        "crates/rune/src/hir/arena.rs",
+        "crates/rune/src/hir/lowering.rs",
+        "crates/rune/src/hir/lowering2.rs",
+        "crates/rune/src/hir/macros.rs",
+        "crates/rune/src/hir/mod.rs"
+      ],
+      "areas": {
+        "other": 7
+      }
+    },
+    {
+      "sha": "3d32e0262a81907fcb9c9dcb43b4e2305028bf48",
+      "date": "2026-04-28T09:33:26+02:00",
+      "title": "Fix lints",
+      "paths": [
+        "crates/rune/src/ast/expr.rs",
+        "crates/rune/src/compile/v1/needs.rs",
+        "crates/rune/src/fmt/format.rs",
+        "crates/rune/src/grammar/classify.rs",
+        "crates/rune/src/grammar/grammar.rs",
+        "crates/rune/src/parse/lexer.rs"
+      ],
+      "areas": {
+        "compiler": 3,
+        "fmt": 1,
+        "other": 2
+      }
+    },
+    {
+      "sha": "b8a093025241ffb6c0f636c59899d4ae21c68c1a",
+      "date": "2026-04-28T09:42:32+02:00",
+      "title": "Fix nightly",
+      "paths": [
+        "crates/rune-core/src/lib.rs",
+        "crates/rune/src/lib.rs"
+      ],
+      "areas": {
+        "other": 2
+      }
+    },
+    {
+      "sha": "069b3db2bdc680b3f9a492a6d485b6dd0ab7faf0",
+      "date": "2026-04-29T12:07:42+02:00",
+      "title": "Try and fix build",
+      "paths": [
+        ".github/workflows/ci.yml",
+        "crates/rune-core/src/lib.rs",
+        "crates/rune/src/lib.rs"
+      ],
+      "areas": {
+        "other": 3
+      }
+    },
+    {
+      "sha": "fbe0f8e8af6fa0755a8513716e6048c6171b37c3",
+      "date": "2026-05-22T13:51:43+02:00",
+      "title": "fix(compile): propagate divergence from expr_match when all arms diverge",
+      "paths": [
+        "crates/rune/src/compile/v1/assemble.rs"
+      ],
+      "areas": {
+        "compiler": 1
+      }
+    },
+    {
+      "sha": "1b3204d360968c9ead557df99bc8325e670075c6",
+      "date": "2026-05-22T13:51:43+02:00",
+      "title": "test(compile): add tests for match divergence propagation",
+      "paths": [
+        "crates/rune/tests/diverging.rn"
+      ],
+      "areas": {
+        "tests": 1
+      }
+    },
+    {
+      "sha": "24bb6b76ea8b3b7aa4666feb6a443999343950d5",
+      "date": "2026-07-20T07:30:57+02:00",
+      "title": "Fix lints",
+      "paths": [
+        "crates/rune-alloc/src/lib.rs",
+        "crates/rune-alloc/src/sync.rs",
+        "crates/rune/src/compile/v1/slots.rs",
+        "crates/rune/src/runtime/static_string.rs",
+        "crates/rune/src/runtime/tests.rs"
+      ],
+      "areas": {
+        "VM": 2,
+        "alloc": 2,
+        "compiler": 1
+      }
+    },
+    {
+      "sha": "5d3e4812976bd80cd40946cd9c03378c8cbb913a",
+      "date": "2026-07-20T07:30:57+02:00",
+      "title": "Update dependencies",
+      "paths": [
+        ".github/workflows/ci.yml",
+        "crates/rune-alloc-macros/Cargo.toml",
+        "crates/rune-alloc/Cargo.toml",
+        "crates/rune-alloc/src/hashbrown/map.rs",
+        "crates/rune-macros/Cargo.toml",
+        "crates/rune-macros/src/function.rs",
+        "crates/rune-macros/src/lib.rs",
+        "crates/rune-macros/src/macro_.rs",
+        "crates/rune-modules/Cargo.toml",
+        "crates/rune-modules/src/rand/error.rs",
+        "crates/rune-modules/src/rand/macros.rs",
+        "crates/rune-modules/src/rand/mod.rs",
+        "crates/rune-modules/src/rand/os_error.rs",
+        "crates/rune-modules/src/rand/os_rng.rs",
+        "crates/rune-modules/src/rand/small_rng.rs",
+        "crates/rune-modules/src/rand/std_rng.rs",
+        "crates/rune-modules/src/rand/sys_error.rs",
+        "crates/rune-modules/src/rand/sys_rng.rs",
+        "crates/rune-modules/src/rand/thread_rng.rs",
+        "crates/rune-modules/src/rand/try_from_rng_error.rs",
+        "crates/rune-tracing-macros/Cargo.toml",
+        "crates/rune-wasm/Cargo.toml",
+        "crates/rune/Cargo.toml",
+        "scripts/rand.rn",
+        "tools/builder/Cargo.toml"
+      ],
+      "areas": {
+        "alloc": 3,
+        "compiler": 4,
+        "deps": 5,
+        "other": 13
+      }
+    },
+    {
+      "sha": "50d1ef478c7236b561266496eb8bc7ca157c8bfe",
+      "date": "2026-07-20T07:30:57+02:00",
+      "title": "Bump MSRV",
+      "paths": [
+        ".github/workflows/ci.yml",
+        "crates/rune-alloc-macros/Cargo.toml",
+        "crates/rune-alloc-macros/src/lib.rs",
+        "crates/rune-alloc/Cargo.toml",
+        "crates/rune-alloc/src/lib.rs",
+        "crates/rune-cli/Cargo.toml",
+        "crates/rune-cli/src/main.rs",
+        "crates/rune-core/Cargo.toml",
+        "crates/rune-core/src/lib.rs",
+        "crates/rune-languageserver/Cargo.toml",
+        "crates/rune-languageserver/src/main.rs",
+        "crates/rune-macros/Cargo.toml",
+        "crates/rune-macros/src/lib.rs",
+        "crates/rune-modules/Cargo.toml",
+        "crates/rune-modules/src/lib.rs",
+        "crates/rune-tracing-macros/Cargo.toml",
+        "crates/rune-tracing-macros/src/lib.rs",
+        "crates/rune-tracing/Cargo.toml",
+        "crates/rune-tracing/src/lib.rs",
+        "crates/rune-wasm/Cargo.toml",
+        "crates/rune-wasm/src/lib.rs",
+        "crates/rune/Cargo.toml",
+        "crates/rune/src/lib.rs"
+      ],
+      "areas": {
+        "LSP": 2,
+        "alloc": 4,
+        "compiler": 2,
+        "deps": 7,
+        "other": 8
+      }
+    },
+    {
+      "sha": "0221d2345a452f24115a681774ae406550e84837",
+      "date": "2026-07-20T07:30:57+02:00",
+      "title": "Fix no-std minimal example",
+      "paths": [
+        "no-std/examples/minimal.rs"
+      ],
+      "areas": {
+        "other": 1
+      }
+    },
+    {
+      "sha": "7597e1b8fc2da7f1588cefd869b78ae9c57c47e9",
+      "date": "2026-07-20T07:45:27+02:00",
+      "title": "Pass values through to nested compile options",
+      "paths": [
+        "crates/rune/src/compile/options.rs"
+      ],
+      "areas": {
+        "compiler": 1
+      }
+    },
+    {
+      "sha": "20b26957f18ead54232261f0f8fff2e9f78d852c",
+      "date": "2026-07-20T08:00:48+02:00",
+      "title": "Make indentation configurable and honor LSP formatting options",
+      "paths": [
+        "crates/rune/src/compile/mod.rs",
+        "crates/rune/src/compile/options.rs",
+        "crates/rune/src/fmt/mod.rs",
+        "crates/rune/src/fmt/output.rs",
+        "crates/rune/src/fmt/tests/mod.rs",
+        "crates/rune/src/languageserver/mod.rs",
+        "crates/rune/src/languageserver/state.rs"
+      ],
+      "areas": {
+        "compiler": 2,
+        "fmt": 3,
+        "other": 2
+      }
+    },
+    {
+      "sha": "17500367ea5b4018e02f1ca2a153393bf3ae80f9",
+      "date": "2026-07-27T13:18:09+02:00",
+      "title": "Fix statements such as `if cond { } (..)` being treated as call expressions",
+      "paths": [
+        "crates/rune/src/ast/expr.rs",
+        "crates/rune/src/ast/stmt.rs",
+        "crates/rune/src/grammar/grammar.rs",
+        "crates/rune/src/tests.rs",
+        "crates/rune/src/tests/bug_1021.rs"
+      ],
+      "areas": {
+        "compiler": 2,
+        "other": 2,
+        "tests": 1
+      }
+    },
+    {
+      "sha": "bb8f6d5e6d04b787cfedb739b1c7e7e796fb02df",
+      "date": "2026-07-27T14:55:06+02:00",
+      "title": "Implement support for attribute macros in v2",
+      "paths": [
+        ".github/workflows/ci.yml",
+        "crates/rune/src/grammar/grammar.rs",
+        "crates/rune/src/grammar/mod.rs",
+        "crates/rune/src/indexing/index2.rs",
+        "crates/rune/src/query/mod.rs",
+        "crates/rune/src/worker/mod.rs"
+      ],
+      "areas": {
+        "compiler": 1,
+        "other": 5
+      }
+    },
+    {
+      "sha": "07a9cb2e6ad2cf2b569217f46e1e0601457e578c",
+      "date": "2026-07-27T16:34:50+02:00",
+      "title": "Bump version to 0.15.0",
+      "paths": [
+        "crates/rune-alloc-macros/Cargo.toml",
+        "crates/rune-alloc/Cargo.toml",
+        "crates/rune-cli/Cargo.toml",
+        "crates/rune-core/Cargo.toml",
+        "crates/rune-languageserver/Cargo.toml",
+        "crates/rune-macros/Cargo.toml",
+        "crates/rune-modules/Cargo.toml",
+        "crates/rune-modules/src/fs.rs",
+        "crates/rune-modules/src/http.rs",
+        "crates/rune-modules/src/json.rs",
+        "crates/rune-modules/src/process.rs",
+        "crates/rune-modules/src/rand/mod.rs",
+        "crates/rune-modules/src/signal.rs",
+        "crates/rune-modules/src/time.rs",
+        "crates/rune-modules/src/toml.rs",
+        "crates/rune-tracing-macros/Cargo.toml",
+        "crates/rune-tracing/Cargo.toml",
+        "crates/rune-wasm/Cargo.toml",
+        "crates/rune/Cargo.toml"
+      ],
+      "areas": {
+        "LSP": 1,
+        "alloc": 2,
+        "compiler": 1,
+        "deps": 7,
+        "other": 8
+      }
+    },
+    {
+      "sha": "aebd3bc2e296b2293b3cecebecfad1aa83a9119b",
+      "date": "2026-07-27T16:34:50+02:00",
+      "title": "Make use of default_fn! to avoid surfacing Rust diagnostics",
+      "paths": [
+        "crates/rune-alloc/src/vec/spec_extend.rs",
+        "crates/rune-alloc/src/vec/spec_from_elem.rs"
+      ],
+      "areas": {
+        "alloc": 2
+      }
+    },
+    {
+      "sha": "2247d7e1ce0fa8b5d9ddf5d9511aabe15892b867",
+      "date": "2026-07-29T07:14:40+02:00",
+      "title": "Add support for statics",
+      "paths": [
+        "CHANGELOG.md",
+        "assets/tokens.yaml",
+        "book/src/SUMMARY.md",
+        "book/src/multithreading.md",
+        "book/src/statics.md",
+        "crates/rune/src/ast/generated.rs",
+        "crates/rune/src/ast/item.rs",
+        "crates/rune/src/ast/item_static.rs",
+        "crates/rune/src/ast/mod.rs",
+        "crates/rune/src/build.rs",
+        "crates/rune/src/cli/run.rs",
+        "crates/rune/src/compile/error.rs",
+        "crates/rune/src/compile/ir/compiler.rs",
+        "crates/rune/src/compile/ir/interpreter.rs",
+        "crates/rune/src/compile/meta.rs",
+        "crates/rune/src/compile/meta_info.rs",
+        "crates/rune/src/compile/pool.rs",
+        "crates/rune/src/compile/unit_builder.rs",
+        "crates/rune/src/compile/v1/assemble.rs",
+        "crates/rune/src/fmt/format.rs",
+        "crates/rune/src/fmt/tests/mod.rs",
+        "crates/rune/src/grammar/classify.rs",
+        "crates/rune/src/grammar/grammar.rs",
+        "crates/rune/src/hir/hir.rs",
+        "crates/rune/src/hir/lowering.rs",
+        "crates/rune/src/hir/lowering2.rs",
+        "crates/rune/src/indexing/index.rs",
+        "crates/rune/src/indexing/index2.rs",
+        "crates/rune/src/indexing/mod.rs",
+        "crates/rune/src/no_std/mod.rs",
+        "crates/rune/src/query/query.rs",
+        "crates/rune/src/runtime/debug.rs",
+        "crates/rune/src/runtime/env.rs",
+        "crates/rune/src/runtime/env/no_std.rs",
+        "crates/rune/src/runtime/function.rs",
+        "crates/rune/src/runtime/globals.rs",
+        "crates/rune/src/runtime/inst.rs",
+        "crates/rune/src/runtime/mod.rs",
+        "crates/rune/src/runtime/protocol_caller.rs",
+        "crates/rune/src/runtime/runtime_context.rs",
+        "crates/rune/src/runtime/unit.rs",
+        "crates/rune/src/runtime/value.rs",
+        "crates/rune/src/runtime/vm.rs",
+        "crates/rune/src/runtime/vm_call.rs",
+        "crates/rune/src/runtime/vm_error.rs",
+        "crates/rune/src/runtime/vm_execution.rs",
+        "crates/rune/src/shared/consts.rs",
+        "crates/rune/src/tests.rs",
+        "crates/rune/src/tests/statics.rs",
+        "examples/examples/global_registry.rs",
+        "examples/examples/statics.rs",
+        "examples/examples/statics_threads.rs",
+        "scripts/book/enums/count_numbers.rn",
+        "scripts/book/generators/send_values.rn",
+        "scripts/book/generators/states.rn",
+        "scripts/book/loops/loop_break.rn",
+        "scripts/book/loops/while_loop.rn",
+        "scripts/book/pattern_matching/big_match.rn",
+        "scripts/book/pattern_matching/bind.rn",
+        "scripts/book/statics/counter.rn",
+        "scripts/book/statics/shared_value.rn",
+        "scripts/book/statics/uninitialized.rn",
+        "scripts/book/streams/basic_stream.rn",
+        "scripts/book/try_operator/basic_try.rn",
+        "scripts/book/variables/variables.rn",
+        "scripts/book/vectors/vectors.rn",
+        "scripts/book/vectors/vectors_rev.rn",
+        "scripts/generator_as_iter.rn"
+      ],
+      "areas": {
+        "VM": 15,
+        "compiler": 15,
+        "fmt": 2,
+        "other": 35,
+        "tests": 1
+      }
+    },
+    {
+      "sha": "4243fef09cf61464c550219ab02f9ed8c8c842d3",
+      "date": "2026-07-29T07:14:40+02:00",
+      "title": "Allow declaring statics outside of scripts",
+      "paths": [
+        "CHANGELOG.md",
+        "book/src/statics.md",
+        "crates/rune/src/build.rs",
+        "crates/rune/src/compile/compile.rs",
+        "crates/rune/src/compile/error.rs",
+        "crates/rune/src/lib.rs",
+        "crates/rune/src/query/query.rs",
+        "crates/rune/src/statics.rs",
+        "crates/rune/src/tests/statics.rs",
+        "examples/examples/declared_statics.rs"
+      ],
+      "areas": {
+        "compiler": 2,
+        "other": 7,
+        "tests": 1
+      }
+    },
+    {
+      "sha": "1bbc0b7292b77e72bbe122844a0aa08f610c7090",
+      "date": "2026-07-29T07:48:49+02:00",
+      "title": "Fix unchecked negate operation (fixes #1030)",
+      "paths": [
+        "crates/rune/src/runtime/vm.rs",
+        "crates/rune/src/tests/vm_arithmetic.rs"
+      ],
+      "areas": {
+        "VM": 1,
+        "tests": 1
+      }
+    },
+    {
+      "sha": "88c79e8afb835a3a6c5743658ed8ef749fa91219",
+      "date": "2026-07-29T08:05:41+02:00",
+      "title": "Try and fix vm unused diagnostics (fixes #978)",
+      "paths": [
+        "crates/rune/src/compile/context.rs",
+        "crates/rune/src/runtime/runtime_context.rs",
+        "crates/rune/src/runtime/vm.rs",
+        "crates/rune/src/runtime/vm_diagnostics.rs",
+        "crates/rune/src/tests/deprecation.rs"
+      ],
+      "areas": {
+        "VM": 3,
+        "compiler": 1,
+        "tests": 1
+      }
+    },
+    {
+      "sha": "54fe7cb8eaa3603932a09f678af9d07f39a8d796",
+      "date": "2026-07-29T08:10:23+02:00",
+      "title": "Fix patterns accidentally shadowing expressions (fixes #956)",
+      "paths": [
+        "crates/rune/src/hir/lowering.rs",
+        "crates/rune/tests/bug_956.rn"
+      ],
+      "areas": {
+        "other": 1,
+        "tests": 1
+      }
+    },
+    {
+      "sha": "1a423577a9813406043bea15da25714eccadf37d",
+      "date": "2026-08-11T18:58:43+02:00",
+      "title": "Add hegel property tests as a soft CI dependency",
+      "paths": [
+        ".github/workflows/ci.yml",
+        "hegel_tests/.gitignore",
+        "hegel_tests/Cargo.toml",
+        "hegel_tests/src/lib.rs",
+        "hegel_tests/tests/arithmetic.rs",
+        "hegel_tests/tests/compiler.rs",
+        "hegel_tests/tests/const_exprs.rs",
+        "hegel_tests/tests/general.rs",
+        "hegel_tests/tests/literals.rs",
+        "hegel_tests/tests/value_roundtrip.rs"
+      ],
+      "areas": {
+        "deps": 1,
+        "other": 1,
+        "tests": 8
+      }
+    },
+    {
+      "sha": "b3df81285e209ea59905f11e529501acbbeac5a5",
+      "date": "2026-08-22T08:54:02+02:00",
+      "title": "Drop the v1 compiler from CI",
+      "paths": [
+        ".github/workflows/ci.yml",
+        ".gitignore"
+      ],
+      "areas": {
+        "other": 2
+      }
+    },
+    {
+      "sha": "7e5e3ab1ea352efec7a974be88111661303ee557",
+      "date": "2026-08-22T08:54:02+02:00",
+      "title": "Avoid recursive stack use",
+      "paths": [
+        "crates/rune-macros/src/any.rs",
+        "crates/rune-macros/src/context.rs",
+        "crates/rune/Cargo.toml",
+        "crates/rune/src/any.rs",
+        "crates/rune/src/ast/attribute.rs",
+        "crates/rune/src/ast/expr.rs",
+        "crates/rune/src/ast/expr_closure.rs",
+        "crates/rune/src/ast/fields.rs",
+        "crates/rune/src/ast/item.rs",
+        "crates/rune/src/ast/item_const.rs",
+        "crates/rune/src/ast/item_fn.rs",
+        "crates/rune/src/ast/item_mod.rs",
+        "crates/rune/src/ast/item_static.rs",
+        "crates/rune/src/ast/macro_call.rs",
+        "crates/rune/src/ast/pat.rs",
+        "crates/rune/src/ast/path.rs",
+        "crates/rune/src/ast/spanned.rs",
+        "crates/rune/src/ast/stmt.rs",
+        "crates/rune/src/compile/attrs.rs",
+        "crates/rune/src/compile/compile.rs",
+        "crates/rune/src/compile/const_eval.rs",
+        "crates/rune/src/compile/error.rs",
+        "crates/rune/src/compile/ir.rs",
+        "crates/rune/src/compile/ir/compiler.rs",
+        "crates/rune/src/compile/ir/eval.rs",
+        "crates/rune/src/compile/ir/interpreter.rs",
+        "crates/rune/src/compile/ir/scopes.rs",
+        "crates/rune/src/compile/meta.rs",
+        "crates/rune/src/compile/mod.rs",
+        "crates/rune/src/compile/names.rs",
+        "crates/rune/src/compile/options.rs",
+        "crates/rune/src/compile/pool.rs",
+        "crates/rune/src/compile/unit_builder.rs",
+        "crates/rune/src/compile/v1/assemble.rs",
+        "crates/rune/src/compile/v1/breaks.rs",
+        "crates/rune/src/compile/v1/display_named.rs",
+        "crates/rune/src/compile/v1/linear.rs",
+        "crates/rune/src/compile/v1/mod.rs",
+        "crates/rune/src/compile/v1/needs.rs",
+        "crates/rune/src/compile/v1/scopes.rs",
+        "crates/rune/src/compile/v1/slab.rs",
+        "crates/rune/src/compile/v1/slots.rs",
+        "crates/rune/src/compile/v1/slots/tests.rs",
+        "crates/rune/src/compile/v2/assemble.rs",
+        "crates/rune/src/compile/v2/breaks.rs",
+        "crates/rune/src/compile/v2/display_named.rs",
+        "crates/rune/src/compile/v2/linear.rs",
+        "crates/rune/src/compile/v2/mod.rs",
+        "crates/rune/src/compile/v2/needs.rs",
+        "crates/rune/src/compile/v2/scopes.rs",
+        "crates/rune/src/compile/v2/slab.rs",
+        "crates/rune/src/compile/v2/slots.rs",
+        "crates/rune/src/compile/v2/slots/tests.rs",
+        "crates/rune/src/diagnostics/mod.rs",
+        "crates/rune/src/diagnostics/warning.rs",
+        "crates/rune/src/fmt/format.rs",
+        "crates/rune/src/fmt/mod.rs",
+        "crates/rune/src/fmt/output.rs",
+        "crates/rune/src/fmt/tests/mod.rs",
+        "crates/rune/src/grammar/grammar.rs",
+        "crates/rune/src/grammar/mod.rs",
+        "crates/rune/src/grammar/parser.rs",
+        "crates/rune/src/grammar/tree.rs",
+        "crates/rune/src/hashbrown/table.rs",
+        "crates/rune/src/hir/ctxt.rs",
+        "crates/rune/src/hir/hir.rs",
+        "crates/rune/src/hir/lowering.rs",
+        "crates/rune/src/hir/lowering2.rs",
+        "crates/rune/src/hir/macros.rs",
+        "crates/rune/src/hir/mod.rs",
+        "crates/rune/src/indexing/index.rs",
+        "crates/rune/src/indexing/index2.rs",
+        "crates/rune/src/indexing/indexer.rs",
+        "crates/rune/src/indexing/mod.rs",
+        "crates/rune/src/lib.rs",
+        "crates/rune/src/macros/format_args.rs",
+        "crates/rune/src/macros/macro_compiler.rs",
+        "crates/rune/src/macros/macro_context.rs",
+        "crates/rune/src/macros/mod.rs",
+        "crates/rune/src/modules/collections/hash_map.rs",
+        "crates/rune/src/modules/collections/hash_set.rs",
+        "crates/rune/src/modules/collections/vec_deque.rs",
+        "crates/rune/src/modules/core.rs",
+        "crates/rune/src/modules/fmt.rs",
+        "crates/rune/src/modules/io.rs",
+        "crates/rune/src/modules/iter.rs",
+        "crates/rune/src/modules/object.rs",
+        "crates/rune/src/modules/ops/generator.rs",
+        "crates/rune/src/modules/option.rs",
+        "crates/rune/src/modules/string.rs",
+        "crates/rune/src/modules/test.rs",
+        "crates/rune/src/modules/vec.rs",
+        "crates/rune/src/no_std/mod.rs",
+        "crates/rune/src/parse/parser.rs",
+        "crates/rune/src/query/mod.rs",
+        "crates/rune/src/query/query.rs",
+        "crates/rune/src/runtime/any_obj.rs",
+        "crates/rune/src/runtime/any_obj_vtable.rs",
+        "crates/rune/src/runtime/awaited.rs",
+        "crates/rune/src/runtime/call.rs",
+        "crates/rune/src/runtime/const_value.rs",
+        "crates/rune/src/runtime/control_flow.rs",
+        "crates/rune/src/runtime/env.rs",
+        "crates/rune/src/runtime/env/no_std.rs",
+        "crates/rune/src/runtime/format.rs",
+        "crates/rune/src/runtime/function.rs",
+        "crates/rune/src/runtime/future.rs",
+        "crates/rune/src/runtime/generator.rs",
+        "crates/rune/src/runtime/generator_state.rs",
+        "crates/rune/src/runtime/memory.rs",
+        "crates/rune/src/runtime/mod.rs",
+        "crates/rune/src/runtime/object.rs",
+        "crates/rune/src/runtime/protocol_caller.rs",
+        "crates/rune/src/runtime/range.rs",
+        "crates/rune/src/runtime/range_from.rs",
+        "crates/rune/src/runtime/range_inclusive.rs",
+        "crates/rune/src/runtime/range_to.rs",
+        "crates/rune/src/runtime/range_to_inclusive.rs",
+        "crates/rune/src/runtime/ref.rs",
+        "crates/rune/src/runtime/shared.rs",
+        "crates/rune/src/runtime/slice/iter.rs",
+        "crates/rune/src/runtime/stream.rs",
+        "crates/rune/src/runtime/tuple.rs",
+        "crates/rune/src/runtime/value.rs",
+        "crates/rune/src/runtime/value/any_sequence.rs",
+        "crates/rune/src/runtime/value/dismantle.rs",
+        "crates/rune/src/runtime/value/serde.rs",
+        "crates/rune/src/runtime/vec.rs",
+        "crates/rune/src/runtime/vm.rs",
+        "crates/rune/src/runtime/vm/ops.rs",
+        "crates/rune/src/runtime/vm_call.rs",
+        "crates/rune/src/runtime/vm_error.rs",
+        "crates/rune/src/runtime/vm_execution.rs",
+        "crates/rune/src/source.rs",
+        "crates/rune/src/tests.rs",
+        "crates/rune/src/tests/attribute.rs",
+        "crates/rune/src/tests/binary.rs",
+        "crates/rune/src/tests/bug_344.rs",
+        "crates/rune/src/tests/bug_417.rs",
+        "crates/rune/src/tests/capture.rs",
+        "crates/rune/src/tests/compiler_general.rs",
+        "crates/rune/src/tests/compiler_paths.rs",
+        "crates/rune/src/tests/compiler_use.rs",
+        "crates/rune/src/tests/compiler_warnings.rs",
+        "crates/rune/src/tests/core_macros.rs",
+        "crates/rune/src/tests/iterator.rs",
+        "crates/rune/src/tests/literals.rs",
+        "crates/rune/src/tests/macros.rs",
+        "crates/rune/src/tests/static_typing.rs",
+        "crates/rune/src/tests/unreachable.rs",
+        "crates/rune/src/tests/vm_arithmetic.rs",
+        "crates/rune/src/tests/vm_const_exprs.rs",
+        "crates/rune/src/worker/mod.rs"
+      ],
+      "areas": {
+        "VM": 37,
+        "compiler": 56,
+        "deps": 1,
+        "fmt": 4,
+        "modules": 13,
+        "other": 25,
+        "tests": 17
+      }
+    },
+    {
+      "sha": "0e67f242f018c05942d519d3c15aea9340d21d79",
+      "date": "2026-08-22T08:54:02+02:00",
+      "title": "Ensure that a script cannot overflow the stack",
+      "paths": [
+        "crates/rune/src/tests.rs",
+        "crates/rune/src/tests/bounded_recursion.rs",
+        "crates/rune/src/tests/vm_await.rs"
+      ],
+      "areas": {
+        "other": 1,
+        "tests": 2
+      }
+    },
+    {
+      "sha": "70b1f107bd839b902e6a9167f7ff7080166813a2",
+      "date": "2026-08-22T08:54:02+02:00",
+      "title": "Pin what the compiler makes of a program",
+      "paths": [
+        "crates/rune/src/tests.rs",
+        "crates/rune/src/tests/block_modifiers.rs",
+        "crates/rune/src/tests/compiler_semantics.rs"
+      ],
+      "areas": {
+        "other": 1,
+        "tests": 2
+      }
+    },
+    {
+      "sha": "64baaf42e0f7a2707669a6661df4a2f102428dc7",
+      "date": "2026-08-22T08:54:02+02:00",
+      "title": "Pin what the grammar rejects and what a format spec means",
+      "paths": [
+        "crates/rune/src/tests.rs",
+        "crates/rune/src/tests/format_spec.rs",
+        "crates/rune/src/tests/grammar_rejects.rs"
+      ],
+      "areas": {
+        "other": 1,
+        "tests": 2
+      }
+    },
+    {
+      "sha": "8bc8ca8daad7b13a13828df82cf0be0a84a28e21",
+      "date": "2026-08-22T08:54:02+02:00",
+      "title": "Add a benchmark for awaiting a call",
+      "paths": [
+        "benches/benches/benchmarks/await_call.rs",
+        "benches/benches/main.rs"
+      ],
+      "areas": {
+        "tests": 2
+      }
+    },
+    {
+      "sha": "bf9e75f51a23805ce10cabdda0249adc555a1b02",
+      "date": "2026-08-22T08:54:02+02:00",
+      "title": "Check generated programs against a reference",
+      "paths": [
+        "hegel_tests/src/lib.rs",
+        "hegel_tests/tests/compiler.rs",
+        "hegel_tests/tests/const_exprs.rs",
+        "hegel_tests/tests/programs.rs"
+      ],
+      "areas": {
+        "tests": 4
+      }
+    },
+    {
+      "sha": "75ddb87aa5e77d97bd5ef65f282bc41d4565c157",
+      "date": "2026-08-22T08:54:02+02:00",
+      "title": "Make the budget reentrant",
+      "paths": [
+        "crates/rune/src/runtime/budget.rs",
+        "crates/rune/src/runtime/vm.rs"
+      ],
+      "areas": {
+        "VM": 2
+      }
+    },
+    {
+      "sha": "b9ffded7400631a9420df98eedaf2a459d565717",
+      "date": "2026-08-22T08:54:02+02:00",
+      "title": "Take budget permits in the native iterator loops",
+      "paths": [
+        "crates/rune/src/modules/iter.rs",
+        "crates/rune/src/runtime/budget.rs",
+        "crates/rune/src/tests.rs",
+        "crates/rune/src/tests/bounded_natives.rs"
+      ],
+      "areas": {
+        "VM": 1,
+        "modules": 1,
+        "other": 1,
+        "tests": 1
+      }
+    },
+    {
+      "sha": "e417a1d77cf9f5c18c3e3c49bfde4627cf7dfa7a",
+      "date": "2026-08-22T08:54:02+02:00",
+      "title": "Do not reserve what the size hint asks for",
+      "paths": [
+        "crates/rune/src/modules/iter.rs",
+        "crates/rune/src/tests/bounded_natives.rs"
+      ],
+      "areas": {
+        "modules": 1,
+        "tests": 1
+      }
+    },
+    {
+      "sha": "16ab52504f4533e24f27b03942b4a5b999b961b3",
+      "date": "2026-08-22T08:54:02+02:00",
+      "title": "Fix a test which was not running the program it meant to",
+      "paths": [
+        "crates/rune/src/tests/compiler_semantics.rs"
+      ],
+      "areas": {
+        "tests": 1
+      }
+    },
+    {
+      "sha": "018451e940e5b2afcb7f6dcc8dadd01317e9a05d",
+      "date": "2026-08-22T08:54:02+02:00",
+      "title": "Bound how many components an item path may have",
+      "paths": [
+        "crates/rune/src/compile/error.rs",
+        "crates/rune/src/compile/options.rs",
+        "crates/rune/src/indexing/index2.rs",
+        "crates/rune/src/indexing/indexer.rs",
+        "crates/rune/src/indexing/items.rs",
+        "crates/rune/src/tests/bounded_recursion.rs"
+      ],
+      "areas": {
+        "compiler": 5,
+        "tests": 1
+      }
+    },
+    {
+      "sha": "61ba1b91c3d7db1f2fd63678437bbf39656756ea",
+      "date": "2026-08-22T08:54:02+02:00",
+      "title": "Cover skipping in the budget tests",
+      "paths": [
+        "crates/rune/src/tests/bounded_natives.rs"
+      ],
+      "areas": {
+        "tests": 1
+      }
+    },
+    {
+      "sha": "68a9c7d179438e0062a7dc8666bce988540c290c",
+      "date": "2026-08-22T08:54:02+02:00",
+      "title": "Budget stepping an iterator where it goes through",
+      "paths": [
+        "crates/rune/src/runtime/value.rs",
+        "crates/rune/src/tests/bounded_natives.rs"
+      ],
+      "areas": {
+        "VM": 1,
+        "tests": 1
+      }
+    },
+    {
+      "sha": "4337954bb7eeedf372c1bba7d2d8e5d65899e832",
+      "date": "2026-08-22T08:54:02+02:00",
+      "title": "Do not let a script panic the process through sort_by",
+      "paths": [
+        "crates/rune/src/modules/vec.rs",
+        "crates/rune/src/runtime/vec.rs",
+        "crates/rune/src/tests.rs",
+        "crates/rune/src/tests/vec_sort.rs"
+      ],
+      "areas": {
+        "VM": 1,
+        "modules": 1,
+        "other": 1,
+        "tests": 1
+      }
+    },
+    {
+      "sha": "226638cf976e0614bd27bf80b68b302d44841cf9",
+      "date": "2026-08-22T08:54:02+02:00",
+      "title": "Bound how large a constant may be",
+      "paths": [
+        "crates/rune/src/runtime/const_value.rs",
+        "crates/rune/src/runtime/vm_error.rs",
+        "crates/rune/src/tests/compiler_semantics.rs"
+      ],
+      "areas": {
+        "VM": 2,
+        "tests": 1
+      }
+    },
+    {
+      "sha": "e9ae73fbc0039083949973343bc64a6edda68c5b",
+      "date": "2026-08-22T08:54:02+02:00",
+      "title": "Fix the formatter corrupting a template literal",
+      "paths": [
+        "crates/rune/src/compile/error.rs",
+        "crates/rune/src/fmt/tests/mod.rs",
+        "crates/rune/src/parse/lexer.rs"
+      ],
+      "areas": {
+        "compiler": 2,
+        "fmt": 1
+      }
+    },
+    {
+      "sha": "f0f6884faee6733efd5beb01996c5e6de34b5438",
+      "date": "2026-08-22T08:54:02+02:00",
+      "title": "Do not let the formatter run two tokens together",
+      "paths": [
+        "crates/rune/src/fmt/output.rs",
+        "crates/rune/src/fmt/tests/mod.rs"
+      ],
+      "areas": {
+        "fmt": 2
+      }
+    },
+    {
+      "sha": "a03ac79b3f5c6665e6cdb2df1b69c2b6f0a4c2ed",
+      "date": "2026-08-22T08:54:02+02:00",
+      "title": "Fix three lints which broke the clippy build",
+      "paths": [
+        "crates/rune/src/compile/context_error.rs",
+        "crates/rune/src/languageserver/mod.rs",
+        "crates/rune/src/tests/patterns.rs"
+      ],
+      "areas": {
+        "compiler": 1,
+        "other": 1,
+        "tests": 1
+      }
+    },
+    {
+      "sha": "e1187970ad962e21ca277ffcc8de38a54dd8dbfc",
+      "date": "2026-08-22T08:54:02+02:00",
+      "title": "Lay out an empty select body the way an empty body is laid out",
+      "paths": [
+        "crates/rune/src/fmt/format.rs"
+      ],
+      "areas": {
+        "fmt": 1
+      }
+    },
+    {
+      "sha": "27edd5aa2b0d87c99fcf676ee86352e48d97c6a4",
+      "date": "2026-08-22T08:54:02+02:00",
+      "title": "Add formatter property tests",
+      "paths": [
+        "hegel_tests/Cargo.toml",
+        "hegel_tests/src/lib.rs",
+        "hegel_tests/tests/formatter.rs"
+      ],
+      "areas": {
+        "deps": 1,
+        "tests": 2
+      }
+    },
+    {
+      "sha": "78e7ad126bd6680ab0cc2db7ea0a34043226b408",
+      "date": "2026-08-22T08:54:02+02:00",
+      "title": "Fix rune doc failing on every script",
+      "paths": [
+        "crates/rune/src/doc/visitor.rs",
+        "crates/rune/src/tests.rs",
+        "crates/rune/src/tests/doc_visitor.rs"
+      ],
+      "areas": {
+        "other": 2,
+        "tests": 1
+      }
+    },
+    {
+      "sha": "5d8e6338acb3a47d07b137a3a73e3284b546f89b",
+      "date": "2026-08-22T08:54:02+02:00",
+      "title": "Fix the formatter spinning on a stray hash",
+      "paths": [
+        "crates/rune/src/fmt/tests/mod.rs",
+        "crates/rune/src/grammar/grammar.rs"
+      ],
+      "areas": {
+        "fmt": 1,
+        "other": 1
+      }
+    },
+    {
+      "sha": "a6343f955417b3468d00bdf9ea3651f5c1350120",
+      "date": "2026-08-22T08:54:02+02:00",
+      "title": "Fix a label at the end of a line not compiling",
+      "paths": [
+        "crates/rune/src/parse/lexer.rs",
+        "crates/rune/src/tests.rs",
+        "crates/rune/src/tests/labels.rs"
+      ],
+      "areas": {
+        "compiler": 1,
+        "other": 1,
+        "tests": 1
+      }
+    },
+    {
+      "sha": "1f63b650a2db38f32a03dfc9ac2e65d39d23d81a",
+      "date": "2026-08-22T08:54:02+02:00",
+      "title": "Assemble a compound assignment through an index",
+      "paths": [
+        "crates/rune/src/compile/v2/assemble.rs",
+        "crates/rune/src/tests/compiler_expr_assign.rs"
+      ],
+      "areas": {
+        "compiler": 1,
+        "tests": 1
+      }
+    },
+    {
+      "sha": "fa81e473b3565fa9dc278b3837afb10f9591a5e1",
+      "date": "2026-08-22T08:54:02+02:00",
+      "title": "Pin that the memory limit is what a script runs into",
+      "paths": [
+        "crates/rune/src/tests.rs",
+        "crates/rune/src/tests/bounded_memory.rs"
+      ],
+      "areas": {
+        "other": 1,
+        "tests": 1
+      }
+    },
+    {
+      "sha": "9b8ee33a21f326c5450094b6a48cc3215ce270c1",
+      "date": "2026-08-22T08:54:02+02:00",
+      "title": "Do not let a compound assignment clobber its target",
+      "paths": [
+        "crates/rune/src/compile/v2/assemble.rs",
+        "crates/rune/src/tests/compiler_expr_assign.rs"
+      ],
+      "areas": {
+        "compiler": 1,
+        "tests": 1
+      }
+    },
+    {
+      "sha": "8076f62762d474f6ec51e5f567aa4bcc931d2b28",
+      "date": "2026-08-22T08:54:02+02:00",
+      "title": "Take a number written where a field is expected apart",
+      "paths": [
+        "crates/rune/src/hir/lowering2.rs",
+        "crates/rune/src/tests.rs",
+        "crates/rune/src/tests/compiler_expr_assign.rs",
+        "crates/rune/src/tests/tuple_index.rs"
+      ],
+      "areas": {
+        "other": 2,
+        "tests": 2
+      }
+    },
+    {
+      "sha": "ec56ab69e543d6fb32e6fc1efd16bd575a131d0f",
+      "date": "2026-08-22T08:54:02+02:00",
+      "title": "Space an operator the way the layout says",
+      "paths": [
+        "crates/rune/src/fmt/format.rs",
+        "crates/rune/src/fmt/tests/mod.rs"
+      ],
+      "areas": {
+        "fmt": 2
+      }
+    },
+    {
+      "sha": "4adde93a0ca3165c4fe20ab8645b1f028f02ac8e",
+      "date": "2026-08-22T08:54:02+02:00",
+      "title": "Do not write whitespace at the end of a line",
+      "paths": [
+        "crates/rune/src/fmt/mod.rs",
+        "crates/rune/src/fmt/output.rs"
+      ],
+      "areas": {
+        "fmt": 2
+      }
+    },
+    {
+      "sha": "b15bfa6f8c0024fd8a740a25193a9fc0b631260b",
+      "date": "2026-08-22T08:54:02+02:00",
+      "title": "Do not invent a colon after a label",
+      "paths": [
+        "crates/rune/src/fmt/format.rs",
+        "crates/rune/src/fmt/tests/mod.rs"
+      ],
+      "areas": {
+        "fmt": 2
+      }
+    },
+    {
+      "sha": "b6cb2f2f1a2cd2cfdaeb4b2ffaacc0baf2b494e1",
+      "date": "2026-08-22T08:54:02+02:00",
+      "title": "Pin debug info on in the tests which need it",
+      "paths": [
+        "crates/rune/src/tests/statics.rs"
+      ],
+      "areas": {
+        "tests": 1
+      }
+    },
+    {
+      "sha": "0b97a34a15e36d4f35eb6f5bec8495021bda3cd6",
+      "date": "2026-08-22T08:54:02+02:00",
+      "title": "Name the function which is not a const fn",
+      "paths": [
+        "crates/rune/src/compile/const_eval.rs",
+        "crates/rune/src/compile/error.rs",
+        "crates/rune/src/tests/compiler_semantics.rs"
+      ],
+      "areas": {
+        "compiler": 2,
+        "tests": 1
+      }
+    },
+    {
+      "sha": "546f3c3b5edd80f89db1ada4939c00789f6d9ee7",
+      "date": "2026-08-22T08:54:02+02:00",
+      "title": "Name the field which is not there",
+      "paths": [
+        "crates/rune/src/diagnostics/emit.rs",
+        "crates/rune/src/tests.rs",
+        "crates/rune/src/tests/vm_diagnostics.rs"
+      ],
+      "areas": {
+        "other": 2,
+        "tests": 1
+      }
+    },
+    {
+      "sha": "98b24549cc8f9c5c474ff76fdc0708cf69940a8b",
+      "date": "2026-08-22T08:54:02+02:00",
+      "title": "Say what as converts, rather than naming a hash",
+      "paths": [
+        "crates/rune/src/runtime/vm.rs",
+        "crates/rune/src/runtime/vm_error.rs",
+        "crates/rune/src/tests/vm_diagnostics.rs"
+      ],
+      "areas": {
+        "VM": 2,
+        "tests": 1
+      }
+    },
+    {
+      "sha": "95c8b8714acb23c58b536934d5239d05f641cb0e",
+      "date": "2026-08-22T08:54:02+02:00",
+      "title": "Run main when a path given as an argument has one",
+      "paths": [
+        "crates/rune/src/cli/mod.rs"
+      ],
+      "areas": {
+        "other": 1
+      }
+    },
+    {
+      "sha": "abae2f33c17bbcd8080d6f58615a5846ad05c47b",
+      "date": "2026-08-22T08:54:02+02:00",
+      "title": "Let move and const start an expression",
+      "paths": [
+        "crates/rune/src/grammar/grammar.rs",
+        "crates/rune/src/tests/compiler_general.rs"
+      ],
+      "areas": {
+        "other": 1,
+        "tests": 1
+      }
+    },
+    {
+      "sha": "d9057c34e3b45bc8ebd5f7250b21c342f2505d38",
+      "date": "2026-08-22T08:54:02+02:00",
+      "title": "Keep the shapes which were not a fixed point as cases",
+      "paths": [
+        "hegel_tests/tests/formatter.rs"
+      ],
+      "areas": {
+        "tests": 1
+      }
+    },
+    {
+      "sha": "95eb6a898fc4aabba5f08aa5be3078e0b8019327",
+      "date": "2026-08-22T08:54:02+02:00",
+      "title": "Say what is being done with a value which cannot be reached",
+      "paths": [
+        "crates/rune/src/runtime/access.rs",
+        "crates/rune/src/tests/vm_diagnostics.rs"
+      ],
+      "areas": {
+        "VM": 1,
+        "tests": 1
+      }
+    },
+    {
+      "sha": "0b745bb75d2f6e7bb2b9f82b261e6b4db0eee0ef",
+      "date": "2026-08-22T08:54:02+02:00",
+      "title": "Bring the book's printed output back in line with what runs",
+      "paths": [
+        "book/src/closures.md",
+        "book/src/control_flow.md",
+        "book/src/generators.md",
+        "book/src/instance_functions.md",
+        "book/src/items_imports.md",
+        "book/src/objects.md",
+        "book/src/statics.md",
+        "book/src/structs.md",
+        "book/src/template_literals.md",
+        "book/src/tuples.md",
+        "book/src/types.md",
+        "book/src/variables.md"
+      ],
+      "areas": {
+        "other": 12
+      }
+    },
+    {
+      "sha": "0c2612fba89992ecbe4ce27905ef9b4404302a35",
+      "date": "2026-08-22T08:54:02+02:00",
+      "title": "Say what a warning is",
+      "paths": [
+        "crates/rune/src/diagnostics/emit.rs",
+        "crates/rune/src/tests/compiler_warnings.rs"
+      ],
+      "areas": {
+        "other": 1,
+        "tests": 1
+      }
+    },
+    {
+      "sha": "d1dc82be53b6db7d87d6d13d434db448d63136ec",
+      "date": "2026-08-22T08:54:02+02:00",
+      "title": "Count a position the way the encoding says",
+      "paths": [
+        "crates/rune/src/languageserver/state.rs",
+        "crates/rune/src/languageserver/tests.rs"
+      ],
+      "areas": {
+        "other": 2
+      }
+    },
+    {
+      "sha": "f1be3a80baa679177513964243da3ef2dabf05e7",
+      "date": "2026-08-22T08:54:02+02:00",
+      "title": "Do not stop the language server over one change",
+      "paths": [
+        "crates/rune/src/languageserver/mod.rs"
+      ],
+      "areas": {
+        "other": 1
+      }
+    },
+    {
+      "sha": "ed1c5b2b4d05785df2d07c6d04251f2c94a594fe",
+      "date": "2026-08-22T08:54:02+02:00",
+      "title": "Count a position sent back the way the encoding says",
+      "paths": [
+        "crates/rune/src/languageserver/state.rs",
+        "crates/rune/src/languageserver/tests.rs",
+        "crates/rune/src/source.rs"
+      ],
+      "areas": {
+        "other": 3
+      }
+    },
+    {
+      "sha": "f35b6fa7171fbe235d0433781e9b302bcf19c3f4",
+      "date": "2026-08-22T08:54:02+02:00",
+      "title": "Look back from where the cursor is, not from a byte with the same number",
+      "paths": [
+        "crates/rune/src/languageserver/state.rs",
+        "crates/rune/src/languageserver/tests.rs"
+      ],
+      "areas": {
+        "other": 2
+      }
+    },
+    {
+      "sha": "825ae7a2941ef06c1c960270197c8e9d5edcfe73",
+      "date": "2026-08-22T08:54:02+02:00",
+      "title": "Cover the symbol with the edit a completion offers",
+      "paths": [
+        "crates/rune/src/languageserver/completion.rs",
+        "crates/rune/src/languageserver/state.rs",
+        "crates/rune/src/languageserver/tests.rs"
+      ],
+      "areas": {
+        "other": 3
+      }
+    },
+    {
+      "sha": "f8ba25007e4b3c2e524c56dd68c11a5066df9ee9",
+      "date": "2026-08-22T08:54:02+02:00",
+      "title": "Complete what is on the line the cursor is on",
+      "paths": [
+        "crates/rune/src/languageserver/state.rs",
+        "crates/rune/src/languageserver/tests.rs"
+      ],
+      "areas": {
+        "other": 2
+      }
+    },
+    {
+      "sha": "3c15ad44f6ab40a18da0127f7ad042eae1e1c27c",
+      "date": "2026-08-22T08:54:02+02:00",
+      "title": "Give a float a to_string like the integers have",
+      "paths": [
+        "crates/rune/src/languageserver/tests.rs",
+        "crates/rune/src/modules/f64.rs"
+      ],
+      "areas": {
+        "modules": 1,
+        "other": 1
+      }
+    },
+    {
+      "sha": "52086bb80dbd9194ed2259e003e06475728c0cd9",
+      "date": "2026-08-22T08:54:02+02:00",
+      "title": "Answer a request the language server cannot serve with an error",
+      "paths": [
+        "crates/rune/src/languageserver/mod.rs",
+        "crates/rune/src/languageserver/tests.rs"
+      ],
+      "areas": {
+        "other": 2
+      }
+    },
+    {
+      "sha": "d6b1a555eb78f5e255369dc050bf6037ba197449",
+      "date": "2026-08-22T08:54:02+02:00",
+      "title": "Report an overflow from `pow` and `abs`",
+      "paths": [
+        "crates/rune/src/modules/inner_macros.rs",
+        "crates/rune/src/tests/vm_arithmetic.rs"
+      ],
+      "areas": {
+        "modules": 1,
+        "tests": 1
+      }
+    },
+    {
+      "sha": "fb6bf0a60b4ee7654329633f18ba84f33a3ea1f0",
+      "date": "2026-08-22T08:54:02+02:00",
+      "title": "Say why a `parse` failed instead of printing an address",
+      "paths": [
+        "crates/rune/src/modules/char.rs",
+        "crates/rune/src/modules/num.rs",
+        "crates/rune/src/tests/debug_fmt.rs"
+      ],
+      "areas": {
+        "modules": 2,
+        "tests": 1
+      }
+    },
+    {
+      "sha": "fa5c8b08d5b6c347952794bbdd0cbb1d84c8dc48",
+      "date": "2026-08-22T08:54:02+02:00",
+      "title": "Do not reserve on the strength of a size hint",
+      "paths": [
+        "crates/rune/src/modules/iter.rs",
+        "crates/rune/src/runtime/hint.rs",
+        "crates/rune/src/runtime/mod.rs",
+        "crates/rune/src/runtime/vm.rs",
+        "crates/rune/src/tests/bounded_memory.rs"
+      ],
+      "areas": {
+        "VM": 3,
+        "modules": 1,
+        "tests": 1
+      }
+    },
+    {
+      "sha": "ecc4f1d50ca804892209fb250f058f38b5cf55e5",
+      "date": "2026-08-22T08:54:02+02:00",
+      "title": "Do not assert on the length of a name out of a source file",
+      "paths": [
+        "crates/rune-core/src/item/internal.rs",
+        "crates/rune-core/src/item/tests.rs",
+        "crates/rune/src/tests/bounded_recursion.rs"
+      ],
+      "areas": {
+        "other": 2,
+        "tests": 1
+      }
+    },
+    {
+      "sha": "f939cfc15d7a318415bc74b854388a5cdf845537",
+      "date": "2026-08-22T08:54:02+02:00",
+      "title": "Hash a value of a type declared in a script",
+      "paths": [
+        "crates/rune/src/runtime/value.rs",
+        "crates/rune/src/tests.rs",
+        "crates/rune/src/tests/dynamic_hash.rs"
+      ],
+      "areas": {
+        "VM": 1,
+        "other": 1,
+        "tests": 1
+      }
+    },
+    {
+      "sha": "02d9b5ef19207b27ed933ca8b44231165aa9dda8",
+      "date": "2026-08-22T08:54:02+02:00",
+      "title": "Let a modifier start an operand",
+      "paths": [
+        "crates/rune/src/fmt/format.rs",
+        "crates/rune/src/grammar/grammar.rs",
+        "crates/rune/src/hir/lowering2.rs",
+        "crates/rune/src/tests/block_modifiers.rs"
+      ],
+      "areas": {
+        "fmt": 1,
+        "other": 2,
+        "tests": 1
+      }
+    },
+    {
+      "sha": "5c1f8bd2f585379671f97df2759cd88c59c81c31",
+      "date": "2026-08-22T08:54:02+02:00",
+      "title": "Drive a whole language server in the tests",
+      "paths": [
+        "crates/rune/src/languageserver/tests.rs"
+      ],
+      "areas": {
+        "other": 1
+      }
+    },
+    {
+      "sha": "878452e3d598b486293effd95a19bbc8e5b567d4",
+      "date": "2026-08-22T08:54:02+02:00",
+      "title": "Say what a halt was rather than that it was unexpected",
+      "paths": [
+        "crates/rune/src/runtime/vm_error.rs",
+        "crates/rune/src/tests/bounded_memory.rs",
+        "crates/rune/src/tests/bounded_natives.rs"
+      ],
+      "areas": {
+        "VM": 1,
+        "tests": 2
+      }
+    },
+    {
+      "sha": "4ffce3c0300f1e38dcdad28f6cb5d757e7ce0d0b",
+      "date": "2026-08-22T08:54:02+02:00",
+      "title": "Move musli to 0.1.0",
+      "paths": [
+        "crates/rune/Cargo.toml"
+      ],
+      "areas": {
+        "deps": 1
+      }
+    },
+    {
+      "sha": "6733e5381d5d0184053532859badb37b996be546",
+      "date": "2026-08-22T08:54:02+02:00",
+      "title": "Carry the execution depth through the no-std environment",
+      "paths": [
+        "crates/rune/src/no_std/mod.rs",
+        "crates/rune/src/runtime/env/no_std.rs"
+      ],
+      "areas": {
+        "VM": 1,
+        "other": 1
+      }
+    },
+    {
+      "sha": "866ea5066395bac3691956ddf0a8f55830b98c7a",
+      "date": "2026-08-22T08:54:02+02:00",
+      "title": "Store a constant as one array rather than as a tree",
+      "paths": [
+        "crates/rune-macros/src/const_value.rs",
+        "crates/rune-macros/src/context.rs",
+        "crates/rune-modules/src/http.rs",
+        "crates/rune-modules/src/time.rs",
+        "crates/rune/src/compile/context.rs",
+        "crates/rune/src/compile/unit_builder.rs",
+        "crates/rune/src/compile/v2/assemble.rs",
+        "crates/rune/src/hir/lowering2.rs",
+        "crates/rune/src/lib.rs",
+        "crates/rune/src/module/module_meta.rs",
+        "crates/rune/src/query/query.rs",
+        "crates/rune/src/runtime/const_value.rs",
+        "crates/rune/src/runtime/const_value/macros.rs",
+        "crates/rune/src/runtime/const_value/node.rs",
+        "crates/rune/src/runtime/function.rs",
+        "crates/rune/src/runtime/mod.rs",
+        "crates/rune/src/runtime/runtime_context.rs",
+        "crates/rune/src/runtime/tuple.rs",
+        "crates/rune/src/runtime/unit.rs",
+        "crates/rune/src/runtime/value.rs",
+        "crates/rune/src/runtime/value/macros.rs",
+        "crates/rune/src/runtime/vm_error.rs",
+        "crates/rune/src/shared/consts.rs",
+        "crates/rune/src/tests/bounded_recursion.rs"
+      ],
+      "areas": {
+        "VM": 11,
+        "compiler": 5,
+        "other": 7,
+        "tests": 1
+      }
+    },
+    {
+      "sha": "871949d7132acc5dea0aba0924a27130bf9e1e1c",
+      "date": "2026-08-22T08:54:02+02:00",
+      "title": "Update .gitignore",
+      "paths": [
+        ".gitignore"
+      ],
+      "areas": {
+        "other": 1
+      }
+    },
+    {
+      "sha": "4ef0599afabf2f0f9932cb5af4b1750729759765",
+      "date": "2026-08-22T08:54:02+02:00",
+      "title": "Run under miri only what miri can run",
+      "paths": [
+        ".github/workflows/ci.yml",
+        "crates/rune/src/languageserver/mod.rs",
+        "crates/rune/src/runtime/value/dismantle.rs",
+        "crates/rune/src/tests.rs"
+      ],
+      "areas": {
+        "VM": 1,
+        "other": 3
+      }
+    },
+    {
+      "sha": "c95e9887afaf70e631bac1d331c9e5dd25c92394",
+      "date": "2026-08-29T14:04:49+02:00",
+      "title": "Avoid recursive parsing when processing std macros",
+      "paths": [
+        "crates/rune/src/ast/generated.rs",
+        "crates/rune/src/compile/const_eval.rs",
+        "crates/rune/src/grammar/tree.rs",
+        "crates/rune/src/macros/format_args.rs",
+        "crates/rune/src/macros/macro_context.rs",
+        "crates/rune/src/macros/mod.rs",
+        "crates/rune/src/modules/core.rs",
+        "crates/rune/src/modules/fmt.rs",
+        "crates/rune/src/modules/io.rs",
+        "crates/rune/src/modules/macros/builtin.rs",
+        "crates/rune/src/modules/test.rs",
+        "crates/rune/src/tests/bounded_recursion.rs",
+        "crates/rune/src/tests/core_macros.rs",
+        "crates/rune/src/tests/macros.rs",
+        "crates/rune/src/worker/mod.rs",
+        "tools/generate/src/main.rs"
+      ],
+      "areas": {
+        "compiler": 2,
+        "modules": 5,
+        "other": 6,
+        "tests": 3
+      }
+    },
+    {
+      "sha": "bb8e69372353c50e271c9f115bc771c77aa6b83e",
+      "date": "2026-08-29T14:38:13+02:00",
+      "title": "Fix nightly build",
+      "paths": [
+        "crates/rune-modules/src/rand/macros.rs",
+        "crates/rune/src/runtime/vm_error.rs"
+      ],
+      "areas": {
+        "VM": 1,
+        "other": 1
+      }
+    }
+  ],
+  "area_commit_counts": {
+    "LSP": 9,
+    "VM": 55,
+    "alloc": 26,
+    "compiler": 58,
+    "deps": 21,
+    "fmt": 13,
+    "modules": 23,
+    "other": 105,
+    "tests": 66
+  },
+  "anchors": {
+    "7e5e3ab1": {
+      "sha": "7e5e3ab1ea352efec7a974be88111661303ee557",
+      "date": "2026-08-22T08:54:02+02:00",
+      "title": "Avoid recursive stack use",
+      "paths": [
+        "crates/rune-macros/src/any.rs",
+        "crates/rune-macros/src/context.rs",
+        "crates/rune/Cargo.toml",
+        "crates/rune/src/any.rs",
+        "crates/rune/src/ast/attribute.rs",
+        "crates/rune/src/ast/expr.rs",
+        "crates/rune/src/ast/expr_closure.rs",
+        "crates/rune/src/ast/fields.rs",
+        "crates/rune/src/ast/item.rs",
+        "crates/rune/src/ast/item_const.rs",
+        "crates/rune/src/ast/item_fn.rs",
+        "crates/rune/src/ast/item_mod.rs",
+        "crates/rune/src/ast/item_static.rs",
+        "crates/rune/src/ast/macro_call.rs",
+        "crates/rune/src/ast/pat.rs",
+        "crates/rune/src/ast/path.rs",
+        "crates/rune/src/ast/spanned.rs",
+        "crates/rune/src/ast/stmt.rs",
+        "crates/rune/src/compile/attrs.rs",
+        "crates/rune/src/compile/compile.rs",
+        "crates/rune/src/compile/const_eval.rs",
+        "crates/rune/src/compile/error.rs",
+        "crates/rune/src/compile/ir.rs",
+        "crates/rune/src/compile/ir/compiler.rs",
+        "crates/rune/src/compile/ir/eval.rs",
+        "crates/rune/src/compile/ir/interpreter.rs",
+        "crates/rune/src/compile/ir/scopes.rs",
+        "crates/rune/src/compile/meta.rs",
+        "crates/rune/src/compile/mod.rs",
+        "crates/rune/src/compile/names.rs",
+        "crates/rune/src/compile/options.rs",
+        "crates/rune/src/compile/pool.rs",
+        "crates/rune/src/compile/unit_builder.rs",
+        "crates/rune/src/compile/v1/assemble.rs",
+        "crates/rune/src/compile/v1/breaks.rs",
+        "crates/rune/src/compile/v1/display_named.rs",
+        "crates/rune/src/compile/v1/linear.rs",
+        "crates/rune/src/compile/v1/mod.rs",
+        "crates/rune/src/compile/v1/needs.rs",
+        "crates/rune/src/compile/v1/scopes.rs",
+        "crates/rune/src/compile/v1/slab.rs",
+        "crates/rune/src/compile/v1/slots.rs",
+        "crates/rune/src/compile/v1/slots/tests.rs",
+        "crates/rune/src/compile/v2/assemble.rs",
+        "crates/rune/src/compile/v2/breaks.rs",
+        "crates/rune/src/compile/v2/display_named.rs",
+        "crates/rune/src/compile/v2/linear.rs",
+        "crates/rune/src/compile/v2/mod.rs",
+        "crates/rune/src/compile/v2/needs.rs",
+        "crates/rune/src/compile/v2/scopes.rs",
+        "crates/rune/src/compile/v2/slab.rs",
+        "crates/rune/src/compile/v2/slots.rs",
+        "crates/rune/src/compile/v2/slots/tests.rs",
+        "crates/rune/src/diagnostics/mod.rs",
+        "crates/rune/src/diagnostics/warning.rs",
+        "crates/rune/src/fmt/format.rs",
+        "crates/rune/src/fmt/mod.rs",
+        "crates/rune/src/fmt/output.rs",
+        "crates/rune/src/fmt/tests/mod.rs",
+        "crates/rune/src/grammar/grammar.rs",
+        "crates/rune/src/grammar/mod.rs",
+        "crates/rune/src/grammar/parser.rs",
+        "crates/rune/src/grammar/tree.rs",
+        "crates/rune/src/hashbrown/table.rs",
+        "crates/rune/src/hir/ctxt.rs",
+        "crates/rune/src/hir/hir.rs",
+        "crates/rune/src/hir/lowering.rs",
+        "crates/rune/src/hir/lowering2.rs",
+        "crates/rune/src/hir/macros.rs",
+        "crates/rune/src/hir/mod.rs",
+        "crates/rune/src/indexing/index.rs",
+        "crates/rune/src/indexing/index2.rs",
+        "crates/rune/src/indexing/indexer.rs",
+        "crates/rune/src/indexing/mod.rs",
+        "crates/rune/src/lib.rs",
+        "crates/rune/src/macros/format_args.rs",
+        "crates/rune/src/macros/macro_compiler.rs",
+        "crates/rune/src/macros/macro_context.rs",
+        "crates/rune/src/macros/mod.rs",
+        "crates/rune/src/modules/collections/hash_map.rs",
+        "crates/rune/src/modules/collections/hash_set.rs",
+        "crates/rune/src/modules/collections/vec_deque.rs",
+        "crates/rune/src/modules/core.rs",
+        "crates/rune/src/modules/fmt.rs",
+        "crates/rune/src/modules/io.rs",
+        "crates/rune/src/modules/iter.rs",
+        "crates/rune/src/modules/object.rs",
+        "crates/rune/src/modules/ops/generator.rs",
+        "crates/rune/src/modules/option.rs",
+        "crates/rune/src/modules/string.rs",
+        "crates/rune/src/modules/test.rs",
+        "crates/rune/src/modules/vec.rs",
+        "crates/rune/src/no_std/mod.rs",
+        "crates/rune/src/parse/parser.rs",
+        "crates/rune/src/query/mod.rs",
+        "crates/rune/src/query/query.rs",
+        "crates/rune/src/runtime/any_obj.rs",
+        "crates/rune/src/runtime/any_obj_vtable.rs",
+        "crates/rune/src/runtime/awaited.rs",
+        "crates/rune/src/runtime/call.rs",
+        "crates/rune/src/runtime/const_value.rs",
+        "crates/rune/src/runtime/control_flow.rs",
+        "crates/rune/src/runtime/env.rs",
+        "crates/rune/src/runtime/env/no_std.rs",
+        "crates/rune/src/runtime/format.rs",
+        "crates/rune/src/runtime/function.rs",
+        "crates/rune/src/runtime/future.rs",
+        "crates/rune/src/runtime/generator.rs",
+        "crates/rune/src/runtime/generator_state.rs",
+        "crates/rune/src/runtime/memory.rs",
+        "crates/rune/src/runtime/mod.rs",
+        "crates/rune/src/runtime/object.rs",
+        "crates/rune/src/runtime/protocol_caller.rs",
+        "crates/rune/src/runtime/range.rs",
+        "crates/rune/src/runtime/range_from.rs",
+        "crates/rune/src/runtime/range_inclusive.rs",
+        "crates/rune/src/runtime/range_to.rs",
+        "crates/rune/src/runtime/range_to_inclusive.rs",
+        "crates/rune/src/runtime/ref.rs",
+        "crates/rune/src/runtime/shared.rs",
+        "crates/rune/src/runtime/slice/iter.rs",
+        "crates/rune/src/runtime/stream.rs",
+        "crates/rune/src/runtime/tuple.rs",
+        "crates/rune/src/runtime/value.rs",
+        "crates/rune/src/runtime/value/any_sequence.rs",
+        "crates/rune/src/runtime/value/dismantle.rs",
+        "crates/rune/src/runtime/value/serde.rs",
+        "crates/rune/src/runtime/vec.rs",
+        "crates/rune/src/runtime/vm.rs",
+        "crates/rune/src/runtime/vm/ops.rs",
+        "crates/rune/src/runtime/vm_call.rs",
+        "crates/rune/src/runtime/vm_error.rs",
+        "crates/rune/src/runtime/vm_execution.rs",
+        "crates/rune/src/source.rs",
+        "crates/rune/src/tests.rs",
+        "crates/rune/src/tests/attribute.rs",
+        "crates/rune/src/tests/binary.rs",
+        "crates/rune/src/tests/bug_344.rs",
+        "crates/rune/src/tests/bug_417.rs",
+        "crates/rune/src/tests/capture.rs",
+        "crates/rune/src/tests/compiler_general.rs",
+        "crates/rune/src/tests/compiler_paths.rs",
+        "crates/rune/src/tests/compiler_use.rs",
+        "crates/rune/src/tests/compiler_warnings.rs",
+        "crates/rune/src/tests/core_macros.rs",
+        "crates/rune/src/tests/iterator.rs",
+        "crates/rune/src/tests/literals.rs",
+        "crates/rune/src/tests/macros.rs",
+        "crates/rune/src/tests/static_typing.rs",
+        "crates/rune/src/tests/unreachable.rs",
+        "crates/rune/src/tests/vm_arithmetic.rs",
+        "crates/rune/src/tests/vm_const_exprs.rs",
+        "crates/rune/src/worker/mod.rs"
+      ],
+      "areas": {
+        "VM": 37,
+        "compiler": 56,
+        "deps": 1,
+        "fmt": 4,
+        "modules": 13,
+        "other": 25,
+        "tests": 17
+      }
+    },
+    "20b26957": {
+      "sha": "20b26957f18ead54232261f0f8fff2e9f78d852c",
+      "date": "2026-07-20T08:00:48+02:00",
+      "title": "Make indentation configurable and honor LSP formatting options",
+      "paths": [
+        "crates/rune/src/compile/mod.rs",
+        "crates/rune/src/compile/options.rs",
+        "crates/rune/src/fmt/mod.rs",
+        "crates/rune/src/fmt/output.rs",
+        "crates/rune/src/fmt/tests/mod.rs",
+        "crates/rune/src/languageserver/mod.rs",
+        "crates/rune/src/languageserver/state.rs"
+      ],
+      "areas": {
+        "compiler": 2,
+        "fmt": 3,
+        "other": 2
+      }
+    }
+  }
+}
