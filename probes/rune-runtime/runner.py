@@ -43,11 +43,13 @@ def build(j,out):
  b=P/'profile/target/release/rune-registration-profile';t=b.parent/'negative';t.write_bytes(b.read_bytes());t.chmod(0o755)
  j.run(['cargo','build','--locked','--release','--manifest-path',RNX/'Cargo.toml'], 'stock-build',deadline=900)
  j.run(['rustc','-O',ROOT/'probes/rustc-42/clock.rs','-o',P/'target/clock'],'clock-build',deadline=60)
+ j.run(['rustc','-O',P/'plan_clock.rs','-o',P/'target/plan-clock'],'resident-clock-build',deadline=60)
  (P/'target/cached.rs').write_text('fn main(){println!("42");}\n')
  j.run(['rustc',P/'target/cached.rs','-o',P/'target/cached'],'cached-reference-build',deadline=60)
  files=list(P.glob('*.py'))+list(P.glob('*.sh'))+list(P.glob('*.patch'))+list(P.glob('*.json'))+list(P.rglob('*.rs'))+list(P.rglob('Cargo.toml'))+list(P.rglob('Cargo.lock'))+list((P/'fixtures').glob('*.rn'))
  files=[f for f in files if 'target' not in f.parts]
  binaries={base:{kind:dict(path=str(P/base/'target/release'/kind),sha256=digest(P/base/'target/release'/kind)) for kind in ('primary','allocation')+(('negative',) if base=='profile' else ())+(('counter',) if base!='profile' else ())} for base in ('old','new','profile')}
+ binaries['plan_clock']=dict(path=str(P/'target/plan-clock'),sha256=digest(P/'target/plan-clock'))
  binaries['stock']=dict(path=str(RNX/'target/release/rnx'),sha256=digest(RNX/'target/release/rnx'))
  binaries['lua']={n:dict(path=str(pathlib.Path.home()/'.local/bin'/n),sha256=digest(pathlib.Path.home()/'.local/bin'/n)) for n in ('lua54','luajit')}
  (out/'subjects.json').write_text(json.dumps(dict(binaries=binaries,environment={k:v for k,v in os.environ.items() if k in ('RUSTFLAGS','CARGO_ENCODED_RUSTFLAGS','CARGO_PROFILE_RELEASE_OPT_LEVEL','CARGO_PROFILE_RELEASE_LTO','CARGO_BUILD_TARGET','RUSTUP_TOOLCHAIN')},sources={str(f.relative_to(P)):digest(f) for f in files},rustc=subprocess.check_output(['rustc','-vV'],text=True), metadata={
@@ -68,6 +70,8 @@ def worker(phase,out):
   elif phase=='controls':
    from suite import controls
    controls(j,out)
+   from resident_controls import controls as resident_controls
+   resident_controls(j,out)
   else:
    from suite import controls,measure
    (controls if phase=='controls' else measure)(j,out)
