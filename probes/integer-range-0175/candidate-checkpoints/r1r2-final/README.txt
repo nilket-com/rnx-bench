@@ -1,0 +1,4 @@
+Final R1/R2 source tests, fork 75925ed9, clean committed tree, shared lock.
+Commands: cargo test -p rune --all-targets --all-features --offline; cargo test -p rune --lib --no-default-features --features alloc,bench,byte-code,capture-io,cli,disable-io,doc,emit,fmt,languageserver,musli,serde,std,workspace --offline range_iteration; cargo check -p rune --no-default-features --features alloc --offline.
+All passed: 610 unit + 2 integration, 15 non-tracing boundary/hit tests, no-std. All features assert no hits; non-tracing asserts three successful Some hits and one terminal fallback in both compiler dispatch forms. Original base goldens plus the base-first unit-shadow golden are unchanged.
+Candidate source reviewed and accepted by Claude before measurements. History will be rearranged to tests-first plus one perf commit, with identical tree. No timing yet.
