@@ -1,0 +1,34 @@
+[
+  {
+    "name": "piccolo",
+    "command": [
+      "cargo",
+      "build",
+      "--release",
+      "--locked",
+      "--example",
+      "interpreter"
+    ],
+    "cwd": "/tmp/lua-rust-0001/piccolo",
+    "seconds": 7.227421510964632,
+    "status": 0
+  },
+  {
+    "name": "omnilua",
+    "command": [
+      "cargo",
+      "install",
+      "omnilua-cli",
+      "--version",
+      "0.7.1",
+      "--locked",
+      "--root",
+      "/tmp/lua-rust-0001/install",
+      "--target-dir",
+      "/tmp/lua-rust-0001/omni-target"
+    ],
+    "cwd": "/tmp/lua-rust-0001",
+    "seconds": 6.983678522985429,
+    "status": 0
+  }
+]

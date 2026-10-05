@@ -1,0 +1,1 @@
+pub fn main(_args) { let t=[]; for i in 1..20001 { t.push(format!("item:{}",i)); } let s=""; for i in 0..t.len() { if i>0 { s.push_str("|"); } s.push_str(t[i]); } println!("{}",s.len()); println!("{}",s[0..19]); println!("{}",s[s.len()-21..]); }

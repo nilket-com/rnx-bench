@@ -1,0 +1,77 @@
+{
+  "versions": {
+    "piccolo": {
+      "command": [
+        "/tmp/lua-rust-0001/piccolo/target/release/examples/interpreter",
+        "--version"
+      ],
+      "status": 0,
+      "stdout": "piccolo 0.3.3\n",
+      "stderr": ""
+    },
+    "omnilua": {
+      "command": [
+        "/tmp/lua-rust-0001/install/bin/omnilua",
+        "-v"
+      ],
+      "status": 0,
+      "stdout": "omniLua 0.7.1 (Lua 5.4) -- pure-Rust Lua. https://github.com/ianm199/omnilua\n",
+      "stderr": ""
+    },
+    "lua54": {
+      "command": [
+        "/home/me/.local/bin/lua54",
+        "-v"
+      ],
+      "status": 0,
+      "stdout": "Lua 5.4.7  Copyright (C) 1994-2024 Lua.org, PUC-Rio\n",
+      "stderr": ""
+    },
+    "luajit": {
+      "command": [
+        "/home/me/.local/bin/luajit",
+        "-v"
+      ],
+      "status": 0,
+      "stdout": "LuaJIT 2.1.1788856981 -- Copyright (C) 2005-2026 Mike Pall. https://luajit.org/\n",
+      "stderr": ""
+    },
+    "rnx-run": {
+      "command": [
+        "/home/me/work/rnx-bench/probes/fmt-0167/target/stock",
+        "--version"
+      ],
+      "status": 0,
+      "stdout": "rnx 0.0.0\nrune 0.14.2\n",
+      "stderr": ""
+    },
+    "rnx-eval": {
+      "command": [
+        "/home/me/work/rnx-bench/probes/fmt-0167/target/stock",
+        "--version"
+      ],
+      "status": 0,
+      "stdout": "rnx 0.0.0\nrune 0.14.2\n",
+      "stderr": ""
+    },
+    "python": {
+      "command": [
+        "/usr/bin/python3",
+        "--version"
+      ],
+      "status": 0,
+      "stdout": "Python 3.14.4\n",
+      "stderr": ""
+    }
+  },
+  "frequency_policy": {
+    "scaling_governor": "powersave",
+    "scaling_driver": "intel_pstate",
+    "cpuinfo_min_freq": "800000",
+    "cpuinfo_max_freq": "5300000"
+  },
+  "locks": {
+    "omnilua-cli.lock": "152736515ea8e3099dfc536a43b233fa3e3160de350d23a396a1a3ec33d95aed",
+    "piccolo.lock": "f96c1f9c1108df2a1e06d12019f50576342a3b64f47d5d124fd6754a0a2f7077"
+  }
+}
