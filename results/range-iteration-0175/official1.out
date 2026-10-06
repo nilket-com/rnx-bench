@@ -1,0 +1,16 @@
+rehearsal: 0 occurrences
+correctness: 40 identical
+allocation: context delta 1 numeric calls [1036660, 36661] budgets {'numeric-budget-zero': [36659, 36660, 1], 'numeric-budget-default': [1036660, 36661, 0], 'numeric-budget-unlimited': [1036661, 36662, 0], 'numeric-budget-tight': [36773, 36664, 1]}
+Traceback (most recent call last):
+  File "/home/me/work/rnx-bench-w-0175d/probes/range-iteration-0175/measure.py", line 724, in <module>
+    main(sys.argv[-1])
+    ~~~~^^^^^^^^^^^^^^
+  File "/home/me/work/rnx-bench-w-0175d/probes/range-iteration-0175/measure.py", line 649, in main
+    v, _ = fifo(mode, work, tmp, sink, {"kind": "reproduction-fifo", "reference": "0169", "mode": mode, "work": work, "index": i})
+           ~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/me/work/rnx-bench-w-0175d/probes/range-iteration-0175/measure.py", line 243, in fifo
+    control("disable")
+    ~~~~~~~^^^^^^^^^^^
+  File "/home/me/work/rnx-bench-w-0175d/probes/range-iteration-0175/measure.py", line 236, in control
+    raise Stop(("perf control", m, got))
+Stop: ('perf control', 'disable', '\x00ack\n')

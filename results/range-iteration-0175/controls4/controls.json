@@ -1,0 +1,213 @@
+{
+ "R1-bad-status-retained": {
+  "pass": true,
+  "detail": {
+   "stop": "Stop(('status/output', ['perf', 'stat', '-j', '--cputype', 'core', '-e', 'instructions:u,cycles:u', '--', '/bin/false'], 1, '', '{\"counter-value\" : \"1658525.000000\", \"unit\" : \"\", \"event\" : \"cpu_core/instructions/u\", \"event-runtime\" : 1186656, \"pcnt-running\" : 100.00}\\n{\"counter-value\" : \"1537340.000000\", \"unit\" : \"\", \"event\" : \"cpu_core/cycles/u\", \"event-runtime\" : 1186656, \"pcnt-running\" : 100.00}\\n'))",
+   "retained_status": 1
+  },
+  "seconds": 0.04131037509068847
+ },
+ "R1-malformed-counter-retained": {
+  "pass": true,
+  "detail": {
+   "stop": "Stop(('malformed counter row', {'event': 'instructions:u', 'counter-value': 'x', 'pcnt-running': '100'}, 'ValueError(\"could not convert string to float: \\'x\\'\")'))",
+   "retained_stderr": "{\"event\": \"instructions:u\", \"counter-value\": \"x\", \"pcnt-running\": \"100\"}\n"
+  },
+  "seconds": 0.008024681126698852
+ },
+ "R1-incomplete-wall-receipt-retained": {
+  "pass": true,
+  "detail": {
+   "stop": "Stop(('incomplete receipt', {'kind': 'control'}, 1, 12))",
+   "retained_stdout": "EXEC 0\n"
+  },
+  "seconds": 0.007419811794534326
+ },
+ "R1-timeout-retained-and-killed": {
+  "pass": true,
+  "detail": {
+   "stop": "Stop(('deadline or interrupt', ['/bin/sh', '-c', 'printf partial; sleep 30'], True, False))",
+   "elapsed_s": 1.0133798620663583,
+   "partial_stdout": "partial"
+  },
+  "seconds": 1.0134781571105123
+ },
+ "R2-partial-line-timeout": {
+  "pass": true,
+  "detail": {
+   "partial": "REA",
+   "elapsed_s": 1.0019941220525652
+  },
+  "seconds": 1.0133846160024405
+ },
+ "R2-interrupt-with-held-pipe": {
+  "pass": true,
+  "detail": {
+   "elapsed_s": 1.2620679659303278,
+   "partial": {
+    "argv": [
+     "/bin/sh",
+     "-c",
+     "echo $$ > /home/me/work/rnx-bench-w-0175d/results/range-iteration-0175/controls4/tmp/group.pid; printf held; sleep 30 & sleep 30"
+    ],
+    "status": -9,
+    "stdout": "held",
+    "stderr": "",
+    "timed_out": false,
+    "interrupted": true,
+    "reaped": true,
+    "group_survivors": []
+   }
+  },
+  "seconds": 1.267499843146652
+ },
+ "R3-changed-binary-refused-before-any-phase": {
+  "pass": true,
+  "detail": {
+   "stop": "Stop(('manifest mismatch: refusing before any phase', [('binary', 'cand-primary'), ('build receipt content',)]))",
+   "files": [
+    "refused.json"
+   ],
+   "refused": {
+    "manifest": "/home/me/work/rnx-bench-w-0175d/results/range-iteration-0175/controls4/tmp/tampered.json",
+    "mismatches": [
+     [
+      "binary",
+      "cand-primary"
+     ],
+     [
+      "build receipt content"
+     ]
+    ]
+   }
+  },
+  "seconds": 0.051859820960089564
+ },
+ "R3-changed-fixture-refused": {
+  "pass": true,
+  "detail": {
+   "stop": "Stop(('manifest mismatch: refusing before any phase', [('inputs', ['range/range_signed.rn'])]))"
+  },
+  "seconds": 0.03910975088365376
+ },
+ "R1-later-phases-do-not-begin": {
+  "pass": true,
+  "detail": {
+   "stop": "Stop(('injected', 'start'))",
+   "phases": [
+    "rehearsal",
+    "controls-start"
+   ]
+  },
+  "seconds": 0.47066853009164333
+ },
+ "R4-allocation-qualification": {
+  "pass": true,
+  "detail": {
+   "changed-context": "Stop(('allocation', [('context delta is not exactly +1', 2), ('context allocation calls rose', 2), ('manual-next allocations changed', 1)]))",
+   "floor-rise": "Stop(('allocation', [('floor delta is not exactly 0', 1)]))",
+   "empty-context-rise": "Stop(('allocation', [('empty-context delta is not exactly 0', 1)]))",
+   "unrelated-rise": "Stop(('allocation', [('run-fib allocation calls rose', 2)]))",
+   "manual-next-drop": "Stop(('allocation', [('manual-next allocations changed', -5)]))",
+   "context-zero": "Stop(('allocation', [('context delta is not exactly +1', 0), ('manual-next allocations changed', 1)]))"
+  },
+  "seconds": 0.00071330601349473
+ },
+ "R1b-changed-counting-stdout-stops": {
+  "pass": true,
+  "detail": {
+   "stop": "Stop(('allocation run', 'run-numeric', 'cand', 0, '4\\n'))"
+  },
+  "seconds": 1.2076925486326218e-05
+ },
+ "R1b-same-wrong-budget-status-stops": {
+  "pass": true,
+  "detail": {
+   "same_crash": "Stop(('budget status', 'numeric-budget-tight', 'base', 101, 1))",
+   "wrong_completion": "Stop(('budget status', 'numeric-budget-zero', 'base', 0, 1))"
+  },
+  "seconds": 2.5376910343766212e-05
+ },
+ "R2b-unreaped-and-survivor-stop": {
+  "pass": true,
+  "detail": {
+   "unreaped": "Stop(('cleanup', ['synthetic'], False, []))",
+   "survivor": "Stop(('cleanup', ['synthetic'], True, [123456]))",
+   "alloc_survivor": "Stop(('cleanup', ['synthetic'], True, [123456]))",
+   "check_status_unreaped": "Stop(('cleanup', ['synthetic'], False, []))",
+   "fifo_counter_status": "Stop(('fifo statuses', 0, 0))",
+   "fifo_child_survivor": "Stop(('fifo cleanup', 'child', True, [123456]))",
+   "fifo_counter_unreaped": "Stop(('fifo cleanup', 'counter', False, []))"
+  },
+  "seconds": 2.8140144422650337e-05
+ },
+ "R3b-manifest-constants": {
+  "pass": true,
+  "detail": {
+   "sources": [
+    [
+     "sources differ from the frozen constants"
+    ],
+    [
+     "build receipt content"
+    ]
+   ],
+   "parent": [
+    [
+     "sources differ from the frozen constants"
+    ]
+   ]
+  },
+  "seconds": 0.07659094594419003
+ },
+ "R2c-ack-boundaries": {
+  "pass": true,
+  "detail": {
+   "'ack\\n'": true,
+   "'\\x00ack\\n'": true,
+   "'ack\\n\\x00'": true,
+   "'\\x00\\x00ack\\n'": true,
+   "'a\\x00ck\\n'": false,
+   "'nak\\n'": false,
+   "'ack'": false,
+   "'\\x00'": false
+  },
+  "seconds": 1.2103002518415451e-05
+ },
+ "R2c-fifo-protocol": {
+  "pass": true,
+  "detail": {
+   "instructions": [
+    23116200.0,
+    23116199.0
+   ],
+   "acks": [
+    [
+     {
+      "command": "enable",
+      "line": "ack\n"
+     },
+     {
+      "command": "disable",
+      "line": "\u0000ack\n"
+     }
+    ],
+    [
+     {
+      "command": "enable",
+      "line": "ack\n"
+     },
+     {
+      "command": "disable",
+      "line": "\u0000ack\n"
+     }
+    ]
+   ],
+   "ack_bytes": [
+    "ack\n\u0000ack\n\u0000",
+    "ack\n\u0000ack\n\u0000"
+   ]
+  },
+  "seconds": 0.062581033911556
+ }
+}
