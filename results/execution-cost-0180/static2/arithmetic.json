@@ -1,0 +1,281 @@
+{
+ "raw_sha256": "d0643c0fc1ca42f6c4e9e5d9748c351da546b0baed3d1226349d6e5fab848b03",
+ "medians": {
+  "floor": {
+   "base_instructions": 450806.5,
+   "base_cycles": 580016.0,
+   "cand_instructions": 450547.5,
+   "cand_cycles": 590113.0,
+   "instruction_delta": -259.0,
+   "cycle_change": 0.017408140465090538
+  },
+  "empty-context": {
+   "base_instructions": 451282.5,
+   "base_cycles": 584492.5,
+   "cand_instructions": 451236.0,
+   "cand_cycles": 588206.0,
+   "instruction_delta": -46.5,
+   "cycle_change": 0.006353374936376444
+  },
+  "context": {
+   "base_instructions": 26869161.0,
+   "base_cycles": 11499002.5,
+   "cand_instructions": 24923273.0,
+   "cand_cycles": 10856907.5,
+   "instruction_delta": -1945888.0,
+   "cycle_change": -0.05583919126898185
+  },
+  "runtime": {
+   "base_instructions": 28244789.5,
+   "base_cycles": 12308183.0,
+   "cand_instructions": 26298621.0,
+   "cand_cycles": 11640977.5,
+   "instruction_delta": -1946168.5,
+   "cycle_change": -0.05420828565841118
+  },
+  "compile-answer": {
+   "base_instructions": 29900985.5,
+   "base_cycles": 13524899.0,
+   "cand_instructions": 27954906.5,
+   "cand_cycles": 12818984.5,
+   "instruction_delta": -1946079.0,
+   "cycle_change": -0.052193698452018045
+  },
+  "run-answer": {
+   "base_instructions": 29907154.5,
+   "base_cycles": 13552841.5,
+   "cand_instructions": 27961873.5,
+   "cand_cycles": 12858236.0,
+   "instruction_delta": -1945281.0,
+   "cycle_change": -0.051251650806954374
+  },
+  "run-empty": {
+   "base_instructions": 28390438.5,
+   "base_cycles": 12560509.0,
+   "cand_instructions": 26444436.5,
+   "cand_cycles": 11991585.0,
+   "instruction_delta": -1946002.0,
+   "cycle_change": -0.04529466122750281
+  },
+  "run-numeric": {
+   "base_instructions": 1759089109.0,
+   "base_cycles": 445295368.0,
+   "cand_instructions": 1745143360.5,
+   "cand_cycles": 482363946.0,
+   "instruction_delta": -13945748.5,
+   "cycle_change": 0.08324492160448438
+  },
+  "run-fib": {
+   "base_instructions": 833592282.0,
+   "base_cycles": 201349159.0,
+   "cand_instructions": 852621967.5,
+   "cand_cycles": 207266267.5,
+   "instruction_delta": 19029685.5,
+   "cycle_change": 0.029387301786544917
+  },
+  "run-strings": {
+   "base_instructions": 227837187.5,
+   "base_cycles": 68614504.0,
+   "cand_instructions": 225673678.5,
+   "cand_cycles": 70007623.5,
+   "instruction_delta": -2163509.0,
+   "cycle_change": 0.020303571676332455
+  },
+  "run-while": {
+   "base_instructions": 1143107019.5,
+   "base_cycles": 271787968.0,
+   "cand_instructions": 1134161205.5,
+   "cand_cycles": 272388527.5,
+   "instruction_delta": -8945814.0,
+   "cycle_change": 0.0022096618346254537
+  },
+  "run-compare": {
+   "base_instructions": 1722543950.0,
+   "base_cycles": 418026394.5,
+   "cand_instructions": 1707674475.0,
+   "cand_cycles": 420424309.0,
+   "instruction_delta": -14869475.0,
+   "cycle_change": 0.0057362753442116166
+  },
+  "run-calls": {
+   "base_instructions": 1780164623.5,
+   "base_cycles": 376658030.5,
+   "cand_instructions": 1788219185.0,
+   "cand_cycles": 386885298.0,
+   "instruction_delta": 8054561.5,
+   "cycle_change": 0.02715266016344775
+  },
+  "run-vector": {
+   "base_instructions": 1314405077.5,
+   "base_cycles": 328016494.5,
+   "cand_instructions": 1305659655.5,
+   "cand_cycles": 327813961.5,
+   "instruction_delta": -8745422.0,
+   "cycle_change": -0.0006174476082635438
+  },
+  "run-overwrite_inline": {
+   "base_instructions": 1142213821.5,
+   "base_cycles": 267804725.5,
+   "cand_instructions": 1102265574.5,
+   "cand_cycles": 264863474.0,
+   "instruction_delta": -39948247.0,
+   "cycle_change": -0.010982821511116292
+  },
+  "run-overwrite_mixed": {
+   "base_instructions": 748092525.5,
+   "base_cycles": 189940515.0,
+   "cand_instructions": 741044601.0,
+   "cand_cycles": 188655116.0,
+   "instruction_delta": -7047924.5,
+   "cycle_change": -0.006767376617884846
+  },
+  "run-overwrite_deep": {
+   "base_instructions": 254882258.0,
+   "base_cycles": 71840683.0,
+   "cand_instructions": 253635090.0,
+   "cand_cycles": 68609656.0,
+   "instruction_delta": -1247168.0,
+   "cycle_change": -0.04497489256888054
+  },
+  "run-overwrite_alias": {
+   "base_instructions": 30333191.5,
+   "base_cycles": 13831662.0,
+   "cand_instructions": 28386211.0,
+   "cand_cycles": 13233621.5,
+   "instruction_delta": -1946980.5,
+   "cycle_change": -0.043237067244702776
+  },
+  "run-range_signed": {
+   "base_instructions": 1437052175.0,
+   "base_cycles": 333610908.5,
+   "cand_instructions": 1425104386.0,
+   "cand_cycles": 387359159.5,
+   "instruction_delta": -11947789.0,
+   "cycle_change": 0.16111059210163692
+  },
+  "run-range_negative": {
+   "base_instructions": 1437053847.0,
+   "base_cycles": 333410705.5,
+   "cand_instructions": 1425105990.0,
+   "cand_cycles": 388039107.5,
+   "instruction_delta": -11947857.0,
+   "cycle_change": 0.16384717436735086
+  },
+  "run-range_while": {
+   "base_instructions": 937072705.5,
+   "base_cycles": 194510304.5,
+   "cand_instructions": 930127045.0,
+   "cand_cycles": 192188014.5,
+   "instruction_delta": -6945660.5,
+   "cycle_change": -0.01193916181443233
+  },
+  "first-use-true": {
+   "base_instructions": 55262748.0,
+   "base_cycles": 24667982.0,
+   "cand_instructions": 53339991.0,
+   "cand_cycles": 24108792.0,
+   "instruction_delta": -1922757.0,
+   "cycle_change": -0.022668656074096405
+  },
+  "first-use-false": {
+   "base_instructions": 55170381.5,
+   "base_cycles": 24625842.0,
+   "cand_instructions": 53243560.5,
+   "cand_cycles": 23999313.5,
+   "instruction_delta": -1926821.0,
+   "cycle_change": -0.025441911793310457
+  }
+ },
+ "run_empty_delta": -1946002.0,
+ "contrasts": {
+  "run-numeric": {
+   "script": "corpus/numeric.rn",
+   "sha256": "ff53f597a3e317c2c37d105882abc878ac9d223450ef33ee9bea8e6cdfc5dcee",
+   "source": "pub fn main(_args) { let s=0; for i in 1..1000001 { s=(s+i)%1000003; } println!(\"{}\",s); }\n",
+   "operation_count": 1000000,
+   "count_basis": "source-bound fixed one-million loop; inspect frozen source below",
+   "adjusted_delta": -11999746.5,
+   "prediction_per_operation": -12,
+   "per_operation": -11.9997465,
+   "residue": 253.5
+  },
+  "run-range_signed": {
+   "script": "range/range_signed.rn",
+   "sha256": "9c95179ed778f062e6fd6c925bb98ebcac886995150eb18fa73df975dbe96ac9",
+   "source": "pub fn main(_args) { let s = 0; for i in 0..1000000 { s += i; } println!(\"{}\", s); }\n",
+   "operation_count": 1000000,
+   "count_basis": "source-bound fixed one-million loop; inspect frozen source below",
+   "adjusted_delta": -10001787.0,
+   "prediction_per_operation": -10,
+   "per_operation": -10.001787,
+   "residue": -1787.0
+  },
+  "run-range_negative": {
+   "script": "range/range_negative.rn",
+   "sha256": "181685064a296c26bc3c0222887a5f583b2cd7088a233e42f1b84bfc352a3e64",
+   "source": "pub fn main(_args) { let s = 0; for i in -500000..500000 { s += i; } println!(\"{}\", s); }\n",
+   "operation_count": 1000000,
+   "count_basis": "source-bound fixed one-million loop; inspect frozen source below",
+   "adjusted_delta": -10001855.0,
+   "prediction_per_operation": -10,
+   "per_operation": -10.001855,
+   "residue": -1855.0
+  },
+  "run-while": {
+   "script": "fixtures/while.rn",
+   "sha256": "9054fbf649cd2d17037c055e029e24f251f9bf933d78ae3e94cc39717919de50",
+   "source": "pub fn main(_args) { let s = 0; let i = 1; while i <= 1000000 { s = (s + i) % 1000003; i += 1; } println!(\"{}\", s); }\n",
+   "operation_count": 1000000,
+   "count_basis": "source-bound fixed one-million loop; inspect frozen source below",
+   "adjusted_delta": -6999812.0,
+   "prediction_per_operation": -7,
+   "per_operation": -6.999812,
+   "residue": 188.0
+  },
+  "run-range_while": {
+   "script": "range/range_while.rn",
+   "sha256": "386d627752944841db83513dabb0f71be9c95e92d1e043780a1421704dbdeb22",
+   "source": "pub fn main(_args) { let s = 0; let i = 0; while i < 1000000 { s += i; i += 1; } println!(\"{}\", s); }\n",
+   "operation_count": 1000000,
+   "count_basis": "source-bound fixed one-million loop; inspect frozen source below",
+   "adjusted_delta": -4999658.5,
+   "prediction_per_operation": -5,
+   "per_operation": -4.9996585,
+   "residue": 341.5
+  },
+  "run-overwrite_inline": {
+   "script": "fixtures/overwrite_inline.rn",
+   "sha256": "fcd3a8cfd4ac791071a3b9ceecb1fd94bd02b6e146970cc4dc59a31a433711ae",
+   "source": "pub fn main(_args) { let a = 0; let b = 0; let c = 0; let i = 0; while i < 1000000 { a = i; b = a; c = b; i += 1; } println!(\"{}\", a + b + c); }\n",
+   "operation_count": 1000000,
+   "count_basis": "source-bound fixed one-million loop; inspect frozen source below",
+   "adjusted_delta": -38002245.0,
+   "prediction_per_operation": -38,
+   "per_operation": -38.002245,
+   "residue": -2245.0
+  },
+  "run-calls": {
+   "script": "fixtures/calls.rn",
+   "sha256": "18d3f41d64307a08044964bd8e2f3cf7353c484057f03a09d6e96fb64632d584",
+   "source": "fn inc(x) { x + 1 }\npub fn main(_args) { let x = 0; let i = 0; while i < 1000000 { x = inc(x); i += 1; } println!(\"{}\", x); }\n",
+   "operation_count": 1000000,
+   "count_basis": "source-bound fixed one-million loop; inspect frozen source below",
+   "adjusted_delta": 10000563.5,
+   "prediction_per_operation": 10,
+   "per_operation": 10.0005635,
+   "residue": 563.5
+  },
+  "run-fib": {
+   "script": "corpus/fib.rn",
+   "sha256": "b85d1cfeab32c65900f29f747761135f0340dac9303b99edaee3326aa82bd6db",
+   "source": "fn fib(n) { if n<2 { return n; } fib(n-1)+fib(n-2) }\npub fn main(_args) { println!(\"{}\",fib(27)); }\n",
+   "count_basis": "F(0)=F(1)=1; F(n)=1+F(n-1)+F(n-2); includes root fib(27), excludes main",
+   "fib_invocations": 635621,
+   "nonleaf_invocations": 317810,
+   "adjusted_delta": 20975687.5,
+   "per_invocation": 33.000305999959096,
+   "warning": "no fixed per-fib-call prediction accepted; leaf and nonleaf paths differ"
+  }
+ },
+ "scope": "difference of retained whole-process medians, not a measured phase; setup/compiler differences remain"
+}
