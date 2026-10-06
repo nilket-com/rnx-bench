@@ -433,6 +433,19 @@ def main(out):
 		return {"record": "0181", "status": "available", "order": [g for g in ev.ORDER if g not in ineligible], "groups": groups, "identity_sha256": "a" * 64,
 			"primaries": {k: v[1] for k, v in base.PRIMARY.items()}, "libraries": dict(ev.LIBRARIES)}
 
+	@control("V0-frozen-pins-match-the-reviewed-discovery")
+	def _():
+		assert ev.AVAILABILITY_SHA256 == base.sha(ev.DISCOVERY / "availability.json") == "298b3d5dd83c8f5b80075ebd21e6e868f4e09c806d7eecc21fed57213290d2de"
+		assert ev.IDENTITY_SHA256 == base.sha(ev.DISCOVERY / "identity.json") == "c281c11d5b0a0d3552415836e66635a9aed03c6fa3162c06f7f921848882f2aa"
+		m = ev.validate_availability(json.loads((ev.DISCOVERY / "availability.json").read_text()), ev.IDENTITY_SHA256)
+		rows = [json.loads(l) for l in (ev.DISCOVERY / "raw.jsonl").read_text().splitlines()]
+		assert [(r["group"], r["index"]) for r in rows] == [(g, i) for g in ev.ORDER for i in (0, 1)]
+		for r in rows:
+			base.lifecycle(r)
+			assert r["status"] == 0 and r["stdout"] == base.PROBE_STDOUT and r["argv"] == base.perf_argv(r["group"]) + base.PROBE
+			ev.classify(r["stderr"], r["group"])
+		return {"order": m["order"], "rows": len(rows)}
+
 	@control("V1-availability-content-validation")
 	def _():
 		def load(change, ineligible=("E",)):
@@ -481,7 +494,12 @@ def main(out):
 			m["identity_sha256"] = base.sha(d / "identity.json")
 			(d / "availability.json").write_text(json.dumps(m, indent=1) + "\n")
 			ev.DISCOVERY = d
-			got["pins-not-frozen"] = refused(lambda: ev.load_availability(d / "availability.json"))
+			# Unfrozen pins must refuse for THAT reason (set explicitly: the module's real pins are frozen now).
+			for name, pins in (("both-pins-unset", (None, None)), ("availability-pin-unset", (None, base.sha(d / "identity.json"))),
+					("identity-pin-unset", (base.sha(d / "availability.json"), None))):
+				ev.AVAILABILITY_SHA256, ev.IDENTITY_SHA256 = pins
+				got[name] = refused(lambda: ev.load_availability(d / "availability.json"))
+				assert "availability review has not frozen" in got[name], got[name]
 			ev.AVAILABILITY_SHA256, ev.IDENTITY_SHA256 = base.sha(d / "availability.json"), base.sha(d / "identity.json")
 			admitted, recorded, admission = ev.load_availability(d / "availability.json")
 			assert admitted["order"] == ev.ORDER and recorded == ident and admission["perf_version_receipt"]["status"] == 0

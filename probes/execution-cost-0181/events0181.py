@@ -48,11 +48,11 @@ if pathlib.Path(base.__file__).resolve() != (REPO / "probes/execution-cost-0180/
 ORDER = ["R", "C", "D", "E"]  # frozen; A and B are not part of this record
 REQUIRED, DIAGNOSTICS = "R", ["C", "D", "E"]
 GROUPS = {g: base.GROUPS[g] for g in ORDER}
-# This record's own reviewed discovery receipts. The byte pins are set only after the availability review; until
-# then admission refuses.
+# This record's own reviewed discovery receipts (driver d3cf6e39, receipts 07b1e84d; accepted in review, chatd seq
+# 1518). With either pin unset admission refuses.
 DISCOVERY = REPO / "results/execution-cost-0181/discovery1"
-AVAILABILITY_SHA256 = None
-IDENTITY_SHA256 = None
+AVAILABILITY_SHA256 = "298b3d5dd83c8f5b80075ebd21e6e868f4e09c806d7eecc21fed57213290d2de"
+IDENTITY_SHA256 = "c281c11d5b0a0d3552415836e66635a9aed03c6fa3162c06f7f921848882f2aa"
 
 
 class LocalInvalid(Exception):
