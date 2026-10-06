@@ -1,0 +1,195 @@
+{
+  "source": "bb8e69372353c50e271c9f115bc771c77aa6b83e",
+  "factories": [
+    {
+      "factory": "iter",
+      "probe": "(0..4).iter().sum::<i64>()",
+      "scope": "runtime"
+    },
+    {
+      "factory": "core",
+      "probe": "std::is_readable([1])",
+      "scope": "runtime"
+    },
+    {
+      "factory": "cmp",
+      "probe": "Ordering::Less equality",
+      "scope": "runtime"
+    },
+    {
+      "factory": "any",
+      "probe": "type_name_of_val and Type equality",
+      "scope": "runtime"
+    },
+    {
+      "factory": "clone",
+      "probe": "std::clone::clone([1,2])",
+      "scope": "runtime"
+    },
+    {
+      "factory": "num",
+      "probe": "ParseIntError/ParseFloatError type references; invalid integer Display",
+      "scope": "compile+runtime"
+    },
+    {
+      "factory": "hash",
+      "probe": "Hasher type reference equality",
+      "scope": "compile+runtime Type equality"
+    },
+    {
+      "factory": "string",
+      "probe": "parse::<i64/f64>, len",
+      "scope": "runtime"
+    },
+    {
+      "factory": "bytes",
+      "probe": "b\"ab\".len()",
+      "scope": "runtime"
+    },
+    {
+      "factory": "collections",
+      "probe": "HashMap/HashSet/VecDeque reexports",
+      "scope": "compile"
+    },
+    {
+      "factory": "collections::hash_map",
+      "probe": "insert/get",
+      "scope": "runtime"
+    },
+    {
+      "factory": "collections::hash_set",
+      "probe": "insert/contains",
+      "scope": "runtime"
+    },
+    {
+      "factory": "collections::vec_deque",
+      "probe": "push_back/pop_front",
+      "scope": "runtime"
+    },
+    {
+      "factory": "char",
+      "probe": "'A'.to_i64()",
+      "scope": "runtime"
+    },
+    {
+      "factory": "f64",
+      "probe": "0.0.cos()",
+      "scope": "runtime"
+    },
+    {
+      "factory": "f64::consts",
+      "probe": "PI > 3.0",
+      "scope": "runtime"
+    },
+    {
+      "factory": "tuple",
+      "probe": "(1,2).len()",
+      "scope": "runtime"
+    },
+    {
+      "factory": "fmt",
+      "probe": "Formatter type reference; format! conversion",
+      "scope": "compile+runtime"
+    },
+    {
+      "factory": "future",
+      "probe": "future::join await",
+      "scope": "runtime"
+    },
+    {
+      "factory": "i64",
+      "probe": "(-3).abs()",
+      "scope": "runtime"
+    },
+    {
+      "factory": "u64",
+      "probe": "3u64.pow(2)",
+      "scope": "runtime"
+    },
+    {
+      "factory": "io",
+      "probe": "namespace import; std::io::print(\"\") only in stdio variant",
+      "scope": "compile; runtime when enabled"
+    },
+    {
+      "factory": "macros",
+      "probe": "namespace import (factory is namespace-only)",
+      "scope": "compile capability"
+    },
+    {
+      "factory": "macros::builtin",
+      "probe": "qualified line! and file!",
+      "scope": "compile macros+runtime checks"
+    },
+    {
+      "factory": "mem",
+      "probe": "std::mem::drop",
+      "scope": "runtime"
+    },
+    {
+      "factory": "object",
+      "probe": "object.len()",
+      "scope": "runtime"
+    },
+    {
+      "factory": "ops",
+      "probe": "range constructor/iter",
+      "scope": "runtime"
+    },
+    {
+      "factory": "ops::generator",
+      "probe": "generator().next()",
+      "scope": "runtime"
+    },
+    {
+      "factory": "option",
+      "probe": "Some.unwrap and comparisons",
+      "scope": "runtime"
+    },
+    {
+      "factory": "result",
+      "probe": "Ok.unwrap and Err pattern",
+      "scope": "runtime"
+    },
+    {
+      "factory": "stream",
+      "probe": "async yield next().await",
+      "scope": "runtime"
+    },
+    {
+      "factory": "test",
+      "probe": "assert!/assert_eq!; Bencher type reference",
+      "scope": "compile macros+runtime"
+    },
+    {
+      "factory": "vec",
+      "probe": "array len",
+      "scope": "runtime"
+    },
+    {
+      "factory": "slice",
+      "probe": "array.iter().next_back()",
+      "scope": "runtime"
+    }
+  ],
+  "fixtures": {
+    "first-use-stdio.rn": "a6cb670304ed84b8e8b192ce2a10947fd1bbbe3ee44401b5459bcdadecd949dd",
+    "first-use.rn": "db032dd5b7e3e370abf509a66b628e1ae597d1fa8ca95f1d49f202a1fdec8042"
+  },
+  "invocation": {
+    "modes": [
+      "first-use"
+    ],
+    "args": [
+      "first-use",
+      "true|false",
+      "fixture path"
+    ],
+    "context": "with_config(args[1] == true)",
+    "execution": "async_complete; main argument is ()",
+    "result": "from_value::<i64> must be 42, then host prints FIRST-USE 42 newline",
+    "stdout": "FIRST-USE 42\n",
+    "stderr": "empty primary; existing counter/allocation receipts retain their role-specific output",
+    "budget": 1000000000
+  }
+}

@@ -1,0 +1,24 @@
+   Compiling rune v0.15.0 (/home/me/work/.worktrees/rune-0179/crates/rune)
+    Finished `release` profile [optimized] target(s) in 38.56s
+     Running unittests src/lib.rs (target/release/deps/rune-0f2eecfece35c8d1)
+
+running 6 tests
+test compile::context::startup_tests::item_display_bytes_are_frozen_before_the_candidate ... ok
+
+thread 'compile::context::startup_tests::every_module_first_use_completes_with_and_without_stdio' (3216992) panicked at crates/rune/src/compile/context_startup_tests.rs:123:126:
+first-use failed: Missing instance function `0xbcbb30103a3cd15f` for `::std::result::Result`
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+test compile::context::startup_tests::every_module_first_use_completes_with_and_without_stdio ... FAILED
+test compile::context::startup_tests::registration_order_matches_the_base ... ok
+test compile::context::startup_tests::custom_associated_constant_values_and_errors_are_unchanged ... ok
+test compile::context::inventory_tests::registered_inventory_matches_the_golden ... ok
+test compile::context::inventory_tests::inventory_comparison_detects_changes ... ok
+
+failures:
+
+failures:
+    compile::context::startup_tests::every_module_first_use_completes_with_and_without_stdio
+
+test result: FAILED. 5 passed; 1 failed; 0 ignored; 0 measured; 593 filtered out; finished in 0.07s
+
+error: test failed, to rerun pass `-p rune --lib`

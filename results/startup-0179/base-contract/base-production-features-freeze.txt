@@ -1,0 +1,359 @@
+   Compiling syn v3.0.6
+   Compiling syn v2.0.119
+   Compiling smallvec v1.16.2
+   Compiling memchr v2.8.3
+   Compiling once_cell v1.21.4
+   Compiling ahash v0.8.12
+   Compiling parking_lot_core v0.9.12
+   Compiling parking_lot v0.12.5
+   Compiling serde_json v1.0.151
+   Compiling pin-project-internal v1.1.13
+   Compiling serde_derive v1.0.229
+   Compiling musli-macros v0.1.7
+   Compiling rune-alloc-macros v0.15.0 (/home/me/work/.worktrees/rune-0179/crates/rune-alloc-macros)
+   Compiling rune-tracing-macros v0.15.0 (/home/me/work/.worktrees/rune-0179/crates/rune-tracing-macros)
+   Compiling tokio-macros v2.7.2
+   Compiling pin-project v1.1.13
+   Compiling rune-tracing v0.15.0 (/home/me/work/.worktrees/rune-0179/crates/rune-tracing)
+   Compiling tokio v1.53.2
+   Compiling musli-core v0.1.7
+   Compiling serde v1.0.229
+   Compiling trybuild v1.0.121
+   Compiling rune-alloc v0.15.0 (/home/me/work/.worktrees/rune-0179/crates/rune-alloc)
+   Compiling rune-core v0.15.0 (/home/me/work/.worktrees/rune-0179/crates/rune-core)
+   Compiling rune-macros v0.15.0 (/home/me/work/.worktrees/rune-0179/crates/rune-macros)
+   Compiling rune v0.15.0 (/home/me/work/.worktrees/rune-0179/crates/rune)
+error[E0432]: unresolved import `crate::termcolor`
+   --> crates/rune/src/tests.rs:52:12
+    |
+ 52 |     alloc, termcolor, BuildError, Context, Diagnostics, FromValue, Hash, Options, Source, Sources,
+    |            ^^^^^^^^^ no `termcolor` in the root
+    |
+note: found an item that was configured out
+   --> crates/rune/src/lib.rs:206:37
+    |
+203 | #[cfg(feature = "emit")]
+    |       ---------------- the item is gated behind the `emit` feature
+...
+206 | pub use ::codespan_reporting::term::termcolor;
+    |                                     ^^^^^^^^^
+
+error[E0432]: unresolved import `crate::termcolor`
+   --> crates/rune/src/tests/macros.rs:6:12
+    |
+  6 | use crate::termcolor::{ColorChoice, StandardStream};
+    |            ^^^^^^^^^ could not find `termcolor` in the crate root
+    |
+note: found an item that was configured out
+   --> crates/rune/src/lib.rs:206:37
+    |
+203 | #[cfg(feature = "emit")]
+    |       ---------------- the item is gated behind the `emit` feature
+...
+206 | pub use ::codespan_reporting::term::termcolor;
+    |                                     ^^^^^^^^^
+
+error[E0432]: unresolved import `crate::termcolor`
+   --> crates/rune/src/tests/scripts.rs:4:12
+    |
+  4 | use crate::termcolor::{ColorChoice, StandardStream};
+    |            ^^^^^^^^^ could not find `termcolor` in the crate root
+    |
+note: found an item that was configured out
+   --> crates/rune/src/lib.rs:206:37
+    |
+203 | #[cfg(feature = "emit")]
+    |       ---------------- the item is gated behind the `emit` feature
+...
+206 | pub use ::codespan_reporting::term::termcolor;
+    |                                     ^^^^^^^^^
+
+error[E0432]: unresolved import `crate::termcolor`
+   --> crates/rune/src/tests/statics.rs:7:13
+    |
+  7 | use crate::{termcolor, to_value, Statics, Unit};
+    |             ^^^^^^^^^ no `termcolor` in the root
+    |
+note: found an item that was configured out
+   --> crates/rune/src/lib.rs:206:37
+    |
+203 | #[cfg(feature = "emit")]
+    |       ---------------- the item is gated behind the `emit` feature
+...
+206 | pub use ::codespan_reporting::term::termcolor;
+    |                                     ^^^^^^^^^
+
+error[E0432]: unresolved import `crate::termcolor`
+   --> crates/rune/src/tests/vm_diagnostics.rs:11:5
+    |
+ 11 | use crate::termcolor;
+    |     ^^^^^^^---------
+    |            |
+    |            no `termcolor` in the root
+    |
+note: found an item that was configured out
+   --> crates/rune/src/lib.rs:206:37
+    |
+203 | #[cfg(feature = "emit")]
+    |       ---------------- the item is gated behind the `emit` feature
+...
+206 | pub use ::codespan_reporting::term::termcolor;
+    |                                     ^^^^^^^^^
+
+error[E0433]: cannot find module or crate `codespan_reporting` in this scope
+ --> crates/rune/src/tests/custom_macros.rs:3:5
+  |
+3 | use codespan_reporting::term::termcolor::{ColorChoice, StandardStream};
+  |     ^^^^^^^^^^^^^^^^^^ use of unresolved module or unlinked crate `codespan_reporting`
+  |
+  = help: if you wanted to use a crate named `codespan_reporting`, use `cargo add codespan_reporting` to add it to your `Cargo.toml`
+
+error[E0432]: unresolved import `crate::workspace`
+   --> crates/rune/src/tests/workspace/mod.rs:7:12
+    |
+  7 | use crate::workspace::{
+    |            ^^^^^^^^^ unresolved import
+    |
+note: found an item that was configured out
+   --> crates/rune/src/lib.rs:288:9
+    |
+286 | #[cfg(feature = "workspace")]
+    |       --------------------- the item is gated behind the `workspace` feature
+287 | #[cfg_attr(rune_docsrs, doc(cfg(feature = "workspace")))]
+288 | pub mod workspace;
+    |         ^^^^^^^^^
+help: a similar path exists
+    |
+  7 | use crate::tests::workspace::{
+    |            +++++++
+
+error[E0432]: unresolved import `rune::termcolor`
+   --> crates/rune/src/tests/external_generic.rs:9:5
+    |
+  9 | use rune::termcolor;
+    |     ^^^^^^---------
+    |           |
+    |           no `termcolor` in the root
+    |
+note: found an item that was configured out
+   --> crates/rune/src/lib.rs:206:37
+    |
+203 | #[cfg(feature = "emit")]
+    |       ---------------- the item is gated behind the `emit` feature
+...
+206 | pub use ::codespan_reporting::term::termcolor;
+    |                                     ^^^^^^^^^
+
+error[E0433]: cannot find `termcolor` in `crate`
+   --> crates/rune/src/tests/compiler_warnings.rs:42:33
+    |
+ 42 |         let mut buffer = crate::termcolor::Buffer::no_color();
+    |                                 ^^^^^^^^^ could not find `termcolor` in the crate root
+    |
+note: found an item that was configured out
+   --> crates/rune/src/lib.rs:206:37
+    |
+203 | #[cfg(feature = "emit")]
+    |       ---------------- the item is gated behind the `emit` feature
+...
+206 | pub use ::codespan_reporting::term::termcolor;
+    |                                     ^^^^^^^^^
+note: struct `crate::fmt::output::Buffer` exists but is inaccessible
+   --> crates/rune/src/fmt/output.rs:98:1
+    |
+ 98 | pub(super) struct Buffer(String);
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ not accessible
+
+error[E0599]: no method named `emit` found for mutable reference `&mut diagnostics::Diagnostics` in the current scope
+   --> crates/rune/src/tests.rs:141:14
+    |
+140 | /         diagnostics
+141 | |             .emit(&mut buffer, sources)
+    | |             -^^^^ method not found in `&mut diagnostics::Diagnostics`
+    | |_____________|
+    |
+
+error[E0599]: no method named `emit` found for struct `VmError` in the current scope
+   --> crates/rune/src/tests.rs:208:15
+    |
+208 |             e.emit(&mut buffer, &sources).context("Emit diagnostics")?;
+    |               ^^^^ method not found in `VmError`
+    |
+   ::: crates/rune/src/runtime/vm_error.rs:36:1
+    |
+ 36 | pub struct VmError {
+    | ------------------ method `emit` not found for this struct
+
+error[E0026]: variant `compile::error::ErrorKind::NestedTest` does not have a field named `nested_span`
+  --> crates/rune/src/tests/attribute.rs:34:28
+   |
+34 |         span, NestedTest { nested_span } => {
+   |                            ^^^^^^^^^^^ variant `compile::error::ErrorKind::NestedTest` does not have this field
+
+error[E0026]: variant `compile::error::ErrorKind::NestedTest` does not have a field named `nested_span`
+  --> crates/rune/src/tests/attribute.rs:49:28
+   |
+49 |         span, NestedTest { nested_span } => {
+   |                            ^^^^^^^^^^^ variant `compile::error::ErrorKind::NestedTest` does not have this field
+
+error[E0026]: variant `compile::error::ErrorKind::NestedBench` does not have a field named `nested_span`
+  --> crates/rune/src/tests/attribute.rs:68:29
+   |
+68 |         span, NestedBench { nested_span } => {
+   |                             ^^^^^^^^^^^ variant `compile::error::ErrorKind::NestedBench` does not have this field
+
+error[E0026]: variant `compile::error::ErrorKind::NestedBench` does not have a field named `nested_span`
+  --> crates/rune/src/tests/attribute.rs:83:29
+   |
+83 |         span, NestedBench { nested_span } => {
+   |                             ^^^^^^^^^^^ variant `compile::error::ErrorKind::NestedBench` does not have this field
+
+error[E0026]: variant `compile::error::ErrorKind::VariableMoved` does not have a field named `moved_at`
+  --> crates/rune/src/tests/block_modifiers.rs:59:13
+   |
+59 |             moved_at: span!(86, 147)
+   |             ^^^^^^^^ variant `compile::error::ErrorKind::VariableMoved` does not have this field
+
+error[E0026]: variant `compile::error::ErrorKind::VariableMoved` does not have a field named `moved_at`
+   --> crates/rune/src/tests/block_modifiers.rs:121:13
+    |
+121 |             moved_at: span!(75, 150)
+    |             ^^^^^^^^ variant `compile::error::ErrorKind::VariableMoved` does not have this field
+
+error[E0599]: no method named `kind` found for reference `&VmErrorAt` in the current scope
+  --> crates/rune/src/tests/bounded_natives.rs:46:27
+   |
+46 |             error.error().kind(),
+   |                           ^^^^ private field, not a method
+
+error[E0599]: no method named `kind` found for reference `&VmErrorAt` in the current scope
+   --> crates/rune/src/tests/bounded_natives.rs:183:27
+    |
+183 |             error.error().kind(),
+    |                           ^^^^ private field, not a method
+
+error[E0026]: variant `compile::error::ErrorKind::PatternMissingFields` does not have a field named `fields`
+  --> crates/rune/src/tests/compiler_patterns.rs:12:47
+   |
+12 |         span!(52, 58), PatternMissingFields { fields, .. } => {
+   |                                               ^^^^^^
+   |                                               |
+   |                                               variant `compile::error::ErrorKind::PatternMissingFields` does not have this field
+   |                                               help: `compile::error::ErrorKind::PatternMissingFields` has a field named `item`
+
+error[E0026]: variant `compile::error::ErrorKind::PatternMissingFields` does not have a field named `fields`
+  --> crates/rune/src/tests/compiler_patterns.rs:24:47
+   |
+24 |         span!(52, 63), PatternMissingFields { fields, .. } => {
+   |                                               ^^^^^^
+   |                                               |
+   |                                               variant `compile::error::ErrorKind::PatternMissingFields` does not have this field
+   |                                               help: `compile::error::ErrorKind::PatternMissingFields` has a field named `item`
+
+error[E0026]: variant `compile::error::ErrorKind::ImportCycle` does not have a field named `path`
+  --> crates/rune/src/tests/compiler_use.rs:34:40
+   |
+34 |         span!(161, 167), ImportCycle { path, .. } => {
+   |                                        ^^^^ variant `compile::error::ErrorKind::ImportCycle` does not have this field
+
+error[E0599]: no method named `emit` found for struct `diagnostics::Diagnostics` in the current scope
+   --> crates/rune/src/tests/compiler_warnings.rs:45:14
+    |
+ 44 | /         diagnostics
+ 45 | |             .emit(&mut buffer, &sources)
+    | |             -^^^^ method not found in `diagnostics::Diagnostics`
+    | |_____________|
+    |
+    |
+   ::: crates/rune/src/diagnostics/mod.rs:111:1
+    |
+111 |   pub struct Diagnostics {
+    |   ---------------------- method `emit` not found for this struct
+
+error[E0599]: no method named `emit` found for mutable reference `&mut diagnostics::Diagnostics` in the current scope
+   --> crates/rune/src/tests/custom_macros.rs:154:21
+    |
+154 |         diagnostics.emit(&mut StandardStream::stdout(ColorChoice::Auto), &sources)?;
+    |                     ^^^^ method not found in `&mut diagnostics::Diagnostics`
+
+error[E0599]: no method named `emit` found for struct `diagnostics::Diagnostics` in the current scope
+   --> crates/rune/src/tests/external_generic.rs:55:21
+    |
+ 55 |         diagnostics.emit(&mut out, &sources)?;
+    |                     ^^^^ method not found in `diagnostics::Diagnostics`
+    |
+   ::: crates/rune/src/diagnostics/mod.rs:111:1
+    |
+111 | pub struct Diagnostics {
+    | ---------------------- method `emit` not found for this struct
+
+error[E0599]: no method named `emit` found for struct `diagnostics::Diagnostics` in the current scope
+   --> crates/rune/src/tests/macros.rs:224:21
+    |
+224 |         diagnostics.emit(&mut writer, &sources)?;
+    |                     ^^^^ method not found in `diagnostics::Diagnostics`
+    |
+   ::: crates/rune/src/diagnostics/mod.rs:111:1
+    |
+111 | pub struct Diagnostics {
+    | ---------------------- method `emit` not found for this struct
+
+error[E0026]: variant `compile::error::ErrorKind::VariableMoved` does not have a field named `moved_at`
+  --> crates/rune/src/tests/moved.rs:22:13
+   |
+22 |             moved_at: span!(69, 138)
+   |             ^^^^^^^^ variant `compile::error::ErrorKind::VariableMoved` does not have this field
+
+error[E0026]: variant `compile::error::ErrorKind::VariableMoved` does not have a field named `moved_at`
+  --> crates/rune/src/tests/moved.rs:44:13
+   |
+44 |             moved_at: span!(75, 147)
+   |             ^^^^^^^^ variant `compile::error::ErrorKind::VariableMoved` does not have this field
+
+error[E0599]: no method named `emit` found for struct `diagnostics::Diagnostics` in the current scope
+   --> crates/rune/src/tests/scripts.rs:56:21
+    |
+ 56 |         diagnostics.emit(&mut writer, &sources)?;
+    |                     ^^^^ method not found in `diagnostics::Diagnostics`
+    |
+   ::: crates/rune/src/diagnostics/mod.rs:111:1
+    |
+111 | pub struct Diagnostics {
+    | ---------------------- method `emit` not found for this struct
+
+error[E0599]: no method named `emit` found for struct `diagnostics::Diagnostics` in the current scope
+   --> crates/rune/src/tests/statics.rs:38:21
+    |
+ 38 |         diagnostics.emit(&mut writer, &sources)?;
+    |                     ^^^^ method not found in `diagnostics::Diagnostics`
+    |
+   ::: crates/rune/src/diagnostics/mod.rs:111:1
+    |
+111 | pub struct Diagnostics {
+    | ---------------------- method `emit` not found for this struct
+
+error[E0599]: no method named `emit` found for struct `diagnostics::Diagnostics` in the current scope
+   --> crates/rune/src/tests/statics.rs:70:17
+    |
+ 70 |     diagnostics.emit(&mut writer, &sources)?;
+    |                 ^^^^ method not found in `diagnostics::Diagnostics`
+    |
+   ::: crates/rune/src/diagnostics/mod.rs:111:1
+    |
+111 | pub struct Diagnostics {
+    | ---------------------- method `emit` not found for this struct
+
+error[E0599]: no method named `emit` found for struct `VmError` in the current scope
+  --> crates/rune/src/tests/vm_diagnostics.rs:28:11
+   |
+28 |     error.emit(&mut buffer, &sources).expect("Failed to emit");
+   |           ^^^^ method not found in `VmError`
+   |
+  ::: crates/rune/src/runtime/vm_error.rs:36:1
+   |
+36 | pub struct VmError {
+   | ------------------ method `emit` not found for this struct
+
+Some errors have detailed explanations: E0026, E0432, E0433, E0599.
+For more information about an error, try `rustc --explain E0026`.
+error: could not compile `rune` (lib test) due to 32 previous errors
