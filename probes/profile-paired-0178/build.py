@@ -8,8 +8,9 @@
 2. One timed `cargo fetch --locked` for the harness, then 18 builds in the frozen order P0-B, P1-B, P1-S75, P0-S75,
 	P0-S76, P1-S76, each as primary, counter, allocation. Every build gets the SAME freshly emptied target path, -j8,
 	--locked --offline, EB (no RUSTFLAGS), `cargo build -v` retained. Only [profile.release] of the harness manifest
-	changes (0174 mechanics); the manifest is restored and verified after every build. Build cost (compile, link and
-	copy) is one observation per cell.
+	changes (0174 mechanics); the profile section is set once per (profile, source) cell and the manifest is restored
+	and sha-verified at each cell boundary (after its three kinds). Build cost is the wall time of the `cargo build`
+	command alone (compile and link; it excludes the binary copy and identity extraction), one observation per build.
 3. Effective settings from the verbose rustc lines: every invocation building linked code (`-C opt-level=3`) carries
 	`-C codegen-units=1` under P1 and no codegen-units flag under P0; host build-dependency invocations are counted
 	separately; rune's actual --cfg feature set, which must not contain tracing.
@@ -43,8 +44,15 @@ def step(out, ledger, label, argv, env, cwd=None, timeout=3600):
 	elapsed = time.monotonic() - began
 	(out / f"{label}.log").write_text(log)
 	ledger.write(kind="step", label=label, argv=argv, env=env, cwd=str(cwd) if cwd else None, status=status, seconds=elapsed,
-		reaped=r.reaped, group_survivors=r.survivors)
+		timed_out=r.timed_out, interrupted=r.interrupted, reaped=r.reaped, group_survivors=r.survivors)
+	lifecycle_gate(r, label)  # after retention: a clean exit status alone is not accepted
 	return status, log, elapsed
+
+
+def lifecycle_gate(r, label):
+	"""Reject a deadline, interrupt, unreaped leader or any live group survivor, whatever the exit status."""
+	if r.timed_out or r.interrupted or r.reaped is not True or r.survivors:
+		raise SystemExit(("STOP: process lifecycle", label, r.timed_out, r.interrupted, r.reaped, r.survivors))
 
 
 def rustc_lines(log):
@@ -107,7 +115,10 @@ def main(out):
 	# 2. One timed locked fetch, then the 18 builds.
 	began = time.monotonic()
 	f = run_bounded(["cargo", "fetch", "--locked", "--manifest-path", str(MANIFEST)], 1800, EB)
-	res["fetch"] = {"status": f.returncode, "seconds": time.monotonic() - began, "timed_out": f.timed_out}
+	res["fetch"] = {**f.record(), "seconds": time.monotonic() - began}
+	(out / "fetch.log").write_text(f.stdout + f.stderr)
+	(out / "partial.json").write_text(json.dumps(res, indent=1) + "\n")
+	lifecycle_gate(f, "fetch")
 	assert f.returncode == 0, ("STOP: fetch", f.stderr[-500:])
 	bindir = fresh(HERE / "bin")
 	bindir.mkdir()

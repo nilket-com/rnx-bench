@@ -468,6 +468,25 @@ def alloc_gate(alloc):
 		raise Stop(("allocation", problems))
 
 
+def bind_pair(m, profile, source):
+	"""Bind the roles to one (profile, candidate) pair, replacing ALL per-pair state, and check every role artifact
+	against the frozen manifest by its full profile-qualified name: no same-named or default artifact can be used."""
+	global PROFILE
+	if profile not in PROFILES or source not in SOURCES or source == "base":
+		raise Stop(("unknown pair", profile, source))
+	PROFILE = profile
+	ROLE.clear()
+	ROLE.update(base=f"{profile}-base", cand=f"{profile}-{source}")
+	HASHES.clear()
+	for role in ("base", "cand"):
+		for kind in ("primary", "counter", "allocation"):
+			key = f"{ROLE[role]}-{kind}"
+			if key not in m["binaries"] or sha(artifact(role, kind)) != m["binaries"][key]:
+				raise Stop(("pair artifact does not match the manifest", key))
+		HASHES[role] = m["binaries"][f"{ROLE[role]}-primary"]
+	return dict(ROLE), dict(HASHES)
+
+
 def verify_manifest(path):
 	"""Every frozen identity must still hold; returns the list of mismatches (empty when the run may proceed)."""
 	m = json.loads(pathlib.Path(path).read_text())
@@ -487,8 +506,9 @@ def verify_manifest(path):
 		b = json.loads(receipt.read_text())
 		if b["sources"] != m["sources"] or {k: v["sha256"] for k, v in b["builds"].items()} != m["binaries"]:
 			bad.append(("build receipt content",))
+		bad += freeze.identity_problems(m, b)
 		for primary in [f"{p}-{s}-primary" for p in PROFILES for s in SOURCES]:
-			if b["builds"][primary].get("rune_features") != m["rune_features"]:
+			if b["builds"].get(primary, {}).get("rune_features") != m["rune_features"]:
 				bad.append(("feature set", primary))
 		if "tracing" in m["rune_features"]:
 			bad.append(("tracing in feature set",))
@@ -584,11 +604,23 @@ def reproduce(tmp, sink, ref69, r71):
 	return repro
 
 
+def reproduction_phase(out, tmp, sink, ref69, r71, res):
+	"""P0 pairs reproduce the historical references (2% gate on applicable rows); P1 pairs never call reproduce() and
+	record "not applicable" (plan section 4)."""
+	if PROFILE != "p0":
+		res["reproduction"] = "not applicable: default-profile historical references do not apply to P1 (plan section 4)"
+		persist(out, "base-reproduction.json", {"applicable": False, "reason": res["reproduction"]})
+		return None
+	repro = reproduce(tmp, sink, ref69, r71)
+	persist(out, "base-reproduction.json", repro)
+	bad = {k: v["ratio"] for k, v in repro.items() if v["gated"] and abs(v["ratio"] - 1) > 0.02}
+	if bad:
+		raise Stop(("base reproduction", bad))
+	print("reproduction: gated rows within 2%; descriptive", {k: round(v["difference"]) for k, v in repro.items() if not v["gated"]}, flush=True)
+	return repro
+
+
 def main(out, profile, source, manifest=MANIFEST):
-	global PROFILE
-	assert profile in PROFILES and source in SOURCES and source != "base", (profile, source)
-	PROFILE = profile
-	ROLE.update(base=f"{profile}-base", cand=f"{profile}-{source}")
 	out = pathlib.Path(out)
 	out.mkdir(parents=True, exist_ok=False)
 	# 0. Bind to the reviewed build before anything else; a mismatch refuses with no phase begun.
@@ -596,7 +628,11 @@ def main(out, profile, source, manifest=MANIFEST):
 	if bad:
 		persist(out, "refused.json", {"manifest": str(manifest), "mismatches": bad})
 		raise Stop(("manifest mismatch: refusing before any phase", bad))
-	HASHES.update(base=m["binaries"][f"{ROLE['base']}-primary"], cand=m["binaries"][f"{ROLE['cand']}-primary"])
+	try:
+		bind_pair(m, profile, source)
+	except Stop as stop:
+		persist(out, "refused.json", {"manifest": str(manifest), "pair": [profile, source], "mismatches": [repr(stop)]})
+		raise
 	tmp = out / "tmp"
 	tmp.mkdir()
 	assert os.stat(tmp).st_dev == os.stat(out).st_dev
@@ -687,17 +723,7 @@ def main(out, profile, source, manifest=MANIFEST):
 		return
 	# 2. Historical reproduction on the base (0172's reviewed method; tiny FIFO windows descriptive).
 	phase(out, "reproduction")
-	repro = {}
-	if PROFILE != "p0":
-		res["reproduction"] = "not applicable: default-profile historical references do not apply to P1 (plan section 4)"
-		persist(out, "base-reproduction.json", {"applicable": False, "reason": res["reproduction"]})
-	else:
-		repro = reproduce(tmp, sink, ref69, r71)
-		persist(out, "base-reproduction.json", repro)
-		bad = {k: v["ratio"] for k, v in repro.items() if v["gated"] and abs(v["ratio"] - 1) > 0.02}
-		if bad:
-			raise Stop(("base reproduction", bad))
-		print("reproduction: gated rows within 2%; descriptive", {k: round(v["difference"]) for k, v in repro.items() if not v["gated"]}, flush=True)
+	reproduction_phase(out, tmp, sink, ref69, r71, res)
 	# 3. PMU.
 	phase(out, "pmu")
 	pmu = compare(WORKLOADS, sink)
