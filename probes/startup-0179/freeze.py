@@ -92,7 +92,8 @@ def main(run):
 	for name, blob in fixture_blobs.items():
 		assert blob == blobs[f"crates/rune/src/compile/startup_fixtures/{name}"]["base"], ("bench fixture differs from the fork's copy", name)
 	neutrality = build["neutrality"]
-	assert neutrality["identical"] is True and neutrality["sha256"] == neutrality["reference_sha256"], ("neutrality control", neutrality)
+	assert neutrality["accepted"] is True and not neutrality["comparison"]["problems"] and \
+		neutrality["text_sha256"] == neutrality["reference_text_sha256"], ("neutrality control", neutrality)
 	assert build["candidate_diff"]["production_files"] == ["crates/rune/src/compile/context.rs"], build["candidate_diff"]
 	manifest = {
 		"sources": SOURCES, "production_parent": PRODUCTION_PARENT,

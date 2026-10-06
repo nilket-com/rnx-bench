@@ -1,0 +1,15 @@
+base all-features {'rev': '4e84cfacc0278a4f1645c14310453bdc30ac77b4', 'status': 0, 'passed': 601, 'failed': 0, 'seconds': 140.52116607199423}
+base production-features {'rev': '4e84cfacc0278a4f1645c14310453bdc30ac77b4', 'status': 0, 'passed': 6, 'failed': 0, 'seconds': 27.22443502699025}
+base no-std {'rev': '4e84cfacc0278a4f1645c14310453bdc30ac77b4', 'status': 0, 'passed': 0, 'failed': 0, 'seconds': 18.093083916930482}
+cand all-features {'rev': 'b28f8cb3345448914ef4e35514d802d1795f16ac', 'status': 0, 'passed': 602, 'failed': 0, 'seconds': 136.93658893089741}
+cand production-features {'rev': 'b28f8cb3345448914ef4e35514d802d1795f16ac', 'status': 0, 'passed': 7, 'failed': 0, 'seconds': 26.866496641887352}
+cand no-std {'rev': 'b28f8cb3345448914ef4e35514d802d1795f16ac', 'status': 0, 'passed': 0, 'failed': 0, 'seconds': 18.041819158941507}
+neutrality 619d30c316b1 reference 7a66b042e865 DIFFERENT
+Traceback (most recent call last):
+  File "/home/me/work/rnx-bench-w-0179d/probes/startup-0179/build.py", line 212, in <module>
+    main(sys.argv[1])
+    ~~~~^^^^^^^^^^^^^
+  File "/home/me/work/rnx-bench-w-0179d/probes/startup-0179/build.py", line 154, in main
+    assert got == reference, ("STOP: the tests-first base is not production-neutral under the unchanged harness", got, reference)
+           ^^^^^^^^^^^^^^^^
+AssertionError: ('STOP: the tests-first base is not production-neutral under the unchanged harness', '619d30c316b18ae3bd51d9de3ccd34bc5e0f3e2c35c42d1dea276ed84def9641', '7a66b042e8656c4a0cbb4c4641b827c34c6f458bc1e442e87b556612d8d05014')
