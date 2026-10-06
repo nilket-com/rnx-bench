@@ -16,10 +16,12 @@ in-process addition is registering the F1 group definition in the 0180 library's
 argv builder and parser apply; the six 0180 definitions are not touched (checked by a control).
 
 Sampling, classification, stop policy (anchor, safety, identity and deadline problems global; a defect of the F1
-counter row group-local), reproduction anchors, the descriptive "resolved" rule, deadlines, retention and the
-sentinel scan are 0181's. What is new is stage_a(): the statuses, disposition and contrast flag of plan section 3.
+counter row group-local), reproduction anchors, the descriptive "resolved" rule, deadlines and retention are
+0181's. Sentinel scope, as inherited: the official run scans everything it wrote on success and on failure, and a hit or
+scan error overrides its status; rehearsal scans on its success path only; discovery sets no sentinel (it runs
+with a fixed minimal environment and writes only identity, probe rows and the manifest). What is new is stage_a(): the statuses, disposition and contrast flag of plan section 3.
 """
-import hashlib, json, os, pathlib, sys, time
+import hashlib, json, math, os, pathlib, sys, time
 
 HERE = pathlib.Path(__file__).resolve().parent
 REPO = HERE.parents[1]
@@ -68,6 +70,26 @@ def resolves(q, direction):
 	return isinstance(q, dict) and q.get("resolved") is True and q.get("direction") == direction
 
 
+def checked(q, what):
+	"""A summary quantity as the decision uses it, or Stop. `difference` a finite number (not bool, not a string);
+	`resolved` exactly a bool; `direction` exactly "up", "down" or "none" and consistent with the sign of the
+	difference; a resolved quantity cannot have a zero difference. The inherited summarizer emits coherent fields;
+	this guards the decision boundary against a malformed or contradictory summary."""
+	if not isinstance(q, dict) or "status" in q:
+		raise Stop(("summary quantity missing or undefined for a valid group", what))
+	d = q.get("difference")
+	if isinstance(d, bool) or not isinstance(d, (int, float)) or not math.isfinite(d):
+		raise Stop(("summary difference is not a finite number", what, d))
+	if not isinstance(q.get("resolved"), bool):
+		raise Stop(("summary `resolved` is not a bool", what, q.get("resolved")))
+	want = "up" if d > 0 else "down" if d < 0 else "none"
+	if q.get("direction") != want:
+		raise Stop(("summary `direction` is not consistent with its difference", what, q.get("direction"), d))
+	if q["resolved"] and d == 0:
+		raise Stop(("a resolved quantity cannot have a zero difference", what))
+	return q
+
+
 def window_status(state, quantities):
 	"""Status of F1 on one signal window, by the frozen precedence of plan section 3 (first match wins):
 	unavailable, failed, undefined, contrary, strong, weak, intermediate. Returns (status, detail)."""
@@ -77,13 +99,7 @@ def window_status(state, quantities):
 		return "failed", {}
 	if state != "valid":
 		raise Stop(("unknown collection state", state))
-	f1, cycles = quantities.get(F1_EVENT), quantities.get("cycles")
-	for q in (f1, cycles):
-		if not isinstance(q, dict) or "difference" not in q or "resolved" not in q:
-			raise Stop(("summary quantity missing or undefined for a valid group", sorted(quantities)[:6]))
-		if isinstance(q["difference"], bool) or not isinstance(q["difference"], (int, float)) or q["difference"] != q["difference"] \
-				or q["difference"] in (float("inf"), float("-inf")):
-			raise Stop(("non-finite difference in a valid group", q["difference"]))
+	f1, cycles = checked(quantities.get(F1_EVENT), F1_EVENT), checked(quantities.get("cycles"), "cycles")
 	detail = {"D_f1": f1["difference"], "D_cycles": cycles["difference"], "f1_resolved": f1["resolved"], "f1_direction": f1["direction"],
 		"cycles_resolved": cycles["resolved"], "cycles_direction": cycles["direction"]}
 	if not resolves(cycles, "up") or cycles["difference"] <= 0:
@@ -91,6 +107,8 @@ def window_status(state, quantities):
 	if resolves(f1, "down"):
 		return "contrary", detail
 	r = f1["difference"] / cycles["difference"]
+	if not math.isfinite(r):
+		raise Stop(("r is not finite", f1["difference"], cycles["difference"]))
 	detail["r"] = r
 	if resolves(f1, "up"):
 		if r >= 0.5:
@@ -135,6 +153,9 @@ def stage_a(f1_state, summary, states=None):
 	flags = {}
 	if f1_state == "valid":
 		smallest = min(windows[w]["D_f1"] for w in SIGNAL)
+		for w in CONTRAST + REPORTED:  # the same validation as the signal windows, before any flag or report is formed
+			checked(summary[w]["quantities"].get(F1_EVENT), (w, F1_EVENT))
+			checked(summary[w]["quantities"].get("cycles"), (w, "cycles"))
 		for w in CONTRAST:
 			q = summary[w]["quantities"][F1_EVENT]
 			flagged = resolves(q, "up") and q["difference"] >= 0.5 * smallest
@@ -147,9 +168,12 @@ def stage_a(f1_state, summary, states=None):
 			"It qualifies the inference and does not change the disposition."}
 	event = locating_event(states)
 	out["locating_event"] = event
-	out["stage_b_proposal_permitted"] = bool(event) and disposition in ("A-strengthened", "A-mixed")
+	# This record excludes F2 and F3, so no Stage B proposal is ever permitted by this driver. General Stage B
+	# eligibility for a valid locating event (which also requires that event to resolve up on all three signal
+	# windows) is NOT implemented here; locating_event() is only the state selector, tested separately.
+	out["stage_b_proposal_permitted"] = False
 	out["closure"] = "The record closes at Stage A with this counting result: no locating event is available." if not event else \
-		"A Stage B proposal would need its own reviewed amendment."
+		"Not evaluated: Stage B eligibility for a collected locating event is not implemented in this driver."
 	out["limits"] = ("r is a ratio of two differences of pooled medians: a comparison of magnitudes, not a same-sample ratio and not an "
 		"accounting of where cycles went. A-strengthened does not make the switch penalty an additive explanation of the excess.")
 	return out
