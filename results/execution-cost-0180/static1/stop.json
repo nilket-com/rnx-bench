@@ -1,0 +1,17 @@
+{
+ "status": "STOP",
+ "phase": "base-primary extraction",
+ "exit": 1,
+ "reason": "Vm::run absent: filter failed to admit actual nm spelling <rune::runtime::vm::Vm>::run",
+ "source_commit": "2d42ef3b",
+ "subject_executions": 0,
+ "replay_performed": false,
+ "invocation": [
+  "python3",
+  "probes/execution-cost-0180/static.py",
+  ".",
+  "/home/me/work/rnx-bench-w-0179d/probes/startup-0179/bin",
+  "results/execution-cost-0180/static1"
+ ],
+ "outer": "flock /tmp/rnx-runtime-bench.lock timeout --kill-after=5s 600s"
+}
