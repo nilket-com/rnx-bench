@@ -9,8 +9,8 @@ and gate lists; rebuilds allocation counts, calibration differences and
 historical reproduction medians from the pinned references. Both cold
 first-use outputs are checked explicitly. Cycles are descriptive.
 
-Commands (read-only, under /tmp/rnx-runtime-bench.lock; command timeout120s,
-five-second kill grace), exit0 each:
+Commands (read-only, under /tmp/rnx-runtime-bench.lock; command timeout 120s,
+five-second kill grace), exit 0 each:
 
 ```sh
 python3 probes/startup-0179/audit.py results/startup-0179/official1/p0-cand
@@ -18,7 +18,7 @@ python3 probes/startup-0179/audit_controls.py results/startup-0179/official1/p0-
 ```
 
 `audit.json` is the independent report, bound to the official raw-file SHA-256.
-`controls.json` accepts the original and refuses11 altered copies. Missing
+`controls.json` accepts the original and refuses 11 altered copies. Missing
 PMU/wall samples or first-use workloads, changed medians/allocation counts,
 forged first-use output/hash/decision/gate list and NaN cycle median fail.
 Controls create temporary copied cells and remove only those copies; neither
