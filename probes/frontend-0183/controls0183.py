@@ -158,10 +158,37 @@ def main(out):
 				("f1-undefined-status", lambda s: s.update({ev.F1_EVENT: {"status": "undefined (zero denominator in at least one sample)"}})),
 				("nan-difference", lambda s: s[ev.F1_EVENT].update(difference=math.nan)), ("inf-difference", lambda s: s["cycles"].update(difference=math.inf)),
 				("bool-difference", lambda s: s["cycles"].update(difference=True)), ("string-difference", lambda s: s[ev.F1_EVENT].update(difference="600")),
-				("resolved-missing", lambda s: s[ev.F1_EVENT].pop("resolved"))):
+				("resolved-missing", lambda s: s[ev.F1_EVENT].pop("resolved")),
+				("resolved-string", lambda s: s[ev.F1_EVENT].update(resolved="true")), ("resolved-int", lambda s: s["cycles"].update(resolved=1)),
+				("resolved-none", lambda s: s[ev.F1_EVENT].update(resolved=None)),
+				("direction-sideways", lambda s: s[ev.F1_EVENT].update(direction="sideways")), ("direction-missing", lambda s: s["cycles"].pop("direction")),
+				("positive-difference-direction-down", lambda s: s[ev.F1_EVENT].update(direction="down")),
+				("negative-difference-direction-up", lambda s: s[ev.F1_EVENT].update(difference=-600.0, direction="up")),
+				("zero-difference-direction-up", lambda s: s[ev.F1_EVENT].update(difference=0.0, direction="up", resolved=False)),
+				("resolved-with-zero-difference", lambda s: s[ev.F1_EVENT].update(difference=0.0, direction="none", resolved=True)),
+				("cycles-direction-contradicts", lambda s: s["cycles"].update(direction="down"))):
 			s = copy.deepcopy(good)
 			change(s)
 			got[name] = refused(lambda: ev.window_status("valid", s))
+		# The reviewer's three reproducers, which the first form classified as weak, weak and contrary.
+		for name, bad in (("reproducer-resolved-string", {"difference": 600, "resolved": "true", "direction": "up"}),
+				("reproducer-direction-sideways", {"difference": 600, "resolved": True, "direction": "sideways"}),
+				("reproducer-positive-down", {"difference": 600, "resolved": True, "direction": "down"})):
+			s = copy.deepcopy(good)
+			s[ev.F1_EVENT] = bad
+			got[name] = refused(lambda: ev.window_status("valid", s))
+		# The same validation guards the contrast and reported windows before any flag or report is formed.
+		for name, window, key, change in (("contrast-resolved-string", "run-while", ev.F1_EVENT, {"resolved": "true"}),
+				("contrast-direction-contradicts", "run-empty", ev.F1_EVENT, {"direction": "down"}), ("contrast-cycles-nan", "run-while", "cycles", {"difference": math.nan}),
+				("reported-direction-sideways", "run-fib", ev.F1_EVENT, {"direction": "sideways"}), ("reported-cycles-resolved-int", "run-calls", "cycles", {"resolved": 1}),
+				("contrast-quantity-missing", "run-while", ev.F1_EVENT, None)):
+			full = summary({})
+			if change is None:
+				full[window]["quantities"].pop(key)
+			else:
+				full[window]["quantities"][key].update(change)
+			got[name] = refused(lambda: ev.stage_a("valid", full))
+		assert ev.stage_a("valid", summary({}))["disposition"] == "A-weakened"  # the unmodified summary is accepted
 		return got
 
 	@control("S1-every-disposition-and-precedence")
@@ -205,8 +232,11 @@ def main(out):
 		for name, (states, want) in rule.items():
 			assert ev.locating_event(states) == want, (name, ev.locating_event(states))
 			got[name] = want
-		weakened = ev.stage_a("valid", summary(same(weak)), states={"F2": "valid", "F3": "valid"})
-		assert weakened["locating_event"] == "F3" and weakened["stage_b_proposal_permitted"] is False  # A-weakened closes whatever F2/F3 show
+		# With hypothetical valid F2/F3 states the selector names an event, but this driver never permits a Stage B
+		# proposal and says that general eligibility is not implemented, under every disposition.
+		for spec in (same(weak), same(strong), {ev.SIGNAL[0]: strong, ev.SIGNAL[1]: weak, ev.SIGNAL[2]: weak}):
+			hypothetical = ev.stage_a("valid", summary(spec), states={"F2": "valid", "F3": "valid"})
+			assert hypothetical["locating_event"] == "F3" and hypothetical["stage_b_proposal_permitted"] is False and "not implemented" in hypothetical["closure"]
 		return got
 
 	@control("S1-contrast-flag-thresholds")

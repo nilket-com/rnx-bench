@@ -1,0 +1,68 @@
+{
+ "record": "0183",
+ "status": "available",
+ "order": [
+  "R",
+  "F1"
+ ],
+ "groups": {
+  "R": {
+   "argv": [
+    "perf",
+    "stat",
+    "-j",
+    "--no-scale",
+    "-e",
+    "{cpu_core/instructions,name=instructions/u,cpu_core/cpu-cycles,name=cycles/u}:D",
+    "--"
+   ],
+   "eligible": true,
+   "checks": [
+    {
+     "eligible": true,
+     "detail": "ok"
+    },
+    {
+     "eligible": true,
+     "detail": "ok"
+    }
+   ]
+  },
+  "F1": {
+   "argv": [
+    "perf",
+    "stat",
+    "-j",
+    "--no-scale",
+    "-e",
+    "{cpu_core/instructions,name=instructions/u,cpu_core/cpu-cycles,name=cycles/u,cpu_core/event=0x61,umask=0x02,name=dsb2mite_penalty_cycles/u}:D",
+    "--"
+   ],
+   "eligible": true,
+   "checks": [
+    {
+     "eligible": true,
+     "detail": "ok"
+    },
+    {
+     "eligible": true,
+     "detail": "ok"
+    }
+   ]
+  }
+ },
+ "excluded": {
+  "F2": "not collected (unavailable)",
+  "F3": "not collected (unavailable)"
+ },
+ "identity_sha256": "c281c11d5b0a0d3552415836e66635a9aed03c6fa3162c06f7f921848882f2aa",
+ "primaries": {
+  "base": "af06e8b3b1621b7f763dfb39f967fab1cca0b9b615b145152634463cefbb0c87",
+  "cand": "e4a5f207c38a8ae59bc311e3611a6bdd3d542fe82665a8e12b201f61eaf9a787"
+ },
+ "libraries": {
+  "probes/execution-cost-0180/events.py": "36595033600391e412897f2676364a62411c4d8691cf5eb9f5998a1ef2fc10c2",
+  "probes/execution-cost-0181/events0181.py": "bb44cf0df873ac6412298f643e4957cc1eb491cc23f091cdbd4f0185224d94c7",
+  "probes/startup-0179/common.py": "abd19671c56d7e8f9a6a07f72a3b98b39e2ef0dfdc45a0602e31937954c9ddba"
+ }
+}
