@@ -1,0 +1,68 @@
+{
+  "status": "PASS",
+  "commands": 98,
+  "runs": {
+    "p0-base/context": 27355056,
+    "p0-base/run-numeric": 1759601771,
+    "p0-base/run-fib": 834108466,
+    "p0-base/run-calls": 1780681404,
+    "p0-s75/context": 27913379,
+    "p0-s75/run-numeric": 1222060374,
+    "p0-s75/run-fib": 905438920,
+    "p0-s75/run-calls": 1851140072,
+    "p0-s76/context": 27913433,
+    "p0-s76/run-numeric": 1196060387,
+    "p0-s76/run-fib": 899082757,
+    "p0-s76/run-calls": 1838140106,
+    "p1-base/context": 27027057,
+    "p1-base/run-numeric": 1816253449,
+    "p1-base/run-fib": 925924949,
+    "p1-base/run-calls": 1937333063,
+    "p1-s75/context": 27027362,
+    "p1-s75/run-numeric": 1278253786,
+    "p1-s75/run-fib": 946900736,
+    "p1-s75/run-calls": 1978333392,
+    "p1-s76/context": 27027362,
+    "p1-s76/run-numeric": 1308253821,
+    "p1-s76/run-fib": 946900745,
+    "p1-s76/run-calls": 1983333398
+  },
+  "symbols": {
+    "p0-base": {
+      "run_bytes": 102615,
+      "op_call_bytes": 2908,
+      "repr_drop_symbols": 22
+    },
+    "p0-s75": {
+      "run_bytes": 100063,
+      "op_call_bytes": 2952,
+      "repr_drop_symbols": 22
+    },
+    "p0-s76": {
+      "run_bytes": 99475,
+      "op_call_bytes": 2952,
+      "repr_drop_symbols": 22
+    },
+    "p1-base": {
+      "run_bytes": 101617,
+      "op_call_bytes": 2883,
+      "repr_drop_symbols": 2
+    },
+    "p1-s75": {
+      "run_bytes": 103806,
+      "op_call_bytes": 2883,
+      "repr_drop_symbols": 2
+    },
+    "p1-s76": {
+      "run_bytes": 102598,
+      "op_call_bytes": 2883,
+      "repr_drop_symbols": 2
+    }
+  },
+  "limits": [
+    "Ir is Callgrind instrumented events, not native PMU instructions.",
+    "Exclusive attribution may move across function boundaries.",
+    "Repr drop symbols exist in both base and candidate; absence from a thresholded table does not mean absent work.",
+    "No causal intervention identifies why the compiled code changed."
+  ]
+}

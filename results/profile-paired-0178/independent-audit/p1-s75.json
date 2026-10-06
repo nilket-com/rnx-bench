@@ -1,0 +1,73 @@
+{
+  "decision": "STOP",
+  "raw_rows": 888,
+  "kinds": {
+    "affinity-control": 10,
+    "correctness": 120,
+    "allocation": 52,
+    "pmu": 420,
+    "calibration-warm": 2,
+    "calibration": 2,
+    "calibration-hyperfine": 2,
+    "wall": 252,
+    "lua-warm": 4,
+    "lua": 24
+  },
+  "pmu_workloads": 21,
+  "wall_workloads": 21,
+  "regressions": [
+    [
+      "run-fib",
+      "instructions",
+      0.022666474974053052
+    ],
+    [
+      "run-while",
+      "instructions",
+      0.026819136236914565
+    ],
+    [
+      "run-compare",
+      "instructions",
+      0.027969743222907573
+    ],
+    [
+      "run-calls",
+      "instructions",
+      0.0211689771166097
+    ],
+    [
+      "run-calls",
+      "wall",
+      0.014705015280812805
+    ],
+    [
+      "run-vector",
+      "instructions",
+      0.02405789643747891
+    ],
+    [
+      "run-overwrite_inline",
+      "instructions",
+      0.027874955824569447
+    ],
+    [
+      "run-overwrite_mixed",
+      "instructions",
+      0.017847291950066513
+    ],
+    [
+      "run-overwrite_deep",
+      "instructions",
+      0.009543424354445884
+    ],
+    [
+      "run-range_while",
+      "instructions",
+      0.024540882335077008
+    ]
+  ],
+  "disagreements": [],
+  "numeric_allocation_change": -0.9646354638936585,
+  "raw_sha256": "9393bf3eb3feb08e8bb06cf3799680c0eac9f7a52fca98f730d22cf2be82cfd0"
+}
