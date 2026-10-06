@@ -32,3 +32,20 @@ Arithmetic uses whole-process medians minus run-empty, without modifying any
 0179 result. Script hashes and source texts bind loop counts; fib's recurrence
 counts all leaf and nonleaf invocations separately. Small integer residues
 are reported, not discarded or treated as causal proof.
+
+## Native-event attempt and closure audit
+
+The reviewed events.py driver made exactly one official attempt. It stopped
+on the frozen group-B validity check after R and A completed. See
+results/execution-cost-0180/OFFICIAL.md for the retained partial findings and
+disclosures. No subsequent measurement is authorized by these files.
+
+Reconstruct the raw-row ordering, sample validity, R/A summaries and printed
+tables without executing a subject or opening a counter:
+
+```sh
+python3 probes/execution-cost-0180/audit.py
+```
+
+The closure audit pins the official raw hash and stops on any discrepancy.
+Its receipt is results/execution-cost-0180/audit.json.

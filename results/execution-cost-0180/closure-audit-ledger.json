@@ -1,0 +1,36 @@
+[
+ {
+  "argv": [
+   "flock",
+   "--exclusive",
+   "--timeout",
+   "60",
+   "/tmp/rnx-runtime-bench.lock",
+   "python3",
+   "probes/execution-cost-0180/audit.py"
+  ],
+  "cwd": "/home/me/work/.worktrees/rnx-bench-0180",
+  "status": 0,
+  "script_sha256": "ac48ace260d2302f33c2b39dfb08fbbb5e55c7247f0df7fe7fefb548153c89e4",
+  "stdout_file": "results/execution-cost-0180/audit.json",
+  "stdout_sha256": "92ea0c01c3fc588c736c649513e0b125a4eee51bb79ba878d78de353c56c3f4b",
+  "subject_executions": 0
+ },
+ {
+  "argv": [
+   "flock",
+   "--exclusive",
+   "--timeout",
+   "60",
+   "/tmp/rnx-runtime-bench.lock",
+   "python3",
+   "probes/execution-cost-0180/controls.py"
+  ],
+  "cwd": "/home/me/work/.worktrees/rnx-bench-0180",
+  "status": 0,
+  "script_sha256": "08fec7587844b14193e1a8a96caf446528849c007d4e44ff7035b5d29be38819",
+  "stdout_file": "results/execution-cost-0180/closure-static-controls.json",
+  "stdout_sha256": "3e7b2504858f56bffc6bc386a6681ad5e96229e049ff4c21c3e6ecec3711b16f",
+  "subject_executions": 0
+ }
+]

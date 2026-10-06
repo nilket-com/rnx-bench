@@ -23,8 +23,8 @@ repaired, replayed or added after the result. 0179's STOP is unchanged; no engin
 - `rehearsal1` ran before the discovery/availability receipts had been reviewed, against the agreed order. It executed
   no experiment subject or workload (one probe on the grep affinity command and one deliberately failing command). It
   is retained unchanged with a note beside it and was not accepted as the rehearsal.
-- Review of the first driver found four defects, each reproduced by the reviewer without perf, all repaired before any
-  workload ran: admission ignored the identity receipt and allowed an eligible group to be dropped (R1); the parser
+- Review of the first driver found four defects, all repaired before any workload ran. Identity/parser defects were
+  reproduced by the reviewer without perf; deadline and scan-status defects were identified by source inspection: admission ignored the identity receipt and allowed an eligible group to be dropped (R1); the parser
   accepted missing, non-finite or negative running times and arbitrary units (R2); outer deadlines were checked only
   before a sample (R3); a sentinel hit after a "complete" status left the report complete (R4). A further gap, the
   rehearsal probe's status and output being unchecked, was closed in b92ee986. The 12 retained discovery rows pass the
@@ -73,7 +73,7 @@ descriptive).
 | run-while | +0.22% | +0.18% | +0.05% | -0.783% | -0.783% | -0.783% |
 | run-empty | -4.53% | -4.47% | -5.45% | -6.854% | -6.854% | -6.855% |
 
-Group A, same-sample quantities. "Resolved" is the frozen descriptive rule: all five ABBA paired contrasts with one
+Group A, same-sample quantities. `task_clock` is in milliseconds; context switches are counts. "Resolved" is the frozen descriptive rule: all five ABBA paired contrasts with one
 strict sign AND the pooled median difference beyond the base p10-p90 width. It is not a confidence interval.
 
 | Workload | Quantity | Base median | Candidate median | Relative | Five paired contrasts | Base p10-p90 width | Frozen rule |
