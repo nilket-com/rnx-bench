@@ -1,0 +1,31 @@
+rehearsal: 0 occurrences
+correctness: 40 identical
+allocation: context delta 1 numeric calls [1036660, 36661] budgets {'numeric-budget-zero': [36659, 36660, 1], 'numeric-budget-default': [1036660, 36661, 0], 'numeric-budget-unlimited': [1036661, 36662, 0], 'numeric-budget-tight': [36773, 36664, 1]}
+reproduction: gated rows within 2%; descriptive {'0169 fifo floor None': 19, '0169 fifo empty-context None': 21}
+pmu done
+calibration: {'true': -0.009, 'floor': -0.003}
+wall done
+DECISION STOP regressions [('context', 'instructions', 0.020856898493216258), ('runtime', 'instructions', 0.018064958661742736), ('compile-answer', 'instructions', 0.015389494459425723), ('run-answer', 'instructions', 0.015417099618623364), ('run-empty', 'instructions', 0.017992039625040146), ('run-fib', 'instructions', 0.08557286910455408), ('run-fib', 'wall', 0.08213159852105179), ('run-calls', 'instructions', 0.03958120929254072), ('run-calls', 'wall', 0.04943840858946369), ('run-overwrite_alias', 'instructions', 0.015202925932523703)] disagreements []
+win instr {'run-numeric': '-30.56%', 'run-range_signed': '-37.48%', 'run-range_negative': '-37.48%'} numeric alloc -96.46%
+floor: instr +0.051% wall +1.53% (band 0.169 ms)
+empty-context: instr +0.118% wall -0.78% (band 0.137 ms)
+context: instr +2.086% wall +0.52% (band 0.432 ms)
+runtime: instr +1.806% wall +0.51% (band 0.449 ms)
+compile-answer: instr +1.539% wall +0.43% (band 0.566 ms)
+run-answer: instr +1.542% wall -0.55% (band 0.530 ms)
+run-empty: instr +1.799% wall +1.21% (band 0.478 ms)
+run-numeric: instr -30.558% wall -40.14% (band 5.308 ms)
+run-fib: instr +8.557% wall +8.21% (band 1.118 ms)
+run-strings: instr -9.076% wall -9.35% (band 1.041 ms)
+run-while: instr -0.047% wall -0.20% (band 0.941 ms)
+run-compare: instr -0.058% wall -0.77% (band 1.501 ms)
+run-calls: instr +3.958% wall +4.94% (band 1.619 ms)
+run-vector: instr +0.081% wall -1.99% (band 1.632 ms)
+run-overwrite_inline: instr -2.936% wall -1.33% (band 1.200 ms)
+run-overwrite_mixed: instr -0.981% wall -0.33% (band 1.384 ms)
+run-overwrite_deep: instr -0.564% wall -3.23% (band 2.245 ms)
+run-overwrite_alias: instr +1.520% wall +0.07% (band 0.522 ms)
+run-range_signed: instr -37.475% wall -49.99% (band 5.049 ms)
+run-range_negative: instr -37.475% wall -50.05% (band 5.332 ms)
+run-range_while: instr -0.058% wall +2.01% (band 1.174 ms)
+lua {'lua54-numeric': 6.422, 'lua54-while': 9.642, 'luajit-numeric': 8.276, 'luajit-while': 8.288}
