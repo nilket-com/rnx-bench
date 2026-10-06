@@ -1,0 +1,33 @@
+{
+ "kind": "rehearsal",
+ "argv": [
+  "perf",
+  "stat",
+  "-j",
+  "--cputype",
+  "core",
+  "-e",
+  "instructions:u,cycles:u",
+  "--",
+  "/home/me/work/rnx-bench-w-0176d/probes/range-iteration-0176/bin/base-primary",
+  "floor"
+ ],
+ "status": 0,
+ "stdout": "",
+ "stderr": "{\"counter-value\" : \"450541.000000\", \"unit\" : \"\", \"event\" : \"cpu_core/instructions/u\", \"event-runtime\" : 686982, \"pcnt-running\" : 100.00}\n{\"counter-value\" : \"540686.000000\", \"unit\" : \"\", \"event\" : \"cpu_core/cycles/u\", \"event-runtime\" : 686982, \"pcnt-running\" : 100.00}\n",
+ "timed_out": false,
+ "interrupted": false,
+ "reaped": true,
+ "group_survivors": [],
+ "controller_affinity": [
+  4
+ ],
+ "env": {
+  "PATH": "/usr/bin:/bin",
+  "HOME": "/home/me",
+  "LANG": "C.UTF-8"
+ },
+ "cwd": "/home/me/work/rnx-bench-w-0176d/probes/range-iteration-0176",
+ "instructions": 450541.0,
+ "cycles": 540686.0
+}
