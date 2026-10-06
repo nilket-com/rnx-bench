@@ -1,0 +1,466 @@
+{
+ "status": "complete",
+ "started": 1791249205.7851665,
+ "env": {
+  "PATH": "/usr/bin:/bin",
+  "HOME": "/home/me",
+  "LANG": "C.UTF-8",
+  "VALGRIND_LIB": "/home/me/.local/opt/valgrind/usr/libexec/valgrind"
+ },
+ "tools": {
+  "valgrind": {
+   "version": "valgrind-3.26.0",
+   "path": "/home/me/.local/opt/valgrind/usr/bin/valgrind",
+   "sha256": "b8d6a5217e6a34d020265be01eb6a243ce5914fe2eac44890140e1787142047b"
+  },
+  "nm": {
+   "version": "GNU nm (GNU Binutils for Ubuntu) 2.46",
+   "path": "/usr/bin/nm",
+   "sha256": "f04262bf48192a7cbb78a17ca49ae03f8930b0372bd0115576f957b2e2a57a01"
+  },
+  "objdump": {
+   "version": "GNU objdump (GNU Binutils for Ubuntu) 2.46",
+   "path": "/usr/bin/objdump",
+   "sha256": "44f07f8da860b15bd4dec909f229dec536595fb170a616fe3ab29c7b21c9736f"
+  },
+  "perl": {
+   "version": "This is perl 5, version 40, subversion 1 (v5.40.1) built for x86_64-linux-gnu-thread-multi",
+   "path": "/usr/bin/perl",
+   "sha256": "b8946c83070e6aa031495d36a17324d7ae3f29eee658a5ab4cc4fbd47c45520a"
+  }
+ },
+ "subjects": {
+  "base": {
+   "sha256": "7a66b042e8656c4a0cbb4c4641b827c34c6f458bc1e442e87b556612d8d05014",
+   "symbols": {
+    "run": [
+     {
+      "symbol": "<rune::runtime::vm::Vm>::run",
+      "address": 4053536,
+      "bytes": 102615
+     }
+    ],
+    "op_call": [
+     {
+      "symbol": "<rune::runtime::vm::Vm>::op_call",
+      "address": 4156160,
+      "bytes": 2908
+     }
+    ],
+    "op_call_fn": "absent (nm succeeded; not a separate symbol in this binary)",
+    "op_call_associated": "absent (nm succeeded; not a separate symbol in this binary)",
+    "try_range_next": "absent (nm succeeded; not a separate symbol in this binary)",
+    "try_range_dispatch": "absent (nm succeeded; not a separate symbol in this binary)"
+   },
+   "disassembly": {
+    "run.0": {
+     "symbol": "<rune::runtime::vm::Vm>::run",
+     "bytes": 102615,
+     "instructions": 19697,
+     "direct_calls": [
+      "<(rune::runtime::tuple::OwnedTuple,) as rune::runtime::args::Args",
+      "<<rune::runtime::any_obj::AnyObj",
+      "<bool as rune::runtime::from_value::FromValue",
+      "<core::hash::BuildHasherDefault<ahash::fallback_hash::AHasher",
+      "<futures_util::stream::futures_unordered::FuturesUnordered<rune::runtime::future::SelectFuture<usize, rune::runtime::ref::Mut<rune::runtime::future::Future",
+      "<rune::runtime::any_obj::AnyObj",
+      "<rune::runtime::env::no_std::ENV::{K#0}::{closure#1} as core::ops::function::FnOnce<(core::option::Option<&mut core::option::Option<core::cell::Cell<rune::runtime::env::Env",
+      "<rune::runtime::memory::Stack",
+      "<rune::runtime::value::Value",
+      "<rune::runtime::value::Value as core::clone::Clone",
+      "<rune::runtime::value::any_sequence::AnySequence<rune_alloc::sync::Arc<rune::runtime::value::rtti::Rtti",
+      "<rune::runtime::value::any_sequence::AnySequenceData<rune_alloc::sync::Arc<rune::runtime::value::rtti::Rtti",
+      "<rune::runtime::value::dismantle::Worklist",
+      "<rune::runtime::value::inline::Inline",
+      "<rune::runtime::vm::Vm",
+      "<rune::runtime::vm::Vm as rune::runtime::protocol_caller::ProtocolCaller",
+      "<rune::runtime::vm_error::RuntimeError",
+      "<rune::runtime::vm_error::VmError",
+      "<rune::runtime::vm_error::VmError as core::convert::From<rune::runtime::memory::StoreError<core::convert::Infallible",
+      "<rune::runtime::vm_error::VmError as core::convert::From<rune::runtime::vm_error::RuntimeError",
+      "<rune::runtime::vm_error::VmError as core::convert::From<rune::runtime::vm_error::VmErrorKind",
+      "<rune_alloc::boxed::Box<[rune::runtime::value::Value]",
+      "<rune_alloc::boxed::Box<rune::runtime::vm_execution::VmResumeOwned",
+      "<rune_alloc::hashbrown::map::HashMap<rune_alloc::string::String, rune::runtime::value::Value",
+      "<rune_alloc::hashbrown::raw::RawTable<(rune_alloc::string::String, rune::runtime::value::Value)",
+      "<rune_alloc::raw_vec::RawVec<core::option::Option<rune::runtime::const_value::node::ConstValueBuf",
+      "<rune_alloc::raw_vec::RawVec<rune_alloc::sync::Arc<[rune::runtime::inst::Address]",
+      "<rune_alloc::raw_vec::RawVec<u8",
+      "<rune_alloc::vec::Vec<rune::runtime::value::Value",
+      "<rune_alloc::vec::Vec<u8",
+      "<rune_alloc::vec::drain::Drain<rune::runtime::value::Value",
+      "<rune_alloc::vec::into_iter::IntoIter<rune::runtime::value::Value",
+      "_Unwind_Resume@plt",
+      "alloc::boxed::box_new_uninit",
+      "core::ptr::drop_glue::<(rune::runtime::tuple::OwnedTuple,)",
+      "core::ptr::drop_glue::<core::result::Result<core::option::Option<rune::runtime::value::Value",
+      "core::ptr::drop_glue::<futures_util::stream::futures_unordered::FuturesUnordered<rune::runtime::future::SelectFuture<usize, rune::runtime::ref::Mut<rune::runtime::future::Future",
+      "core::ptr::drop_glue::<rune::runtime::env::Guard",
+      "core::ptr::drop_glue::<rune::runtime::function::Function",
+      "core::ptr::drop_glue::<rune::runtime::globals::GlobalsError",
+      "core::ptr::drop_glue::<rune::runtime::value::Value",
+      "core::ptr::drop_glue::<rune::runtime::vm::Vm",
+      "core::ptr::drop_glue::<rune::runtime::vm_error::VmErrorInner",
+      "core::ptr::drop_glue::<rune::runtime::vm_error::VmErrorKind",
+      "core::ptr::drop_glue::<rune::runtime::vm_execution::VmResumeOwned",
+      "core::ptr::drop_glue::<rune_alloc::boxed::Box<[rune::runtime::value::Value]",
+      "core::ptr::drop_glue::<rune_alloc::vec::Vec<rune::runtime::value::Value",
+      "rune::modules::option::option_try",
+      "rune::modules::result::result_try",
+      "rune::runtime::vm::target_value"
+     ]
+    },
+    "op_call.0": {
+     "symbol": "<rune::runtime::vm::Vm>::op_call",
+     "bytes": 2908,
+     "instructions": 622,
+     "direct_calls": [
+      "<rune::runtime::value::any_sequence::AnySequence<rune_alloc::sync::Arc<rune::runtime::value::rtti::Rtti",
+      "<rune::runtime::value::any_sequence::AnySequenceData<rune_alloc::sync::Arc<rune::runtime::value::rtti::Rtti",
+      "<rune::runtime::value::dismantle::Worklist",
+      "<rune::runtime::vm::Vm",
+      "_Unwind_Resume@plt",
+      "core::ptr::drop_glue::<rune::runtime::value::Value",
+      "core::ptr::drop_glue::<rune::runtime::vm_error::VmErrorInner"
+     ]
+    }
+   }
+  },
+  "prev": {
+   "sha256": "ec6962fb7f917af29a84c77622bed5d4fb779b2e4628c972dbdc048435a6fa58",
+   "symbols": {
+    "run": [
+     {
+      "symbol": "<rune::runtime::vm::Vm>::run",
+      "address": 2223696,
+      "bytes": 100063
+     }
+    ],
+    "op_call": [
+     {
+      "symbol": "<rune::runtime::vm::Vm>::op_call",
+      "address": 2323760,
+      "bytes": 2952
+     }
+    ],
+    "op_call_fn": "absent (nm succeeded; not a separate symbol in this binary)",
+    "op_call_associated": "absent (nm succeeded; not a separate symbol in this binary)",
+    "try_range_next": [
+     {
+      "symbol": "<rune::runtime::vm::Vm>::try_range_next",
+      "address": 2209232,
+      "bytes": 1362
+     }
+    ],
+    "try_range_dispatch": "absent (nm succeeded; not a separate symbol in this binary)"
+   },
+   "disassembly": {
+    "run.0": {
+     "symbol": "<rune::runtime::vm::Vm>::run",
+     "bytes": 100063,
+     "instructions": 19356,
+     "direct_calls": [
+      "<alloc::vec::Vec<rune::runtime::vm_error::VmErrorAt",
+      "<alloc::vec::Vec<rune::runtime::vm_error::VmErrorLocation",
+      "<bool as rune::runtime::from_value::FromValue",
+      "<core::hash::BuildHasherDefault<ahash::fallback_hash::AHasher",
+      "<futures_util::stream::futures_unordered::FuturesUnordered<rune::runtime::future::SelectFuture<usize, rune::runtime::ref::Mut<rune::runtime::future::Future",
+      "<rune::runtime::any_obj::AnyObj",
+      "<rune::runtime::budget::no_std::BUDGET::{K#0}::{closure#1} as core::ops::function::FnOnce<(core::option::Option<&mut core::option::Option<core::cell::Cell<usize",
+      "<rune::runtime::env::no_std::ENV::{K#0}::{closure#1} as core::ops::function::FnOnce<(core::option::Option<&mut core::option::Option<core::cell::Cell<rune::runtime::env::Env",
+      "<rune::runtime::fmt::Formatter",
+      "<rune::runtime::function::Function",
+      "<rune::runtime::memory::Stack",
+      "<rune::runtime::protocol_caller::EnvProtocolCaller as rune::runtime::protocol_caller::ProtocolCaller",
+      "<rune::runtime::runtime_context::RuntimeContext",
+      "<rune::runtime::unit::Unit",
+      "<rune::runtime::value::Value",
+      "<rune::runtime::value::Value as core::clone::Clone",
+      "<rune::runtime::value::any_sequence::AnySequence<rune_alloc::sync::Arc<rune::runtime::value::rtti::Rtti",
+      "<rune::runtime::value::dismantle::Worklist",
+      "<rune::runtime::value::inline::Inline",
+      "<rune::runtime::vm::Vm",
+      "<rune::runtime::vm::Vm as rune::runtime::protocol_caller::ProtocolCaller",
+      "<rune::runtime::vm_error::RuntimeError",
+      "<rune::runtime::vm_error::VmError",
+      "<rune::runtime::vm_error::VmError as core::convert::From<rune::runtime::any_obj::AnyObjError",
+      "<rune::runtime::vm_error::VmError as core::convert::From<rune::runtime::memory::StoreError<core::convert::Infallible",
+      "<rune::runtime::vm_error::VmError as core::convert::From<rune::runtime::vm_error::RuntimeError",
+      "<rune::runtime::vm_error::VmError as core::convert::From<rune::runtime::vm_error::VmErrorKind",
+      "<rune_alloc::boxed::Box<rune::runtime::any_obj::AnyObjData<rune::runtime::range_full::RangeFull",
+      "<rune_alloc::boxed::Box<rune::runtime::any_obj::AnyObjData<rune::runtime::range_inclusive::RangeInclusive",
+      "<rune_alloc::boxed::Box<rune::runtime::any_obj::AnyObjData<rune::runtime::range_inclusive::RangeInclusiveIter<char",
+      "<rune_alloc::hashbrown::map::HashMap<rune_alloc::string::String, rune::runtime::value::Value",
+      "<rune_alloc::hashbrown::raw::RawTable<(rune_alloc::string::String, rune::runtime::value::Value)",
+      "<rune_alloc::raw_vec::RawVec<core::option::Option<rune::runtime::const_value::node::ConstValueBuf",
+      "<rune_alloc::raw_vec::RawVec<rune::runtime::value::Value",
+      "<rune_alloc::raw_vec::RawVec<rune_alloc::sync::Arc<[rune::runtime::inst::Address]",
+      "<rune_alloc::raw_vec::RawVec<u8",
+      "<rune_alloc::vec::Vec<rune::runtime::value::Value",
+      "<rune_alloc::vec::Vec<u8",
+      "<rune_alloc::vec::drain::Drain<rune::runtime::value::Value",
+      "_Unwind_Resume@plt",
+      "alloc::boxed::box_new_uninit",
+      "core::ptr::drop_glue::<alloc::vec::Vec<rune::runtime::vm_error::VmErrorLocation",
+      "core::ptr::drop_glue::<core::result::Result<core::option::Option<rune::runtime::value::Value",
+      "core::ptr::drop_glue::<futures_util::stream::futures_unordered::FuturesUnordered<rune::runtime::future::SelectFuture<usize, rune::runtime::ref::Mut<rune::runtime::future::Future",
+      "core::ptr::drop_glue::<rune::runtime::any_obj::AnyObj",
+      "core::ptr::drop_glue::<rune::runtime::any_obj::AnyObjData<rune::runtime::range_inclusive::RangeInclusive",
+      "core::ptr::drop_glue::<rune::runtime::env::Guard",
+      "core::ptr::drop_glue::<rune::runtime::function::Function",
+      "core::ptr::drop_glue::<rune::runtime::globals::GlobalsError",
+      "core::ptr::drop_glue::<rune::runtime::value::Value",
+      "core::ptr::drop_glue::<rune::runtime::vm::Vm",
+      "core::ptr::drop_glue::<rune::runtime::vm_error::VmErrorInner",
+      "core::ptr::drop_glue::<rune::runtime::vm_error::VmErrorKind",
+      "core::ptr::drop_glue::<rune::runtime::vm_execution::VmResumeOwned",
+      "core::ptr::drop_glue::<rune_alloc::boxed::Box<[rune::runtime::value::Value]",
+      "core::ptr::drop_glue::<rune_alloc::vec::Vec<rune::runtime::value::Value",
+      "rune::modules::option::option_try",
+      "rune::modules::result::result_try",
+      "rune::runtime::vm::target_value"
+     ]
+    },
+    "op_call.0": {
+     "symbol": "<rune::runtime::vm::Vm>::op_call",
+     "bytes": 2952,
+     "instructions": 623,
+     "direct_calls": [
+      "<rune::runtime::value::any_sequence::AnySequence<rune_alloc::sync::Arc<rune::runtime::value::rtti::Rtti",
+      "<rune::runtime::value::dismantle::Worklist",
+      "<rune::runtime::vm::Vm",
+      "_Unwind_Resume@plt",
+      "core::ptr::drop_glue::<rune::runtime::value::Value",
+      "core::ptr::drop_glue::<rune::runtime::vm_error::VmErrorInner"
+     ]
+    },
+    "try_range_next.0": {
+     "symbol": "<rune::runtime::vm::Vm>::try_range_next",
+     "bytes": 1362,
+     "instructions": 289,
+     "direct_calls": [
+      "<core::option::Option<i64",
+      "<rune::runtime::budget::no_std::BUDGET::{K#0}::{closure#1} as core::ops::function::FnOnce<(core::option::Option<&mut core::option::Option<core::cell::Cell<usize",
+      "<rune::runtime::value::Value",
+      "<rune::runtime::value::dismantle::Worklist",
+      "<rune::runtime::vm::Vm",
+      "_Unwind_Resume@plt",
+      "alloc::boxed::box_new_uninit",
+      "core::ptr::drop_glue::<rune::runtime::value::dismantle::Worklist",
+      "core::ptr::drop_glue::<rune::runtime::vm_error::VmErrorInner"
+     ]
+    }
+   }
+  },
+  "cand": {
+   "sha256": "3461f9539edac646bed542bea72be63da42c06267f52959825bf2a319eba2d2c",
+   "symbols": {
+    "run": [
+     {
+      "symbol": "<rune::runtime::vm::Vm>::run",
+      "address": 3360432,
+      "bytes": 99475
+     }
+    ],
+    "op_call": [
+     {
+      "symbol": "<rune::runtime::vm::Vm>::op_call",
+      "address": 3459920,
+      "bytes": 2952
+     }
+    ],
+    "op_call_fn": "absent (nm succeeded; not a separate symbol in this binary)",
+    "op_call_associated": "absent (nm succeeded; not a separate symbol in this binary)",
+    "try_range_next": "absent (nm succeeded; not a separate symbol in this binary)",
+    "try_range_dispatch": [
+     {
+      "symbol": "<rune::runtime::vm::Vm>::try_range_dispatch",
+      "address": 3346864,
+      "bytes": 2629
+     }
+    ]
+   },
+   "disassembly": {
+    "run.0": {
+     "symbol": "<rune::runtime::vm::Vm>::run",
+     "bytes": 99475,
+     "instructions": 19231,
+     "direct_calls": [
+      "<alloc::vec::Vec<rune::runtime::vm_error::VmErrorAt",
+      "<alloc::vec::Vec<rune::runtime::vm_error::VmErrorLocation",
+      "<bool as rune::runtime::from_value::FromValue",
+      "<core::hash::BuildHasherDefault<ahash::fallback_hash::AHasher",
+      "<futures_util::stream::futures_unordered::FuturesUnordered<rune::runtime::future::SelectFuture<usize, rune::runtime::ref::Mut<rune::runtime::future::Future",
+      "<rune::runtime::any_obj::AnyObj",
+      "<rune::runtime::budget::no_std::BUDGET::{K#0}::{closure#1} as core::ops::function::FnOnce<(core::option::Option<&mut core::option::Option<core::cell::Cell<usize",
+      "<rune::runtime::env::no_std::ENV::{K#0}::{closure#1} as core::ops::function::FnOnce<(core::option::Option<&mut core::option::Option<core::cell::Cell<rune::runtime::env::Env",
+      "<rune::runtime::fmt::Formatter",
+      "<rune::runtime::function::Function",
+      "<rune::runtime::memory::Stack",
+      "<rune::runtime::protocol_caller::EnvProtocolCaller as rune::runtime::protocol_caller::ProtocolCaller",
+      "<rune::runtime::value::Value",
+      "<rune::runtime::value::Value as core::clone::Clone",
+      "<rune::runtime::value::any_sequence::AnySequence<rune_alloc::sync::Arc<rune::runtime::value::rtti::Rtti",
+      "<rune::runtime::value::dismantle::Worklist",
+      "<rune::runtime::value::inline::Inline",
+      "<rune::runtime::vm::Vm",
+      "<rune::runtime::vm::Vm as rune::runtime::protocol_caller::ProtocolCaller",
+      "<rune::runtime::vm_error::RuntimeError",
+      "<rune::runtime::vm_error::VmError",
+      "<rune::runtime::vm_error::VmError as core::convert::From<rune::runtime::memory::StoreError<core::convert::Infallible",
+      "<rune::runtime::vm_error::VmError as core::convert::From<rune::runtime::vm_error::RuntimeError",
+      "<rune::runtime::vm_error::VmError as core::convert::From<rune::runtime::vm_error::VmErrorKind",
+      "<rune_alloc::boxed::Box<rune::runtime::any_obj::AnyObjData<rune::runtime::range_full::RangeFull",
+      "<rune_alloc::boxed::Box<rune::runtime::any_obj::AnyObjData<rune::runtime::range_inclusive::RangeInclusive",
+      "<rune_alloc::boxed::Box<rune::runtime::any_obj::AnyObjData<rune::runtime::range_inclusive::RangeInclusiveIter<char",
+      "<rune_alloc::hashbrown::map::HashMap<rune_alloc::string::String, rune::runtime::value::Value",
+      "<rune_alloc::hashbrown::raw::RawTable<(rune_alloc::string::String, rune::runtime::value::Value)",
+      "<rune_alloc::raw_vec::RawVec<core::option::Option<rune::runtime::const_value::node::ConstValueBuf",
+      "<rune_alloc::raw_vec::RawVec<rune::runtime::value::Value",
+      "<rune_alloc::raw_vec::RawVec<rune_alloc::sync::Arc<[rune::runtime::inst::Address]",
+      "<rune_alloc::raw_vec::RawVec<u8",
+      "<rune_alloc::vec::Vec<rune::runtime::value::Value",
+      "<rune_alloc::vec::Vec<u8",
+      "<rune_alloc::vec::drain::Drain<rune::runtime::value::Value",
+      "_Unwind_Resume@plt",
+      "alloc::boxed::box_new_uninit",
+      "core::ptr::drop_glue::<alloc::vec::Vec<rune::runtime::vm_error::VmErrorLocation",
+      "core::ptr::drop_glue::<core::result::Result<core::option::Option<rune::runtime::value::Value",
+      "core::ptr::drop_glue::<futures_util::stream::futures_unordered::FuturesUnordered<rune::runtime::future::SelectFuture<usize, rune::runtime::ref::Mut<rune::runtime::future::Future",
+      "core::ptr::drop_glue::<rune::runtime::any_obj::AnyObj",
+      "core::ptr::drop_glue::<rune::runtime::any_obj::AnyObjData<rune::runtime::range_inclusive::RangeInclusive",
+      "core::ptr::drop_glue::<rune::runtime::env::Guard",
+      "core::ptr::drop_glue::<rune::runtime::function::Function",
+      "core::ptr::drop_glue::<rune::runtime::globals::GlobalsError",
+      "core::ptr::drop_glue::<rune::runtime::value::Value",
+      "core::ptr::drop_glue::<rune::runtime::vm::Vm",
+      "core::ptr::drop_glue::<rune::runtime::vm_error::VmErrorInner",
+      "core::ptr::drop_glue::<rune::runtime::vm_error::VmErrorKind",
+      "core::ptr::drop_glue::<rune::runtime::vm_execution::VmResumeOwned",
+      "core::ptr::drop_glue::<rune_alloc::boxed::Box<[rune::runtime::value::Value]",
+      "core::ptr::drop_glue::<rune_alloc::vec::Vec<rune::runtime::value::Value",
+      "rune::modules::option::option_try",
+      "rune::modules::result::result_try",
+      "rune::runtime::vm::target_value"
+     ]
+    },
+    "op_call.0": {
+     "symbol": "<rune::runtime::vm::Vm>::op_call",
+     "bytes": 2952,
+     "instructions": 623,
+     "direct_calls": [
+      "<rune::runtime::value::any_sequence::AnySequence<rune_alloc::sync::Arc<rune::runtime::value::rtti::Rtti",
+      "<rune::runtime::value::dismantle::Worklist",
+      "<rune::runtime::vm::Vm",
+      "_Unwind_Resume@plt",
+      "core::ptr::drop_glue::<rune::runtime::value::Value",
+      "core::ptr::drop_glue::<rune::runtime::vm_error::VmErrorInner"
+     ]
+    },
+    "try_range_dispatch.0": {
+     "symbol": "<rune::runtime::vm::Vm>::try_range_dispatch",
+     "bytes": 2629,
+     "instructions": 567,
+     "direct_calls": [
+      "<core::option::Option<i64",
+      "<rune::runtime::budget::no_std::BUDGET::{K#0}::{closure#1} as core::ops::function::FnOnce<(core::option::Option<&mut core::option::Option<core::cell::Cell<usize",
+      "<rune::runtime::value::Value",
+      "<rune::runtime::value::dismantle::Worklist",
+      "<rune::runtime::vm::Vm",
+      "_Unwind_Resume@plt",
+      "alloc::boxed::box_new_uninit",
+      "core::ptr::drop_glue::<rune::runtime::value::dismantle::Worklist",
+      "core::ptr::drop_glue::<rune::runtime::vm_error::VmErrorInner"
+     ]
+    }
+   }
+  }
+ },
+ "runs": {
+  "base/context": {
+   "ir_total": 27355090,
+   "tables": {
+    "exclusive": "annotate-exclusive.base.context.txt",
+    "inclusive": "annotate-inclusive.base.context.txt"
+   }
+  },
+  "base/run-numeric": {
+   "ir_total": 1759601801,
+   "tables": {
+    "exclusive": "annotate-exclusive.base.run-numeric.txt",
+    "inclusive": "annotate-inclusive.base.run-numeric.txt"
+   }
+  },
+  "base/run-fib": {
+   "ir_total": 834108864,
+   "tables": {
+    "exclusive": "annotate-exclusive.base.run-fib.txt",
+    "inclusive": "annotate-inclusive.base.run-fib.txt"
+   }
+  },
+  "base/run-calls": {
+   "ir_total": 1780681434,
+   "tables": {
+    "exclusive": "annotate-exclusive.base.run-calls.txt",
+    "inclusive": "annotate-inclusive.base.run-calls.txt"
+   }
+  },
+  "prev/context": {
+   "ir_total": 27913369,
+   "tables": {
+    "exclusive": "annotate-exclusive.prev.context.txt",
+    "inclusive": "annotate-inclusive.prev.context.txt"
+   }
+  },
+  "prev/run-numeric": {
+   "ir_total": 1222060388,
+   "tables": {
+    "exclusive": "annotate-exclusive.prev.run-numeric.txt",
+    "inclusive": "annotate-inclusive.prev.run-numeric.txt"
+   }
+  },
+  "prev/run-fib": {
+   "ir_total": 905439300,
+   "tables": {
+    "exclusive": "annotate-exclusive.prev.run-fib.txt",
+    "inclusive": "annotate-inclusive.prev.run-fib.txt"
+   }
+  },
+  "prev/run-calls": {
+   "ir_total": 1851140086,
+   "tables": {
+    "exclusive": "annotate-exclusive.prev.run-calls.txt",
+    "inclusive": "annotate-inclusive.prev.run-calls.txt"
+   }
+  },
+  "cand/context": {
+   "ir_total": 27913423,
+   "tables": {
+    "exclusive": "annotate-exclusive.cand.context.txt",
+    "inclusive": "annotate-inclusive.cand.context.txt"
+   }
+  },
+  "cand/run-numeric": {
+   "ir_total": 1196060401,
+   "tables": {
+    "exclusive": "annotate-exclusive.cand.run-numeric.txt",
+    "inclusive": "annotate-inclusive.cand.run-numeric.txt"
+   }
+  },
+  "cand/run-fib": {
+   "ir_total": 899083137,
+   "tables": {
+    "exclusive": "annotate-exclusive.cand.run-fib.txt",
+    "inclusive": "annotate-inclusive.cand.run-fib.txt"
+   }
+  },
+  "cand/run-calls": {
+   "ir_total": 1838140120,
+   "tables": {
+    "exclusive": "annotate-exclusive.cand.run-calls.txt",
+    "inclusive": "annotate-inclusive.cand.run-calls.txt"
+   }
+  }
+ },
+ "ended": 1791249261.9349566
+}

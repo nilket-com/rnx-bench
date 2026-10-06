@@ -1,0 +1,629 @@
+
+/home/me/work/rnx-bench-w-0176d/probes/range-iteration-0176/bin/base-primary:     file format elf64-x86-64
+
+
+Disassembly of section .text:
+
+00000000003f6b00 <<rune::runtime::vm::Vm>::op_call>:
+  3f6b00:	push   %rbp
+  3f6b01:	push   %r15
+  3f6b03:	push   %r14
+  3f6b05:	push   %r12
+  3f6b07:	push   %rbx
+  3f6b08:	sub    $0xb0,%rsp
+  3f6b0f:	mov    %r8,%rbx
+  3f6b12:	mov    0xa8(%rdi),%rax
+  3f6b19:	cmpq   $0x0,0x40(%rax)
+  3f6b1e:	je     3f6c67 <<rune::runtime::vm::Vm>::op_call+0x167>
+  3f6b24:	mov    %rsi,%r8
+  3f6b27:	xor    $0xffffffffffffffc5,%r8
+  3f6b2b:	mov    0x28(%rax),%r9
+  3f6b2f:	mov    0x30(%rax),%r10
+  3f6b33:	mov    %rsi,%r11
+  3f6b36:	shr    $0x39,%r11
+  3f6b3a:	xor    $0x7f,%r11d
+  3f6b3e:	movd   %r11d,%xmm0
+  3f6b43:	punpcklbw %xmm0,%xmm0
+  3f6b47:	pshuflw $0x0,%xmm0,%xmm0
+  3f6b4c:	pshufd $0x44,%xmm0,%xmm0
+  3f6b51:	xor    %r11d,%r11d
+  3f6b54:	pcmpeqd %xmm1,%xmm1
+  3f6b58:	and    %r10,%r8
+  3f6b5b:	movdqu (%r9,%r8,1),%xmm2
+  3f6b61:	movdqa %xmm2,%xmm3
+  3f6b65:	pcmpeqb %xmm0,%xmm3
+  3f6b69:	pmovmskb %xmm3,%r14d
+  3f6b6e:	test   %r14d,%r14d
+  3f6b71:	je     3f6baa <<rune::runtime::vm::Vm>::op_call+0xaa>
+  3f6b73:	data16 data16 data16 cs nopw 0x0(%rax,%rax,1)
+  3f6b80:	tzcnt  %r14d,%r15d
+  3f6b85:	add    %r8,%r15
+  3f6b88:	and    %r10,%r15
+  3f6b8b:	neg    %r15
+  3f6b8e:	lea    (%r15,%r15,2),%r15
+  3f6b92:	shl    $0x4,%r15
+  3f6b96:	cmp    -0x30(%r9,%r15,1),%rsi
+  3f6b9b:	je     3f6bc7 <<rune::runtime::vm::Vm>::op_call+0xc7>
+  3f6b9d:	lea    -0x1(%r14),%ebp
+  3f6ba1:	and    %r14w,%bp
+  3f6ba5:	mov    %ebp,%r14d
+  3f6ba8:	jne    3f6b80 <<rune::runtime::vm::Vm>::op_call+0x80>
+  3f6baa:	pcmpeqb %xmm1,%xmm2
+  3f6bae:	pmovmskb %xmm2,%ebp
+  3f6bb2:	test   %ebp,%ebp
+  3f6bb4:	jne    3f6c67 <<rune::runtime::vm::Vm>::op_call+0x167>
+  3f6bba:	add    %r11,%r8
+  3f6bbd:	add    $0x10,%r8
+  3f6bc1:	add    $0x10,%r11
+  3f6bc5:	jmp    3f6b58 <<rune::runtime::vm::Vm>::op_call+0x58>
+  3f6bc7:	add    %r15,%r9
+  3f6bca:	mov    -0x28(%r9),%rsi
+  3f6bce:	cmp    $0x1,%rsi
+  3f6bd2:	adc    $0xffffffffffffffff,%rsi
+  3f6bd6:	je     3f6d56 <<rune::runtime::vm::Vm>::op_call+0x256>
+  3f6bdc:	cmp    $0x1,%rsi
+  3f6be0:	jne    3f6e37 <<rune::runtime::vm::Vm>::op_call+0x337>
+  3f6be6:	test   %rcx,%rcx
+  3f6be9:	je     3f7052 <<rune::runtime::vm::Vm>::op_call+0x552>
+  3f6bef:	movq   $0x23,(%rsp)
+  3f6bf7:	mov    %rcx,0x8(%rsp)
+  3f6bfc:	movq   $0x0,0x10(%rsp)
+  3f6c05:	movq   $0x0,0x40(%rsp)
+  3f6c0e:	movq   $0x10,0x48(%rsp)
+  3f6c17:	pxor   %xmm0,%xmm0
+  3f6c1b:	movdqa %xmm0,0x50(%rsp)
+  3f6c21:	movq   $0x8,0x60(%rsp)
+  3f6c2a:	movq   $0x0,0x68(%rsp)
+  3f6c33:	call   *0x27202f(%rip)        # 668c68 <_DYNAMIC+0x250>
+  3f6c39:	mov    $0x70,%edi
+  3f6c3e:	mov    $0x10,%esi
+  3f6c43:	call   *0x272027(%rip)        # 668c70 <_DYNAMIC+0x258>
+  3f6c49:	test   %rax,%rax
+  3f6c4c:	jne    3f751c <<rune::runtime::vm::Vm>::op_call+0xa1c>
+  3f6c52:	mov    $0x10,%edi
+  3f6c57:	mov    $0x70,%esi
+  3f6c5c:	call   *0x272366(%rip)        # 668fc8 <_DYNAMIC+0x5b0>
+  3f6c62:	jmp    3f758d <<rune::runtime::vm::Vm>::op_call+0xa8d>
+  3f6c67:	mov    0xa0(%rdi),%r9
+  3f6c6e:	cmpq   $0x0,0x28(%r9)
+  3f6c73:	je     3f6efb <<rune::runtime::vm::Vm>::op_call+0x3fb>
+  3f6c79:	mov    %rsi,%rax
+  3f6c7c:	xor    $0xffffffffffffffc5,%rax
+  3f6c80:	mov    0x10(%r9),%r8
+  3f6c84:	mov    0x18(%r9),%r9
+  3f6c88:	mov    %rsi,%r10
+  3f6c8b:	shr    $0x39,%r10
+  3f6c8f:	xor    $0x7f,%r10d
+  3f6c93:	movd   %r10d,%xmm0
+  3f6c98:	punpcklbw %xmm0,%xmm0
+  3f6c9c:	pshuflw $0x0,%xmm0,%xmm0
+  3f6ca1:	pshufd $0x44,%xmm0,%xmm0
+  3f6ca6:	xor    %r10d,%r10d
+  3f6ca9:	pcmpeqd %xmm1,%xmm1
+  3f6cad:	and    %r9,%rax
+  3f6cb0:	movdqu (%r8,%rax,1),%xmm2
+  3f6cb6:	movdqa %xmm2,%xmm3
+  3f6cba:	pcmpeqb %xmm0,%xmm3
+  3f6cbe:	pmovmskb %xmm3,%r11d
+  3f6cc3:	test   %r11d,%r11d
+  3f6cc6:	je     3f6cf6 <<rune::runtime::vm::Vm>::op_call+0x1f6>
+  3f6cc8:	nopl   0x0(%rax,%rax,1)
+  3f6cd0:	tzcnt  %r11d,%r14d
+  3f6cd5:	add    %rax,%r14
+  3f6cd8:	and    %r9,%r14
+  3f6cdb:	neg    %r14
+  3f6cde:	lea    (%r14,%r14,2),%r14
+  3f6ce2:	cmp    -0x18(%r8,%r14,8),%rsi
+  3f6ce7:	je     3f6d15 <<rune::runtime::vm::Vm>::op_call+0x215>
+  3f6ce9:	lea    -0x1(%r11),%ebp
+  3f6ced:	and    %r11w,%bp
+  3f6cf1:	mov    %ebp,%r11d
+  3f6cf4:	jne    3f6cd0 <<rune::runtime::vm::Vm>::op_call+0x1d0>
+  3f6cf6:	pcmpeqb %xmm1,%xmm2
+  3f6cfa:	pmovmskb %xmm2,%r11d
+  3f6cff:	test   %r11d,%r11d
+  3f6d02:	jne    3f6efb <<rune::runtime::vm::Vm>::op_call+0x3fb>
+  3f6d08:	add    %r10,%rax
+  3f6d0b:	add    $0x10,%rax
+  3f6d0f:	add    $0x10,%r10
+  3f6d13:	jmp    3f6cad <<rune::runtime::vm::Vm>::op_call+0x1ad>
+  3f6d15:	lea    (%r8,%r14,8),%rsi
+  3f6d19:	add    $0xb0,%rdi
+  3f6d20:	mov    -0x10(%rsi),%rax
+  3f6d24:	mov    -0x8(%rsi),%rsi
+  3f6d28:	mov    (%rsi),%r11
+  3f6d2b:	mov    %rdx,%r9
+  3f6d2e:	lea    0x25941b(%rip),%rdx        # 650150 <anon.e4aafb81ea2f6abe9ead62f3202a169b.29.llvm.665249219244180077+0x1b0>
+  3f6d35:	mov    %rdi,%rsi
+  3f6d38:	mov    %rax,%rdi
+  3f6d3b:	mov    %rcx,%r8
+  3f6d3e:	mov    %r9,%rcx
+  3f6d41:	mov    %rbx,%r9
+  3f6d44:	add    $0xb0,%rsp
+  3f6d4b:	pop    %rbx
+  3f6d4c:	pop    %r12
+  3f6d4e:	pop    %r14
+  3f6d50:	pop    %r15
+  3f6d52:	pop    %rbp
+  3f6d53:	jmp    *%r11
+  3f6d56:	mov    -0x10(%r9),%rax
+  3f6d5a:	cmp    %rax,%rcx
+  3f6d5d:	jne    3f6f6a <<rune::runtime::vm::Vm>::op_call+0x46a>
+  3f6d63:	mov    %rdx,%r8
+  3f6d66:	mov    -0x18(%r9),%rdx
+  3f6d6a:	mov    -0x8(%r9),%eax
+  3f6d6e:	lea    0x70(%rsp),%r9
+  3f6d73:	mov    %rdi,%rsi
+  3f6d76:	mov    %r9,%rdi
+  3f6d79:	mov    %rcx,%r9
+  3f6d7c:	mov    %eax,%ecx
+  3f6d7e:	push   %rbx
+  3f6d7f:	push   $0x1
+  3f6d81:	call   3d97c0 <<rune::runtime::vm::Vm>::call_offset_fn>
+  3f6d86:	add    $0x10,%rsp
+  3f6d8a:	mov    0x70(%rsp),%rax
+  3f6d8f:	cmp    $0xffffffffffffffff,%rax
+  3f6d93:	je     3f74ac <<rune::runtime::vm::Vm>::op_call+0x9ac>
+  3f6d99:	movzbl 0x78(%rsp),%ecx
+  3f6d9e:	mov    0xa8(%rsp),%rdx
+  3f6da6:	mov    %rdx,0x38(%rsp)
+  3f6dab:	movups 0x99(%rsp),%xmm0
+  3f6db3:	movups %xmm0,0x29(%rsp)
+  3f6db8:	movups 0x89(%rsp),%xmm0
+  3f6dc0:	movups %xmm0,0x19(%rsp)
+  3f6dc5:	movups 0x79(%rsp),%xmm0
+  3f6dca:	movups %xmm0,0x9(%rsp)
+  3f6dcf:	mov    %rax,(%rsp)
+  3f6dd3:	mov    %cl,0x8(%rsp)
+  3f6dd7:	movq   $0x0,0x40(%rsp)
+  3f6de0:	movq   $0x10,0x48(%rsp)
+  3f6de9:	xorps  %xmm0,%xmm0
+  3f6dec:	movaps %xmm0,0x50(%rsp)
+  3f6df1:	movq   $0x8,0x60(%rsp)
+  3f6dfa:	movq   $0x0,0x68(%rsp)
+  3f6e03:	call   *0x271e5f(%rip)        # 668c68 <_DYNAMIC+0x250>
+  3f6e09:	mov    $0x70,%edi
+  3f6e0e:	mov    $0x10,%esi
+  3f6e13:	call   *0x271e57(%rip)        # 668c70 <_DYNAMIC+0x258>
+  3f6e19:	test   %rax,%rax
+  3f6e1c:	jne    3f751c <<rune::runtime::vm::Vm>::op_call+0xa1c>
+  3f6e22:	mov    $0x10,%edi
+  3f6e27:	mov    $0x70,%esi
+  3f6e2c:	call   *0x272196(%rip)        # 668fc8 <_DYNAMIC+0x5b0>
+  3f6e32:	jmp    3f758d <<rune::runtime::vm::Vm>::op_call+0xa8d>
+  3f6e37:	mov    -0x18(%r9),%rsi
+  3f6e3b:	cmp    %rsi,%rcx
+  3f6e3e:	jne    3f6fde <<rune::runtime::vm::Vm>::op_call+0x4de>
+  3f6e44:	cmpq   $0x0,0xc0(%rax)
+  3f6e4c:	je     3f7207 <<rune::runtime::vm::Vm>::op_call+0x707>
+  3f6e52:	mov    -0x20(%r9),%rsi
+  3f6e56:	mov    %rsi,%r8
+  3f6e59:	xor    $0xffffffffffffffc5,%r8
+  3f6e5d:	mov    0xa8(%rax),%r9
+  3f6e64:	mov    0xb0(%rax),%rax
+  3f6e6b:	mov    %rsi,%r10
+  3f6e6e:	shr    $0x39,%r10
+  3f6e72:	xor    $0x7f,%r10d
+  3f6e76:	movd   %r10d,%xmm0
+  3f6e7b:	punpcklbw %xmm0,%xmm0
+  3f6e7f:	pshuflw $0x0,%xmm0,%xmm0
+  3f6e84:	pshufd $0x44,%xmm0,%xmm0
+  3f6e89:	xor    %r10d,%r10d
+  3f6e8c:	pcmpeqd %xmm1,%xmm1
+  3f6e90:	and    %rax,%r8
+  3f6e93:	movdqu (%r9,%r8,1),%xmm2
+  3f6e99:	movdqa %xmm2,%xmm3
+  3f6e9d:	pcmpeqb %xmm0,%xmm3
+  3f6ea1:	pmovmskb %xmm3,%r14d
+  3f6ea6:	test   %r14d,%r14d
+  3f6ea9:	je     3f6edc <<rune::runtime::vm::Vm>::op_call+0x3dc>
+  3f6eab:	nopl   0x0(%rax,%rax,1)
+  3f6eb0:	tzcnt  %r14d,%r15d
+  3f6eb5:	add    %r8,%r15
+  3f6eb8:	and    %rax,%r15
+  3f6ebb:	shl    $0x4,%r15
+  3f6ebf:	mov    %r9,%r11
+  3f6ec2:	sub    %r15,%r11
+  3f6ec5:	cmp    -0x10(%r11),%rsi
+  3f6ec9:	je     3f710b <<rune::runtime::vm::Vm>::op_call+0x60b>
+  3f6ecf:	lea    -0x1(%r14),%r11d
+  3f6ed3:	and    %r14w,%r11w
+  3f6ed7:	mov    %r11d,%r14d
+  3f6eda:	jne    3f6eb0 <<rune::runtime::vm::Vm>::op_call+0x3b0>
+  3f6edc:	pcmpeqb %xmm1,%xmm2
+  3f6ee0:	pmovmskb %xmm2,%r11d
+  3f6ee5:	test   %r11d,%r11d
+  3f6ee8:	jne    3f720b <<rune::runtime::vm::Vm>::op_call+0x70b>
+  3f6eee:	add    %r10,%r8
+  3f6ef1:	add    $0x10,%r8
+  3f6ef5:	add    $0x10,%r10
+  3f6ef9:	jmp    3f6e90 <<rune::runtime::vm::Vm>::op_call+0x390>
+  3f6efb:	movq   $0x13,(%rsp)
+  3f6f03:	mov    %rsi,0x8(%rsp)
+  3f6f08:	movq   $0x0,0x40(%rsp)
+  3f6f11:	movq   $0x10,0x48(%rsp)
+  3f6f1a:	pxor   %xmm0,%xmm0
+  3f6f1e:	movdqa %xmm0,0x50(%rsp)
+  3f6f24:	movq   $0x8,0x60(%rsp)
+  3f6f2d:	movq   $0x0,0x68(%rsp)
+  3f6f36:	call   *0x271d2c(%rip)        # 668c68 <_DYNAMIC+0x250>
+  3f6f3c:	mov    $0x70,%edi
+  3f6f41:	mov    $0x10,%esi
+  3f6f46:	call   *0x271d24(%rip)        # 668c70 <_DYNAMIC+0x258>
+  3f6f4c:	test   %rax,%rax
+  3f6f4f:	jne    3f751c <<rune::runtime::vm::Vm>::op_call+0xa1c>
+  3f6f55:	mov    $0x10,%edi
+  3f6f5a:	mov    $0x70,%esi
+  3f6f5f:	call   *0x272063(%rip)        # 668fc8 <_DYNAMIC+0x5b0>
+  3f6f65:	jmp    3f758d <<rune::runtime::vm::Vm>::op_call+0xa8d>
+  3f6f6a:	movq   $0x23,(%rsp)
+  3f6f72:	mov    %rcx,0x8(%rsp)
+  3f6f77:	mov    %rax,0x10(%rsp)
+  3f6f7c:	movq   $0x0,0x40(%rsp)
+  3f6f85:	movq   $0x10,0x48(%rsp)
+  3f6f8e:	pxor   %xmm0,%xmm0
+  3f6f92:	movdqa %xmm0,0x50(%rsp)
+  3f6f98:	movq   $0x8,0x60(%rsp)
+  3f6fa1:	movq   $0x0,0x68(%rsp)
+  3f6faa:	call   *0x271cb8(%rip)        # 668c68 <_DYNAMIC+0x250>
+  3f6fb0:	mov    $0x70,%edi
+  3f6fb5:	mov    $0x10,%esi
+  3f6fba:	call   *0x271cb0(%rip)        # 668c70 <_DYNAMIC+0x258>
+  3f6fc0:	test   %rax,%rax
+  3f6fc3:	jne    3f751c <<rune::runtime::vm::Vm>::op_call+0xa1c>
+  3f6fc9:	mov    $0x10,%edi
+  3f6fce:	mov    $0x70,%esi
+  3f6fd3:	call   *0x271fef(%rip)        # 668fc8 <_DYNAMIC+0x5b0>
+  3f6fd9:	jmp    3f758d <<rune::runtime::vm::Vm>::op_call+0xa8d>
+  3f6fde:	movq   $0x23,(%rsp)
+  3f6fe6:	mov    %rcx,0x8(%rsp)
+  3f6feb:	mov    %rsi,0x10(%rsp)
+  3f6ff0:	movq   $0x0,0x40(%rsp)
+  3f6ff9:	movq   $0x10,0x48(%rsp)
+  3f7002:	pxor   %xmm0,%xmm0
+  3f7006:	movdqa %xmm0,0x50(%rsp)
+  3f700c:	movq   $0x8,0x60(%rsp)
+  3f7015:	movq   $0x0,0x68(%rsp)
+  3f701e:	call   *0x271c44(%rip)        # 668c68 <_DYNAMIC+0x250>
+  3f7024:	mov    $0x70,%edi
+  3f7029:	mov    $0x10,%esi
+  3f702e:	call   *0x271c3c(%rip)        # 668c70 <_DYNAMIC+0x258>
+  3f7034:	test   %rax,%rax
+  3f7037:	jne    3f751c <<rune::runtime::vm::Vm>::op_call+0xa1c>
+  3f703d:	mov    $0x10,%edi
+  3f7042:	mov    $0x70,%esi
+  3f7047:	call   *0x271f7b(%rip)        # 668fc8 <_DYNAMIC+0x5b0>
+  3f704d:	jmp    3f758d <<rune::runtime::vm::Vm>::op_call+0xa8d>
+  3f7052:	cmpq   $0x0,0xc0(%rax)
+  3f705a:	je     3f727a <<rune::runtime::vm::Vm>::op_call+0x77a>
+  3f7060:	mov    -0x20(%r9),%rcx
+  3f7064:	mov    %rcx,%rdx
+  3f7067:	xor    $0xffffffffffffffc5,%rdx
+  3f706b:	mov    0xa8(%rax),%rsi
+  3f7072:	mov    0xb0(%rax),%rax
+  3f7079:	mov    %rcx,%r8
+  3f707c:	shr    $0x39,%r8
+  3f7080:	xor    $0x7f,%r8d
+  3f7084:	movd   %r8d,%xmm0
+  3f7089:	punpcklbw %xmm0,%xmm0
+  3f708d:	pshuflw $0x0,%xmm0,%xmm0
+  3f7092:	pshufd $0x44,%xmm0,%xmm0
+  3f7097:	xor    %r8d,%r8d
+  3f709a:	pcmpeqd %xmm1,%xmm1
+  3f709e:	and    %rax,%rdx
+  3f70a1:	movdqu (%rsi,%rdx,1),%xmm2
+  3f70a6:	movdqa %xmm2,%xmm3
+  3f70aa:	pcmpeqb %xmm0,%xmm3
+  3f70ae:	pmovmskb %xmm3,%r9d
+  3f70b3:	test   %r9d,%r9d
+  3f70b6:	je     3f70ec <<rune::runtime::vm::Vm>::op_call+0x5ec>
+  3f70b8:	nopl   0x0(%rax,%rax,1)
+  3f70c0:	tzcnt  %r9d,%r11d
+  3f70c5:	add    %rdx,%r11
+  3f70c8:	and    %rax,%r11
+  3f70cb:	shl    $0x4,%r11
+  3f70cf:	mov    %rsi,%r10
+  3f70d2:	sub    %r11,%r10
+  3f70d5:	cmp    -0x10(%r10),%rcx
+  3f70d9:	je     3f71c6 <<rune::runtime::vm::Vm>::op_call+0x6c6>
+  3f70df:	lea    -0x1(%r9),%r10d
+  3f70e3:	and    %r9w,%r10w
+  3f70e7:	mov    %r10d,%r9d
+  3f70ea:	jne    3f70c0 <<rune::runtime::vm::Vm>::op_call+0x5c0>
+  3f70ec:	pcmpeqb %xmm1,%xmm2
+  3f70f0:	pmovmskb %xmm2,%r9d
+  3f70f5:	test   %r9d,%r9d
+  3f70f8:	jne    3f727e <<rune::runtime::vm::Vm>::op_call+0x77e>
+  3f70fe:	add    %r8,%rdx
+  3f7101:	add    $0x10,%rdx
+  3f7105:	add    $0x10,%r8
+  3f7109:	jmp    3f709e <<rune::runtime::vm::Vm>::op_call+0x59e>
+  3f710b:	test   %rcx,%rcx
+  3f710e:	je     3f72ed <<rune::runtime::vm::Vm>::op_call+0x7ed>
+  3f7114:	mov    0xc0(%rdi),%rax
+  3f711b:	mov    0xc8(%rdi),%rsi
+  3f7122:	mov    %rsi,%r14
+  3f7125:	add    %rdx,%r14
+  3f7128:	jb     3f7144 <<rune::runtime::vm::Vm>::op_call+0x644>
+  3f712a:	mov    %r14,%r8
+  3f712d:	add    %rcx,%r8
+  3f7130:	setb   %r9b
+  3f7134:	cmp    %rax,%r8
+  3f7137:	seta   %r8b
+  3f713b:	or     %r9b,%r8b
+  3f713e:	je     3f72f5 <<rune::runtime::vm::Vm>::op_call+0x7f5>
+  3f7144:	xor    %edi,%edi
+  3f7146:	sub    %rsi,%rax
+  3f7149:	cmovae %rax,%rdi
+  3f714d:	movq   $0x7,(%rsp)
+  3f7155:	mov    %rdx,0x8(%rsp)
+  3f715a:	mov    %rcx,0x10(%rsp)
+  3f715f:	mov    %rdi,0x18(%rsp)
+  3f7164:	movq   $0x0,0x40(%rsp)
+  3f716d:	movq   $0x10,0x48(%rsp)
+  3f7176:	pxor   %xmm0,%xmm0
+  3f717a:	movdqa %xmm0,0x50(%rsp)
+  3f7180:	movq   $0x8,0x60(%rsp)
+  3f7189:	movq   $0x0,0x68(%rsp)
+  3f7192:	call   *0x271ad0(%rip)        # 668c68 <_DYNAMIC+0x250>
+  3f7198:	mov    $0x70,%edi
+  3f719d:	mov    $0x10,%esi
+  3f71a2:	call   *0x271ac8(%rip)        # 668c70 <_DYNAMIC+0x258>
+  3f71a8:	test   %rax,%rax
+  3f71ab:	jne    3f751c <<rune::runtime::vm::Vm>::op_call+0xa1c>
+  3f71b1:	mov    $0x10,%edi
+  3f71b6:	mov    $0x70,%esi
+  3f71bb:	call   *0x271e07(%rip)        # 668fc8 <_DYNAMIC+0x5b0>
+  3f71c1:	jmp    3f758d <<rune::runtime::vm::Vm>::op_call+0xa8d>
+  3f71c6:	cmp    $0xffffffffffffffff,%rbx
+  3f71ca:	je     3f74ac <<rune::runtime::vm::Vm>::op_call+0x9ac>
+  3f71d0:	mov    -0x8(%r10),%rsi
+  3f71d4:	lock incq (%rsi)
+  3f71d8:	jle    3f7577 <<rune::runtime::vm::Vm>::op_call+0xa77>
+  3f71de:	mov    %rdi,%r14
+  3f71e1:	mov    %rsp,%rdi
+  3f71e4:	xor    %edx,%edx
+  3f71e6:	call   278b60 <<rune::runtime::value::any_sequence::AnySequence<rune_alloc::sync::Arc<rune::runtime::value::rtti::Rtti>, rune::runtime::value::Value>>::alloc>
+  3f71eb:	mov    (%rsp),%rax
+  3f71ef:	test   %rax,%rax
+  3f71f2:	je     3f7453 <<rune::runtime::vm::Vm>::op_call+0x953>
+  3f71f8:	mov    0x8(%rsp),%rcx
+  3f71fd:	mov    $0x4,%edx
+  3f7202:	jmp    3f74c5 <<rune::runtime::vm::Vm>::op_call+0x9c5>
+  3f7207:	mov    -0x20(%r9),%rsi
+  3f720b:	movq   $0x22,(%rsp)
+  3f7213:	mov    %rsi,0x8(%rsp)
+  3f7218:	movq   $0x0,0x40(%rsp)
+  3f7221:	movq   $0x10,0x48(%rsp)
+  3f722a:	pxor   %xmm0,%xmm0
+  3f722e:	movdqa %xmm0,0x50(%rsp)
+  3f7234:	movq   $0x8,0x60(%rsp)
+  3f723d:	movq   $0x0,0x68(%rsp)
+  3f7246:	call   *0x271a1c(%rip)        # 668c68 <_DYNAMIC+0x250>
+  3f724c:	mov    $0x70,%edi
+  3f7251:	mov    $0x10,%esi
+  3f7256:	call   *0x271a14(%rip)        # 668c70 <_DYNAMIC+0x258>
+  3f725c:	test   %rax,%rax
+  3f725f:	jne    3f751c <<rune::runtime::vm::Vm>::op_call+0xa1c>
+  3f7265:	mov    $0x10,%edi
+  3f726a:	mov    $0x70,%esi
+  3f726f:	call   *0x271d53(%rip)        # 668fc8 <_DYNAMIC+0x5b0>
+  3f7275:	jmp    3f758d <<rune::runtime::vm::Vm>::op_call+0xa8d>
+  3f727a:	mov    -0x20(%r9),%rcx
+  3f727e:	movq   $0x22,(%rsp)
+  3f7286:	mov    %rcx,0x8(%rsp)
+  3f728b:	movq   $0x0,0x40(%rsp)
+  3f7294:	movq   $0x10,0x48(%rsp)
+  3f729d:	pxor   %xmm0,%xmm0
+  3f72a1:	movdqa %xmm0,0x50(%rsp)
+  3f72a7:	movq   $0x8,0x60(%rsp)
+  3f72b0:	movq   $0x0,0x68(%rsp)
+  3f72b9:	call   *0x2719a9(%rip)        # 668c68 <_DYNAMIC+0x250>
+  3f72bf:	mov    $0x70,%edi
+  3f72c4:	mov    $0x10,%esi
+  3f72c9:	call   *0x2719a1(%rip)        # 668c70 <_DYNAMIC+0x258>
+  3f72cf:	test   %rax,%rax
+  3f72d2:	jne    3f751c <<rune::runtime::vm::Vm>::op_call+0xa1c>
+  3f72d8:	mov    $0x10,%edi
+  3f72dd:	mov    $0x70,%esi
+  3f72e2:	call   *0x271ce0(%rip)        # 668fc8 <_DYNAMIC+0x5b0>
+  3f72e8:	jmp    3f758d <<rune::runtime::vm::Vm>::op_call+0xa8d>
+  3f72ed:	mov    $0x8,%r14d
+  3f72f3:	jmp    3f7300 <<rune::runtime::vm::Vm>::op_call+0x800>
+  3f72f5:	shl    $0x4,%r14
+  3f72f9:	add    0xb0(%rdi),%r14
+  3f7300:	mov    -0x8(%r11),%rax
+  3f7304:	lock incq (%rax)
+  3f7308:	jle    3f7571 <<rune::runtime::vm::Vm>::op_call+0xa71>
+  3f730e:	mov    %rdi,%r15
+  3f7311:	mov    -0x8(%r11),%rsi
+  3f7315:	mov    %rsp,%rdi
+  3f7318:	mov    %rcx,%r12
+  3f731b:	mov    %rcx,%rdx
+  3f731e:	call   278b60 <<rune::runtime::value::any_sequence::AnySequence<rune_alloc::sync::Arc<rune::runtime::value::rtti::Rtti>, rune::runtime::value::Value>>::alloc>
+  3f7323:	mov    (%rsp),%rax
+  3f7327:	test   %rax,%rax
+  3f732a:	je     3f73a5 <<rune::runtime::vm::Vm>::op_call+0x8a5>
+  3f732c:	mov    0x8(%rsp),%rcx
+  3f7331:	movq   $0x4,(%rsp)
+  3f7339:	mov    %rax,0x8(%rsp)
+  3f733e:	mov    %rcx,0x10(%rsp)
+  3f7343:	movq   $0x0,0x40(%rsp)
+  3f734c:	movq   $0x10,0x48(%rsp)
+  3f7355:	pxor   %xmm0,%xmm0
+  3f7359:	movdqa %xmm0,0x50(%rsp)
+  3f735f:	movq   $0x8,0x60(%rsp)
+  3f7368:	movq   $0x0,0x68(%rsp)
+  3f7371:	call   *0x2718f1(%rip)        # 668c68 <_DYNAMIC+0x250>
+  3f7377:	mov    $0x70,%edi
+  3f737c:	mov    $0x10,%esi
+  3f7381:	call   *0x2718e9(%rip)        # 668c70 <_DYNAMIC+0x258>
+  3f7387:	test   %rax,%rax
+  3f738a:	jne    3f751c <<rune::runtime::vm::Vm>::op_call+0xa1c>
+  3f7390:	mov    $0x10,%edi
+  3f7395:	mov    $0x70,%esi
+  3f739a:	call   *0x271c28(%rip)        # 668fc8 <_DYNAMIC+0x5b0>
+  3f73a0:	jmp    3f758d <<rune::runtime::vm::Vm>::op_call+0xa8d>
+  3f73a5:	mov    0x8(%rsp),%rax
+  3f73aa:	test   %r12,%r12
+  3f73ad:	mov    %r15,%rdi
+  3f73b0:	je     3f740b <<rune::runtime::vm::Vm>::op_call+0x90b>
+  3f73b2:	mov    %r12,%rcx
+  3f73b5:	shl    $0x4,%rcx
+  3f73b9:	add    %r14,%rcx
+  3f73bc:	lea    0x21(%rax),%rdx
+  3f73c0:	xor    %esi,%esi
+  3f73c2:	movzbl (%r14,%rsi,1),%r8d
+  3f73c7:	movb   $0x0,(%r14,%rsi,1)
+  3f73cc:	cmp    $0xff,%r8b
+  3f73d0:	je     3f740b <<rune::runtime::vm::Vm>::op_call+0x90b>
+  3f73d2:	lea    (%r14,%rsi,1),%r9
+  3f73d6:	mov    0x1(%r9),%r10
+  3f73da:	mov    0x8(%r9),%r11
+  3f73de:	mov    %r11,0x7(%rsp)
+  3f73e3:	mov    %r10,(%rsp)
+  3f73e7:	mov    %r8b,-0x1(%rdx,%rsi,1)
+  3f73ec:	mov    (%rsp),%r8
+  3f73f0:	mov    0x7(%rsp),%r10
+  3f73f5:	mov    %r8,(%rdx,%rsi,1)
+  3f73f9:	mov    %r10,0x7(%rdx,%rsi,1)
+  3f73fe:	add    $0x10,%rsi
+  3f7402:	add    $0x10,%r9
+  3f7406:	cmp    %rcx,%r9
+  3f7409:	jne    3f73c2 <<rune::runtime::vm::Vm>::op_call+0x8c2>
+  3f740b:	cmp    $0xffffffffffffffff,%rbx
+  3f740f:	je     3f74a4 <<rune::runtime::vm::Vm>::op_call+0x9a4>
+  3f7415:	movb   $0xa,0x70(%rsp)
+  3f741a:	mov    %rax,0x78(%rsp)
+  3f741f:	mov    0xc8(%rdi),%rax
+  3f7426:	add    %rbx,%rax
+  3f7429:	cmp    0xc0(%rdi),%rax
+  3f7430:	jb     3f747c <<rune::runtime::vm::Vm>::op_call+0x97c>
+  3f7432:	lea    0x70(%rsp),%rdi
+  3f7437:	call   3d3a90 <core::ptr::drop_glue::<rune::runtime::value::Value>>
+  3f743c:	mov    %rbx,%rdi
+  3f743f:	add    $0xb0,%rsp
+  3f7446:	pop    %rbx
+  3f7447:	pop    %r12
+  3f7449:	pop    %r14
+  3f744b:	pop    %r15
+  3f744d:	pop    %rbp
+  3f744e:	jmp    402720 <<rune::runtime::vm_error::VmError as core::convert::From<rune::runtime::memory::StoreError<core::convert::Infallible>>>::from>
+  3f7453:	mov    0x8(%rsp),%rax
+  3f7458:	movq   $0xa,0x70(%rsp)
+  3f7461:	mov    %rax,0x78(%rsp)
+  3f7466:	mov    0xc8(%r14),%rax
+  3f746d:	add    %rbx,%rax
+  3f7470:	cmp    0xc0(%r14),%rax
+  3f7477:	jae    3f74b3 <<rune::runtime::vm::Vm>::op_call+0x9b3>
+  3f7479:	mov    %r14,%rdi
+  3f747c:	mov    0xb0(%rdi),%rcx
+  3f7483:	shl    $0x4,%rax
+  3f7487:	movups (%rcx,%rax,1),%xmm0
+  3f748b:	movaps %xmm0,(%rsp)
+  3f748f:	movdqu 0x70(%rsp),%xmm0
+  3f7495:	movdqu %xmm0,(%rcx,%rax,1)
+  3f749a:	mov    %rsp,%rsi
+  3f749d:	call   3f8e50 <<rune::runtime::value::dismantle::Worklist>::dismantle>
+  3f74a2:	jmp    3f74ac <<rune::runtime::vm::Vm>::op_call+0x9ac>
+  3f74a4:	mov    %rax,%rdi
+  3f74a7:	call   279f40 <<rune::runtime::value::any_sequence::AnySequenceData<rune_alloc::sync::Arc<rune::runtime::value::rtti::Rtti>, rune::runtime::value::Value>>::dec>
+  3f74ac:	xor    %eax,%eax
+  3f74ae:	jmp    3f7561 <<rune::runtime::vm::Vm>::op_call+0xa61>
+  3f74b3:	lea    0x70(%rsp),%rdi
+  3f74b8:	call   3d3a90 <core::ptr::drop_glue::<rune::runtime::value::Value>>
+  3f74bd:	mov    $0x6,%edx
+  3f74c2:	mov    %rbx,%rax
+  3f74c5:	mov    %rdx,(%rsp)
+  3f74c9:	mov    %rax,0x8(%rsp)
+  3f74ce:	mov    %rcx,0x10(%rsp)
+  3f74d3:	movq   $0x0,0x40(%rsp)
+  3f74dc:	movq   $0x10,0x48(%rsp)
+  3f74e5:	pxor   %xmm0,%xmm0
+  3f74e9:	movdqa %xmm0,0x50(%rsp)
+  3f74ef:	movq   $0x8,0x60(%rsp)
+  3f74f8:	movq   $0x0,0x68(%rsp)
+  3f7501:	call   *0x271761(%rip)        # 668c68 <_DYNAMIC+0x250>
+  3f7507:	mov    $0x70,%edi
+  3f750c:	mov    $0x10,%esi
+  3f7511:	call   *0x271759(%rip)        # 668c70 <_DYNAMIC+0x258>
+  3f7517:	test   %rax,%rax
+  3f751a:	je     3f757d <<rune::runtime::vm::Vm>::op_call+0xa7d>
+  3f751c:	movaps 0x60(%rsp),%xmm0
+  3f7521:	movaps %xmm0,0x60(%rax)
+  3f7525:	movaps 0x50(%rsp),%xmm0
+  3f752a:	movaps %xmm0,0x50(%rax)
+  3f752e:	movaps 0x40(%rsp),%xmm0
+  3f7533:	movaps %xmm0,0x40(%rax)
+  3f7537:	movdqa (%rsp),%xmm0
+  3f753c:	movdqa 0x10(%rsp),%xmm1
+  3f7542:	movdqa 0x20(%rsp),%xmm2
+  3f7548:	movdqa 0x30(%rsp),%xmm3
+  3f754e:	movdqa %xmm3,0x30(%rax)
+  3f7553:	movdqa %xmm2,0x20(%rax)
+  3f7558:	movdqa %xmm1,0x10(%rax)
+  3f755d:	movdqa %xmm0,(%rax)
+  3f7561:	add    $0xb0,%rsp
+  3f7568:	pop    %rbx
+  3f7569:	pop    %r12
+  3f756b:	pop    %r14
+  3f756d:	pop    %r15
+  3f756f:	pop    %rbp
+  3f7570:	ret
+  3f7571:	call   *0x2718f1(%rip)        # 668e68 <_DYNAMIC+0x450>
+  3f7577:	call   *0x2718eb(%rip)        # 668e68 <_DYNAMIC+0x450>
+  3f757d:	mov    $0x10,%edi
+  3f7582:	mov    $0x70,%esi
+  3f7587:	call   *0x271a3b(%rip)        # 668fc8 <_DYNAMIC+0x5b0>
+  3f758d:	ud2
+  3f758f:	mov    %rax,%rbx
+  3f7592:	mov    %rsp,%rdi
+  3f7595:	call   3d42a0 <core::ptr::drop_glue::<rune::runtime::vm_error::VmErrorInner>>
+  3f759a:	jmp    3f764e <<rune::runtime::vm::Vm>::op_call+0xb4e>
+  3f759f:	call   *0x2716db(%rip)        # 668c80 <_DYNAMIC+0x268>
+  3f75a5:	mov    %rax,%rbx
+  3f75a8:	mov    %rsp,%rdi
+  3f75ab:	call   3d42a0 <core::ptr::drop_glue::<rune::runtime::vm_error::VmErrorInner>>
+  3f75b0:	jmp    3f764e <<rune::runtime::vm::Vm>::op_call+0xb4e>
+  3f75b5:	call   *0x2716c5(%rip)        # 668c80 <_DYNAMIC+0x268>
+  3f75bb:	mov    %rax,%rbx
+  3f75be:	mov    %rsp,%rdi
+  3f75c1:	call   3d42a0 <core::ptr::drop_glue::<rune::runtime::vm_error::VmErrorInner>>
+  3f75c6:	jmp    3f764e <<rune::runtime::vm::Vm>::op_call+0xb4e>
+  3f75cb:	call   *0x2716af(%rip)        # 668c80 <_DYNAMIC+0x268>
+  3f75d1:	mov    %rax,%rbx
+  3f75d4:	mov    %rsp,%rdi
+  3f75d7:	call   3d42a0 <core::ptr::drop_glue::<rune::runtime::vm_error::VmErrorInner>>
+  3f75dc:	jmp    3f764e <<rune::runtime::vm::Vm>::op_call+0xb4e>
+  3f75de:	call   *0x27169c(%rip)        # 668c80 <_DYNAMIC+0x268>
+  3f75e4:	mov    %rax,%rbx
+  3f75e7:	mov    %rsp,%rdi
+  3f75ea:	call   3d42a0 <core::ptr::drop_glue::<rune::runtime::vm_error::VmErrorInner>>
+  3f75ef:	jmp    3f764e <<rune::runtime::vm::Vm>::op_call+0xb4e>
+  3f75f1:	call   *0x271689(%rip)        # 668c80 <_DYNAMIC+0x268>
+  3f75f7:	mov    %rax,%rbx
+  3f75fa:	mov    %rsp,%rdi
+  3f75fd:	call   3d42a0 <core::ptr::drop_glue::<rune::runtime::vm_error::VmErrorInner>>
+  3f7602:	jmp    3f764e <<rune::runtime::vm::Vm>::op_call+0xb4e>
+  3f7604:	call   *0x271676(%rip)        # 668c80 <_DYNAMIC+0x268>
+  3f760a:	mov    %rax,%rbx
+  3f760d:	mov    %rsp,%rdi
+  3f7610:	call   3d42a0 <core::ptr::drop_glue::<rune::runtime::vm_error::VmErrorInner>>
+  3f7615:	jmp    3f764e <<rune::runtime::vm::Vm>::op_call+0xb4e>
+  3f7617:	call   *0x271663(%rip)        # 668c80 <_DYNAMIC+0x268>
+  3f761d:	mov    %rax,%rbx
+  3f7620:	mov    %rsp,%rdi
+  3f7623:	call   3d42a0 <core::ptr::drop_glue::<rune::runtime::vm_error::VmErrorInner>>
+  3f7628:	jmp    3f764e <<rune::runtime::vm::Vm>::op_call+0xb4e>
+  3f762a:	call   *0x271650(%rip)        # 668c80 <_DYNAMIC+0x268>
+  3f7630:	mov    %rax,%rbx
+  3f7633:	mov    %rsp,%rdi
+  3f7636:	call   3d42a0 <core::ptr::drop_glue::<rune::runtime::vm_error::VmErrorInner>>
+  3f763b:	jmp    3f764e <<rune::runtime::vm::Vm>::op_call+0xb4e>
+  3f763d:	call   *0x27163d(%rip)        # 668c80 <_DYNAMIC+0x268>
+  3f7643:	mov    %rax,%rbx
+  3f7646:	mov    %rsp,%rdi
+  3f7649:	call   3d42a0 <core::ptr::drop_glue::<rune::runtime::vm_error::VmErrorInner>>
+  3f764e:	mov    %rbx,%rdi
+  3f7651:	call   638210 <_Unwind_Resume@plt>
+  3f7656:	call   *0x271624(%rip)        # 668c80 <_DYNAMIC+0x268>

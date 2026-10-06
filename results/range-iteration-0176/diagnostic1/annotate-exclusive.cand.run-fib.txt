@@ -1,0 +1,171 @@
+--------------------------------------------------------------------------------
+Profile data file '/home/me/work/rnx-bench-w-0176d/results/range-iteration-0176/diagnostic1/callgrind.out.cand.run-fib' (creator: callgrind-3.26.0)
+--------------------------------------------------------------------------------
+I1 cache: 
+D1 cache: 
+LL cache: 
+Timerange: Basic block 0 - 153492644
+Trigger: Program termination
+Profiled target:  /home/me/work/rnx-bench-w-0176d/probes/range-iteration-0176/bin/cand-primary run /home/me/work/rnx-bench-w-0176d/probes/range-iteration-0176/corpus/fib.rn (PID 3075532, part 1)
+Events recorded:  Ir
+Events shown:     Ir
+Event sort order: Ir
+Thresholds:       99.9
+Include dirs:     
+User annotated:   
+Auto-annotation:  on
+
+--------------------------------------------------------------------------------
+Ir                   
+--------------------------------------------------------------------------------
+899,083,137 (100.0%)  PROGRAM TOTALS
+
+--------------------------------------------------------------------------------
+Ir                    file:function
+--------------------------------------------------------------------------------
+383,279,951 (42.63%)  ???:<rune::runtime::vm::Vm>::run [/home/me/work/rnx-bench-w-0176d/probes/range-iteration-0176/bin/cand-primary]
+102,335,197 (11.38%)  ???:<rune::runtime::vm::Vm>::pop_call_frame [/home/me/work/rnx-bench-w-0176d/probes/range-iteration-0176/bin/cand-primary]
+ 97,568,061 (10.85%)  ???:core::ptr::drop_glue::<rune::runtime::value::Value> [/home/me/work/rnx-bench-w-0176d/probes/range-iteration-0176/bin/cand-primary]
+ 45,764,784 ( 5.09%)  ???:core::ptr::drop_glue::<rune::runtime::value::Repr> [/home/me/work/rnx-bench-w-0176d/probes/range-iteration-0176/bin/cand-primary]
+ 43,857,849 ( 4.88%)  ???:<rune::runtime::vm::Vm>::internal_cmp [/home/me/work/rnx-bench-w-0176d/probes/range-iteration-0176/bin/cand-primary]
+ 37,501,819 ( 4.17%)  ???:<rune::runtime::memory::Stack>::swap_top [/home/me/work/rnx-bench-w-0176d/probes/range-iteration-0176/bin/cand-primary]
+ 37,501,778 ( 4.17%)  ???:<rune_alloc::vec::Vec<rune::runtime::value::Value>>::try_resize_with::<<rune::runtime::value::Value>::empty> [/home/me/work/rnx-bench-w-0176d/probes/range-iteration-0176/bin/cand-primary]
+ 34,959,204 ( 3.89%)  ???:<rune::runtime::vm::Vm>::op_return_internal [/home/me/work/rnx-bench-w-0176d/probes/range-iteration-0176/bin/cand-primary]
+ 34,323,661 ( 3.82%)  ???:<rune::runtime::vm::Vm>::call_offset_fn [/home/me/work/rnx-bench-w-0176d/probes/range-iteration-0176/bin/cand-primary]
+ 18,115,170 ( 2.01%)  ???:<rune::runtime::value::dismantle::Worklist>::dismantle [/home/me/work/rnx-bench-w-0176d/probes/range-iteration-0176/bin/cand-primary]
+ 16,526,146 ( 1.84%)  ???:<rune::runtime::value::inline::Inline>::partial_cmp [/home/me/work/rnx-bench-w-0176d/probes/range-iteration-0176/bin/cand-primary]
+  9,534,300 ( 1.06%)  ???:<rune::runtime::value::inline::Inline>::as_integer::<i64> [/home/me/work/rnx-bench-w-0176d/probes/range-iteration-0176/bin/cand-primary]
+  3,178,100 ( 0.35%)  ???:<i64>::checked_sub [/home/me/work/rnx-bench-w-0176d/probes/range-iteration-0176/bin/cand-primary]
+  2,188,064 ( 0.24%)  ./malloc/./malloc/malloc.c:_int_malloc [/usr/lib/x86_64-linux-gnu/libc.so.6]
+  1,906,863 ( 0.21%)  ???:<<rune::runtime::vm::Vm>::op_op::{closure#0} as core::ops::function::FnOnce<(core::cmp::Ordering,)>>::call_once [/home/me/work/rnx-bench-w-0176d/probes/range-iteration-0176/bin/cand-primary]
+  1,724,949 ( 0.19%)  ???:<rune_alloc::fmt::TryWrite::write_fmt::Writer<rune_alloc::string::String> as core::fmt::Write>::write_str [/home/me/work/rnx-bench-w-0176d/probes/range-iteration-0176/bin/cand-primary]
+  1,589,050 ( 0.18%)  ???:<i64>::checked_add [/home/me/work/rnx-bench-w-0176d/probes/range-iteration-0176/bin/cand-primary]
+  1,432,890 ( 0.16%)  ???:<twox_hash::xxhash64::Hasher as core::hash::Hasher>::write [/home/me/work/rnx-bench-w-0176d/probes/range-iteration-0176/bin/cand-primary]
+  1,387,136 ( 0.15%)  ./malloc/./malloc/malloc.c:_int_free_merge_chunk [/usr/lib/x86_64-linux-gnu/libc.so.6]
+  1,341,254 ( 0.15%)  ./string/../sysdeps/x86_64/multiarch/memmove-vec-unaligned-erms.S:__memcpy_avx_unaligned_erms [/usr/lib/x86_64-linux-gnu/libc.so.6]
+  1,209,824 ( 0.13%)  ./malloc/./malloc/malloc.c:free [/usr/lib/x86_64-linux-gnu/libc.so.6]
+  1,038,928 ( 0.12%)  ???:core::fmt::write'2 [/home/me/work/rnx-bench-w-0176d/probes/range-iteration-0176/bin/cand-primary]
+    923,286 ( 0.10%)  ./malloc/./malloc/malloc.c:malloc [/usr/lib/x86_64-linux-gnu/libc.so.6]
+    901,094 ( 0.10%)  ???:<rune_alloc::btree::map::BTreeMap<rune_core::item::component::Component, rune::compile::names::Node>>::entry_with::<(), core::convert::Infallible> [/home/me/work/rnx-bench-w-0176d/probes/range-iteration-0176/bin/cand-primary]
+    840,170 ( 0.09%)  ???:rune_alloc::btree::map::infallible_cmp::<rune_core::item::component::Component> [/home/me/work/rnx-bench-w-0176d/probes/range-iteration-0176/bin/cand-primary]
+    803,692 ( 0.09%)  ???:<rune_core::item::iter::Iter as core::iter::traits::iterator::Iterator>::next [/home/me/work/rnx-bench-w-0176d/probes/range-iteration-0176/bin/cand-primary]
+    761,475 ( 0.08%)  ???:<rune::compile::context::Context>::install_meta [/home/me/work/rnx-bench-w-0176d/probes/range-iteration-0176/bin/cand-primary]
+    670,116 ( 0.07%)  ./string/../sysdeps/x86_64/multiarch/memcmp-avx2-movbe.S:__memcmp_avx2_movbe [/usr/lib/x86_64-linux-gnu/libc.so.6]
+    616,746 ( 0.07%)  ???:rune_alloc::raw_vec::finish_grow::<rune_alloc::alloc::global::Global> [/home/me/work/rnx-bench-w-0176d/probes/range-iteration-0176/bin/cand-primary]
+    548,837 ( 0.06%)  ???:<rune::compile::context::ContextType as rune_alloc::clone::TryClone>::try_clone [/home/me/work/rnx-bench-w-0176d/probes/range-iteration-0176/bin/cand-primary]
+    546,598 ( 0.06%)  ???:<rune::compile::context::Context>::install_associated [/home/me/work/rnx-bench-w-0176d/probes/range-iteration-0176/bin/cand-primary]
+    476,528 ( 0.05%)  ???:rune_alloc::limit::take [/home/me/work/rnx-bench-w-0176d/probes/range-iteration-0176/bin/cand-primary]
+    440,816 ( 0.05%)  ???:<rune_core::item::item::Item>::extended::<&str> [/home/me/work/rnx-bench-w-0176d/probes/range-iteration-0176/bin/cand-primary]
+    438,428 ( 0.05%)  ???:rune_core::item::internal::write_str::<rune_alloc::alloc::global::Global> [/home/me/work/rnx-bench-w-0176d/probes/range-iteration-0176/bin/cand-primary]
+    419,716 ( 0.05%)  ./malloc/./malloc/malloc.c:_int_free_maybe_trim [/usr/lib/x86_64-linux-gnu/libc.so.6]
+    405,232 ( 0.05%)  ???:<rune_alloc::alloc::global::Global>::take [/home/me/work/rnx-bench-w-0176d/probes/range-iteration-0176/bin/cand-primary]
+    396,358 ( 0.04%)  ???:rune_core::item::into_component::into_component [/home/me/work/rnx-bench-w-0176d/probes/range-iteration-0176/bin/cand-primary]
+    391,272 ( 0.04%)  ???:<twox_hash::xxhash64::Hasher as core::hash::Hasher>::finish [/home/me/work/rnx-bench-w-0176d/probes/range-iteration-0176/bin/cand-primary]
+    379,873 ( 0.04%)  ???:<rune_alloc::hashbrown::map::HashMap<rune_core::hash::Hash, rune::runtime::FunctionHandler, rune::hash::HashBuildHasher>>::try_insert [/home/me/work/rnx-bench-w-0176d/probes/range-iteration-0176/bin/cand-primary]
+    367,500 ( 0.04%)  ./malloc/./malloc/malloc.c:__libc_malloc2 [/usr/lib/x86_64-linux-gnu/libc.so.6]
+    350,209 ( 0.04%)  ./malloc/./malloc/malloc.c:unlink_chunk.isra.0 [/usr/lib/x86_64-linux-gnu/libc.so.6]
+    330,624 ( 0.04%)  ???:__rustc::__rdl_alloc [/home/me/work/rnx-bench-w-0176d/probes/range-iteration-0176/bin/cand-primary]
+    329,904 ( 0.04%)  ???:rune_alloc::limit::release [/home/me/work/rnx-bench-w-0176d/probes/range-iteration-0176/bin/cand-primary]
+    327,871 ( 0.04%)  ???:<rune::compile::names::Names>::insert::<&rune_core::item::item_buf::ItemBuf> [/home/me/work/rnx-bench-w-0176d/probes/range-iteration-0176/bin/cand-primary]
+    315,373 ( 0.04%)  ???:<rune::compile::context::Context>::insert_native_fn [/home/me/work/rnx-bench-w-0176d/probes/range-iteration-0176/bin/cand-primary]
+    300,830 ( 0.03%)  ???:<rune_alloc::alloc::global::Global as rune_alloc::alloc::allocator::Allocator>::deallocate [/home/me/work/rnx-bench-w-0176d/probes/range-iteration-0176/bin/cand-primary]
+    300,285 ( 0.03%)  ???:<rune_core::item::item::Item as core::fmt::Display>::fmt [/home/me/work/rnx-bench-w-0176d/probes/range-iteration-0176/bin/cand-primary]
+    294,162 ( 0.03%)  ./malloc/./malloc/malloc.c:_int_free_chunk [/usr/lib/x86_64-linux-gnu/libc.so.6]
+    287,821 ( 0.03%)  ???:<rune_alloc::hashbrown::raw::RawTable<(rune_core::hash::Hash, rune::runtime::FunctionHandler)>>::reserve_rehash::<(), core::convert::Infallible, rune_alloc::hashbrown::TupleFn<rune_alloc::hashbrown::map::make_hasher<rune_core::hash::Hash, rune::hash::HashBuildHasher>::{closure#0}, rune::runtime::FunctionHandler>> [/home/me/work/rnx-bench-w-0176d/probes/range-iteration-0176/bin/cand-primary]
+    278,704 ( 0.03%)  ???:<rune_core::item::component_ref::ComponentRef as rune_core::item::into_component::IntoComponent>::hash_component::<twox_hash::xxhash64::Hasher> [/home/me/work/rnx-bench-w-0176d/probes/range-iteration-0176/bin/cand-primary]
+    278,216 ( 0.03%)  ???:<rune_alloc::hashbrown::map::HashMap<rune_core::hash::Hash, rune::runtime::FunctionHandler, rune::hash::HashBuildHasher> as rune_alloc::clone::TryClone>::try_clone [/home/me/work/rnx-bench-w-0176d/probes/range-iteration-0176/bin/cand-primary]
+    273,036 ( 0.03%)  ???:<rune_alloc::btree::map::IntoIter<rune_core::item::component::Component, rune::compile::names::Node>>::dying_next [/home/me/work/rnx-bench-w-0176d/probes/range-iteration-0176/bin/cand-primary]
+    253,331 ( 0.03%)  ???:<rune_core::hash::Hash>::type_hash::<&rune_core::item::item_buf::ItemBuf> [/home/me/work/rnx-bench-w-0176d/probes/range-iteration-0176/bin/cand-primary]
+    222,268 ( 0.02%)  ???:<rune_alloc::btree::map::entry::Entry<rune_core::item::component::Component, rune::compile::names::Node>>::or_try_default [/home/me/work/rnx-bench-w-0176d/probes/range-iteration-0176/bin/cand-primary]
+    218,341 ( 0.02%)  ???:<core::hash::BuildHasherDefault<ahash::fallback_hash::AHasher> as core::hash::BuildHasher>::hash_one::<&rune_alloc::vec::Vec<u8>> [/home/me/work/rnx-bench-w-0176d/probes/range-iteration-0176/bin/cand-primary]
+    196,758 ( 0.02%)  ???:<rune::runtime::const_value::node::ConstNodeKind as rune_alloc::clone::TryClone>::try_clone [/home/me/work/rnx-bench-w-0176d/probes/range-iteration-0176/bin/cand-primary]
+    193,850 ( 0.02%)  ???:<core::fmt::Formatter>::pad [/home/me/work/rnx-bench-w-0176d/probes/range-iteration-0176/bin/cand-primary]
+    189,467 ( 0.02%)  ???:<rune_alloc::hashbrown::map::HashMap<rune_core::hash::Hash, rune::runtime::const_value::node::ConstValueBuf, rune::hash::HashBuildHasher> as rune_alloc::clone::TryClone>::try_clone [/home/me/work/rnx-bench-w-0176d/probes/range-iteration-0176/bin/cand-primary]
+    181,026 ( 0.02%)  ???:<rune_alloc::hashbrown::map::HashMap<rune_core::hash::Hash, rune::runtime::const_value::node::ConstValueBuf, rune::hash::HashBuildHasher>>::try_insert [/home/me/work/rnx-bench-w-0176d/probes/range-iteration-0176/bin/cand-primary]
+    168,124 ( 0.02%)  ???:<rune_alloc::sync::Arc<rune::runtime::runtime_context::RuntimeContext>>::drop_slow [/home/me/work/rnx-bench-w-0176d/probes/range-iteration-0176/bin/cand-primary]
+    165,154 ( 0.02%)  ???:<rune::compile::names::Node as core::ops::drop::Drop>::drop [/home/me/work/rnx-bench-w-0176d/probes/range-iteration-0176/bin/cand-primary]
+    161,853 ( 0.02%)  ???:<rune_alloc::hashbrown::map::Entry<rune_core::hash::Hash, rune_alloc::vec::Vec<usize>, rune::hash::HashBuildHasher>>::or_try_default [/home/me/work/rnx-bench-w-0176d/probes/range-iteration-0176/bin/cand-primary]
+    151,198 ( 0.02%)  ???:<rune_alloc::hashbrown::raw::RawTable<(rune_core::hash::Hash, rune::runtime::const_value::node::ConstValueBuf)>>::reserve_rehash::<(), core::convert::Infallible, rune_alloc::hashbrown::TupleFn<rune_alloc::hashbrown::map::make_hasher<rune_core::hash::Hash, rune::hash::HashBuildHasher>::{closure#0}, rune::runtime::const_value::node::ConstValueBuf>> [/home/me/work/rnx-bench-w-0176d/probes/range-iteration-0176/bin/cand-primary]
+    147,473 ( 0.02%)  ???:<rune_alloc::hashbrown::raw::RawTable<(rune_core::hash::Hash, rune_alloc::vec::Vec<usize>)>>::reserve_rehash::<(), core::convert::Infallible, rune_alloc::hashbrown::TupleFn<rune_alloc::hashbrown::map::make_hasher<rune_core::hash::Hash, rune::hash::HashBuildHasher>::{closure#0}, rune_alloc::vec::Vec<usize>>> [/home/me/work/rnx-bench-w-0176d/probes/range-iteration-0176/bin/cand-primary]
+    144,244 ( 0.02%)  ???:<rune_alloc::hashbrown::map::HashMap<rune_core::item::item_buf::ItemBuf, rune_alloc::btree::set::BTreeSet<rune_core::hash::Hash>>>::entry [/home/me/work/rnx-bench-w-0176d/probes/range-iteration-0176/bin/cand-primary]
+    143,469 ( 0.02%)  ???:<rune_core::item::component_ref::ComponentRef as core::fmt::Display>::fmt [/home/me/work/rnx-bench-w-0176d/probes/range-iteration-0176/bin/cand-primary]
+    129,995 ( 0.01%)  ???:<rune_alloc::hashbrown::map::Entry<rune_core::item::item_buf::ItemBuf, rune_alloc::btree::set::BTreeSet<rune_core::hash::Hash>, core::hash::BuildHasherDefault<ahash::fallback_hash::AHasher>>>::or_try_default [/home/me/work/rnx-bench-w-0176d/probes/range-iteration-0176/bin/cand-primary]
+    123,806 ( 0.01%)  ???:core::ptr::drop_glue::<rune::runtime::const_value::node::ConstValueBuf> [/home/me/work/rnx-bench-w-0176d/probes/range-iteration-0176/bin/cand-primary]
+    118,619 ( 0.01%)  ???:<rune_alloc::btree::map::IntoIter<rune_core::hash::Hash, rune_alloc::btree::set_val::SetValZST> as core::ops::drop::Drop>::drop [/home/me/work/rnx-bench-w-0176d/probes/range-iteration-0176/bin/cand-primary]
+    114,814 ( 0.01%)  ./elf/../sysdeps/x86_64/dl-machine.h:_dl_relocate_object_no_relro
+    112,443 ( 0.01%)  ???:core::fmt::write [/home/me/work/rnx-bench-w-0176d/probes/range-iteration-0176/bin/cand-primary]
+    112,319 ( 0.01%)  ???:core::ptr::drop_glue::<rune::compile::context::Context> [/home/me/work/rnx-bench-w-0176d/probes/range-iteration-0176/bin/cand-primary]
+    110,235 ( 0.01%)  ???:<rune_alloc::hashbrown::map::HashMap<rune::module::module::Name, ()>>::try_insert [/home/me/work/rnx-bench-w-0176d/probes/range-iteration-0176/bin/cand-primary]
+    106,564 ( 0.01%)  ???:<core::hash::BuildHasherDefault<ahash::fallback_hash::AHasher> as core::hash::BuildHasher>::hash_one::<&rune::module::module::Name> [/home/me/work/rnx-bench-w-0176d/probes/range-iteration-0176/bin/cand-primary]
+    105,765 ( 0.01%)  ???:<rune_alloc::btree::node::Handle<rune_alloc::btree::node::NodeRef<rune_alloc::btree::node::marker::Mut, rune_core::item::component::Component, rune::compile::names::Node, rune_alloc::btree::node::marker::Leaf>, rune_alloc::btree::node::marker::Edge>>::insert_recursing::<rune_alloc::alloc::global::Global, <rune_alloc::btree::map::entry::VacantEntry<rune_core::item::component::Component, rune::compile::names::Node>>::try_insert::{closure#0}> [/home/me/work/rnx-bench-w-0176d/probes/range-iteration-0176/bin/cand-primary]
+    100,265 ( 0.01%)  ???:<rune_alloc::raw_vec::RawVec<u8>>::shrink [/home/me/work/rnx-bench-w-0176d/probes/range-iteration-0176/bin/cand-primary]
+     94,600 ( 0.01%)  ???:<rune_alloc::btree::map::IntoIter<rune_core::item::component::Component, rune::compile::names::Node> as core::ops::drop::Drop>::drop [/home/me/work/rnx-bench-w-0176d/probes/range-iteration-0176/bin/cand-primary]
+     93,558 ( 0.01%)  ???:<rune_alloc::hashbrown::raw::RawTable<(rune_core::item::item_buf::ItemBuf, rune_alloc::btree::set::BTreeSet<rune_core::hash::Hash>)>>::reserve_rehash::<(), core::convert::Infallible, rune_alloc::hashbrown::TupleFn<rune_alloc::hashbrown::map::make_hasher<rune_core::item::item_buf::ItemBuf, core::hash::BuildHasherDefault<ahash::fallback_hash::AHasher>>::{closure#0}, rune_alloc::btree::set::BTreeSet<rune_core::hash::Hash>>> [/home/me/work/rnx-bench-w-0176d/probes/range-iteration-0176/bin/cand-primary]
+     91,375 ( 0.01%)  ???:<rune::compile::meta::AssociatedKind as rune_alloc::clone::TryClone>::try_clone [/home/me/work/rnx-bench-w-0176d/probes/range-iteration-0176/bin/cand-primary]
+     91,001 ( 0.01%)  ???:<rune::compile::context::TraitContext>::function_inner [/home/me/work/rnx-bench-w-0176d/probes/range-iteration-0176/bin/cand-primary]
+     90,216 ( 0.01%)  ???:<rune::compile::names::Node as core::ops::drop::Drop>::drop'2 [/home/me/work/rnx-bench-w-0176d/probes/range-iteration-0176/bin/cand-primary]
+     87,795 ( 0.01%)  ???:<rune_alloc::btree::map::entry::VacantEntry<rune_core::hash::Hash, rune_alloc::btree::set_val::SetValZST>>::try_insert [/home/me/work/rnx-bench-w-0176d/probes/range-iteration-0176/bin/cand-primary]
+     81,026 ( 0.01%)  ???:core::ptr::drop_glue::<rune::compile::meta::Kind> [/home/me/work/rnx-bench-w-0176d/probes/range-iteration-0176/bin/cand-primary]
+     75,821 ( 0.01%)  ???:<rune_alloc::hashbrown::raw::RawTable<(rune::module::module::Name, ())>>::reserve_rehash::<(), core::convert::Infallible, rune_alloc::hashbrown::TupleFn<rune_alloc::hashbrown::map::make_hasher<rune::module::module::Name, core::hash::BuildHasherDefault<ahash::fallback_hash::AHasher>>::{closure#0}, ()>> [/home/me/work/rnx-bench-w-0176d/probes/range-iteration-0176/bin/cand-primary]
+     65,769 ( 0.01%)  ./elf/./elf/dl-lookup.c:do_lookup_x [/usr/lib/x86_64-linux-gnu/ld-linux-x86-64.so.2]
+     60,552 ( 0.01%)  ???:<rune::runtime::FunctionHandler>::new_tagged::clone_impl::<rune::modules::io::dbg_impl> [/home/me/work/rnx-bench-w-0176d/probes/range-iteration-0176/bin/cand-primary]
+     59,050 ( 0.01%)  ./malloc/./malloc/malloc.c:alloc_perturb [/usr/lib/x86_64-linux-gnu/libc.so.6]
+     58,368 ( 0.01%)  ???:<rune_core::item::iter::Iter as core::iter::traits::double_ended::DoubleEndedIterator>::next_back [/home/me/work/rnx-bench-w-0176d/probes/range-iteration-0176/bin/cand-primary]
+     57,226 ( 0.01%)  ???:<rune_core::hash::Hash>::ident [/home/me/work/rnx-bench-w-0176d/probes/range-iteration-0176/bin/cand-primary]
+     55,503 ( 0.01%)  ???:core::ptr::drop_glue::<rune::module::module_meta::ModuleAssociated> [/home/me/work/rnx-bench-w-0176d/probes/range-iteration-0176/bin/cand-primary]
+     53,877 ( 0.01%)  ???:<rune_alloc::hashbrown::raw::RawTable<(rune_core::item::item_buf::ItemBuf, rune_alloc::btree::set::BTreeSet<rune_core::hash::Hash>)> as core::ops::drop::Drop>::drop [/home/me/work/rnx-bench-w-0176d/probes/range-iteration-0176/bin/cand-primary]
+     53,773 ( 0.01%)  ???:<rune_alloc::hashbrown::raw::RawTable<(rune_core::hash::Hash, rune::runtime::const_value::node::ConstValueBuf)> as core::ops::drop::Drop>::drop [/home/me/work/rnx-bench-w-0176d/probes/range-iteration-0176/bin/cand-primary]
+     51,903 ( 0.01%)  ./malloc/./malloc/arena.c:free
+     51,842 ( 0.01%)  ./stdio-common/./stdio-common/vfscanf-internal.c:__vfscanf_internal [/usr/lib/x86_64-linux-gnu/libc.so.6]
+     45,483 ( 0.01%)  ./elf/./elf/do-rel.h:_dl_relocate_object_no_relro
+     45,110 ( 0.01%)  ./string/../sysdeps/x86_64/multiarch/memset-vec-unaligned-erms.S:__memset_avx2_unaligned_erms [/usr/lib/x86_64-linux-gnu/libc.so.6]
+     45,022 ( 0.01%)  ???:<rune::compile::context::Context>::install_type [/home/me/work/rnx-bench-w-0176d/probes/range-iteration-0176/bin/cand-primary]
+     42,896 ( 0.00%)  ???:<rune::module::module::Module>::insert_associated_function [/home/me/work/rnx-bench-w-0176d/probes/range-iteration-0176/bin/cand-primary]
+     42,133 ( 0.00%)  ???:<rune_alloc::vec::Vec<rune::compile::context::ContextMeta> as core::ops::drop::Drop>::drop [/home/me/work/rnx-bench-w-0176d/probes/range-iteration-0176/bin/cand-primary]
+     41,232 ( 0.00%)  ???:<rune_alloc::vec::Vec<u8>>::try_into_boxed_slice [/home/me/work/rnx-bench-w-0176d/probes/range-iteration-0176/bin/cand-primary]
+     38,770 ( 0.00%)  ???:<str as core::fmt::Display>::fmt [/home/me/work/rnx-bench-w-0176d/probes/range-iteration-0176/bin/cand-primary]
+     38,755 ( 0.00%)  ???:<&&str as core::fmt::Display>::fmt [/home/me/work/rnx-bench-w-0176d/probes/range-iteration-0176/bin/cand-primary]
+     38,709 ( 0.00%)  ???:core::ptr::drop_glue::<rune::compile::context::ContextType> [/home/me/work/rnx-bench-w-0176d/probes/range-iteration-0176/bin/cand-primary]
+     37,498 ( 0.00%)  ???:<rune::module::module::Module>::function_meta [/home/me/work/rnx-bench-w-0176d/probes/range-iteration-0176/bin/cand-primary]
+     36,736 ( 0.00%)  ???:__rustc::__rust_alloc [/home/me/work/rnx-bench-w-0176d/probes/range-iteration-0176/bin/cand-primary]
+     36,736 ( 0.00%)  ???:__rustc::__rust_no_alloc_shim_is_unstable_v2 [/home/me/work/rnx-bench-w-0176d/probes/range-iteration-0176/bin/cand-primary]
+     36,735 ( 0.00%)  ???:__rustc::__rdl_dealloc [/home/me/work/rnx-bench-w-0176d/probes/range-iteration-0176/bin/cand-primary]
+     36,735 ( 0.00%)  ???:__rustc::__rust_dealloc [/home/me/work/rnx-bench-w-0176d/probes/range-iteration-0176/bin/cand-primary]
+     34,994 ( 0.00%)  ./malloc/./malloc/arena.c:__libc_malloc2
+     29,030 ( 0.00%)  ???:<rune_core::hash::Hash>::type_hash::<&rune_core::item::item::Item> [/home/me/work/rnx-bench-w-0176d/probes/range-iteration-0176/bin/cand-primary]
+     27,304 ( 0.00%)  ???:<rune_alloc::btree::node::Handle<rune_alloc::btree::node::NodeRef<rune_alloc::btree::node::marker::Mut, rune_core::hash::Hash, rune_alloc::btree::set_val::SetValZST, rune_alloc::btree::node::marker::Leaf>, rune_alloc::btree::node::marker::Edge>>::insert_recursing::<rune_alloc::alloc::global::Global, <rune_alloc::btree::map::entry::VacantEntry<rune_core::hash::Hash, rune_alloc::btree::set_val::SetValZST>>::try_insert::{closure#0}> [/home/me/work/rnx-bench-w-0176d/probes/range-iteration-0176/bin/cand-primary]
+     26,320 ( 0.00%)  ???:<rune::module::module::Module>::insert_associated_name [/home/me/work/rnx-bench-w-0176d/probes/range-iteration-0176/bin/cand-primary]
+     25,656 ( 0.00%)  ./stdlib/../stdlib/strtol_l.c:____strtoul_l_internal [/usr/lib/x86_64-linux-gnu/libc.so.6]
+     24,231 ( 0.00%)  ./string/../sysdeps/x86_64/multiarch/../multiarch/strcmp-sse2.S:strcmp [/usr/lib/x86_64-linux-gnu/ld-linux-x86-64.so.2]
+     24,040 ( 0.00%)  ???:<rune::compile::context::TraitHandler>::new_tagged::call_impl::<rune::modules::iter::module::{closure#1}> [/home/me/work/rnx-bench-w-0176d/probes/range-iteration-0176/bin/cand-primary]
+     22,526 ( 0.00%)  ./elf/./elf/dl-reloc.c:_dl_relocate_object_no_relro [/usr/lib/x86_64-linux-gnu/ld-linux-x86-64.so.2]
+     21,535 ( 0.00%)  ???:<rune::grammar::parser::Parser>::fill [/home/me/work/rnx-bench-w-0176d/probes/range-iteration-0176/bin/cand-primary]
+     20,280 ( 0.00%)  ???:<rune::compile::context::Context>::install_item [/home/me/work/rnx-bench-w-0176d/probes/range-iteration-0176/bin/cand-primary]
+     20,076 ( 0.00%)  ???:<rune_alloc::vec::Vec<rune::compile::names::Node> as core::ops::drop::Drop>::drop [/home/me/work/rnx-bench-w-0176d/probes/range-iteration-0176/bin/cand-primary]
+     19,858 ( 0.00%)  ???:<rune::compile::context::Context>::install_trait_impl [/home/me/work/rnx-bench-w-0176d/probes/range-iteration-0176/bin/cand-primary]
+     19,392 ( 0.00%)  ???:rune::grammar::grammar::parse [/home/me/work/rnx-bench-w-0176d/probes/range-iteration-0176/bin/cand-primary]
+     18,469 ( 0.00%)  ./elf/./elf/dl-lookup.c:_dl_lookup_symbol_x [/usr/lib/x86_64-linux-gnu/ld-linux-x86-64.so.2]
+     16,676 ( 0.00%)  ./elf/../sysdeps/generic/dl-new-hash.h:_dl_lookup_symbol_x
+     16,569 ( 0.00%)  ???:<rune_alloc::hashbrown::raw::RawTable<(rune::module::module::Name, ())> as core::ops::drop::Drop>::drop [/home/me/work/rnx-bench-w-0176d/probes/range-iteration-0176/bin/cand-primary]
+     15,291 ( 0.00%)  ???:<rune::indexing::index2::Processor>::node [/home/me/work/rnx-bench-w-0176d/probes/range-iteration-0176/bin/cand-primary]
+     15,105 ( 0.00%)  ???:<rune::compile::context::TraitContext>::find [/home/me/work/rnx-bench-w-0176d/probes/range-iteration-0176/bin/cand-primary]
+     13,771 ( 0.00%)  ???:<rune::grammar::parser::Parser>::flush_ws [/home/me/work/rnx-bench-w-0176d/probes/range-iteration-0176/bin/cand-primary]
+     12,594 ( 0.00%)  ???:<rune::compile::context::Context>::install_module [/home/me/work/rnx-bench-w-0176d/probes/range-iteration-0176/bin/cand-primary]
+
+--------------------------------------------------------------------------------
+The following files chosen for auto-annotation could not be found:
+--------------------------------------------------------------------------------
+  ./elf/../sysdeps/generic/dl-new-hash.h
+  ./elf/../sysdeps/x86_64/dl-machine.h
+  ./elf/./elf/dl-lookup.c
+  ./elf/./elf/dl-reloc.c
+  ./elf/./elf/do-rel.h
+  ./malloc/./malloc/arena.c
+  ./malloc/./malloc/malloc.c
+  ./stdio-common/./stdio-common/vfscanf-internal.c
+  ./stdlib/../stdlib/strtol_l.c
+  ./string/../sysdeps/x86_64/multiarch/../multiarch/strcmp-sse2.S
+  ./string/../sysdeps/x86_64/multiarch/memcmp-avx2-movbe.S
+  ./string/../sysdeps/x86_64/multiarch/memmove-vec-unaligned-erms.S
+  ./string/../sysdeps/x86_64/multiarch/memset-vec-unaligned-erms.S
+

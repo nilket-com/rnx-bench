@@ -1,0 +1,98 @@
+--------------------------------------------------------------------------------
+Profile data file '/home/me/work/rnx-bench-w-0176d/results/range-iteration-0176/diagnostic1/callgrind.out.cand.run-calls' (creator: callgrind-3.26.0)
+--------------------------------------------------------------------------------
+I1 cache: 
+D1 cache: 
+LL cache: 
+Timerange: Basic block 0 - 313345753
+Trigger: Program termination
+Profiled target:  /home/me/work/rnx-bench-w-0176d/probes/range-iteration-0176/bin/cand-primary run /home/me/work/rnx-bench-w-0176d/probes/range-iteration-0176/fixtures/calls.rn (PID 3075537, part 1)
+Events recorded:  Ir
+Events shown:     Ir
+Event sort order: Ir
+Thresholds:       99.9
+Include dirs:     
+User annotated:   
+Auto-annotation:  on
+
+--------------------------------------------------------------------------------
+Ir                     
+--------------------------------------------------------------------------------
+1,838,140,120 (100.0%)  PROGRAM TOTALS
+
+--------------------------------------------------------------------------------
+Ir                      file:function
+--------------------------------------------------------------------------------
+1,838,140,120 (100.0%)  ???:0x0000000000023340 [/usr/lib/x86_64-linux-gnu/ld-linux-x86-64.so.2]
+1,837,760,924 (99.98%)  ???:(below main) [/home/me/work/rnx-bench-w-0176d/probes/range-iteration-0176/bin/cand-primary]
+1,837,760,912 (99.98%)  ./csu/../csu/libc-start.c:__libc_start_main@@GLIBC_2.34 [/usr/lib/x86_64-linux-gnu/libc.so.6]
+1,837,760,731 (99.98%)  ./csu/../sysdeps/nptl/libc_start_call_main.h:(below main) [/usr/lib/x86_64-linux-gnu/libc.so.6]
+1,837,758,708 (99.98%)  ???:main [/home/me/work/rnx-bench-w-0176d/probes/range-iteration-0176/bin/cand-primary]
+1,837,758,697 (99.98%)  ???:std::rt::lang_start_internal [/home/me/work/rnx-bench-w-0176d/probes/range-iteration-0176/bin/cand-primary]
+1,837,648,220 (99.97%)  ???:std::rt::lang_start::<()>::{closure#0} [/home/me/work/rnx-bench-w-0176d/probes/range-iteration-0176/bin/cand-primary]
+1,837,648,214 (99.97%)  ???:std::sys::backtrace::__rust_begin_short_backtrace::<fn(), ()> [/home/me/work/rnx-bench-w-0176d/probes/range-iteration-0176/bin/cand-primary]
+1,837,648,210 (99.97%)  ???:rune_base_new::main [/home/me/work/rnx-bench-w-0176d/probes/range-iteration-0176/bin/cand-primary]
+1,807,005,543 (98.31%)  ???:<rune::runtime::vm_execution::VmExecution<&mut rune::runtime::vm::Vm>>::complete [/home/me/work/rnx-bench-w-0176d/probes/range-iteration-0176/bin/cand-primary]
+1,807,005,067 (98.31%)  ???:<rune::runtime::vm::Vm>::run [/home/me/work/rnx-bench-w-0176d/probes/range-iteration-0176/bin/cand-primary]
+1,807,004,710 (98.31%)  ???:<rune::runtime::vm::Vm>::call::<[&str; 1], ((),)> [/home/me/work/rnx-bench-w-0176d/probes/range-iteration-0176/bin/cand-primary]
+1,807,004,041 (98.31%)  ???:rune::runtime::vm_execution::poll_resume::<&mut rune::runtime::vm::Vm> [/home/me/work/rnx-bench-w-0176d/probes/range-iteration-0176/bin/cand-primary]
+  334,000,194 (18.17%)  ???:<rune::runtime::vm::Vm>::op_return_internal [/home/me/work/rnx-bench-w-0176d/probes/range-iteration-0176/bin/cand-primary]
+  270,000,530 (14.69%)  ???:<rune::runtime::vm::Vm>::pop_call_frame [/home/me/work/rnx-bench-w-0176d/probes/range-iteration-0176/bin/cand-primary]
+  184,001,296 (10.01%)  ???:<rune::runtime::vm::Vm>::op_call [/home/me/work/rnx-bench-w-0176d/probes/range-iteration-0176/bin/cand-primary]
+  159,000,454 ( 8.65%)  ???:core::ptr::drop_glue::<rune::runtime::value::Value> [/home/me/work/rnx-bench-w-0176d/probes/range-iteration-0176/bin/cand-primary]
+  113,000,126 ( 6.15%)  ???:<rune::runtime::vm::Vm>::call_offset_fn [/home/me/work/rnx-bench-w-0176d/probes/range-iteration-0176/bin/cand-primary]
+  107,000,107 ( 5.82%)  ???:<rune::runtime::vm::Vm>::internal_cmp [/home/me/work/rnx-bench-w-0176d/probes/range-iteration-0176/bin/cand-primary]
+   69,000,069 ( 3.75%)  ???:<rune::runtime::memory::Stack>::copy [/home/me/work/rnx-bench-w-0176d/probes/range-iteration-0176/bin/cand-primary]
+   59,000,000 ( 3.21%)  ???:<rune::runtime::memory::Stack>::swap_top [/home/me/work/rnx-bench-w-0176d/probes/range-iteration-0176/bin/cand-primary]
+   55,000,431 ( 2.99%)  ???:<rune_alloc::vec::Vec<rune::runtime::value::Value>>::try_resize_with::<<rune::runtime::value::Value>::empty> [/home/me/work/rnx-bench-w-0176d/probes/range-iteration-0176/bin/cand-primary]
+   54,000,090 ( 2.94%)  ???:core::ptr::drop_glue::<rune::runtime::value::Repr> [/home/me/work/rnx-bench-w-0176d/probes/range-iteration-0176/bin/cand-primary]
+   52,000,000 ( 2.83%)  ???:rune::runtime::vm::target_value [/home/me/work/rnx-bench-w-0176d/probes/range-iteration-0176/bin/cand-primary]
+   28,000,000 ( 1.52%)  ???:<rune::runtime::value::dismantle::Worklist>::dismantle [/home/me/work/rnx-bench-w-0176d/probes/range-iteration-0176/bin/cand-primary]
+   26,000,026 ( 1.41%)  ???:<rune::runtime::value::inline::Inline>::partial_cmp [/home/me/work/rnx-bench-w-0176d/probes/range-iteration-0176/bin/cand-primary]
+   23,650,740 ( 1.29%)  ???:<rune::compile::context::Context>::with_config [/home/me/work/rnx-bench-w-0176d/probes/range-iteration-0176/bin/cand-primary]
+   22,408,916 ( 1.22%)  ???:<rune::compile::context::Context>::install::<rune::module::module::Module> [/home/me/work/rnx-bench-w-0176d/probes/range-iteration-0176/bin/cand-primary]
+   20,000,000 ( 1.09%)  ???:<rune::runtime::value::inline::Inline>::as_integer::<i64> [/home/me/work/rnx-bench-w-0176d/probes/range-iteration-0176/bin/cand-primary]
+   19,886,359 ( 1.08%)  ???:<rune::compile::context::Context>::install_associated [/home/me/work/rnx-bench-w-0176d/probes/range-iteration-0176/bin/cand-primary]
+   17,151,334 ( 0.93%)  ???:<rune::compile::context::Context>::install_trait_impl [/home/me/work/rnx-bench-w-0176d/probes/range-iteration-0176/bin/cand-primary]
+   16,832,316 ( 0.92%)  ???:<rune::compile::context::TraitContext>::function_inner [/home/me/work/rnx-bench-w-0176d/probes/range-iteration-0176/bin/cand-primary]
+   14,164,988 ( 0.77%)  ???:<rune::compile::context::TraitHandler>::new_tagged::call_impl::<rune::modules::iter::module::{closure#1}> [/home/me/work/rnx-bench-w-0176d/probes/range-iteration-0176/bin/cand-primary]
+   10,000,000 ( 0.54%)  ???:<i64>::checked_add [/home/me/work/rnx-bench-w-0176d/probes/range-iteration-0176/bin/cand-primary]
+    8,044,624 ( 0.44%)  ???:<rune::compile::context::Context>::install_meta [/home/me/work/rnx-bench-w-0176d/probes/range-iteration-0176/bin/cand-primary]
+    7,778,373 ( 0.42%)  ???:core::fmt::write'2 [/home/me/work/rnx-bench-w-0176d/probes/range-iteration-0176/bin/cand-primary]
+    5,207,920 ( 0.28%)  ???:core::fmt::write [/home/me/work/rnx-bench-w-0176d/probes/range-iteration-0176/bin/cand-primary]
+    5,089,379 ( 0.28%)  ???:<&rune_core::item::item_buf::ItemBuf as core::fmt::Display>::fmt [/home/me/work/rnx-bench-w-0176d/probes/range-iteration-0176/bin/cand-primary]
+    5,079,869 ( 0.28%)  ???:<rune_core::item::item::Item as core::fmt::Display>::fmt [/home/me/work/rnx-bench-w-0176d/probes/range-iteration-0176/bin/cand-primary]
+    4,958,262 ( 0.27%)  ???:<rune::compile::names::Names>::insert::<&rune_core::item::item_buf::ItemBuf> [/home/me/work/rnx-bench-w-0176d/probes/range-iteration-0176/bin/cand-primary]
+    4,108,649 ( 0.22%)  ???:<rune_alloc::alloc::global::Global as rune_alloc::alloc::allocator::Allocator>::deallocate [/home/me/work/rnx-bench-w-0176d/probes/range-iteration-0176/bin/cand-primary]
+    3,947,734 ( 0.21%)  ???:__rustc::__rust_alloc [/home/me/work/rnx-bench-w-0176d/probes/range-iteration-0176/bin/cand-primary]
+    3,911,003 ( 0.21%)  ???:__rustc::__rdl_alloc [/home/me/work/rnx-bench-w-0176d/probes/range-iteration-0176/bin/cand-primary]
+    3,778,665 ( 0.21%)  ???:core::ptr::drop_glue::<rune::compile::context::Context> [/home/me/work/rnx-bench-w-0176d/probes/range-iteration-0176/bin/cand-primary]
+    3,774,018 ( 0.21%)  ???:__rustc::__rust_dealloc [/home/me/work/rnx-bench-w-0176d/probes/range-iteration-0176/bin/cand-primary]
+    3,737,288 ( 0.20%)  ???:__rustc::__rdl_dealloc [/home/me/work/rnx-bench-w-0176d/probes/range-iteration-0176/bin/cand-primary]
+    3,701,063 ( 0.20%)  ./malloc/./malloc/malloc.c:free [/usr/lib/x86_64-linux-gnu/libc.so.6]
+    3,581,511 ( 0.19%)  ./malloc/./malloc/malloc.c:malloc [/usr/lib/x86_64-linux-gnu/libc.so.6]
+    3,396,998 ( 0.18%)  ???:<rune_core::item::component_ref::ComponentRef as core::fmt::Display>::fmt [/home/me/work/rnx-bench-w-0176d/probes/range-iteration-0176/bin/cand-primary]
+    3,070,886 ( 0.17%)  ???:<rune_alloc::fmt::TryWrite::write_fmt::Writer<rune_alloc::string::String> as core::fmt::Write>::write_str [/home/me/work/rnx-bench-w-0176d/probes/range-iteration-0176/bin/cand-primary]
+    3,000,003 ( 0.16%)  ???:<<rune::runtime::vm::Vm>::op_op::{closure#0} as core::ops::function::FnOnce<(core::cmp::Ordering,)>>::call_once [/home/me/work/rnx-bench-w-0176d/probes/range-iteration-0176/bin/cand-primary]
+    2,983,281 ( 0.16%)  ???:rune_alloc::raw_vec::finish_grow::<rune_alloc::alloc::global::Global> [/home/me/work/rnx-bench-w-0176d/probes/range-iteration-0176/bin/cand-primary]
+    2,780,961 ( 0.15%)  ???:<rune_alloc::btree::map::BTreeMap<rune_core::item::component::Component, rune::compile::names::Node>>::entry_with::<(), core::convert::Infallible> [/home/me/work/rnx-bench-w-0176d/probes/range-iteration-0176/bin/cand-primary]
+    2,658,402 ( 0.14%)  ./malloc/./malloc/malloc.c:__libc_malloc2 [/usr/lib/x86_64-linux-gnu/libc.so.6]
+    2,653,824 ( 0.14%)  ???:<rune_core::hash::Hash>::type_hash::<&rune_core::item::item_buf::ItemBuf> [/home/me/work/rnx-bench-w-0176d/probes/range-iteration-0176/bin/cand-primary]
+    2,439,247 ( 0.13%)  ./malloc/./malloc/malloc.c:_int_free_chunk [/usr/lib/x86_64-linux-gnu/libc.so.6]
+    2,339,514 ( 0.13%)  ???:<&&str as core::fmt::Display>::fmt [/home/me/work/rnx-bench-w-0176d/probes/range-iteration-0176/bin/cand-primary]
+    2,302,910 ( 0.13%)  ???:<str as core::fmt::Display>::fmt [/home/me/work/rnx-bench-w-0176d/probes/range-iteration-0176/bin/cand-primary]
+    2,264,135 ( 0.12%)  ???:<core::fmt::Formatter>::pad [/home/me/work/rnx-bench-w-0176d/probes/range-iteration-0176/bin/cand-primary]
+    2,256,435 ( 0.12%)  ./malloc/./malloc/malloc.c:_int_malloc [/usr/lib/x86_64-linux-gnu/libc.so.6]
+    2,145,093 ( 0.12%)  ./malloc/./malloc/malloc.c:_int_free_merge_chunk [/usr/lib/x86_64-linux-gnu/libc.so.6]
+    1,968,355 ( 0.11%)  ???:<twox_hash::xxhash64::Hasher as core::hash::Hasher>::write [/home/me/work/rnx-bench-w-0176d/probes/range-iteration-0176/bin/cand-primary]
+    1,941,462 ( 0.11%)  ???:<rune_core::item::component_ref::ComponentRef as rune_core::item::into_component::IntoComponent>::hash_component::<twox_hash::xxhash64::Hasher> [/home/me/work/rnx-bench-w-0176d/probes/range-iteration-0176/bin/cand-primary]
+    1,869,398 ( 0.10%)  ???:<rune::build::Build<rune::runtime::unit::storage::ArrayUnit>>::build [/home/me/work/rnx-bench-w-0176d/probes/range-iteration-0176/bin/cand-primary]
+    1,791,466 ( 0.10%)  ???:rune::compile::compile::compile [/home/me/work/rnx-bench-w-0176d/probes/range-iteration-0176/bin/cand-primary]
+
+--------------------------------------------------------------------------------
+The following files chosen for auto-annotation could not be found:
+--------------------------------------------------------------------------------
+  ./csu/../csu/libc-start.c
+  ./csu/../sysdeps/nptl/libc_start_call_main.h
+  ./malloc/./malloc/malloc.c
+
