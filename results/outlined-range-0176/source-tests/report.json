@@ -1,0 +1,43 @@
+{
+  "candidate": "6f54bd32ee1038e3927ef384d1a914d8d5b36c4f",
+  "changed_files": [
+    "crates/rune/src/runtime/vm.rs"
+  ],
+  "source_repair": "Restore unrelated rustfmt import/Isolated::new drift before final tests. Superseded attempt retained and not credited.",
+  "range_body_identical_modulo_whitespace": true,
+  "diagnostics_started": false,
+  "deciding_timing_started": false,
+  "checks": {
+    "all-features": {
+      "status": 0,
+      "passed_counts": [
+        610,
+        1,
+        1
+      ]
+    },
+    "non-tracing": {
+      "status": 0,
+      "passed_counts": [
+        15
+      ]
+    },
+    "no-std": {
+      "status": 0,
+      "passed_counts": []
+    }
+  },
+  "files": {
+    "final/all-features.json": "f350f3e4af6418db459f185fc174000575eb85b03cd0ec59a1e8bca029ac055f",
+    "final/all-features.log": "3333184e1e8b6d421fade5fe427a1185163ac4cf79e9cf6f6d624a2378fa3127",
+    "final/no-std.json": "b334526894d1c74132a5a2fe7ad40d8f35512ee4ee46bb6be7a178e7d9b50553",
+    "final/no-std.log": "ac5e5a5d2d3b738ebcbe67b67ccd503178fcb3639630364fb04eecb78a731704",
+    "final/non-tracing.json": "8a9db601418e26a866b392616a58d721803c83ead7dfc58964764319e6e0cc25",
+    "final/non-tracing.log": "a3e8346b2e0098c9833e756cc2bc22c780cf0839985af9ca1dd6999c051b2d84",
+    "superseded/README.txt": "23294c63081f528a2e9a5a807aa4b2e3e202d3c7fdda2422a43bf956231517e5",
+    "superseded/all-features.log": "969585bdd66d366b8b41e34aa7eed02e9962b4d81fc108b73ee1184acebee584",
+    "superseded/all-features.status": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa",
+    "superseded/source-initial.json": "966f75677f64d6c0310f2eb49f39fa941f42f66cefb8d5ca1d2e11fe510d5ded",
+    "test_chain.py": "68e3817062c1638d33589b58734b9b9efd98317a1f1309bf12ce6ae600bf72b4"
+  }
+}

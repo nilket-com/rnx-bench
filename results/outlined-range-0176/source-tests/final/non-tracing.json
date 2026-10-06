@@ -1,0 +1,30 @@
+{
+  "name": "non-tracing",
+  "argv": [
+    "cargo",
+    "test",
+    "--locked",
+    "--offline",
+    "-p",
+    "rune",
+    "--lib",
+    "--no-default-features",
+    "--features",
+    "alloc,bench,byte-code,capture-io,cli,disable-io,doc,emit,fmt,languageserver,musli,serde,std,workspace",
+    "range_iteration"
+  ],
+  "cwd": "/home/me/work/.worktrees/rune-0176",
+  "env": {
+    "PATH": "/home/me/.cargo/bin:/usr/bin:/bin",
+    "HOME": "/home/me",
+    "LANG": "C.UTF-8",
+    "CARGO_HOME": "/home/me/.cargo",
+    "RUSTUP_HOME": "/home/me/.rustup",
+    "CARGO_INCREMENTAL": "0"
+  },
+  "source": "6f54bd32ee1038e3927ef384d1a914d8d5b36c4f",
+  "status": 0,
+  "start": 1791248422.5472488,
+  "end": 1791248454.318348,
+  "lock": "/tmp/rnx-runtime-bench.lock"
+}

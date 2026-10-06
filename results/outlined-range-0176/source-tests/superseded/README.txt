@@ -1,0 +1,1 @@
+Superseded test attempt begun on 8f982f89; unrelated rustfmt changes restored to final 6f54bd32 during the test attempt. Trybuild subprocesses may have seen the restored source. Not credited as final-source verification. A complete final-hash chain follows.
