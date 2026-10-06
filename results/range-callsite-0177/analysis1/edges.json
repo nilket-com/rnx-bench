@@ -1,0 +1,1381 @@
+{
+  "controls": 7,
+  "profiles": {
+    "base/context": {
+      "compressed_sha256": "2c0c44bec9367fa31970d084c15d1ca089aa71d3030200f954c66c4ea2c04dcb",
+      "raw_sha256": "18c7fb73351dc45c26e1233e2afb4f040eff1ab16ffa71bb6c1e4e0fd0846e53",
+      "ir_total": 27355090,
+      "exclusive_sum": 27355090,
+      "executed_fast_path_ids": [],
+      "fast_path_direct_callees": [],
+      "targets": []
+    },
+    "base/run-fib": {
+      "compressed_sha256": "8ce370211c78e9b462d005b5335e180a35d53caedfdeca5f8396ab9ea7e59f94",
+      "raw_sha256": "c2bdba0caa617e1a220130bdc8a28586341520d8c5e081f93cf8c0630c9291bb",
+      "ir_total": 834108864,
+      "exclusive_sum": 834108864,
+      "executed_fast_path_ids": [],
+      "fast_path_direct_callees": [],
+      "targets": [
+        {
+          "profile_id": "4826",
+          "exclusive_ir": 55,
+          "objects": [
+            "/home/me/work/rnx-bench-w-0176d/probes/range-iteration-0176/bin/base-primary"
+          ],
+          "files": [
+            "???"
+          ],
+          "name": "rune_alloc::btree::map::infallible_cmp::<rune::compile::pool::ItemId>",
+          "nm_identity": "check retained nm",
+          "callers": [
+            {
+              "profile_id": "4824",
+              "name": "<rune::query::query::Query>::remove_indexed",
+              "calls": 11,
+              "inclusive_edge_ir": 55,
+              "reachable_from_executed_fast_path": false
+            }
+          ]
+        },
+        {
+          "profile_id": "5016",
+          "exclusive_ir": 77228149,
+          "objects": [
+            "/home/me/work/rnx-bench-w-0176d/probes/range-iteration-0176/bin/base-primary"
+          ],
+          "files": [
+            "???"
+          ],
+          "name": "core::ptr::drop_glue::<rune::runtime::value::Value>",
+          "nm_identity": "ambiguous",
+          "callers": [
+            {
+              "profile_id": "5028",
+              "name": "<rune::runtime::vm::Vm>::pop_call_frame",
+              "calls": 5084978,
+              "inclusive_edge_ir": 45764802,
+              "reachable_from_executed_fast_path": false
+            },
+            {
+              "profile_id": "5018",
+              "name": "<rune::runtime::vm::Vm>::run",
+              "calls": 1271245,
+              "inclusive_edge_ir": 11441205,
+              "reachable_from_executed_fast_path": false
+            },
+            {
+              "profile_id": "5564",
+              "name": "<rune::runtime::value::dismantle::Worklist>::dismantle",
+              "calls": 953430,
+              "inclusive_edge_ir": 8580870,
+              "reachable_from_executed_fast_path": false
+            },
+            {
+              "profile_id": "5554",
+              "name": "<rune::runtime::vm::Vm>::internal_cmp",
+              "calls": 635621,
+              "inclusive_edge_ir": 5720589,
+              "reachable_from_executed_fast_path": false
+            },
+            {
+              "profile_id": "5026",
+              "name": "<rune::runtime::vm::Vm>::op_return_internal",
+              "calls": 635621,
+              "inclusive_edge_ir": 5720589,
+              "reachable_from_executed_fast_path": false
+            },
+            {
+              "profile_id": "5006",
+              "name": "<rune::runtime::vm::Vm>::call::<rune_core::hash::Hash, rune_alloc::vec::Vec<rune::runtime::value::Value>>",
+              "calls": 1,
+              "inclusive_edge_ir": 165,
+              "reachable_from_executed_fast_path": false
+            },
+            {
+              "profile_id": "5546",
+              "name": "rune::runtime::vm_execution::poll_resume::<&mut rune::runtime::vm::Vm>",
+              "calls": 1,
+              "inclusive_edge_ir": 9,
+              "reachable_from_executed_fast_path": false
+            },
+            {
+              "profile_id": "966",
+              "name": "rune_base_new::main",
+              "calls": 1,
+              "inclusive_edge_ir": 9,
+              "reachable_from_executed_fast_path": false
+            },
+            {
+              "profile_id": "5580",
+              "name": "<rune::modules::io::__rune_fn__println_impl as rune::function::Function<(rune::function::Ref<str>,), rune::function::Plain>>::call",
+              "calls": 1,
+              "inclusive_edge_ir": 9,
+              "reachable_from_executed_fast_path": false
+            },
+            {
+              "profile_id": "5066",
+              "name": "<rune::runtime::value::Value>::downcast::<rune_alloc::string::String>",
+              "calls": 1,
+              "inclusive_edge_ir": 9,
+              "reachable_from_executed_fast_path": false
+            },
+            {
+              "profile_id": "5010",
+              "name": "<rune::runtime::vm_execution::VmExecution<&mut rune::runtime::vm::Vm>>::complete",
+              "calls": 1,
+              "inclusive_edge_ir": 9,
+              "reachable_from_executed_fast_path": false
+            },
+            {
+              "profile_id": "5584",
+              "name": "<str as rune::runtime::from_value::UnsafeToRef>::unsafe_to_ref",
+              "calls": 1,
+              "inclusive_edge_ir": 9,
+              "reachable_from_executed_fast_path": false
+            },
+            {
+              "profile_id": "5618",
+              "name": "<rune::runtime::vm::ClearStack as core::ops::drop::Drop>::drop",
+              "calls": 1,
+              "inclusive_edge_ir": 9,
+              "reachable_from_executed_fast_path": false
+            }
+          ]
+        },
+        {
+          "profile_id": "5028",
+          "exclusive_ir": 98521475,
+          "objects": [
+            "/home/me/work/rnx-bench-w-0176d/probes/range-iteration-0176/bin/base-primary"
+          ],
+          "files": [
+            "???"
+          ],
+          "name": "<rune::runtime::vm::Vm>::pop_call_frame",
+          "nm_identity": "check retained nm",
+          "callers": [
+            {
+              "profile_id": "5026",
+              "name": "<rune::runtime::vm::Vm>::op_return_internal",
+              "calls": 635622,
+              "inclusive_edge_ir": 144286116,
+              "reachable_from_executed_fast_path": false
+            },
+            {
+              "profile_id": "5018",
+              "name": "<rune::runtime::vm::Vm>::run",
+              "calls": 1,
+              "inclusive_edge_ir": 208,
+              "reachable_from_executed_fast_path": false
+            }
+          ]
+        }
+      ]
+    },
+    "base/run-calls": {
+      "compressed_sha256": "748c7429e47a253b795e81db0c583d5ac4f38eb4ec1a56e688039f1b881a5b23",
+      "raw_sha256": "01815261b502ac8da8d6a039d5d00bc333728049d4c3a78a26470eb6ed4092ca",
+      "ir_total": 1780681434,
+      "exclusive_sum": 1780681434,
+      "executed_fast_path_ids": [],
+      "fast_path_direct_callees": [],
+      "targets": [
+        {
+          "profile_id": "5032",
+          "exclusive_ir": 134000241,
+          "objects": [
+            "/home/me/work/rnx-bench-w-0176d/probes/range-iteration-0176/bin/base-primary"
+          ],
+          "files": [
+            "???"
+          ],
+          "name": "<rune::runtime::vm::Vm>::pop_call_frame",
+          "nm_identity": "check retained nm",
+          "callers": [
+            {
+              "profile_id": "5030",
+              "name": "<rune::runtime::vm::Vm>::op_return_internal",
+              "calls": 1000001,
+              "inclusive_edge_ir": 188000149,
+              "reachable_from_executed_fast_path": false
+            },
+            {
+              "profile_id": "5022",
+              "name": "<rune::runtime::vm::Vm>::run",
+              "calls": 1,
+              "inclusive_edge_ir": 247,
+              "reachable_from_executed_fast_path": false
+            }
+          ]
+        },
+        {
+          "profile_id": "4830",
+          "exclusive_ir": 75,
+          "objects": [
+            "/home/me/work/rnx-bench-w-0176d/probes/range-iteration-0176/bin/base-primary"
+          ],
+          "files": [
+            "???"
+          ],
+          "name": "rune_alloc::btree::map::infallible_cmp::<rune::compile::pool::ItemId>",
+          "nm_identity": "check retained nm",
+          "callers": [
+            {
+              "profile_id": "4828",
+              "name": "<rune::query::query::Query>::remove_indexed",
+              "calls": 15,
+              "inclusive_edge_ir": 75,
+              "reachable_from_executed_fast_path": false
+            }
+          ]
+        },
+        {
+          "profile_id": "5020",
+          "exclusive_ir": 143000282,
+          "objects": [
+            "/home/me/work/rnx-bench-w-0176d/probes/range-iteration-0176/bin/base-primary"
+          ],
+          "files": [
+            "???"
+          ],
+          "name": "core::ptr::drop_glue::<rune::runtime::value::Value>",
+          "nm_identity": "ambiguous",
+          "callers": [
+            {
+              "profile_id": "5032",
+              "name": "<rune::runtime::vm::Vm>::pop_call_frame",
+              "calls": 6000012,
+              "inclusive_edge_ir": 54000108,
+              "reachable_from_executed_fast_path": false
+            },
+            {
+              "profile_id": "5022",
+              "name": "<rune::runtime::vm::Vm>::run",
+              "calls": 5000006,
+              "inclusive_edge_ir": 45000054,
+              "reachable_from_executed_fast_path": false
+            },
+            {
+              "profile_id": "5582",
+              "name": "<rune::runtime::memory::Stack>::copy",
+              "calls": 1000001,
+              "inclusive_edge_ir": 17000017,
+              "reachable_from_executed_fast_path": false
+            },
+            {
+              "profile_id": "5576",
+              "name": "<rune::runtime::vm::Vm>::internal_cmp",
+              "calls": 1000001,
+              "inclusive_edge_ir": 9000009,
+              "reachable_from_executed_fast_path": false
+            },
+            {
+              "profile_id": "5594",
+              "name": "<rune::runtime::value::dismantle::Worklist>::dismantle",
+              "calls": 1000000,
+              "inclusive_edge_ir": 9000000,
+              "reachable_from_executed_fast_path": false
+            },
+            {
+              "profile_id": "5030",
+              "name": "<rune::runtime::vm::Vm>::op_return_internal",
+              "calls": 1000000,
+              "inclusive_edge_ir": 9000000,
+              "reachable_from_executed_fast_path": false
+            },
+            {
+              "profile_id": "5010",
+              "name": "<rune::runtime::vm::Vm>::call::<rune_core::hash::Hash, rune_alloc::vec::Vec<rune::runtime::value::Value>>",
+              "calls": 1,
+              "inclusive_edge_ir": 165,
+              "reachable_from_executed_fast_path": false
+            },
+            {
+              "profile_id": "966",
+              "name": "rune_base_new::main",
+              "calls": 1,
+              "inclusive_edge_ir": 9,
+              "reachable_from_executed_fast_path": false
+            },
+            {
+              "profile_id": "5574",
+              "name": "rune::runtime::vm_execution::poll_resume::<&mut rune::runtime::vm::Vm>",
+              "calls": 1,
+              "inclusive_edge_ir": 9,
+              "reachable_from_executed_fast_path": false
+            },
+            {
+              "profile_id": "5614",
+              "name": "<str as rune::runtime::from_value::UnsafeToRef>::unsafe_to_ref",
+              "calls": 1,
+              "inclusive_edge_ir": 9,
+              "reachable_from_executed_fast_path": false
+            },
+            {
+              "profile_id": "5070",
+              "name": "<rune::runtime::value::Value>::downcast::<rune_alloc::string::String>",
+              "calls": 1,
+              "inclusive_edge_ir": 9,
+              "reachable_from_executed_fast_path": false
+            },
+            {
+              "profile_id": "5648",
+              "name": "<rune::runtime::vm::ClearStack as core::ops::drop::Drop>::drop",
+              "calls": 1,
+              "inclusive_edge_ir": 9,
+              "reachable_from_executed_fast_path": false
+            },
+            {
+              "profile_id": "5014",
+              "name": "<rune::runtime::vm_execution::VmExecution<&mut rune::runtime::vm::Vm>>::complete",
+              "calls": 1,
+              "inclusive_edge_ir": 9,
+              "reachable_from_executed_fast_path": false
+            },
+            {
+              "profile_id": "5610",
+              "name": "<rune::modules::io::__rune_fn__println_impl as rune::function::Function<(rune::function::Ref<str>,), rune::function::Plain>>::call",
+              "calls": 1,
+              "inclusive_edge_ir": 9,
+              "reachable_from_executed_fast_path": false
+            }
+          ]
+        },
+        {
+          "profile_id": "5374",
+          "exclusive_ir": 10,
+          "objects": [
+            "/home/me/work/rnx-bench-w-0176d/probes/range-iteration-0176/bin/base-primary"
+          ],
+          "files": [
+            "???"
+          ],
+          "name": "rune_alloc::btree::map::infallible_cmp::<rune::hir::hir::Variable>",
+          "nm_identity": "check retained nm",
+          "callers": [
+            {
+              "profile_id": "5372",
+              "name": "<rune_alloc::btree::map::BTreeMap<rune::hir::hir::Variable, &mut dyn rune::compile::v2::needs::Needs> as rune::compile::v2::assemble::Bindings<rune::hir::hir::Variable, &mut dyn rune::compile::v2::needs::Needs>>::remove",
+              "calls": 2,
+              "inclusive_edge_ir": 10,
+              "reachable_from_executed_fast_path": false
+            }
+          ]
+        }
+      ]
+    },
+    "base/run-numeric": {
+      "compressed_sha256": "8f6a569e5c86bbd4a2912eb9eec5d309789d23db7b2d9e240ea16bf2e54d8e87",
+      "raw_sha256": "992ed1ca8d82609392d2c97d67c5a5af9944e2c84127d68993fee3e14aa4a2c8",
+      "ir_total": 1759601801,
+      "exclusive_sum": 1759601801,
+      "executed_fast_path_ids": [],
+      "fast_path_direct_callees": [],
+      "targets": [
+        {
+          "profile_id": "5380",
+          "exclusive_ir": 10,
+          "objects": [
+            "/home/me/work/rnx-bench-w-0176d/probes/range-iteration-0176/bin/base-primary"
+          ],
+          "files": [
+            "???"
+          ],
+          "name": "rune_alloc::btree::map::infallible_cmp::<rune::hir::hir::Variable>",
+          "nm_identity": "check retained nm",
+          "callers": [
+            {
+              "profile_id": "5378",
+              "name": "<rune_alloc::btree::map::BTreeMap<rune::hir::hir::Variable, &mut dyn rune::compile::v2::needs::Needs> as rune::compile::v2::assemble::Bindings<rune::hir::hir::Variable, &mut dyn rune::compile::v2::needs::Needs>>::remove",
+              "calls": 2,
+              "inclusive_edge_ir": 10,
+              "reachable_from_executed_fast_path": false
+            }
+          ]
+        },
+        {
+          "profile_id": "5034",
+          "exclusive_ir": 336,
+          "objects": [
+            "/home/me/work/rnx-bench-w-0176d/probes/range-iteration-0176/bin/base-primary"
+          ],
+          "files": [
+            "???"
+          ],
+          "name": "<rune::runtime::vm::Vm>::pop_call_frame",
+          "nm_identity": "check retained nm",
+          "callers": [
+            {
+              "profile_id": "5024",
+              "name": "<rune::runtime::vm::Vm>::run",
+              "calls": 1,
+              "inclusive_edge_ir": 616,
+              "reachable_from_executed_fast_path": false
+            },
+            {
+              "profile_id": "5032",
+              "name": "<rune::runtime::vm::Vm>::op_return_internal",
+              "calls": 1,
+              "inclusive_edge_ir": 149,
+              "reachable_from_executed_fast_path": false
+            }
+          ]
+        },
+        {
+          "profile_id": "4832",
+          "exclusive_ir": 20,
+          "objects": [
+            "/home/me/work/rnx-bench-w-0176d/probes/range-iteration-0176/bin/base-primary"
+          ],
+          "files": [
+            "???"
+          ],
+          "name": "rune_alloc::btree::map::infallible_cmp::<rune::compile::pool::ItemId>",
+          "nm_identity": "check retained nm",
+          "callers": [
+            {
+              "profile_id": "4830",
+              "name": "<rune::query::query::Query>::remove_indexed",
+              "calls": 4,
+              "inclusive_edge_ir": 20,
+              "reachable_from_executed_fast_path": false
+            }
+          ]
+        },
+        {
+          "profile_id": "5022",
+          "exclusive_ir": 123000494,
+          "objects": [
+            "/home/me/work/rnx-bench-w-0176d/probes/range-iteration-0176/bin/base-primary"
+          ],
+          "files": [
+            "???"
+          ],
+          "name": "core::ptr::drop_glue::<rune::runtime::value::Value>",
+          "nm_identity": "ambiguous",
+          "callers": [
+            {
+              "profile_id": "5024",
+              "name": "<rune::runtime::vm::Vm>::run",
+              "calls": 4000011,
+              "inclusive_edge_ir": 36000099,
+              "reachable_from_executed_fast_path": false
+            },
+            {
+              "profile_id": "5602",
+              "name": "<rune::runtime::memory::Stack>::copy",
+              "calls": 2000003,
+              "inclusive_edge_ir": 34000051,
+              "reachable_from_executed_fast_path": false
+            },
+            {
+              "profile_id": "5642",
+              "name": "<rune::runtime::value::dismantle::Worklist>::dismantle",
+              "calls": 2000000,
+              "inclusive_edge_ir": 18000000,
+              "reachable_from_executed_fast_path": false
+            },
+            {
+              "profile_id": "5636",
+              "name": "rune::runtime::any_obj_vtable::drop_value::<core::option::Option<rune::runtime::value::Value>>",
+              "calls": 1000000,
+              "inclusive_edge_ir": 17000000,
+              "reachable_from_executed_fast_path": false
+            },
+            {
+              "profile_id": "5628",
+              "name": "<rune::runtime::range::RangeIter<i64> as rune::runtime::from_value::UnsafeToMut>::unsafe_to_mut",
+              "calls": 1000001,
+              "inclusive_edge_ir": 9000009,
+              "reachable_from_executed_fast_path": false
+            },
+            {
+              "profile_id": "5626",
+              "name": "<<rune::runtime::range::RangeIter<i64>>::next as rune::function::Function<(rune::function::Mut<rune::runtime::range::RangeIter<i64>>,), rune::function::Plain>>::call",
+              "calls": 1000001,
+              "inclusive_edge_ir": 9000009,
+              "reachable_from_executed_fast_path": false
+            },
+            {
+              "profile_id": "5034",
+              "name": "<rune::runtime::vm::Vm>::pop_call_frame",
+              "calls": 20,
+              "inclusive_edge_ir": 180,
+              "reachable_from_executed_fast_path": false
+            },
+            {
+              "profile_id": "5012",
+              "name": "<rune::runtime::vm::Vm>::call::<rune_core::hash::Hash, rune_alloc::vec::Vec<rune::runtime::value::Value>>",
+              "calls": 1,
+              "inclusive_edge_ir": 165,
+              "reachable_from_executed_fast_path": false
+            },
+            {
+              "profile_id": "5694",
+              "name": "rune::runtime::any_obj_vtable::drop_value::<rune::runtime::range::Range>",
+              "calls": 2,
+              "inclusive_edge_ir": 34,
+              "reachable_from_executed_fast_path": false
+            },
+            {
+              "profile_id": "5608",
+              "name": "<<rune::runtime::range::Range>::iter as rune::function::Function<(rune::function::Ref<rune::runtime::range::Range>,), rune::function::Plain>>::call",
+              "calls": 1,
+              "inclusive_edge_ir": 9,
+              "reachable_from_executed_fast_path": false
+            },
+            {
+              "profile_id": "5612",
+              "name": "<rune::runtime::range::Range as rune::runtime::from_value::UnsafeToRef>::unsafe_to_ref",
+              "calls": 1,
+              "inclusive_edge_ir": 9,
+              "reachable_from_executed_fast_path": false
+            },
+            {
+              "profile_id": "5662",
+              "name": "<str as rune::runtime::from_value::UnsafeToRef>::unsafe_to_ref",
+              "calls": 1,
+              "inclusive_edge_ir": 9,
+              "reachable_from_executed_fast_path": false
+            },
+            {
+              "profile_id": "5702",
+              "name": "<rune::runtime::vm::ClearStack as core::ops::drop::Drop>::drop",
+              "calls": 1,
+              "inclusive_edge_ir": 9,
+              "reachable_from_executed_fast_path": false
+            },
+            {
+              "profile_id": "966",
+              "name": "rune_base_new::main",
+              "calls": 1,
+              "inclusive_edge_ir": 9,
+              "reachable_from_executed_fast_path": false
+            },
+            {
+              "profile_id": "5072",
+              "name": "<rune::runtime::value::Value>::downcast::<rune_alloc::string::String>",
+              "calls": 1,
+              "inclusive_edge_ir": 9,
+              "reachable_from_executed_fast_path": false
+            },
+            {
+              "profile_id": "5598",
+              "name": "rune::runtime::vm_execution::poll_resume::<&mut rune::runtime::vm::Vm>",
+              "calls": 1,
+              "inclusive_edge_ir": 9,
+              "reachable_from_executed_fast_path": false
+            },
+            {
+              "profile_id": "5016",
+              "name": "<rune::runtime::vm_execution::VmExecution<&mut rune::runtime::vm::Vm>>::complete",
+              "calls": 1,
+              "inclusive_edge_ir": 9,
+              "reachable_from_executed_fast_path": false
+            },
+            {
+              "profile_id": "5660",
+              "name": "<rune::modules::io::__rune_fn__println_impl as rune::function::Function<(rune::function::Ref<str>,), rune::function::Plain>>::call",
+              "calls": 1,
+              "inclusive_edge_ir": 9,
+              "reachable_from_executed_fast_path": false
+            }
+          ]
+        }
+      ]
+    },
+    "cand/context": {
+      "compressed_sha256": "19983ba94f3a888bf57024b1deb01207be3b219f6bf426afa80c78110b02f812",
+      "raw_sha256": "c0d8544cc1d3f7d88e6d7042db4c00da30d5cc4c8bb65e04a1e13b5a09f70ceb",
+      "ir_total": 27913423,
+      "exclusive_sum": 27913423,
+      "executed_fast_path_ids": [],
+      "fast_path_direct_callees": [],
+      "targets": [
+        {
+          "profile_id": "1270",
+          "exclusive_ir": 840142,
+          "objects": [
+            "/home/me/work/rnx-bench-w-0176d/probes/range-iteration-0176/bin/cand-primary"
+          ],
+          "files": [
+            "???"
+          ],
+          "name": "rune_alloc::btree::map::infallible_cmp::<rune_core::item::component::Component>",
+          "nm_identity": "check retained nm",
+          "callers": [
+            {
+              "profile_id": "1264",
+              "name": "<rune_alloc::btree::map::BTreeMap<rune_core::item::component::Component, rune::compile::names::Node>>::entry_with::<(), core::convert::Infallible>",
+              "calls": 30158,
+              "inclusive_edge_ir": 1498680,
+              "reachable_from_executed_fast_path": false
+            }
+          ]
+        }
+      ]
+    },
+    "cand/run-fib": {
+      "compressed_sha256": "4eeff6a123ae5a3db9da4f197aab691c797d4fcefb1a823a9fe2ed6a4265eb95",
+      "raw_sha256": "0945f0b0bfbd95177fe82508d75ab006a581df1aa3f49ca19f55d55b2897157b",
+      "ir_total": 899083137,
+      "exclusive_sum": 899083137,
+      "executed_fast_path_ids": [],
+      "fast_path_direct_callees": [],
+      "targets": [
+        {
+          "profile_id": "4838",
+          "exclusive_ir": 55,
+          "objects": [
+            "/home/me/work/rnx-bench-w-0176d/probes/range-iteration-0176/bin/cand-primary"
+          ],
+          "files": [
+            "???"
+          ],
+          "name": "rune_alloc::btree::map::infallible_cmp::<rune::compile::pool::ItemId>",
+          "nm_identity": "check retained nm",
+          "callers": [
+            {
+              "profile_id": "4836",
+              "name": "<rune::query::query::Query>::remove_indexed",
+              "calls": 11,
+              "inclusive_edge_ir": 55,
+              "reachable_from_executed_fast_path": false
+            }
+          ]
+        },
+        {
+          "profile_id": "5030",
+          "exclusive_ir": 97568061,
+          "objects": [
+            "/home/me/work/rnx-bench-w-0176d/probes/range-iteration-0176/bin/cand-primary"
+          ],
+          "files": [
+            "???"
+          ],
+          "name": "core::ptr::drop_glue::<rune::runtime::value::Value>",
+          "nm_identity": "ambiguous",
+          "callers": [
+            {
+              "profile_id": "5042",
+              "name": "<rune::runtime::vm::Vm>::pop_call_frame",
+              "calls": 5084978,
+              "inclusive_edge_ir": 66104714,
+              "reachable_from_executed_fast_path": false
+            },
+            {
+              "profile_id": "5032",
+              "name": "<rune::runtime::vm::Vm>::run",
+              "calls": 1271244,
+              "inclusive_edge_ir": 11441196,
+              "reachable_from_executed_fast_path": false
+            },
+            {
+              "profile_id": "5584",
+              "name": "<rune::runtime::value::dismantle::Worklist>::dismantle",
+              "calls": 953430,
+              "inclusive_edge_ir": 8580870,
+              "reachable_from_executed_fast_path": false
+            },
+            {
+              "profile_id": "5574",
+              "name": "<rune::runtime::vm::Vm>::internal_cmp",
+              "calls": 635621,
+              "inclusive_edge_ir": 5720589,
+              "reachable_from_executed_fast_path": false
+            },
+            {
+              "profile_id": "5040",
+              "name": "<rune::runtime::vm::Vm>::op_return_internal",
+              "calls": 635621,
+              "inclusive_edge_ir": 5720589,
+              "reachable_from_executed_fast_path": false
+            },
+            {
+              "profile_id": "5020",
+              "name": "<rune::runtime::vm::Vm>::call::<rune_core::hash::Hash, rune_alloc::vec::Vec<rune::runtime::value::Value>>",
+              "calls": 1,
+              "inclusive_edge_ir": 163,
+              "reachable_from_executed_fast_path": false
+            },
+            {
+              "profile_id": "5604",
+              "name": "<rune::modules::io::__rune_fn__println_impl as rune::function::Function<(rune::function::Ref<str>,), rune::function::Plain>>::call",
+              "calls": 1,
+              "inclusive_edge_ir": 9,
+              "reachable_from_executed_fast_path": false
+            },
+            {
+              "profile_id": "5080",
+              "name": "<rune::runtime::value::Value>::downcast::<rune_alloc::string::String>",
+              "calls": 1,
+              "inclusive_edge_ir": 9,
+              "reachable_from_executed_fast_path": false
+            },
+            {
+              "profile_id": "5566",
+              "name": "rune::runtime::vm_execution::poll_resume::<&mut rune::runtime::vm::Vm>",
+              "calls": 1,
+              "inclusive_edge_ir": 9,
+              "reachable_from_executed_fast_path": false
+            },
+            {
+              "profile_id": "966",
+              "name": "rune_base_new::main",
+              "calls": 1,
+              "inclusive_edge_ir": 9,
+              "reachable_from_executed_fast_path": false
+            },
+            {
+              "profile_id": "5024",
+              "name": "<rune::runtime::vm_execution::VmExecution<&mut rune::runtime::vm::Vm>>::complete",
+              "calls": 1,
+              "inclusive_edge_ir": 9,
+              "reachable_from_executed_fast_path": false
+            },
+            {
+              "profile_id": "5592",
+              "name": "<rune::runtime::fmt::Formatter>::format_with::<rune::runtime::vm_error::VmError, <rune::runtime::vm::Vm>::op_string_concat::{closure#0}>",
+              "calls": 1,
+              "inclusive_edge_ir": 9,
+              "reachable_from_executed_fast_path": false
+            },
+            {
+              "profile_id": "5608",
+              "name": "<str as rune::runtime::from_value::UnsafeToRef>::unsafe_to_ref",
+              "calls": 1,
+              "inclusive_edge_ir": 9,
+              "reachable_from_executed_fast_path": false
+            },
+            {
+              "profile_id": "5642",
+              "name": "<rune::runtime::vm::ClearStack as core::ops::drop::Drop>::drop",
+              "calls": 1,
+              "inclusive_edge_ir": 9,
+              "reachable_from_executed_fast_path": false
+            }
+          ]
+        },
+        {
+          "profile_id": "5586",
+          "exclusive_ir": 45764784,
+          "objects": [
+            "/home/me/work/rnx-bench-w-0176d/probes/range-iteration-0176/bin/cand-primary"
+          ],
+          "files": [
+            "???"
+          ],
+          "name": "core::ptr::drop_glue::<rune::runtime::value::Repr>",
+          "nm_identity": "ambiguous",
+          "callers": [
+            {
+              "profile_id": "5042",
+              "name": "<rune::runtime::vm::Vm>::pop_call_frame",
+              "calls": 2542488,
+              "inclusive_edge_ir": 45764784,
+              "reachable_from_executed_fast_path": false
+            }
+          ]
+        },
+        {
+          "profile_id": "5042",
+          "exclusive_ir": 102335197,
+          "objects": [
+            "/home/me/work/rnx-bench-w-0176d/probes/range-iteration-0176/bin/cand-primary"
+          ],
+          "files": [
+            "???"
+          ],
+          "name": "<rune::runtime::vm::Vm>::pop_call_frame",
+          "nm_identity": "check retained nm",
+          "callers": [
+            {
+              "profile_id": "5040",
+              "name": "<rune::runtime::vm::Vm>::op_return_internal",
+              "calls": 635622,
+              "inclusive_edge_ir": 214204422,
+              "reachable_from_executed_fast_path": false
+            },
+            {
+              "profile_id": "5032",
+              "name": "<rune::runtime::vm::Vm>::run",
+              "calls": 1,
+              "inclusive_edge_ir": 318,
+              "reachable_from_executed_fast_path": false
+            }
+          ]
+        },
+        {
+          "profile_id": "1268",
+          "exclusive_ir": 840170,
+          "objects": [
+            "/home/me/work/rnx-bench-w-0176d/probes/range-iteration-0176/bin/cand-primary"
+          ],
+          "files": [
+            "???"
+          ],
+          "name": "rune_alloc::btree::map::infallible_cmp::<rune_core::item::component::Component>",
+          "nm_identity": "check retained nm",
+          "callers": [
+            {
+              "profile_id": "1262",
+              "name": "<rune_alloc::btree::map::BTreeMap<rune_core::item::component::Component, rune::compile::names::Node>>::entry_with::<(), core::convert::Infallible>",
+              "calls": 30159,
+              "inclusive_edge_ir": 1498195,
+              "reachable_from_executed_fast_path": false
+            }
+          ]
+        }
+      ]
+    },
+    "cand/run-calls": {
+      "compressed_sha256": "aa9b7469820ea327465abbc77d301a73323d1b1bbf711d8dd32627009952ca57",
+      "raw_sha256": "6772519a953fb437f958974841720b3a73b1aab7f48fd215ed9e65472f2e1f1c",
+      "ir_total": 1838140120,
+      "exclusive_sum": 1838140120,
+      "executed_fast_path_ids": [],
+      "fast_path_direct_callees": [],
+      "targets": [
+        {
+          "profile_id": "5396",
+          "exclusive_ir": 10,
+          "objects": [
+            "/home/me/work/rnx-bench-w-0176d/probes/range-iteration-0176/bin/cand-primary"
+          ],
+          "files": [
+            "???"
+          ],
+          "name": "rune_alloc::btree::map::infallible_cmp::<rune::hir::hir::Variable>",
+          "nm_identity": "check retained nm",
+          "callers": [
+            {
+              "profile_id": "5394",
+              "name": "<rune_alloc::btree::map::BTreeMap<rune::hir::hir::Variable, &mut dyn rune::compile::v2::needs::Needs> as rune::compile::v2::assemble::Bindings<rune::hir::hir::Variable, &mut dyn rune::compile::v2::needs::Needs>>::remove",
+              "calls": 2,
+              "inclusive_edge_ir": 10,
+              "reachable_from_executed_fast_path": false
+            }
+          ]
+        },
+        {
+          "profile_id": "4842",
+          "exclusive_ir": 75,
+          "objects": [
+            "/home/me/work/rnx-bench-w-0176d/probes/range-iteration-0176/bin/cand-primary"
+          ],
+          "files": [
+            "???"
+          ],
+          "name": "rune_alloc::btree::map::infallible_cmp::<rune::compile::pool::ItemId>",
+          "nm_identity": "check retained nm",
+          "callers": [
+            {
+              "profile_id": "4840",
+              "name": "<rune::query::query::Query>::remove_indexed",
+              "calls": 15,
+              "inclusive_edge_ir": 75,
+              "reachable_from_executed_fast_path": false
+            }
+          ]
+        },
+        {
+          "profile_id": "5034",
+          "exclusive_ir": 159000322,
+          "objects": [
+            "/home/me/work/rnx-bench-w-0176d/probes/range-iteration-0176/bin/cand-primary"
+          ],
+          "files": [
+            "???"
+          ],
+          "name": "core::ptr::drop_glue::<rune::runtime::value::Value>",
+          "nm_identity": "ambiguous",
+          "callers": [
+            {
+              "profile_id": "5046",
+              "name": "<rune::runtime::vm::Vm>::pop_call_frame",
+              "calls": 6000012,
+              "inclusive_edge_ir": 78000156,
+              "reachable_from_executed_fast_path": false
+            },
+            {
+              "profile_id": "5036",
+              "name": "<rune::runtime::vm::Vm>::run",
+              "calls": 5000005,
+              "inclusive_edge_ir": 45000045,
+              "reachable_from_executed_fast_path": false
+            },
+            {
+              "profile_id": "5604",
+              "name": "<rune::runtime::memory::Stack>::copy",
+              "calls": 1000001,
+              "inclusive_edge_ir": 9000009,
+              "reachable_from_executed_fast_path": false
+            },
+            {
+              "profile_id": "5598",
+              "name": "<rune::runtime::vm::Vm>::internal_cmp",
+              "calls": 1000001,
+              "inclusive_edge_ir": 9000009,
+              "reachable_from_executed_fast_path": false
+            },
+            {
+              "profile_id": "5044",
+              "name": "<rune::runtime::vm::Vm>::op_return_internal",
+              "calls": 1000000,
+              "inclusive_edge_ir": 9000000,
+              "reachable_from_executed_fast_path": false
+            },
+            {
+              "profile_id": "5616",
+              "name": "<rune::runtime::value::dismantle::Worklist>::dismantle",
+              "calls": 1000000,
+              "inclusive_edge_ir": 9000000,
+              "reachable_from_executed_fast_path": false
+            },
+            {
+              "profile_id": "5024",
+              "name": "<rune::runtime::vm::Vm>::call::<rune_core::hash::Hash, rune_alloc::vec::Vec<rune::runtime::value::Value>>",
+              "calls": 1,
+              "inclusive_edge_ir": 163,
+              "reachable_from_executed_fast_path": false
+            },
+            {
+              "profile_id": "5640",
+              "name": "<str as rune::runtime::from_value::UnsafeToRef>::unsafe_to_ref",
+              "calls": 1,
+              "inclusive_edge_ir": 9,
+              "reachable_from_executed_fast_path": false
+            },
+            {
+              "profile_id": "5624",
+              "name": "<rune::runtime::fmt::Formatter>::format_with::<rune::runtime::vm_error::VmError, <rune::runtime::vm::Vm>::op_string_concat::{closure#0}>",
+              "calls": 1,
+              "inclusive_edge_ir": 9,
+              "reachable_from_executed_fast_path": false
+            },
+            {
+              "profile_id": "5674",
+              "name": "<rune::runtime::vm::ClearStack as core::ops::drop::Drop>::drop",
+              "calls": 1,
+              "inclusive_edge_ir": 9,
+              "reachable_from_executed_fast_path": false
+            },
+            {
+              "profile_id": "966",
+              "name": "rune_base_new::main",
+              "calls": 1,
+              "inclusive_edge_ir": 9,
+              "reachable_from_executed_fast_path": false
+            },
+            {
+              "profile_id": "5084",
+              "name": "<rune::runtime::value::Value>::downcast::<rune_alloc::string::String>",
+              "calls": 1,
+              "inclusive_edge_ir": 9,
+              "reachable_from_executed_fast_path": false
+            },
+            {
+              "profile_id": "5596",
+              "name": "rune::runtime::vm_execution::poll_resume::<&mut rune::runtime::vm::Vm>",
+              "calls": 1,
+              "inclusive_edge_ir": 9,
+              "reachable_from_executed_fast_path": false
+            },
+            {
+              "profile_id": "5636",
+              "name": "<rune::modules::io::__rune_fn__println_impl as rune::function::Function<(rune::function::Ref<str>,), rune::function::Plain>>::call",
+              "calls": 1,
+              "inclusive_edge_ir": 9,
+              "reachable_from_executed_fast_path": false
+            },
+            {
+              "profile_id": "5028",
+              "name": "<rune::runtime::vm_execution::VmExecution<&mut rune::runtime::vm::Vm>>::complete",
+              "calls": 1,
+              "inclusive_edge_ir": 9,
+              "reachable_from_executed_fast_path": false
+            }
+          ]
+        },
+        {
+          "profile_id": "1268",
+          "exclusive_ir": 840170,
+          "objects": [
+            "/home/me/work/rnx-bench-w-0176d/probes/range-iteration-0176/bin/cand-primary"
+          ],
+          "files": [
+            "???"
+          ],
+          "name": "rune_alloc::btree::map::infallible_cmp::<rune_core::item::component::Component>",
+          "nm_identity": "check retained nm",
+          "callers": [
+            {
+              "profile_id": "1262",
+              "name": "<rune_alloc::btree::map::BTreeMap<rune_core::item::component::Component, rune::compile::names::Node>>::entry_with::<(), core::convert::Infallible>",
+              "calls": 30159,
+              "inclusive_edge_ir": 1498195,
+              "reachable_from_executed_fast_path": false
+            }
+          ]
+        },
+        {
+          "profile_id": "5046",
+          "exclusive_ir": 138000239,
+          "objects": [
+            "/home/me/work/rnx-bench-w-0176d/probes/range-iteration-0176/bin/cand-primary"
+          ],
+          "files": [
+            "???"
+          ],
+          "name": "<rune::runtime::vm::Vm>::pop_call_frame",
+          "nm_identity": "check retained nm",
+          "callers": [
+            {
+              "profile_id": "5044",
+              "name": "<rune::runtime::vm::Vm>::op_return_internal",
+              "calls": 1000001,
+              "inclusive_edge_ir": 270000145,
+              "reachable_from_executed_fast_path": false
+            },
+            {
+              "profile_id": "5036",
+              "name": "<rune::runtime::vm::Vm>::run",
+              "calls": 1,
+              "inclusive_edge_ir": 385,
+              "reachable_from_executed_fast_path": false
+            }
+          ]
+        },
+        {
+          "profile_id": "5618",
+          "exclusive_ir": 54000090,
+          "objects": [
+            "/home/me/work/rnx-bench-w-0176d/probes/range-iteration-0176/bin/cand-primary"
+          ],
+          "files": [
+            "???"
+          ],
+          "name": "core::ptr::drop_glue::<rune::runtime::value::Repr>",
+          "nm_identity": "ambiguous",
+          "callers": [
+            {
+              "profile_id": "5046",
+              "name": "<rune::runtime::vm::Vm>::pop_call_frame",
+              "calls": 3000005,
+              "inclusive_edge_ir": 54000090,
+              "reachable_from_executed_fast_path": false
+            }
+          ]
+        }
+      ]
+    },
+    "cand/run-numeric": {
+      "compressed_sha256": "2cc2a1c33bca6f500a7ff732b6c13161d6e6ff142945dde53c92f3d18e33385a",
+      "raw_sha256": "5393629bcac32c8aea7a0607dbf17d8f3f53097b2ee0c7e9cfdab711fa404ade",
+      "ir_total": 1196060401,
+      "exclusive_sum": 1196060401,
+      "executed_fast_path_ids": [
+        "5642"
+      ],
+      "fast_path_direct_callees": [
+        {
+          "profile_id": "5022",
+          "name": "<rune::runtime::budget::no_std::BUDGET::{K#0}::{closure#1} as core::ops::function::FnOnce<(core::option::Option<&mut core::option::Option<core::cell::Cell<usize>>>,)>>::call_once",
+          "calls": 1000001,
+          "inclusive_edge_ir": 5000005
+        },
+        {
+          "profile_id": "5644",
+          "name": "rune_alloc::limit::__explicit_scope_active",
+          "calls": 1000001,
+          "inclusive_edge_ir": 5000005
+        },
+        {
+          "profile_id": "5646",
+          "name": "<rune::runtime::value::Value>::into_mut::<rune::runtime::range::RangeIter<i64>>",
+          "calls": 1000001,
+          "inclusive_edge_ir": 64000064
+        },
+        {
+          "profile_id": "5648",
+          "name": "<<rune::runtime::any_obj::AnyObj>::into_ref<rune::runtime::vec::Vec>::{closure#0} as core::ops::function::FnOnce<(core::ptr::non_null::NonNull<()>,)>>::call_once",
+          "calls": 1000001,
+          "inclusive_edge_ir": 16000016
+        },
+        {
+          "profile_id": "5656",
+          "name": "<core::option::Option<i64> as rune::runtime::to_value::ToValue>::to_value",
+          "calls": 1,
+          "inclusive_edge_ir": 117
+        },
+        {
+          "profile_id": "5650",
+          "name": "<rune::runtime::value::dismantle::Worklist>::dismantle",
+          "calls": 1000001,
+          "inclusive_edge_ir": 28000028
+        },
+        {
+          "profile_id": "5058",
+          "name": "core::ptr::drop_glue::<rune::runtime::value::dismantle::Worklist>",
+          "calls": 1,
+          "inclusive_edge_ir": 87
+        }
+      ],
+      "targets": [
+        {
+          "profile_id": "1268",
+          "exclusive_ir": 840142,
+          "objects": [
+            "/home/me/work/rnx-bench-w-0176d/probes/range-iteration-0176/bin/cand-primary"
+          ],
+          "files": [
+            "???"
+          ],
+          "name": "rune_alloc::btree::map::infallible_cmp::<rune_core::item::component::Component>",
+          "nm_identity": "check retained nm",
+          "callers": [
+            {
+              "profile_id": "1262",
+              "name": "<rune_alloc::btree::map::BTreeMap<rune_core::item::component::Component, rune::compile::names::Node>>::entry_with::<(), core::convert::Infallible>",
+              "calls": 30158,
+              "inclusive_edge_ir": 1498145,
+              "reachable_from_executed_fast_path": false
+            }
+          ]
+        },
+        {
+          "profile_id": "4842",
+          "exclusive_ir": 20,
+          "objects": [
+            "/home/me/work/rnx-bench-w-0176d/probes/range-iteration-0176/bin/cand-primary"
+          ],
+          "files": [
+            "???"
+          ],
+          "name": "rune_alloc::btree::map::infallible_cmp::<rune::compile::pool::ItemId>",
+          "nm_identity": "check retained nm",
+          "callers": [
+            {
+              "profile_id": "4840",
+              "name": "<rune::query::query::Query>::remove_indexed",
+              "calls": 4,
+              "inclusive_edge_ir": 20,
+              "reachable_from_executed_fast_path": false
+            }
+          ]
+        },
+        {
+          "profile_id": "5034",
+          "exclusive_ir": 81000534,
+          "objects": [
+            "/home/me/work/rnx-bench-w-0176d/probes/range-iteration-0176/bin/cand-primary"
+          ],
+          "files": [
+            "???"
+          ],
+          "name": "core::ptr::drop_glue::<rune::runtime::value::Value>",
+          "nm_identity": "ambiguous",
+          "callers": [
+            {
+              "profile_id": "5036",
+              "name": "<rune::runtime::vm::Vm>::run",
+              "calls": 3000010,
+              "inclusive_edge_ir": 27000090,
+              "reachable_from_executed_fast_path": false
+            },
+            {
+              "profile_id": "5650",
+              "name": "<rune::runtime::value::dismantle::Worklist>::dismantle",
+              "calls": 3000001,
+              "inclusive_edge_ir": 27000009,
+              "reachable_from_executed_fast_path": true
+            },
+            {
+              "profile_id": "5622",
+              "name": "<rune::runtime::memory::Stack>::copy",
+              "calls": 2000003,
+              "inclusive_edge_ir": 18000027,
+              "reachable_from_executed_fast_path": false
+            },
+            {
+              "profile_id": "5646",
+              "name": "<rune::runtime::value::Value>::into_mut::<rune::runtime::range::RangeIter<i64>>",
+              "calls": 1000001,
+              "inclusive_edge_ir": 9000009,
+              "reachable_from_executed_fast_path": true
+            },
+            {
+              "profile_id": "5046",
+              "name": "<rune::runtime::vm::Vm>::pop_call_frame",
+              "calls": 20,
+              "inclusive_edge_ir": 260,
+              "reachable_from_executed_fast_path": false
+            },
+            {
+              "profile_id": "5024",
+              "name": "<rune::runtime::vm::Vm>::call::<rune_core::hash::Hash, rune_alloc::vec::Vec<rune::runtime::value::Value>>",
+              "calls": 1,
+              "inclusive_edge_ir": 163,
+              "reachable_from_executed_fast_path": false
+            },
+            {
+              "profile_id": "5716",
+              "name": "rune::runtime::any_obj_vtable::drop_value::<rune::runtime::range::Range>",
+              "calls": 2,
+              "inclusive_edge_ir": 18,
+              "reachable_from_executed_fast_path": true
+            },
+            {
+              "profile_id": "5682",
+              "name": "<rune::modules::io::__rune_fn__println_impl as rune::function::Function<(rune::function::Ref<str>,), rune::function::Plain>>::call",
+              "calls": 1,
+              "inclusive_edge_ir": 9,
+              "reachable_from_executed_fast_path": false
+            },
+            {
+              "profile_id": "966",
+              "name": "rune_base_new::main",
+              "calls": 1,
+              "inclusive_edge_ir": 9,
+              "reachable_from_executed_fast_path": false
+            },
+            {
+              "profile_id": "5684",
+              "name": "<str as rune::runtime::from_value::UnsafeToRef>::unsafe_to_ref",
+              "calls": 1,
+              "inclusive_edge_ir": 9,
+              "reachable_from_executed_fast_path": false
+            },
+            {
+              "profile_id": "5084",
+              "name": "<rune::runtime::value::Value>::downcast::<rune_alloc::string::String>",
+              "calls": 1,
+              "inclusive_edge_ir": 9,
+              "reachable_from_executed_fast_path": false
+            },
+            {
+              "profile_id": "5628",
+              "name": "<<rune::runtime::range::Range>::iter as rune::function::Function<(rune::function::Ref<rune::runtime::range::Range>,), rune::function::Plain>>::call",
+              "calls": 1,
+              "inclusive_edge_ir": 9,
+              "reachable_from_executed_fast_path": false
+            },
+            {
+              "profile_id": "5632",
+              "name": "<rune::runtime::range::Range as rune::runtime::from_value::UnsafeToRef>::unsafe_to_ref",
+              "calls": 1,
+              "inclusive_edge_ir": 9,
+              "reachable_from_executed_fast_path": false
+            },
+            {
+              "profile_id": "5028",
+              "name": "<rune::runtime::vm_execution::VmExecution<&mut rune::runtime::vm::Vm>>::complete",
+              "calls": 1,
+              "inclusive_edge_ir": 9,
+              "reachable_from_executed_fast_path": false
+            },
+            {
+              "profile_id": "5618",
+              "name": "rune::runtime::vm_execution::poll_resume::<&mut rune::runtime::vm::Vm>",
+              "calls": 1,
+              "inclusive_edge_ir": 9,
+              "reachable_from_executed_fast_path": false
+            },
+            {
+              "profile_id": "5724",
+              "name": "<rune::runtime::vm::ClearStack as core::ops::drop::Drop>::drop",
+              "calls": 1,
+              "inclusive_edge_ir": 9,
+              "reachable_from_executed_fast_path": false
+            },
+            {
+              "profile_id": "5668",
+              "name": "<rune::runtime::fmt::Formatter>::format_with::<rune::runtime::vm_error::VmError, <rune::runtime::vm::Vm>::op_string_concat::{closure#0}>",
+              "calls": 1,
+              "inclusive_edge_ir": 9,
+              "reachable_from_executed_fast_path": false
+            }
+          ]
+        },
+        {
+          "profile_id": "5712",
+          "exclusive_ir": 144,
+          "objects": [
+            "/home/me/work/rnx-bench-w-0176d/probes/range-iteration-0176/bin/cand-primary"
+          ],
+          "files": [
+            "???"
+          ],
+          "name": "core::ptr::drop_glue::<rune::runtime::value::Repr>",
+          "nm_identity": "ambiguous",
+          "callers": [
+            {
+              "profile_id": "5046",
+              "name": "<rune::runtime::vm::Vm>::pop_call_frame",
+              "calls": 8,
+              "inclusive_edge_ir": 144,
+              "reachable_from_executed_fast_path": false
+            }
+          ]
+        },
+        {
+          "profile_id": "5046",
+          "exclusive_ir": 332,
+          "objects": [
+            "/home/me/work/rnx-bench-w-0176d/probes/range-iteration-0176/bin/cand-primary"
+          ],
+          "files": [
+            "???"
+          ],
+          "name": "<rune::runtime::vm::Vm>::pop_call_frame",
+          "nm_identity": "check retained nm",
+          "callers": [
+            {
+              "profile_id": "5036",
+              "name": "<rune::runtime::vm::Vm>::run",
+              "calls": 1,
+              "inclusive_edge_ir": 820,
+              "reachable_from_executed_fast_path": false
+            },
+            {
+              "profile_id": "5044",
+              "name": "<rune::runtime::vm::Vm>::op_return_internal",
+              "calls": 1,
+              "inclusive_edge_ir": 145,
+              "reachable_from_executed_fast_path": false
+            }
+          ]
+        },
+        {
+          "profile_id": "5400",
+          "exclusive_ir": 10,
+          "objects": [
+            "/home/me/work/rnx-bench-w-0176d/probes/range-iteration-0176/bin/cand-primary"
+          ],
+          "files": [
+            "???"
+          ],
+          "name": "rune_alloc::btree::map::infallible_cmp::<rune::hir::hir::Variable>",
+          "nm_identity": "check retained nm",
+          "callers": [
+            {
+              "profile_id": "5398",
+              "name": "<rune_alloc::btree::map::BTreeMap<rune::hir::hir::Variable, &mut dyn rune::compile::v2::needs::Needs> as rune::compile::v2::assemble::Bindings<rune::hir::hir::Variable, &mut dyn rune::compile::v2::needs::Needs>>::remove",
+              "calls": 2,
+              "inclusive_edge_ir": 10,
+              "reachable_from_executed_fast_path": false
+            }
+          ]
+        }
+      ]
+    }
+  },
+  "limits": [
+    "Profile ids are local compressed function identities, not unique nm addresses.",
+    "Reachability covers executed edges in this profile only; absent edges are not absent static callers.",
+    "Edge Ir is inclusive; do not sum it with exclusive Ir or recursive edges.",
+    "No subject executions, new disassembly, compilation or measurements."
+  ]
+}
