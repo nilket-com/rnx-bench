@@ -1,8 +1,12 @@
 """rnx 0180 paired native-event study on the two RETAINED 0179 primary binaries (plan rnx ee3a5de section 7).
 
 	flock --exclusive --timeout 3000 /tmp/rnx-runtime-bench.lock python3 events.py discover OUT_DIR
-	flock --exclusive --timeout 3000 /tmp/rnx-runtime-bench.lock python3 events.py rehearse OUT_DIR
-	flock --exclusive --timeout 3000 /tmp/rnx-runtime-bench.lock python3 events.py official OUT_DIR
+	flock --exclusive --timeout 3000 /tmp/rnx-runtime-bench.lock python3 events.py rehearse OUT_DIR AVAILABILITY_JSON
+	flock --exclusive --timeout 3000 /tmp/rnx-runtime-bench.lock python3 events.py official OUT_DIR AVAILABILITY_JSON
+
+Deadlines: each phase has one outer deadline (discovery and rehearsal 600 s, official 1,800 s) whose clock starts when
+this script starts, i.e. after flock has admitted it. Every child gets min(its own limit, the phase's remaining time);
+on expiry its whole process group is killed and reaped and the run stops; nothing starts after the deadline.
 
 discover: host/PMU identity for CPU 4, then exactly two bounded open checks per frozen group on the affinity probe
 	(`/usr/bin/grep Cpus_allowed_list /proc/self/status`); writes availability.json. No experiment workload runs and no
@@ -61,6 +65,14 @@ GROUPS = {
 	"E": {"hardware": ANCHORS + [raw("0xd1", "0x08", "mem_load_retired_l1_miss"), raw("0x03", "0x82", "ld_blocks_store_forward")], "software": []},
 }
 REQUIRED = "R"
+# The reviewed discovery receipts (Codex review, chatd seq 1445). The official run and any rehearsal are admitted only
+# against these exact bytes AND against a fresh check that the host still matches the recorded identity.
+DISCOVERY = REPO / "results/execution-cost-0180/discovery1"
+AVAILABILITY_SHA256 = "29b03834d480690511f760cfe2e4f01372e953c59271c3b1d94c55ed4504de0b"
+IDENTITY_SHA256 = "c281c11d5b0a0d3552415836e66635a9aed03c6fa3162c06f7f921848882f2aa"
+# Units perf 7.0.14 reports in its JSON rows: plain counts carry an empty unit, task-clock is in milliseconds.
+UNITS = {"context_switches": "", "cpu_migrations": "", "task_clock": "msec"}
+PHASE = {"deadline": None}  # monotonic instant after which nothing may start and nothing may still be running
 SOFTWARE_NAMES = {"context-switches": "context_switches", "cpu-migrations": "cpu_migrations", "task-clock": "task_clock"}
 TOPDOWN = ["td_retiring", "td_bad_spec", "td_fe_bound", "td_be_bound"]
 SAMPLE_DEADLINE, OFFICIAL_DEADLINE, PREP_DEADLINE = 120, 1800, 600
@@ -75,6 +87,21 @@ class Stop(Exception):
 
 class Nonreproducing(Exception):
 	"""A completed scientific outcome: a group's anchors did not reproduce 0179 (section 7c)."""
+
+
+def start_phase(seconds):
+	"""Begin a bounded phase. The script is started by flock after lock admission, so this clock starts after admission."""
+	PHASE["deadline"] = time.monotonic() + seconds
+
+
+def budget(limit):
+	"""Seconds a child may run now: its own limit, cut to what is left of the phase. Stops if the phase is over."""
+	if PHASE["deadline"] is None:
+		raise Stop(("no phase deadline set",))
+	left = PHASE["deadline"] - time.monotonic()
+	if left <= 0:
+		raise Stop(("phase deadline reached; nothing further may start",))
+	return min(limit, left)
 
 
 class Sink:
@@ -143,12 +170,22 @@ def parse(text, group):
 			raise Stop(("counter not counted or unsupported", group, name, value))
 		if not math.isfinite(number) or number < 0:
 			raise Stop(("counter not finite and non-negative", group, name, value))
-		if name in hw:
-			running = row.get("pcnt-running")
-			if not isinstance(running, (int, float)) or running != 100:
-				raise Stop(("counter not running 100%", group, name, running))
-			if "event-runtime" in row and "event-enabled" in row and row["event-runtime"] != row["event-enabled"]:
-				raise Stop(("enabled and running times differ", group, name))
+		# Every row must report a finite positive running time; where perf also supplies an enabled time it must be
+		# finite, positive and equal. (perf 7.0.14 supplies event-runtime and pcnt-running only: no enabled-time field
+		# and no PMU field. The PMU is bound by the frozen cpu_core argv spelling, not by anything in this output.)
+		for field in ("event-runtime", "event-enabled"):
+			if field == "event-enabled" and field not in row:
+				continue
+			t = row.get(field)
+			if isinstance(t, bool) or not isinstance(t, (int, float)) or not math.isfinite(t) or t <= 0:
+				raise Stop(("counter time missing or not finite and positive", group, name, field, t))
+		if "event-enabled" in row and row["event-enabled"] != row["event-runtime"]:
+			raise Stop(("enabled and running times differ", group, name))
+		if row.get("unit") != (UNITS[name] if name in sw else ""):
+			raise Stop(("unexpected unit", group, name, row.get("unit")))
+		running = row.get("pcnt-running")
+		if isinstance(running, bool) or not isinstance(running, (int, float)) or running != 100:
+			raise Stop(("counter not running 100%", group, name, running))
 		got[name] = number
 	if sorted(got) != sorted(hw + sw):
 		raise Stop(("counter set differs from the frozen group", group, sorted(set(hw + sw) - set(got)), sorted(set(got) - set(hw + sw))))
@@ -330,8 +367,11 @@ def expected_stdout():
 
 
 def run_sample(argv, sink, meta, deadline=SAMPLE_DEADLINE):
-	"""One bounded command in E0; its raw record is written before anything inspects it."""
+	"""One bounded command in E0; its raw record is written before anything inspects it. The child gets at most what
+	is left of the phase: on expiry run_bounded kills the whole process group and reaps it, the row records timed_out,
+	and lifecycle() then stops the run. Nothing starts once the phase deadline has passed."""
 	pinned()
+	deadline = budget(deadline)
 	try:
 		r = run_bounded(argv, deadline, E0)
 	except BaseException as error:
@@ -369,6 +409,17 @@ def identity():
 	return ident
 
 
+def current_identity():
+	"""(identity as recorded at discovery, the perf --version receipt). The receipt's lifecycle is gated here."""
+	ident = identity()
+	version = run_bounded(["perf", "--version"], budget(30), E0)
+	receipt = version.record()
+	if version.returncode != 0 or version.timed_out or version.interrupted or version.reaped is not True or version.survivors:
+		raise Stop(("perf --version", receipt))
+	ident["perf"] = version.stdout.strip()
+	return ident, receipt
+
+
 def expand_cpus(text):
 	cpus = set()
 	for part in text.split(","):
@@ -403,13 +454,11 @@ def open_check(group, index, sink):
 def discover(out):
 	out = pathlib.Path(out)
 	out.mkdir(parents=True, exist_ok=False)
-	began = time.monotonic()
+	start_phase(PREP_DEADLINE)
 	os.sched_setaffinity(0, {4})
 	pinned()
 	bind_subjects()
-	ident = identity()
-	version = run_bounded(["perf", "--version"], 30, E0)
-	ident["perf"] = version.stdout.strip()
+	ident, _ = current_identity()
 	(out / "identity.json").write_text(json.dumps(ident, indent=1) + "\n")
 	host_gate(ident)
 	sink = Sink(out / "raw.jsonl")
@@ -417,8 +466,6 @@ def discover(out):
 	for group in GROUPS:
 		checks = []
 		for index in range(2):
-			if time.monotonic() - began > PREP_DEADLINE:
-				raise Stop(("discovery deadline",))
 			checks.append(open_check(group, index, sink))
 		groups[group] = {"argv": perf_argv(group), "checks": [{"eligible": ok, "detail": why} for ok, why in checks],
 			"eligible": all(ok for ok, _ in checks)}
@@ -435,27 +482,72 @@ def discover(out):
 		raise Stop(("required group R unavailable", groups[REQUIRED]["checks"]))
 
 
-def load_availability(path):
-	m = json.loads(pathlib.Path(path).read_text())
-	if m.get("status") != "available" or m.get("order", [None])[0] != REQUIRED or len(m["order"]) < 2:
+def validate_availability(m, identity_sha256):
+	"""Content validation of an availability manifest (independent of the byte pins): status, the companion identity
+	hash, the exact frozen argv of EVERY group, two recorded checks per group, each group's eligibility equal to both
+	checks passing, R eligible, and the order equal to R followed by ALL eligible optional groups in frozen order
+	(an eligible group cannot be dropped, an ineligible one cannot be added)."""
+	if m.get("status") != "available":
 		raise Stop(("availability manifest does not permit a run", m.get("status")))
-	if m["order"] != [g for g in GROUPS if g in m["order"]] or any(not m["groups"][g]["eligible"] for g in m["order"]):
-		raise Stop(("availability manifest order or eligibility is inconsistent",))
-	for g in m["order"]:
-		if m["groups"][g]["argv"] != perf_argv(g):
+	if m.get("identity_sha256") != identity_sha256:
+		raise Stop(("availability manifest is bound to another identity receipt",))
+	if list(m.get("groups", {})) != list(GROUPS):
+		raise Stop(("availability manifest does not cover exactly the frozen groups",))
+	eligible = []
+	for g, row in m["groups"].items():
+		if row.get("argv") != perf_argv(g):
 			raise Stop(("group definition changed since discovery", g))
+		checks = row.get("checks")
+		if not isinstance(checks, list) or len(checks) != 2 or any(not isinstance(c.get("eligible"), bool) for c in checks):
+			raise Stop(("group does not have exactly two recorded open checks", g))
+		both = all(c["eligible"] for c in checks)
+		if row.get("eligible") is not both:
+			raise Stop(("group eligibility disagrees with its open checks", g))
+		if both:
+			eligible.append(g)
+	if REQUIRED not in eligible:
+		raise Stop(("required group R is not eligible",))
+	if len(eligible) < 2:
+		raise Stop(("no optional group is eligible: inconclusive at discovery",))
+	if m.get("order") != eligible:
+		raise Stop(("order is not R followed by every eligible group", m.get("order"), eligible))
 	if m.get("primaries") != {k: v[1] for k, v in PRIMARY.items()}:
 		raise Stop(("availability manifest is for other subjects",))
 	return m
 
 
+def load_availability(path):
+	"""Admission: the reviewed availability and identity receipts byte for byte, their contents validated, and the
+	host re-observed now and required to equal the recorded identity exactly (CPU 4 vendor/family/model/stepping/
+	microcode, cpu_core type/mask/formats/aliases, SMT siblings, online state, frequency driver/governor, watchdog,
+	paranoid level, kernel release, perf version). Returns (manifest, admission receipt)."""
+	path = pathlib.Path(path)
+	identity_path = path.parent / "identity.json"
+	if path.resolve() != (DISCOVERY / "availability.json").resolve():
+		raise Stop(("availability manifest is not the reviewed discovery receipt", str(path)))
+	if sha(path) != AVAILABILITY_SHA256:
+		raise Stop(("availability manifest does not match its reviewed hash",))
+	if not identity_path.is_file() or sha(identity_path) != IDENTITY_SHA256:
+		raise Stop(("identity receipt does not match its reviewed hash",))
+	m = validate_availability(json.loads(path.read_text()), IDENTITY_SHA256)
+	recorded = json.loads(identity_path.read_text())
+	host_gate(recorded)
+	now, perf_receipt = current_identity()
+	drift = sorted(k for k in set(recorded) | set(now) if recorded.get(k) != now.get(k))
+	if drift:
+		raise Stop(("host identity differs from discovery", {k: [recorded.get(k), now.get(k)] for k in drift}))
+	return m, {"availability_sha256": AVAILABILITY_SHA256, "identity_sha256": IDENTITY_SHA256, "identity_fields_compared": sorted(recorded),
+		"perf_version_receipt": perf_receipt}
+
+
 def rehearse(out, availability):
 	out = pathlib.Path(out)
 	out.mkdir(parents=True, exist_ok=False)
+	start_phase(PREP_DEADLINE)
 	os.sched_setaffinity(0, {4})
 	pinned()
 	bind_subjects()
-	m = load_availability(availability)
+	m, admission = load_availability(availability)
 	sentinel = new_sentinel()
 	sink = Sink(out / "raw.jsonl")
 	staged = {side: stage(side) for side in ("base", "cand")}  # copied and hashed, never executed here
@@ -465,32 +557,36 @@ def rehearse(out, availability):
 	counters = parse(row["stderr"], REQUIRED)
 	failing = run_sample(["perf", "stat", "-j", "--", "/usr/bin/false"], sink, {"kind": "rehearsal-failure"}, deadline=60)
 	sink.write(failing)
+	lifecycle(failing)  # a deadline or survivor is not a rehearsed failure path
+	if failing["status"] != 1:
+		raise Stop(("failure-path rehearsal did not end with status 1", failing["status"]))
 	ref, outputs = references(), expected_stdout()
-	report = {"order": m["order"], "staged": staged, "probe_counters": sorted(counters), "failure_status_retained": failing["status"],
+	report = {"order": m["order"], "admission": admission, "staged": staged, "probe_counters": sorted(counters), "failure_status_retained": failing["status"],
 		"references": ref, "expected_stdout_sha256": {k: __import__("hashlib").sha256(v.encode()).hexdigest() for k, v in outputs.items()},
 		"planned_samples": len(m["order"]) * 5 * len(WORKLOADS) * 4}
 	(out / "rehearsal.json").write_text(json.dumps(report, indent=1) + "\n")
 	hits = scan(out, [sentinel])
 	(out / "sentinel-scan.json").write_text(json.dumps({"files_scanned": sum(1 for p in out.rglob("*") if p.is_file()), "occurrences": sum(hits.values())}) + "\n")
-	if hits or failing["status"] == 0:
-		raise Stop(("rehearsal", hits, failing["status"]))
+	if hits:
+		raise Stop(("sentinel found in rehearsal output", hits))
 	print("rehearsal: order", m["order"], "planned samples", report["planned_samples"], "sentinel 0", flush=True)
 
 
 def official(out, availability):
 	out = pathlib.Path(out)
 	out.mkdir(parents=True, exist_ok=False)
-	began = time.monotonic()
+	start_phase(OFFICIAL_DEADLINE)
 	os.sched_setaffinity(0, {4})
 	pinned()
 	res = {"started": time.time(), "status": "running", "env": E0, "load_before": read("/proc/loadavg").split()[0]}
 	persist = lambda: (out / "official.json").write_text(json.dumps(res, indent=1) + "\n")
 	persist()
+	sentinel = new_sentinel()
+	scan_failed = False
 	try:
 		bind_subjects()
-		m = load_availability(availability)
-		res.update(order=m["order"], availability_sha256=sha(availability))
-		sentinel = new_sentinel()
+		m, admission = load_availability(availability)  # before staging or any sample
+		res.update(order=m["order"], admission=admission)
 		ref, outputs = references(), expected_stdout()
 		res["references"] = ref
 		sink = Sink(out / "raw.jsonl")
@@ -500,8 +596,7 @@ def official(out, availability):
 			for rep in range(5):
 				for label, tail, _, ops in WORKLOADS:
 					for subject in ("base", "cand", "cand", "base"):
-						if time.monotonic() - began > OFFICIAL_DEADLINE:
-							raise Stop(("official deadline",))
+						budget(SAMPLE_DEADLINE)  # nothing is staged once the phase is over
 						digest = stage(subject)
 						meta = {"kind": "event", "group": group, "rep": rep, "workload": label, "subject": subject, "hash": digest}
 						row = run_sample(perf_argv(group) + [str(STAGE), *tail], sink, meta)
@@ -528,13 +623,26 @@ def official(out, availability):
 		res.update(status="STOPPED (infrastructure, safety or measurement failure)", failure=repr(error))
 		raise
 	finally:
+		# The sentinel scan runs on success AND failure, over everything written (the report included). A hit or a
+		# scan error overrides whatever status the run reached: the retained report can never say "complete" then.
 		res.update(ended=time.time(), load_after=read("/proc/loadavg").split()[0])
 		persist()
-		hits = scan(out, [os.environ.get("RNX0179_SENTINEL", "")]) if os.environ.get("RNX0179_SENTINEL") else {}
-		(out / "sentinel-scan.json").write_text(json.dumps({"files_scanned": sum(1 for p in out.rglob("*") if p.is_file()), "occurrences": sum(hits.values())}) + "\n")
-	if hits:
-		raise Stop(("sentinel found in official output", hits))
+		try:
+			hits = scan(out, [sentinel])
+			receipt = {"completed": True, "files_scanned": sum(1 for p in out.rglob("*") if p.is_file()), "occurrences": sum(hits.values()),
+				"files_with_occurrences": sorted(str(pathlib.Path(p).relative_to(out)) for p in hits)}
+		except Exception as error:
+			receipt = {"completed": False, "error": repr(error)}
+		res["sentinel_scan"] = receipt
+		if not receipt["completed"] or receipt["occurrences"]:
+			scan_failed = True
+			res["status_before_scan"] = res["status"]
+			res["status"] = "STOPPED (sentinel occurrence or scan failure)"
+		persist()
+		(out / "sentinel-scan.json").write_text(json.dumps(receipt, indent=1) + "\n")
 	print("OFFICIAL", res["status"], flush=True)
+	if scan_failed:
+		raise Stop(("sentinel occurrence or scan failure", res["sentinel_scan"]))
 
 
 if __name__ == "__main__":
