@@ -15,7 +15,8 @@ import time
 MANIFEST = 'd3552638c3e0fbc8d9cfe538a3488a35edf0d432454b6c4e9d1359363e1fd8a1'
 RAW = 'd0643c0fc1ca42f6c4e9e5d9748c351da546b0baed3d1226349d6e5fab848b03'
 ENV = {'PATH': '/usr/bin:/bin', 'HOME': '/home/me', 'LANG': 'C.UTF-8'}
-SURFACE = re.compile(r'rune::runtime::vm::Vm::(?:run|op_call|pop_call_frame)|RangeIter|rune::runtime::value::|drop_glue.*(?:Value|Repr)|rune::modules::(?:iter|ops)::.*(?:next|range)')
+VM_RUN = re.compile(r'rune::runtime::vm::Vm>?::run(?:$|::)')
+SURFACE = re.compile(r'rune::runtime::vm::Vm>?::(?:run|op_call|pop_call_frame)|RangeIter|rune::runtime::value::|drop_glue.*(?:Value|Repr)|rune::modules::(?:iter|ops)::.*(?:next|range)')
 PREDICTIONS = {
 	'run-numeric': ('corpus/numeric.rn', 1000000, -12),
 	'run-range_signed': ('range/range_signed.rn', 1000000, -10),
@@ -230,7 +231,7 @@ def extract(binary, prefix, out, ledger):
 		except ValueError as e:
 			row['normalization_unresolved'] = str(e)
 		regions.append(row)
-	require(any('Vm::run' in n for r in regions for n in r['demangled_names']), 'Vm::run absent')
+	require(any(VM_RUN.search(n) for r in regions for n in r['demangled_names']), 'Vm::run absent')
 	dump(out / (prefix + '.regions.json'), regions)
 	return regions
 
