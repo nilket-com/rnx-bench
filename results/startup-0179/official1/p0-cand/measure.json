@@ -1,0 +1,1134 @@
+{
+ "started": 1791286829.2880464,
+ "load_before": "0.23",
+ "env": {
+  "PATH": "/usr/bin:/bin",
+  "HOME": "/home/me",
+  "LANG": "C.UTF-8"
+ },
+ "manifest": {
+  "sources": {
+   "base": "4e84cfacc0278a4f1645c14310453bdc30ac77b4",
+   "cand": "b28f8cb3345448914ef4e35514d802d1795f16ac"
+  },
+  "production_parent": "bb8e69372353c50e271c9f115bc771c77aa6b83e",
+  "build_receipt": {
+   "path": "results/startup-0179/prep3/build/build.json",
+   "sha256": "d7e0fe9f73da62105d3d412ca99d7effad22cc3ddb785c8c0590e125a412afab"
+  },
+  "binaries": {
+   "p0-base-primary": "af06e8b3b1621b7f763dfb39f967fab1cca0b9b615b145152634463cefbb0c87",
+   "p0-base-counter": "0500d0ebec87da5b650f906f031493da1b6fa95c6d250eeb28a827c2c450b52d",
+   "p0-base-allocation": "9b2b35640ddeb355aee1ec12be095dfef630dbd400b079897eefc65cb2f11904",
+   "p0-cand-primary": "e4a5f207c38a8ae59bc311e3611a6bdd3d542fe82665a8e12b201f61eaf9a787",
+   "p0-cand-counter": "e0f39201842b13f0f6889503f280b2d91024655dd183eae20902c20ce8ec91f3",
+   "p0-cand-allocation": "2f1694c655da0e26abb7b6bdf7846f6de32d7febdedb66f0af35210b77f44fae"
+  },
+  "clock": {
+   "source_sha256": "27273482ba8f4143e46b5a7a4dbc2886de70c3f9a7671f652569ca395172e57e",
+   "sha256": "9ccf0f7c0a31cc19e507957b1d90c24a2f451a4b5165dbd2292ab380b902318e"
+  },
+  "profiles": {
+   "p0": []
+  },
+  "rune_features": [
+   "alloc",
+   "anyhow",
+   "fmt",
+   "serde",
+   "std"
+  ],
+  "inventory": {
+   "golden_blobs": {
+    "crates/rune/src/compile/context_inventory.golden": "5a1f8458dcea47ed15ec378c432b34b38d917fbd",
+    "crates/rune/src/compile/context_inventory_nodoc.golden": "8385e61997b5d6ffd51e45921cd4fab0301e162c",
+    "crates/rune/src/compile/context_startup_order.golden": "57bbd8d3e29890b48f54ad435d417aa28962548f",
+    "crates/rune/src/compile/context_startup_order_nodoc.golden": "57bbd8d3e29890b48f54ad435d417aa28962548f",
+    "crates/rune/src/compile/startup_fixtures/first-use-stdio.rn": "7358df5356c344b6de6992ddf0d7a8558aa9cca7",
+    "crates/rune/src/compile/startup_fixtures/first-use.rn": "3b26353cd24bbbd1237c4679b746f741e8517b6c"
+   },
+   "receipts": {
+    "base-all-features": {
+     "log": "results/startup-0179/prep3/build/suite-base-all-features.log",
+     "log_sha256": "8f85a22dcc831ca7b9959c1c9eb1e41de6903f87fb8b41dae9235078e1b34539",
+     "tests_passed": {
+      "compile::context::inventory_tests::registered_inventory_matches_the_golden": true,
+      "compile::context::inventory_tests::inventory_comparison_detects_changes": true,
+      "compile::context::startup_tests::item_display_bytes_are_frozen_before_the_candidate": true,
+      "compile::context::startup_tests::registration_order_matches_the_base": true,
+      "compile::context::startup_tests::custom_associated_constant_values_and_errors_are_unchanged": true,
+      "compile::context::startup_tests::every_module_first_use_completes_with_and_without_stdio": true
+     }
+    },
+    "base-production-features": {
+     "log": "results/startup-0179/prep3/build/suite-base-production-features.log",
+     "log_sha256": "3934710c45306cbe0c215758cfc7f826a2c66961f164c954f89f59a18ca77c06",
+     "tests_passed": {
+      "compile::context::inventory_tests::registered_inventory_matches_the_golden": true,
+      "compile::context::inventory_tests::inventory_comparison_detects_changes": true,
+      "compile::context::startup_tests::item_display_bytes_are_frozen_before_the_candidate": true,
+      "compile::context::startup_tests::registration_order_matches_the_base": true,
+      "compile::context::startup_tests::custom_associated_constant_values_and_errors_are_unchanged": true,
+      "compile::context::startup_tests::every_module_first_use_completes_with_and_without_stdio": true
+     }
+    },
+    "cand-all-features": {
+     "log": "results/startup-0179/prep3/build/suite-cand-all-features.log",
+     "log_sha256": "3a0ccf215135fa80c1a505eed97895477a36165d22c47d69ed6fc640d1a26c83",
+     "tests_passed": {
+      "compile::context::inventory_tests::registered_inventory_matches_the_golden": true,
+      "compile::context::inventory_tests::inventory_comparison_detects_changes": true,
+      "compile::context::startup_tests::item_display_bytes_are_frozen_before_the_candidate": true,
+      "compile::context::startup_tests::registration_order_matches_the_base": true,
+      "compile::context::startup_tests::custom_associated_constant_values_and_errors_are_unchanged": true,
+      "compile::context::startup_tests::every_module_first_use_completes_with_and_without_stdio": true
+     }
+    },
+    "cand-production-features": {
+     "log": "results/startup-0179/prep3/build/suite-cand-production-features.log",
+     "log_sha256": "c58f85ce92cff9567caeb4642d496b99c792a31eaab8e817248f0b93eac37ed2",
+     "tests_passed": {
+      "compile::context::inventory_tests::registered_inventory_matches_the_golden": true,
+      "compile::context::inventory_tests::inventory_comparison_detects_changes": true,
+      "compile::context::startup_tests::item_display_bytes_are_frozen_before_the_candidate": true,
+      "compile::context::startup_tests::registration_order_matches_the_base": true,
+      "compile::context::startup_tests::custom_associated_constant_values_and_errors_are_unchanged": true,
+      "compile::context::startup_tests::every_module_first_use_completes_with_and_without_stdio": true
+     }
+    }
+   }
+  },
+  "neutrality": {
+   "rev": "4e84cfacc0278a4f1645c14310453bdc30ac77b4",
+   "sha256": "619d30c316b18ae3bd51d9de3ccd34bc5e0f3e2c35c42d1dea276ed84def9641",
+   "text_sha256": "3f829d83686e78bb17d10770c354b63be7cdd6d7c69f93f99a9a6120d886eef1",
+   "reference_sha256": "7a66b042e8656c4a0cbb4c4641b827c34c6f458bc1e442e87b556612d8d05014",
+   "reference_text_sha256": "3f829d83686e78bb17d10770c354b63be7cdd6d7c69f93f99a9a6120d886eef1",
+   "reference_rev": "eaa59fc208c136ead86f8c4fa565431ea18de88b",
+   "reference": "probes/profile-paired-0178/subjects.json p0-base-primary",
+   "identical": false,
+   "accepted": true,
+   "comparison": {
+    "size": [
+     9007272,
+     9007272
+    ],
+    "problems": [],
+    "differing_bytes": 477,
+    "differing_bytes_by_section": {
+     ".note.gnu.build-id": 20,
+     ".data.rel.ro": 1,
+     ".strtab": 456
+    },
+    "build_id": {
+     "new": "30641134b0505208028ab20673694802f563f958",
+     "reference": "216192bbbc9286fbe949e69cee20cd9a9c8cb0cd"
+    },
+    "strtab": {
+     "symbols": 16151,
+     "suffix_only_differences": 32,
+     "pairs": [
+      [
+       "_RINvNtCsgxBkk5gSRhY_4core3ptr9drop_glueNtNtNtCs2gclYLZIe7Z_4rune7runtime8vm_error15VmErrorLocationECseHFHVs5K1YU_13rune_base_new.llvm.3154411846658505164",
+       "_RINvNtCsgxBkk5gSRhY_4core3ptr9drop_glueNtNtNtCs2gclYLZIe7Z_4rune7runtime8vm_error15VmErrorLocationECseHFHVs5K1YU_13rune_base_new.llvm.4223706811909010038"
+      ],
+      [
+       "_RINvNtCsgxBkk5gSRhY_4core3ptr9drop_glueNtNtNtCs2gclYLZIe7Z_4rune7runtime8vm_error7VmErrorECseHFHVs5K1YU_13rune_base_new.llvm.3154411846658505164",
+       "_RINvNtCsgxBkk5gSRhY_4core3ptr9drop_glueNtNtNtCs2gclYLZIe7Z_4rune7runtime8vm_error7VmErrorECseHFHVs5K1YU_13rune_base_new.llvm.4223706811909010038"
+      ],
+      [
+       "anon.54333d06d9b5d6eb233c93e5c684b5d2.201.llvm.17652615222563039659",
+       "anon.54333d06d9b5d6eb233c93e5c684b5d2.201.llvm.17749115032731870632"
+      ],
+      [
+       "anon.54333d06d9b5d6eb233c93e5c684b5d2.204.llvm.17652615222563039659",
+       "anon.54333d06d9b5d6eb233c93e5c684b5d2.204.llvm.17749115032731870632"
+      ],
+      [
+       "anon.54333d06d9b5d6eb233c93e5c684b5d2.203.llvm.17652615222563039659",
+       "anon.54333d06d9b5d6eb233c93e5c684b5d2.203.llvm.17749115032731870632"
+      ],
+      [
+       "anon.54333d06d9b5d6eb233c93e5c684b5d2.205.llvm.17652615222563039659",
+       "anon.54333d06d9b5d6eb233c93e5c684b5d2.205.llvm.17749115032731870632"
+      ],
+      [
+       "_RINvNtCsgxBkk5gSRhY_4core3ptr9drop_glueNtNtNtCs2gclYLZIe7Z_4rune7compile5names4NodeEBH_.llvm.17652615222563039659",
+       "_RINvNtCsgxBkk5gSRhY_4core3ptr9drop_glueNtNtNtCs2gclYLZIe7Z_4rune7compile5names4NodeEBH_.llvm.17749115032731870632"
+      ],
+      [
+       "_RINvNtCsgxBkk5gSRhY_4core3ptr9drop_glueNtNtNtCsdyPUd8mPE5o_9rune_core4item9component9ComponentECs2gclYLZIe7Z_4rune.llvm.17652615222563039659",
+       "_RINvNtCsgxBkk5gSRhY_4core3ptr9drop_glueNtNtNtCsdyPUd8mPE5o_9rune_core4item9component9ComponentECs2gclYLZIe7Z_4rune.llvm.17749115032731870632"
+      ],
+      [
+       "_RINvNtCsgxBkk5gSRhY_4core3ptr9drop_glueINtNtCsdBTkVrZDrQD_10rune_alloc3vec3VecNtNtNtCs2gclYLZIe7Z_4rune8indexing6scopes5LayerEEB1k_.llvm.17652615222563039659",
+       "_RINvNtCsgxBkk5gSRhY_4core3ptr9drop_glueINtNtCsdBTkVrZDrQD_10rune_alloc3vec3VecNtNtNtCs2gclYLZIe7Z_4rune8indexing6scopes5LayerEEB1k_.llvm.17749115032731870632"
+      ],
+      [
+       "_RINvNtCsgxBkk5gSRhY_4core3ptr9drop_glueINtNtNtCsdBTkVrZDrQD_10rune_alloc5btree3map8BTreeMapNtNtNtCsdyPUd8mPE5o_9rune_core4item9component9ComponentNtNtNtCs2gclYLZIe7Z_4rune7compile5names4NodeEEB2q_.llvm.17652615222563039659",
+       "_RINvNtCsgxBkk5gSRhY_4core3ptr9drop_glueINtNtNtCsdBTkVrZDrQD_10rune_alloc5btree3map8BTreeMapNtNtNtCsdyPUd8mPE5o_9rune_core4item9component9ComponentNtNtNtCs2gclYLZIe7Z_4rune7compile5names4NodeEEB2q_.llvm.17749115032731870632"
+      ],
+      [
+       "_RINvNtCsgxBkk5gSRhY_4core3ptr9drop_glueNtNtCs2gclYLZIe7Z_4rune8indexing7IndexedEBF_.llvm.17652615222563039659",
+       "_RINvNtCsgxBkk5gSRhY_4core3ptr9drop_glueNtNtCs2gclYLZIe7Z_4rune8indexing7IndexedEBF_.llvm.17749115032731870632"
+      ],
+      [
+       "_RINvNtCsgxBkk5gSRhY_4core3ptr9drop_glueNtNtNtCs2gclYLZIe7Z_4rune7compile4meta6FieldsEBH_.llvm.17652615222563039659",
+       "_RINvNtCsgxBkk5gSRhY_4core3ptr9drop_glueNtNtNtCs2gclYLZIe7Z_4rune7compile4meta6FieldsEBH_.llvm.17749115032731870632"
+      ],
+      [
+       "_RINvNtCsgxBkk5gSRhY_4core3ptr9drop_glueNtNtCs2gclYLZIe7Z_4rune8indexing8FunctionEBF_.llvm.17652615222563039659",
+       "_RINvNtCsgxBkk5gSRhY_4core3ptr9drop_glueNtNtCs2gclYLZIe7Z_4rune8indexing8FunctionEBF_.llvm.17749115032731870632"
+      ],
+      [
+       "_RINvNtCsgxBkk5gSRhY_4core3ptr9drop_glueNtNtNtCs2gclYLZIe7Z_4rune8indexing6scopes5LayerEBH_.llvm.17652615222563039659",
+       "_RINvNtCsgxBkk5gSRhY_4core3ptr9drop_glueNtNtNtCs2gclYLZIe7Z_4rune8indexing6scopes5LayerEBH_.llvm.17749115032731870632"
+      ],
+      [
+       "_RINvNtCsgxBkk5gSRhY_4core3ptr9drop_glueNtNtNtCsdyPUd8mPE5o_9rune_core4item8item_buf7ItemBufECs2gclYLZIe7Z_4rune.llvm.17652615222563039659",
+       "_RINvNtCsgxBkk5gSRhY_4core3ptr9drop_glueNtNtNtCsdyPUd8mPE5o_9rune_core4item8item_buf7ItemBufECs2gclYLZIe7Z_4rune.llvm.17749115032731870632"
+      ],
+      [
+       "_RNCNvNtNtNtCs2gclYLZIe7Z_4rune7modules6macros7builtin18___rune_macro__file0B9_.llvm.17652615222563039659",
+       "_RNCNvNtNtNtCs2gclYLZIe7Z_4rune7modules6macros7builtin18___rune_macro__file0B9_.llvm.17749115032731870632"
+      ],
+      [
+       "_RNCNvNtNtNtCs2gclYLZIe7Z_4rune7modules6macros7builtin18___rune_macro__line0B9_.llvm.17652615222563039659",
+       "_RNCNvNtNtNtCs2gclYLZIe7Z_4rune7modules6macros7builtin18___rune_macro__line0B9_.llvm.17749115032731870632"
+      ],
+      [
+       "_RNSNvYNCNvNtNtNtCs2gclYLZIe7Z_4rune7modules6macros7builtin18___rune_macro__file0INtNtNtCsgxBkk5gSRhY_4core3ops8function6FnOnceTQNtNtNtBe_6macros13macro_context12MacroContextQNtNtB26_12token_stream11TokenStreamEE9call_once6vtableBe_.llvm.17652615222563039659",
+       "_RNSNvYNCNvNtNtNtCs2gclYLZIe7Z_4rune7modules6macros7builtin18___rune_macro__file0INtNtNtCsgxBkk5gSRhY_4core3ops8function6FnOnceTQNtNtNtBe_6macros13macro_context12MacroContextQNtNtB26_12token_stream11TokenStreamEE9call_once6vtableBe_.llvm.17749115032731870632"
+      ],
+      [
+       "_RNSNvYNCNvNtNtNtCs2gclYLZIe7Z_4rune7modules6macros7builtin18___rune_macro__line0INtNtNtCsgxBkk5gSRhY_4core3ops8function6FnOnceTQNtNtNtBe_6macros13macro_context12MacroContextQNtNtB26_12token_stream11TokenStreamEE9call_once6vtableBe_.llvm.17652615222563039659",
+       "_RNSNvYNCNvNtNtNtCs2gclYLZIe7Z_4rune7modules6macros7builtin18___rune_macro__line0INtNtNtCsgxBkk5gSRhY_4core3ops8function6FnOnceTQNtNtNtBe_6macros13macro_context12MacroContextQNtNtB26_12token_stream11TokenStreamEE9call_once6vtableBe_.llvm.17749115032731870632"
+      ],
+      [
+       "_RNvMs2_NtNtCs2gclYLZIe7Z_4rune5query5queryNtB5_5Query20insert_new_item_with.llvm.17652615222563039659",
+       "_RNvMs2_NtNtCs2gclYLZIe7Z_4rune5query5queryNtB5_5Query20insert_new_item_with.llvm.17749115032731870632"
+      ],
+      [
+       "anon.54333d06d9b5d6eb233c93e5c684b5d2.198.llvm.17652615222563039659",
+       "anon.54333d06d9b5d6eb233c93e5c684b5d2.198.llvm.17749115032731870632"
+      ],
+      [
+       "anon.54333d06d9b5d6eb233c93e5c684b5d2.200.llvm.17652615222563039659",
+       "anon.54333d06d9b5d6eb233c93e5c684b5d2.200.llvm.17749115032731870632"
+      ],
+      [
+       "anon.54333d06d9b5d6eb233c93e5c684b5d2.512.llvm.17652615222563039659",
+       "anon.54333d06d9b5d6eb233c93e5c684b5d2.512.llvm.17749115032731870632"
+      ],
+      [
+       "anon.54333d06d9b5d6eb233c93e5c684b5d2.513.llvm.17652615222563039659",
+       "anon.54333d06d9b5d6eb233c93e5c684b5d2.513.llvm.17749115032731870632"
+      ],
+      [
+       "anon.54333d06d9b5d6eb233c93e5c684b5d2.521.llvm.17652615222563039659",
+       "anon.54333d06d9b5d6eb233c93e5c684b5d2.521.llvm.17749115032731870632"
+      ],
+      [
+       "anon.54333d06d9b5d6eb233c93e5c684b5d2.525.llvm.17652615222563039659",
+       "anon.54333d06d9b5d6eb233c93e5c684b5d2.525.llvm.17749115032731870632"
+      ],
+      [
+       "anon.54333d06d9b5d6eb233c93e5c684b5d2.523.llvm.17652615222563039659",
+       "anon.54333d06d9b5d6eb233c93e5c684b5d2.523.llvm.17749115032731870632"
+      ],
+      [
+       "anon.54333d06d9b5d6eb233c93e5c684b5d2.524.llvm.17652615222563039659",
+       "anon.54333d06d9b5d6eb233c93e5c684b5d2.524.llvm.17749115032731870632"
+      ],
+      [
+       "anon.54333d06d9b5d6eb233c93e5c684b5d2.522.llvm.17652615222563039659",
+       "anon.54333d06d9b5d6eb233c93e5c684b5d2.522.llvm.17749115032731870632"
+      ],
+      [
+       "anon.54333d06d9b5d6eb233c93e5c684b5d2.526.llvm.17652615222563039659",
+       "anon.54333d06d9b5d6eb233c93e5c684b5d2.526.llvm.17749115032731870632"
+      ],
+      [
+       "anon.54333d06d9b5d6eb233c93e5c684b5d2.40.llvm.17652615222563039659",
+       "anon.54333d06d9b5d6eb233c93e5c684b5d2.40.llvm.17749115032731870632"
+      ],
+      [
+       "anon.54333d06d9b5d6eb233c93e5c684b5d2.199.llvm.17652615222563039659",
+       "anon.54333d06d9b5d6eb233c93e5c684b5d2.199.llvm.17749115032731870632"
+      ]
+     ]
+    },
+    "moved_locations": [
+     {
+      "file_offset": 6652288,
+      "address": 6660480,
+      "file_pointer": 714234,
+      "file": "/home/me/work/rune-w-0173/crates/rune/src/compile/context.rs",
+      "old_line": 535,
+      "new_line": 537,
+      "column": 47,
+      "source_shift": 2
+     }
+    ],
+    "text_identical": true,
+    "claim": "machine code and all other bytes identical except the enumerated panic line fields, ThinLTO local-symbol suffixes and the derived build-id; panic diagnostics for the moved locations differ"
+   },
+   "seconds": 37.005289192078635,
+   "retained_binary": "/home/me/work/rnx-bench-w-0179d/probes/startup-0179/neutrality-bin/prep3-p0-base-primary",
+   "reference_binary": "/home/me/work/rnx-bench-w-0178d/probes/profile-paired-0178/bin/p0-base-primary",
+   "historical_inputs": {
+    "harness.rs": "920183f259c86ef7c06694924c8bd405270065a6e969d8bf5f8969616d118396",
+    "alloc_track.rs": "4f058476c6a3e225199bc0fb8ea40aa026aa03dedfbefd843da6a6e42b00858c",
+    "harness/Cargo.lock": "bf7cebc2ecb351c81f044864db9b03750697a9779cf1e88d6c93e495abc7b8d4",
+    "harness/Cargo.toml": "5ac77c46f47d8e3952e4e85629f2fb60d017bb111ec47c04b6b6fe4c7529992e",
+    "harness/src/main.rs": "baaed7f5ec8800e66ec516458466d48466a6342a1da17574bc0b5e117f1d547f",
+    "harness/src/registration.rs": "988476e9ad026b5881a7483499636449ab4e17327990099bd9998cc7d7f97787"
+   },
+   "codegen_units_flags": [
+    "None"
+   ],
+   "rune_features": [
+    "alloc",
+    "anyhow",
+    "fmt",
+    "serde",
+    "std"
+   ]
+  },
+  "candidate_diff": {
+   "changed": [
+    "crates/rune/src/compile/context.rs",
+    "crates/rune/src/compile/context_startup_tests.rs"
+   ],
+   "production_files": [
+    "crates/rune/src/compile/context.rs"
+   ],
+   "test_only_files": [
+    "crates/rune/src/compile/context_startup_tests.rs"
+   ],
+   "candidate_parents": [
+    "4e84cfacc0278a4f1645c14310453bdc30ac77b4"
+   ]
+  },
+  "inputs": {
+   "harness/Cargo.toml": "5ac77c46f47d8e3952e4e85629f2fb60d017bb111ec47c04b6b6fe4c7529992e",
+   "harness/Cargo.lock": "bf7cebc2ecb351c81f044864db9b03750697a9779cf1e88d6c93e495abc7b8d4",
+   "harness/src/main.rs": "baaed7f5ec8800e66ec516458466d48466a6342a1da17574bc0b5e117f1d547f",
+   "harness/src/registration.rs": "988476e9ad026b5881a7483499636449ab4e17327990099bd9998cc7d7f97787",
+   "harness.rs": "4018276b32f57714925939a16160c5bcd9371abc3936877ebb7c42048dac167c",
+   "alloc_track.rs": "4f058476c6a3e225199bc0fb8ea40aa026aa03dedfbefd843da6a6e42b00858c",
+   "plan_clock.rs": "27273482ba8f4143e46b5a7a4dbc2886de70c3f9a7671f652569ca395172e57e",
+   "SOURCES-fb56b1d.sha256": "fa9a7843625d7b05ff046a4b5a56830dc3d66c7031ba5a1a14fa7b5f666ac154",
+   "oracle.py": "6b427017bb2119a06a81c44332960bc4f586b90ff3c6b278de3d47ee6fb47479",
+   "corpus/answer.rn": "3d9d07a8a3d32f04f8ee70291ca7893a18a0b84527b365168707b404ccde601f",
+   "corpus/async.rn": "78d3f634050f25ef48b0a9afc4c3f27b3a18babaf964654a6a1e50509f47fb0f",
+   "corpus/budget.rn": "9856117c5d33d4a421ccbf5174b43ce7f5132743b8f9d00e90935eff54f155c5",
+   "corpus/closure.rn": "f69350d4f4504312268d2b89fb3f6e10cccb7f16466ef4feefe6f5de870771ee",
+   "corpus/collections.rn": "73e1b95641c4cbf1db42e4073c7febe5d5e31006f0cf5f72e085bc190ee99575",
+   "corpus/divide-zero.rn": "c0098f367450e418e16174e478113145a92cfd0ed1ddfe70520b02aece853269",
+   "corpus/empty.rn": "9741381970d221b1bc059e0f0a55e1d66a76916ed27212972737a11261b1094c",
+   "corpus/expression-100.rn": "d76ad9a84626a13953bbdcb2bc96b4d54e7f1164f7120c69a8a58aed4e479841",
+   "corpus/expression-1000.rn": "e3583c139d33a9751c0550e755d2a61827c8d6753ec1c848f9dfa3b17a1b7fd0",
+   "corpus/expression-10000.rn": "0618fdcba71dd42ab2c126426c0138d249c3fdf46ce1256ce67ad260b4eafb5c",
+   "corpus/fib.rn": "b85d1cfeab32c65900f29f747761135f0340dac9303b99edaee3326aa82bd6db",
+   "corpus/floats.rn": "e7e18651f3044eede490b0d5dcd9802d0576fb32211f3bdf326cd93348a7d5be",
+   "corpus/int-boundaries.rn": "b0023db84fd512c710064add130112bb87bed9a6029d662bc69c1054e25b751c",
+   "corpus/iterator-trait.rn": "52660e527b812e649f30b23bd7860f8149495b39c3f4e29d863c8a9e04c84c27",
+   "corpus/literal-100.rn": "5be41cd0bb9792d9356dd827c9c18da83d4c410df6f3fdac990c0e4d61301fc8",
+   "corpus/literal-1000.rn": "d6c6924c2d9914275ed9fbeadfe4622fbbbb4a1b603bffc7f47c54f1cfa39395",
+   "corpus/literal-10000.rn": "34ebac3cf099af2189ef913f717726394833aedabdedc4d62c1614171be58158",
+   "corpus/numeric.rn": "ff53f597a3e317c2c37d105882abc878ac9d223450ef33ee9bea8e6cdfc5dcee",
+   "corpus/object-alias.rn": "f80548741482e3d9443c3b6781c8ab131a41003b9652da02c3fc47b7453f2d1f",
+   "corpus/overflow.rn": "e28de80d24f96485425d09a80b27757ecfe332dfa17a1c59b29b9a7986e9d1f6",
+   "corpus/recursion-10000.rn": "3f50d70bc3373fedf0a371b6f14f15432a3a0a4b4639bcddc0457f1fd3fdb738",
+   "corpus/recursion-100000.rn": "f34f0caf9ca3c4b67265084424fc372c67d0ccd8b342a216f0be038d93daf2b8",
+   "corpus/recursion-1000000.rn": "795df81211bdf0619522803e2b17c8c5acf87247613ecee318a9df63e5839cf3",
+   "corpus/strings.rn": "7001e9c8318064da4c15dc98144d2c8b7020bdbbe232423cafcd634ce5981f88",
+   "corpus/sum-untyped.rn": "7755160c7e74235e7da6a58b79a551865ee1f30e14af10a081b7abc9235690b6",
+   "corpus/undefined.rn": "5ad32dd414009590900b8ca91c8d78aac367d323afdbe5751bec5deeb986f044",
+   "corpus/unicode.rn": "0867e9846b5593c6e7f4bb380958b23ee71ec1c83bece242b26a0a32a27877c1",
+   "corpus/vec-alias.rn": "46d96472dcdf4155f9495f8eb6c5303963e8ade5156d3ae4d04300bed15d01b9",
+   "fixtures/calls.rn": "18d3f41d64307a08044964bd8e2f3cf7353c484057f03a09d6e96fb64632d584",
+   "fixtures/compare.rn": "d2898d6231ca58f863b7583244e5d4f9efc56f61dc9918a53836ede9bc5f29ac",
+   "fixtures/first-use-stdio.rn": "a6cb670304ed84b8e8b192ce2a10947fd1bbbe3ee44401b5459bcdadecd949dd",
+   "fixtures/first-use.rn": "db032dd5b7e3e370abf509a66b628e1ae597d1fa8ca95f1d49f202a1fdec8042",
+   "fixtures/overwrite_alias.rn": "c5949059af446e086b9538f0e7be3d759b8e5e8232b1607cda7702f7ed1025e1",
+   "fixtures/overwrite_deep.rn": "dd0593945d4ec34a9beddd2d1cb3cc8c6fd28530f6a4038738b3b4768b5cdf8f",
+   "fixtures/overwrite_inline.rn": "fcd3a8cfd4ac791071a3b9ceecb1fd94bd02b6e146970cc4dc59a31a433711ae",
+   "fixtures/overwrite_mixed.rn": "85c360b1a084459070fb6014ba1c97af802b1694dfb05e202d962a2506a75dfb",
+   "fixtures/vector.rn": "4bf3713025339c9d0463fa65555e407f4dd5a5a2a03c16d48e82083f4dfd8edd",
+   "fixtures/while.rn": "9054fbf649cd2d17037c055e029e24f251f9bf933d78ae3e94cc39717919de50",
+   "fixtures/manifest.json": "effbe2b691acf9c9419fe68de2dd971ddd9e7f0f0cb7e2c42d8b7f6874ccff06",
+   "range/manual_next.rn": "cde3ded3b60ad98352a2eeb84e55396c69175ae80af8e2a09177ee14c61dcc03",
+   "range/range_negative.rn": "181685064a296c26bc3c0222887a5f583b2cd7088a233e42f1b84bfc352a3e64",
+   "range/range_signed.rn": "9c95179ed778f062e6fd6c925bb98ebcac886995150eb18fa73df975dbe96ac9",
+   "range/range_while.rn": "386d627752944841db83513dabb0f71be9c95e92d1e043780a1421704dbdeb22",
+   "lua/numeric.lua": "33a166acf68acdc108ebb1f0ba0d50b972584bf85d392b3b6e2a0bb74120597d",
+   "lua/while.lua": "864424af5d37ef9137bc8608d3f9ee8bcf34acb90ef421c26a40d507843ed796"
+  },
+  "lua": {
+   "lua54": {
+    "path": "/home/me/.local/bin/lua54",
+    "sha256": "cfb2dc058fa441a527d9a84cc084f09828fcd48cddb757caf64caa21c935f6ec"
+   },
+   "luajit": {
+    "path": "/home/me/.local/bin/luajit",
+    "sha256": "a1ff02fbce1ed98f3e384e560158a456ffc26d43badac7a31e424af616c68320"
+   }
+  }
+ },
+ "manifest_sha256": "d3552638c3e0fbc8d9cfe538a3488a35edf0d432454b6c4e9d1359363e1fd8a1",
+ "rehearsal_mode": false,
+ "pair": {
+  "profile": "p0",
+  "source": "cand",
+  "roles": {
+   "base": "p0-base",
+   "cand": "p0-cand"
+  }
+ },
+ "rehearsal": {
+  "files": [
+   "rehearsal/command.log",
+   "rehearsal/commands.jsonl",
+   "rehearsal/raw.jsonl",
+   "rehearsal/rehearsal.tar.xz",
+   "rehearsal/result.json",
+   "rehearsal/sentinel-scan.json"
+  ],
+  "occurrences": 0
+ },
+ "controls_start": [
+  {
+   "kind": "affinity-control",
+   "label": "start",
+   "index": 0,
+   "argv": [
+    "perf",
+    "stat",
+    "--",
+    "/usr/bin/grep",
+    "Cpus_allowed_list",
+    "/proc/self/status"
+   ],
+   "status": 0,
+   "stdout": "Cpus_allowed_list:\t4\n",
+   "stderr": "\n Performance counter stats for '/usr/bin/grep Cpus_allowed_list /proc/self/status':\n\n                 0      context-switches:u               #      0.0 cs/sec  cs_per_second     \n                 0      cpu-migrations:u                 #      0.0 migrations/sec  migrations_per_second\n                97      page-faults:u                    # 196173.2 faults/sec  page_faults_per_second\n              0.49 msec task-clock:u                     #      0.2 CPUs  CPUs_utilized       \n              5951      cpu_core/branch-misses/u         #      5.3 %  branch_miss_rate       \n            113266      cpu_core/branches/u              #    229.1 M/sec  branch_frequency   \n            647475      cpu_core/cpu-cycles/u            #      1.3 GHz  cycles_frequency     \n            550626      cpu_core/instructions/u          #      0.9 instructions  insn_per_cycle\n     <not counted>      cpu_atom/branch-misses/u         #      nan %  branch_miss_rate         (0.00%)\n     <not counted>      cpu_atom/branches/u              #      nan M/sec  branch_frequency     (0.00%)\n     <not counted>      cpu_atom/cpu-cycles/u            #      nan GHz  cycles_frequency       (0.00%)\n     <not counted>      cpu_atom/instructions/u          #      nan instructions  insn_per_cycle  (0.00%)\n             TopdownL1 (cpu_core)                        #     16.6 %  tma_bad_speculation    \n                                                         #     53.4 %  tma_frontend_bound     \n                                                         #     14.4 %  tma_backend_bound      \n                                                         #     15.6 %  tma_retiring           \n             TopdownL1 (cpu_atom)                        #      nan %  tma_backend_bound        (0.00%)\n                                                         #      nan %  tma_frontend_bound       (0.00%)\n                                                         #      nan %  tma_bad_speculation    \n                                                         #      nan %  tma_retiring             (0.00%)\n\n       0.000824329 seconds time elapsed\n\n       0.000000000 seconds user\n       0.000849000 seconds sys\n\n\n",
+   "timed_out": false,
+   "interrupted": false,
+   "reaped": true,
+   "group_survivors": [],
+   "controller_affinity": [
+    4
+   ],
+   "env": {
+    "PATH": "/usr/bin:/bin",
+    "HOME": "/home/me",
+    "LANG": "C.UTF-8"
+   },
+   "cwd": "/home/me/work/rnx-bench-w-0179d/probes/startup-0179"
+  },
+  {
+   "kind": "affinity-control",
+   "label": "start",
+   "index": 1,
+   "argv": [
+    "perf",
+    "stat",
+    "--",
+    "/usr/bin/grep",
+    "Cpus_allowed_list",
+    "/proc/self/status"
+   ],
+   "status": 0,
+   "stdout": "Cpus_allowed_list:\t4\n",
+   "stderr": "\n Performance counter stats for '/usr/bin/grep Cpus_allowed_list /proc/self/status':\n\n                 0      context-switches:u               #      0.0 cs/sec  cs_per_second     \n                 0      cpu-migrations:u                 #      0.0 migrations/sec  migrations_per_second\n                98      page-faults:u                    # 217338.8 faults/sec  page_faults_per_second\n              0.45 msec task-clock:u                     #      0.2 CPUs  CPUs_utilized       \n              5930      cpu_core/branch-misses/u         #      5.2 %  branch_miss_rate       \n            113420      cpu_core/branches/u              #    251.5 M/sec  branch_frequency   \n            594455      cpu_core/cpu-cycles/u            #      1.3 GHz  cycles_frequency     \n            551122      cpu_core/instructions/u          #      0.9 instructions  insn_per_cycle\n     <not counted>      cpu_atom/branch-misses/u         #      nan %  branch_miss_rate         (0.00%)\n     <not counted>      cpu_atom/branches/u              #      nan M/sec  branch_frequency     (0.00%)\n     <not counted>      cpu_atom/cpu-cycles/u            #      nan GHz  cycles_frequency       (0.00%)\n     <not counted>      cpu_atom/instructions/u          #      nan instructions  insn_per_cycle  (0.00%)\n             TopdownL1 (cpu_core)                        #     18.1 %  tma_bad_speculation    \n                                                         #     48.6 %  tma_frontend_bound     \n                                                         #     16.3 %  tma_backend_bound      \n                                                         #     17.1 %  tma_retiring           \n             TopdownL1 (cpu_atom)                        #      nan %  tma_backend_bound        (0.00%)\n                                                         #      nan %  tma_frontend_bound       (0.00%)\n                                                         #      nan %  tma_bad_speculation    \n                                                         #      nan %  tma_retiring             (0.00%)\n\n       0.000001076 seconds time elapsed\n\n       0.000000000 seconds user\n       0.000000000 seconds sys\n\n\n",
+   "timed_out": false,
+   "interrupted": false,
+   "reaped": true,
+   "group_survivors": [],
+   "controller_affinity": [
+    4
+   ],
+   "env": {
+    "PATH": "/usr/bin:/bin",
+    "HOME": "/home/me",
+    "LANG": "C.UTF-8"
+   },
+   "cwd": "/home/me/work/rnx-bench-w-0179d/probes/startup-0179"
+  },
+  {
+   "kind": "affinity-control",
+   "label": "start",
+   "index": 2,
+   "argv": [
+    "perf",
+    "stat",
+    "--",
+    "/usr/bin/grep",
+    "Cpus_allowed_list",
+    "/proc/self/status"
+   ],
+   "status": 0,
+   "stdout": "Cpus_allowed_list:\t4\n",
+   "stderr": "\n Performance counter stats for '/usr/bin/grep Cpus_allowed_list /proc/self/status':\n\n                 0      context-switches:u               #      0.0 cs/sec  cs_per_second     \n                 0      cpu-migrations:u                 #      0.0 migrations/sec  migrations_per_second\n                96      page-faults:u                    # 202436.8 faults/sec  page_faults_per_second\n              0.47 msec task-clock:u                     #      0.2 CPUs  CPUs_utilized       \n              5957      cpu_core/branch-misses/u         #      5.2 %  branch_miss_rate       \n            113491      cpu_core/branches/u              #    239.3 M/sec  branch_frequency   \n            637640      cpu_core/cpu-cycles/u            #      1.3 GHz  cycles_frequency     \n            551700      cpu_core/instructions/u          #      0.9 instructions  insn_per_cycle\n     <not counted>      cpu_atom/branch-misses/u         #      nan %  branch_miss_rate         (0.00%)\n     <not counted>      cpu_atom/branches/u              #      nan M/sec  branch_frequency     (0.00%)\n     <not counted>      cpu_atom/cpu-cycles/u            #      nan GHz  cycles_frequency       (0.00%)\n     <not counted>      cpu_atom/instructions/u          #      nan instructions  insn_per_cycle  (0.00%)\n             TopdownL1 (cpu_core)                        #     17.0 %  tma_bad_speculation    \n                                                         #     48.0 %  tma_frontend_bound     \n                                                         #     19.1 %  tma_backend_bound      \n                                                         #     16.0 %  tma_retiring           \n             TopdownL1 (cpu_atom)                        #      nan %  tma_backend_bound        (0.00%)\n                                                         #      nan %  tma_frontend_bound       (0.00%)\n                                                         #      nan %  tma_bad_speculation    \n                                                         #      nan %  tma_retiring             (0.00%)\n\n       0.000001263 seconds time elapsed\n\n       0.000000000 seconds user\n       0.000000000 seconds sys\n\n\n",
+   "timed_out": false,
+   "interrupted": false,
+   "reaped": true,
+   "group_survivors": [],
+   "controller_affinity": [
+    4
+   ],
+   "env": {
+    "PATH": "/usr/bin:/bin",
+    "HOME": "/home/me",
+    "LANG": "C.UTF-8"
+   },
+   "cwd": "/home/me/work/rnx-bench-w-0179d/probes/startup-0179"
+  },
+  {
+   "kind": "affinity-control",
+   "label": "start",
+   "index": 3,
+   "argv": [
+    "perf",
+    "stat",
+    "--",
+    "/usr/bin/grep",
+    "Cpus_allowed_list",
+    "/proc/self/status"
+   ],
+   "status": 0,
+   "stdout": "Cpus_allowed_list:\t4\n",
+   "stderr": "\n Performance counter stats for '/usr/bin/grep Cpus_allowed_list /proc/self/status':\n\n                 0      context-switches:u               #      0.0 cs/sec  cs_per_second     \n                 0      cpu-migrations:u                 #      0.0 migrations/sec  migrations_per_second\n                96      page-faults:u                    # 183860.5 faults/sec  page_faults_per_second\n              0.52 msec task-clock:u                     #      0.2 CPUs  CPUs_utilized       \n              6070      cpu_core/branch-misses/u         #      5.4 %  branch_miss_rate       \n            113176      cpu_core/branches/u              #    216.8 M/sec  branch_frequency   \n            665391      cpu_core/cpu-cycles/u            #      1.3 GHz  cycles_frequency     \n            550467      cpu_core/instructions/u          #      0.8 instructions  insn_per_cycle\n     <not counted>      cpu_atom/branch-misses/u         #      nan %  branch_miss_rate         (0.00%)\n     <not counted>      cpu_atom/branches/u              #      nan M/sec  branch_frequency     (0.00%)\n     <not counted>      cpu_atom/cpu-cycles/u            #      nan GHz  cycles_frequency       (0.00%)\n     <not counted>      cpu_atom/instructions/u          #      nan instructions  insn_per_cycle  (0.00%)\n             TopdownL1 (cpu_core)                        #     16.7 %  tma_bad_speculation    \n                                                         #     51.1 %  tma_frontend_bound     \n                                                         #     16.1 %  tma_backend_bound      \n                                                         #     16.1 %  tma_retiring           \n             TopdownL1 (cpu_atom)                        #      nan %  tma_backend_bound        (0.00%)\n                                                         #      nan %  tma_frontend_bound       (0.00%)\n                                                         #      nan %  tma_bad_speculation    \n                                                         #      nan %  tma_retiring             (0.00%)\n\n       0.000897382 seconds time elapsed\n\n       0.000927000 seconds user\n       0.000000000 seconds sys\n\n\n",
+   "timed_out": false,
+   "interrupted": false,
+   "reaped": true,
+   "group_survivors": [],
+   "controller_affinity": [
+    4
+   ],
+   "env": {
+    "PATH": "/usr/bin:/bin",
+    "HOME": "/home/me",
+    "LANG": "C.UTF-8"
+   },
+   "cwd": "/home/me/work/rnx-bench-w-0179d/probes/startup-0179"
+  },
+  {
+   "kind": "affinity-control",
+   "label": "start",
+   "index": 4,
+   "argv": [
+    "perf",
+    "stat",
+    "--",
+    "/usr/bin/grep",
+    "Cpus_allowed_list",
+    "/proc/self/status"
+   ],
+   "status": 0,
+   "stdout": "Cpus_allowed_list:\t4\n",
+   "stderr": "\n Performance counter stats for '/usr/bin/grep Cpus_allowed_list /proc/self/status':\n\n                 0      context-switches:u               #      0.0 cs/sec  cs_per_second     \n                 0      cpu-migrations:u                 #      0.0 migrations/sec  migrations_per_second\n                96      page-faults:u                    # 211992.6 faults/sec  page_faults_per_second\n              0.45 msec task-clock:u                     #      0.2 CPUs  CPUs_utilized       \n              6031      cpu_core/branch-misses/u         #      5.3 %  branch_miss_rate       \n            113421      cpu_core/branches/u              #    250.5 M/sec  branch_frequency   \n            589436      cpu_core/cpu-cycles/u            #      1.3 GHz  cycles_frequency     \n            551041      cpu_core/instructions/u          #      0.9 instructions  insn_per_cycle\n     <not counted>      cpu_atom/branch-misses/u         #      nan %  branch_miss_rate         (0.00%)\n     <not counted>      cpu_atom/branches/u              #      nan M/sec  branch_frequency     (0.00%)\n     <not counted>      cpu_atom/cpu-cycles/u            #      nan GHz  cycles_frequency       (0.00%)\n     <not counted>      cpu_atom/instructions/u          #      nan instructions  insn_per_cycle  (0.00%)\n             TopdownL1 (cpu_core)                        #     18.6 %  tma_bad_speculation    \n                                                         #     47.6 %  tma_frontend_bound     \n                                                         #     16.7 %  tma_backend_bound      \n                                                         #     17.1 %  tma_retiring           \n             TopdownL1 (cpu_atom)                        #      nan %  tma_backend_bound        (0.00%)\n                                                         #      nan %  tma_frontend_bound       (0.00%)\n                                                         #      nan %  tma_bad_speculation    \n                                                         #      nan %  tma_retiring             (0.00%)\n\n       0.000016350 seconds time elapsed\n\n       0.000000000 seconds user\n       0.000771000 seconds sys\n\n\n",
+   "timed_out": false,
+   "interrupted": false,
+   "reaped": true,
+   "group_survivors": [],
+   "controller_affinity": [
+    4
+   ],
+   "env": {
+    "PATH": "/usr/bin:/bin",
+    "HOME": "/home/me",
+    "LANG": "C.UTF-8"
+   },
+   "cwd": "/home/me/work/rnx-bench-w-0179d/probes/startup-0179"
+  }
+ ],
+ "correctness": {
+  "checked": 42,
+  "all_identical": true
+ },
+ "allocation": {
+  "context_delta": -5801,
+  "context_calls": [
+   32304,
+   26503
+  ],
+  "budget_variants": {
+   "numeric-budget-zero": [
+    36659,
+    30858,
+    1
+   ],
+   "numeric-budget-default": [
+    1036660,
+    1030859,
+    0
+   ],
+   "numeric-budget-unlimited": [
+    1036661,
+    1030860,
+    0
+   ],
+   "numeric-budget-tight": [
+    36773,
+    30972,
+    1
+   ]
+  }
+ },
+ "calibration": {
+  "true": {
+   "native_ms": 0.2260775,
+   "hyperfine_pipe_ms": 0.236156,
+   "difference_ms": -0.010078500000000018
+  },
+  "floor": {
+   "native_ms": 0.4598505,
+   "hyperfine_pipe_ms": 0.4614125,
+   "difference_ms": -0.0015620000000000078
+  }
+ },
+ "lua_reference": {
+  "lua54-numeric": {
+   "ms": [
+    6.541531,
+    6.427054,
+    6.31799,
+    6.277012,
+    6.292693,
+    6.60728,
+    6.500107,
+    6.332131,
+    6.317453,
+    6.334284,
+    6.313224,
+    6.342376,
+    6.28295,
+    6.512472,
+    6.283509,
+    6.410163,
+    6.323212,
+    6.308821,
+    6.261568,
+    6.284807,
+    6.340166,
+    6.358184,
+    6.348987,
+    6.373269,
+    6.285949,
+    6.308272,
+    6.330904,
+    6.37183,
+    6.473097,
+    6.452715
+   ],
+   "median_ms": 6.3332075
+  },
+  "lua54-while": {
+   "ms": [
+    9.561486,
+    9.580344,
+    9.471171,
+    9.632978,
+    9.469811,
+    9.443702,
+    9.667141,
+    9.584529,
+    9.577822,
+    9.387994,
+    9.602137,
+    9.570618,
+    9.657454,
+    9.497452,
+    9.546343,
+    9.605535,
+    9.656998,
+    9.533732,
+    9.594002,
+    9.753882,
+    9.667147,
+    9.696342,
+    9.669596,
+    9.642409,
+    9.497073,
+    9.650006,
+    9.656199,
+    9.55995,
+    9.661917,
+    9.490205
+   ],
+   "median_ms": 9.5892655
+  },
+  "luajit-numeric": {
+   "ms": [
+    8.381461,
+    8.269138,
+    8.274725,
+    8.287377,
+    8.244564,
+    8.361519,
+    8.298103,
+    8.299026,
+    8.266287,
+    8.239794,
+    8.36606,
+    8.264233,
+    8.287412,
+    8.267845,
+    8.257726,
+    8.367165,
+    8.276329,
+    8.254763,
+    8.256457,
+    8.254713,
+    8.367799,
+    8.265344,
+    8.263766,
+    8.236463,
+    8.24453,
+    8.424938,
+    8.270904,
+    8.25787,
+    8.270204,
+    8.262048
+   ],
+   "median_ms": 8.2684915
+  },
+  "luajit-while": {
+   "ms": [
+    8.373619,
+    8.281357,
+    8.257298,
+    8.260372,
+    8.279121,
+    8.397053,
+    8.278553,
+    8.28991,
+    8.292424,
+    8.255741,
+    8.392044,
+    8.280884,
+    8.271917,
+    8.245135,
+    8.230402,
+    8.367639,
+    8.282902,
+    8.274911,
+    8.256419,
+    8.242275,
+    8.324788,
+    8.270368,
+    8.272284,
+    8.268642,
+    8.25793,
+    8.36333,
+    8.279109,
+    8.269915,
+    8.263284,
+    8.259903
+   ],
+   "median_ms": 8.273597500000001
+  }
+ },
+ "controls_end": [
+  {
+   "kind": "affinity-control",
+   "label": "end",
+   "index": 0,
+   "argv": [
+    "perf",
+    "stat",
+    "--",
+    "/usr/bin/grep",
+    "Cpus_allowed_list",
+    "/proc/self/status"
+   ],
+   "status": 0,
+   "stdout": "Cpus_allowed_list:\t4\n",
+   "stderr": "\n Performance counter stats for '/usr/bin/grep Cpus_allowed_list /proc/self/status':\n\n                 0      context-switches:u               #      0.0 cs/sec  cs_per_second     \n                 0      cpu-migrations:u                 #      0.0 migrations/sec  migrations_per_second\n                97      page-faults:u                    # 209226.7 faults/sec  page_faults_per_second\n              0.46 msec task-clock:u                     #      0.2 CPUs  CPUs_utilized       \n              5984      cpu_core/branch-misses/u         #      5.3 %  branch_miss_rate       \n            113548      cpu_core/branches/u              #    244.9 M/sec  branch_frequency   \n            623851      cpu_core/cpu-cycles/u            #      1.3 GHz  cycles_frequency     \n            551843      cpu_core/instructions/u          #      0.9 instructions  insn_per_cycle\n     <not counted>      cpu_atom/branch-misses/u         #      nan %  branch_miss_rate         (0.00%)\n     <not counted>      cpu_atom/branches/u              #      nan M/sec  branch_frequency     (0.00%)\n     <not counted>      cpu_atom/cpu-cycles/u            #      nan GHz  cycles_frequency       (0.00%)\n     <not counted>      cpu_atom/instructions/u          #      nan instructions  insn_per_cycle  (0.00%)\n             TopdownL1 (cpu_core)                        #     17.4 %  tma_bad_speculation    \n                                                         #     48.4 %  tma_frontend_bound     \n                                                         #     17.9 %  tma_backend_bound      \n                                                         #     16.3 %  tma_retiring           \n             TopdownL1 (cpu_atom)                        #      nan %  tma_backend_bound        (0.00%)\n                                                         #      nan %  tma_frontend_bound       (0.00%)\n                                                         #      nan %  tma_bad_speculation    \n                                                         #      nan %  tma_retiring             (0.00%)\n\n       0.000001051 seconds time elapsed\n\n       0.000000000 seconds user\n       0.000000000 seconds sys\n\n\n",
+   "timed_out": false,
+   "interrupted": false,
+   "reaped": true,
+   "group_survivors": [],
+   "controller_affinity": [
+    4
+   ],
+   "env": {
+    "PATH": "/usr/bin:/bin",
+    "HOME": "/home/me",
+    "LANG": "C.UTF-8"
+   },
+   "cwd": "/home/me/work/rnx-bench-w-0179d/probes/startup-0179"
+  },
+  {
+   "kind": "affinity-control",
+   "label": "end",
+   "index": 1,
+   "argv": [
+    "perf",
+    "stat",
+    "--",
+    "/usr/bin/grep",
+    "Cpus_allowed_list",
+    "/proc/self/status"
+   ],
+   "status": 0,
+   "stdout": "Cpus_allowed_list:\t4\n",
+   "stderr": "\n Performance counter stats for '/usr/bin/grep Cpus_allowed_list /proc/self/status':\n\n                 0      context-switches:u               #      0.0 cs/sec  cs_per_second     \n                 0      cpu-migrations:u                 #      0.0 migrations/sec  migrations_per_second\n                97      page-faults:u                    # 212772.0 faults/sec  page_faults_per_second\n              0.46 msec task-clock:u                     #      0.2 CPUs  CPUs_utilized       \n              5991      cpu_core/branch-misses/u         #      5.3 %  branch_miss_rate       \n            113350      cpu_core/branches/u              #    248.6 M/sec  branch_frequency   \n            595316      cpu_core/cpu-cycles/u            #      1.3 GHz  cycles_frequency     \n            550850      cpu_core/instructions/u          #      0.9 instructions  insn_per_cycle\n     <not counted>      cpu_atom/branch-misses/u         #      nan %  branch_miss_rate         (0.00%)\n     <not counted>      cpu_atom/branches/u              #      nan M/sec  branch_frequency     (0.00%)\n     <not counted>      cpu_atom/cpu-cycles/u            #      nan GHz  cycles_frequency       (0.00%)\n     <not counted>      cpu_atom/instructions/u          #      nan instructions  insn_per_cycle  (0.00%)\n             TopdownL1 (cpu_core)                        #     18.1 %  tma_bad_speculation    \n                                                         #     48.6 %  tma_frontend_bound     \n                                                         #     16.3 %  tma_backend_bound      \n                                                         #     17.1 %  tma_retiring           \n             TopdownL1 (cpu_atom)                        #      nan %  tma_backend_bound        (0.00%)\n                                                         #      nan %  tma_frontend_bound       (0.00%)\n                                                         #      nan %  tma_bad_speculation    \n                                                         #      nan %  tma_retiring             (0.00%)\n\n       0.000000944 seconds time elapsed\n\n       0.000000000 seconds user\n       0.000000000 seconds sys\n\n\n",
+   "timed_out": false,
+   "interrupted": false,
+   "reaped": true,
+   "group_survivors": [],
+   "controller_affinity": [
+    4
+   ],
+   "env": {
+    "PATH": "/usr/bin:/bin",
+    "HOME": "/home/me",
+    "LANG": "C.UTF-8"
+   },
+   "cwd": "/home/me/work/rnx-bench-w-0179d/probes/startup-0179"
+  },
+  {
+   "kind": "affinity-control",
+   "label": "end",
+   "index": 2,
+   "argv": [
+    "perf",
+    "stat",
+    "--",
+    "/usr/bin/grep",
+    "Cpus_allowed_list",
+    "/proc/self/status"
+   ],
+   "status": 0,
+   "stdout": "Cpus_allowed_list:\t4\n",
+   "stderr": "\n Performance counter stats for '/usr/bin/grep Cpus_allowed_list /proc/self/status':\n\n                 0      context-switches:u               #      0.0 cs/sec  cs_per_second     \n                 0      cpu-migrations:u                 #      0.0 migrations/sec  migrations_per_second\n                97      page-faults:u                    # 204587.0 faults/sec  page_faults_per_second\n              0.47 msec task-clock:u                     #      0.2 CPUs  CPUs_utilized       \n              5957      cpu_core/branch-misses/u         #      5.3 %  branch_miss_rate       \n            112876      cpu_core/branches/u              #    238.1 M/sec  branch_frequency   \n            621353      cpu_core/cpu-cycles/u            #      1.3 GHz  cycles_frequency     \n            549598      cpu_core/instructions/u          #      0.9 instructions  insn_per_cycle\n     <not counted>      cpu_atom/branch-misses/u         #      nan %  branch_miss_rate         (0.00%)\n     <not counted>      cpu_atom/branches/u              #      nan M/sec  branch_frequency     (0.00%)\n     <not counted>      cpu_atom/cpu-cycles/u            #      nan GHz  cycles_frequency       (0.00%)\n     <not counted>      cpu_atom/instructions/u          #      nan instructions  insn_per_cycle  (0.00%)\n             TopdownL1 (cpu_core)                        #     16.9 %  tma_bad_speculation    \n                                                         #     45.9 %  tma_frontend_bound     \n                                                         #     20.9 %  tma_backend_bound      \n                                                         #     16.3 %  tma_retiring           \n             TopdownL1 (cpu_atom)                        #      nan %  tma_backend_bound        (0.00%)\n                                                         #      nan %  tma_frontend_bound       (0.00%)\n                                                         #      nan %  tma_bad_speculation    \n                                                         #      nan %  tma_retiring             (0.00%)\n\n       0.000001220 seconds time elapsed\n\n       0.000000000 seconds user\n       0.000000000 seconds sys\n\n\n",
+   "timed_out": false,
+   "interrupted": false,
+   "reaped": true,
+   "group_survivors": [],
+   "controller_affinity": [
+    4
+   ],
+   "env": {
+    "PATH": "/usr/bin:/bin",
+    "HOME": "/home/me",
+    "LANG": "C.UTF-8"
+   },
+   "cwd": "/home/me/work/rnx-bench-w-0179d/probes/startup-0179"
+  },
+  {
+   "kind": "affinity-control",
+   "label": "end",
+   "index": 3,
+   "argv": [
+    "perf",
+    "stat",
+    "--",
+    "/usr/bin/grep",
+    "Cpus_allowed_list",
+    "/proc/self/status"
+   ],
+   "status": 0,
+   "stdout": "Cpus_allowed_list:\t4\n",
+   "stderr": "\n Performance counter stats for '/usr/bin/grep Cpus_allowed_list /proc/self/status':\n\n                 0      context-switches:u               #      0.0 cs/sec  cs_per_second     \n                 0      cpu-migrations:u                 #      0.0 migrations/sec  migrations_per_second\n                96      page-faults:u                    # 212303.9 faults/sec  page_faults_per_second\n              0.45 msec task-clock:u                     #      0.2 CPUs  CPUs_utilized       \n              6006      cpu_core/branch-misses/u         #      5.3 %  branch_miss_rate       \n            113841      cpu_core/branches/u              #    251.8 M/sec  branch_frequency   \n            600525      cpu_core/cpu-cycles/u            #      1.3 GHz  cycles_frequency     \n            552242      cpu_core/instructions/u          #      0.9 instructions  insn_per_cycle\n     <not counted>      cpu_atom/branch-misses/u         #      nan %  branch_miss_rate         (0.00%)\n     <not counted>      cpu_atom/branches/u              #      nan M/sec  branch_frequency     (0.00%)\n     <not counted>      cpu_atom/cpu-cycles/u            #      nan GHz  cycles_frequency       (0.00%)\n     <not counted>      cpu_atom/instructions/u          #      nan instructions  insn_per_cycle  (0.00%)\n             TopdownL1 (cpu_core)                        #     17.8 %  tma_bad_speculation    \n                                                         #     49.5 %  tma_frontend_bound     \n                                                         #     16.0 %  tma_backend_bound      \n                                                         #     16.7 %  tma_retiring           \n             TopdownL1 (cpu_atom)                        #      nan %  tma_backend_bound        (0.00%)\n                                                         #      nan %  tma_frontend_bound       (0.00%)\n                                                         #      nan %  tma_bad_speculation    \n                                                         #      nan %  tma_retiring             (0.00%)\n\n       0.000001291 seconds time elapsed\n\n       0.000000000 seconds user\n       0.000000000 seconds sys\n\n\n",
+   "timed_out": false,
+   "interrupted": false,
+   "reaped": true,
+   "group_survivors": [],
+   "controller_affinity": [
+    4
+   ],
+   "env": {
+    "PATH": "/usr/bin:/bin",
+    "HOME": "/home/me",
+    "LANG": "C.UTF-8"
+   },
+   "cwd": "/home/me/work/rnx-bench-w-0179d/probes/startup-0179"
+  },
+  {
+   "kind": "affinity-control",
+   "label": "end",
+   "index": 4,
+   "argv": [
+    "perf",
+    "stat",
+    "--",
+    "/usr/bin/grep",
+    "Cpus_allowed_list",
+    "/proc/self/status"
+   ],
+   "status": 0,
+   "stdout": "Cpus_allowed_list:\t4\n",
+   "stderr": "\n Performance counter stats for '/usr/bin/grep Cpus_allowed_list /proc/self/status':\n\n                 0      context-switches:u               #      0.0 cs/sec  cs_per_second     \n                 0      cpu-migrations:u                 #      0.0 migrations/sec  migrations_per_second\n                97      page-faults:u                    # 209467.5 faults/sec  page_faults_per_second\n              0.46 msec task-clock:u                     #      0.2 CPUs  CPUs_utilized       \n              5998      cpu_core/branch-misses/u         #      5.3 %  branch_miss_rate       \n            113665      cpu_core/branches/u              #    245.5 M/sec  branch_frequency   \n            613881      cpu_core/cpu-cycles/u            #      1.3 GHz  cycles_frequency     \n            552152      cpu_core/instructions/u          #      0.9 instructions  insn_per_cycle\n     <not counted>      cpu_atom/branch-misses/u         #      nan %  branch_miss_rate         (0.00%)\n     <not counted>      cpu_atom/branches/u              #      nan M/sec  branch_frequency     (0.00%)\n     <not counted>      cpu_atom/cpu-cycles/u            #      nan GHz  cycles_frequency       (0.00%)\n     <not counted>      cpu_atom/instructions/u          #      nan instructions  insn_per_cycle  (0.00%)\n             TopdownL1 (cpu_core)                        #     17.4 %  tma_bad_speculation    \n                                                         #     47.6 %  tma_frontend_bound     \n                                                         #     18.3 %  tma_backend_bound      \n                                                         #     16.7 %  tma_retiring           \n             TopdownL1 (cpu_atom)                        #      nan %  tma_backend_bound        (0.00%)\n                                                         #      nan %  tma_frontend_bound       (0.00%)\n                                                         #      nan %  tma_bad_speculation    \n                                                         #      nan %  tma_retiring             (0.00%)\n\n       0.000016989 seconds time elapsed\n\n       0.000000000 seconds user\n       0.000792000 seconds sys\n\n\n",
+   "timed_out": false,
+   "interrupted": false,
+   "reaped": true,
+   "group_survivors": [],
+   "controller_affinity": [
+    4
+   ],
+   "env": {
+    "PATH": "/usr/bin:/bin",
+    "HOME": "/home/me",
+    "LANG": "C.UTF-8"
+   },
+   "cwd": "/home/me/work/rnx-bench-w-0179d/probes/startup-0179"
+  }
+ ],
+ "ended": 1791286965.5696816,
+ "load_after": "0.81",
+ "decision": {
+  "decision": "STOP",
+  "rows": {
+   "floor": {
+    "base_instr": 450806.5,
+    "cand_instr": 450547.5,
+    "instr_change": -0.0005745258775106121,
+    "base_wall_ms": 0.497665,
+    "cand_wall_ms": 0.49816400000000005,
+    "wall_change": 0.0010026825274029871,
+    "base_wall_p10_p90_ms": 0.15185499999999996
+   },
+   "empty-context": {
+    "base_instr": 451282.5,
+    "cand_instr": 451236.0,
+    "instr_change": -0.00010303967027303074,
+    "base_wall_ms": 0.497071,
+    "cand_wall_ms": 0.499398,
+    "wall_change": 0.004681423780506178,
+    "base_wall_p10_p90_ms": 0.14839420000000003
+   },
+   "context": {
+    "base_instr": 26869161.0,
+    "cand_instr": 24923273.0,
+    "instr_change": -0.07242086941233483,
+    "base_wall_ms": 3.7602535,
+    "cand_wall_ms": 3.5528875,
+    "wall_change": -0.055146813904966785,
+    "base_wall_p10_p90_ms": 0.41412259999999934
+   },
+   "runtime": {
+    "base_instr": 28244789.5,
+    "cand_instr": 26298621.0,
+    "instr_change": -0.06890362911006997,
+    "base_wall_ms": 3.961678,
+    "cand_wall_ms": 3.8172615,
+    "wall_change": -0.03645336647753805,
+    "base_wall_p10_p90_ms": 0.4709365999999999
+   },
+   "compile-answer": {
+    "base_instr": 29900985.5,
+    "cand_instr": 27954906.5,
+    "instr_change": -0.06508410901707573,
+    "base_wall_ms": 4.3353635,
+    "cand_wall_ms": 4.173237500000001,
+    "wall_change": -0.037396172201015876,
+    "base_wall_p10_p90_ms": 0.5289412999999996
+   },
+   "run-answer": {
+    "base_instr": 29907154.5,
+    "cand_instr": 27961873.5,
+    "instr_change": -0.06504400142781885,
+    "base_wall_ms": 4.380255,
+    "cand_wall_ms": 4.193658,
+    "wall_change": -0.042599574682295915,
+    "base_wall_p10_p90_ms": 0.5534124
+   },
+   "run-empty": {
+    "base_instr": 28390438.5,
+    "cand_instr": 26444436.5,
+    "instr_change": -0.06854427415765352,
+    "base_wall_ms": 4.042915,
+    "cand_wall_ms": 3.8723270000000003,
+    "wall_change": -0.04219430781997635,
+    "base_wall_p10_p90_ms": 0.48878759999999977
+   },
+   "run-numeric": {
+    "base_instr": 1759089109.0,
+    "cand_instr": 1745143360.5,
+    "instr_change": -0.007927823797356015,
+    "base_wall_ms": 112.79082700000001,
+    "cand_wall_ms": 122.1755495,
+    "wall_change": 0.08320466078327438,
+    "base_wall_p10_p90_ms": 1.7880274999999983
+   },
+   "run-fib": {
+    "base_instr": 833592282.0,
+    "cand_instr": 852621967.5,
+    "instr_change": 0.022828528899455414,
+    "base_wall_ms": 51.5259395,
+    "cand_wall_ms": 52.9331105,
+    "wall_change": 0.027309953271206222,
+    "base_wall_p10_p90_ms": 0.9081237999999985
+   },
+   "run-strings": {
+    "base_instr": 227837187.5,
+    "cand_instr": 225673678.5,
+    "instr_change": -0.009495855455993074,
+    "base_wall_ms": 18.646226,
+    "cand_wall_ms": 19.0117345,
+    "wall_change": 0.019602277694156456,
+    "base_wall_p10_p90_ms": 1.3286141999999934
+   },
+   "run-while": {
+    "base_instr": 1143107019.5,
+    "cand_instr": 1134161205.5,
+    "instr_change": -0.007825876184290204,
+    "base_wall_ms": 69.354373,
+    "cand_wall_ms": 69.1953965,
+    "wall_change": -0.002292234694414974,
+    "base_wall_p10_p90_ms": 0.9541423000000009
+   },
+   "run-compare": {
+    "base_instr": 1722543950.0,
+    "cand_instr": 1707674475.0,
+    "instr_change": -0.008632276116960602,
+    "base_wall_ms": 106.183079,
+    "cand_wall_ms": 106.689175,
+    "wall_change": 0.004766258473254403,
+    "base_wall_p10_p90_ms": 1.4550946999999894
+   },
+   "run-calls": {
+    "base_instr": 1780164623.5,
+    "cand_instr": 1788219185.0,
+    "instr_change": 0.0045246160909342414,
+    "base_wall_ms": 95.23216049999999,
+    "cand_wall_ms": 98.15678249999999,
+    "wall_change": 0.03071044471368478,
+    "base_wall_p10_p90_ms": 1.2902567000000005
+   },
+   "run-vector": {
+    "base_instr": 1314405077.5,
+    "cand_instr": 1305659655.5,
+    "instr_change": -0.006653521163075382,
+    "base_wall_ms": 83.888891,
+    "cand_wall_ms": 83.778024,
+    "wall_change": -0.0013215933442247696,
+    "base_wall_p10_p90_ms": 1.250436999999991
+   },
+   "run-overwrite_inline": {
+    "base_instr": 1142213821.5,
+    "cand_instr": 1102265574.5,
+    "instr_change": -0.03497440343309666,
+    "base_wall_ms": 68.3613465,
+    "cand_wall_ms": 67.453317,
+    "wall_change": -0.0132827913212622,
+    "base_wall_p10_p90_ms": 1.2386771000000039
+   },
+   "run-overwrite_mixed": {
+    "base_instr": 748092525.5,
+    "cand_instr": 741044601.0,
+    "instr_change": -0.00942119358202298,
+    "base_wall_ms": 48.6033165,
+    "cand_wall_ms": 48.133277,
+    "wall_change": -0.009670934698458256,
+    "base_wall_p10_p90_ms": 0.8880426000000057
+   },
+   "run-overwrite_deep": {
+    "base_instr": 254882258.0,
+    "cand_instr": 253635090.0,
+    "instr_change": -0.004893114215898109,
+    "base_wall_ms": 21.750401,
+    "cand_wall_ms": 20.9244175,
+    "wall_change": -0.03797555272659103,
+    "base_wall_p10_p90_ms": 2.150736600000002
+   },
+   "run-overwrite_alias": {
+    "base_instr": 30333191.5,
+    "cand_instr": 28386211.0,
+    "instr_change": -0.06418647045432069,
+    "base_wall_ms": 4.4294735,
+    "cand_wall_ms": 4.2502545000000005,
+    "wall_change": -0.040460564895579476,
+    "base_wall_p10_p90_ms": 0.5377216999999996
+   },
+   "run-range_signed": {
+    "base_instr": 1437052175.0,
+    "cand_instr": 1425104386.0,
+    "instr_change": -0.00831409548508566,
+    "base_wall_ms": 84.9154265,
+    "cand_wall_ms": 98.149213,
+    "wall_change": 0.1558466705693342,
+    "base_wall_p10_p90_ms": 5.063814899999997
+   },
+   "run-range_negative": {
+    "base_instr": 1437053847.0,
+    "cand_instr": 1425105990.0,
+    "instr_change": -0.00831413313073992,
+    "base_wall_ms": 84.63619750000001,
+    "cand_wall_ms": 98.3518465,
+    "wall_change": 0.1620541730977456,
+    "base_wall_p10_p90_ms": 4.872574400000005
+   },
+   "run-range_while": {
+    "base_instr": 937072705.5,
+    "cand_instr": 930127045.0,
+    "instr_change": -0.007412082818369914,
+    "base_wall_ms": 49.7174315,
+    "cand_wall_ms": 49.409083,
+    "wall_change": -0.006202019909254619,
+    "base_wall_p10_p90_ms": 1.130779099999998
+   },
+   "first-use-true": {
+    "base_instr": 55262748.0,
+    "cand_instr": 53339991.0,
+    "instr_change": -0.034793003778965215,
+    "base_wall_ms": 7.2918635,
+    "cand_wall_ms": 7.144003,
+    "wall_change": -0.020277464052913197,
+    "base_wall_p10_p90_ms": 0.7887138999999994
+   },
+   "first-use-false": {
+    "base_instr": 55170381.5,
+    "cand_instr": 53243560.5,
+    "instr_change": -0.034924917095235264,
+    "base_wall_ms": 7.287945000000001,
+    "cand_wall_ms": 7.130173,
+    "wall_change": -0.02164835217609362,
+    "base_wall_p10_p90_ms": 0.7909155999999999
+   }
+  },
+  "regressions": [
+   [
+    "run-numeric",
+    "wall",
+    0.08320466078327438
+   ],
+   [
+    "run-fib",
+    "instructions",
+    0.022828528899455414
+   ],
+   [
+    "run-fib",
+    "wall",
+    0.027309953271206222
+   ],
+   [
+    "run-calls",
+    "wall",
+    0.03071044471368478
+   ],
+   [
+    "run-range_signed",
+    "wall",
+    0.1558466705693342
+   ],
+   [
+    "run-range_negative",
+    "wall",
+    0.1620541730977456
+   ]
+  ],
+  "disagreements": [],
+  "win_instr": {
+   "context": -0.07242086941233483,
+   "run-answer": -0.06504400142781885
+  },
+  "context_alloc_delta": -5801
+ }
+}
