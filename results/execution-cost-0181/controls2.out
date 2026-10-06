@@ -1,0 +1,99 @@
+L0-replay-of-the-0180-control-set PASS
+G1-frozen-scope PASS
+C1-diagnostic-row-defects-are-group-local PASS
+C1-anchor-defects-are-global-in-every-group PASS
+C1-malformed-or-unclassified-is-global PASS
+C1-zero-denominator-is-undefined-not-a-failure PASS
+group R anchors reproduced
+group C anchors reproduced
+group D anchors reproduced
+group E anchors reproduced
+OFFICIAL COMPLETE
+O1-all-groups-complete PASS
+group R anchors reproduced
+group C anchors reproduced
+group D anchors reproduced
+group E anchors reproduced
+OFFICIAL COMPLETE
+O1-zero-denominator-does-not-prevent-a-completed-group PASS
+group R anchors reproduced
+group C FAILED / INCOMPLETE LocalInvalid(('C', "Stop(('counter not running 100%', 'C', 'br_misp_retired_all', 99.9))"))
+group D anchors reproduced
+group E anchors reproduced
+OFFICIAL PARTIAL COUNTER-VALIDITY STOP
+group R anchors reproduced
+group C anchors reproduced
+group D FAILED / INCOMPLETE LocalInvalid(('D', "Stop(('counter not running 100%', 'D', 'icache_data_stalls', 99.9))"))
+group E anchors reproduced
+OFFICIAL PARTIAL COUNTER-VALIDITY STOP
+group R anchors reproduced
+group C anchors reproduced
+group D anchors reproduced
+group E FAILED / INCOMPLETE LocalInvalid(('E', "Stop(('counter not running 100%', 'E', 'ld_blocks_store_forward', 99.9))"))
+OFFICIAL PARTIAL COUNTER-VALIDITY STOP
+O1-local-failure-invalidates-only-its-group-no-retry PASS
+group R anchors reproduced
+group C FAILED / INCOMPLETE LocalInvalid(('C', "Stop(('counter not counted or unsupported', 'C', 'br_misp_retired_all', '<not counted>'))"))
+group D FAILED / INCOMPLETE LocalInvalid(('D', "Stop(('counter not counted or unsupported', 'D', 'icache_data_stalls', '<not counted>'))"))
+group E FAILED / INCOMPLETE LocalInvalid(('E', "Stop(('counter not counted or unsupported', 'E', 'ld_blocks_store_forward', '<not counted>'))"))
+OFFICIAL PARTIAL COUNTER-VALIDITY STOP
+O1-every-diagnostic-failed-is-partial-with-no-conclusion PASS
+group R anchors reproduced
+group C anchors reproduced
+O1-invalid-anchor-in-a-diagnostic-is-global PASS
+O1-R-failures-are-all-global PASS
+group R anchors FAILED [('R', 'run-numeric', 'cycles change', -0.08324492160448438), ('R', 'run-range_signed', 'cand', 'cycles', 0.8612444041096697), ('R', 'run-range_signed', 'cycles change', -0.16111059210163692)]
+OFFICIAL GLOBAL STOP (NONREPRODUCING)
+group R anchors reproduced
+group C anchors FAILED [('C', 'run-numeric', 'cycles change', -0.08324492160448438), ('C', 'run-range_signed', 'cand', 'cycles', 0.8612444041096697), ('C', 'run-range_signed', 'cycles change', -0.16111059210163692)]
+OFFICIAL GLOBAL STOP (NONREPRODUCING)
+group R anchors reproduced
+group C anchors reproduced
+group D anchors FAILED [('D', 'run-numeric', 'cycles change', -0.08324492160448438), ('D', 'run-range_signed', 'cand', 'cycles', 0.8612444041096697), ('D', 'run-range_signed', 'cycles change', -0.16111059210163692)]
+OFFICIAL GLOBAL STOP (NONREPRODUCING)
+group R anchors reproduced
+group C anchors reproduced
+group D anchors reproduced
+group E anchors FAILED [('E', 'run-numeric', 'cycles change', -0.08324492160448438), ('E', 'run-range_signed', 'cand', 'cycles', 0.8612444041096697), ('E', 'run-range_signed', 'cycles change', -0.16111059210163692)]
+OFFICIAL GLOBAL STOP (NONREPRODUCING)
+O1-nonreproduction-stops-globally PASS
+group R anchors reproduced
+group R anchors reproduced
+group R anchors reproduced
+group R anchors reproduced
+group R anchors reproduced
+group R anchors reproduced
+O1-global-safety-failure-in-a-diagnostic-stops-everything PASS
+group R anchors reproduced
+group R anchors reproduced
+O1-deadline-starts-nothing-later PASS
+group R anchors reproduced
+group C anchors reproduced
+O1-identity-drift-before-a-group-stops-everything PASS
+group R anchors reproduced
+group C anchors reproduced
+group D anchors reproduced
+OFFICIAL COMPLETE
+group R anchors reproduced
+group E anchors reproduced
+OFFICIAL COMPLETE
+O1-only-the-eligible-order-runs PASS
+group R anchors reproduced
+group C anchors reproduced
+group D anchors reproduced
+group E anchors reproduced
+OFFICIAL GLOBAL STOP (sentinel occurrence or scan failure)
+group R anchors reproduced
+group C FAILED / INCOMPLETE LocalInvalid(('C', "Stop(('counter not finite and non-negative', 'C', 'br_misp_retired_all', 'nan'))"))
+group D anchors reproduced
+group E anchors reproduced
+OFFICIAL GLOBAL STOP (sentinel occurrence or scan failure)
+group R anchors reproduced
+group C anchors reproduced
+group D anchors reproduced
+group E anchors reproduced
+OFFICIAL GLOBAL STOP (sentinel occurrence or scan failure)
+O1-sentinel-hit-or-scan-error-overrides-complete-and-partial PASS
+V1-availability-content-validation PASS
+V2-admission-binds-reviewed-bytes-libraries-and-current-host PASS
+0181 controls: 20 / 20 pass

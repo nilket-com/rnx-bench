@@ -153,6 +153,9 @@ def main(out):
 			base.run_sample, base.stage, base.sha, base.pinned, base.os.sched_setaffinity, ev.load_availability, ev.recheck_identity = real
 			base.PHASE["deadline"] = None
 		rows = [json.loads(l) for l in (target / "raw.jsonl").read_text().splitlines()] if (target / "raw.jsonl").exists() else []
+		if rows:  # synthetic rows are bulky and fully described by the control's assertions: keep counts and a hash only
+			(target / "raw.summary.json").write_text(json.dumps({"rows": len(rows), "per_group": per_group(rows), "sha256": base.sha(target / "raw.jsonl")}) + "\n")
+			(target / "raw.jsonl").unlink()
 		return error, json.loads((target / "official.json").read_text()), rows
 
 	def good(meta, override=None, values=None, **row_changes):
@@ -172,6 +175,17 @@ def main(out):
 		assert all(report["groups"][g]["status"] == "complete" and not report["groups"][g]["anchor_failures"] for g in ev.ORDER)
 		assert report["failed_groups"] == [] and report["complete_diagnostics"] == ["C", "D", "E"]
 		return {"rows": len(rows), "status": report["status"]}
+
+	@control("O1-zero-denominator-does-not-prevent-a-completed-group")
+	def _():
+		zero = {"C": {"br_inst_retired_all": 0.0, "br_misp_retired_all": 0.0}, "D": {"idq_dsb_uops": 0.0, "idq_mite_uops": 0.0}}
+		error, report, rows = mocked("zero-denominator", lambda meta, n: good(meta, values=zero.get(meta["group"])))
+		assert error is None and report["status"] == "COMPLETE" and per_group(rows) == {"R": 140, "C": 140, "D": 140, "E": 140}, (error, report["status"])
+		c = report["groups"]["C"]["summary"]["run-numeric"]["quantities"]
+		d = report["groups"]["D"]["summary"]["run-fib"]["quantities"]
+		assert "undefined" in c["branch_miss_rate"]["status"] and "undefined" in d["dsb_share_of_dsb_plus_mite"]["status"]
+		assert c["br_misp_retired_all"]["base_median"] == 0 and "resolved" in c["br_misp_retired_all"]  # the raw zero count is still reported
+		return {"status": report["status"], "branch_miss_rate": c["branch_miss_rate"], "dsb_share": d["dsb_share_of_dsb_plus_mite"]}
 
 	@control("O1-local-failure-invalidates-only-its-group-no-retry")
 	def _():
