@@ -1,0 +1,486 @@
+{
+ "L0-replay-of-the-0180-control-set": {
+  "pass": true,
+  "detail": {
+   "controls": 26,
+   "all_pass": true,
+   "library": {
+    "probes/execution-cost-0180/events.py": "36595033600391e412897f2676364a62411c4d8691cf5eb9f5998a1ef2fc10c2",
+    "probes/startup-0179/common.py": "abd19671c56d7e8f9a6a07f72a3b98b39e2ef0dfdc45a0602e31937954c9ddba"
+   }
+  },
+  "seconds": 2.1889323128852993
+ },
+ "G1-frozen-scope": {
+  "pass": true,
+  "detail": {
+   "R": [
+    "perf",
+    "stat",
+    "-j",
+    "--no-scale",
+    "-e",
+    "{cpu_core/instructions,name=instructions/u,cpu_core/cpu-cycles,name=cycles/u}:D",
+    "--"
+   ],
+   "C": [
+    "perf",
+    "stat",
+    "-j",
+    "--no-scale",
+    "-e",
+    "{cpu_core/instructions,name=instructions/u,cpu_core/cpu-cycles,name=cycles/u,cpu_core/event=0xc4,umask=0x00,name=br_inst_retired_all/u,cpu_core/event=0xc5,umask=0x00,name=br_misp_retired_all/u}:D",
+    "--"
+   ],
+   "D": [
+    "perf",
+    "stat",
+    "-j",
+    "--no-scale",
+    "-e",
+    "{cpu_core/instructions,name=instructions/u,cpu_core/cpu-cycles,name=cycles/u,cpu_core/event=0x79,umask=0x08,name=idq_dsb_uops/u,cpu_core/event=0x79,umask=0x04,name=idq_mite_uops/u,cpu_core/event=0x80,umask=0x04,name=icache_data_stalls/u}:D",
+    "--"
+   ],
+   "E": [
+    "perf",
+    "stat",
+    "-j",
+    "--no-scale",
+    "-e",
+    "{cpu_core/instructions,name=instructions/u,cpu_core/cpu-cycles,name=cycles/u,cpu_core/event=0xd1,umask=0x08,name=mem_load_retired_l1_miss/u,cpu_core/event=0x03,umask=0x82,name=ld_blocks_store_forward/u}:D",
+    "--"
+   ]
+  },
+  "seconds": 1.9537052139639854e-05
+ },
+ "C1-diagnostic-row-defects-are-group-local": {
+  "pass": true,
+  "detail": {
+   "C-missing": "LocalInvalid(('C', \"Stop(('counter set differs from the frozen group', 'C', ['br_misp_retired_all'], []))\"))",
+   "C-duplicate": "LocalInvalid(('C', \"Stop(('duplicate counter', 'C', 'br_misp_retired_all'))\"))",
+   "C-unexpected": "LocalInvalid(('C', \"Stop(('unexpected counter', 'C', 'cache-misses'))\"))",
+   "C-nan": "LocalInvalid(('C', \"Stop(('counter not finite and non-negative', 'C', 'br_misp_retired_all', 'nan'))\"))",
+   "C-negative": "LocalInvalid(('C', \"Stop(('counter not finite and non-negative', 'C', 'br_misp_retired_all', '-1.0'))\"))",
+   "C-not-counted": "LocalInvalid(('C', \"Stop(('counter not counted or unsupported', 'C', 'br_misp_retired_all', '<not counted>'))\"))",
+   "C-not-supported": "LocalInvalid(('C', \"Stop(('counter not counted or unsupported', 'C', 'br_misp_retired_all', '<not supported>'))\"))",
+   "C-unit": "LocalInvalid(('C', \"Stop(('unexpected unit', 'C', 'br_misp_retired_all', 'msec'))\"))",
+   "C-runtime-missing": "LocalInvalid(('C', \"Stop(('counter time missing or not finite and positive', 'C', 'br_misp_retired_all', 'event-runtime'",
+   "C-runtime-negative": "LocalInvalid(('C', \"Stop(('counter time missing or not finite and positive', 'C', 'br_misp_retired_all', 'event-runtime'",
+   "C-enabled-differs": "LocalInvalid(('C', \"Stop(('enabled and running times differ', 'C', 'br_misp_retired_all'))\"))",
+   "C-running-99.9": "LocalInvalid(('C', \"Stop(('counter not running 100%', 'C', 'br_misp_retired_all', 99.9))\"))",
+   "D-missing": "LocalInvalid(('D', \"Stop(('counter set differs from the frozen group', 'D', ['icache_data_stalls'], []))\"))",
+   "D-duplicate": "LocalInvalid(('D', \"Stop(('duplicate counter', 'D', 'icache_data_stalls'))\"))",
+   "D-unexpected": "LocalInvalid(('D', \"Stop(('unexpected counter', 'D', 'cache-misses'))\"))",
+   "D-nan": "LocalInvalid(('D', \"Stop(('counter not finite and non-negative', 'D', 'icache_data_stalls', 'nan'))\"))",
+   "D-negative": "LocalInvalid(('D', \"Stop(('counter not finite and non-negative', 'D', 'icache_data_stalls', '-1.0'))\"))",
+   "D-not-counted": "LocalInvalid(('D', \"Stop(('counter not counted or unsupported', 'D', 'icache_data_stalls', '<not counted>'))\"))",
+   "D-not-supported": "LocalInvalid(('D', \"Stop(('counter not counted or unsupported', 'D', 'icache_data_stalls', '<not supported>'))\"))",
+   "D-unit": "LocalInvalid(('D', \"Stop(('unexpected unit', 'D', 'icache_data_stalls', 'msec'))\"))",
+   "D-runtime-missing": "LocalInvalid(('D', \"Stop(('counter time missing or not finite and positive', 'D', 'icache_data_stalls', 'event-runtime',",
+   "D-runtime-negative": "LocalInvalid(('D', \"Stop(('counter time missing or not finite and positive', 'D', 'icache_data_stalls', 'event-runtime',",
+   "D-enabled-differs": "LocalInvalid(('D', \"Stop(('enabled and running times differ', 'D', 'icache_data_stalls'))\"))",
+   "D-running-99.9": "LocalInvalid(('D', \"Stop(('counter not running 100%', 'D', 'icache_data_stalls', 99.9))\"))",
+   "E-missing": "LocalInvalid(('E', \"Stop(('counter set differs from the frozen group', 'E', ['ld_blocks_store_forward'], []))\"))",
+   "E-duplicate": "LocalInvalid(('E', \"Stop(('duplicate counter', 'E', 'ld_blocks_store_forward'))\"))",
+   "E-unexpected": "LocalInvalid(('E', \"Stop(('unexpected counter', 'E', 'cache-misses'))\"))",
+   "E-nan": "LocalInvalid(('E', \"Stop(('counter not finite and non-negative', 'E', 'ld_blocks_store_forward', 'nan'))\"))",
+   "E-negative": "LocalInvalid(('E', \"Stop(('counter not finite and non-negative', 'E', 'ld_blocks_store_forward', '-1.0'))\"))",
+   "E-not-counted": "LocalInvalid(('E', \"Stop(('counter not counted or unsupported', 'E', 'ld_blocks_store_forward', '<not counted>'))\"))",
+   "E-not-supported": "LocalInvalid(('E', \"Stop(('counter not counted or unsupported', 'E', 'ld_blocks_store_forward', '<not supported>'))\"))",
+   "E-unit": "LocalInvalid(('E', \"Stop(('unexpected unit', 'E', 'ld_blocks_store_forward', 'msec'))\"))",
+   "E-runtime-missing": "LocalInvalid(('E', \"Stop(('counter time missing or not finite and positive', 'E', 'ld_blocks_store_forward', 'event-runt",
+   "E-runtime-negative": "LocalInvalid(('E', \"Stop(('counter time missing or not finite and positive', 'E', 'ld_blocks_store_forward', 'event-runt",
+   "E-enabled-differs": "LocalInvalid(('E', \"Stop(('enabled and running times differ', 'E', 'ld_blocks_store_forward'))\"))",
+   "E-running-99.9": "LocalInvalid(('E', \"Stop(('counter not running 100%', 'E', 'ld_blocks_store_forward', 99.9))\"))"
+  },
+  "seconds": 0.001817934913560748
+ },
+ "C1-anchor-defects-are-global-in-every-group": {
+  "pass": true,
+  "detail": {
+   "cases": 65,
+   "sample": {
+    "R-instructions-missing": "Stop(('invalid anchor counter (global)', 'R', \"Stop(('counte",
+    "R-instructions-duplicate": "Stop(('invalid anchor counter (global)', 'R', \"Stop(('duplic",
+    "R-instructions-nan": "Stop(('invalid anchor counter (global)', 'R', \"Stop(('counte"
+   }
+  },
+  "seconds": 0.0016536330804228783
+ },
+ "C1-malformed-or-unclassified-is-global": {
+  "pass": true,
+  "detail": {
+   "R-malformed-json": "Stop(('malformed counter line (unclassified, global)', '{\"co",
+   "R-object-without-event": "Stop(('counter line without an event name (unclassified, glo",
+   "R-event-not-a-string": "Stop(('counter line without an event name (unclassified, glo",
+   "R-metric-only-row": "Stop(('counter line without an event name (unclassified, glo",
+   "C-malformed-json": "Stop(('malformed counter line (unclassified, global)', '{\"co",
+   "C-object-without-event": "Stop(('counter line without an event name (unclassified, glo",
+   "C-event-not-a-string": "Stop(('counter line without an event name (unclassified, glo",
+   "C-metric-only-row": "Stop(('counter line without an event name (unclassified, glo",
+   "D-malformed-json": "Stop(('malformed counter line (unclassified, global)', '{\"co",
+   "D-object-without-event": "Stop(('counter line without an event name (unclassified, glo",
+   "D-event-not-a-string": "Stop(('counter line without an event name (unclassified, glo",
+   "D-metric-only-row": "Stop(('counter line without an event name (unclassified, glo",
+   "E-malformed-json": "Stop(('malformed counter line (unclassified, global)', '{\"co",
+   "E-object-without-event": "Stop(('counter line without an event name (unclassified, glo",
+   "E-event-not-a-string": "Stop(('counter line without an event name (unclassified, glo",
+   "E-metric-only-row": "Stop(('counter line without an event name (unclassified, glo",
+   "R-unexpected-row-is-global": "Stop(('unexpected counter', 'R', 'cache-misses'))",
+   "R-diagnostic-rows-present-is-global": "Stop(('unexpected counter', 'R', 'br_inst_retired_all'))"
+  },
+  "seconds": 0.0004137649666517973
+ },
+ "C1-zero-denominator-is-undefined-not-a-failure": {
+  "pass": true,
+  "detail": {
+   "branch_miss_rate": null,
+   "dsb_share": null
+  },
+  "seconds": 0.0001324559561908245
+ },
+ "D1-open-check-uses-the-0181-counter-format": {
+  "pass": true,
+  "detail": {
+   "R-valid": "opened, counted, 100% running, 0181 counter format, probe saw CPU 4 only",
+   "R-eventless-row": "Stop(('counter line without an event name (unclassified, global)', '{}'))",
+   "R-metric-only-row": "Stop(('counter line without an event name (unclassified, global)', '{\"metric-value\": \"1.0\", \"metric-unit\": \"in",
+   "R-malformed-row": "Stop(('malformed counter line (unclassified, global)', '{\"counter-value\": ', \"JSONDecodeError('Expecting value",
+   "R-invalid-anchor": "Stop(('invalid anchor counter (global)', 'R', \"Stop(('counter not running 100%', 'R', 'cycles', 99.9))\"))",
+   "R-wrong-status": "status 2, stdout 'Cpus_allowed_list:\\t4\\n', stderr tail '\", \"event-runtime\": 100, \"pcnt-running\": 100.0, \"pmu\"",
+   "R-wrong-affinity": "status 0, stdout 'Cpus_allowed_list:\\t4-5\\n', stderr tail '\", \"event-runtime\": 100, \"pcnt-running\": 100.0, \"pm",
+   "R-survivor": "Stop(('process lifecycle', ['perf', 'stat', '-j', '--no-scale', '-e', '{cpu_core/instructions,name=instruction",
+   "C-valid": "opened, counted, 100% running, 0181 counter format, probe saw CPU 4 only",
+   "C-eventless-row": "Stop(('counter line without an event name (unclassified, global)', '{}'))",
+   "C-metric-only-row": "Stop(('counter line without an event name (unclassified, global)', '{\"metric-value\": \"1.0\", \"metric-unit\": \"in",
+   "C-malformed-row": "Stop(('malformed counter line (unclassified, global)', '{\"counter-value\": ', \"JSONDecodeError('Expecting value",
+   "C-invalid-anchor": "Stop(('invalid anchor counter (global)', 'C', \"Stop(('counter not running 100%', 'R', 'cycles', 99.9))\"))",
+   "C-wrong-status": "status 2, stdout 'Cpus_allowed_list:\\t4\\n', stderr tail 'untime\": 100, \"pcnt-running\": 100.0, \"pmu\": \"cpu_core",
+   "C-wrong-affinity": "status 0, stdout 'Cpus_allowed_list:\\t4-5\\n', stderr tail 'untime\": 100, \"pcnt-running\": 100.0, \"pmu\": \"cpu_co",
+   "C-survivor": "Stop(('process lifecycle', ['perf', 'stat', '-j', '--no-scale', '-e', '{cpu_core/instructions,name=instruction",
+   "D-valid": "opened, counted, 100% running, 0181 counter format, probe saw CPU 4 only",
+   "D-eventless-row": "Stop(('counter line without an event name (unclassified, global)', '{}'))",
+   "D-metric-only-row": "Stop(('counter line without an event name (unclassified, global)', '{\"metric-value\": \"1.0\", \"metric-unit\": \"in",
+   "D-malformed-row": "Stop(('malformed counter line (unclassified, global)', '{\"counter-value\": ', \"JSONDecodeError('Expecting value",
+   "D-invalid-anchor": "Stop(('invalid anchor counter (global)', 'D', \"Stop(('counter not running 100%', 'R', 'cycles', 99.9))\"))",
+   "D-wrong-status": "status 2, stdout 'Cpus_allowed_list:\\t4\\n', stderr tail 'runtime\": 100, \"pcnt-running\": 100.0, \"pmu\": \"cpu_cor",
+   "D-wrong-affinity": "status 0, stdout 'Cpus_allowed_list:\\t4-5\\n', stderr tail 'runtime\": 100, \"pcnt-running\": 100.0, \"pmu\": \"cpu_c",
+   "D-survivor": "Stop(('process lifecycle', ['perf', 'stat', '-j', '--no-scale', '-e', '{cpu_core/instructions,name=instruction",
+   "E-valid": "opened, counted, 100% running, 0181 counter format, probe saw CPU 4 only",
+   "E-eventless-row": "Stop(('counter line without an event name (unclassified, global)', '{}'))",
+   "E-metric-only-row": "Stop(('counter line without an event name (unclassified, global)', '{\"metric-value\": \"1.0\", \"metric-unit\": \"in",
+   "E-malformed-row": "Stop(('malformed counter line (unclassified, global)', '{\"counter-value\": ', \"JSONDecodeError('Expecting value",
+   "E-invalid-anchor": "Stop(('invalid anchor counter (global)', 'E', \"Stop(('counter not running 100%', 'R', 'cycles', 99.9))\"))",
+   "E-wrong-status": "status 2, stdout 'Cpus_allowed_list:\\t4\\n', stderr tail 'time\": 100, \"pcnt-running\": 100.0, \"pmu\": \"cpu_core\"}",
+   "E-wrong-affinity": "status 0, stdout 'Cpus_allowed_list:\\t4-5\\n', stderr tail 'time\": 100, \"pcnt-running\": 100.0, \"pmu\": \"cpu_core",
+   "E-survivor": "Stop(('process lifecycle', ['perf', 'stat', '-j', '--no-scale', '-e', '{cpu_core/instructions,name=instruction",
+   "C-diagnostic-not-counted": "LocalInvalid(('C', \"Stop(('counter not counted or unsupported', 'C', 'br_misp_retired_all', '<not counted>'))\"",
+   "C-diagnostic-missing": "LocalInvalid(('C', \"Stop(('counter set differs from the frozen group', 'C', ['br_misp_retired_all'], []))\"))",
+   "C-other-group-rows": "LocalInvalid(('C', \"Stop(('counter set differs from the frozen group', 'C', ['br_inst_retired_all', 'br_misp_r",
+   "D-diagnostic-not-counted": "LocalInvalid(('D', \"Stop(('counter not counted or unsupported', 'D', 'icache_data_stalls', '<not counted>'))\")",
+   "D-diagnostic-missing": "LocalInvalid(('D', \"Stop(('counter set differs from the frozen group', 'D', ['icache_data_stalls'], []))\"))",
+   "D-other-group-rows": "LocalInvalid(('D', \"Stop(('counter set differs from the frozen group', 'D', ['icache_data_stalls', 'idq_dsb_uo",
+   "E-diagnostic-not-counted": "LocalInvalid(('E', \"Stop(('counter not counted or unsupported', 'E', 'ld_blocks_store_forward', '<not counted>",
+   "E-diagnostic-missing": "LocalInvalid(('E', \"Stop(('counter set differs from the frozen group', 'E', ['ld_blocks_store_forward'], []))\"",
+   "E-other-group-rows": "LocalInvalid(('E', \"Stop(('counter set differs from the frozen group', 'E', ['ld_blocks_store_forward', 'mem_l",
+   "0180-open-check-accepts-what-0181-refuses": true
+  },
+  "seconds": 0.0034342389553785324
+ },
+ "L1-altered-library-is-refused-before-it-is-imported": {
+  "pass": true,
+  "detail": {
+   "unaltered": {
+    "status": 0,
+    "marker_executed": false,
+    "stderr": ""
+   },
+   "events.py": {
+    "status": 1,
+    "marker_executed": false,
+    "stderr": "71fc51cd7eafd4f7c4aed5d828259d07b15581a57d2fac5840a3a138d is not the pinned 36595033600391e412897f2676364a62411c4d8691cf5eb9f5998a1ef2fc10c2"
+   },
+   "common.py": {
+    "status": 1,
+    "marker_executed": false,
+    "stderr": "c4b574f12e8752650895439ed11c6447ec43e30b5467989dc65ac8cda is not the pinned abd19671c56d7e8f9a6a07f72a3b98b39e2ef0dfdc45a0602e31937954c9ddba"
+   }
+  },
+  "seconds": 0.09211536892689764
+ },
+ "O1-all-groups-complete": {
+  "pass": true,
+  "detail": {
+   "rows": 560,
+   "status": "COMPLETE"
+  },
+  "seconds": 0.0754417278803885
+ },
+ "O1-zero-denominator-does-not-prevent-a-completed-group": {
+  "pass": true,
+  "detail": {
+   "status": "COMPLETE",
+   "branch_miss_rate": {
+    "status": "undefined (zero denominator in at least one sample)"
+   },
+   "dsb_share": {
+    "status": "undefined (zero denominator in at least one sample)"
+   }
+  },
+  "seconds": 0.06781850708648562
+ },
+ "O1-local-failure-invalidates-only-its-group-no-retry": {
+  "pass": true,
+  "detail": {
+   "C": {
+    "rows": {
+     "R": 140,
+     "C": 37,
+     "D": 140,
+     "E": 140
+    },
+    "failing": {
+     "rep": 1,
+     "workload": "run-range_negative",
+     "subject": "base"
+    }
+   },
+   "D": {
+    "rows": {
+     "R": 140,
+     "C": 140,
+     "D": 37,
+     "E": 140
+    },
+    "failing": {
+     "rep": 1,
+     "workload": "run-range_negative",
+     "subject": "base"
+    }
+   },
+   "E": {
+    "rows": {
+     "R": 140,
+     "C": 140,
+     "D": 140,
+     "E": 37
+    },
+    "failing": {
+     "rep": 1,
+     "workload": "run-range_negative",
+     "subject": "base"
+    }
+   }
+  },
+  "seconds": 0.17631267593242228
+ },
+ "O1-every-diagnostic-failed-is-partial-with-no-conclusion": {
+  "pass": true,
+  "detail": {
+   "rows": {
+    "R": 140,
+    "C": 1,
+    "D": 1,
+    "E": 1
+   },
+   "note": "Every eligible diagnostic failed its validity gate: no mechanism conclusion is supported."
+  },
+  "seconds": 0.03469360200688243
+ },
+ "O1-invalid-anchor-in-a-diagnostic-is-global": {
+  "pass": true,
+  "detail": {
+   "rows": {
+    "R": 140,
+    "C": 140,
+    "D": 9
+   },
+   "failure": "Stop(('invalid anchor counter (global)', 'D', \"Stop(('counter not counted or unsupported', 'R', 'cycles', '<not counted>"
+  },
+  "seconds": 0.04454627400264144
+ },
+ "O1-R-failures-are-all-global": {
+  "pass": true,
+  "detail": {
+   "anchor-99.9": "GLOBAL STOP (infrastructure, safety or measurement failure)",
+   "survivor": "GLOBAL STOP (infrastructure, safety or measurement failure)",
+   "status-1": "GLOBAL STOP (infrastructure, safety or measurement failure)",
+   "wrong-output": "GLOBAL STOP (infrastructure, safety or measurement failure)",
+   "timed-out": "GLOBAL STOP (infrastructure, safety or measurement failure)",
+   "unexpected-row": "GLOBAL STOP (infrastructure, safety or measurement failure)"
+  },
+  "seconds": 0.1585682008881122
+ },
+ "O1-nonreproduction-stops-globally": {
+  "pass": true,
+  "detail": {
+   "R": {
+    "R": 140
+   },
+   "C": {
+    "R": 140,
+    "C": 140
+   },
+   "D": {
+    "R": 140,
+    "C": 140,
+    "D": 140
+   },
+   "E": {
+    "R": 140,
+    "C": 140,
+    "D": 140,
+    "E": 140
+   }
+  },
+  "seconds": 0.20168147212825716
+ },
+ "O1-global-safety-failure-in-a-diagnostic-stops-everything": {
+  "pass": true,
+  "detail": {
+   "survivor": "Stop(('process lifecycle', ['mock'], False, False, True, [123456]))",
+   "unreaped": "Stop(('process lifecycle', ['mock'], False, False, False, []))",
+   "status-1": "Stop(('status/output', 'C', 'run-numeric', 'cand', 1, '3\\n', 'pu_core\"}\\n{\"count",
+   "wrong-output": "Stop(('status/output', 'C', 'run-numeric', 'cand', 0, '4\\n', 'pu_core\"}\\n{\"count",
+   "interrupted": "Stop(('process lifecycle', ['mock'], False, True, True, []))",
+   "stage-changed-during-sample": "Stop(('stage changed during sample', {'kind': 'event', 'group': 'C', 'rep': 0, '"
+  },
+  "seconds": 0.20183005603030324
+ },
+ "O1-deadline-starts-nothing-later": {
+  "pass": true,
+  "detail": {
+   "mid-group": {
+    "R": 140,
+    "C": 10
+   },
+   "between-groups": {
+    "R": 140
+   }
+  },
+  "seconds": 0.06811468000523746
+ },
+ "O1-identity-drift-before-a-group-stops-everything": {
+  "pass": true,
+  "detail": {
+   "rows": {
+    "R": 140,
+    "C": 140
+   },
+   "status": "GLOBAL STOP (infrastructure, safety or measurement failure)"
+  },
+  "seconds": 0.04449586593545973
+ },
+ "O1-only-the-eligible-order-runs": {
+  "pass": true,
+  "detail": {
+   "R,C,D": {
+    "R": 140,
+    "C": 140,
+    "D": 140
+   },
+   "R,E": {
+    "R": 140,
+    "E": 140
+   }
+  },
+  "seconds": 0.10107190604321659
+ },
+ "O1-sentinel-hit-or-scan-error-overrides-complete-and-partial": {
+  "pass": true,
+  "detail": {
+   "complete": "GLOBAL STOP (sentinel occurrence or scan failure)",
+   "partial": "GLOBAL STOP (sentinel occurrence or scan failure)",
+   "scan-error": {
+    "completed": false,
+    "error": "OSError('scan failed')"
+   }
+  },
+  "seconds": 0.19105021911673248
+ },
+ "V0-frozen-pins-match-the-reviewed-discovery": {
+  "pass": true,
+  "detail": {
+   "order": [
+    "R",
+    "C",
+    "D",
+    "E"
+   ],
+   "rows": 8
+  },
+  "seconds": 0.0003656349144876003
+ },
+ "V1-availability-content-validation": {
+  "pass": true,
+  "detail": {
+   "ineligible-group-in-order": "Stop(('order is not R followed by every eligible diagnostic', ['R', 'C', 'D', 'E'], ['R', 'C', 'D']))",
+   "eligible-diagnostic-dropped": "Stop(('order is not R followed by every eligible diagnostic', ['R', 'C'], ['R', 'C', 'D']))",
+   "R-missing": "Stop(('order is not R followed by every eligible diagnostic', ['C', 'D'], ['R', 'C', 'D']))",
+   "R-only": "Stop(('no diagnostic group is eligible: inconclusive at discovery',))",
+   "reordered": "Stop(('order is not R followed by every eligible diagnostic', ['R', 'D', 'C'], ['R', 'C', 'D']))",
+   "group-A-present": "Stop(('availability manifest does not cover exactly R, C, D, E',))",
+   "group-B-in-order": "Stop(('order is not R followed by every eligible diagnostic', ['R', 'B', 'C', 'D'], ['R', 'C', 'D']))",
+   "0180-manifest": "Stop(('availability manifest does not permit a run', None, 'available'))",
+   "other-record": "Stop(('availability manifest does not permit a run', '0180', 'available'))",
+   "inconclusive-status": "Stop(('availability manifest does not permit a run', '0181', 'INCONCLUSIVE at discovery: no diagnostic group available'))",
+   "identity-hash-zeroed": "Stop(('availability manifest is bound to another identity receipt',))",
+   "identity-hash-absent": "Stop(('availability manifest is bound to another identity receipt',))",
+   "flag-disagrees-with-checks": "Stop(('group eligibility disagrees with its open checks', 'E'))",
+   "one-check-only": "Stop(('group does not have exactly two recorded open checks', 'C'))",
+   "three-checks": "Stop(('group does not have exactly two recorded open checks', 'C'))",
+   "group-missing": "Stop(('availability manifest does not cover exactly R, C, D, E',))",
+   "R-ineligible": "Stop(('required group R is not eligible',))",
+   "weak-group-drift": "Stop(('group definition changed since discovery', 'C'))",
+   "unpinned-drift": "Stop(('group definition changed since discovery', 'D'))",
+   "scaling-drift": "Stop(('group definition changed since discovery', 'R'))",
+   "atom-event-drift": "Stop(('group definition changed since discovery', 'E'))",
+   "encoding-drift": "Stop(('group definition changed since discovery', 'C'))",
+   "drift-in-ineligible-group": "Stop(('group definition changed since discovery', 'E'))",
+   "other-subjects": "Stop(('availability manifest is for other subjects',))",
+   "other-libraries": "Stop(('availability manifest was made with other libraries',))"
+  },
+  "seconds": 0.00043326010927557945
+ },
+ "V2-admission-binds-reviewed-bytes-libraries-and-current-host": {
+  "pass": true,
+  "detail": {
+   "both-pins-unset": "Stop((\"the availability review has not frozen this record's receipt hashes\",))",
+   "availability-pin-unset": "Stop((\"the availability review has not frozen this record's receipt hashes\",))",
+   "identity-pin-unset": "Stop((\"the availability review has not frozen this record's receipt hashes\",))",
+   "admitted": [
+    "cpu4",
+    "cpu4_online",
+    "cpu4_scaling_driver",
+    "cpu4_scaling_governor",
+    "cpu4_thread_siblings",
+    "cpu_atom_cpus",
+    "cpu_core_cpus",
+    "cpu_core_event_aliases",
+    "cpu_core_format",
+    "cpu_core_type",
+    "kernel",
+    "nmi_watchdog",
+    "perf",
+    "perf_event_paranoid"
+   ],
+   "same-bytes-other-path": "Stop((\"availability manifest is not this record's reviewed discovery receipt\", '/home/me/work/rnx-bench-w-0183d/results/frontend-0183/controls1/replay-0181/elsewhere/availability.json'))",
+   "0180-receipts": "Stop((\"availability manifest is not this record's reviewed discovery receipt\", '/home/me/work/rnx-bench-w-0183d/results/execution-cost-0180/discovery1/availability.json'))",
+   "availability-bytes-changed": "Stop(('availability manifest does not match its reviewed hash',))",
+   "eligible-group-dropped-even-if-pinned": "Stop(('order is not R followed by every eligible diagnostic', ['R', 'C', 'D'], ['R', 'C', 'D', 'E']))",
+   "identity-bytes-changed": "Stop(('identity receipt does not match its reviewed hash',))",
+   "identity-receipt-missing": "Stop(('identity receipt does not match its reviewed hash',))",
+   "alias-drift": "Stop((\"host identity differs from this record's discovery\", {'cpu_core_event_aliases': [{'instructions': 'event=0xc0', 'cpu-cycles': 'event=0x3c', 'ref-cycles': 'event=0x3c,umask=0x01', 'slots': 'event=0x00,umask=0x4', 'topdown-retiring': 'event=0x00,umask=0x80', 'topdown-bad-spec': 'event=0x00,umas",
+   "format-drift": "Stop((\"host identity differs from this record's discovery\", {'cpu_core_format': [{'cmask': 'config:24-31', 'edge': 'config:18', 'event': 'config:0-7', 'frontend': 'config1:0-23', 'inv': 'config:23', 'ldlat': 'config1:0-15', 'offcore_rsp': 'config1:0-63', 'pc': 'config:19', 'umask': 'config:8-15'}, {",
+   "perf-version-drift": "Stop((\"host identity differs from this record's discovery\", {'perf': ['perf version 7.0.14', 'perf version 7.1.0']}))",
+   "kernel-drift": "Stop((\"host identity differs from this record's discovery\", {'kernel': ['7.0.0-31-generic', '7.0.0-32-generic']}))",
+   "microcode-drift": "Stop((\"host identity differs from this record's discovery\", {'cpu4': [{'vendor_id': 'GenuineIntel', 'cpu family': '6', 'model': '183', 'model name': 'Intel(R) Core(TM) i7-14700', 'stepping': '1', 'microcode': '0x133'}, {'vendor_id': 'GenuineIntel', 'cpu family': '6', 'model': '183', 'model name': 'I",
+   "cpu4-offline": "Stop((\"host identity differs from this record's discovery\", {'cpu4_online': ['1', '0']}))",
+   "core-mask-drift": "Stop((\"host identity differs from this record's discovery\", {'cpu_core_cpus': ['0-15', '0-3,6-15']}))",
+   "governor-drift": "Stop((\"host identity differs from this record's discovery\", {'cpu4_scaling_governor': ['powersave', 'performance']}))",
+   "field-removed": "Stop((\"host identity differs from this record's discovery\", {'nmi_watchdog': ['1', None]}))",
+   "library-hash-mismatch": "Stop(('imported library differs from its pinned hash', 'probes/execution-cost-0180/events.py'))"
+  },
+  "seconds": 0.07991367904469371
+ }
+}

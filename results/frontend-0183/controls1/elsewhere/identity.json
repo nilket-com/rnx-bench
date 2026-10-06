@@ -1,0 +1,42 @@
+{
+ "cpu4": {
+  "vendor_id": "GenuineIntel",
+  "cpu family": "6",
+  "model": "183",
+  "model name": "Intel(R) Core(TM) i7-14700",
+  "stepping": "1",
+  "microcode": "0x133"
+ },
+ "cpu_core_type": "4",
+ "cpu_core_cpus": "0-15",
+ "cpu_atom_cpus": "16-27",
+ "cpu4_online": "1",
+ "cpu4_thread_siblings": "4-5",
+ "cpu4_scaling_driver": "intel_pstate",
+ "cpu4_scaling_governor": "powersave",
+ "nmi_watchdog": "1",
+ "perf_event_paranoid": "2",
+ "kernel": "7.0.0-31-generic",
+ "cpu_core_format": {
+  "cmask": "config:24-31",
+  "edge": "config:18",
+  "event": "config:0-7",
+  "frontend": "config1:0-23",
+  "inv": "config:23",
+  "ldlat": "config1:0-15",
+  "offcore_rsp": "config1:0-63",
+  "pc": "config:19",
+  "umask": "config:8-15"
+ },
+ "cpu_core_event_aliases": {
+  "instructions": "event=0xc0",
+  "cpu-cycles": "event=0x3c",
+  "ref-cycles": "event=0x3c,umask=0x01",
+  "slots": "event=0x00,umask=0x4",
+  "topdown-retiring": "event=0x00,umask=0x80",
+  "topdown-bad-spec": "event=0x00,umask=0x81",
+  "topdown-fe-bound": "event=0x00,umask=0x82",
+  "topdown-be-bound": "event=0x00,umask=0x83"
+ },
+ "perf": "perf version 7.0.14"
+}

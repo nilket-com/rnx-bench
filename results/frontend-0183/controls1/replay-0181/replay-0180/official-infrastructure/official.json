@@ -1,0 +1,113 @@
+{
+ "started": 1791299117.6106112,
+ "status": "STOPPED (infrastructure, safety or measurement failure)",
+ "env": {
+  "PATH": "/usr/bin:/bin",
+  "HOME": "/home/me",
+  "LANG": "C.UTF-8"
+ },
+ "load_before": "0.20",
+ "order": [
+  "R",
+  "A"
+ ],
+ "admission": {
+  "mocked": true
+ },
+ "references": {
+  "run-numeric": {
+   "base": {
+    "instructions": 1759089109.0,
+    "cycles": 445295368.0
+   },
+   "cand": {
+    "instructions": 1745143360.5,
+    "cycles": 482363946.0
+   },
+   "instructions_change": -0.007927823797356015,
+   "cycles_change": 0.08324492160448438
+  },
+  "run-range_signed": {
+   "base": {
+    "instructions": 1437052175.0,
+    "cycles": 333610908.5
+   },
+   "cand": {
+    "instructions": 1425104386.0,
+    "cycles": 387359159.5
+   },
+   "instructions_change": -0.00831409548508566,
+   "cycles_change": 0.16111059210163692
+  },
+  "run-range_negative": {
+   "base": {
+    "instructions": 1437053847.0,
+    "cycles": 333410705.5
+   },
+   "cand": {
+    "instructions": 1425105990.0,
+    "cycles": 388039107.5
+   },
+   "instructions_change": -0.00831413313073992,
+   "cycles_change": 0.16384717436735086
+  },
+  "run-fib": {
+   "base": {
+    "instructions": 833592282.0,
+    "cycles": 201349159.0
+   },
+   "cand": {
+    "instructions": 852621967.5,
+    "cycles": 207266267.5
+   },
+   "instructions_change": 0.022828528899455414,
+   "cycles_change": 0.029387301786544917
+  },
+  "run-calls": {
+   "base": {
+    "instructions": 1780164623.5,
+    "cycles": 376658030.5
+   },
+   "cand": {
+    "instructions": 1788219185.0,
+    "cycles": 386885298.0
+   },
+   "instructions_change": 0.0045246160909342414,
+   "cycles_change": 0.02715266016344775
+  },
+  "run-while": {
+   "base": {
+    "instructions": 1143107019.5,
+    "cycles": 271787968.0
+   },
+   "cand": {
+    "instructions": 1134161205.5,
+    "cycles": 272388527.5
+   },
+   "instructions_change": -0.007825876184290204,
+   "cycles_change": 0.0022096618346254537
+  },
+  "run-empty": {
+   "base": {
+    "instructions": 28390438.5,
+    "cycles": 12560509.0
+   },
+   "cand": {
+    "instructions": 26444436.5,
+    "cycles": 11991585.0
+   },
+   "instructions_change": -0.06854427415765352,
+   "cycles_change": -0.04529466122750281
+  }
+ },
+ "groups": {},
+ "failure": "Stop(('process lifecycle', ['mock'], False, False, True, [123456]))",
+ "ended": 1791299117.6365888,
+ "load_after": "0.20",
+ "sentinel_scan": {
+  "completed": true,
+  "files_scanned": 2,
+  "occurrences": 0,
+  "files_with_occurrences": []
+ }
+}
