@@ -9,7 +9,12 @@
 	tests under the exact measured feature set (alloc,anyhow,fmt,serde,std) with the reviewed test-only cfg
 	rune_startup_inventory set for THAT command only, and the no-std check.
 2. Neutrality control: the UNCHANGED 0178 harness (probes/profile-paired-0178/harness) built as the P0 primary against
-	the tests-first base. It must be byte-identical to 0178's P0 base primary, or the run stops. Never staged or timed.
+	the tests-first base and compared section by section with 0178's retained P0 base primary. Never staged or timed.
+	Whole-file identity was the first form of this control and FAILED on prep1 (retained): the base's `#[cfg(test)]`
+	registration-order lines move one panic location's line number in context.rs. The reviewed form (neutrality.py)
+	compares every byte of the two files and accepts only validated differences: build-id descriptor, `.llvm.<n>`
+	local-symbol suffixes, and panic line fields of context.rs locations moved by exactly the source diff's shift.
+	The rebuilt binary is retained (neutrality-bin/, untracked, hash in the receipt) before the target is cleaned.
 3. One timed `cargo fetch --locked` for the adapted harness, then 6 builds in the frozen order P0-base, P0-cand, each
 	as primary, counter, allocation. Every build gets the SAME freshly emptied target path, -j8, --locked --offline,
 	EB (no RUSTFLAGS), `cargo build -v` retained. Build cost is the wall time of the `cargo build` command alone.
@@ -19,11 +24,13 @@
 """
 import json, os, pathlib, re, shutil, subprocess, sys, time
 from common import HERE, FORK, SOURCES, PROFILES, BUILD_ORDER, KINDS, EB, sha, text_sha, run_bounded, set_profile, Ledger
+import neutrality
 
 MANIFEST = HERE / "harness/Cargo.toml"
 HISTORICAL = HERE.parent / "profile-paired-0178"  # the unchanged 0178 harness and its frozen manifest
 PRODUCTION_FEATURES = "alloc,anyhow,fmt,serde,std"
 DIAGNOSTIC_CFG = "rune_startup_inventory"
+HISTORICAL_BASE = "eaa59fc208c136ead86f8c4fa565431ea18de88b"  # 0178's base source
 PRODUCTION_FILES = ["crates/rune/src/compile/context.rs"]
 TEST_ONLY_FILES = ["crates/rune/src/compile/context_startup_tests.rs"]
 TARGET = HERE / "tgt-build"
@@ -86,6 +93,10 @@ def codegen_units(log):
 	return target, host
 
 
+REFERENCE_BINARY = pathlib.Path("/home/me/work/rnx-bench-w-0178d/probes/profile-paired-0178/bin/p0-base-primary")
+RETAINED = HERE / "neutrality-bin"  # untracked; the rebuilt control binary is kept here for independent replay
+
+
 def main(out):
 	out = pathlib.Path(out)
 	out.mkdir(parents=True, exist_ok=False)
@@ -97,7 +108,7 @@ def main(out):
 		"manifest_sha256": sha(MANIFEST), "harness_lock_sha256": sha(HERE / "harness/Cargo.lock")}
 	assert "RUSTFLAGS" not in EB and DIAGNOSTIC_CFG not in json.dumps(EB)
 	# 0. Candidate scope, before anything is compiled.
-	changed = subprocess.run(["git", "-C", str(FORK), "diff", "--name-only", SOURCES["base"], SOURCES["cand"]], capture_output=True,
+	changed = subprocess.run(["git", "-C", str(FORK), "diff", "--no-color", "--name-only", SOURCES["base"], SOURCES["cand"]], capture_output=True,
 		text=True, check=True, env=EB).stdout.split()
 	parent = subprocess.run(["git", "-C", str(FORK), "rev-list", "--parents", "-n", "1", SOURCES["cand"]], capture_output=True,
 		text=True, check=True, env=EB).stdout.split()
@@ -143,15 +154,26 @@ def main(out):
 		assert status == 0, "STOP: neutrality build"
 		got = sha(TARGET / "release/rune-base-new")
 		target, _ = codegen_units(log)
+		assert sha(REFERENCE_BINARY) == reference, "STOP: the retained 0178 P0 base primary no longer matches its frozen hash"
+		RETAINED.mkdir(exist_ok=True)
+		kept = RETAINED / f"{out.parent.name}-p0-base-primary"
+		shutil.copy2(TARGET / "release/rune-base-new", kept)  # before any cleanup, whatever the comparison says
+		assert sha(kept) == got
+		accepted, report = neutrality.compare(kept, REFERENCE_BINARY, HISTORICAL_BASE, SOURCES["base"])
 		res["neutrality"] = {"rev": SOURCES["base"], "sha256": got, "text_sha256": text_sha(TARGET / "release/rune-base-new"),
-			"reference_sha256": reference, "reference": "probes/profile-paired-0178/subjects.json p0-base-primary",
-			"identical": got == reference, "seconds": elapsed, "historical_inputs": historical_inputs,
-			"codegen_units_flags": sorted({str(v) for _, v in target}), "rune_features": rune_features(log)}
+			"reference_sha256": reference, "reference_text_sha256": text_sha(REFERENCE_BINARY), "reference_rev": HISTORICAL_BASE,
+			"reference": "probes/profile-paired-0178/subjects.json p0-base-primary",
+			"identical": got == reference, "accepted": accepted, "comparison": report, "seconds": elapsed,
+			"retained_binary": str(kept), "reference_binary": str(REFERENCE_BINARY),
+			"historical_inputs": historical_inputs, "codegen_units_flags": sorted({str(v) for _, v in target}),
+			"rune_features": rune_features(log)}
 	finally:
 		shutil.rmtree(TARGET, ignore_errors=True)
 	(out / "partial.json").write_text(json.dumps(res, indent=1) + "\n")
-	print("neutrality", got[:12], "reference", reference[:12], "identical" if got == reference else "DIFFERENT", flush=True)
-	assert got == reference, ("STOP: the tests-first base is not production-neutral under the unchanged harness", got, reference)
+	print("neutrality", got[:12], "reference", reference[:12], "identical" if got == reference else "differs", "accepted" if accepted else
+		"NOT ACCEPTED", json.dumps(report.get("differing_bytes_by_section")), flush=True)
+	assert accepted and res["neutrality"]["text_sha256"] == res["neutrality"]["reference_text_sha256"], (
+		"STOP: the tests-first base is not production-neutral under the unchanged harness", report["problems"])
 	# 3. One timed locked fetch, then the 6 deciding builds with the adapted harness.
 	began = time.monotonic()
 	f = run_bounded(["cargo", "fetch", "--locked", "--manifest-path", str(MANIFEST)], 1800, EB)

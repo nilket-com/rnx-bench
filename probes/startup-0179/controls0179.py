@@ -170,14 +170,16 @@ def main(out):
 	@control("I1-neutrality-and-edit-surface-bound")
 	def _():
 		def differs(m):
-			m["neutrality"]["sha256"] = "0" * 64
+			m["neutrality"]["text_sha256"] = "0" * 64
 		def unchecked(m):
-			m["neutrality"]["identical"] = False
+			m["neutrality"]["accepted"] = False
+		def unexplained(m):
+			m["neutrality"]["comparison"]["problems"].append("section .rodata differs")
 		def wider(m):
 			m["candidate_diff"]["production_files"].append("crates/rune/src/runtime/vm.rs")
 		got = {}
 		for name, fn, needle in (("differs", differs, "neutrality control"), ("unchecked", unchecked, "neutrality control"),
-				("wider", wider, "candidate edit surface")):
+				("unexplained", unexplained, "neutrality control"), ("wider", wider, "candidate edit surface")):
 			_, bad = measure.verify_manifest(tampered(f"neutrality-{name}", change_manifest=fn))
 			assert (needle,) in bad, (name, bad)
 			got[name] = bad

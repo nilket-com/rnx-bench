@@ -513,7 +513,9 @@ def verify_manifest(path):
 				bad.append(("feature set", primary))
 		if "tracing" in m["rune_features"]:
 			bad.append(("tracing in feature set",))
-	if m.get("neutrality", {}).get("identical") is not True or m["neutrality"].get("sha256") != m["neutrality"].get("reference_sha256"):
+	n = m.get("neutrality", {})
+	if n.get("accepted") is not True or n.get("comparison", {}).get("problems") != [] or not n.get("text_sha256") or \
+			n.get("text_sha256") != n.get("reference_text_sha256"):
 		bad.append(("neutrality control",))
 	if m.get("candidate_diff", {}).get("production_files") != ["crates/rune/src/compile/context.rs"]:
 		bad.append(("candidate edit surface",))
