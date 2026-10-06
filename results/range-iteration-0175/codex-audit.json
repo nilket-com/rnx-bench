@@ -1,0 +1,75 @@
+{
+  "decision": "STOP",
+  "raw_rows": 902,
+  "kinds": {
+    "affinity-control": 10,
+    "correctness": 80,
+    "allocation": 52,
+    "reproduction-fifo": 30,
+    "reproduction-pmu": 24,
+    "pmu": 420,
+    "calibration-warm": 2,
+    "calibration": 2,
+    "calibration-hyperfine": 2,
+    "wall": 252,
+    "lua-warm": 4,
+    "lua": 24
+  },
+  "pmu_workloads": 21,
+  "wall_workloads": 21,
+  "regressions": [
+    [
+      "context",
+      "instructions",
+      0.020856898493216258
+    ],
+    [
+      "runtime",
+      "instructions",
+      0.018064958661742736
+    ],
+    [
+      "compile-answer",
+      "instructions",
+      0.015389494459425723
+    ],
+    [
+      "run-answer",
+      "instructions",
+      0.015417099618623364
+    ],
+    [
+      "run-empty",
+      "instructions",
+      0.017992039625040146
+    ],
+    [
+      "run-fib",
+      "instructions",
+      0.08557286910455408
+    ],
+    [
+      "run-fib",
+      "wall",
+      0.08213159852105179
+    ],
+    [
+      "run-calls",
+      "instructions",
+      0.03958120929254072
+    ],
+    [
+      "run-calls",
+      "wall",
+      0.04943840858946369
+    ],
+    [
+      "run-overwrite_alias",
+      "instructions",
+      0.015202925932523703
+    ]
+  ],
+  "disagreements": [],
+  "numeric_allocation_change": -0.9646354638936585,
+  "raw_sha256": "5f16bce9ec8d9eb3e66fbfeee08f4112d5c996e1ccc76131e393df656429ff17"
+}
