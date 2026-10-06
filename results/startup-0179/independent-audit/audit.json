@@ -1,0 +1,62 @@
+{
+  "decision": "STOP",
+  "raw_rows": 1014,
+  "kinds": {
+    "affinity-control": 10,
+    "correctness": 124,
+    "allocation": 56,
+    "reproduction-fifo": 30,
+    "reproduction-pmu": 24,
+    "pmu": 460,
+    "calibration-warm": 2,
+    "calibration": 2,
+    "calibration-hyperfine": 2,
+    "wall": 276,
+    "lua-warm": 4,
+    "lua": 24
+  },
+  "pmu_workloads": 23,
+  "wall_workloads": 23,
+  "regressions": [
+    [
+      "run-numeric",
+      "wall",
+      0.08320466078327438
+    ],
+    [
+      "run-fib",
+      "instructions",
+      0.022828528899455414
+    ],
+    [
+      "run-fib",
+      "wall",
+      0.027309953271206222
+    ],
+    [
+      "run-calls",
+      "wall",
+      0.03071044471368478
+    ],
+    [
+      "run-range_signed",
+      "wall",
+      0.1558466705693342
+    ],
+    [
+      "run-range_negative",
+      "wall",
+      0.1620541730977456
+    ]
+  ],
+  "disagreements": [],
+  "context_allocation_delta": -5801,
+  "context_instructions_change": -0.07242086941233483,
+  "run_answer_instructions_change": -0.06504400142781885,
+  "first_use_instructions_change": {
+    "first-use-true": -0.034793003778965215,
+    "first-use-false": -0.034924917095235264
+  },
+  "without_regressions": "NO-WIN",
+  "raw_sha256": "d0643c0fc1ca42f6c4e9e5d9748c351da546b0baed3d1226349d6e5fab848b03"
+}
