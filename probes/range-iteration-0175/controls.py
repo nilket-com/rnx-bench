@@ -234,6 +234,32 @@ def main(out):
 			stops[name] = bad
 		return stops
 
+	@control("R2c-ack-boundaries")
+	def _():
+		cases = {"ack\n": True, "\0ack\n": True, "ack\n\0": True, "\0\0ack\n": True, "a\0ck\n": False, "nak\n": False,
+			"ack": False, "\0": False}
+		got = {repr(k): measure.ack_ok(k) for k in cases}
+		assert got == {repr(k): v for k, v in cases.items()}, got
+		return got
+
+	@control("R2c-fifo-protocol")
+	def _():
+		mock = tmp / "mock-counter-child"
+		mock.write_text("#!/bin/sh\necho READY >&2\nread line\ni=0\nwhile [ $i -lt 2000 ]; do i=$((i+1)); done\n"
+			"echo DONE >&2\nread line\n")
+		mock.chmod(0o755)
+		sink_path = out / "fifo-protocol.jsonl"
+		sink = measure.Sink(sink_path)
+		counts = []
+		for i in range(2):  # repeated enable/disable acknowledgements across two windows
+			v, row = measure.fifo("mock", None, tmp, sink, {"kind": "control-fifo", "work": "mock", "index": i}, exe=mock)
+			counts.append(v)
+		r = rows(sink_path)
+		assert len(r) == 2 and all(x["child_reaped"] and x["counter_reaped"] and not x["child_survivors"] and not x["counter_survivors"]
+			and x["child_status"] == 0 and x["counter_status"] == -signal.SIGINT and len(x["acks"]) == 2 for x in r), r
+		assert all(v > 0 for v in counts)
+		return {"instructions": counts, "acks": [x["acks"] for x in r], "ack_bytes": [x["ack_bytes"] for x in r]}
+
 	(out / "controls.json").write_text(json.dumps(RESULTS, indent=1) + "\n")
 	failed = [k for k, v in RESULTS.items() if not v["pass"]]
 	print("controls:", len(RESULTS) - len(failed), "/", len(RESULTS), "pass", flush=True)

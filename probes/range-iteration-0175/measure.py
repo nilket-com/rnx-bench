@@ -199,7 +199,13 @@ def perf(argv, expect, sink, meta, perf_argv=None):
 	return {**row, **parse(row["stderr"])}
 
 
-def fifo(mode, work, tmp, sink, meta):
+def ack_ok(line):
+	"""perf --control acknowledges with "ack\\n" plus NUL padding; the NUL of one acknowledgement can lead the next
+	newline-split line. Accept NULs only at the line's boundaries; an embedded NUL ("a\\0ck") is malformed."""
+	return line.strip("\0") == "ack\n"
+
+
+def fifo(mode, work, tmp, sink, meta, exe=None):
 	"""0169's counter method (FIFO-bracketed go/DONE window on the base counter build), for reproduction only.
 	Every protocol read is a bounded line read; the raw row (protocol bytes, counter file, statuses) is written in
 	`finally`, before the counter output is parsed."""
@@ -210,9 +216,9 @@ def fifo(mode, work, tmp, sink, meta):
 	os.mkfifo(ctl)
 	os.mkfifo(ack)
 	cf, af = os.open(ctl, os.O_RDWR | os.O_NONBLOCK), os.open(ack, os.O_RDWR | os.O_NONBLOCK)
-	argv = [str(BIN / "base-counter"), mode, *([str(path_for(work))] if work else [])]
-	row = {**meta, "argv": argv, "env": E0, "controller_affinity": sorted(os.sched_getaffinity(0))}
-	child = counter = reader = None
+	argv = [str(exe or BIN / "base-counter"), mode, *([str(path_for(work))] if work else [])]
+	row = {**meta, "argv": argv, "env": E0, "controller_affinity": sorted(os.sched_getaffinity(0)), "acks": []}
+	child = counter = reader = acks = None
 	try:
 		pinned()
 		with (tmp / "child.out").open("wb") as child_out:
@@ -232,7 +238,8 @@ def fifo(mode, work, tmp, sink, meta):
 		def control(m):
 			os.write(cf, (m + "\n").encode())
 			got = acks.line(time.monotonic() + 10)
-			if got.rstrip("\0") != "ack\n":
+			row["acks"].append({"command": m, "line": got})  # retained before it is interpreted
+			if not ack_ok(got):
 				raise Stop(("perf control", m, got))
 		control("enable")
 		child.stdin.write(b"go\n")
@@ -262,6 +269,7 @@ def fifo(mode, work, tmp, sink, meta):
 					row[f"{name}_reaped"] = False
 				row[f"{name}_survivors"] = settle(p.pid)
 		row["protocol_bytes"] = bytes(reader.seen).decode(errors="replace") if reader else ""
+		row["ack_bytes"] = bytes(acks.seen).decode(errors="replace") if acks else ""  # every ack byte, pending included
 		row["counter_raw"] = raw.read_text() if raw.exists() else None
 		row["perf_output"] = (tmp / "perf.out").read_text(errors="replace") if (tmp / "perf.out").exists() else None
 		sink.write(row)
