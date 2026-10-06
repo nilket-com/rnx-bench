@@ -15,7 +15,7 @@ Subjects run from one staged path with environment E0 exactly, each as its own p
 affinity; 10 representative grep controls observe a child).
 """
 import io, json, lzma, math, os, pathlib, re, shutil, signal, statistics, subprocess, sys, tarfile, time
-from common import HERE, E0, sha, run_bounded, kill_group, LineReader, new_sentinel, count, scan, Ledger
+from common import HERE, E0, SOURCES, PRODUCTION_PARENT, sha, run_bounded, kill_group, settle, LineReader, new_sentinel, count, scan, Ledger
 import freeze
 
 sys.path.insert(0, str(HERE))
@@ -60,6 +60,8 @@ WORKLOADS += [(f"run-{w}", ["run", str(path_for(w))], EXPECT[w]) for w in
 	["answer", "empty", "numeric", "fib", "strings", "while", "compare", "calls", "vector",
 	"overwrite_inline", "overwrite_mixed", "overwrite_deep", "overwrite_alias",
 	"range_signed", "range_negative", "range_while"]]
+EXPECT_BY_LABEL = {label: expect for label, _, expect in WORKLOADS}
+EXPECT_BY_LABEL["run-manual_next"] = EXPECT["manual_next"]
 WIN_INSTR = ["run-numeric", "run-range_signed", "run-range_negative"]
 WIN_ALLOC = "run-numeric"
 RANGE_ALLOC = {"run-numeric", "run-range_signed", "run-range_negative", "run-strings"}  # strings also iterates ranges
@@ -122,7 +124,16 @@ def sample(argv, timeout, sink, meta, scratch=None):
 	return row
 
 
+def lifecycle(row):
+	"""Post-retention cleanup gate for every result: no deadline or interrupt, leader reaped, no live group member left."""
+	if row.get("timed_out") or row.get("interrupted"):
+		raise Stop(("deadline or interrupt", row.get("argv"), row.get("timed_out"), row.get("interrupted")))
+	if row.get("reaped") is not True or row.get("group_survivors"):
+		raise Stop(("cleanup", row.get("argv"), row.get("reaped"), row.get("group_survivors")))
+
+
 def check_status(row, expect):
+	lifecycle(row)
 	if row["timed_out"] or row["interrupted"]:
 		raise Stop(("deadline or interrupt", row["argv"], row["timed_out"], row["interrupted"]))
 	if row["status"] != 0 or row["stdout"] != expect:
@@ -168,6 +179,7 @@ def controls(label, sink):
 		row = sample(CONTROL, 30, sink, {"kind": "affinity-control", "label": label, "index": i})
 		sink.write(row)
 		rows.append(row)
+		lifecycle(row)
 		if row["status"] != 0 or row["stdout"] != "Cpus_allowed_list:\t4\n":
 			raise Stop(("affinity control", label, i, row["status"], row["stdout"]))
 	return rows
@@ -240,13 +252,15 @@ def fifo(mode, work, tmp, sink, meta):
 		row["exception"] = repr(error)
 		raise
 	finally:
-		for p in (child, counter):
+		for name, p in (("child", child), ("counter", counter)):
 			if p is not None:
 				kill_group(p.pid)
 				try:
 					p.wait(timeout=10)
+					row[f"{name}_reaped"] = True
 				except subprocess.TimeoutExpired:
-					row.setdefault("unreaped", []).append(p.pid)
+					row[f"{name}_reaped"] = False
+				row[f"{name}_survivors"] = settle(p.pid)
 		row["protocol_bytes"] = bytes(reader.seen).decode(errors="replace") if reader else ""
 		row["counter_raw"] = raw.read_text() if raw.exists() else None
 		row["perf_output"] = (tmp / "perf.out").read_text(errors="replace") if (tmp / "perf.out").exists() else None
@@ -255,7 +269,18 @@ def fifo(mode, work, tmp, sink, meta):
 		os.close(af)
 		ctl.unlink()
 		ack.unlink()
+	fifo_gate(row)
 	return parse(row["counter_raw"] or "")["instructions"], row
+
+
+def fifo_gate(row):
+	"""Post-retention FIFO gate: child exited 0, perf stopped by our SIGINT (status -SIGINT), both groups reaped with
+	no live survivor."""
+	for name in ("child", "counter"):
+		if row.get(f"{name}_reaped") is not True or row.get(f"{name}_survivors"):
+			raise Stop(("fifo cleanup", name, row.get(f"{name}_reaped"), row.get(f"{name}_survivors")))
+	if row.get("child_status") != 0 or row.get("counter_status") != -signal.SIGINT:
+		raise Stop(("fifo statuses", row.get("child_status"), row.get("counter_status")))
 
 
 def read_0169():
@@ -333,8 +358,9 @@ def resident(argv, expect, n, tmp, sink, meta, subject=None, clock=CLOCK):
 	if subject is not None:
 		row["hash_after"] = sha(STAGE)
 	sink.write(row)
-	if row["timed_out"] or row["interrupted"] or row["status"] != 0:
-		raise Stop(("resident driver", meta, row["status"], row["timed_out"], row["stderr"][-300:]))
+	lifecycle(row)
+	if row["status"] != 0:
+		raise Stop(("resident driver", meta, row["status"], row["stderr"][-300:]))
 	if subject is not None and row["hash_after"] != HASHES[subject]:
 		raise Stop((meta, "stage changed during block"))
 	rec = row["stdout"].splitlines()
@@ -373,9 +399,37 @@ def hf_median(argv, sink, meta):
 	pinned()
 	row = sample(["hyperfine", "-N", "--output=pipe", "-w", "5", "-r", "50", "--export-json", "/dev/stdout", " ".join(argv)], 300, sink, meta)
 	sink.write(row)
-	if row["status"] != 0 or row["timed_out"]:
+	lifecycle(row)
+	if row["status"] != 0:
 		raise Stop(("hyperfine", row["status"], row["stderr"][-300:]))
 	return json.loads(row["stdout"][row["stdout"].index("{"):])["results"][0]["median"] * 1000
+
+
+def alloc_row_gate(label, row, expect):
+	"""An ordinary counting run counts only if both sides completed cleanly with the exact expected output."""
+	for s in ("base", "cand"):
+		lifecycle(row[s])
+		if row[s]["status"] != 0 or row[s]["stdout"] != expect or "calls" not in row[s]:
+			raise Stop(("allocation run", label, s, row[s]["status"], row[s]["stdout"][:80]))
+
+
+BUDGET_STATUS = {"numeric-budget-zero": 1, "numeric-budget-default": 0, "numeric-budget-unlimited": 0, "numeric-budget-tight": 1}
+
+
+def budget_row_gate(label, row):
+	"""Budget variants: each side ends with the expected completion/halt status and its ALLOC line, cleanly; the two
+	sides agree on status, stdout and normalized stderr (minus the ALLOC line). Matching crashes are not credited."""
+	strip = lambda x: (x["status"], x["stdout"], norm((0, "", "\n".join(l for l in x["stderr"].splitlines() if not l.startswith("ALLOC "))))[2])
+	for s in ("base", "cand"):
+		lifecycle(row[s])
+		if row[s]["status"] != BUDGET_STATUS[label] or "calls" not in row[s]:
+			raise Stop(("budget status", label, s, row[s]["status"], BUDGET_STATUS[label]))
+	if label in ("numeric-budget-default", "numeric-budget-unlimited"):
+		for s in ("base", "cand"):
+			if row[s]["stdout"] != EXPECT["numeric"]:
+				raise Stop(("budget output", label, s, row[s]["stdout"][:80]))
+	if strip(row["base"]) != strip(row["cand"]):
+		raise Stop(("budget outcomes differ", label))
 
 
 def alloc_gate(alloc):
@@ -401,6 +455,8 @@ def verify_manifest(path):
 	"""Every frozen identity must still hold; returns the list of mismatches (empty when the run may proceed)."""
 	m = json.loads(pathlib.Path(path).read_text())
 	bad = []
+	if m.get("sources") != SOURCES or m.get("production_parent") != PRODUCTION_PARENT:
+		bad.append(("sources differ from the frozen constants",))
 	for name, h in m["binaries"].items():
 		p = BIN / name
 		if not p.exists() or sha(p) != h:
@@ -414,8 +470,11 @@ def verify_manifest(path):
 		b = json.loads(receipt.read_text())
 		if b["sources"] != m["sources"] or {k: v["sha256"] for k, v in b["builds"].items()} != m["binaries"]:
 			bad.append(("build receipt content",))
-		if b["builds"]["base-primary"].get("rune_features") != m["rune_features"] or "tracing" in m["rune_features"]:
-			bad.append(("feature set",))
+		for primary in ("base-primary", "cand-primary"):
+			if b["builds"][primary].get("rune_features") != m["rune_features"]:
+				bad.append(("feature set", primary))
+		if "tracing" in m["rune_features"]:
+			bad.append(("tracing in feature set",))
 	for subject, r in m["inventory"]["receipts"].items():
 		p = REPO / r["log"]
 		if not p.exists() or sha(p) != r["log_sha256"] or not all(r["tests_passed"].values()):
@@ -523,6 +582,7 @@ def main(out, manifest=MANIFEST):
 			for s in ("base", "cand"):
 				rows[s] = sample([str(BIN / f"{s}-primary"), mode, str(fx), *extra], 300, sink, {"kind": "correctness", "key": key, "subject": s})
 				sink.write(rows[s])
+				lifecycle(rows[s])
 			ra, rb = ((rows[s]["status"], rows[s]["stdout"], rows[s]["stderr"]) for s in ("base", "cand"))
 			corr[key] = {"same": norm(ra) == norm(rb) and not rows["base"]["timed_out"] and not rows["cand"]["timed_out"],
 				"raw_identical": ra == rb, "base": list(ra), "cand": list(rb)}
@@ -546,10 +606,9 @@ def main(out, manifest=MANIFEST):
 		for s in ("base", "cand"):
 			r = sample([str(BIN / f"{s}-allocation"), *tail], 300, sink, {"kind": "allocation", "label": label, "subject": s})
 			sink.write(r)
-			last = r["stderr"].splitlines()[-1] if r["stderr"] else ""
 			alloc_line = next((l for l in r["stderr"].splitlines() if l.startswith("ALLOC ")), "")
-			row[s] = {"status": r["status"], "stdout": r["stdout"], "stderr_last": last, "timed_out": r["timed_out"],
-				"stderr": r["stderr"]}
+			row[s] = {"status": r["status"], "stdout": r["stdout"], "stderr": r["stderr"], "timed_out": r["timed_out"],
+				"interrupted": r["interrupted"], "reaped": r["reaped"], "group_survivors": r["group_survivors"], "argv": r["argv"]}
 			if alloc_line:
 				calls, nbytes, live, peak = json.loads(alloc_line[6:])
 				row[s].update(calls=calls, bytes=nbytes, live=live, peak=peak)
@@ -557,16 +616,12 @@ def main(out, manifest=MANIFEST):
 		if "calls" in row["base"] and "calls" in row["cand"]:
 			row["calls_delta"] = row["cand"]["calls"] - row["base"]["calls"]
 			row["calls_change"] = row["cand"]["calls"] / row["base"]["calls"] - 1
-		if expect is None:
-			# Budget variants: base and candidate must agree on status, stdout and normalized stderr (minus the ALLOC line).
-			strip = lambda x: (x["status"], x["stdout"], norm((0, "", "\n".join(l for l in x["stderr"].splitlines() if not l.startswith("ALLOC "))))[2])
-			row["same_outcome"] = strip(row["base"]) == strip(row["cand"]) and not row["base"]["timed_out"] and not row["cand"]["timed_out"]
 	persist(out, "allocation.json", alloc)
 	persist(out, "allocation-budgets.json", budget)
-	if not all("calls_delta" in v and v["base"]["status"] == 0 and v["cand"]["status"] == 0 for v in alloc.values()):
-		raise Stop(("allocation run", [k for k, v in alloc.items() if "calls_delta" not in v]))
-	if not all(v.get("same_outcome") and "calls_delta" in v for v in budget.values()):
-		raise Stop(("budget-variant outcomes differ", {k: v.get("same_outcome") for k, v in budget.items()}))
+	for label, row in alloc.items():
+		alloc_row_gate(label, row, EXPECT_BY_LABEL[label])
+	for label, row in budget.items():
+		budget_row_gate(label, row)
 	alloc_gate(alloc)
 	res["allocation"] = {"context_delta": alloc["context"]["calls_delta"], "numeric_calls": [alloc[WIN_ALLOC]["base"]["calls"],
 		alloc[WIN_ALLOC]["cand"]["calls"]], "budget_variants": {k: [v["base"]["calls"], v["cand"]["calls"], v["base"]["status"]]
