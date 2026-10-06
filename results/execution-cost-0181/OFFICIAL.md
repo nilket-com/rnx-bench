@@ -153,8 +153,8 @@ divides the difference by the script-bound operation count (1,000,000 iterations
 - **Frontend delivery differs where the cycle excess is.** Uops delivered by the legacy decode path (IDQ.MITE_UOPS)
   rise, resolved, on exactly the windows whose cycle excess reproduces: numeric 12.9M to 144.3M, signed range 12.7M to
   70.2M, negative range 13.6M to 70.0M, calls 11.1M to 34.0M. The decoded-uop-cache share of DSB+MITE falls, resolved,
-  on the same four: 0.992 to 0.919, 0.991 to 0.952, 0.990 to 0.952, 0.994 to 0.980. On while (cycle change +0.04% to
-  +0.09%) and on fib, MITE uops and the DSB share are unresolved and essentially unchanged.
+  on the same four: 0.992 to 0.919, 0.991 to 0.952, 0.990 to 0.952, 0.994 to 0.980. On while (cycle change -0.08% to
+  +0.09%) and on fib, MITE uops and the DSB share are unresolved; this does not establish equivalence.
 - **Branch misprediction does not rise on the Q1 windows.** Retired mispredicted branches and the miss rate resolve
   DOWN for numeric and both ranges (about -3.5% to -5.5%), and for calls and while. Retired branches rise by about 2.65
   per iteration on numeric and the ranges while total instructions fall.
@@ -163,7 +163,7 @@ divides the difference by the script-bound operation count (1,000,000 iterations
   everywhere, about 2-3% lower.
 - **Instruction-cache stall cycles** resolve up only on numeric (+33.7%, 1.14M to 1.52M cycles, which is small beside
   that window's roughly 37M excess cycles); unresolved elsewhere.
-- **fib (Q2)** shows no frontend-delivery change; its DSB uops rise 2.1% in step with its 2.28% instruction growth, its
+- **fib (Q2)** shows no resolved MITE increase or DSB-share decrease; its DSB uops rise 2.1% in step with its 2.28% instruction growth, its
   branch misses are unresolved, and its store-forward blocks fall. These groups add no dynamic attribution of the +33
   instructions per invocation.
 
@@ -172,9 +172,11 @@ divides the difference by the script-bound operation count (1,000,000 iterations
 Under plan section 5 a resolved change may support a mechanism CATEGORY compatible with the static differences and the
 cycle excess. On that basis:
 
-- The frontend-delivery category is **supported** for Q1: the candidate's range/numeric loops, and to a lesser degree
-  calls, are delivered partly through legacy decode instead of the decoded-uop cache, and the two windows without that
-  change show no comparable cycle excess.
+- The frontend-delivery category is **supported** for Q1: the numeric/range process windows, and to a lesser degree
+  calls, show increased legacy-decoder delivery and a lower DSB share of DSB+MITE alongside reproduced excess cycles.
+  While has no resolved delivery-share change and near-zero cycle change; fib has no resolved MITE increase or
+  DSB-share decrease but still has about +2.5% excess cycles. These whole-process counters do not locate the delivery
+  change inside an interpreter loop or establish that it caused the excess cycles.
 - The speculation category is **not supported** by group C on the Q1 windows (mispredictions fall), and the two load
   events of group E do **not** show an increase. Neither group excludes every branch or backend cost: other cache
   levels, port pressure and dependency chains were not measured.
