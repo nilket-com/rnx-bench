@@ -1,0 +1,317 @@
+{
+ "G1-frozen-groups-and-argv": {
+  "pass": true,
+  "detail": {
+   "R": [
+    "perf",
+    "stat",
+    "-j",
+    "--no-scale",
+    "-e",
+    "{cpu_core/instructions,name=instructions/u,cpu_core/cpu-cycles,name=cycles/u}:D",
+    "--"
+   ],
+   "A": [
+    "perf",
+    "stat",
+    "-j",
+    "--no-scale",
+    "-e",
+    "{cpu_core/instructions,name=instructions/u,cpu_core/cpu-cycles,name=cycles/u,cpu_core/ref-cycles,name=ref_cycles/u}:D",
+    "-e",
+    "context-switches",
+    "-e",
+    "cpu-migrations",
+    "-e",
+    "task-clock",
+    "--"
+   ],
+   "B": [
+    "perf",
+    "stat",
+    "-j",
+    "--no-scale",
+    "-e",
+    "{cpu_core/slots,name=slots/u,cpu_core/topdown-retiring,name=td_retiring/u,cpu_core/topdown-bad-spec,name=td_bad_spec/u,cpu_core/topdown-fe-bound,name=td_fe_bound/u,cpu_core/topdown-be-bound,name=td_be_bound/u,cpu_core/instructions,name=instructions/u,cpu_core/cpu-cycles,name=cycles/u}:D",
+    "--"
+   ],
+   "C": [
+    "perf",
+    "stat",
+    "-j",
+    "--no-scale",
+    "-e",
+    "{cpu_core/instructions,name=instructions/u,cpu_core/cpu-cycles,name=cycles/u,cpu_core/event=0xc4,umask=0x00,name=br_inst_retired_all/u,cpu_core/event=0xc5,umask=0x00,name=br_misp_retired_all/u}:D",
+    "--"
+   ],
+   "D": [
+    "perf",
+    "stat",
+    "-j",
+    "--no-scale",
+    "-e",
+    "{cpu_core/instructions,name=instructions/u,cpu_core/cpu-cycles,name=cycles/u,cpu_core/event=0x79,umask=0x08,name=idq_dsb_uops/u,cpu_core/event=0x79,umask=0x04,name=idq_mite_uops/u,cpu_core/event=0x80,umask=0x04,name=icache_data_stalls/u}:D",
+    "--"
+   ],
+   "E": [
+    "perf",
+    "stat",
+    "-j",
+    "--no-scale",
+    "-e",
+    "{cpu_core/instructions,name=instructions/u,cpu_core/cpu-cycles,name=cycles/u,cpu_core/event=0xd1,umask=0x08,name=mem_load_retired_l1_miss/u,cpu_core/event=0x03,umask=0x82,name=ld_blocks_store_forward/u}:D",
+    "--"
+   ]
+  },
+  "seconds": 3.7179794162511826e-05
+ },
+ "P1-parser-accepts-each-frozen-group": {
+  "pass": true,
+  "detail": {
+   "R": [
+    "cycles",
+    "instructions"
+   ],
+   "A": [
+    "context_switches",
+    "cpu_migrations",
+    "cycles",
+    "instructions",
+    "ref_cycles",
+    "task_clock"
+   ],
+   "B": [
+    "cycles",
+    "instructions",
+    "slots",
+    "td_bad_spec",
+    "td_be_bound",
+    "td_fe_bound",
+    "td_retiring"
+   ],
+   "C": [
+    "br_inst_retired_all",
+    "br_misp_retired_all",
+    "cycles",
+    "instructions"
+   ],
+   "D": [
+    "cycles",
+    "icache_data_stalls",
+    "idq_dsb_uops",
+    "idq_mite_uops",
+    "instructions"
+   ],
+   "E": [
+    "cycles",
+    "instructions",
+    "ld_blocks_store_forward",
+    "mem_load_retired_l1_miss"
+   ]
+  },
+  "seconds": 0.00023848493583500385
+ },
+ "P1-absent-extra-duplicate-counter": {
+  "pass": true,
+  "detail": {
+   "absent": "Stop(('counter set differs from the frozen group', 'C', ['br_misp_retired_all'], []))",
+   "absent-anchor": "Stop(('counter set differs from the frozen group', 'R', ['cycles'], []))",
+   "extra": "Stop(('unexpected counter', 'R', 'cache-misses'))",
+   "duplicate": "Stop(('duplicate counter', 'R', 'cycles'))",
+   "other-group-member": "Stop(('unexpected counter', 'R', 'br_inst_retired_all'))"
+  },
+  "seconds": 0.00010469416156411171
+ },
+ "P1-non-finite-negative-not-counted": {
+  "pass": true,
+  "detail": {
+   "nan": "Stop(('counter not finite and non-negative', 'R', 'cycles', 'nan'))",
+   "inf": "Stop(('counter not finite and non-negative', 'R', 'cycles', 'inf'))",
+   "negative": "Stop(('counter not finite and non-negative', 'R', 'cycles', '-1.0'))",
+   "not-counted": "Stop(('counter not counted or unsupported', 'R', 'cycles', '<not counted>'))",
+   "not-supported": "Stop(('counter not counted or unsupported', 'R', 'cycles', '<not supported>'))",
+   "zero-anchor": "Stop(('anchor is zero', 'R'))"
+  },
+  "seconds": 9.20039601624012e-05
+ },
+ "P1-running-below-100-and-scaling": {
+  "pass": true,
+  "detail": {
+   "99.9": "Stop(('counter not running 100%', 'D', 'instructions', 99.9))",
+   "missing": "Stop(('counter not running 100%', 'R', 'cycles', None))",
+   "enabled-differs-from-running": "Stop(('enabled and running times differ', 'R', 'cycles'))"
+  },
+  "seconds": 5.55538572371006e-05
+ },
+ "P1-cpu-atom-counter-refused": {
+  "pass": true,
+  "detail": {
+   "all": "Stop(('counter not on cpu_core', 'R', 'instructions', 'cpu_atom'))",
+   "one": "Stop(('counter not on cpu_core', 'C', 'br_misp_retired_all', 'cpu_atom'))"
+  },
+  "seconds": 3.757607191801071e-05
+ },
+ "M1-topdown-units-and-sum": {
+  "pass": true,
+  "detail": {
+   "percentages-as-counts": "Stop(('topdown fractions out of range or not summing to one', {'td_retiring': 1.6666666666666667e-08, 'td_bad_spec': 3.3333333333333334e-09, 'td_fe_bound': 6.666666666666667e-09, 'td_be_bound': 6.666666666666667e-09}))",
+   "sum-too-high": "Stop(('topdown fractions out of range or not summing to one', {'td_retiring': 0.5, 'td_bad_spec': 0.1, 'td_fe_bound': 0.2, 'td_be_bound': 0.23333333333333334}))",
+   "sum-too-low": "Stop(('topdown fractions out of range or not summing to one', {'td_retiring': 0.5, 'td_bad_spec': 0.1, 'td_fe_bound': 0.2, 'td_be_bound': 0.16666666666666666}))",
+   "fraction-above-one": "Stop(('topdown fractions out of range or not summing to one', {'td_retiring': 1.0333333333333334, 'td_bad_spec': 0.0, 'td_fe_bound': 0.0, 'td_be_bound': 0.0}))",
+   "zero-slots": "Stop(('slots is zero',))",
+   "within-rounding-accepted": 0.21666666666666667
+  },
+  "seconds": 0.00030998303554952145
+ },
+ "M1-zero-denominators-are-undefined-not-zero": {
+  "pass": true,
+  "detail": {
+   "branch_miss_rate": null,
+   "summary": {
+    "status": "undefined (zero denominator in at least one sample)"
+   }
+  },
+  "seconds": 0.004215184133499861
+ },
+ "M1-cpu-migration-stops": {
+  "pass": true,
+  "detail": "Stop(('cpu migration during a sample', 1.0))",
+  "seconds": 4.87819779664278e-05
+ },
+ "S1-incomplete-or-misordered-abba": {
+  "pass": true,
+  "detail": {
+   "missing-sample": "Stop(('incomplete ABBA', 'R', 'run-empty', 9, 10))",
+   "missing-side": "Stop(('incomplete ABBA', 'R', 'run-fib', 10, 8))",
+   "four-repetitions": "Stop(('incomplete ABBA', 'R', 'run-numeric', 8, 8))",
+   "abab-order": "Stop(('sample order', 'R', 'run-numeric', 0, ['base', 'cand', 'base', 'cand']))",
+   "missing-workload": "Stop(('incomplete ABBA', 'R', 'run-while', 0, 0))"
+  },
+  "seconds": 0.006172940833494067
+ },
+ "S1-resolved-rule": {
+  "pass": true,
+  "detail": {
+   "flat": false,
+   "consistent": true,
+   "four-of-five": false,
+   "inside-base-width": false
+  },
+  "seconds": 0.008449400076642632
+ },
+ "A1-reproduction-tolerances-both-sides-and-boundaries": {
+  "pass": true,
+  "detail": {
+   "instructions +2% both sides (boundary accepted)": 0,
+   "instructions -2% both sides (boundary accepted)": 0,
+   "instructions +2.01% base": 14,
+   "instructions -2.01% cand": 14,
+   "cycles +10% both sides (boundary accepted)": 0,
+   "cycles -10% both sides (boundary accepted)": 0,
+   "cycles +10.1% both": 12,
+   "cycles -10.1% both": 12,
+   "instruction change +0.51 pp": 6,
+   "instruction change -0.51 pp": 6,
+   "instruction change +0.49 pp accepted": 0,
+   "cycle change +3.1 pp": 6,
+   "cycle change -3.1 pp": 6,
+   "cycle change +2.9 pp accepted": 0,
+   "cycle excess disappears": 6,
+   "run-empty cycles exempt, instructions anchored": true
+  },
+  "seconds": 0.00014971219934523106
+ },
+ "V1-availability-manifest": {
+  "pass": true,
+  "detail": {
+   "ineligible-group-in-order": "Stop(('availability manifest order or eligibility is inconsistent',))",
+   "R-missing": "Stop(('availability manifest does not permit a run', 'available'))",
+   "R-only": "Stop(('availability manifest does not permit a run', 'available'))",
+   "reordered": "Stop(('availability manifest order or eligibility is inconsistent',))",
+   "inconclusive-status": "Stop(('availability manifest does not permit a run', 'INCONCLUSIVE at discovery: no optional group available'))",
+   "weak-group-drift": "Stop(('group definition changed since discovery', 'C'))",
+   "unpinned-drift": "Stop(('group definition changed since discovery', 'A'))",
+   "scaling-drift": "Stop(('group definition changed since discovery', 'R'))",
+   "atom-event-drift": "Stop(('group definition changed since discovery', 'R'))",
+   "other-subjects": "Stop(('availability manifest is for other subjects',))"
+  },
+  "seconds": 0.00136350910179317
+ },
+ "B1-wrong-primary-or-source-refused": {
+  "pass": true,
+  "detail": {
+   "wrong-hash": "Stop(('retained primary does not match', 'cand', 'p0-cand-primary'))",
+   "swapped-role": "Stop(('retained primary does not match', 'cand', 'p0-base-primary'))",
+   "counter-role": "Stop(('retained primary does not match', 'cand', 'p0-cand-counter'))",
+   "changed-source": "ValueError(\"'/home/me/work/rnx-bench-w-0180d/results/execution-cost-0180/event-controls1/numeric.rn' is not in the subpath of '/home/me/work/rnx-bench-w-0179d/probes/startup-0179'\")",
+   "wrong-manifest-pin": "Stop(('0179 subjects.json does not match its pinned hash',))",
+   "0179 cycle changes": {
+    "run-numeric": 0.0832,
+    "run-range_signed": 0.1611,
+    "run-range_negative": 0.1638,
+    "run-fib": 0.0294,
+    "run-calls": 0.0272,
+    "run-while": 0.0022,
+    "run-empty": -0.0453
+   }
+  },
+  "seconds": 0.055717457085847855
+ },
+ "O1-reproducing-run-completes-both-groups": {
+  "pass": true,
+  "detail": {
+   "rows": 280,
+   "status": "complete"
+  },
+  "seconds": 0.05553361400961876
+ },
+ "O1-nonreproduction-is-a-completed-outcome-and-stops-later-groups": {
+  "pass": true,
+  "detail": {
+   "status": "NONREPRODUCING / STOP",
+   "first_failures": [
+    [
+     "R",
+     "run-numeric",
+     "cycles change",
+     -0.08324492160448438
+    ],
+    [
+     "R",
+     "run-range_signed",
+     "cand",
+     "cycles",
+     0.8612444041096697
+    ]
+   ],
+   "rows": 140
+  },
+  "seconds": 0.04573861393146217
+ },
+ "O1-infrastructure-failure-stops-with-partial-retained": {
+  "pass": true,
+  "detail": {
+   "survivor": "Stop(('process lifecycle', ['mock'], False, False, True, [123456]))",
+   "wrong_output": "Stop(('status/output', 'R', 'run-numeric', 'base', 0, '4\\n', '{\"counter-value\": \"1759089109.000000\", \"unit\": \"\", \"event\": \"instructions\", \"event-runtime\": 100, ",
+   "rows_retained": 11
+  },
+  "seconds": 0.06670344504527748
+ },
+ "H1-host-gate": {
+  "pass": true,
+  "detail": {
+   "other-model": "Stop(('host is not the documented Intel 6/0xB7', {'vendor_id': 'GenuineIntel', 'cpu family': '6', 'model': '154'}))",
+   "other-vendor": "Stop(('host is not the documented Intel 6/0xB7', {'vendor_id': 'AuthenticAMD', 'cpu family': '6', 'model': '183'}))",
+   "cpu4-is-atom": "Stop(('CPU 4 is not a cpu_core CPU', '0-3,8-15'))"
+  },
+  "seconds": 2.498505637049675e-05
+ },
+ "X1-fake-secret-retention": {
+  "pass": true,
+  "detail": {
+   "clean": 0,
+   "leak_detected": 1
+  },
+  "seconds": 0.00018642889335751534
+ }
+}
