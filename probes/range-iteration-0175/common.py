@@ -55,6 +55,16 @@ def live_members(pgid):
 	return members
 
 
+def settle(pgid, seconds=5.0):
+	"""Live members still present after up to `seconds` of polling (empty once the killed group is gone)."""
+	deadline = time.monotonic() + seconds
+	while True:
+		members = live_members(pgid)
+		if not members or time.monotonic() >= deadline:
+			return members
+		time.sleep(0.05)
+
+
 def group_alive(pgid, settle=5.0):
 	"""True if any live (non-zombie) member remains after up to `settle` seconds."""
 	deadline = time.monotonic() + settle
@@ -97,7 +107,7 @@ def run_bounded(argv, timeout, env, stdin=None, cwd=None, scratch=None):
 			except subprocess.TimeoutExpired:
 				pass
 			error.partial = Result(argv, p.returncode, out_path.read_bytes().decode(errors="replace"),
-				err_path.read_bytes().decode(errors="replace"), timed_out, True, reaped, live_members(p.pid)).record()
+				err_path.read_bytes().decode(errors="replace"), timed_out, True, reaped, settle(p.pid)).record()
 			raise
 		finally:
 			if not interrupted:
@@ -108,7 +118,7 @@ def run_bounded(argv, timeout, env, stdin=None, cwd=None, scratch=None):
 				except subprocess.TimeoutExpired:
 					pass
 		return Result(argv, p.returncode, out_path.read_bytes().decode(errors="replace"), err_path.read_bytes().decode(errors="replace"),
-			timed_out, False, reaped, live_members(p.pid))
+			timed_out, False, reaped, settle(p.pid))
 
 
 class LineReader:

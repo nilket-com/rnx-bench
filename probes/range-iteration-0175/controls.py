@@ -182,6 +182,58 @@ def main(out):
 			stops[name] = expect_stop(lambda: measure.alloc_gate(synthetic))
 		return stops
 
+	def clean(stdout, status=0, calls=100):
+		return {"status": status, "stdout": stdout, "stderr": f"ALLOC [{calls}, 1, 1, 1]\n", "timed_out": False, "interrupted": False,
+			"reaped": True, "group_survivors": [], "argv": ["synthetic"], "calls": calls}
+
+	@control("R1b-changed-counting-stdout-stops")
+	def _():
+		good = {"base": clean("3\n"), "cand": clean("3\n")}
+		measure.alloc_row_gate("run-numeric", good, "3\n")  # the correct shape passes
+		bad = {"base": clean("3\n"), "cand": clean("4\n")}
+		return {"stop": expect_stop(lambda: measure.alloc_row_gate("run-numeric", bad, "3\n"))}
+
+	@control("R1b-same-wrong-budget-status-stops")
+	def _():
+		measure.budget_row_gate("numeric-budget-tight", {"base": clean("", 1), "cand": clean("", 1)})  # expected halt passes
+		measure.budget_row_gate("numeric-budget-default", {"base": clean("3\n", 0), "cand": clean("3\n", 0)})
+		crash = {"base": clean("", 101), "cand": clean("", 101)}  # identical on both sides, still not credited
+		completed_when_halt_expected = {"base": clean("3\n", 0), "cand": clean("3\n", 0)}
+		return {"same_crash": expect_stop(lambda: measure.budget_row_gate("numeric-budget-tight", crash)),
+			"wrong_completion": expect_stop(lambda: measure.budget_row_gate("numeric-budget-zero", completed_when_halt_expected))}
+
+	@control("R2b-unreaped-and-survivor-stop")
+	def _():
+		unreaped = {**clean("3\n"), "reaped": False}
+		survivor = {**clean("3\n"), "group_survivors": [123456]}
+		stops = {"unreaped": expect_stop(lambda: measure.lifecycle(unreaped)),
+			"survivor": expect_stop(lambda: measure.lifecycle(survivor)),
+			"alloc_survivor": expect_stop(lambda: measure.alloc_row_gate("run-numeric", {"base": clean("3\n"), "cand": survivor}, "3\n")),
+			"check_status_unreaped": expect_stop(lambda: measure.check_status(unreaped, "3\n"))}
+		measure.lifecycle(clean("3\n"))
+		fifo_ok = {"child_reaped": True, "child_survivors": [], "counter_reaped": True, "counter_survivors": [], "child_status": 0,
+			"counter_status": -signal.SIGINT}
+		measure.fifo_gate(fifo_ok)
+		stops["fifo_counter_status"] = expect_stop(lambda: measure.fifo_gate({**fifo_ok, "counter_status": 0}))
+		stops["fifo_child_survivor"] = expect_stop(lambda: measure.fifo_gate({**fifo_ok, "child_survivors": [123456]}))
+		stops["fifo_counter_unreaped"] = expect_stop(lambda: measure.fifo_gate({**fifo_ok, "counter_reaped": False}))
+		return stops
+
+	@control("R3b-manifest-constants")
+	def _():
+		m = json.loads(measure.MANIFEST.read_text())
+		stops = {}
+		for name, change in (("sources", lambda x: x["sources"].update(cand="1" * 40)),
+				("parent", lambda x: x.update(production_parent="2" * 40))):
+			t = json.loads(json.dumps(m))
+			change(t)
+			path = tmp / f"tampered-{name}.json"
+			path.write_text(json.dumps(t))
+			_, bad = measure.verify_manifest(path)
+			assert bad, name
+			stops[name] = bad
+		return stops
+
 	(out / "controls.json").write_text(json.dumps(RESULTS, indent=1) + "\n")
 	failed = [k for k, v in RESULTS.items() if not v["pass"]]
 	print("controls:", len(RESULTS) - len(failed), "/", len(RESULTS), "pass", flush=True)
