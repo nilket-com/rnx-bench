@@ -1,0 +1,156 @@
+{
+ "status": "available",
+ "order": [
+  "R",
+  "A",
+  "B",
+  "C",
+  "D"
+ ],
+ "groups": {
+  "R": {
+   "argv": [
+    "perf",
+    "stat",
+    "-j",
+    "--no-scale",
+    "-e",
+    "{cpu_core/instructions,name=instructions/u,cpu_core/cpu-cycles,name=cycles/u}:D",
+    "--"
+   ],
+   "checks": [
+    {
+     "eligible": true,
+     "detail": "opened, counted, 100% running, probe saw CPU 4 only"
+    },
+    {
+     "eligible": true,
+     "detail": "opened, counted, 100% running, probe saw CPU 4 only"
+    }
+   ],
+   "eligible": true
+  },
+  "A": {
+   "argv": [
+    "perf",
+    "stat",
+    "-j",
+    "--no-scale",
+    "-e",
+    "{cpu_core/instructions,name=instructions/u,cpu_core/cpu-cycles,name=cycles/u,cpu_core/ref-cycles,name=ref_cycles/u}:D",
+    "-e",
+    "context-switches",
+    "-e",
+    "cpu-migrations",
+    "-e",
+    "task-clock",
+    "--"
+   ],
+   "checks": [
+    {
+     "eligible": true,
+     "detail": "opened, counted, 100% running, probe saw CPU 4 only"
+    },
+    {
+     "eligible": true,
+     "detail": "opened, counted, 100% running, probe saw CPU 4 only"
+    }
+   ],
+   "eligible": true
+  },
+  "B": {
+   "argv": [
+    "perf",
+    "stat",
+    "-j",
+    "--no-scale",
+    "-e",
+    "{cpu_core/slots,name=slots/u,cpu_core/topdown-retiring,name=td_retiring/u,cpu_core/topdown-bad-spec,name=td_bad_spec/u,cpu_core/topdown-fe-bound,name=td_fe_bound/u,cpu_core/topdown-be-bound,name=td_be_bound/u,cpu_core/instructions,name=instructions/u,cpu_core/cpu-cycles,name=cycles/u}:D",
+    "--"
+   ],
+   "checks": [
+    {
+     "eligible": true,
+     "detail": "opened, counted, 100% running, probe saw CPU 4 only"
+    },
+    {
+     "eligible": true,
+     "detail": "opened, counted, 100% running, probe saw CPU 4 only"
+    }
+   ],
+   "eligible": true
+  },
+  "C": {
+   "argv": [
+    "perf",
+    "stat",
+    "-j",
+    "--no-scale",
+    "-e",
+    "{cpu_core/instructions,name=instructions/u,cpu_core/cpu-cycles,name=cycles/u,cpu_core/event=0xc4,umask=0x00,name=br_inst_retired_all/u,cpu_core/event=0xc5,umask=0x00,name=br_misp_retired_all/u}:D",
+    "--"
+   ],
+   "checks": [
+    {
+     "eligible": true,
+     "detail": "opened, counted, 100% running, probe saw CPU 4 only"
+    },
+    {
+     "eligible": true,
+     "detail": "opened, counted, 100% running, probe saw CPU 4 only"
+    }
+   ],
+   "eligible": true
+  },
+  "D": {
+   "argv": [
+    "perf",
+    "stat",
+    "-j",
+    "--no-scale",
+    "-e",
+    "{cpu_core/instructions,name=instructions/u,cpu_core/cpu-cycles,name=cycles/u,cpu_core/event=0x79,umask=0x08,name=idq_dsb_uops/u,cpu_core/event=0x79,umask=0x04,name=idq_mite_uops/u,cpu_core/event=0x80,umask=0x04,name=icache_data_stalls/u}:D",
+    "--"
+   ],
+   "checks": [
+    {
+     "eligible": true,
+     "detail": "opened, counted, 100% running, probe saw CPU 4 only"
+    },
+    {
+     "eligible": true,
+     "detail": "opened, counted, 100% running, probe saw CPU 4 only"
+    }
+   ],
+   "eligible": true
+  },
+  "E": {
+   "argv": [
+    "perf",
+    "stat",
+    "-j",
+    "--no-scale",
+    "-e",
+    "{cpu_core/instructions,name=instructions/u,cpu_core/cpu-cycles,name=cycles/u,cpu_core/event=0xd1,umask=0x08,name=mem_load_retired_l1_miss/u,cpu_core/event=0x03,umask=0x82,name=ld_blocks_store_forward/u}:D",
+    "--"
+   ],
+   "checks": [
+    {
+     "eligible": true,
+     "detail": "opened, counted, 100% running, probe saw CPU 4 only"
+    },
+    {
+     "eligible": true,
+     "detail": "opened, counted, 100% running, probe saw CPU 4 only"
+    }
+   ],
+   "eligible": true
+  }
+ },
+ "identity_sha256": "c281c11d5b0a0d3552415836e66635a9aed03c6fa3162c06f7f921848882f2aa",
+ "primaries": {
+  "base": "af06e8b3b1621b7f763dfb39f967fab1cca0b9b615b145152634463cefbb0c87",
+  "cand": "e4a5f207c38a8ae59bc311e3611a6bdd3d542fe82665a8e12b201f61eaf9a787"
+ },
+ "note": "Eligibility is decided only by these two open checks per group on the affinity probe; probe counts select nothing."
+}
