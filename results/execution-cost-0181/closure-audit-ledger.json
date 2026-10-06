@@ -1,0 +1,21 @@
+{
+ "argv": [
+  "flock",
+  "--exclusive",
+  "--timeout",
+  "60",
+  "/tmp/rnx-runtime-bench.lock",
+  "python3",
+  "probes/execution-cost-0181/audit.py"
+ ],
+ "cwd": "/home/me/work/.worktrees/rnx-bench-0181",
+ "status": 0,
+ "script_sha256": "2ca0cfb2d68d0337b7d1ef0d9723e29315c391a057fadc9d7aa9de9f189e67a1",
+ "stdout_file": "results/execution-cost-0181/audit.json",
+ "stdout_sha256": "69559f2a6792e59acc13ab78c3a1037f3fb2909e0da67f7363beb01fbce95cd7",
+ "subject_executions": 0,
+ "counter_opens": 0,
+ "review_disclosures": [
+  "The first audit failed only because it expected printed E ratio rows; OFFICIAL.md prints E raw counts only. Every E ratio is retained in official.json and independently checked by the audit. No experiment or receipt changed."
+ ]
+}
