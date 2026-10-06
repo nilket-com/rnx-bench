@@ -1,0 +1,113 @@
+{
+  "parser_sha256": "7115f96da17a23414c72db91c11c5da14e85440f2eff0ddcfb3700766de2af6b",
+  "parser_controls": 7,
+  "profile_compressed_sha256": "83f16d570866fc95c3771c3d8fca4c81717892d549c3b63f68f6bf597ef06269",
+  "profile_raw_sha256": "314af078775af1b6477537cdc4cbd410d0ce041242bc2d8562e7c455c1848540",
+  "pmu_sha256": "ffdb22de1a00bcc6f1de0b86fecef15c23e1de1f698e592b80183e1b75539dfc",
+  "context_ir_total": 27355056,
+  "item_display_callers": [
+    {
+      "profile_id": "1296",
+      "name": "<&rune_core::item::item_buf::ItemBuf as core::fmt::Display>::fmt",
+      "calls": 1900,
+      "inclusive_edge_ir": 5078623
+    }
+  ],
+  "associated_install_callees": [
+    {
+      "profile_id": "1268",
+      "name": "<rune::compile::context::Context>::install_meta",
+      "calls": 2277,
+      "inclusive_edge_ir": 6767937
+    },
+    {
+      "profile_id": "1294",
+      "name": "core::fmt::write",
+      "calls": 1785,
+      "inclusive_edge_ir": 4929893
+    },
+    {
+      "profile_id": "1198",
+      "name": "<rune_core::hash::Hash>::type_hash::<&rune_core::item::item_buf::ItemBuf>",
+      "calls": 1785,
+      "inclusive_edge_ir": 2392036
+    },
+    {
+      "profile_id": "1336",
+      "name": "<rune_core::item::item::Item>::extended::<&str>",
+      "calls": 1785,
+      "inclusive_edge_ir": 1698660
+    },
+    {
+      "profile_id": "1342",
+      "name": "<rune::compile::context::Context>::insert_native_fn",
+      "calls": 4062,
+      "inclusive_edge_ir": 1011527
+    },
+    {
+      "profile_id": "1356",
+      "name": "<rune::compile::context::ContextType as rune_alloc::clone::TryClone>::try_clone",
+      "calls": 2277,
+      "inclusive_edge_ir": 761664
+    },
+    {
+      "profile_id": "1340",
+      "name": "<rune_alloc::vec::Vec<u8>>::try_into_boxed_slice",
+      "calls": 1785,
+      "inclusive_edge_ir": 484271
+    },
+    {
+      "profile_id": "1334",
+      "name": "<rune_core::hash::Hash>::ident",
+      "calls": 1799,
+      "inclusive_edge_ir": 378086
+    },
+    {
+      "profile_id": "1310",
+      "name": "<rune_alloc::hashbrown::map::HashMap<rune_core::hash::Hash, rune::runtime::const_value::node::ConstValueBuf, rune::hash::HashBuildHasher>>::try_insert",
+      "calls": 1785,
+      "inclusive_edge_ir": 308011
+    },
+    {
+      "profile_id": "1358",
+      "name": "core::ptr::drop_glue::<rune::compile::context::ContextType>",
+      "calls": 2277,
+      "inclusive_edge_ir": 161667
+    },
+    {
+      "profile_id": "1028",
+      "name": "<rune::compile::meta::AssociatedKind as rune_alloc::clone::TryClone>::try_clone",
+      "calls": 2277,
+      "inclusive_edge_ir": 72769
+    }
+  ],
+  "proposed_formatting_edge": {
+    "calls": 1785,
+    "inclusive_ir": 4929893,
+    "fraction_of_context_ir": 0.1802187134985211
+  },
+  "container_clone_edge": {
+    "calls": 2277,
+    "inclusive_ir": 761664
+  },
+  "native_base_instructions": {
+    "context": 26868541.5,
+    "run-answer": 29905482.5,
+    "run_answer_to_context": 1.1130296186713373,
+    "ten_percent_context": 2686854.1500000004,
+    "ten_percent_run_answer": 2990548.25
+  },
+  "illustrative_uniform_scaling_only": {
+    "format_edge_context_fraction": 0.1802187134985211,
+    "format_edge_run_answer_fraction": 0.16191726659857852,
+    "fraction_of_edge_needed_for_context_gate": 0.5548813331242686,
+    "fraction_of_edge_needed_for_answer_gate": 0.6175993586151479
+  },
+  "limits": [
+    "Ir and native instructions:u are distinct metrics; uniform scaling is a hypothesis, not a bound or prediction.",
+    "Formatting edge is inclusive of string construction which the candidate still performs.",
+    "Do not add ancestor, descendant or clone costs to claim an eliminated total.",
+    "Profile ids are compressed Callgrind identities, not unique machine addresses.",
+    "No candidate code, subject execution, compilation or new performance samples."
+  ]
+}
