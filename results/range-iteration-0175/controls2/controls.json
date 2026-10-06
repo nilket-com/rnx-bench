@@ -1,0 +1,116 @@
+{
+ "R1-bad-status-retained": {
+  "pass": true,
+  "detail": {
+   "stop": "Stop(('status/output', ['perf', 'stat', '-j', '--cputype', 'core', '-e', 'instructions:u,cycles:u', '--', '/bin/false'], 1, '', '{\"counter-value\" : \"1657562.000000\", \"unit\" : \"\", \"event\" : \"cpu_core/instructions/u\", \"event-runtime\" : 1923908, \"pcnt-running\" : 100.00}\\n{\"counter-value\" : \"1488917.000000\", \"unit\" : \"\", \"event\" : \"cpu_core/cycles/u\", \"event-runtime\" : 1923908, \"pcnt-running\" : 100.00}\\n'))",
+   "retained_status": 1
+  },
+  "seconds": 0.040930317947641015
+ },
+ "R1-malformed-counter-retained": {
+  "pass": true,
+  "detail": {
+   "stop": "Stop(('malformed counter row', {'event': 'instructions:u', 'counter-value': 'x', 'pcnt-running': '100'}, 'ValueError(\"could not convert string to float: \\'x\\'\")'))",
+   "retained_stderr": "{\"event\": \"instructions:u\", \"counter-value\": \"x\", \"pcnt-running\": \"100\"}\n"
+  },
+  "seconds": 0.007242640946060419
+ },
+ "R1-incomplete-wall-receipt-retained": {
+  "pass": true,
+  "detail": {
+   "stop": "Stop(('incomplete receipt', {'kind': 'control'}, 1, 12))",
+   "retained_stdout": "EXEC 0\n"
+  },
+  "seconds": 0.006573860999196768
+ },
+ "R1-timeout-retained-and-killed": {
+  "pass": true,
+  "detail": {
+   "stop": "Stop(('deadline or interrupt', ['/bin/sh', '-c', 'printf partial; sleep 30'], True, False))",
+   "elapsed_s": 1.01355021703057,
+   "partial_stdout": "partial"
+  },
+  "seconds": 1.0136395019944757
+ },
+ "R2-partial-line-timeout": {
+  "pass": true,
+  "detail": {
+   "partial": "REA",
+   "elapsed_s": 1.002004659967497
+  },
+  "seconds": 1.0140629489906132
+ },
+ "R2-interrupt-with-held-pipe": {
+  "pass": true,
+  "detail": {
+   "elapsed_s": 1.2657440230250359,
+   "partial": {
+    "argv": [
+     "/bin/sh",
+     "-c",
+     "echo $$ > /home/me/work/rnx-bench-w-0175d/results/range-iteration-0175/controls2/tmp/group.pid; printf held; sleep 30 & sleep 30"
+    ],
+    "status": -9,
+    "stdout": "held",
+    "stderr": "",
+    "timed_out": false,
+    "interrupted": true,
+    "reaped": true,
+    "group_survivors": []
+   }
+  },
+  "seconds": 1.2727178260684013
+ },
+ "R3-changed-binary-refused-before-any-phase": {
+  "pass": true,
+  "detail": {
+   "stop": "Stop(('manifest mismatch: refusing before any phase', [('binary', 'cand-primary'), ('build receipt content',)]))",
+   "files": [
+    "refused.json"
+   ],
+   "refused": {
+    "manifest": "/home/me/work/rnx-bench-w-0175d/results/range-iteration-0175/controls2/tmp/tampered.json",
+    "mismatches": [
+     [
+      "binary",
+      "cand-primary"
+     ],
+     [
+      "build receipt content"
+     ]
+    ]
+   }
+  },
+  "seconds": 0.0517369641456753
+ },
+ "R3-changed-fixture-refused": {
+  "pass": true,
+  "detail": {
+   "stop": "Stop(('manifest mismatch: refusing before any phase', [('inputs', ['range/range_signed.rn'])]))"
+  },
+  "seconds": 0.03940297686494887
+ },
+ "R1-later-phases-do-not-begin": {
+  "pass": true,
+  "detail": {
+   "stop": "Stop(('injected', 'start'))",
+   "phases": [
+    "rehearsal",
+    "controls-start"
+   ]
+  },
+  "seconds": 0.4378320840187371
+ },
+ "R4-allocation-qualification": {
+  "pass": true,
+  "detail": {
+   "changed-context": "Stop(('allocation', [('context delta is not exactly +1', 2), ('context allocation calls rose', 2), ('manual-next allocations changed', 1)]))",
+   "floor-rise": "Stop(('allocation', [('floor delta is not exactly 0', 1)]))",
+   "empty-context-rise": "Stop(('allocation', [('empty-context delta is not exactly 0', 1)]))",
+   "unrelated-rise": "Stop(('allocation', [('run-fib allocation calls rose', 2)]))",
+   "manual-next-drop": "Stop(('allocation', [('manual-next allocations changed', -5)]))",
+   "context-zero": "Stop(('allocation', [('context delta is not exactly +1', 0), ('manual-next allocations changed', 1)]))"
+  },
+  "seconds": 0.0007136350031942129
+ }
+}

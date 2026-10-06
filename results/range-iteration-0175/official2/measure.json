@@ -1,0 +1,873 @@
+{
+ "started": 1791245195.2768807,
+ "load_before": "0.14",
+ "env": {
+  "PATH": "/usr/bin:/bin",
+  "HOME": "/home/me",
+  "LANG": "C.UTF-8"
+ },
+ "manifest": {
+  "sources": {
+   "base": "eaa59fc208c136ead86f8c4fa565431ea18de88b",
+   "cand": "863370da279031b369ebb0ac1c0d80cd9ca159f6"
+  },
+  "production_parent": "3e7d4da9ce908eeb7e0e1ac119dec24f68d5449a",
+  "build_receipt": {
+   "path": "results/range-iteration-0175/rehearsal1/build/build.json",
+   "sha256": "813e52bb4cab0ae8261025623b055e44a3efc6fc819ba82a3c93ec0a84ca6859"
+  },
+  "binaries": {
+   "base-primary": "7a66b042e8656c4a0cbb4c4641b827c34c6f458bc1e442e87b556612d8d05014",
+   "base-counter": "09f50d367129669cdb17c6e8b64ce46090371307a16e0a5f29c0c0787f3710d2",
+   "base-allocation": "f714a18a841d8812fe54b928dd99b7262061f90b8d6892ba6cad6266fde54009",
+   "cand-primary": "ec6962fb7f917af29a84c77622bed5d4fb779b2e4628c972dbdc048435a6fa58",
+   "cand-counter": "a2bef1cb4d8b9222b1c524e905cd37907c51b5957945ecd10016a3a13675ead4",
+   "cand-allocation": "b1e0126e01bdaa1adedc5b3ae9533ca43a6dcaf18cf92066bba8fcaf4fd213eb"
+  },
+  "clock": {
+   "source_sha256": "27273482ba8f4143e46b5a7a4dbc2886de70c3f9a7671f652569ca395172e57e",
+   "sha256": "6607cef2f8785caef3aaf913dc3ade6fbc512bf51179b8ba87f65c3c788c80fa"
+  },
+  "rune_features": [
+   "alloc",
+   "anyhow",
+   "fmt",
+   "serde",
+   "std"
+  ],
+  "inventory": {
+   "golden_path": "crates/rune/src/compile/context_inventory.golden",
+   "golden_blob": "5a1f8458dcea47ed15ec378c432b34b38d917fbd",
+   "receipts": {
+    "base": {
+     "log": "results/range-iteration-0175/rehearsal1/build/suite-base-all-features.log",
+     "log_sha256": "2aa5a9d22a0cf1e9a7030cd379c34b1ecfe4b15f96cc2328b82108c1d9d66b74",
+     "tests_passed": {
+      "compile::context::inventory_tests::registered_inventory_matches_the_golden": true,
+      "compile::context::inventory_tests::inventory_comparison_detects_changes": true
+     }
+    },
+    "cand": {
+     "log": "results/range-iteration-0175/rehearsal1/build/suite-cand-all-features.log",
+     "log_sha256": "00529541e406ce1ccaac693319d6ebd4934b6a0ae27e07446fcc20233d577b1b",
+     "tests_passed": {
+      "compile::context::inventory_tests::registered_inventory_matches_the_golden": true,
+      "compile::context::inventory_tests::inventory_comparison_detects_changes": true
+     }
+    }
+   }
+  },
+  "inputs": {
+   "harness/Cargo.toml": "5ac77c46f47d8e3952e4e85629f2fb60d017bb111ec47c04b6b6fe4c7529992e",
+   "harness/Cargo.lock": "bf7cebc2ecb351c81f044864db9b03750697a9779cf1e88d6c93e495abc7b8d4",
+   "harness/src/main.rs": "baaed7f5ec8800e66ec516458466d48466a6342a1da17574bc0b5e117f1d547f",
+   "harness/src/registration.rs": "988476e9ad026b5881a7483499636449ab4e17327990099bd9998cc7d7f97787",
+   "harness.rs": "920183f259c86ef7c06694924c8bd405270065a6e969d8bf5f8969616d118396",
+   "alloc_track.rs": "4f058476c6a3e225199bc0fb8ea40aa026aa03dedfbefd843da6a6e42b00858c",
+   "plan_clock.rs": "27273482ba8f4143e46b5a7a4dbc2886de70c3f9a7671f652569ca395172e57e",
+   "SOURCES-fb56b1d.sha256": "fa9a7843625d7b05ff046a4b5a56830dc3d66c7031ba5a1a14fa7b5f666ac154",
+   "oracle.py": "6b427017bb2119a06a81c44332960bc4f586b90ff3c6b278de3d47ee6fb47479",
+   "corpus/answer.rn": "3d9d07a8a3d32f04f8ee70291ca7893a18a0b84527b365168707b404ccde601f",
+   "corpus/async.rn": "78d3f634050f25ef48b0a9afc4c3f27b3a18babaf964654a6a1e50509f47fb0f",
+   "corpus/budget.rn": "9856117c5d33d4a421ccbf5174b43ce7f5132743b8f9d00e90935eff54f155c5",
+   "corpus/closure.rn": "f69350d4f4504312268d2b89fb3f6e10cccb7f16466ef4feefe6f5de870771ee",
+   "corpus/collections.rn": "73e1b95641c4cbf1db42e4073c7febe5d5e31006f0cf5f72e085bc190ee99575",
+   "corpus/divide-zero.rn": "c0098f367450e418e16174e478113145a92cfd0ed1ddfe70520b02aece853269",
+   "corpus/empty.rn": "9741381970d221b1bc059e0f0a55e1d66a76916ed27212972737a11261b1094c",
+   "corpus/expression-100.rn": "d76ad9a84626a13953bbdcb2bc96b4d54e7f1164f7120c69a8a58aed4e479841",
+   "corpus/expression-1000.rn": "e3583c139d33a9751c0550e755d2a61827c8d6753ec1c848f9dfa3b17a1b7fd0",
+   "corpus/expression-10000.rn": "0618fdcba71dd42ab2c126426c0138d249c3fdf46ce1256ce67ad260b4eafb5c",
+   "corpus/fib.rn": "b85d1cfeab32c65900f29f747761135f0340dac9303b99edaee3326aa82bd6db",
+   "corpus/floats.rn": "e7e18651f3044eede490b0d5dcd9802d0576fb32211f3bdf326cd93348a7d5be",
+   "corpus/int-boundaries.rn": "b0023db84fd512c710064add130112bb87bed9a6029d662bc69c1054e25b751c",
+   "corpus/iterator-trait.rn": "52660e527b812e649f30b23bd7860f8149495b39c3f4e29d863c8a9e04c84c27",
+   "corpus/literal-100.rn": "5be41cd0bb9792d9356dd827c9c18da83d4c410df6f3fdac990c0e4d61301fc8",
+   "corpus/literal-1000.rn": "d6c6924c2d9914275ed9fbeadfe4622fbbbb4a1b603bffc7f47c54f1cfa39395",
+   "corpus/literal-10000.rn": "34ebac3cf099af2189ef913f717726394833aedabdedc4d62c1614171be58158",
+   "corpus/numeric.rn": "ff53f597a3e317c2c37d105882abc878ac9d223450ef33ee9bea8e6cdfc5dcee",
+   "corpus/object-alias.rn": "f80548741482e3d9443c3b6781c8ab131a41003b9652da02c3fc47b7453f2d1f",
+   "corpus/overflow.rn": "e28de80d24f96485425d09a80b27757ecfe332dfa17a1c59b29b9a7986e9d1f6",
+   "corpus/recursion-10000.rn": "3f50d70bc3373fedf0a371b6f14f15432a3a0a4b4639bcddc0457f1fd3fdb738",
+   "corpus/recursion-100000.rn": "f34f0caf9ca3c4b67265084424fc372c67d0ccd8b342a216f0be038d93daf2b8",
+   "corpus/recursion-1000000.rn": "795df81211bdf0619522803e2b17c8c5acf87247613ecee318a9df63e5839cf3",
+   "corpus/strings.rn": "7001e9c8318064da4c15dc98144d2c8b7020bdbbe232423cafcd634ce5981f88",
+   "corpus/sum-untyped.rn": "7755160c7e74235e7da6a58b79a551865ee1f30e14af10a081b7abc9235690b6",
+   "corpus/undefined.rn": "5ad32dd414009590900b8ca91c8d78aac367d323afdbe5751bec5deeb986f044",
+   "corpus/unicode.rn": "0867e9846b5593c6e7f4bb380958b23ee71ec1c83bece242b26a0a32a27877c1",
+   "corpus/vec-alias.rn": "46d96472dcdf4155f9495f8eb6c5303963e8ade5156d3ae4d04300bed15d01b9",
+   "fixtures/calls.rn": "18d3f41d64307a08044964bd8e2f3cf7353c484057f03a09d6e96fb64632d584",
+   "fixtures/compare.rn": "d2898d6231ca58f863b7583244e5d4f9efc56f61dc9918a53836ede9bc5f29ac",
+   "fixtures/overwrite_alias.rn": "c5949059af446e086b9538f0e7be3d759b8e5e8232b1607cda7702f7ed1025e1",
+   "fixtures/overwrite_deep.rn": "dd0593945d4ec34a9beddd2d1cb3cc8c6fd28530f6a4038738b3b4768b5cdf8f",
+   "fixtures/overwrite_inline.rn": "fcd3a8cfd4ac791071a3b9ceecb1fd94bd02b6e146970cc4dc59a31a433711ae",
+   "fixtures/overwrite_mixed.rn": "85c360b1a084459070fb6014ba1c97af802b1694dfb05e202d962a2506a75dfb",
+   "fixtures/vector.rn": "4bf3713025339c9d0463fa65555e407f4dd5a5a2a03c16d48e82083f4dfd8edd",
+   "fixtures/while.rn": "9054fbf649cd2d17037c055e029e24f251f9bf933d78ae3e94cc39717919de50",
+   "range/manual_next.rn": "cde3ded3b60ad98352a2eeb84e55396c69175ae80af8e2a09177ee14c61dcc03",
+   "range/range_negative.rn": "181685064a296c26bc3c0222887a5f583b2cd7088a233e42f1b84bfc352a3e64",
+   "range/range_signed.rn": "9c95179ed778f062e6fd6c925bb98ebcac886995150eb18fa73df975dbe96ac9",
+   "range/range_while.rn": "386d627752944841db83513dabb0f71be9c95e92d1e043780a1421704dbdeb22",
+   "lua/numeric.lua": "33a166acf68acdc108ebb1f0ba0d50b972584bf85d392b3b6e2a0bb74120597d",
+   "lua/while.lua": "864424af5d37ef9137bc8608d3f9ee8bcf34acb90ef421c26a40d507843ed796"
+  },
+  "lua": {
+   "lua54": {
+    "path": "/home/me/.local/bin/lua54",
+    "sha256": "cfb2dc058fa441a527d9a84cc084f09828fcd48cddb757caf64caa21c935f6ec"
+   },
+   "luajit": {
+    "path": "/home/me/.local/bin/luajit",
+    "sha256": "a1ff02fbce1ed98f3e384e560158a456ffc26d43badac7a31e424af616c68320"
+   }
+  }
+ },
+ "manifest_sha256": "c9bab88e6ae5a4bde218969927d89af75de41a9f6cf96429b8cdbd4bf634ebec",
+ "rehearsal_mode": false,
+ "rehearsal": {
+  "files": [
+   "rehearsal/command.log",
+   "rehearsal/commands.jsonl",
+   "rehearsal/raw.jsonl",
+   "rehearsal/rehearsal.tar.xz",
+   "rehearsal/result.json",
+   "rehearsal/sentinel-scan.json"
+  ],
+  "occurrences": 0
+ },
+ "controls_start": [
+  {
+   "kind": "affinity-control",
+   "label": "start",
+   "index": 0,
+   "argv": [
+    "perf",
+    "stat",
+    "--",
+    "/usr/bin/grep",
+    "Cpus_allowed_list",
+    "/proc/self/status"
+   ],
+   "status": 0,
+   "stdout": "Cpus_allowed_list:\t4\n",
+   "stderr": "\n Performance counter stats for '/usr/bin/grep Cpus_allowed_list /proc/self/status':\n\n                 0      context-switches:u               #      0.0 cs/sec  cs_per_second     \n                 0      cpu-migrations:u                 #      0.0 migrations/sec  migrations_per_second\n                96      page-faults:u                    # 195563.6 faults/sec  page_faults_per_second\n              0.49 msec task-clock:u                     #      0.2 CPUs  CPUs_utilized       \n              6010      cpu_core/branch-misses/u         #      5.3 %  branch_miss_rate       \n            113322      cpu_core/branches/u              #    230.9 M/sec  branch_frequency   \n            660046      cpu_core/cpu-cycles/u            #      1.3 GHz  cycles_frequency     \n            550780      cpu_core/instructions/u          #      0.8 instructions  insn_per_cycle\n     <not counted>      cpu_atom/branch-misses/u         #      nan %  branch_miss_rate         (0.00%)\n     <not counted>      cpu_atom/branches/u              #      nan M/sec  branch_frequency     (0.00%)\n     <not counted>      cpu_atom/cpu-cycles/u            #      nan GHz  cycles_frequency       (0.00%)\n     <not counted>      cpu_atom/instructions/u          #      nan instructions  insn_per_cycle  (0.00%)\n             TopdownL1 (cpu_core)                        #     17.1 %  tma_bad_speculation    \n                                                         #     48.2 %  tma_frontend_bound     \n                                                         #     19.5 %  tma_backend_bound      \n                                                         #     15.2 %  tma_retiring           \n             TopdownL1 (cpu_atom)                        #      nan %  tma_backend_bound        (0.00%)\n                                                         #      nan %  tma_frontend_bound       (0.00%)\n                                                         #      nan %  tma_bad_speculation    \n                                                         #      nan %  tma_retiring             (0.00%)\n\n       0.000001028 seconds time elapsed\n\n       0.000000000 seconds user\n       0.000000000 seconds sys\n\n\n",
+   "timed_out": false,
+   "interrupted": false,
+   "reaped": true,
+   "group_survivors": [],
+   "controller_affinity": [
+    4
+   ],
+   "env": {
+    "PATH": "/usr/bin:/bin",
+    "HOME": "/home/me",
+    "LANG": "C.UTF-8"
+   },
+   "cwd": "/home/me/work/rnx-bench-w-0175d/probes/range-iteration-0175"
+  },
+  {
+   "kind": "affinity-control",
+   "label": "start",
+   "index": 1,
+   "argv": [
+    "perf",
+    "stat",
+    "--",
+    "/usr/bin/grep",
+    "Cpus_allowed_list",
+    "/proc/self/status"
+   ],
+   "status": 0,
+   "stdout": "Cpus_allowed_list:\t4\n",
+   "stderr": "\n Performance counter stats for '/usr/bin/grep Cpus_allowed_list /proc/self/status':\n\n                 0      context-switches:u               #      0.0 cs/sec  cs_per_second     \n                 0      cpu-migrations:u                 #      0.0 migrations/sec  migrations_per_second\n                97      page-faults:u                    # 214860.8 faults/sec  page_faults_per_second\n              0.45 msec task-clock:u                     #      0.2 CPUs  CPUs_utilized       \n              5952      cpu_core/branch-misses/u         #      5.2 %  branch_miss_rate       \n            113566      cpu_core/branches/u              #    251.6 M/sec  branch_frequency   \n            608837      cpu_core/cpu-cycles/u            #      1.3 GHz  cycles_frequency     \n            551816      cpu_core/instructions/u          #      0.9 instructions  insn_per_cycle\n     <not counted>      cpu_atom/branch-misses/u         #      nan %  branch_miss_rate         (0.00%)\n     <not counted>      cpu_atom/branches/u              #      nan M/sec  branch_frequency     (0.00%)\n     <not counted>      cpu_atom/cpu-cycles/u            #      nan GHz  cycles_frequency       (0.00%)\n     <not counted>      cpu_atom/instructions/u          #      nan instructions  insn_per_cycle  (0.00%)\n             TopdownL1 (cpu_core)                        #     17.7 %  tma_bad_speculation    \n                                                         #     47.8 %  tma_frontend_bound     \n                                                         #     17.8 %  tma_backend_bound      \n                                                         #     16.7 %  tma_retiring           \n             TopdownL1 (cpu_atom)                        #      nan %  tma_backend_bound        (0.00%)\n                                                         #      nan %  tma_frontend_bound       (0.00%)\n                                                         #      nan %  tma_bad_speculation    \n                                                         #      nan %  tma_retiring             (0.00%)\n\n       0.000019270 seconds time elapsed\n\n       0.000765000 seconds user\n       0.000000000 seconds sys\n\n\n",
+   "timed_out": false,
+   "interrupted": false,
+   "reaped": true,
+   "group_survivors": [],
+   "controller_affinity": [
+    4
+   ],
+   "env": {
+    "PATH": "/usr/bin:/bin",
+    "HOME": "/home/me",
+    "LANG": "C.UTF-8"
+   },
+   "cwd": "/home/me/work/rnx-bench-w-0175d/probes/range-iteration-0175"
+  },
+  {
+   "kind": "affinity-control",
+   "label": "start",
+   "index": 2,
+   "argv": [
+    "perf",
+    "stat",
+    "--",
+    "/usr/bin/grep",
+    "Cpus_allowed_list",
+    "/proc/self/status"
+   ],
+   "status": 0,
+   "stdout": "Cpus_allowed_list:\t4\n",
+   "stderr": "\n Performance counter stats for '/usr/bin/grep Cpus_allowed_list /proc/self/status':\n\n                 0      context-switches:u               #      0.0 cs/sec  cs_per_second     \n                 0      cpu-migrations:u                 #      0.0 migrations/sec  migrations_per_second\n                98      page-faults:u                    # 220468.0 faults/sec  page_faults_per_second\n              0.44 msec task-clock:u                     #      0.2 CPUs  CPUs_utilized       \n              6099      cpu_core/branch-misses/u         #      5.4 %  branch_miss_rate       \n            113486      cpu_core/branches/u              #    255.3 M/sec  branch_frequency   \n            587577      cpu_core/cpu-cycles/u            #      1.3 GHz  cycles_frequency     \n            551610      cpu_core/instructions/u          #      0.9 instructions  insn_per_cycle\n     <not counted>      cpu_atom/branch-misses/u         #      nan %  branch_miss_rate         (0.00%)\n     <not counted>      cpu_atom/branches/u              #      nan M/sec  branch_frequency     (0.00%)\n     <not counted>      cpu_atom/cpu-cycles/u            #      nan GHz  cycles_frequency       (0.00%)\n     <not counted>      cpu_atom/instructions/u          #      nan instructions  insn_per_cycle  (0.00%)\n             TopdownL1 (cpu_core)                        #     18.6 %  tma_bad_speculation    \n                                                         #     48.4 %  tma_frontend_bound     \n                                                         #     16.0 %  tma_backend_bound      \n                                                         #     17.1 %  tma_retiring           \n             TopdownL1 (cpu_atom)                        #      nan %  tma_backend_bound        (0.00%)\n                                                         #      nan %  tma_frontend_bound       (0.00%)\n                                                         #      nan %  tma_bad_speculation    \n                                                         #      nan %  tma_retiring             (0.00%)\n\n       0.000001089 seconds time elapsed\n\n       0.000000000 seconds user\n       0.000000000 seconds sys\n\n\n",
+   "timed_out": false,
+   "interrupted": false,
+   "reaped": true,
+   "group_survivors": [],
+   "controller_affinity": [
+    4
+   ],
+   "env": {
+    "PATH": "/usr/bin:/bin",
+    "HOME": "/home/me",
+    "LANG": "C.UTF-8"
+   },
+   "cwd": "/home/me/work/rnx-bench-w-0175d/probes/range-iteration-0175"
+  },
+  {
+   "kind": "affinity-control",
+   "label": "start",
+   "index": 3,
+   "argv": [
+    "perf",
+    "stat",
+    "--",
+    "/usr/bin/grep",
+    "Cpus_allowed_list",
+    "/proc/self/status"
+   ],
+   "status": 0,
+   "stdout": "Cpus_allowed_list:\t4\n",
+   "stderr": "\n Performance counter stats for '/usr/bin/grep Cpus_allowed_list /proc/self/status':\n\n                 0      context-switches:u               #      0.0 cs/sec  cs_per_second     \n                 0      cpu-migrations:u                 #      0.0 migrations/sec  migrations_per_second\n                97      page-faults:u                    # 202942.9 faults/sec  page_faults_per_second\n              0.48 msec task-clock:u                     #      0.2 CPUs  CPUs_utilized       \n              5961      cpu_core/branch-misses/u         #      5.3 %  branch_miss_rate       \n            113038      cpu_core/branches/u              #    236.5 M/sec  branch_frequency   \n            620502      cpu_core/cpu-cycles/u            #      1.3 GHz  cycles_frequency     \n            550021      cpu_core/instructions/u          #      0.9 instructions  insn_per_cycle\n     <not counted>      cpu_atom/branch-misses/u         #      nan %  branch_miss_rate         (0.00%)\n     <not counted>      cpu_atom/branches/u              #      nan M/sec  branch_frequency     (0.00%)\n     <not counted>      cpu_atom/cpu-cycles/u            #      nan GHz  cycles_frequency       (0.00%)\n     <not counted>      cpu_atom/instructions/u          #      nan instructions  insn_per_cycle  (0.00%)\n             TopdownL1 (cpu_core)                        #     18.7 %  tma_bad_speculation    \n                                                         #     47.6 %  tma_frontend_bound     \n                                                         #     16.9 %  tma_backend_bound      \n                                                         #     16.9 %  tma_retiring           \n             TopdownL1 (cpu_atom)                        #      nan %  tma_backend_bound        (0.00%)\n                                                         #      nan %  tma_frontend_bound       (0.00%)\n                                                         #      nan %  tma_bad_speculation    \n                                                         #      nan %  tma_retiring             (0.00%)\n\n       0.000017038 seconds time elapsed\n\n       0.000828000 seconds user\n       0.000000000 seconds sys\n\n\n",
+   "timed_out": false,
+   "interrupted": false,
+   "reaped": true,
+   "group_survivors": [],
+   "controller_affinity": [
+    4
+   ],
+   "env": {
+    "PATH": "/usr/bin:/bin",
+    "HOME": "/home/me",
+    "LANG": "C.UTF-8"
+   },
+   "cwd": "/home/me/work/rnx-bench-w-0175d/probes/range-iteration-0175"
+  },
+  {
+   "kind": "affinity-control",
+   "label": "start",
+   "index": 4,
+   "argv": [
+    "perf",
+    "stat",
+    "--",
+    "/usr/bin/grep",
+    "Cpus_allowed_list",
+    "/proc/self/status"
+   ],
+   "status": 0,
+   "stdout": "Cpus_allowed_list:\t4\n",
+   "stderr": "\n Performance counter stats for '/usr/bin/grep Cpus_allowed_list /proc/self/status':\n\n                 0      context-switches:u               #      0.0 cs/sec  cs_per_second     \n                 0      cpu-migrations:u                 #      0.0 migrations/sec  migrations_per_second\n                96      page-faults:u                    # 216329.7 faults/sec  page_faults_per_second\n              0.44 msec task-clock:u                     #      0.2 CPUs  CPUs_utilized       \n              6101      cpu_core/branch-misses/u         #      5.4 %  branch_miss_rate       \n            114006      cpu_core/branches/u              #    256.9 M/sec  branch_frequency   \n            581444      cpu_core/cpu-cycles/u            #      1.3 GHz  cycles_frequency     \n            552682      cpu_core/instructions/u          #      1.0 instructions  insn_per_cycle\n     <not counted>      cpu_atom/branch-misses/u         #      nan %  branch_miss_rate         (0.00%)\n     <not counted>      cpu_atom/branches/u              #      nan M/sec  branch_frequency     (0.00%)\n     <not counted>      cpu_atom/cpu-cycles/u            #      nan GHz  cycles_frequency       (0.00%)\n     <not counted>      cpu_atom/instructions/u          #      nan instructions  insn_per_cycle  (0.00%)\n             TopdownL1 (cpu_core)                        #     18.9 %  tma_bad_speculation    \n                                                         #     47.4 %  tma_frontend_bound     \n                                                         #     16.3 %  tma_backend_bound      \n                                                         #     17.4 %  tma_retiring           \n             TopdownL1 (cpu_atom)                        #      nan %  tma_backend_bound        (0.00%)\n                                                         #      nan %  tma_frontend_bound       (0.00%)\n                                                         #      nan %  tma_bad_speculation    \n                                                         #      nan %  tma_retiring             (0.00%)\n\n       0.000001078 seconds time elapsed\n\n       0.000000000 seconds user\n       0.000000000 seconds sys\n\n\n",
+   "timed_out": false,
+   "interrupted": false,
+   "reaped": true,
+   "group_survivors": [],
+   "controller_affinity": [
+    4
+   ],
+   "env": {
+    "PATH": "/usr/bin:/bin",
+    "HOME": "/home/me",
+    "LANG": "C.UTF-8"
+   },
+   "cwd": "/home/me/work/rnx-bench-w-0175d/probes/range-iteration-0175"
+  }
+ ],
+ "correctness": {
+  "checked": 40,
+  "all_identical": true
+ },
+ "allocation": {
+  "context_delta": 1,
+  "numeric_calls": [
+   1036660,
+   36661
+  ],
+  "budget_variants": {
+   "numeric-budget-zero": [
+    36659,
+    36660,
+    1
+   ],
+   "numeric-budget-default": [
+    1036660,
+    36661,
+    0
+   ],
+   "numeric-budget-unlimited": [
+    1036661,
+    36662,
+    0
+   ],
+   "numeric-budget-tight": [
+    36773,
+    36664,
+    1
+   ]
+  }
+ },
+ "calibration": {
+  "true": {
+   "native_ms": 0.2270985,
+   "hyperfine_pipe_ms": 0.236299,
+   "difference_ms": -0.0092005
+  },
+  "floor": {
+   "native_ms": 0.456198,
+   "hyperfine_pipe_ms": 0.4589980000000001,
+   "difference_ms": -0.00280000000000008
+  }
+ },
+ "lua_reference": {
+  "lua54-numeric": {
+   "ms": [
+    6.523774,
+    6.377995,
+    6.282576,
+    6.462881,
+    6.31171,
+    6.418353,
+    6.363851,
+    6.301439,
+    6.287847,
+    6.30924,
+    10.026953,
+    8.905752,
+    9.834391,
+    10.30359,
+    10.298453,
+    6.268012,
+    6.236307,
+    6.329725,
+    6.511403,
+    6.365328,
+    6.607802,
+    6.483849,
+    6.76169,
+    6.333745,
+    6.301113,
+    6.603922,
+    6.464155,
+    6.42613,
+    6.520023,
+    6.308132
+   ],
+   "median_ms": 6.4222415
+  },
+  "lua54-while": {
+   "ms": [
+    9.932049,
+    10.042224,
+    9.764041,
+    9.706232,
+    10.206408,
+    9.660456,
+    9.581858,
+    9.677103,
+    9.563956,
+    9.682791,
+    9.632555,
+    9.632678,
+    9.526093,
+    9.750971,
+    9.665018,
+    9.69295,
+    9.556658,
+    9.568422,
+    9.686058,
+    9.447554,
+    9.650379,
+    9.597161,
+    9.580455,
+    9.541762,
+    9.518226,
+    9.57478,
+    9.612723,
+    9.495586,
+    9.717534,
+    9.672089
+   ],
+   "median_ms": 9.6415285
+  },
+  "luajit-numeric": {
+   "ms": [
+    8.333609,
+    8.288573,
+    8.26898,
+    8.28672,
+    8.262317,
+    8.36355,
+    8.276365,
+    8.270965,
+    8.245041,
+    8.275758,
+    8.425765,
+    8.266257,
+    8.272522,
+    8.274701,
+    8.24396,
+    8.355952,
+    8.285491,
+    8.271767,
+    8.27702,
+    8.273986,
+    8.406528,
+    8.282787,
+    8.277522,
+    8.275235,
+    8.284304,
+    8.383724,
+    8.312738,
+    8.267347,
+    8.269396,
+    8.266575
+   ],
+   "median_ms": 8.2760615
+  },
+  "luajit-while": {
+   "ms": [
+    8.599899,
+    8.333494,
+    8.283617,
+    8.293135,
+    8.265624,
+    8.521975,
+    8.293074,
+    8.262415,
+    8.275657,
+    8.278593,
+    8.384178,
+    8.273022,
+    8.278513,
+    8.279177,
+    8.291624,
+    8.416353,
+    8.298685,
+    8.258155,
+    8.288461,
+    8.288199,
+    8.407706,
+    8.278321,
+    8.289931,
+    8.289746,
+    8.271638,
+    8.437594,
+    8.310234,
+    8.279614,
+    8.279335,
+    8.276546
+   ],
+   "median_ms": 8.28833
+  }
+ },
+ "controls_end": [
+  {
+   "kind": "affinity-control",
+   "label": "end",
+   "index": 0,
+   "argv": [
+    "perf",
+    "stat",
+    "--",
+    "/usr/bin/grep",
+    "Cpus_allowed_list",
+    "/proc/self/status"
+   ],
+   "status": 0,
+   "stdout": "Cpus_allowed_list:\t4\n",
+   "stderr": "\n Performance counter stats for '/usr/bin/grep Cpus_allowed_list /proc/self/status':\n\n                 0      context-switches:u               #      0.0 cs/sec  cs_per_second     \n                 0      cpu-migrations:u                 #      0.0 migrations/sec  migrations_per_second\n                96      page-faults:u                    # 204052.1 faults/sec  page_faults_per_second\n              0.47 msec task-clock:u                     #      0.2 CPUs  CPUs_utilized       \n              5942      cpu_core/branch-misses/u         #      5.2 %  branch_miss_rate       \n            113361      cpu_core/branches/u              #    241.0 M/sec  branch_frequency   \n            632618      cpu_core/cpu-cycles/u            #      1.3 GHz  cycles_frequency     \n            550881      cpu_core/instructions/u          #      0.9 instructions  insn_per_cycle\n     <not counted>      cpu_atom/branch-misses/u         #      nan %  branch_miss_rate         (0.00%)\n     <not counted>      cpu_atom/branches/u              #      nan M/sec  branch_frequency     (0.00%)\n     <not counted>      cpu_atom/cpu-cycles/u            #      nan GHz  cycles_frequency       (0.00%)\n     <not counted>      cpu_atom/instructions/u          #      nan instructions  insn_per_cycle  (0.00%)\n             TopdownL1 (cpu_core)                        #     17.0 %  tma_bad_speculation    \n                                                         #     44.9 %  tma_frontend_bound     \n                                                         #     22.2 %  tma_backend_bound      \n                                                         #     16.0 %  tma_retiring           \n             TopdownL1 (cpu_atom)                        #      nan %  tma_backend_bound        (0.00%)\n                                                         #      nan %  tma_frontend_bound       (0.00%)\n                                                         #      nan %  tma_bad_speculation    \n                                                         #      nan %  tma_retiring             (0.00%)\n\n       0.000001096 seconds time elapsed\n\n       0.000000000 seconds user\n       0.000000000 seconds sys\n\n\n",
+   "timed_out": false,
+   "interrupted": false,
+   "reaped": true,
+   "group_survivors": [],
+   "controller_affinity": [
+    4
+   ],
+   "env": {
+    "PATH": "/usr/bin:/bin",
+    "HOME": "/home/me",
+    "LANG": "C.UTF-8"
+   },
+   "cwd": "/home/me/work/rnx-bench-w-0175d/probes/range-iteration-0175"
+  },
+  {
+   "kind": "affinity-control",
+   "label": "end",
+   "index": 1,
+   "argv": [
+    "perf",
+    "stat",
+    "--",
+    "/usr/bin/grep",
+    "Cpus_allowed_list",
+    "/proc/self/status"
+   ],
+   "status": 0,
+   "stdout": "Cpus_allowed_list:\t4\n",
+   "stderr": "\n Performance counter stats for '/usr/bin/grep Cpus_allowed_list /proc/self/status':\n\n                 0      context-switches:u               #      0.0 cs/sec  cs_per_second     \n                 0      cpu-migrations:u                 #      0.0 migrations/sec  migrations_per_second\n                97      page-faults:u                    # 209302.1 faults/sec  page_faults_per_second\n              0.46 msec task-clock:u                     #      0.2 CPUs  CPUs_utilized       \n              5949      cpu_core/branch-misses/u         #      5.2 %  branch_miss_rate       \n            113585      cpu_core/branches/u              #    245.1 M/sec  branch_frequency   \n            600198      cpu_core/cpu-cycles/u            #      1.3 GHz  cycles_frequency     \n            551481      cpu_core/instructions/u          #      0.9 instructions  insn_per_cycle\n     <not counted>      cpu_atom/branch-misses/u         #      nan %  branch_miss_rate         (0.00%)\n     <not counted>      cpu_atom/branches/u              #      nan M/sec  branch_frequency     (0.00%)\n     <not counted>      cpu_atom/cpu-cycles/u            #      nan GHz  cycles_frequency       (0.00%)\n     <not counted>      cpu_atom/instructions/u          #      nan instructions  insn_per_cycle  (0.00%)\n             TopdownL1 (cpu_core)                        #     18.1 %  tma_bad_speculation    \n                                                         #     48.2 %  tma_frontend_bound     \n                                                         #     17.1 %  tma_backend_bound      \n                                                         #     16.7 %  tma_retiring           \n             TopdownL1 (cpu_atom)                        #      nan %  tma_backend_bound        (0.00%)\n                                                         #      nan %  tma_frontend_bound       (0.00%)\n                                                         #      nan %  tma_bad_speculation    \n                                                         #      nan %  tma_retiring             (0.00%)\n\n       0.000784325 seconds time elapsed\n\n       0.000804000 seconds user\n       0.000000000 seconds sys\n\n\n",
+   "timed_out": false,
+   "interrupted": false,
+   "reaped": true,
+   "group_survivors": [],
+   "controller_affinity": [
+    4
+   ],
+   "env": {
+    "PATH": "/usr/bin:/bin",
+    "HOME": "/home/me",
+    "LANG": "C.UTF-8"
+   },
+   "cwd": "/home/me/work/rnx-bench-w-0175d/probes/range-iteration-0175"
+  },
+  {
+   "kind": "affinity-control",
+   "label": "end",
+   "index": 2,
+   "argv": [
+    "perf",
+    "stat",
+    "--",
+    "/usr/bin/grep",
+    "Cpus_allowed_list",
+    "/proc/self/status"
+   ],
+   "status": 0,
+   "stdout": "Cpus_allowed_list:\t4\n",
+   "stderr": "\n Performance counter stats for '/usr/bin/grep Cpus_allowed_list /proc/self/status':\n\n                 0      context-switches:u               #      0.0 cs/sec  cs_per_second     \n                 0      cpu-migrations:u                 #      0.0 migrations/sec  migrations_per_second\n                96      page-faults:u                    # 208506.2 faults/sec  page_faults_per_second\n              0.46 msec task-clock:u                     #      0.2 CPUs  CPUs_utilized       \n              5942      cpu_core/branch-misses/u         #      5.2 %  branch_miss_rate       \n            113463      cpu_core/branches/u              #    246.4 M/sec  branch_frequency   \n            597312      cpu_core/cpu-cycles/u            #      1.3 GHz  cycles_frequency     \n            551162      cpu_core/instructions/u          #      0.9 instructions  insn_per_cycle\n     <not counted>      cpu_atom/branch-misses/u         #      nan %  branch_miss_rate         (0.00%)\n     <not counted>      cpu_atom/branches/u              #      nan M/sec  branch_frequency     (0.00%)\n     <not counted>      cpu_atom/cpu-cycles/u            #      nan GHz  cycles_frequency       (0.00%)\n     <not counted>      cpu_atom/instructions/u          #      nan instructions  insn_per_cycle  (0.00%)\n             TopdownL1 (cpu_core)                        #     18.6 %  tma_bad_speculation    \n                                                         #     47.2 %  tma_frontend_bound     \n                                                         #     17.5 %  tma_backend_bound      \n                                                         #     16.7 %  tma_retiring           \n             TopdownL1 (cpu_atom)                        #      nan %  tma_backend_bound        (0.00%)\n                                                         #      nan %  tma_frontend_bound       (0.00%)\n                                                         #      nan %  tma_bad_speculation    \n                                                         #      nan %  tma_retiring             (0.00%)\n\n       0.000001088 seconds time elapsed\n\n       0.000000000 seconds user\n       0.000000000 seconds sys\n\n\n",
+   "timed_out": false,
+   "interrupted": false,
+   "reaped": true,
+   "group_survivors": [],
+   "controller_affinity": [
+    4
+   ],
+   "env": {
+    "PATH": "/usr/bin:/bin",
+    "HOME": "/home/me",
+    "LANG": "C.UTF-8"
+   },
+   "cwd": "/home/me/work/rnx-bench-w-0175d/probes/range-iteration-0175"
+  },
+  {
+   "kind": "affinity-control",
+   "label": "end",
+   "index": 3,
+   "argv": [
+    "perf",
+    "stat",
+    "--",
+    "/usr/bin/grep",
+    "Cpus_allowed_list",
+    "/proc/self/status"
+   ],
+   "status": 0,
+   "stdout": "Cpus_allowed_list:\t4\n",
+   "stderr": "\n Performance counter stats for '/usr/bin/grep Cpus_allowed_list /proc/self/status':\n\n                 0      context-switches:u               #      0.0 cs/sec  cs_per_second     \n                 0      cpu-migrations:u                 #      0.0 migrations/sec  migrations_per_second\n                97      page-faults:u                    # 211292.6 faults/sec  page_faults_per_second\n              0.46 msec task-clock:u                     #      0.2 CPUs  CPUs_utilized       \n              6133      cpu_core/branch-misses/u         #      5.4 %  branch_miss_rate       \n            113776      cpu_core/branches/u              #    247.8 M/sec  branch_frequency   \n            588373      cpu_core/cpu-cycles/u            #      1.3 GHz  cycles_frequency     \n            551986      cpu_core/instructions/u          #      0.9 instructions  insn_per_cycle\n     <not counted>      cpu_atom/branch-misses/u         #      nan %  branch_miss_rate         (0.00%)\n     <not counted>      cpu_atom/branches/u              #      nan M/sec  branch_frequency     (0.00%)\n     <not counted>      cpu_atom/cpu-cycles/u            #      nan GHz  cycles_frequency       (0.00%)\n     <not counted>      cpu_atom/instructions/u          #      nan instructions  insn_per_cycle  (0.00%)\n             TopdownL1 (cpu_core)                        #     18.6 %  tma_bad_speculation    \n                                                         #     48.4 %  tma_frontend_bound     \n                                                         #     16.0 %  tma_backend_bound      \n                                                         #     17.1 %  tma_retiring           \n             TopdownL1 (cpu_atom)                        #      nan %  tma_backend_bound        (0.00%)\n                                                         #      nan %  tma_frontend_bound       (0.00%)\n                                                         #      nan %  tma_bad_speculation    \n                                                         #      nan %  tma_retiring             (0.00%)\n\n       0.000001078 seconds time elapsed\n\n       0.000000000 seconds user\n       0.000000000 seconds sys\n\n\n",
+   "timed_out": false,
+   "interrupted": false,
+   "reaped": true,
+   "group_survivors": [],
+   "controller_affinity": [
+    4
+   ],
+   "env": {
+    "PATH": "/usr/bin:/bin",
+    "HOME": "/home/me",
+    "LANG": "C.UTF-8"
+   },
+   "cwd": "/home/me/work/rnx-bench-w-0175d/probes/range-iteration-0175"
+  },
+  {
+   "kind": "affinity-control",
+   "label": "end",
+   "index": 4,
+   "argv": [
+    "perf",
+    "stat",
+    "--",
+    "/usr/bin/grep",
+    "Cpus_allowed_list",
+    "/proc/self/status"
+   ],
+   "status": 0,
+   "stdout": "Cpus_allowed_list:\t4\n",
+   "stderr": "\n Performance counter stats for '/usr/bin/grep Cpus_allowed_list /proc/self/status':\n\n                 0      context-switches:u               #      0.0 cs/sec  cs_per_second     \n                 0      cpu-migrations:u                 #      0.0 migrations/sec  migrations_per_second\n                97      page-faults:u                    # 201213.5 faults/sec  page_faults_per_second\n              0.48 msec task-clock:u                     #      0.2 CPUs  CPUs_utilized       \n              5966      cpu_core/branch-misses/u         #      5.2 %  branch_miss_rate       \n            113724      cpu_core/branches/u              #    235.9 M/sec  branch_frequency   \n            642158      cpu_core/cpu-cycles/u            #      1.3 GHz  cycles_frequency     \n            552263      cpu_core/instructions/u          #      0.9 instructions  insn_per_cycle\n     <not counted>      cpu_atom/branch-misses/u         #      nan %  branch_miss_rate         (0.00%)\n     <not counted>      cpu_atom/branches/u              #      nan M/sec  branch_frequency     (0.00%)\n     <not counted>      cpu_atom/cpu-cycles/u            #      nan GHz  cycles_frequency       (0.00%)\n     <not counted>      cpu_atom/instructions/u          #      nan instructions  insn_per_cycle  (0.00%)\n             TopdownL1 (cpu_core)                        #     17.0 %  tma_bad_speculation    \n                                                         #     48.0 %  tma_frontend_bound     \n                                                         #     19.1 %  tma_backend_bound      \n                                                         #     16.0 %  tma_retiring           \n             TopdownL1 (cpu_atom)                        #      nan %  tma_backend_bound        (0.00%)\n                                                         #      nan %  tma_frontend_bound       (0.00%)\n                                                         #      nan %  tma_bad_speculation    \n                                                         #      nan %  tma_retiring             (0.00%)\n\n       0.000001223 seconds time elapsed\n\n       0.000000000 seconds user\n       0.000000000 seconds sys\n\n\n",
+   "timed_out": false,
+   "interrupted": false,
+   "reaped": true,
+   "group_survivors": [],
+   "controller_affinity": [
+    4
+   ],
+   "env": {
+    "PATH": "/usr/bin:/bin",
+    "HOME": "/home/me",
+    "LANG": "C.UTF-8"
+   },
+   "cwd": "/home/me/work/rnx-bench-w-0175d/probes/range-iteration-0175"
+  }
+ ],
+ "ended": 1791245316.887985,
+ "load_after": "0.92",
+ "decision": {
+  "decision": "STOP",
+  "rows": {
+   "floor": {
+    "base_instr": 450218.5,
+    "cand_instr": 450446.0,
+    "instr_change": 0.0005053101993810483,
+    "base_wall_ms": 0.5063795,
+    "cand_wall_ms": 0.5141415,
+    "wall_change": 0.015328424630144166,
+    "base_wall_p10_p90_ms": 0.1692977999999999
+   },
+   "empty-context": {
+    "base_instr": 450620.5,
+    "cand_instr": 451151.5,
+    "instr_change": 0.001178375151596578,
+    "base_wall_ms": 0.5040365,
+    "cand_wall_ms": 0.5000845,
+    "wall_change": -0.007840702012651746,
+    "base_wall_p10_p90_ms": 0.1369884
+   },
+   "context": {
+    "base_instr": 26865667.5,
+    "cand_instr": 27426002.0,
+    "instr_change": 0.020856898493216258,
+    "base_wall_ms": 3.7284405,
+    "cand_wall_ms": 3.7479455,
+    "wall_change": 0.005231409754292704,
+    "base_wall_p10_p90_ms": 0.43151090000000014
+   },
+   "runtime": {
+    "base_instr": 28240668.0,
+    "cand_instr": 28750834.5,
+    "instr_change": 0.018064958661742736,
+    "base_wall_ms": 3.980688,
+    "cand_wall_ms": 4.000813,
+    "wall_change": 0.00505565872030167,
+    "base_wall_p10_p90_ms": 0.4491748000000002
+   },
+   "compile-answer": {
+    "base_instr": 29898480.5,
+    "cand_instr": 30358603.0,
+    "instr_change": 0.015389494459425723,
+    "base_wall_ms": 4.3709585,
+    "cand_wall_ms": 4.389972,
+    "wall_change": 0.004349961227039678,
+    "base_wall_p10_p90_ms": 0.5655008999999991
+   },
+   "run-answer": {
+    "base_instr": 29904684.5,
+    "cand_instr": 30365728.0,
+    "instr_change": 0.015417099618623364,
+    "base_wall_ms": 4.3913705,
+    "cand_wall_ms": 4.3672059999999995,
+    "wall_change": -0.00550272403569696,
+    "base_wall_p10_p90_ms": 0.5300741999999987
+   },
+   "run-empty": {
+    "base_instr": 28388110.0,
+    "cand_instr": 28898870.0,
+    "instr_change": 0.017992039625040146,
+    "base_wall_ms": 4.0476675,
+    "cand_wall_ms": 4.0966165,
+    "wall_change": 0.012093137590970526,
+    "base_wall_p10_p90_ms": 0.47766260000000127
+   },
+   "run-numeric": {
+    "base_instr": 1759086849.0,
+    "cand_instr": 1221547392.0,
+    "instr_change": -0.30557869118604275,
+    "base_wall_ms": 113.210153,
+    "cand_wall_ms": 67.769265,
+    "wall_change": -0.4013852715135894,
+    "base_wall_p10_p90_ms": 5.307579500000003
+   },
+   "run-fib": {
+    "base_instr": 833589796.0,
+    "cand_instr": 904922466.5,
+    "instr_change": 0.08557286910455408,
+    "base_wall_ms": 52.0133125,
+    "cand_wall_ms": 56.285249,
+    "wall_change": 0.08213159852105179,
+    "base_wall_p10_p90_ms": 1.117609399999992
+   },
+   "run-strings": {
+    "base_instr": 227835147.0,
+    "cand_instr": 207155995.0,
+    "instr_change": -0.09076366079725184,
+    "base_wall_ms": 18.444138000000002,
+    "cand_wall_ms": 16.7196005,
+    "wall_change": -0.0935005745456905,
+    "base_wall_p10_p90_ms": 1.040549200000001
+   },
+   "run-while": {
+    "base_instr": 1143104828.0,
+    "cand_instr": 1142565541.0,
+    "instr_change": -0.00047177388004171483,
+    "base_wall_ms": 69.38901200000001,
+    "cand_wall_ms": 69.2511595,
+    "wall_change": -0.001986661807492074,
+    "base_wall_p10_p90_ms": 0.9407850999999994
+   },
+   "run-compare": {
+    "base_instr": 1722542102.5,
+    "cand_instr": 1721541190.0,
+    "instr_change": -0.0005810670743823243,
+    "base_wall_ms": 106.560458,
+    "cand_wall_ms": 105.743861,
+    "wall_change": -0.007663227198216438,
+    "base_wall_p10_p90_ms": 1.501388200000008
+   },
+   "run-calls": {
+    "base_instr": 1780162374.0,
+    "cand_instr": 1850623353.5,
+    "instr_change": 0.03958120929254072,
+    "base_wall_ms": 94.89523700000001,
+    "cand_wall_ms": 99.5867065,
+    "wall_change": 0.04943840858946369,
+    "base_wall_p10_p90_ms": 1.6194021999999961
+   },
+   "run-vector": {
+    "base_instr": 1314402755.0,
+    "cand_instr": 1315463837.5,
+    "instr_change": 0.0008072734905366641,
+    "base_wall_ms": 84.03333749999999,
+    "cand_wall_ms": 82.35789700000001,
+    "wall_change": -0.01993780742077489,
+    "base_wall_p10_p90_ms": 1.6322549999999865
+   },
+   "run-overwrite_inline": {
+    "base_instr": 1142212833.0,
+    "cand_instr": 1108673329.5,
+    "instr_change": -0.02936361992353842,
+    "base_wall_ms": 68.274926,
+    "cand_wall_ms": 67.36653150000001,
+    "wall_change": -0.013304950341505806,
+    "base_wall_p10_p90_ms": 1.200182600000005
+   },
+   "run-overwrite_mixed": {
+    "base_instr": 748091380.5,
+    "cand_instr": 740752380.0,
+    "instr_change": -0.009810299505248699,
+    "base_wall_ms": 48.0884705,
+    "cand_wall_ms": 47.928135499999996,
+    "wall_change": -0.003334167178388525,
+    "base_wall_p10_p90_ms": 1.3844875999999928
+   },
+   "run-overwrite_deep": {
+    "base_instr": 254880931.5,
+    "cand_instr": 253442235.5,
+    "instr_change": -0.0056445807520127955,
+    "base_wall_ms": 21.420664000000002,
+    "cand_wall_ms": 20.728806,
+    "wall_change": -0.032298625290047234,
+    "base_wall_p10_p90_ms": 2.245158
+   },
+   "run-overwrite_alias": {
+    "base_instr": 30332483.5,
+    "cand_instr": 30793626.0,
+    "instr_change": 0.015202925932523703,
+    "base_wall_ms": 4.4255825,
+    "cand_wall_ms": 4.428796,
+    "wall_change": 0.0007261191040954795,
+    "base_wall_p10_p90_ms": 0.5216573999999987
+   },
+   "run-range_signed": {
+    "base_instr": 1437051286.5,
+    "cand_instr": 898511912.0,
+    "instr_change": -0.3747530652240225,
+    "base_wall_ms": 84.70307,
+    "cand_wall_ms": 42.3621105,
+    "wall_change": -0.49987514620190265,
+    "base_wall_p10_p90_ms": 5.0491817999999995
+   },
+   "run-range_negative": {
+    "base_instr": 1437053230.5,
+    "cand_instr": 898513919.0,
+    "instr_change": -0.3747525144302579,
+    "base_wall_ms": 84.890396,
+    "cand_wall_ms": 42.404016,
+    "wall_change": -0.5004851196594724,
+    "base_wall_p10_p90_ms": 5.331858000000011
+   },
+   "run-range_while": {
+    "base_instr": 937070320.5,
+    "cand_instr": 936530885.5,
+    "instr_change": -0.0005756611731253525,
+    "base_wall_ms": 49.3635945,
+    "cand_wall_ms": 50.3541335,
+    "wall_change": 0.020066184604931925,
+    "base_wall_p10_p90_ms": 1.1737024000000034
+   }
+  },
+  "regressions": [
+   [
+    "context",
+    "instructions",
+    0.020856898493216258
+   ],
+   [
+    "runtime",
+    "instructions",
+    0.018064958661742736
+   ],
+   [
+    "compile-answer",
+    "instructions",
+    0.015389494459425723
+   ],
+   [
+    "run-answer",
+    "instructions",
+    0.015417099618623364
+   ],
+   [
+    "run-empty",
+    "instructions",
+    0.017992039625040146
+   ],
+   [
+    "run-fib",
+    "instructions",
+    0.08557286910455408
+   ],
+   [
+    "run-fib",
+    "wall",
+    0.08213159852105179
+   ],
+   [
+    "run-calls",
+    "instructions",
+    0.03958120929254072
+   ],
+   [
+    "run-calls",
+    "wall",
+    0.04943840858946369
+   ],
+   [
+    "run-overwrite_alias",
+    "instructions",
+    0.015202925932523703
+   ]
+  ],
+  "disagreements": [],
+  "win_instr": {
+   "run-numeric": -0.30557869118604275,
+   "run-range_signed": -0.3747530652240225,
+   "run-range_negative": -0.3747525144302579
+  },
+  "win_alloc": -0.9646354638936585
+ }
+}
