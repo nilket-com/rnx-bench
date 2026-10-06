@@ -1,0 +1,41 @@
+{
+  "status": "PASS",
+  "commands": 51,
+  "runs": {
+    "base/context": 27355090,
+    "base/run-numeric": 1759601801,
+    "base/run-fib": 834108864,
+    "base/run-calls": 1780681434,
+    "prev/context": 27913369,
+    "prev/run-numeric": 1222060388,
+    "prev/run-fib": 905439300,
+    "prev/run-calls": 1851140086,
+    "cand/context": 27913423,
+    "cand/run-numeric": 1196060401,
+    "cand/run-fib": 899083137,
+    "cand/run-calls": 1838140120
+  },
+  "symbols": {
+    "base": {
+      "run_bytes": 102615,
+      "op_call_bytes": 2908,
+      "repr_drop_symbols": 22
+    },
+    "prev": {
+      "run_bytes": 100063,
+      "op_call_bytes": 2952,
+      "repr_drop_symbols": 22
+    },
+    "cand": {
+      "run_bytes": 99475,
+      "op_call_bytes": 2952,
+      "repr_drop_symbols": 22
+    }
+  },
+  "limits": [
+    "Ir is Callgrind instrumented events, not native PMU instructions.",
+    "Exclusive attribution may move across function boundaries.",
+    "Repr drop symbols exist in both base and candidate; absence from a thresholded table does not mean absent work.",
+    "No causal intervention identifies why the compiled code changed."
+  ]
+}
