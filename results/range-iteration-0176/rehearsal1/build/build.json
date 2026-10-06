@@ -1,0 +1,136 @@
+{
+ "rustc": "rustc 1.98.1 (48a229cea 2026-09-01)\nbinary: rustc\ncommit-hash: 48a229ceaefd4985c50990b14116b6d856af0985\ncommit-date: 2026-09-01\nhost: x86_64-unknown-linux-gnu\nrelease: 1.98.1\nLLVM version: 22.1.8\n",
+ "sources": {
+  "base": "eaa59fc208c136ead86f8c4fa565431ea18de88b",
+  "cand": "6f54bd32ee1038e3927ef384d1a914d8d5b36c4f"
+ },
+ "build_affinity": [
+  0,
+  1,
+  2,
+  3,
+  4,
+  5,
+  6,
+  7,
+  8,
+  9,
+  10,
+  11,
+  12,
+  13,
+  14,
+  15,
+  16,
+  17,
+  18,
+  19,
+  20,
+  21,
+  22,
+  23,
+  24,
+  25,
+  26,
+  27
+ ],
+ "suites": {
+  "base-all-features": {
+   "rev": "eaa59fc208c136ead86f8c4fa565431ea18de88b",
+   "status": 0,
+   "passed": 611,
+   "failed": 0,
+   "seconds": 138.40723820705898
+  },
+  "cand-all-features": {
+   "rev": "6f54bd32ee1038e3927ef384d1a914d8d5b36c4f",
+   "status": 0,
+   "passed": 612,
+   "failed": 0,
+   "seconds": 136.97343771811575
+  },
+  "cand-non-tracing": {
+   "rev": "6f54bd32ee1038e3927ef384d1a914d8d5b36c4f",
+   "status": 0,
+   "passed": 15,
+   "failed": 0,
+   "seconds": 31.13784453412518
+  }
+ },
+ "builds": {
+  "base-primary": {
+   "rev": "eaa59fc208c136ead86f8c4fa565431ea18de88b",
+   "seconds": 37.05661978502758,
+   "sha256": "7a66b042e8656c4a0cbb4c4641b827c34c6f458bc1e442e87b556612d8d05014",
+   "text_sha256": "3f829d83686e78bb17d10770c354b63be7cdd6d7c69f93f99a9a6120d886eef1",
+   "bytes": 9007272,
+   "rune_features": [
+    "alloc",
+    "anyhow",
+    "fmt",
+    "serde",
+    "std"
+   ]
+  },
+  "base-counter": {
+   "rev": "eaa59fc208c136ead86f8c4fa565431ea18de88b",
+   "seconds": 0.826259977882728,
+   "sha256": "09f50d367129669cdb17c6e8b64ce46090371307a16e0a5f29c0c0787f3710d2",
+   "text_sha256": "2f318f6ed721affc6faf56d8878bd91c782ef65ef6671fc498dd33ce904fc7d6",
+   "bytes": 9012736
+  },
+  "base-allocation": {
+   "rev": "eaa59fc208c136ead86f8c4fa565431ea18de88b",
+   "seconds": 0.8340557459741831,
+   "sha256": "f714a18a841d8812fe54b928dd99b7262061f90b8d6892ba6cad6266fde54009",
+   "text_sha256": "f0245f2d430fc540894d73817c1fc25ad9eec2032970f6a8bc41ac1817cb06cf",
+   "bytes": 9018400
+  },
+  "cand-primary": {
+   "rev": "6f54bd32ee1038e3927ef384d1a914d8d5b36c4f",
+   "seconds": 36.58484587306157,
+   "sha256": "3461f9539edac646bed542bea72be63da42c06267f52959825bf2a319eba2d2c",
+   "text_sha256": "30c7d7d0fbf67e868ff7ae6d73e32783450c001461caaf17b1431d5ccc8af7a6",
+   "bytes": 9047048,
+   "rune_features": [
+    "alloc",
+    "anyhow",
+    "fmt",
+    "serde",
+    "std"
+   ]
+  },
+  "cand-counter": {
+   "rev": "6f54bd32ee1038e3927ef384d1a914d8d5b36c4f",
+   "seconds": 0.8333245709072798,
+   "sha256": "9df7b1eb77e21feb4b6179e88e1fdce0e51a08fc5e2b372e97498dfc1729ebe8",
+   "text_sha256": "0943b0493e01c9664c26af70212be820db4376f7525af2292426b3ee818aa9d8",
+   "bytes": 9052608
+  },
+  "cand-allocation": {
+   "rev": "6f54bd32ee1038e3927ef384d1a914d8d5b36c4f",
+   "seconds": 0.8315921938046813,
+   "sha256": "60e81b25aa435a5bc804bd936a49445c39073ae6063d04c0560b3fa094489057",
+   "text_sha256": "4ca763cfbc9b35352aea6061babf3c1b3bde60128afd74cd9591c3cb80e939e9",
+   "bytes": 9058216
+  },
+  "prev-primary": {
+   "rev": "863370da279031b369ebb0ac1c0d80cd9ca159f6",
+   "seconds": 36.429588090162724,
+   "sha256": "ec6962fb7f917af29a84c77622bed5d4fb779b2e4628c972dbdc048435a6fa58",
+   "text_sha256": "0f9e072f5f509bdb7792a833c2c624c995976be2207793d4ebc37cfdd5f407ec",
+   "bytes": 9050096,
+   "rune_features": [
+    "alloc",
+    "anyhow",
+    "fmt",
+    "serde",
+    "std"
+   ]
+  }
+ },
+ "clock": {
+  "source_sha256": "27273482ba8f4143e46b5a7a4dbc2886de70c3f9a7671f652569ca395172e57e",
+  "sha256": "e5dbc86faff15b50e2afd529911359d90ca85d5f37e17ac2a7ae0904325d76c3"
+ }
+}
