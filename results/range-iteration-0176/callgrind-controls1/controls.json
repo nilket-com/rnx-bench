@@ -1,0 +1,49 @@
+{
+ "nm-nonzero-is-failure-not-absent": {
+  "pass": true,
+  "detail": {
+   "failure": "DiagnosticFailure((('nm', 'mock'), 'status', 1, 'nm: broken\\n'))",
+   "retained_status": 1
+  },
+  "seconds": 0.008807517820969224
+ },
+ "annotate-nonzero-retained-and-fails": {
+  "pass": true,
+  "detail": {
+   "failure": "DiagnosticFailure((('annotate', 'exclusive', 'mock', 'mock'), 'status', 2, 'annotate: broken\\n'))"
+  },
+  "seconds": 0.008968540001660585
+ },
+ "interrupted-command-partial-retained": {
+  "pass": true,
+  "detail": {
+   "retained": {
+    "stdout": "part",
+    "interrupted": true,
+    "reaped": true,
+    "group_survivors": []
+   }
+  },
+  "seconds": 1.261647584149614
+ },
+ "callgrind-summary-validation": {
+  "pass": true,
+  "detail": {
+   "missing": "DiagnosticFailure(('callgrind output missing', '/home/me/work/rnx-bench-w-0176d/results/range-iteration-0176/callgrind-controls1/tmp/absent.cg'))",
+   "no-ir-event": "DiagnosticFailure(('callgrind output lacks the Ir event', '/home/me/work/rnx-bench-w-0176d/results/range-iteration-0176/callgrind-controls1/tmp/noevent.cg'))",
+   "no-summary": "DiagnosticFailure(('callgrind summary missing or not positive', '/home/me/work/rnx-bench-w-0176d/results/range-iteration-0176/callgrind-controls1/tmp/nosum.cg'))",
+   "zero-summary": "DiagnosticFailure(('callgrind summary missing or not positive', '/home/me/work/rnx-bench-w-0176d/results/range-iteration-0176/callgrind-controls1/tmp/zero.cg'))",
+   "mismatch": "DiagnosticFailure(('callgrind summary differs from the collected total', 1234, 999))",
+   "no-collected-total": "DiagnosticFailure(('callgrind summary differs from the collected total', 1234, None))"
+  },
+  "seconds": 0.00047423597425222397
+ },
+ "tool-failure-leaves-no-attribution": {
+  "pass": true,
+  "detail": {
+   "failure": "DiagnosticFailure((('version', 'nm'), 'status', 3, ''))",
+   "status": "FAILED (inconclusive)"
+  },
+  "seconds": 0.07818387495353818
+ }
+}
