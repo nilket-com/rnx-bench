@@ -24,6 +24,9 @@ def run():
 		out.append({'name': name, 'passed': True})
 	def require(v):
 		s.require(v, 'fixture mismatch')
+	for spelling in ('rune::runtime::vm::Vm::run', '<rune::runtime::vm::Vm>::run'):
+		check('VM spelling ' + spelling, lambda spelling=spelling: require(s.SURFACE.search(spelling) and s.VM_RUN.search(spelling)))
+	check('wrong VM type rejected', lambda: require(not s.VM_RUN.search('<rune::runtime::vm::OtherVm>::run')))
 	text = '0000000000000100 <foo>:\n 100: 90 nop\n 101: eb fd jmp 100 <foo>\n'
 	xs = s.disassembly(text)[0x100]['instructions']
 	check('contiguous extent', lambda: require(len(s.validate_region(0x100, 3, {'instructions': xs})) == 2))
