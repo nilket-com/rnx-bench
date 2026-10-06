@@ -3,7 +3,7 @@ no perf process, no subject, no counter is opened here. Each control injects one
 
 	python3 controls_events.py OUT_DIR
 """
-import copy, json, pathlib, sys, time
+import copy, json, lzma, os, pathlib, sys, time
 import events
 
 RESULTS = {}
@@ -42,7 +42,8 @@ def perf_text(group, values=None, drop=(), extra=(), running=100.0, pmu="cpu_cor
 	for name in hw + sw:
 		if name in drop:
 			continue
-		row = {"counter-value": f"{default[name]:.6f}", "unit": "", "event": software.get(name, name), "event-runtime": 100, "pcnt-running": running}
+		row = {"counter-value": f"{default[name]:.6f}", "unit": events.UNITS.get(name, ""), "event": software.get(name, name), "event-runtime": 100,
+			"pcnt-running": running}
 		if name in hw:
 			row["pmu"] = pmu
 		if override and name in override:
@@ -106,8 +107,8 @@ def main(out):
 
 	@control("P1-absent-extra-duplicate-counter")
 	def _():
-		dup = json.dumps({"counter-value": "1.0", "event": "cycles", "pmu": "cpu_core", "pcnt-running": 100.0})
-		extra = json.dumps({"counter-value": "1.0", "event": "cache-misses", "pmu": "cpu_core", "pcnt-running": 100.0})
+		dup = json.dumps({"counter-value": "1.0", "unit": "", "event": "cycles", "event-runtime": 100, "pcnt-running": 100.0})
+		extra = json.dumps({"counter-value": "1.0", "unit": "", "event": "cache-misses", "event-runtime": 100, "pcnt-running": 100.0})
 		return {"absent": refused(lambda: events.parse(perf_text("C", drop=["br_misp_retired_all"]), "C")),
 			"absent-anchor": refused(lambda: events.parse(perf_text("R", drop=["cycles"]), "R")),
 			"extra": refused(lambda: events.parse(perf_text("R", extra=[extra]), "R")),
@@ -127,6 +128,33 @@ def main(out):
 		return {"99.9": refused(lambda: events.parse(perf_text("D", running=99.9), "D")),
 			"missing": refused(lambda: events.parse(perf_text("R", override={"cycles": {"pcnt-running": None}}), "R")),
 			"enabled-differs-from-running": refused(lambda: events.parse(perf_text("R", override={"cycles": {"event-enabled": 101}}), "R"))}
+
+	@control("P1-runtime-and-units")
+	def _():
+		got = {}
+		for name, change in (("runtime-missing", {"event-runtime": None}), ("runtime-nan", {"event-runtime": float("nan")}),
+				("runtime-negative", {"event-runtime": -1}), ("runtime-zero", {"event-runtime": 0}), ("runtime-string", {"event-runtime": "100"}),
+				("runtime-bool", {"event-runtime": True}), ("enabled-nan", {"event-enabled": float("nan")}), ("enabled-negative", {"event-enabled": -1}),
+				("hardware-unit", {"unit": "msec"}), ("running-bool", {"pcnt-running": True})):
+			got[name] = refused(lambda: events.parse(perf_text("R", override={"cycles": change}), "R"))
+		text = perf_text("R").replace('"event-runtime": 100, ', "", 1)  # the field absent altogether on one row
+		assert '"event-runtime"' in text
+		got["runtime-field-absent"] = refused(lambda: events.parse(text, "R"))
+		for name, change in (("task-clock-bananas", {"unit": "bananas"}), ("task-clock-empty-unit", {"unit": ""}), ("task-clock-runtime-nan", {"event-runtime": float("nan")})):
+			got[name] = refused(lambda: events.parse(perf_text("A", override={"task_clock": change}), "A"))
+		got["context-switch-unit"] = refused(lambda: events.parse(perf_text("A", override={"context_switches": {"unit": "msec"}}), "A"))
+		assert events.parse(perf_text("A", override={"cycles": {"event-enabled": 100}}), "A")["cycles"] > 0  # equal enabled time accepted
+		return got
+
+	@control("P1-retained-discovery-rows-pass-the-repaired-parser")
+	def _():
+		rows = [json.loads(l) for l in (events.DISCOVERY / "raw.jsonl").read_text().splitlines()]
+		assert len(rows) == 12 and [r["group"] for r in rows] == [g for g in events.GROUPS for _ in range(2)]
+		for r in rows:
+			events.lifecycle(r)
+			assert r["status"] == 0 and r["stdout"] == events.PROBE_STDOUT and r["argv"] == events.perf_argv(r["group"]) + events.PROBE
+			events.parse(r["stderr"], r["group"])
+		return {"rows": len(rows), "sha256": events.sha(events.DISCOVERY / "raw.jsonl")}
 
 	@control("P1-cpu-atom-counter-refused")
 	def _():
@@ -230,28 +258,138 @@ def main(out):
 		got["run-empty cycles exempt, instructions anchored"] = True
 		return got
 
-	@control("V1-availability-manifest")
+	@control("V1-availability-content-validation")
 	def _():
-		groups = {g: {"argv": events.perf_argv(g), "eligible": g != "E", "checks": []} for g in events.GROUPS}
-		good = {"status": "available", "order": ["R", "A", "B", "C", "D"], "groups": groups, "primaries": {k: v[1] for k, v in events.PRIMARY.items()}}
-		path = out / "availability.json"
+		ok = [{"eligible": True, "detail": "ok"}, {"eligible": True, "detail": "ok"}]
+		groups = {g: {"argv": events.perf_argv(g), "eligible": g != "E", "checks": copy.deepcopy(ok) if g != "E" else [{"eligible": True, "detail": "ok"},
+			{"eligible": False, "detail": "second open failed"}]} for g in events.GROUPS}
+		good = {"status": "available", "order": ["R", "A", "B", "C", "D"], "groups": groups, "identity_sha256": "a" * 64,
+			"primaries": {k: v[1] for k, v in events.PRIMARY.items()}}
 
 		def load(change):
 			m = copy.deepcopy(good)
 			change(m)
-			path.write_text(json.dumps(m))
-			return events.load_availability(path)
+			return events.validate_availability(m, "a" * 64)
 		assert load(lambda m: None)["order"] == good["order"]
+		spec = lambda m, g: m["groups"][g]["argv"].__setitem__(5, m["groups"][g]["argv"][5])
 		return {"ineligible-group-in-order": refused(lambda: load(lambda m: m["order"].append("E"))),
+			"eligible-group-dropped": refused(lambda: load(lambda m: m["order"].remove("D"))),
 			"R-missing": refused(lambda: load(lambda m: m["order"].remove("R"))),
 			"R-only": refused(lambda: load(lambda m: m.update(order=["R"]))),
 			"reordered": refused(lambda: load(lambda m: m.update(order=["R", "C", "A", "B", "D"]))),
 			"inconclusive-status": refused(lambda: load(lambda m: m.update(status="INCONCLUSIVE at discovery: no optional group available"))),
+			"identity-hash-zeroed": refused(lambda: load(lambda m: m.update(identity_sha256="0" * 64))),
+			"identity-hash-absent": refused(lambda: load(lambda m: m.pop("identity_sha256"))),
+			"flag-disagrees-with-checks": refused(lambda: load(lambda m: m["groups"]["E"].update(eligible=True))),
+			"eligible-flag-cleared": refused(lambda: load(lambda m: (m["groups"]["D"].update(eligible=False), m["order"].remove("D")))),
+			"one-check-only": refused(lambda: load(lambda m: m["groups"]["C"]["checks"].pop())),
+			"three-checks": refused(lambda: load(lambda m: m["groups"]["C"]["checks"].append({"eligible": True}))),
+			"group-missing": refused(lambda: load(lambda m: m["groups"].pop("B"))),
+			"R-ineligible": refused(lambda: load(lambda m: (m["groups"]["R"]["checks"][0].update(eligible=False), m["groups"]["R"].update(eligible=False)))),
 			"weak-group-drift": refused(lambda: load(lambda m: m["groups"]["C"]["argv"].__setitem__(5, m["groups"]["C"]["argv"][5].replace("}:D", "}:W")))),
 			"unpinned-drift": refused(lambda: load(lambda m: m["groups"]["A"]["argv"].__setitem__(5, m["groups"]["A"]["argv"][5].replace("}:D", "}")))),
 			"scaling-drift": refused(lambda: load(lambda m: m["groups"]["R"]["argv"].remove("--no-scale"))),
 			"atom-event-drift": refused(lambda: load(lambda m: m["groups"]["R"]["argv"].__setitem__(5, m["groups"]["R"]["argv"][5].replace("cpu_core/cpu-cycles", "cpu_atom/cpu-cycles")))),
+			"drift-in-ineligible-group": refused(lambda: load(lambda m: m["groups"]["E"]["argv"].remove("--no-scale"))),
 			"other-subjects": refused(lambda: load(lambda m: m["primaries"].update(cand="0" * 64)))}
+
+	@control("V2-admission-binds-reviewed-bytes-and-current-host")
+	def _():
+		real_path = events.DISCOVERY / "availability.json"
+		events.start_phase(120)
+		m, admission = events.load_availability(real_path)  # the reviewed receipts on this host: admitted
+		assert m["order"] == list(events.GROUPS) and admission["perf_version_receipt"]["status"] == 0
+		got = {"admitted_order": m["order"], "fields": admission["identity_fields_compared"]}
+		copy_dir = out / "copied-discovery"
+		copy_dir.mkdir()
+		for name in ("availability.json", "identity.json"):
+			(copy_dir / name).write_bytes((events.DISCOVERY / name).read_bytes())
+		got["same-bytes-other-path"] = refused(lambda: events.load_availability(copy_dir / "availability.json"))
+		real = (events.AVAILABILITY_SHA256, events.IDENTITY_SHA256, events.current_identity, events.DISCOVERY)
+		try:
+			# Tampered bytes at the reviewed location (simulated by pointing DISCOVERY at a tampered copy).
+			events.DISCOVERY = copy_dir
+			doc = json.loads((copy_dir / "availability.json").read_text())
+			doc["order"].remove("E")
+			(copy_dir / "availability.json").write_text(json.dumps(doc, indent=1) + "\n")
+			got["availability-bytes-changed"] = refused(lambda: events.load_availability(copy_dir / "availability.json"))
+			(copy_dir / "availability.json").write_bytes(real_path.read_bytes())
+			ident = json.loads((copy_dir / "identity.json").read_text())
+			ident["kernel"] = "0.0.0"
+			(copy_dir / "identity.json").write_text(json.dumps(ident, indent=1) + "\n")
+			got["identity-bytes-changed"] = refused(lambda: events.load_availability(copy_dir / "availability.json"))
+			(copy_dir / "identity.json").unlink()
+			got["identity-receipt-missing"] = refused(lambda: events.load_availability(copy_dir / "availability.json"))
+			events.DISCOVERY = real[3]
+			# Pins alone are not validation: with the pins moved to tampered bytes, the content checks still refuse.
+			events.DISCOVERY = copy_dir
+			(copy_dir / "identity.json").write_bytes((real[3] / "identity.json").read_bytes())
+			(copy_dir / "availability.json").write_text(json.dumps(doc, indent=1) + "\n")
+			events.AVAILABILITY_SHA256 = events.sha(copy_dir / "availability.json")
+			got["eligible-group-dropped-even-if-pinned"] = refused(lambda: events.load_availability(copy_dir / "availability.json"))
+			events.DISCOVERY, events.AVAILABILITY_SHA256 = real[3], real[0]
+			# Host drift at admission: each must stop before anything is staged.
+			recorded = json.loads((real[3] / "identity.json").read_text())
+
+			def drifted(change):
+				now = copy.deepcopy(recorded)
+				change(now)
+				events.current_identity = lambda: (now, {"status": 0})
+				return refused(lambda: events.load_availability(real_path))
+			got["alias-drift"] = drifted(lambda i: i["cpu_core_event_aliases"].update({"ref-cycles": "event=0x00,umask=0x03"}))
+			got["format-drift"] = drifted(lambda i: i["cpu_core_format"].update({"umask": "config:8-23"}))
+			got["perf-version-drift"] = drifted(lambda i: i.update(perf="perf version 7.1.0"))
+			got["kernel-drift"] = drifted(lambda i: i.update(kernel="7.0.0-32-generic"))
+			got["cpu4-offline"] = drifted(lambda i: i.update(cpu4_online="0"))
+			got["core-mask-drift"] = drifted(lambda i: i.update(cpu_core_cpus="0-3,6-15"))
+			got["pmu-type-drift"] = drifted(lambda i: i.update(cpu_core_type="5"))
+			got["microcode-drift"] = drifted(lambda i: i["cpu4"].update(microcode="0x134"))
+			got["governor-drift"] = drifted(lambda i: i.update(cpu4_scaling_governor="performance"))
+			got["watchdog-drift"] = drifted(lambda i: i.update(nmi_watchdog="0"))
+			got["field-removed"] = drifted(lambda i: i.pop("cpu4_thread_siblings"))
+			events.current_identity = real[2]
+			# A failed perf --version is not an identity.
+			real_run = events.run_bounded
+			events.run_bounded = lambda argv, *a, **k: events.__dict__["_R"](argv)
+			class R:
+				def __init__(self, argv):
+					self.returncode, self.stdout, self.timed_out, self.interrupted, self.reaped, self.survivors = 1, "", False, False, True, []
+				def record(self):
+					return {"status": 1}
+			events._R = R
+			try:
+				got["perf-version-fails"] = refused(lambda: events.load_availability(real_path))
+			finally:
+				events.run_bounded = real_run
+				del events._R
+		finally:
+			events.AVAILABILITY_SHA256, events.IDENTITY_SHA256, events.current_identity, events.DISCOVERY = real
+		return got
+
+	@control("D1-phase-deadline-kills-reaps-and-nothing-starts-after")
+	def _():
+		sink_path = out / "deadline.jsonl"
+		sink = events.Sink(sink_path)
+		real_pinned = events.pinned
+		events.pinned = lambda: None
+		try:
+			events.start_phase(1.5)
+			began = time.monotonic()
+			row = events.run_sample(["/bin/sh", "-c", "sleep 60 & sleep 60"], sink, {"kind": "control-deadline"}, deadline=120)
+			elapsed = time.monotonic() - began
+			sink.write(row)
+			assert row["timed_out"] and row["reaped"] is True and row["group_survivors"] == [] and elapsed < 20, (row, elapsed)
+			stopped = refused(lambda: events.lifecycle(row))
+			late = refused(lambda: events.run_sample(["/bin/true"], sink, {"kind": "control-after-deadline"}))
+			assert len(sink_path.read_text().splitlines()) == 1  # the late command never started
+			events.PHASE["deadline"] = None
+			unset = refused(lambda: events.budget(1))
+			events.start_phase(100)
+			assert events.budget(120) <= 100 and events.budget(5) == 5
+		finally:
+			events.pinned = real_pinned
+			events.PHASE["deadline"] = None
+		return {"elapsed_s": round(elapsed, 2), "lifecycle": stopped, "after_deadline": late, "no_phase": unset}
 
 	@control("B1-wrong-primary-or-source-refused")
 	def _():
@@ -292,6 +430,8 @@ def main(out):
 		avail = out / f"availability-{name}.json"
 		avail.write_text(json.dumps({"status": "available", "order": ["R", "A"], "groups": groups, "primaries": {k: v[1] for k, v in events.PRIMARY.items()}}))
 		real = (events.run_sample, events.stage, events.sha, events.pinned, events.os.sched_setaffinity)
+		real_load = events.load_availability
+		events.load_availability = lambda path: (json.loads(pathlib.Path(path).read_text()), {"mocked": True})
 		state = {"subject": None}
 
 		def fake_stage(side):
@@ -308,6 +448,8 @@ def main(out):
 			error = e
 		finally:
 			events.run_sample, events.stage, events.sha, events.pinned, events.os.sched_setaffinity = real
+			events.load_availability = real_load
+			events.PHASE["deadline"] = None
 		return error, json.loads((target / "official.json").read_text()), target
 
 	def row_for(ref, outputs, scale=None, fail_at=None):
@@ -362,6 +504,91 @@ def main(out):
 		assert isinstance(error2, events.Stop) and report2["status"].startswith("STOPPED")
 		return {"survivor": repr(error)[:160], "wrong_output": repr(error2)[:160], "rows_retained": len(rows)}
 
+	@control("O1-deadline-inside-official-stops-and-starts-nothing-later")
+	def _():
+		ref, outputs = events.references(), events.expected_stdout()
+		normal = row_for(ref, outputs)
+		calls = {"n": 0}
+
+		def make(meta, state):
+			calls["n"] += 1
+			row = normal(meta, state)
+			if calls["n"] == 7:  # the phase runs out while this child is running: killed, reaped, recorded as timed out
+				events.PHASE["deadline"] = time.monotonic() - 1
+				row.update(timed_out=True, status=-9)
+			return row
+		error, report, target = mocked_official("deadline", make)
+		rows = [json.loads(l) for l in (target / "raw.jsonl").read_text().splitlines()]
+		assert isinstance(error, events.Stop) and report["status"].startswith("STOPPED") and calls["n"] == 7 and len(rows) == 7, (error, calls, len(rows))
+		assert rows[-1]["timed_out"] is True and "groups" in report and report["groups"] == {}
+		# The phase already over before a sample: nothing is staged or run.
+		calls["n"] = 0
+
+		def expired(meta, state):
+			calls["n"] += 1
+			return normal(meta, state)
+		real_start = events.start_phase
+		events.start_phase = lambda seconds: events.PHASE.update(deadline=time.monotonic() - 1)
+		try:
+			error2, report2, target2 = mocked_official("deadline-before-first", expired)
+		finally:
+			events.start_phase = real_start
+		assert isinstance(error2, events.Stop) and calls["n"] == 0 and report2["status"].startswith("STOPPED")
+		return {"mid-run": repr(error)[:120], "rows": len(rows), "before-first": repr(error2)[:120]}
+
+	@control("O1-sentinel-hit-overrides-a-complete-status")
+	def _():
+		ref, outputs = events.references(), events.expected_stdout()
+		normal = row_for(ref, outputs)
+		leak = lambda meta, state: {**normal(meta, state), "note": os.environ["RNX0179_SENTINEL"]} if meta["rep"] == 4 and meta["group"] == "A" else normal(meta, state)
+		error, report, target = mocked_official("sentinel-complete", leak)
+		assert isinstance(error, events.Stop) and report["status"] == "STOPPED (sentinel occurrence or scan failure)", (error, report["status"])
+		assert report["status_before_scan"] == "complete" and report["sentinel_scan"]["occurrences"] > 0 and report["sentinel_scan"]["completed"] is True
+		assert (target / "raw.jsonl").exists() and json.loads((target / "sentinel-scan.json").read_text())["occurrences"] > 0
+		# On a failing run too: the scan still runs and its hit is recorded beside the original failure.
+		failing = row_for(ref, outputs, fail_at=5)
+		leak2 = lambda meta, state: {**failing(meta, state), "note": os.environ["RNX0179_SENTINEL"]}
+		error2, report2, _ = mocked_official("sentinel-failure", leak2)
+		assert isinstance(error2, events.Stop) and report2["status"] == "STOPPED (sentinel occurrence or scan failure)" and "failure" in report2
+		# A scan that cannot complete is not a clean scan.
+		real_scan = events.scan
+		events.scan = lambda *a: (_ for _ in ()).throw(OSError("scan failed"))
+		try:
+			error3, report3, _ = mocked_official("scan-error", row_for(ref, outputs))
+		finally:
+			events.scan = real_scan
+		assert isinstance(error3, events.Stop) and report3["sentinel_scan"]["completed"] is False and report3["status"].startswith("STOPPED (sentinel")
+		clean_error, clean, _ = mocked_official("sentinel-clean", row_for(ref, outputs))
+		assert clean_error is None and clean["status"] == "complete" and clean["sentinel_scan"] == {**clean["sentinel_scan"], "completed": True, "occurrences": 0}
+		return {"complete-run-with-hit": report["status"], "failing-run-with-hit": report2["status"], "scan-error": report3["sentinel_scan"],
+			"clean": clean["sentinel_scan"]}
+
+	@control("R1-rehearsal-failure-path-needs-a-clean-status-1")
+	def _():
+		real = (events.run_sample, events.stage, events.pinned, events.os.sched_setaffinity, events.load_availability)
+		events.stage, events.pinned, events.os.sched_setaffinity = (lambda side: events.PRIMARY[side][1]), (lambda: None), (lambda *a: None)
+		events.load_availability = lambda path: ({"order": list(events.GROUPS)}, {"mocked": True})
+		got = {}
+		try:
+			for name, change in (("timed-out", {"timed_out": True, "status": -9}), ("survivor", {"group_survivors": [123456]}), ("status-0", {"status": 0}),
+					("status-2", {"status": 2}), ("clean-status-1", {})):
+				def fake(argv, sink, meta, deadline=120, change=change):
+					base = {**meta, "argv": argv, "stdout": "", "stderr": "", "timed_out": False, "interrupted": False, "reaped": True, "group_survivors": []}
+					if meta["kind"] == "rehearsal-probe":
+						return {**base, "status": 0, "stdout": events.PROBE_STDOUT, "stderr": perf_text("R")}
+					return {**base, "status": 1, **change}
+				events.run_sample = fake
+				target = out / f"rehearsal-{name}"
+				if name == "clean-status-1":
+					events.rehearse(target, "unused")
+					got[name] = json.loads((target / "rehearsal.json").read_text())["planned_samples"]
+				else:
+					got[name] = refused(lambda: events.rehearse(target, "unused"))
+		finally:
+			events.run_sample, events.stage, events.pinned, events.os.sched_setaffinity, events.load_availability = real
+			events.PHASE["deadline"] = None
+		return got
+
 	@control("H1-host-gate")
 	def _():
 		good = {"cpu4": {"vendor_id": "GenuineIntel", "cpu family": "6", "model": "183"}, "cpu_core_cpus": "0-15"}
@@ -381,8 +608,15 @@ def main(out):
 		hits = events.scan(d, [sentinel])
 		assert list(hits.values()) == [1]
 		(d / "leak.json").unlink()
+		(d / "archive.xz").write_bytes(lzma.compress(json.dumps({"env": {"X": sentinel}}).encode()))
+		packed = events.scan(d, [sentinel])
+		# Found in the archive. The scanner searches the stored bytes and the decompressed stream; xz stores so short a
+		# payload almost literally, so one marker can be counted in both. Any positive count is a hit.
+		assert list(packed) == [str(d / "archive.xz")] and packed[str(d / "archive.xz")] >= 1, packed
+		assert events.scan(d, ["0" * 32]) == {}
+		(d / "archive.xz").unlink()
 		assert sentinel not in json.dumps(events.E0)
-		return {"clean": 0, "leak_detected": 1}
+		return {"clean": 0, "leak_detected": 1, "leak_in_xz_detected": 1}
 
 	(out / "controls.json").write_text(json.dumps(RESULTS, indent=1, default=str) + "\n")
 	failed = [k for k, v in RESULTS.items() if not v["pass"]]

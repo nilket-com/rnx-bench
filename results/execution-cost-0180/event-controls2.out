@@ -1,0 +1,42 @@
+G1-frozen-groups-and-argv PASS
+P1-parser-accepts-each-frozen-group PASS
+P1-absent-extra-duplicate-counter PASS
+P1-non-finite-negative-not-counted PASS
+P1-running-below-100-and-scaling PASS
+P1-runtime-and-units PASS
+P1-retained-discovery-rows-pass-the-repaired-parser PASS
+P1-cpu-atom-counter-refused PASS
+M1-topdown-units-and-sum PASS
+M1-zero-denominators-are-undefined-not-zero PASS
+M1-cpu-migration-stops PASS
+S1-incomplete-or-misordered-abba PASS
+S1-resolved-rule PASS
+A1-reproduction-tolerances-both-sides-and-boundaries PASS
+V1-availability-content-validation PASS
+V2-admission-binds-reviewed-bytes-and-current-host PASS
+D1-phase-deadline-kills-reaps-and-nothing-starts-after PASS
+B1-wrong-primary-or-source-refused PASS
+group R anchors reproduced
+group A anchors reproduced
+OFFICIAL complete
+O1-reproducing-run-completes-both-groups PASS
+group R anchors FAILED [('R', 'run-numeric', 'cycles change', -0.08324492160448438), ('R', 'run-range_signed', 'cand', 'cycles', 0.8612444041096697), ('R', 'run-range_signed', 'cycles change', -0.16111059210163692)]
+OFFICIAL NONREPRODUCING / STOP
+O1-nonreproduction-is-a-completed-outcome-and-stops-later-groups PASS
+O1-infrastructure-failure-stops-with-partial-retained PASS
+O1-deadline-inside-official-stops-and-starts-nothing-later PASS
+group R anchors reproduced
+group A anchors reproduced
+OFFICIAL STOPPED (sentinel occurrence or scan failure)
+group R anchors reproduced
+group A anchors reproduced
+OFFICIAL STOPPED (sentinel occurrence or scan failure)
+group R anchors reproduced
+group A anchors reproduced
+OFFICIAL complete
+O1-sentinel-hit-overrides-a-complete-status PASS
+rehearsal: order ['R', 'A', 'B', 'C', 'D', 'E'] planned samples 840 sentinel 0
+R1-rehearsal-failure-path-needs-a-clean-status-1 PASS
+H1-host-gate PASS
+X1-fake-secret-retention PASS
+event controls: 26 / 26 pass
