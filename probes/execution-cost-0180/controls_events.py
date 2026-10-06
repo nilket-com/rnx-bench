@@ -563,19 +563,23 @@ def main(out):
 		return {"complete-run-with-hit": report["status"], "failing-run-with-hit": report2["status"], "scan-error": report3["sentinel_scan"],
 			"clean": clean["sentinel_scan"]}
 
-	@control("R1-rehearsal-failure-path-needs-a-clean-status-1")
+	@control("R1-rehearsal-probe-and-failure-path-are-gated")
 	def _():
 		real = (events.run_sample, events.stage, events.pinned, events.os.sched_setaffinity, events.load_availability)
 		events.stage, events.pinned, events.os.sched_setaffinity = (lambda side: events.PRIMARY[side][1]), (lambda: None), (lambda *a: None)
 		events.load_availability = lambda path: ({"order": list(events.GROUPS)}, {"mocked": True})
 		got = {}
 		try:
-			for name, change in (("timed-out", {"timed_out": True, "status": -9}), ("survivor", {"group_survivors": [123456]}), ("status-0", {"status": 0}),
-					("status-2", {"status": 2}), ("clean-status-1", {})):
-				def fake(argv, sink, meta, deadline=120, change=change):
+			# Probe defects keep VALID R counters, so only the probe's own status/affinity check can refuse them.
+			for name, change, probe in (("timed-out", {"timed_out": True, "status": -9}, {}), ("survivor", {"group_survivors": [123456]}, {}),
+					("status-0", {"status": 0}, {}), ("status-2", {"status": 2}, {}),
+					("probe-wrong-status", {}, {"status": 2}), ("probe-wrong-affinity", {}, {"stdout": "Cpus_allowed_list:\t4-5\n"}),
+					("probe-empty-output", {}, {"stdout": ""}), ("probe-survivor", {}, {"group_survivors": [123456]}),
+					("clean-status-1", {}, {})):
+				def fake(argv, sink, meta, deadline=120, change=change, probe=probe):
 					base = {**meta, "argv": argv, "stdout": "", "stderr": "", "timed_out": False, "interrupted": False, "reaped": True, "group_survivors": []}
 					if meta["kind"] == "rehearsal-probe":
-						return {**base, "status": 0, "stdout": events.PROBE_STDOUT, "stderr": perf_text("R")}
+						return {**base, "status": 0, "stdout": events.PROBE_STDOUT, "stderr": perf_text("R"), **probe}
 					return {**base, "status": 1, **change}
 				events.run_sample = fake
 				target = out / f"rehearsal-{name}"
@@ -584,6 +588,10 @@ def main(out):
 					got[name] = json.loads((target / "rehearsal.json").read_text())["planned_samples"]
 				else:
 					got[name] = refused(lambda: events.rehearse(target, "unused"))
+					rows = [json.loads(l) for l in (target / "raw.jsonl").read_text().splitlines()]
+					assert rows and rows[0]["kind"] == "rehearsal-probe", name  # the raw probe row was retained before the refusal
+					if name.startswith("probe-wrong") or name == "probe-empty-output":
+						assert "rehearsal probe status/affinity" in got[name], got[name]
 		finally:
 			events.run_sample, events.stage, events.pinned, events.os.sched_setaffinity, events.load_availability = real
 			events.PHASE["deadline"] = None

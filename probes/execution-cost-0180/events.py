@@ -554,6 +554,8 @@ def rehearse(out, availability):
 	row = run_sample(perf_argv(REQUIRED) + PROBE, sink, {"kind": "rehearsal-probe"}, deadline=60)
 	sink.write(row)
 	lifecycle(row)
+	if row["status"] != 0 or row["stdout"] != PROBE_STDOUT:  # the probe itself must succeed and see CPU 4 only
+		raise Stop(("rehearsal probe status/affinity", row["status"], row["stdout"][:80]))
 	counters = parse(row["stderr"], REQUIRED)
 	failing = run_sample(["perf", "stat", "-j", "--", "/usr/bin/false"], sink, {"kind": "rehearsal-failure"}, deadline=60)
 	sink.write(failing)
