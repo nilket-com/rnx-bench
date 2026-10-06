@@ -24,13 +24,13 @@ def text_sha(p):
 class Result:
 	"""A finished (or deadline-killed) process: status, raw output and how it ended. Never raises for the child."""
 
-	def __init__(self, argv, returncode, stdout, stderr, timed_out, interrupted, reaped):
+	def __init__(self, argv, returncode, stdout, stderr, timed_out, interrupted, reaped, survivors):
 		self.args, self.returncode, self.stdout, self.stderr = argv, returncode, stdout, stderr
-		self.timed_out, self.interrupted, self.reaped = timed_out, interrupted, reaped
+		self.timed_out, self.interrupted, self.reaped, self.survivors = timed_out, interrupted, reaped, survivors
 
 	def record(self):
 		return {"argv": self.args, "status": self.returncode, "stdout": self.stdout, "stderr": self.stderr,
-			"timed_out": self.timed_out, "interrupted": self.interrupted, "reaped": self.reaped}
+			"timed_out": self.timed_out, "interrupted": self.interrupted, "reaped": self.reaped, "group_survivors": self.survivors}
 
 
 def kill_group(pid):
@@ -41,12 +41,28 @@ def kill_group(pid):
 		pass
 
 
-def group_alive(pid):
-	try:
-		os.killpg(pid, 0)
-		return True
-	except ProcessLookupError:
-		return False
+def live_members(pgid):
+	"""Non-zombie processes in a process group, from /proc. A killed member stays in its group as a zombie until its
+	(possibly adoptive) parent reaps it, so "the group exists" is not "the group is running"."""
+	members = []
+	for stat in pathlib.Path("/proc").glob("[0-9]*/stat"):
+		try:
+			fields = stat.read_text().rsplit(")", 1)[1].split()
+		except (OSError, IndexError):
+			continue
+		if int(fields[2]) == pgid and fields[0] != "Z":
+			members.append(int(stat.parent.name))
+	return members
+
+
+def group_alive(pgid, settle=5.0):
+	"""True if any live (non-zombie) member remains after up to `settle` seconds."""
+	deadline = time.monotonic() + settle
+	while live_members(pgid):
+		if time.monotonic() >= deadline:
+			return True
+		time.sleep(0.05)
+	return False
 
 
 def run_bounded(argv, timeout, env, stdin=None, cwd=None, scratch=None):
@@ -81,7 +97,7 @@ def run_bounded(argv, timeout, env, stdin=None, cwd=None, scratch=None):
 			except subprocess.TimeoutExpired:
 				pass
 			error.partial = Result(argv, p.returncode, out_path.read_bytes().decode(errors="replace"),
-				err_path.read_bytes().decode(errors="replace"), timed_out, True, reaped).record()
+				err_path.read_bytes().decode(errors="replace"), timed_out, True, reaped, live_members(p.pid)).record()
 			raise
 		finally:
 			if not interrupted:
@@ -92,7 +108,7 @@ def run_bounded(argv, timeout, env, stdin=None, cwd=None, scratch=None):
 				except subprocess.TimeoutExpired:
 					pass
 		return Result(argv, p.returncode, out_path.read_bytes().decode(errors="replace"), err_path.read_bytes().decode(errors="replace"),
-			timed_out, False, reaped)
+			timed_out, False, reaped, live_members(p.pid))
 
 
 class LineReader:
