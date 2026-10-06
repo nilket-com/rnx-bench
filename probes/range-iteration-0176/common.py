@@ -5,7 +5,7 @@ HERE = pathlib.Path(__file__).resolve().parent
 FORK = pathlib.Path("/home/me/work/rune-w-0173")
 # Base: every base-first test commit, production source = common parent 3e7d4da9. Candidate: the squashed fast path.
 # The 0176 candidate hash is filled in once Codex commits it; build/freeze refuse while it is unset.
-CANDIDATE = None
+CANDIDATE = "6f54bd32ee1038e3927ef384d1a914d8d5b36c4f"
 SOURCES = {"base": "eaa59fc208c136ead86f8c4fa565431ea18de88b", "cand": CANDIDATE}
 # Diagnostic-only subject (never a deciding baseline): the 0175 candidate, for the callgrind comparison.
 DIAGNOSTIC = {"prev": "863370da279031b369ebb0ac1c0d80cd9ca159f6"}
