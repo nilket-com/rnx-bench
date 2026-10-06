@@ -1,0 +1,12 @@
+group R anchors reproduced
+group A anchors reproduced
+Traceback (most recent call last):
+  File "/home/me/work/rnx-bench-w-0180d/probes/execution-cost-0180/events.py", line 657, in <module>
+    official(target, sys.argv[3])
+    ~~~~~~~~^^^^^^^^^^^^^^^^^^^^^
+  File "/home/me/work/rnx-bench-w-0180d/probes/execution-cost-0180/events.py", line 613, in official
+    samples.append({**meta, "counters": counters, "metrics": metrics(group, counters, ops)})
+                                                             ~~~~~~~^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/me/work/rnx-bench-w-0180d/probes/execution-cost-0180/events.py", line 212, in metrics
+    raise Stop(("topdown fractions out of range or not summing to one", fractions))
+Stop: ('topdown fractions out of range or not summing to one', {'td_retiring': 0.5963409554293876, 'td_bad_spec': 0.12156862719978438, 'td_fe_bound': 0.2043515368984352, 'td_be_bound': 0.09811690032150082})
