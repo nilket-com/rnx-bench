@@ -1,0 +1,110 @@
+{
+ "numeric-budget-zero": {
+  "base": {
+   "status": 1,
+   "stdout": "",
+   "stderr_last": "vm: VmError { error: VmErrorAt { kind: Halted { halt: Limited } }, chain: [], stacktrace: [] }",
+   "timed_out": false,
+   "stderr": "ALLOC [36659, 4539271, 676, 2627979]\nvm: VmError { error: VmErrorAt { kind: Halted { halt: Limited } }, chain: [], stacktrace: [] }\n",
+   "calls": 36659,
+   "bytes": 4539271,
+   "live": 676,
+   "peak": 2627979
+  },
+  "cand": {
+   "status": 1,
+   "stdout": "",
+   "stderr_last": "vm: VmError { error: VmErrorAt { kind: Halted { halt: Limited } }, chain: [], stacktrace: [] }",
+   "timed_out": false,
+   "stderr": "ALLOC [36660, 4539287, 676, 2627979]\nvm: VmError { error: VmErrorAt { kind: Halted { halt: Limited } }, chain: [], stacktrace: [] }\n",
+   "calls": 36660,
+   "bytes": 4539287,
+   "live": 676,
+   "peak": 2627979
+  },
+  "calls_delta": 1,
+  "calls_change": 2.7278430944743803e-05,
+  "same_outcome": true
+ },
+ "numeric-budget-default": {
+  "base": {
+   "status": 0,
+   "stdout": "3\n",
+   "stderr_last": "ALLOC [1036660, 44540310, 1572, 2627978]",
+   "timed_out": false,
+   "stderr": "ALLOC [1036660, 44540310, 1572, 2627978]\n",
+   "calls": 1036660,
+   "bytes": 44540310,
+   "live": 1572,
+   "peak": 2627978
+  },
+  "cand": {
+   "status": 0,
+   "stdout": "3\n",
+   "stderr_last": "ALLOC [36661, 4540326, 1572, 2627978]",
+   "timed_out": false,
+   "stderr": "ALLOC [36661, 4540326, 1572, 2627978]\n",
+   "calls": 36661,
+   "bytes": 4540326,
+   "live": 1572,
+   "peak": 2627978
+  },
+  "calls_delta": -999999,
+  "calls_change": -0.9646354638936585,
+  "same_outcome": true
+ },
+ "numeric-budget-unlimited": {
+  "base": {
+   "status": 0,
+   "stdout": "3\n",
+   "stderr_last": "ALLOC [1036661, 44540354, 1572, 2627998]",
+   "timed_out": false,
+   "stderr": "ALLOC [1036661, 44540354, 1572, 2627998]\n",
+   "calls": 1036661,
+   "bytes": 44540354,
+   "live": 1572,
+   "peak": 2627998
+  },
+  "cand": {
+   "status": 0,
+   "stdout": "3\n",
+   "stderr_last": "ALLOC [36662, 4540370, 1572, 2627998]",
+   "timed_out": false,
+   "stderr": "ALLOC [36662, 4540370, 1572, 2627998]\n",
+   "calls": 36662,
+   "bytes": 4540370,
+   "live": 1572,
+   "peak": 2627998
+  },
+  "calls_delta": -999999,
+  "calls_change": -0.9646345333720474,
+  "same_outcome": true
+ },
+ "numeric-budget-tight": {
+  "base": {
+   "status": 1,
+   "stdout": "",
+   "stderr_last": "vm: VmError { error: VmErrorAt { kind: Halted { halt: Limited } }, chain: [], stacktrace: [] }",
+   "timed_out": false,
+   "stderr": "ALLOC [36773, 4543954, 676, 2627982]\nvm: VmError { error: VmErrorAt { kind: Halted { halt: Limited } }, chain: [], stacktrace: [] }\n",
+   "calls": 36773,
+   "bytes": 4543954,
+   "live": 676,
+   "peak": 2627982
+  },
+  "cand": {
+   "status": 1,
+   "stdout": "",
+   "stderr_last": "vm: VmError { error: VmErrorAt { kind: Halted { halt: Limited } }, chain: [], stacktrace: [] }",
+   "timed_out": false,
+   "stderr": "ALLOC [36664, 4539570, 676, 2627982]\nvm: VmError { error: VmErrorAt { kind: Halted { halt: Limited } }, chain: [], stacktrace: [] }\n",
+   "calls": 36664,
+   "bytes": 4539570,
+   "live": 676,
+   "peak": 2627982
+  },
+  "calls_delta": -109,
+  "calls_change": -0.0029641312919804763,
+  "same_outcome": true
+ }
+}

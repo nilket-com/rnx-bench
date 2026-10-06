@@ -1,0 +1,17 @@
+R1-bad-status-retained PASS
+R1-malformed-counter-retained PASS
+R1-incomplete-wall-receipt-retained PASS
+R1-timeout-retained-and-killed PASS
+R2-partial-line-timeout FAIL AssertionError((bytearray(b'REA'), 1.0015411979984492))
+R2-interrupt-with-held-pipe FAIL AssertionError('process group survived the interrupt')
+R3-changed-binary-refused-before-any-phase PASS
+R3-changed-fixture-refused PASS
+rehearsal: 0 occurrences
+R1-later-phases-do-not-begin PASS
+R4-allocation-qualification PASS
+controls: 8 / 10 pass
+FAILED: ['R2-partial-line-timeout', 'R2-interrupt-with-held-pipe']
+rehearsal: 0 occurrences
+correctness: 40 identical
+allocation: context delta 1 numeric calls [1036660, 36661] budgets {'numeric-budget-zero': [36659, 36660, 1], 'numeric-budget-default': [1036660, 36661, 0], 'numeric-budget-unlimited': [1036661, 36662, 0], 'numeric-budget-tight': [36773, 36664, 1]}
+rehearsal mode: stopped before any timed phase; sentinel 0 occurrences
