@@ -1,0 +1,20 @@
+I1-real-manifest-is-consistent PASS
+I1-altered-profile-refused FAIL ValueError("'../../results/startup-0179/prep3/controls0179/tmp/receipt-profile-section.json' is not in the subpath of '/home/me/work/rnx-bench-w-0179d'")
+I1-missing-and-extra-artifact-names-refused PASS
+I1-mismatched-row-identity-refused FAIL ValueError("'../../results/startup-0179/prep3/controls0179/tmp/receipt-relabel.json' is not in the subpath of '/home/me/work/rnx-bench-w-0179d'")
+I1-role-swapped-artifact-refused PASS
+I1-only-the-frozen-pair-binds PASS
+W1-both-first-use-workloads-are-deciding PASS
+I1-neutrality-and-edit-surface-bound PASS
+W1-win-needs-both-startup-legs FAIL AssertionError(('both', 'NO-WIN', 'WIN'))
+W1-no-gain-overrides-a-failed-workload PASS
+W1-non-finite-medians-do-not-decide PASS
+PAIR p0 cand STOP
+PAIR p0 cand NO-WIN
+PAIR p0 cand WIN
+O1-scientific-stop-is-a-completed-result PASS
+O1-infrastructure-failure-stops-and-retains PASS
+B1-diagnostic-cfg-guard PASS
+B1-build-lifecycle-gate-after-retention PASS
+0179 controls: 12 / 15 pass
+FAILED: ['I1-altered-profile-refused', 'I1-mismatched-row-identity-refused', 'W1-win-needs-both-startup-legs']

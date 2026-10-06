@@ -1,0 +1,11 @@
+pub fn main(_args) {
+	let it = (0..3).iter();
+	let a = it.next();
+	let b = it.next();
+	let c = it.next();
+	let d = it.next();
+	let long = (0..100000).iter();
+	let n = 0;
+	while let Some(x) = long.next() { n += x; }
+	println!("{:?} {:?} {:?} {:?} {}", a, b, c, d, n);
+}

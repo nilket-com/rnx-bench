@@ -1,0 +1,168 @@
+{
+ "numeric-budget-zero": {
+  "base": {
+   "status": 1,
+   "stdout": "",
+   "stderr": "ALLOC [36659, 4539258, 676, 2627971]\nvm: VmError { error: VmErrorAt { kind: Halted { halt: Limited } }, chain: [], stacktrace: [] }\n",
+   "timed_out": false,
+   "interrupted": false,
+   "reaped": true,
+   "group_survivors": [],
+   "argv": [
+    "/home/me/work/rnx-bench-w-0179d/probes/startup-0179/bin/p0-base-allocation",
+    "run",
+    "/home/me/work/rnx-bench-w-0179d/probes/startup-0179/corpus/numeric.rn",
+    "0"
+   ],
+   "calls": 36659,
+   "bytes": 4539258,
+   "live": 676,
+   "peak": 2627971
+  },
+  "cand": {
+   "status": 1,
+   "stdout": "",
+   "stderr": "ALLOC [30858, 4402222, 676, 2627971]\nvm: VmError { error: VmErrorAt { kind: Halted { halt: Limited } }, chain: [], stacktrace: [] }\n",
+   "timed_out": false,
+   "interrupted": false,
+   "reaped": true,
+   "group_survivors": [],
+   "argv": [
+    "/home/me/work/rnx-bench-w-0179d/probes/startup-0179/bin/p0-cand-allocation",
+    "run",
+    "/home/me/work/rnx-bench-w-0179d/probes/startup-0179/corpus/numeric.rn",
+    "0"
+   ],
+   "calls": 30858,
+   "bytes": 4402222,
+   "live": 676,
+   "peak": 2627971
+  },
+  "calls_delta": -5801,
+  "calls_change": -0.15824217790992667
+ },
+ "numeric-budget-default": {
+  "base": {
+   "status": 0,
+   "stdout": "3\n",
+   "stderr": "ALLOC [1036660, 44540297, 1572, 2627970]\n",
+   "timed_out": false,
+   "interrupted": false,
+   "reaped": true,
+   "group_survivors": [],
+   "argv": [
+    "/home/me/work/rnx-bench-w-0179d/probes/startup-0179/bin/p0-base-allocation",
+    "run",
+    "/home/me/work/rnx-bench-w-0179d/probes/startup-0179/corpus/numeric.rn"
+   ],
+   "calls": 1036660,
+   "bytes": 44540297,
+   "live": 1572,
+   "peak": 2627970
+  },
+  "cand": {
+   "status": 0,
+   "stdout": "3\n",
+   "stderr": "ALLOC [1030859, 44403261, 1572, 2627970]\n",
+   "timed_out": false,
+   "interrupted": false,
+   "reaped": true,
+   "group_survivors": [],
+   "argv": [
+    "/home/me/work/rnx-bench-w-0179d/probes/startup-0179/bin/p0-cand-allocation",
+    "run",
+    "/home/me/work/rnx-bench-w-0179d/probes/startup-0179/corpus/numeric.rn"
+   ],
+   "calls": 1030859,
+   "bytes": 44403261,
+   "live": 1572,
+   "peak": 2627970
+  },
+  "calls_delta": -5801,
+  "calls_change": -0.005595855921903037
+ },
+ "numeric-budget-unlimited": {
+  "base": {
+   "status": 0,
+   "stdout": "3\n",
+   "stderr": "ALLOC [1036661, 44540341, 1572, 2627990]\n",
+   "timed_out": false,
+   "interrupted": false,
+   "reaped": true,
+   "group_survivors": [],
+   "argv": [
+    "/home/me/work/rnx-bench-w-0179d/probes/startup-0179/bin/p0-base-allocation",
+    "run",
+    "/home/me/work/rnx-bench-w-0179d/probes/startup-0179/corpus/numeric.rn",
+    "18446744073709551615"
+   ],
+   "calls": 1036661,
+   "bytes": 44540341,
+   "live": 1572,
+   "peak": 2627990
+  },
+  "cand": {
+   "status": 0,
+   "stdout": "3\n",
+   "stderr": "ALLOC [1030860, 44403305, 1572, 2627990]\n",
+   "timed_out": false,
+   "interrupted": false,
+   "reaped": true,
+   "group_survivors": [],
+   "argv": [
+    "/home/me/work/rnx-bench-w-0179d/probes/startup-0179/bin/p0-cand-allocation",
+    "run",
+    "/home/me/work/rnx-bench-w-0179d/probes/startup-0179/corpus/numeric.rn",
+    "18446744073709551615"
+   ],
+   "calls": 1030860,
+   "bytes": 44403305,
+   "live": 1572,
+   "peak": 2627990
+  },
+  "calls_delta": -5801,
+  "calls_change": -0.005595850523941737
+ },
+ "numeric-budget-tight": {
+  "base": {
+   "status": 1,
+   "stdout": "",
+   "stderr": "ALLOC [36773, 4543941, 676, 2627974]\nvm: VmError { error: VmErrorAt { kind: Halted { halt: Limited } }, chain: [], stacktrace: [] }\n",
+   "timed_out": false,
+   "interrupted": false,
+   "reaped": true,
+   "group_survivors": [],
+   "argv": [
+    "/home/me/work/rnx-bench-w-0179d/probes/startup-0179/bin/p0-base-allocation",
+    "run",
+    "/home/me/work/rnx-bench-w-0179d/probes/startup-0179/corpus/numeric.rn",
+    "1000"
+   ],
+   "calls": 36773,
+   "bytes": 4543941,
+   "live": 676,
+   "peak": 2627974
+  },
+  "cand": {
+   "status": 1,
+   "stdout": "",
+   "stderr": "ALLOC [30972, 4406905, 676, 2627974]\nvm: VmError { error: VmErrorAt { kind: Halted { halt: Limited } }, chain: [], stacktrace: [] }\n",
+   "timed_out": false,
+   "interrupted": false,
+   "reaped": true,
+   "group_survivors": [],
+   "argv": [
+    "/home/me/work/rnx-bench-w-0179d/probes/startup-0179/bin/p0-cand-allocation",
+    "run",
+    "/home/me/work/rnx-bench-w-0179d/probes/startup-0179/corpus/numeric.rn",
+    "1000"
+   ],
+   "calls": 30972,
+   "bytes": 4406905,
+   "live": 676,
+   "peak": 2627974
+  },
+  "calls_delta": -5801,
+  "calls_change": -0.15775161123650505
+ }
+}

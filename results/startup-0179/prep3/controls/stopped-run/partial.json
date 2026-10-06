@@ -1,0 +1,390 @@
+{
+ "started": 1791286625.6226494,
+ "load_before": "2.67",
+ "env": {
+  "PATH": "/usr/bin:/bin",
+  "HOME": "/home/me",
+  "LANG": "C.UTF-8"
+ },
+ "manifest": {
+  "sources": {
+   "base": "4e84cfacc0278a4f1645c14310453bdc30ac77b4",
+   "cand": "b28f8cb3345448914ef4e35514d802d1795f16ac"
+  },
+  "production_parent": "bb8e69372353c50e271c9f115bc771c77aa6b83e",
+  "build_receipt": {
+   "path": "results/startup-0179/prep3/build/build.json",
+   "sha256": "d7e0fe9f73da62105d3d412ca99d7effad22cc3ddb785c8c0590e125a412afab"
+  },
+  "binaries": {
+   "p0-base-primary": "af06e8b3b1621b7f763dfb39f967fab1cca0b9b615b145152634463cefbb0c87",
+   "p0-base-counter": "0500d0ebec87da5b650f906f031493da1b6fa95c6d250eeb28a827c2c450b52d",
+   "p0-base-allocation": "9b2b35640ddeb355aee1ec12be095dfef630dbd400b079897eefc65cb2f11904",
+   "p0-cand-primary": "e4a5f207c38a8ae59bc311e3611a6bdd3d542fe82665a8e12b201f61eaf9a787",
+   "p0-cand-counter": "e0f39201842b13f0f6889503f280b2d91024655dd183eae20902c20ce8ec91f3",
+   "p0-cand-allocation": "2f1694c655da0e26abb7b6bdf7846f6de32d7febdedb66f0af35210b77f44fae"
+  },
+  "clock": {
+   "source_sha256": "27273482ba8f4143e46b5a7a4dbc2886de70c3f9a7671f652569ca395172e57e",
+   "sha256": "9ccf0f7c0a31cc19e507957b1d90c24a2f451a4b5165dbd2292ab380b902318e"
+  },
+  "profiles": {
+   "p0": []
+  },
+  "rune_features": [
+   "alloc",
+   "anyhow",
+   "fmt",
+   "serde",
+   "std"
+  ],
+  "inventory": {
+   "golden_blobs": {
+    "crates/rune/src/compile/context_inventory.golden": "5a1f8458dcea47ed15ec378c432b34b38d917fbd",
+    "crates/rune/src/compile/context_inventory_nodoc.golden": "8385e61997b5d6ffd51e45921cd4fab0301e162c",
+    "crates/rune/src/compile/context_startup_order.golden": "57bbd8d3e29890b48f54ad435d417aa28962548f",
+    "crates/rune/src/compile/context_startup_order_nodoc.golden": "57bbd8d3e29890b48f54ad435d417aa28962548f",
+    "crates/rune/src/compile/startup_fixtures/first-use-stdio.rn": "7358df5356c344b6de6992ddf0d7a8558aa9cca7",
+    "crates/rune/src/compile/startup_fixtures/first-use.rn": "3b26353cd24bbbd1237c4679b746f741e8517b6c"
+   },
+   "receipts": {
+    "base-all-features": {
+     "log": "results/startup-0179/prep3/build/suite-base-all-features.log",
+     "log_sha256": "8f85a22dcc831ca7b9959c1c9eb1e41de6903f87fb8b41dae9235078e1b34539",
+     "tests_passed": {
+      "compile::context::inventory_tests::registered_inventory_matches_the_golden": true,
+      "compile::context::inventory_tests::inventory_comparison_detects_changes": true,
+      "compile::context::startup_tests::item_display_bytes_are_frozen_before_the_candidate": true,
+      "compile::context::startup_tests::registration_order_matches_the_base": true,
+      "compile::context::startup_tests::custom_associated_constant_values_and_errors_are_unchanged": true,
+      "compile::context::startup_tests::every_module_first_use_completes_with_and_without_stdio": true
+     }
+    },
+    "base-production-features": {
+     "log": "results/startup-0179/prep3/build/suite-base-production-features.log",
+     "log_sha256": "3934710c45306cbe0c215758cfc7f826a2c66961f164c954f89f59a18ca77c06",
+     "tests_passed": {
+      "compile::context::inventory_tests::registered_inventory_matches_the_golden": true,
+      "compile::context::inventory_tests::inventory_comparison_detects_changes": true,
+      "compile::context::startup_tests::item_display_bytes_are_frozen_before_the_candidate": true,
+      "compile::context::startup_tests::registration_order_matches_the_base": true,
+      "compile::context::startup_tests::custom_associated_constant_values_and_errors_are_unchanged": true,
+      "compile::context::startup_tests::every_module_first_use_completes_with_and_without_stdio": true
+     }
+    },
+    "cand-all-features": {
+     "log": "results/startup-0179/prep3/build/suite-cand-all-features.log",
+     "log_sha256": "3a0ccf215135fa80c1a505eed97895477a36165d22c47d69ed6fc640d1a26c83",
+     "tests_passed": {
+      "compile::context::inventory_tests::registered_inventory_matches_the_golden": true,
+      "compile::context::inventory_tests::inventory_comparison_detects_changes": true,
+      "compile::context::startup_tests::item_display_bytes_are_frozen_before_the_candidate": true,
+      "compile::context::startup_tests::registration_order_matches_the_base": true,
+      "compile::context::startup_tests::custom_associated_constant_values_and_errors_are_unchanged": true,
+      "compile::context::startup_tests::every_module_first_use_completes_with_and_without_stdio": true
+     }
+    },
+    "cand-production-features": {
+     "log": "results/startup-0179/prep3/build/suite-cand-production-features.log",
+     "log_sha256": "c58f85ce92cff9567caeb4642d496b99c792a31eaab8e817248f0b93eac37ed2",
+     "tests_passed": {
+      "compile::context::inventory_tests::registered_inventory_matches_the_golden": true,
+      "compile::context::inventory_tests::inventory_comparison_detects_changes": true,
+      "compile::context::startup_tests::item_display_bytes_are_frozen_before_the_candidate": true,
+      "compile::context::startup_tests::registration_order_matches_the_base": true,
+      "compile::context::startup_tests::custom_associated_constant_values_and_errors_are_unchanged": true,
+      "compile::context::startup_tests::every_module_first_use_completes_with_and_without_stdio": true
+     }
+    }
+   }
+  },
+  "neutrality": {
+   "rev": "4e84cfacc0278a4f1645c14310453bdc30ac77b4",
+   "sha256": "619d30c316b18ae3bd51d9de3ccd34bc5e0f3e2c35c42d1dea276ed84def9641",
+   "text_sha256": "3f829d83686e78bb17d10770c354b63be7cdd6d7c69f93f99a9a6120d886eef1",
+   "reference_sha256": "7a66b042e8656c4a0cbb4c4641b827c34c6f458bc1e442e87b556612d8d05014",
+   "reference_text_sha256": "3f829d83686e78bb17d10770c354b63be7cdd6d7c69f93f99a9a6120d886eef1",
+   "reference_rev": "eaa59fc208c136ead86f8c4fa565431ea18de88b",
+   "reference": "probes/profile-paired-0178/subjects.json p0-base-primary",
+   "identical": false,
+   "accepted": true,
+   "comparison": {
+    "size": [
+     9007272,
+     9007272
+    ],
+    "problems": [],
+    "differing_bytes": 477,
+    "differing_bytes_by_section": {
+     ".note.gnu.build-id": 20,
+     ".data.rel.ro": 1,
+     ".strtab": 456
+    },
+    "build_id": {
+     "new": "30641134b0505208028ab20673694802f563f958",
+     "reference": "216192bbbc9286fbe949e69cee20cd9a9c8cb0cd"
+    },
+    "strtab": {
+     "symbols": 16151,
+     "suffix_only_differences": 32,
+     "pairs": [
+      [
+       "_RINvNtCsgxBkk5gSRhY_4core3ptr9drop_glueNtNtNtCs2gclYLZIe7Z_4rune7runtime8vm_error15VmErrorLocationECseHFHVs5K1YU_13rune_base_new.llvm.3154411846658505164",
+       "_RINvNtCsgxBkk5gSRhY_4core3ptr9drop_glueNtNtNtCs2gclYLZIe7Z_4rune7runtime8vm_error15VmErrorLocationECseHFHVs5K1YU_13rune_base_new.llvm.4223706811909010038"
+      ],
+      [
+       "_RINvNtCsgxBkk5gSRhY_4core3ptr9drop_glueNtNtNtCs2gclYLZIe7Z_4rune7runtime8vm_error7VmErrorECseHFHVs5K1YU_13rune_base_new.llvm.3154411846658505164",
+       "_RINvNtCsgxBkk5gSRhY_4core3ptr9drop_glueNtNtNtCs2gclYLZIe7Z_4rune7runtime8vm_error7VmErrorECseHFHVs5K1YU_13rune_base_new.llvm.4223706811909010038"
+      ],
+      [
+       "anon.54333d06d9b5d6eb233c93e5c684b5d2.201.llvm.17652615222563039659",
+       "anon.54333d06d9b5d6eb233c93e5c684b5d2.201.llvm.17749115032731870632"
+      ],
+      [
+       "anon.54333d06d9b5d6eb233c93e5c684b5d2.204.llvm.17652615222563039659",
+       "anon.54333d06d9b5d6eb233c93e5c684b5d2.204.llvm.17749115032731870632"
+      ],
+      [
+       "anon.54333d06d9b5d6eb233c93e5c684b5d2.203.llvm.17652615222563039659",
+       "anon.54333d06d9b5d6eb233c93e5c684b5d2.203.llvm.17749115032731870632"
+      ],
+      [
+       "anon.54333d06d9b5d6eb233c93e5c684b5d2.205.llvm.17652615222563039659",
+       "anon.54333d06d9b5d6eb233c93e5c684b5d2.205.llvm.17749115032731870632"
+      ],
+      [
+       "_RINvNtCsgxBkk5gSRhY_4core3ptr9drop_glueNtNtNtCs2gclYLZIe7Z_4rune7compile5names4NodeEBH_.llvm.17652615222563039659",
+       "_RINvNtCsgxBkk5gSRhY_4core3ptr9drop_glueNtNtNtCs2gclYLZIe7Z_4rune7compile5names4NodeEBH_.llvm.17749115032731870632"
+      ],
+      [
+       "_RINvNtCsgxBkk5gSRhY_4core3ptr9drop_glueNtNtNtCsdyPUd8mPE5o_9rune_core4item9component9ComponentECs2gclYLZIe7Z_4rune.llvm.17652615222563039659",
+       "_RINvNtCsgxBkk5gSRhY_4core3ptr9drop_glueNtNtNtCsdyPUd8mPE5o_9rune_core4item9component9ComponentECs2gclYLZIe7Z_4rune.llvm.17749115032731870632"
+      ],
+      [
+       "_RINvNtCsgxBkk5gSRhY_4core3ptr9drop_glueINtNtCsdBTkVrZDrQD_10rune_alloc3vec3VecNtNtNtCs2gclYLZIe7Z_4rune8indexing6scopes5LayerEEB1k_.llvm.17652615222563039659",
+       "_RINvNtCsgxBkk5gSRhY_4core3ptr9drop_glueINtNtCsdBTkVrZDrQD_10rune_alloc3vec3VecNtNtNtCs2gclYLZIe7Z_4rune8indexing6scopes5LayerEEB1k_.llvm.17749115032731870632"
+      ],
+      [
+       "_RINvNtCsgxBkk5gSRhY_4core3ptr9drop_glueINtNtNtCsdBTkVrZDrQD_10rune_alloc5btree3map8BTreeMapNtNtNtCsdyPUd8mPE5o_9rune_core4item9component9ComponentNtNtNtCs2gclYLZIe7Z_4rune7compile5names4NodeEEB2q_.llvm.17652615222563039659",
+       "_RINvNtCsgxBkk5gSRhY_4core3ptr9drop_glueINtNtNtCsdBTkVrZDrQD_10rune_alloc5btree3map8BTreeMapNtNtNtCsdyPUd8mPE5o_9rune_core4item9component9ComponentNtNtNtCs2gclYLZIe7Z_4rune7compile5names4NodeEEB2q_.llvm.17749115032731870632"
+      ],
+      [
+       "_RINvNtCsgxBkk5gSRhY_4core3ptr9drop_glueNtNtCs2gclYLZIe7Z_4rune8indexing7IndexedEBF_.llvm.17652615222563039659",
+       "_RINvNtCsgxBkk5gSRhY_4core3ptr9drop_glueNtNtCs2gclYLZIe7Z_4rune8indexing7IndexedEBF_.llvm.17749115032731870632"
+      ],
+      [
+       "_RINvNtCsgxBkk5gSRhY_4core3ptr9drop_glueNtNtNtCs2gclYLZIe7Z_4rune7compile4meta6FieldsEBH_.llvm.17652615222563039659",
+       "_RINvNtCsgxBkk5gSRhY_4core3ptr9drop_glueNtNtNtCs2gclYLZIe7Z_4rune7compile4meta6FieldsEBH_.llvm.17749115032731870632"
+      ],
+      [
+       "_RINvNtCsgxBkk5gSRhY_4core3ptr9drop_glueNtNtCs2gclYLZIe7Z_4rune8indexing8FunctionEBF_.llvm.17652615222563039659",
+       "_RINvNtCsgxBkk5gSRhY_4core3ptr9drop_glueNtNtCs2gclYLZIe7Z_4rune8indexing8FunctionEBF_.llvm.17749115032731870632"
+      ],
+      [
+       "_RINvNtCsgxBkk5gSRhY_4core3ptr9drop_glueNtNtNtCs2gclYLZIe7Z_4rune8indexing6scopes5LayerEBH_.llvm.17652615222563039659",
+       "_RINvNtCsgxBkk5gSRhY_4core3ptr9drop_glueNtNtNtCs2gclYLZIe7Z_4rune8indexing6scopes5LayerEBH_.llvm.17749115032731870632"
+      ],
+      [
+       "_RINvNtCsgxBkk5gSRhY_4core3ptr9drop_glueNtNtNtCsdyPUd8mPE5o_9rune_core4item8item_buf7ItemBufECs2gclYLZIe7Z_4rune.llvm.17652615222563039659",
+       "_RINvNtCsgxBkk5gSRhY_4core3ptr9drop_glueNtNtNtCsdyPUd8mPE5o_9rune_core4item8item_buf7ItemBufECs2gclYLZIe7Z_4rune.llvm.17749115032731870632"
+      ],
+      [
+       "_RNCNvNtNtNtCs2gclYLZIe7Z_4rune7modules6macros7builtin18___rune_macro__file0B9_.llvm.17652615222563039659",
+       "_RNCNvNtNtNtCs2gclYLZIe7Z_4rune7modules6macros7builtin18___rune_macro__file0B9_.llvm.17749115032731870632"
+      ],
+      [
+       "_RNCNvNtNtNtCs2gclYLZIe7Z_4rune7modules6macros7builtin18___rune_macro__line0B9_.llvm.17652615222563039659",
+       "_RNCNvNtNtNtCs2gclYLZIe7Z_4rune7modules6macros7builtin18___rune_macro__line0B9_.llvm.17749115032731870632"
+      ],
+      [
+       "_RNSNvYNCNvNtNtNtCs2gclYLZIe7Z_4rune7modules6macros7builtin18___rune_macro__file0INtNtNtCsgxBkk5gSRhY_4core3ops8function6FnOnceTQNtNtNtBe_6macros13macro_context12MacroContextQNtNtB26_12token_stream11TokenStreamEE9call_once6vtableBe_.llvm.17652615222563039659",
+       "_RNSNvYNCNvNtNtNtCs2gclYLZIe7Z_4rune7modules6macros7builtin18___rune_macro__file0INtNtNtCsgxBkk5gSRhY_4core3ops8function6FnOnceTQNtNtNtBe_6macros13macro_context12MacroContextQNtNtB26_12token_stream11TokenStreamEE9call_once6vtableBe_.llvm.17749115032731870632"
+      ],
+      [
+       "_RNSNvYNCNvNtNtNtCs2gclYLZIe7Z_4rune7modules6macros7builtin18___rune_macro__line0INtNtNtCsgxBkk5gSRhY_4core3ops8function6FnOnceTQNtNtNtBe_6macros13macro_context12MacroContextQNtNtB26_12token_stream11TokenStreamEE9call_once6vtableBe_.llvm.17652615222563039659",
+       "_RNSNvYNCNvNtNtNtCs2gclYLZIe7Z_4rune7modules6macros7builtin18___rune_macro__line0INtNtNtCsgxBkk5gSRhY_4core3ops8function6FnOnceTQNtNtNtBe_6macros13macro_context12MacroContextQNtNtB26_12token_stream11TokenStreamEE9call_once6vtableBe_.llvm.17749115032731870632"
+      ],
+      [
+       "_RNvMs2_NtNtCs2gclYLZIe7Z_4rune5query5queryNtB5_5Query20insert_new_item_with.llvm.17652615222563039659",
+       "_RNvMs2_NtNtCs2gclYLZIe7Z_4rune5query5queryNtB5_5Query20insert_new_item_with.llvm.17749115032731870632"
+      ],
+      [
+       "anon.54333d06d9b5d6eb233c93e5c684b5d2.198.llvm.17652615222563039659",
+       "anon.54333d06d9b5d6eb233c93e5c684b5d2.198.llvm.17749115032731870632"
+      ],
+      [
+       "anon.54333d06d9b5d6eb233c93e5c684b5d2.200.llvm.17652615222563039659",
+       "anon.54333d06d9b5d6eb233c93e5c684b5d2.200.llvm.17749115032731870632"
+      ],
+      [
+       "anon.54333d06d9b5d6eb233c93e5c684b5d2.512.llvm.17652615222563039659",
+       "anon.54333d06d9b5d6eb233c93e5c684b5d2.512.llvm.17749115032731870632"
+      ],
+      [
+       "anon.54333d06d9b5d6eb233c93e5c684b5d2.513.llvm.17652615222563039659",
+       "anon.54333d06d9b5d6eb233c93e5c684b5d2.513.llvm.17749115032731870632"
+      ],
+      [
+       "anon.54333d06d9b5d6eb233c93e5c684b5d2.521.llvm.17652615222563039659",
+       "anon.54333d06d9b5d6eb233c93e5c684b5d2.521.llvm.17749115032731870632"
+      ],
+      [
+       "anon.54333d06d9b5d6eb233c93e5c684b5d2.525.llvm.17652615222563039659",
+       "anon.54333d06d9b5d6eb233c93e5c684b5d2.525.llvm.17749115032731870632"
+      ],
+      [
+       "anon.54333d06d9b5d6eb233c93e5c684b5d2.523.llvm.17652615222563039659",
+       "anon.54333d06d9b5d6eb233c93e5c684b5d2.523.llvm.17749115032731870632"
+      ],
+      [
+       "anon.54333d06d9b5d6eb233c93e5c684b5d2.524.llvm.17652615222563039659",
+       "anon.54333d06d9b5d6eb233c93e5c684b5d2.524.llvm.17749115032731870632"
+      ],
+      [
+       "anon.54333d06d9b5d6eb233c93e5c684b5d2.522.llvm.17652615222563039659",
+       "anon.54333d06d9b5d6eb233c93e5c684b5d2.522.llvm.17749115032731870632"
+      ],
+      [
+       "anon.54333d06d9b5d6eb233c93e5c684b5d2.526.llvm.17652615222563039659",
+       "anon.54333d06d9b5d6eb233c93e5c684b5d2.526.llvm.17749115032731870632"
+      ],
+      [
+       "anon.54333d06d9b5d6eb233c93e5c684b5d2.40.llvm.17652615222563039659",
+       "anon.54333d06d9b5d6eb233c93e5c684b5d2.40.llvm.17749115032731870632"
+      ],
+      [
+       "anon.54333d06d9b5d6eb233c93e5c684b5d2.199.llvm.17652615222563039659",
+       "anon.54333d06d9b5d6eb233c93e5c684b5d2.199.llvm.17749115032731870632"
+      ]
+     ]
+    },
+    "moved_locations": [
+     {
+      "file_offset": 6652288,
+      "address": 6660480,
+      "file_pointer": 714234,
+      "file": "/home/me/work/rune-w-0173/crates/rune/src/compile/context.rs",
+      "old_line": 535,
+      "new_line": 537,
+      "column": 47,
+      "source_shift": 2
+     }
+    ],
+    "text_identical": true,
+    "claim": "machine code and all other bytes identical except the enumerated panic line fields, ThinLTO local-symbol suffixes and the derived build-id; panic diagnostics for the moved locations differ"
+   },
+   "seconds": 37.005289192078635,
+   "retained_binary": "/home/me/work/rnx-bench-w-0179d/probes/startup-0179/neutrality-bin/prep3-p0-base-primary",
+   "reference_binary": "/home/me/work/rnx-bench-w-0178d/probes/profile-paired-0178/bin/p0-base-primary",
+   "historical_inputs": {
+    "harness.rs": "920183f259c86ef7c06694924c8bd405270065a6e969d8bf5f8969616d118396",
+    "alloc_track.rs": "4f058476c6a3e225199bc0fb8ea40aa026aa03dedfbefd843da6a6e42b00858c",
+    "harness/Cargo.lock": "bf7cebc2ecb351c81f044864db9b03750697a9779cf1e88d6c93e495abc7b8d4",
+    "harness/Cargo.toml": "5ac77c46f47d8e3952e4e85629f2fb60d017bb111ec47c04b6b6fe4c7529992e",
+    "harness/src/main.rs": "baaed7f5ec8800e66ec516458466d48466a6342a1da17574bc0b5e117f1d547f",
+    "harness/src/registration.rs": "988476e9ad026b5881a7483499636449ab4e17327990099bd9998cc7d7f97787"
+   },
+   "codegen_units_flags": [
+    "None"
+   ],
+   "rune_features": [
+    "alloc",
+    "anyhow",
+    "fmt",
+    "serde",
+    "std"
+   ]
+  },
+  "candidate_diff": {
+   "changed": [
+    "crates/rune/src/compile/context.rs",
+    "crates/rune/src/compile/context_startup_tests.rs"
+   ],
+   "production_files": [
+    "crates/rune/src/compile/context.rs"
+   ],
+   "test_only_files": [
+    "crates/rune/src/compile/context_startup_tests.rs"
+   ],
+   "candidate_parents": [
+    "4e84cfacc0278a4f1645c14310453bdc30ac77b4"
+   ]
+  },
+  "inputs": {
+   "harness/Cargo.toml": "5ac77c46f47d8e3952e4e85629f2fb60d017bb111ec47c04b6b6fe4c7529992e",
+   "harness/Cargo.lock": "bf7cebc2ecb351c81f044864db9b03750697a9779cf1e88d6c93e495abc7b8d4",
+   "harness/src/main.rs": "baaed7f5ec8800e66ec516458466d48466a6342a1da17574bc0b5e117f1d547f",
+   "harness/src/registration.rs": "988476e9ad026b5881a7483499636449ab4e17327990099bd9998cc7d7f97787",
+   "harness.rs": "4018276b32f57714925939a16160c5bcd9371abc3936877ebb7c42048dac167c",
+   "alloc_track.rs": "4f058476c6a3e225199bc0fb8ea40aa026aa03dedfbefd843da6a6e42b00858c",
+   "plan_clock.rs": "27273482ba8f4143e46b5a7a4dbc2886de70c3f9a7671f652569ca395172e57e",
+   "SOURCES-fb56b1d.sha256": "fa9a7843625d7b05ff046a4b5a56830dc3d66c7031ba5a1a14fa7b5f666ac154",
+   "oracle.py": "6b427017bb2119a06a81c44332960bc4f586b90ff3c6b278de3d47ee6fb47479",
+   "corpus/answer.rn": "3d9d07a8a3d32f04f8ee70291ca7893a18a0b84527b365168707b404ccde601f",
+   "corpus/async.rn": "78d3f634050f25ef48b0a9afc4c3f27b3a18babaf964654a6a1e50509f47fb0f",
+   "corpus/budget.rn": "9856117c5d33d4a421ccbf5174b43ce7f5132743b8f9d00e90935eff54f155c5",
+   "corpus/closure.rn": "f69350d4f4504312268d2b89fb3f6e10cccb7f16466ef4feefe6f5de870771ee",
+   "corpus/collections.rn": "73e1b95641c4cbf1db42e4073c7febe5d5e31006f0cf5f72e085bc190ee99575",
+   "corpus/divide-zero.rn": "c0098f367450e418e16174e478113145a92cfd0ed1ddfe70520b02aece853269",
+   "corpus/empty.rn": "9741381970d221b1bc059e0f0a55e1d66a76916ed27212972737a11261b1094c",
+   "corpus/expression-100.rn": "d76ad9a84626a13953bbdcb2bc96b4d54e7f1164f7120c69a8a58aed4e479841",
+   "corpus/expression-1000.rn": "e3583c139d33a9751c0550e755d2a61827c8d6753ec1c848f9dfa3b17a1b7fd0",
+   "corpus/expression-10000.rn": "0618fdcba71dd42ab2c126426c0138d249c3fdf46ce1256ce67ad260b4eafb5c",
+   "corpus/fib.rn": "b85d1cfeab32c65900f29f747761135f0340dac9303b99edaee3326aa82bd6db",
+   "corpus/floats.rn": "e7e18651f3044eede490b0d5dcd9802d0576fb32211f3bdf326cd93348a7d5be",
+   "corpus/int-boundaries.rn": "b0023db84fd512c710064add130112bb87bed9a6029d662bc69c1054e25b751c",
+   "corpus/iterator-trait.rn": "52660e527b812e649f30b23bd7860f8149495b39c3f4e29d863c8a9e04c84c27",
+   "corpus/literal-100.rn": "5be41cd0bb9792d9356dd827c9c18da83d4c410df6f3fdac990c0e4d61301fc8",
+   "corpus/literal-1000.rn": "d6c6924c2d9914275ed9fbeadfe4622fbbbb4a1b603bffc7f47c54f1cfa39395",
+   "corpus/literal-10000.rn": "34ebac3cf099af2189ef913f717726394833aedabdedc4d62c1614171be58158",
+   "corpus/numeric.rn": "ff53f597a3e317c2c37d105882abc878ac9d223450ef33ee9bea8e6cdfc5dcee",
+   "corpus/object-alias.rn": "f80548741482e3d9443c3b6781c8ab131a41003b9652da02c3fc47b7453f2d1f",
+   "corpus/overflow.rn": "e28de80d24f96485425d09a80b27757ecfe332dfa17a1c59b29b9a7986e9d1f6",
+   "corpus/recursion-10000.rn": "3f50d70bc3373fedf0a371b6f14f15432a3a0a4b4639bcddc0457f1fd3fdb738",
+   "corpus/recursion-100000.rn": "f34f0caf9ca3c4b67265084424fc372c67d0ccd8b342a216f0be038d93daf2b8",
+   "corpus/recursion-1000000.rn": "795df81211bdf0619522803e2b17c8c5acf87247613ecee318a9df63e5839cf3",
+   "corpus/strings.rn": "7001e9c8318064da4c15dc98144d2c8b7020bdbbe232423cafcd634ce5981f88",
+   "corpus/sum-untyped.rn": "7755160c7e74235e7da6a58b79a551865ee1f30e14af10a081b7abc9235690b6",
+   "corpus/undefined.rn": "5ad32dd414009590900b8ca91c8d78aac367d323afdbe5751bec5deeb986f044",
+   "corpus/unicode.rn": "0867e9846b5593c6e7f4bb380958b23ee71ec1c83bece242b26a0a32a27877c1",
+   "corpus/vec-alias.rn": "46d96472dcdf4155f9495f8eb6c5303963e8ade5156d3ae4d04300bed15d01b9",
+   "fixtures/calls.rn": "18d3f41d64307a08044964bd8e2f3cf7353c484057f03a09d6e96fb64632d584",
+   "fixtures/compare.rn": "d2898d6231ca58f863b7583244e5d4f9efc56f61dc9918a53836ede9bc5f29ac",
+   "fixtures/first-use-stdio.rn": "a6cb670304ed84b8e8b192ce2a10947fd1bbbe3ee44401b5459bcdadecd949dd",
+   "fixtures/first-use.rn": "db032dd5b7e3e370abf509a66b628e1ae597d1fa8ca95f1d49f202a1fdec8042",
+   "fixtures/overwrite_alias.rn": "c5949059af446e086b9538f0e7be3d759b8e5e8232b1607cda7702f7ed1025e1",
+   "fixtures/overwrite_deep.rn": "dd0593945d4ec34a9beddd2d1cb3cc8c6fd28530f6a4038738b3b4768b5cdf8f",
+   "fixtures/overwrite_inline.rn": "fcd3a8cfd4ac791071a3b9ceecb1fd94bd02b6e146970cc4dc59a31a433711ae",
+   "fixtures/overwrite_mixed.rn": "85c360b1a084459070fb6014ba1c97af802b1694dfb05e202d962a2506a75dfb",
+   "fixtures/vector.rn": "4bf3713025339c9d0463fa65555e407f4dd5a5a2a03c16d48e82083f4dfd8edd",
+   "fixtures/while.rn": "9054fbf649cd2d17037c055e029e24f251f9bf933d78ae3e94cc39717919de50",
+   "fixtures/manifest.json": "effbe2b691acf9c9419fe68de2dd971ddd9e7f0f0cb7e2c42d8b7f6874ccff06",
+   "range/manual_next.rn": "cde3ded3b60ad98352a2eeb84e55396c69175ae80af8e2a09177ee14c61dcc03",
+   "range/range_negative.rn": "181685064a296c26bc3c0222887a5f583b2cd7088a233e42f1b84bfc352a3e64",
+   "range/range_signed.rn": "9c95179ed778f062e6fd6c925bb98ebcac886995150eb18fa73df975dbe96ac9",
+   "range/range_while.rn": "386d627752944841db83513dabb0f71be9c95e92d1e043780a1421704dbdeb22",
+   "lua/numeric.lua": "33a166acf68acdc108ebb1f0ba0d50b972584bf85d392b3b6e2a0bb74120597d",
+   "lua/while.lua": "864424af5d37ef9137bc8608d3f9ee8bcf34acb90ef421c26a40d507843ed796"
+  },
+  "lua": {
+   "lua54": {
+    "path": "/home/me/.local/bin/lua54",
+    "sha256": "cfb2dc058fa441a527d9a84cc084f09828fcd48cddb757caf64caa21c935f6ec"
+   },
+   "luajit": {
+    "path": "/home/me/.local/bin/luajit",
+    "sha256": "a1ff02fbce1ed98f3e384e560158a456ffc26d43badac7a31e424af616c68320"
+   }
+  }
+ },
+ "manifest_sha256": "d3552638c3e0fbc8d9cfe538a3488a35edf0d432454b6c4e9d1359363e1fd8a1",
+ "rehearsal_mode": false,
+ "pair": {
+  "profile": "p0",
+  "source": "cand",
+  "roles": {
+   "base": "p0-base",
+   "cand": "p0-cand"
+  }
+ }
+}

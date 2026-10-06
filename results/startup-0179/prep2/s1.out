@@ -1,0 +1,15 @@
+base all-features {'rev': '4e84cfacc0278a4f1645c14310453bdc30ac77b4', 'status': 0, 'passed': 601, 'failed': 0, 'seconds': 139.65732775791548}
+base production-features {'rev': '4e84cfacc0278a4f1645c14310453bdc30ac77b4', 'status': 0, 'passed': 6, 'failed': 0, 'seconds': 26.958157331915572}
+base no-std {'rev': '4e84cfacc0278a4f1645c14310453bdc30ac77b4', 'status': 0, 'passed': 0, 'failed': 0, 'seconds': 17.983664265135303}
+cand all-features {'rev': 'b28f8cb3345448914ef4e35514d802d1795f16ac', 'status': 0, 'passed': 602, 'failed': 0, 'seconds': 137.43404994695447}
+cand production-features {'rev': 'b28f8cb3345448914ef4e35514d802d1795f16ac', 'status': 0, 'passed': 7, 'failed': 0, 'seconds': 27.46482242201455}
+cand no-std {'rev': 'b28f8cb3345448914ef4e35514d802d1795f16ac', 'status': 0, 'passed': 0, 'failed': 0, 'seconds': 18.179638298926875}
+neutrality 619d30c316b1 reference 7a66b042e865 differs accepted {".note.gnu.build-id": 20, ".data.rel.ro": 1, ".strtab": 456}
+Traceback (most recent call last):
+  File "/home/me/work/rnx-bench-w-0179d/probes/startup-0179/build.py", line 234, in <module>
+    main(sys.argv[1])
+    ~~~~^^^^^^^^^^^^^
+  File "/home/me/work/rnx-bench-w-0179d/probes/startup-0179/build.py", line 210, in main
+    assert DIAGNOSTIC_CFG not in log, ("STOP: diagnostic cfg in a measured build", name)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: ('STOP: diagnostic cfg in a measured build', 'p0-base-primary')

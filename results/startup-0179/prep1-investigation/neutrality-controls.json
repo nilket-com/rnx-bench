@@ -1,0 +1,290 @@
+{
+ "new": {
+  "path": "neutrality-bin/prep1-investigation-p0-base-primary",
+  "sha256": "619d30c316b18ae3bd51d9de3ccd34bc5e0f3e2c35c42d1dea276ed84def9641"
+ },
+ "reference": {
+  "path": "/home/me/work/rnx-bench-w-0178d/probes/profile-paired-0178/bin/p0-base-primary",
+  "sha256": "7a66b042e8656c4a0cbb4c4641b827c34c6f458bc1e442e87b556612d8d05014"
+ },
+ "controls": {
+  "unmodified-pair-accepted": {
+   "pass": true,
+   "accepted": true,
+   "expected_problem": null,
+   "problems": []
+  },
+  "reference-equals-itself-with-elf-header-pad-flipped": {
+   "pass": true,
+   "accepted": false,
+   "expected_problem": "outside the validated allowlist",
+   "problems": [
+    "1 differing byte(s) outside the validated allowlist, first at file offset 9"
+   ]
+  },
+  "elf-header-pad-byte": {
+   "pass": true,
+   "accepted": false,
+   "expected_problem": "outside the validated allowlist",
+   "problems": [
+    "1 differing byte(s) outside the validated allowlist, first at file offset 9"
+   ]
+  },
+  "program-header-flags": {
+   "pass": true,
+   "accepted": false,
+   "expected_problem": "outside the validated allowlist",
+   "problems": [
+    "1 differing byte(s) outside the validated allowlist, first at file offset 68"
+   ]
+  },
+  "section-header-flags-of-text": {
+   "pass": true,
+   "accepted": false,
+   "expected_problem": "outside the validated allowlist",
+   "problems": [
+    "1 differing byte(s) outside the validated allowlist, first at file offset 9006000"
+   ]
+  },
+  "section-header-alignment": {
+   "pass": true,
+   "accepted": false,
+   "expected_problem": "outside the validated allowlist",
+   "problems": [
+    "1 differing byte(s) outside the validated allowlist, first at file offset 9006040"
+   ]
+  },
+  "inter-section-padding-byte": {
+   "pass": true,
+   "accepted": false,
+   "expected_problem": "outside the validated allowlist",
+   "problems": [
+    "1 differing byte(s) outside the validated allowlist, first at file offset 3042"
+   ],
+   "file_offset": 3042
+  },
+  "truncated-file": {
+   "pass": true,
+   "accepted": false,
+   "expected_problem": "file sizes differ",
+   "problems": [
+    "file sizes differ"
+   ]
+  },
+  "byte-in-.text": {
+   "pass": true,
+   "accepted": false,
+   "expected_problem": "outside the validated allowlist",
+   "problems": [
+    "1 differing byte(s) outside the validated allowlist, first at file offset 4012719",
+    ".text is not identical"
+   ]
+  },
+  "byte-in-.rodata": {
+   "pass": true,
+   "accepted": false,
+   "expected_problem": "outside the validated allowlist",
+   "problems": [
+    "1 differing byte(s) outside the validated allowlist, first at file offset 834140"
+   ]
+  },
+  "byte-in-.rela.dyn": {
+   "pass": true,
+   "accepted": false,
+   "expected_problem": "outside the validated allowlist",
+   "problems": [
+    "1 differing byte(s) outside the validated allowlist, first at file offset 148496"
+   ]
+  },
+  "byte-in-.symtab": {
+   "pass": true,
+   "accepted": false,
+   "expected_problem": "outside the validated allowlist",
+   "problems": [
+    "1 differing byte(s) outside the validated allowlist, first at file offset 6920176"
+   ]
+  },
+  "byte-in-.eh_frame": {
+   "pass": true,
+   "accepted": false,
+   "expected_problem": "outside the validated allowlist",
+   "problems": [
+    "1 differing byte(s) outside the validated allowlist, first at file offset 1274018"
+   ]
+  },
+  "build-id-descriptor-byte-accepted": {
+   "pass": true,
+   "accepted": true,
+   "expected_problem": null,
+   "problems": []
+  },
+  "build-id-note-type": {
+   "pass": true,
+   "accepted": false,
+   "expected_problem": "build-id note framing",
+   "problems": [
+    "unexpected GNU build-id note framing",
+    "21 differing byte(s) outside the validated allowlist, first at file offset 804"
+   ]
+  },
+  "build-id-note-name": {
+   "pass": true,
+   "accepted": false,
+   "expected_problem": "build-id note framing",
+   "problems": [
+    "unexpected GNU build-id note framing",
+    "21 differing byte(s) outside the validated allowlist, first at file offset 808"
+   ]
+  },
+  "build-id-note-descsz": {
+   "pass": true,
+   "accepted": false,
+   "expected_problem": "build-id note framing",
+   "problems": [
+    "unexpected GNU build-id note framing",
+    "21 differing byte(s) outside the validated allowlist, first at file offset 800"
+   ]
+  },
+  "symbol-suffix-digit-accepted": {
+   "pass": true,
+   "accepted": true,
+   "expected_problem": null,
+   "problems": []
+  },
+  "symbol-name-outside-suffix": {
+   "pass": true,
+   "accepted": false,
+   "expected_problem": "beyond a .llvm.<digits> suffix",
+   "problems": [
+    ".strtab names differ beyond a .llvm.<digits> suffix: b'_RINvNtCsgxBkk5gSRhY_4core3ptr9drop_glueNtNtNtCs2gclYLZIe7Z_4rune7runtime5value4ReprECseHFHVs5K1YU_13rune_base_oew.llvm.' / b'_RINvNtCsgxBkk5gSRhY_4core3ptr9drop_glueNtNtNtCs2gclYLZIe7Z_4rune7runtime5value4ReprECseHFHVs5K1YU_13rune_base_new.llvm.'",
+    "457 differing byte(s) outside the validated allowlist, first at file offset 7550016"
+   ]
+  },
+  "symbol-without-suffix": {
+   "pass": true,
+   "accepted": false,
+   "expected_problem": "beyond a .llvm.<digits> suffix",
+   "problems": [
+    ".strtab names differ beyond a .llvm.<digits> suffix: b'lain' / b'main'",
+    "457 differing byte(s) outside the validated allowlist, first at file offset 7547537"
+   ]
+  },
+  "symbol-suffix-made-non-digit": {
+   "pass": true,
+   "accepted": false,
+   "expected_problem": "beyond a .llvm.<digits> suffix",
+   "problems": [
+    ".strtab names differ beyond a .llvm.<digits> suffix: b'_RINvNtCsgxBkk5gSRhY_4core3ptr9drop_glueNtNtNtCs2gclYLZIe7Z_4rune7runtime5value4ReprECseHFHVs5K1YU_13rune_base_new.llvm.' / b'_RINvNtCsgxBkk5gSRhY_4core3ptr9drop_glueNtNtNtCs2gclYLZIe7Z_4rune7runtime5value4ReprECseHFHVs5K1YU_13rune_base_new.llvm.'",
+    "457 differing byte(s) outside the validated allowlist, first at file offset 7550025"
+   ]
+  },
+  "symbol-count-changed": {
+   "pass": true,
+   "accepted": false,
+   "expected_problem": ".strtab symbol count differs",
+   "problems": [
+    ".strtab symbol count differs",
+    "457 differing byte(s) outside the validated allowlist, first at file offset 7550044"
+   ]
+  },
+  "line-with-wrong-shift": {
+   "pass": true,
+   "accepted": false,
+   "expected_problem": "source diff gives",
+   "problems": [
+    "location at 6652288: line 535 -> 539, source diff gives 537",
+    "1 differing byte(s) outside the validated allowlist, first at file offset 6652304"
+   ]
+  },
+  "column-changed": {
+   "pass": true,
+   "accepted": false,
+   "expected_problem": "differs outside its line field",
+   "problems": [
+    "location at 6652288 differs outside its line field",
+    "2 differing byte(s) outside the validated allowlist, first at file offset 6652304"
+   ]
+  },
+  "length-word-changed": {
+   "pass": true,
+   "accepted": false,
+   "expected_problem": "outside the validated allowlist",
+   "problems": [
+    "location at 6652280: file pointer is not the same RELATIVE relocation in both files",
+    "2 differing byte(s) outside the validated allowlist, first at file offset 6652296"
+   ]
+  },
+  "pointer-word-changed": {
+   "pass": true,
+   "accepted": false,
+   "expected_problem": "outside the validated allowlist",
+   "problems": [
+    "location at 6652272: file pointer is not the same RELATIVE relocation in both files",
+    "2 differing byte(s) outside the validated allowlist, first at file offset 6652288"
+   ]
+  },
+  "same-length-other-path-in-both-files": {
+   "pass": true,
+   "accepted": false,
+   "expected_problem": "referenced file is",
+   "problems": [
+    "location at 6652288: referenced file is b'/home/me/work/rune-w-0173/crates/rune/src/compile/contexT.rs' / b'/home/me/work/rune-w-0173/crates/rune/src/compile/contexT.rs', not b'/home/me/work/rune-w-0173/crates/rune/src/compile/context.rs'",
+    "1 differing byte(s) outside the validated allowlist, first at file offset 6652304"
+   ]
+  },
+  "other-path-in-reference-only": {
+   "pass": true,
+   "accepted": false,
+   "expected_problem": "outside the validated allowlist",
+   "problems": [
+    "location at 6652288: referenced file is b'/home/me/work/rune-w-0173/crates/rune/src/compile/context.rs' / b'/home/me/work/rune-w-0173/crates/rune/src/compile/contexT.rs', not b'/home/me/work/rune-w-0173/crates/rune/src/compile/context.rs'",
+    "2 differing byte(s) outside the validated allowlist, first at file offset 714290"
+   ]
+  },
+  "length-out-of-range-in-both-files": {
+   "pass": true,
+   "accepted": false,
+   "expected_problem": "is not the context.rs path length",
+   "problems": [
+    "location at 6652288: file length 1099511627776 is not the context.rs path length 60",
+    "1 differing byte(s) outside the validated allowlist, first at file offset 6652304"
+   ]
+  },
+  "pointer-relocated-out-of-range-in-both-files": {
+   "pass": true,
+   "accepted": false,
+   "expected_problem": "is not file-backed",
+   "problems": [
+    "address 0x4000000000000+60 is not file-backed",
+    "1 differing byte(s) outside the validated allowlist, first at file offset 6652304"
+   ]
+  },
+  "pointer-not-a-relative-relocation-in-both-files": {
+   "pass": true,
+   "accepted": false,
+   "expected_problem": "RELATIVE relocation",
+   "problems": [
+    "location at 6652288: file pointer is not the same RELATIVE relocation in both files",
+    "1 differing byte(s) outside the validated allowlist, first at file offset 6652304"
+   ]
+  },
+  "line-like-word-at-section-start": {
+   "pass": true,
+   "accepted": false,
+   "expected_problem": "truncated location",
+   "problems": [
+    "truncated location at file offset 6517368",
+    "2 differing byte(s) outside the validated allowlist, first at file offset 6517368"
+   ]
+  },
+  "unrelated-word-in-data-rel-ro": {
+   "pass": true,
+   "accepted": false,
+   "expected_problem": "outside the validated allowlist",
+   "problems": [
+    "location at 6521464: file pointer is not the same RELATIVE relocation in both files",
+    "2 differing byte(s) outside the validated allowlist, first at file offset 6521480"
+   ]
+  }
+ }
+}
