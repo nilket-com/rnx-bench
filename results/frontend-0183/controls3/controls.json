@@ -1,0 +1,308 @@
+{
+ "L0-replay-of-the-0181-control-set": {
+  "pass": true,
+  "detail": {
+   "controls": 23,
+   "all_pass": true,
+   "libraries": {
+    "probes/execution-cost-0180/events.py": "36595033600391e412897f2676364a62411c4d8691cf5eb9f5998a1ef2fc10c2",
+    "probes/execution-cost-0181/events0181.py": "bb44cf0df873ac6412298f643e4957cc1eb491cc23f091cdbd4f0185224d94c7",
+    "probes/startup-0179/common.py": "abd19671c56d7e8f9a6a07f72a3b98b39e2ef0dfdc45a0602e31937954c9ddba"
+   }
+  },
+  "seconds": 3.862360679078847
+ },
+ "L1-altered-library-is-refused-before-it-is-imported": {
+  "pass": true,
+  "detail": {
+   "unaltered": {
+    "status": 0,
+    "marker_executed": false
+   },
+   "events.py": {
+    "status": 1,
+    "marker_executed": false
+   },
+   "events0181.py": {
+    "status": 1,
+    "marker_executed": false
+   },
+   "common.py": {
+    "status": 1,
+    "marker_executed": false
+   }
+  },
+  "seconds": 0.12122346786782146
+ },
+ "G1-frozen-scope-and-untouched-library-definitions": {
+  "pass": true,
+  "detail": {
+   "F1": [
+    "perf",
+    "stat",
+    "-j",
+    "--no-scale",
+    "-e",
+    "{cpu_core/instructions,name=instructions/u,cpu_core/cpu-cycles,name=cycles/u,cpu_core/event=0x61,umask=0x02,name=dsb2mite_penalty_cycles/u}:D",
+    "--"
+   ],
+   "library_groups_unchanged": true
+  },
+  "seconds": 0.030318849021568894
+ },
+ "C1-F1-row-defects-are-group-local-and-anchor-defects-global": {
+  "pass": true,
+  "detail": {
+   "local-not-counted": "LocalInvalid(('F1', \"Stop(('counter not counted or unsupported', 'F1', 'dsb2mite",
+   "local-nan": "LocalInvalid(('F1', \"Stop(('counter not finite and non-negative', 'F1', 'dsb2mit",
+   "local-negative": "LocalInvalid(('F1', \"Stop(('counter not finite and non-negative', 'F1', 'dsb2mit",
+   "local-missing": "LocalInvalid(('F1', \"Stop(('counter set differs from the frozen group', 'F1', ['",
+   "local-running-99.9": "LocalInvalid(('F1', \"Stop(('counter not running 100%', 'F1', 'dsb2mite_penalty_c",
+   "local-unit": "LocalInvalid(('F1', \"Stop(('unexpected unit', 'F1', 'dsb2mite_penalty_cycles', '",
+   "local-runtime-nan": "LocalInvalid(('F1', \"Stop(('counter time missing or not finite and positive', 'F",
+   "global-instructions-not-counted": "Stop(('invalid anchor counter (global)', 'F1', \"Stop(('count",
+   "global-instructions-missing": "Stop(('invalid anchor counter (global)', 'F1', \"Stop(('count",
+   "global-instructions-running-99.9": "Stop(('invalid anchor counter (global)', 'F1', \"Stop(('count",
+   "global-instructions-inf": "Stop(('invalid anchor counter (global)', 'F1', \"Stop(('count",
+   "global-cycles-not-counted": "Stop(('invalid anchor counter (global)', 'F1', \"Stop(('count",
+   "global-cycles-missing": "Stop(('invalid anchor counter (global)', 'F1', \"Stop(('count",
+   "global-cycles-running-99.9": "Stop(('invalid anchor counter (global)', 'F1', \"Stop(('count",
+   "global-cycles-inf": "Stop(('invalid anchor counter (global)', 'F1', \"Stop(('count",
+   "global-malformed": "Stop(('malformed counter line (unclassified, global)', '{\"co",
+   "global-eventless": "Stop(('counter line without an event name (unclassified, glo",
+   "global-anchor-wins": "Stop(('invalid anchor counter (global)', 'F1', \"Stop(('count",
+   "zero-count-is-valid": 0.0
+  },
+  "seconds": 0.000709660118445754
+ },
+ "S1-every-window-status-and-its-boundaries": {
+  "pass": true,
+  "detail": {
+   "strong r=0.6": "strong",
+   "strong at exactly 0.5": "strong",
+   "intermediate just below 0.5": "intermediate",
+   "intermediate just above 0.1": "intermediate",
+   "weak at exactly 0.1": "weak",
+   "weak r=0.05": "weak",
+   "weak unresolved positive": "weak",
+   "weak unresolved negative": "weak",
+   "weak zero difference": "weak",
+   "contrary resolved down": "contrary",
+   "undefined cycles unresolved": "undefined",
+   "undefined cycles resolved down": "undefined",
+   "undefined precedes contrary": "undefined"
+  },
+  "seconds": 7.782783359289169e-05
+ },
+ "S1-malformed-or-non-finite-summaries-stop": {
+  "pass": true,
+  "detail": {
+   "unknown-state": "Stop(('unknown collection state', 'maybe'))",
+   "f1-missing": "Stop(('summary quantity missing or undefined for a valid group', 'dsb2mite_penalty_cycles'))",
+   "cycles-missing": "Stop(('summary quantity missing or undefined for a valid group', 'cycles'))",
+   "f1-undefined-status": "Stop(('summary quantity missing or undefined for a valid group', 'dsb2mite_penalty_cycles'))",
+   "nan-difference": "Stop(('summary difference is not a finite number', 'dsb2mite_penalty_cycles', nan))",
+   "inf-difference": "Stop(('summary difference is not a finite number', 'cycles', inf))",
+   "bool-difference": "Stop(('summary difference is not a finite number', 'cycles', True))",
+   "string-difference": "Stop(('summary difference is not a finite number', 'dsb2mite_penalty_cycles', '600'))",
+   "resolved-missing": "Stop(('summary `resolved` is not a bool', 'dsb2mite_penalty_cycles', None))",
+   "resolved-string": "Stop(('summary `resolved` is not a bool', 'dsb2mite_penalty_cycles', 'true'))",
+   "resolved-int": "Stop(('summary `resolved` is not a bool', 'cycles', 1))",
+   "resolved-none": "Stop(('summary `resolved` is not a bool', 'dsb2mite_penalty_cycles', None))",
+   "direction-sideways": "Stop(('summary `direction` is not consistent with its difference', 'dsb2mite_penalty_cycles', 'sideways', 100.0))",
+   "direction-missing": "Stop(('summary `direction` is not consistent with its difference', 'cycles', None, 1000.0))",
+   "positive-difference-direction-down": "Stop(('summary `direction` is not consistent with its difference', 'dsb2mite_penalty_cycles', 'down', 100.0))",
+   "negative-difference-direction-up": "Stop(('summary `direction` is not consistent with its difference', 'dsb2mite_penalty_cycles', 'up', -600.0))",
+   "zero-difference-direction-up": "Stop(('summary `direction` is not consistent with its difference', 'dsb2mite_penalty_cycles', 'up', 0.0))",
+   "resolved-with-zero-difference": "Stop(('a resolved quantity cannot have a zero difference', 'dsb2mite_penalty_cycles'))",
+   "cycles-direction-contradicts": "Stop(('summary `direction` is not consistent with its difference', 'cycles', 'down', 1000.0))",
+   "reproducer-resolved-string": "Stop(('summary `resolved` is not a bool', 'dsb2mite_penalty_cycles', 'true'))",
+   "reproducer-direction-sideways": "Stop(('summary `direction` is not consistent with its difference', 'dsb2mite_penalty_cycles', 'sideways', 600))",
+   "reproducer-positive-down": "Stop(('summary `direction` is not consistent with its difference', 'dsb2mite_penalty_cycles', 'down', 600))",
+   "contrast-resolved-string": "Stop(('summary `resolved` is not a bool', ('run-while', 'dsb2mite_penalty_cycles'), 'true'))",
+   "contrast-direction-contradicts": "Stop(('summary `direction` is not consistent with its difference', ('run-empty', 'dsb2mite_penalty_cycles'), 'down', 100.0))",
+   "contrast-cycles-nan": "Stop(('summary difference is not a finite number', ('run-while', 'cycles'), nan))",
+   "reported-direction-sideways": "Stop(('summary `direction` is not consistent with its difference', ('run-fib', 'dsb2mite_penalty_cycles'), 'sideways', 100.0))",
+   "reported-cycles-resolved-int": "Stop(('summary `resolved` is not a bool', ('run-calls', 'cycles'), 1))",
+   "contrast-quantity-missing": "Stop(('summary quantity missing or undefined for a valid group', ('run-while', 'dsb2mite_penalty_cycles')))"
+  },
+  "seconds": 0.000252994941547513
+ },
+ "S1-every-disposition-and-precedence": {
+  "pass": true,
+  "detail": {
+   "all strong": "A-strengthened",
+   "all weak": "A-weakened",
+   "all contrary": "A-weakened",
+   "weak and contrary": "A-weakened",
+   "all intermediate": "A-mixed",
+   "strong on two": "A-mixed",
+   "strong on one": "A-mixed",
+   "strong and contrary": "A-mixed",
+   "strong and intermediate": "A-mixed",
+   "undefined on one beats strong": "A-failed",
+   "undefined on one beats weak": "A-failed",
+   "undefined on all": "A-failed",
+   "F1 invalid": "A-failed",
+   "F1 unavailable": "A-unavailable"
+  },
+  "seconds": 0.00018483586609363556
+ },
+ "S1-no-locating-event-under-every-disposition": {
+  "pass": true,
+  "detail": {
+   "strengthened": "A-strengthened",
+   "weakened": "A-weakened",
+   "mixed": "A-mixed",
+   "failed": "A-failed",
+   "unavailable": "A-unavailable",
+   "F3 valid": "F3",
+   "F3 unavailable, F2 valid": "F2",
+   "F3 invalid is not replaced by F2": null,
+   "both unavailable": null,
+   "F3 unavailable, F2 invalid": null
+  },
+  "seconds": 0.00010000797919929028
+ },
+ "S1-contrast-flag-thresholds": {
+  "pass": true,
+  "detail": {
+   "at threshold": true,
+   "above": true,
+   "below": false,
+   "large but unresolved": false,
+   "resolved down": false
+  },
+  "seconds": 8.947099559009075e-05
+ },
+ "O1-complete-runs-reach-the-registered-dispositions": {
+  "pass": true,
+  "detail": {
+   "strengthened": {
+    "disposition": "A-strengthened",
+    "r": {
+     "run-numeric": 0.8,
+     "run-range_signed": 0.8,
+     "run-range_negative": 0.8
+    }
+   },
+   "weakened": {
+    "disposition": "A-weakened",
+    "r": {
+     "run-numeric": 0.02,
+     "run-range_signed": 0.02,
+     "run-range_negative": 0.02
+    }
+   },
+   "mixed": {
+    "disposition": "A-mixed",
+    "r": {
+     "run-numeric": 0.3,
+     "run-range_signed": 0.3,
+     "run-range_negative": 0.3
+    }
+   },
+   "flat": {
+    "disposition": "A-weakened",
+    "r": {
+     "run-numeric": 0.0,
+     "run-range_signed": 0.0,
+     "run-range_negative": 0.0
+    }
+   }
+  },
+  "seconds": 0.17968894680961967
+ },
+ "O1-F1-row-failure-is-partial-with-A-failed-and-no-summary": {
+  "pass": true,
+  "detail": {
+   "counts": {
+    "R": 140,
+    "F1": 41
+   },
+   "disposition": "A-failed"
+  },
+  "seconds": 0.03626858815550804
+ },
+ "O1-global-stops": {
+  "pass": true,
+  "detail": {
+   "anchor in F1": "GLOBAL STOP (infrastructure, safety or measurement failure)",
+   "survivor in F1": "GLOBAL STOP (infrastructure, safety or measurement failure)",
+   "wrong output in F1": "GLOBAL STOP (infrastructure, safety or measurement failure)",
+   "status 1 in R": "GLOBAL STOP (infrastructure, safety or measurement failure)",
+   "timeout in R": "GLOBAL STOP (infrastructure, safety or measurement failure)",
+   "F1 anchors do not reproduce": "GLOBAL STOP (NONREPRODUCING)",
+   "identity drift before F1": "GLOBAL STOP (infrastructure, safety or measurement failure)",
+   "deadline between groups": "GLOBAL STOP (infrastructure, safety or measurement failure)"
+  },
+  "seconds": 0.26484076911583543
+ },
+ "O1-sentinel-hit-or-scan-error-overrides-any-status": {
+  "pass": true,
+  "detail": {
+   "hit": "GLOBAL STOP (sentinel occurrence or scan failure)",
+   "scan_error": {
+    "completed": false,
+    "error": "OSError('scan failed')"
+   }
+  },
+  "seconds": 0.08478539297357202
+ },
+ "V0-frozen-pins-match-the-reviewed-discovery": {
+  "pass": true,
+  "detail": {
+   "order": [
+    "R",
+    "F1"
+   ],
+   "rows": 4
+  },
+  "seconds": 0.00023506488651037216
+ },
+ "V1-availability-content-validation": {
+  "pass": true,
+  "detail": {
+   "F1-ineligible": "Stop(('group is not eligible by both of its open checks', 'F1'))",
+   "F1-dropped-from-order": "Stop(('order is not R then F1', ['R']))",
+   "reordered": "Stop(('order is not R then F1', ['F1', 'R']))",
+   "A-unavailable-status": "Stop(('availability manifest does not permit a run', '0183', 'A-unavailable: F1 not available at discovery'))",
+   "other-record": "Stop(('availability manifest does not permit a run', '0181', 'available'))",
+   "0181-manifest": "Stop(('availability manifest does not permit a run', '0181', 'available'))",
+   "group-F3-added": "Stop(('availability manifest does not cover exactly R and F1',))",
+   "F3-in-order": "Stop(('order is not R then F1', ['R', 'F1', 'F3']))",
+   "group-D-added": "Stop(('availability manifest does not cover exactly R and F1',))",
+   "exclusion-removed": "Stop(('excluded events differ from the reviewed exclusion', None))",
+   "exclusion-changed": "Stop(('excluded events differ from the reviewed exclusion', {'F2': 'not collected (unavailable)', 'F3': 'valid'}))",
+   "F1-event-swapped-for-frontend": "Stop(('group definition changed since discovery', 'F1'))",
+   "F1-encoding-drift": "Stop(('group definition changed since discovery', 'F1'))",
+   "weak-group-drift": "Stop(('group definition changed since discovery', 'F1'))",
+   "scaling-drift": "Stop(('group definition changed since discovery', 'R'))",
+   "atom-drift": "Stop(('group definition changed since discovery', 'F1'))",
+   "one-check": "Stop(('group does not have exactly two recorded open checks', 'F1'))",
+   "identity-hash-zeroed": "Stop(('availability manifest is bound to another identity receipt',))",
+   "other-subjects": "Stop(('availability manifest is for other subjects',))",
+   "other-libraries": "Stop(('availability manifest was made with other libraries',))"
+  },
+  "seconds": 0.0002863819245249033
+ },
+ "V2-admission-binds-reviewed-bytes-libraries-and-current-host": {
+  "pass": true,
+  "detail": {
+   "both-pins-unset": "Stop((\"the availability review has not frozen this record's receipt hashes\",))",
+   "availability-pin-unset": "Stop((\"the availability review has not frozen this record's receipt hashes\",))",
+   "identity-pin-unset": "Stop((\"the availability review has not frozen this record's receipt hashes\",))",
+   "same-bytes-other-path": "Stop((\"availability manifest is not this record's reviewed discovery receipt\", '/home/me/work/rnx-bench-w-0183d/results/frontend-0183/controls3/elsewhere/availability.json'))",
+   "0181-receipts": "Stop((\"availability manifest is not this record's reviewed discovery receipt\", '/home/me/work/rnx-bench-w-0183d/results/execution-cost-0181/discovery1/availability.json'))",
+   "availability-bytes-changed": "Stop(('availability manifest does not match its reviewed hash',))",
+   "changed-exclusion-refused-even-if-pinned": "Stop(('excluded events differ from the reviewed exclusion', {'F2': 'not collected (unavailable)', 'F3': 'valid'}))",
+   "kernel-drift": "Stop((\"host identity differs from this record's discovery\", {'kernel': ['7.0.0-31-generic', '7.0.0-32-generic']}))",
+   "perf-version-drift": "Stop((\"host identity differs from this record's discovery\", {'perf': ['perf version 7.0.14', 'perf version 7.1.0']}))",
+   "microcode-drift": "Stop((\"host identity differs from this record's discovery\", {'cpu4': [{'vendor_id': 'GenuineIntel', 'cpu family': '6', 'model': '183', 'model name': 'Intel(R) Core(TM) i7-14700', 'stepping': '1', 'microcode': '0x133'}, {'vendor_id': 'GenuineIntel', 'cpu family': '6', 'model': '183', 'model name': 'I",
+   "watchdog-drift": "Stop((\"host identity differs from this record's discovery\", {'nmi_watchdog': ['1', '0']}))",
+   "format-drift": "Stop((\"host identity differs from this record's discovery\", {'cpu_core_format': [{'cmask': 'config:24-31', 'edge': 'config:18', 'event': 'config:0-7', 'frontend': 'config1:0-23', 'inv': 'config:23', 'ldlat': 'config1:0-15', 'offcore_rsp': 'config1:0-63', 'pc': 'config:19', 'umask': 'config:8-15'}, {",
+   "library-hash-mismatch": "Stop(('imported library differs from its pinned hash', 'probes/execution-cost-0180/events.py'))"
+  },
+  "seconds": 0.048295093001797795
+ }
+}
