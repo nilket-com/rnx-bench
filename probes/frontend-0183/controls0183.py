@@ -406,6 +406,21 @@ def main(out):
 			"groups": {g: {"argv": base.perf_argv(g), "eligible": True, "checks": copy.deepcopy(ok)} for g in ev.ORDER},
 			"excluded": dict(ev.EXCLUDED), "identity_sha256": "a" * 64, "primaries": {k: v[1] for k, v in base.PRIMARY.items()}, "libraries": dict(ev.LIBRARIES)}
 
+	@control("V0-frozen-pins-match-the-reviewed-discovery")
+	def _():
+		assert ev.AVAILABILITY_SHA256 == base.sha(ev.DISCOVERY / "availability.json") == "c60910efcf21eb4ccacb92a54547cc005c0ffc296ec9cbdd473b845528b8383d"
+		assert ev.IDENTITY_SHA256 == base.sha(ev.DISCOVERY / "identity.json") == "c281c11d5b0a0d3552415836e66635a9aed03c6fa3162c06f7f921848882f2aa"
+		m = ev.validate_availability(json.loads((ev.DISCOVERY / "availability.json").read_text()), ev.IDENTITY_SHA256)
+		rows = [json.loads(l) for l in (ev.DISCOVERY / "raw.jsonl").read_text().splitlines()]
+		assert [(r["group"], r["index"]) for r in rows] == [("R", 0), ("R", 1), ("F1", 0), ("F1", 1)]
+		for r in rows:
+			base.lifecycle(r)
+			assert r["status"] == 0 and r["stdout"] == base.PROBE_STDOUT and r["argv"] == base.perf_argv(r["group"]) + base.PROBE and r["env"] == base.E0
+			counters = ev81.classify(r["stderr"], r["group"])
+			assert (ev.F1_EVENT in counters) is (r["group"] == "F1")
+		assert "0xc6" not in (ev.DISCOVERY / "raw.jsonl").read_text() and m["excluded"] == ev.EXCLUDED
+		return {"order": m["order"], "rows": len(rows)}
+
 	@control("V1-availability-content-validation")
 	def _():
 		def load(change):

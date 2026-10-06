@@ -53,10 +53,11 @@ EXCLUSION_REASON = ("TakenAlone safety beside other possibly active programmable
 SIGNAL = ["run-numeric", "run-range_signed", "run-range_negative"]
 CONTRAST = ["run-while", "run-empty"]
 REPORTED = ["run-calls", "run-fib"]
-# This record's own reviewed discovery receipts; unset until the availability review, and admission refuses until then.
+# This record's own reviewed discovery receipts (driver a5f9914c, receipts bfc9f1a2; accepted in review, chatd seq 1747).
+# With either pin unset admission refuses.
 DISCOVERY = REPO / "results/frontend-0183/discovery1"
-AVAILABILITY_SHA256 = None
-IDENTITY_SHA256 = None
+AVAILABILITY_SHA256 = "c60910efcf21eb4ccacb92a54547cc005c0ffc296ec9cbdd473b845528b8383d"
+IDENTITY_SHA256 = "c281c11d5b0a0d3552415836e66635a9aed03c6fa3162c06f7f921848882f2aa"
 
 
 def library_gate():
