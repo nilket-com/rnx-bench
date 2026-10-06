@@ -1,4 +1,4 @@
-"""rnx 0181 untimed controls (plan rnx d724cf7 section 6). Synthetic perf output and mocked sampling only: no subject
+"""rnx 0181 untimed controls (plan rnx 7d0f280 section 6, which supersedes d724cf7). Synthetic perf output and mocked sampling only: no subject
 runs and no hardware event is opened. The only real processes are `perf --version` (identity) and, in the replayed
 0180 control set, one `sleep` child for the deadline control.
 
@@ -7,9 +7,14 @@ runs and no hardware event is opened. The only real processes are `perf --versio
 Part 1 replays 0180's reviewed control set unchanged (parser, units, 100% running, hashes, identity drift, output and
 affinity, summary and anchor boundaries, compressed sentinel, scan error) against the pinned library.
 Part 2 covers what 0181 adds: the classifier, independent-group stop policy, statuses, exact eligible order, the
-per-group identity recheck, this record's availability validation and admission.
+per-group identity recheck, this record's availability validation and admission, the 0181-format open check and the
+pre-import library gate.
+
+Retention note: the mocked official runs in part 2 write SYNTHETIC raw rows. After a control has checked them, this
+script keeps their row count, per-group counts and sha256 (raw.summary.json) and removes the synthetic raw.jsonl.
+That applies to these mocks only. Real discovery, rehearsal and official raw rows are always retained by the driver.
 """
-import copy, json, os, pathlib, subprocess, sys, time
+import copy, json, os, pathlib, shutil, subprocess, sys, time
 
 HERE = pathlib.Path(__file__).resolve().parent
 sys.path.insert(0, str(HERE))
@@ -114,6 +119,73 @@ def main(out):
 		m = (base.metrics("C", c, 1_000_000), base.metrics("D", d, None), base.metrics("E", e, 1_000_000))
 		assert m[0]["branch_miss_rate"] is None and m[1]["dsb_share_of_dsb_plus_mite"] is None and m[2]["store_forward_blocks_per_instruction"] == 0
 		return {"branch_miss_rate": m[0]["branch_miss_rate"], "dsb_share": m[1]["dsb_share_of_dsb_plus_mite"]}
+
+	@control("D1-open-check-uses-the-0181-counter-format")
+	def _():
+		real = (base.run_sample, base.pinned)
+		base.pinned = lambda: None
+		base.start_phase(60)
+		got = {}
+
+		def check(name, group, stderr, expect, **row):
+			sink_path = out / f"open-{name}.jsonl"
+			base.run_sample = lambda argv, sink, meta, deadline=60: {**meta, "argv": argv, "status": 0, "stdout": base.PROBE_STDOUT, "stderr": stderr,
+				"timed_out": False, "interrupted": False, "reaped": True, "group_survivors": [], **row}
+			ok, why = ev.open_check(group, 0, base.Sink(sink_path))
+			assert ok is expect, (name, ok, why)
+			retained = [json.loads(l) for l in sink_path.read_text().splitlines()]
+			assert len(retained) == 1 and retained[0]["stderr"] == stderr, name  # the raw row is retained before any judgement
+			got[name] = why[:110]
+		try:
+			metric = '{"metric-value": "1.0", "metric-unit": "insn per cycle"}\n'
+			for g in ev.ORDER:
+				check(f"{g}-valid", g, perf_text(g), True)
+				check(f"{g}-eventless-row", g, perf_text(g) + "{}\n", False)  # 0180's open check accepts this; the official run would refuse it
+				check(f"{g}-metric-only-row", g, perf_text(g) + metric, False)
+				check(f"{g}-malformed-row", g, perf_text(g) + '{"counter-value": \n', False)
+				check(f"{g}-invalid-anchor", g, perf_text(g, override={"cycles": {"pcnt-running": 99.9}}), False)
+				check(f"{g}-wrong-status", g, perf_text(g), False, status=2)
+				check(f"{g}-wrong-affinity", g, perf_text(g), False, stdout="Cpus_allowed_list:\t4-5\n")
+				check(f"{g}-survivor", g, perf_text(g), False, group_survivors=[123456])
+			for g, name in DIAGNOSTIC_ROW.items():
+				check(f"{g}-diagnostic-not-counted", g, perf_text(g, override={name: {"counter-value": "<not counted>"}}), False)
+				check(f"{g}-diagnostic-missing", g, perf_text(g, drop=[name]), False)
+				check(f"{g}-other-group-rows", g, perf_text("R"), False)
+			# The reviewer's reproducer: the same rows that 0180's open check accepts are refused here.
+			rows = perf_text("C") + "{}\n"
+			base.run_sample = lambda argv, sink, meta, deadline=60: {**meta, "argv": argv, "status": 0, "stdout": base.PROBE_STDOUT, "stderr": rows,
+				"timed_out": False, "interrupted": False, "reaped": True, "group_survivors": []}
+			assert base.open_check("C", 0, base.Sink(out / "open-0180-parity.jsonl"))[0] is True
+			assert ev.open_check("C", 0, base.Sink(out / "open-0181-parity.jsonl"))[0] is False
+			got["0180-open-check-accepts-what-0181-refuses"] = True
+		finally:
+			base.run_sample, base.pinned = real
+			base.PHASE["deadline"] = None
+		return got
+
+	@control("L1-altered-library-is-refused-before-it-is-imported")
+	def _():
+		env = {"PATH": "/usr/bin:/bin", "HOME": "/home/me", "LANG": "C.UTF-8"}
+		got = {}
+		for name, victim in (("unaltered", None), ("events.py", "probes/execution-cost-0180/events.py"), ("common.py", "probes/startup-0179/common.py")):
+			root = out / f"library-copy-{name}"
+			for rel in ("probes/execution-cost-0181/events0181.py", "probes/execution-cost-0180/events.py", "probes/startup-0179/common.py"):
+				(root / rel).parent.mkdir(parents=True, exist_ok=True)
+				shutil.copy2(base.REPO / rel, root / rel)  # copies only: the reviewed originals are never modified
+			marker = root / "IMPORTED-ALTERED-LIBRARY"
+			if victim:
+				with (root / victim).open("a") as f:
+					f.write(f"\nopen({str(marker)!r}, 'w').write('executed')\n")
+			r = subprocess.run([sys.executable, "-c", "import events0181; print('imported', events0181.ORDER)"], capture_output=True, text=True, env=env,
+				cwd=str(root / "probes/execution-cost-0181"), timeout=120)
+			if victim:
+				assert r.returncode != 0 and "refusing to import" in r.stderr and victim in r.stderr and not marker.exists(), (name, r.returncode, r.stderr[-200:], marker.exists())
+			else:
+				assert r.returncode == 0 and "imported ['R', 'C', 'D', 'E']" in r.stdout and not marker.exists(), (r.returncode, r.stderr[-300:])
+			got[name] = {"status": r.returncode, "marker_executed": marker.exists(), "stderr": r.stderr.strip()[-140:]}
+			shutil.rmtree(root)
+		assert all(base.sha(base.REPO / rel) == want for rel, want in ev.LIBRARIES.items())  # originals untouched
+		return got
 
 	# ---- mocked official runs -------------------------------------------------------------------------------------
 	ref, outputs = base.references(), base.expected_stdout()

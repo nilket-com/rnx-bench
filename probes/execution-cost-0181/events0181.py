@@ -1,4 +1,4 @@
-"""rnx 0181: the branch, frontend-delivery and load diagnostics that 0180 never collected (plan rnx d724cf7).
+"""rnx 0181: the branch, frontend-delivery and load diagnostics that 0180 never collected (plan rnx 7d0f280, which supersedes d724cf7).
 
 	flock --exclusive --timeout 3000 /tmp/rnx-runtime-bench.lock python3 probes/execution-cost-0181/events0181.py discover OUT_DIR
 	flock --exclusive --timeout 3000 /tmp/rnx-runtime-bench.lock python3 probes/execution-cost-0181/events0181.py rehearse OUT_DIR AVAILABILITY_JSON
@@ -27,15 +27,23 @@ A sample is classified in this order: (i) lifecycle, command status, exact stdou
 counter line must be a parseable JSON object that names its event; (iii) the two anchor rows alone must satisfy the unchanged 0180 parser rules;
 (iv) only then the whole group is validated, so a failure at (iv) can only come from a diagnostic row.
 """
-import json, os, pathlib, sys, time
+import hashlib, json, os, pathlib, sys, time
 
 HERE = pathlib.Path(__file__).resolve().parent
 REPO = HERE.parents[1]
 LIBRARIES = {"probes/execution-cost-0180/events.py": "36595033600391e412897f2676364a62411c4d8691cf5eb9f5998a1ef2fc10c2",
 	"probes/startup-0179/common.py": "abd19671c56d7e8f9a6a07f72a3b98b39e2ef0dfdc45a0602e31937954c9ddba"}
+# Source-identity gate BEFORE either library is imported: their bytes are hashed with the standard library alone, so an
+# altered file is refused before any of its code can run. (library_gate() repeats the check at discovery and admission.)
+for _rel, _want in LIBRARIES.items():
+	_got = hashlib.sha256((REPO / _rel).read_bytes()).hexdigest()
+	if _got != _want:
+		raise SystemExit(f"refusing to import {_rel}: sha256 {_got} is not the pinned {_want}")
 sys.path.insert(0, str(REPO / "probes/execution-cost-0180"))
 import events as base  # noqa: E402  (the reviewed 0180 driver, used as a library)
 from events import Stop, Nonreproducing, Sink  # noqa: E402
+if pathlib.Path(base.__file__).resolve() != (REPO / "probes/execution-cost-0180/events.py").resolve():
+	raise SystemExit(f"refusing: `events` resolved to {base.__file__}, not this repository's pinned 0180 driver")
 
 ORDER = ["R", "C", "D", "E"]  # frozen; A and B are not part of this record
 REQUIRED, DIAGNOSTICS = "R", ["C", "D", "E"]
@@ -95,6 +103,23 @@ def identity_now():
 	return base.current_identity()
 
 
+def open_check(group, index, sink):
+	"""One availability/format/affinity open of a group on the affinity probe, judged by THIS record's rules: the raw
+	row is retained first, then lifecycle, status 0, the exact CPU-4 probe output, and classify() (the same counter
+	format the official run requires, not 0180's more permissive parser). Returns (eligible, reason). Any refusal,
+	whether it would be global or group-local in a run, makes this open fail."""
+	row = base.run_sample(base.perf_argv(group) + base.PROBE, sink, {"kind": "open-check", "group": group, "index": index}, deadline=60)
+	sink.write(row)
+	try:
+		base.lifecycle(row)
+		if row["status"] != 0 or row["stdout"] != base.PROBE_STDOUT:
+			return False, f"status {row['status']}, stdout {row['stdout'][:60]!r}, stderr tail {row['stderr'][-200:]!r}"
+		classify(row["stderr"], group)
+	except (Stop, LocalInvalid) as refusal:
+		return False, repr(refusal)
+	return True, "opened, counted, 100% running, 0181 counter format, probe saw CPU 4 only"
+
+
 def discover(out):
 	out = pathlib.Path(out)
 	out.mkdir(parents=True, exist_ok=False)
@@ -110,7 +135,7 @@ def discover(out):
 	sink = Sink(out / "raw.jsonl")
 	groups = {}
 	for group in ORDER:
-		checks = [base.open_check(group, index, sink) for index in range(2)]
+		checks = [open_check(group, index, sink) for index in range(2)]
 		groups[group] = {"argv": base.perf_argv(group), "checks": [{"eligible": ok, "detail": why} for ok, why in checks],
 			"eligible": all(ok for ok, _ in checks)}
 		print(group, "eligible" if groups[group]["eligible"] else "untested", [why for ok, why in checks if not ok][:1], flush=True)
