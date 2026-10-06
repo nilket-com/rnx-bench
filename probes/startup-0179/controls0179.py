@@ -40,7 +40,7 @@ def table(changes=None, wall_changes=None, band=0.05):
 
 
 def main(out):
-	out = pathlib.Path(out)
+	out = pathlib.Path(out).resolve()  # tampered receipts are addressed relative to the repository root
 	out.mkdir(parents=True, exist_ok=False)
 	tmp = out / "tmp"
 	tmp.mkdir()
@@ -188,7 +188,9 @@ def main(out):
 	@control("W1-win-needs-both-startup-legs")
 	def _():
 		got = {}
-		for name, changes, want in (("both", {"context": -0.10, "run-answer": -0.10}, "WIN"),
+		# The rule is change <= -0.10 on medians; the synthetic values sit clearly on either side (a base of 1e6 scaled by
+		# exactly 0.9 is not exactly -10% in binary floating point, so the boundary itself is not a meaningful control).
+		for name, changes, want in (("both", {"context": -0.1001, "run-answer": -0.1001}, "WIN"),
 				("context-only", {"context": -0.30, "run-answer": -0.0999}, "NO-WIN"),
 				("run-answer-only", {"context": -0.0999, "run-answer": -0.30}, "NO-WIN"),
 				("neither", {}, "NO-WIN"),

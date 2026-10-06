@@ -1,0 +1,237 @@
+{
+ "I1-real-manifest-is-consistent": {
+  "pass": true,
+  "detail": "0 problems; one profile, one pair",
+  "seconds": 0.05213328008539975
+ },
+ "I1-altered-profile-refused": {
+  "pass": false,
+  "error": "ValueError(\"'../../results/startup-0179/prep3/controls0179/tmp/receipt-profile-section.json' is not in the subpath of '/home/me/work/rnx-bench-w-0179d'\")",
+  "seconds": 0.03971623000688851
+ },
+ "I1-missing-and-extra-artifact-names-refused": {
+  "pass": true,
+  "detail": {
+   "missing": [
+    [
+     "build receipt content"
+    ],
+    [
+     "manifest binaries: artifact names",
+     {
+      "missing": [
+       "p0-cand-counter"
+      ],
+      "extra": []
+     }
+    ],
+    [
+     "manifest hash differs from the receipt row",
+     "p0-cand-counter"
+    ]
+   ],
+   "extra": [
+    [
+     "binary",
+     "p1-base-primary"
+    ],
+    [
+     "build receipt content"
+    ],
+    [
+     "manifest binaries: artifact names",
+     {
+      "missing": [],
+      "extra": [
+       "p1-base-primary"
+      ]
+     }
+    ]
+   ]
+  },
+  "seconds": 0.07083774288184941
+ },
+ "I1-mismatched-row-identity-refused": {
+  "pass": false,
+  "error": "ValueError(\"'../../results/startup-0179/prep3/controls0179/tmp/receipt-relabel.json' is not in the subpath of '/home/me/work/rnx-bench-w-0179d'\")",
+  "seconds": 0.0002753480803221464
+ },
+ "I1-role-swapped-artifact-refused": {
+  "pass": true,
+  "detail": {
+   "verify": [
+    [
+     "binary",
+     "p0-base-primary"
+    ],
+    [
+     "binary",
+     "p0-cand-primary"
+    ],
+    [
+     "build receipt content"
+    ],
+    [
+     "manifest hash differs from the receipt row",
+     "p0-base-primary"
+    ],
+    [
+     "manifest hash differs from the receipt row",
+     "p0-cand-primary"
+    ]
+   ],
+   "bind_pair": "Stop(('pair artifact does not match the manifest', 'p0-base-primary'))"
+  },
+  "seconds": 0.04362974199466407
+ },
+ "I1-only-the-frozen-pair-binds": {
+  "pass": true,
+  "detail": {
+   "roles": {
+    "base": "p0-base",
+    "cand": "p0-cand"
+   },
+   "refused": {
+    "p1-cand": "Stop(('unknown pair', 'p1', 'cand'))",
+    "p0-base": "Stop(('unknown pair', 'p0', 'base'))",
+    "p0-s75": "Stop(('unknown pair', 'p0', 's75'))"
+   }
+  },
+  "seconds": 0.0656997081823647
+ },
+ "W1-both-first-use-workloads-are-deciding": {
+  "pass": true,
+  "detail": {
+   "first-use-true": "Stop(('deciding workload missing', ['first-use-true']))",
+   "first-use-false": "Stop(('deciding workload missing', ['first-use-false']))"
+  },
+  "seconds": 0.00025499495677649975
+ },
+ "I1-neutrality-and-edit-surface-bound": {
+  "pass": true,
+  "detail": {
+   "differs": [
+    [
+     "neutrality control"
+    ]
+   ],
+   "unchecked": [
+    [
+     "neutrality control"
+    ]
+   ],
+   "unexplained": [
+    [
+     "neutrality control"
+    ]
+   ],
+   "wider": [
+    [
+     "candidate edit surface"
+    ]
+   ]
+  },
+  "seconds": 0.1519435930531472
+ },
+ "W1-win-needs-both-startup-legs": {
+  "pass": false,
+  "error": "AssertionError(('both', 'NO-WIN', 'WIN'))",
+  "seconds": 5.761999636888504e-05
+ },
+ "W1-no-gain-overrides-a-failed-workload": {
+  "pass": true,
+  "detail": {
+   "instructions-0.5%": {
+    "regressions": [
+     [
+      "run-while",
+      "instructions",
+      0.0051000000000001044
+     ]
+    ],
+    "disagreements": []
+   },
+   "wall-beyond-band": {
+    "regressions": [
+     [
+      "run-fib",
+      "wall",
+      0.0051000000000001044
+     ]
+    ],
+    "disagreements": []
+   },
+   "opposing-above-3%": {
+    "regressions": [
+     [
+      "run-calls",
+      "wall",
+      0.040000000000000036
+     ]
+    ],
+    "disagreements": [
+     [
+      "run-calls",
+      -0.040000000000000036,
+      0.040000000000000036
+     ]
+    ]
+   }
+  },
+  "seconds": 0.0001482649240642786
+ },
+ "W1-non-finite-medians-do-not-decide": {
+  "pass": true,
+  "detail": {
+   "nan": "Stop(('non-finite or non-positive median', 'run-fib', 1000000.0, nan, 10.0, 10.0, 0.05))",
+   "inf": "Stop(('non-finite or non-positive median', 'run-fib', 1000000.0, inf, 10.0, 10.0, 0.05))",
+   "zero-base": "Stop(('non-finite or non-positive median', 'run-fib', 0.0, 1000000.0, 10.0, 10.0, 0.05))"
+  },
+  "seconds": 6.884802132844925e-05
+ },
+ "O1-scientific-stop-is-a-completed-result": {
+  "pass": true,
+  "detail": {
+   "STOP": "complete",
+   "NO-WIN": "complete",
+   "WIN": "complete"
+  },
+  "seconds": 0.0005424590781331062
+ },
+ "O1-infrastructure-failure-stops-and-retains": {
+  "pass": true,
+  "detail": "STOPPED (infrastructure/semantic failure)",
+  "seconds": 0.00011854013428092003
+ },
+ "B1-diagnostic-cfg-guard": {
+  "pass": true,
+  "detail": {
+   "set": [
+    "Running `rustc --crate-name rune  --cfg 'feature=\"alloc\"' --cfg rune_startup_inventory -C opt-level=3`"
+   ],
+   "set-quoted": [
+    "Running `rustc --crate-name rune  --cfg 'feature=\"alloc\"' --cfg 'rune_startup_inventory' -C opt-level=3`"
+   ],
+   "rustflags": [
+    "RUSTFLAGS='--cfg rune_startup_inventory' Running `rustc --crate-name rune  --cfg 'feature=\"alloc\"' -C opt-level=3`"
+   ],
+   "set-without-declaration": [
+    "Running `rustc --crate-name rune --cfg rune_startup_inventory`"
+   ],
+   "feature-like": [
+    "Running `rustc --crate-name rune  --cfg 'feature=\"alloc\"' --cfg 'feature=\"rune_startup_inventory\"' -C opt-level=3`"
+   ]
+  },
+  "seconds": 0.00039339205250144005
+ },
+ "B1-build-lifecycle-gate-after-retention": {
+  "pass": true,
+  "detail": {
+   "survivor": "SystemExit(('STOP: process lifecycle', 'survivor', False, False, True, [123456]))",
+   "unreaped": "SystemExit(('STOP: process lifecycle', 'unreaped', False, False, False, []))",
+   "timeout": "SystemExit(('STOP: process lifecycle', 'timeout', True, False, True, []))",
+   "step": "SystemExit(('STOP: process lifecycle', 'mock-build', False, False, True, [123456]))"
+  },
+  "seconds": 0.0001577269285917282
+ }
+}
