@@ -81,12 +81,12 @@ penalty cycles; run-while's difference is -40,366.5 (unresolved) and run-empty's
 - The size of that rise relative to the excess cycles differs by window: 0.79 on numeric,
   0.23 and 0.24 on the ranges. By the registered rule that is `strong` on one
   window and `intermediate` on two: A-mixed, not A-strengthened. On the ranges the penalty-cycle difference is about a
-  quarter of the excess, so most of their excess is not accounted for by this event as it counts.
+  quarter of the total-cycle difference in magnitude. This does not partition their excess into explained and unexplained cycles.
 - On calls (reported only) the penalty-cycle difference, +14,848,176.5, is LARGER than the cycle
   difference in the same group, +10,938,843.0. That is direct evidence that these penalty cycles are
   not an additive component of the measured cycle difference: `r` compares magnitudes and is not an accounting.
 - Together with 0181 (more legacy-decode uops and a lower decoded-cache share on the same windows) this strengthens
-  the frontend-delivery category as a compatible explanation for the numeric window and leaves it partial for the
+  the frontend-delivery category as a compatible explanation for the numeric window and adds a smaller-magnitude association for the
   ranges. It does not locate the switches in any function, does not show that code placement or the changed
   instruction stream causes them, and does not explain why the compiler emitted different interpreter code.
 - These are whole-process counts on two binaries on one host. Nothing here is a statement about other builds.
