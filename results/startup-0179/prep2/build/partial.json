@@ -1,0 +1,325 @@
+{
+ "rustc": "rustc 1.98.1 (48a229cea 2026-09-01)\nbinary: rustc\ncommit-hash: 48a229ceaefd4985c50990b14116b6d856af0985\ncommit-date: 2026-09-01\nhost: x86_64-unknown-linux-gnu\nrelease: 1.98.1\nLLVM version: 22.1.8\n",
+ "sources": {
+  "base": "4e84cfacc0278a4f1645c14310453bdc30ac77b4",
+  "cand": "b28f8cb3345448914ef4e35514d802d1795f16ac"
+ },
+ "profiles": {
+  "p0": []
+ },
+ "build_order": [
+  [
+   "p0",
+   "base"
+  ],
+  [
+   "p0",
+   "cand"
+  ]
+ ],
+ "build_affinity": [
+  0,
+  1,
+  2,
+  3,
+  4,
+  5,
+  6,
+  7,
+  8,
+  9,
+  10,
+  11,
+  12,
+  13,
+  14,
+  15,
+  16,
+  17,
+  18,
+  19,
+  20,
+  21,
+  22,
+  23,
+  24,
+  25,
+  26,
+  27
+ ],
+ "manifest_sha256": "5ac77c46f47d8e3952e4e85629f2fb60d017bb111ec47c04b6b6fe4c7529992e",
+ "harness_lock_sha256": "bf7cebc2ecb351c81f044864db9b03750697a9779cf1e88d6c93e495abc7b8d4",
+ "candidate_diff": {
+  "changed": [
+   "crates/rune/src/compile/context.rs",
+   "crates/rune/src/compile/context_startup_tests.rs"
+  ],
+  "production_files": [
+   "crates/rune/src/compile/context.rs"
+  ],
+  "test_only_files": [
+   "crates/rune/src/compile/context_startup_tests.rs"
+  ],
+  "candidate_parents": [
+   "4e84cfacc0278a4f1645c14310453bdc30ac77b4"
+  ]
+ },
+ "suites": {
+  "base-all-features": {
+   "rev": "4e84cfacc0278a4f1645c14310453bdc30ac77b4",
+   "status": 0,
+   "passed": 601,
+   "failed": 0,
+   "seconds": 139.65732775791548
+  },
+  "base-production-features": {
+   "rev": "4e84cfacc0278a4f1645c14310453bdc30ac77b4",
+   "status": 0,
+   "passed": 6,
+   "failed": 0,
+   "seconds": 26.958157331915572
+  },
+  "base-no-std": {
+   "rev": "4e84cfacc0278a4f1645c14310453bdc30ac77b4",
+   "status": 0,
+   "passed": 0,
+   "failed": 0,
+   "seconds": 17.983664265135303
+  },
+  "cand-all-features": {
+   "rev": "b28f8cb3345448914ef4e35514d802d1795f16ac",
+   "status": 0,
+   "passed": 602,
+   "failed": 0,
+   "seconds": 137.43404994695447
+  },
+  "cand-production-features": {
+   "rev": "b28f8cb3345448914ef4e35514d802d1795f16ac",
+   "status": 0,
+   "passed": 7,
+   "failed": 0,
+   "seconds": 27.46482242201455
+  },
+  "cand-no-std": {
+   "rev": "b28f8cb3345448914ef4e35514d802d1795f16ac",
+   "status": 0,
+   "passed": 0,
+   "failed": 0,
+   "seconds": 18.179638298926875
+  }
+ },
+ "neutrality": {
+  "rev": "4e84cfacc0278a4f1645c14310453bdc30ac77b4",
+  "sha256": "619d30c316b18ae3bd51d9de3ccd34bc5e0f3e2c35c42d1dea276ed84def9641",
+  "text_sha256": "3f829d83686e78bb17d10770c354b63be7cdd6d7c69f93f99a9a6120d886eef1",
+  "reference_sha256": "7a66b042e8656c4a0cbb4c4641b827c34c6f458bc1e442e87b556612d8d05014",
+  "reference_text_sha256": "3f829d83686e78bb17d10770c354b63be7cdd6d7c69f93f99a9a6120d886eef1",
+  "reference_rev": "eaa59fc208c136ead86f8c4fa565431ea18de88b",
+  "reference": "probes/profile-paired-0178/subjects.json p0-base-primary",
+  "identical": false,
+  "accepted": true,
+  "comparison": {
+   "size": [
+    9007272,
+    9007272
+   ],
+   "problems": [],
+   "differing_bytes": 477,
+   "differing_bytes_by_section": {
+    ".note.gnu.build-id": 20,
+    ".data.rel.ro": 1,
+    ".strtab": 456
+   },
+   "build_id": {
+    "new": "30641134b0505208028ab20673694802f563f958",
+    "reference": "216192bbbc9286fbe949e69cee20cd9a9c8cb0cd"
+   },
+   "strtab": {
+    "symbols": 16151,
+    "suffix_only_differences": 32,
+    "pairs": [
+     [
+      "_RINvNtCsgxBkk5gSRhY_4core3ptr9drop_glueNtNtNtCs2gclYLZIe7Z_4rune7runtime8vm_error15VmErrorLocationECseHFHVs5K1YU_13rune_base_new.llvm.3154411846658505164",
+      "_RINvNtCsgxBkk5gSRhY_4core3ptr9drop_glueNtNtNtCs2gclYLZIe7Z_4rune7runtime8vm_error15VmErrorLocationECseHFHVs5K1YU_13rune_base_new.llvm.4223706811909010038"
+     ],
+     [
+      "_RINvNtCsgxBkk5gSRhY_4core3ptr9drop_glueNtNtNtCs2gclYLZIe7Z_4rune7runtime8vm_error7VmErrorECseHFHVs5K1YU_13rune_base_new.llvm.3154411846658505164",
+      "_RINvNtCsgxBkk5gSRhY_4core3ptr9drop_glueNtNtNtCs2gclYLZIe7Z_4rune7runtime8vm_error7VmErrorECseHFHVs5K1YU_13rune_base_new.llvm.4223706811909010038"
+     ],
+     [
+      "anon.54333d06d9b5d6eb233c93e5c684b5d2.201.llvm.17652615222563039659",
+      "anon.54333d06d9b5d6eb233c93e5c684b5d2.201.llvm.17749115032731870632"
+     ],
+     [
+      "anon.54333d06d9b5d6eb233c93e5c684b5d2.204.llvm.17652615222563039659",
+      "anon.54333d06d9b5d6eb233c93e5c684b5d2.204.llvm.17749115032731870632"
+     ],
+     [
+      "anon.54333d06d9b5d6eb233c93e5c684b5d2.203.llvm.17652615222563039659",
+      "anon.54333d06d9b5d6eb233c93e5c684b5d2.203.llvm.17749115032731870632"
+     ],
+     [
+      "anon.54333d06d9b5d6eb233c93e5c684b5d2.205.llvm.17652615222563039659",
+      "anon.54333d06d9b5d6eb233c93e5c684b5d2.205.llvm.17749115032731870632"
+     ],
+     [
+      "_RINvNtCsgxBkk5gSRhY_4core3ptr9drop_glueNtNtNtCs2gclYLZIe7Z_4rune7compile5names4NodeEBH_.llvm.17652615222563039659",
+      "_RINvNtCsgxBkk5gSRhY_4core3ptr9drop_glueNtNtNtCs2gclYLZIe7Z_4rune7compile5names4NodeEBH_.llvm.17749115032731870632"
+     ],
+     [
+      "_RINvNtCsgxBkk5gSRhY_4core3ptr9drop_glueNtNtNtCsdyPUd8mPE5o_9rune_core4item9component9ComponentECs2gclYLZIe7Z_4rune.llvm.17652615222563039659",
+      "_RINvNtCsgxBkk5gSRhY_4core3ptr9drop_glueNtNtNtCsdyPUd8mPE5o_9rune_core4item9component9ComponentECs2gclYLZIe7Z_4rune.llvm.17749115032731870632"
+     ],
+     [
+      "_RINvNtCsgxBkk5gSRhY_4core3ptr9drop_glueINtNtCsdBTkVrZDrQD_10rune_alloc3vec3VecNtNtNtCs2gclYLZIe7Z_4rune8indexing6scopes5LayerEEB1k_.llvm.17652615222563039659",
+      "_RINvNtCsgxBkk5gSRhY_4core3ptr9drop_glueINtNtCsdBTkVrZDrQD_10rune_alloc3vec3VecNtNtNtCs2gclYLZIe7Z_4rune8indexing6scopes5LayerEEB1k_.llvm.17749115032731870632"
+     ],
+     [
+      "_RINvNtCsgxBkk5gSRhY_4core3ptr9drop_glueINtNtNtCsdBTkVrZDrQD_10rune_alloc5btree3map8BTreeMapNtNtNtCsdyPUd8mPE5o_9rune_core4item9component9ComponentNtNtNtCs2gclYLZIe7Z_4rune7compile5names4NodeEEB2q_.llvm.17652615222563039659",
+      "_RINvNtCsgxBkk5gSRhY_4core3ptr9drop_glueINtNtNtCsdBTkVrZDrQD_10rune_alloc5btree3map8BTreeMapNtNtNtCsdyPUd8mPE5o_9rune_core4item9component9ComponentNtNtNtCs2gclYLZIe7Z_4rune7compile5names4NodeEEB2q_.llvm.17749115032731870632"
+     ],
+     [
+      "_RINvNtCsgxBkk5gSRhY_4core3ptr9drop_glueNtNtCs2gclYLZIe7Z_4rune8indexing7IndexedEBF_.llvm.17652615222563039659",
+      "_RINvNtCsgxBkk5gSRhY_4core3ptr9drop_glueNtNtCs2gclYLZIe7Z_4rune8indexing7IndexedEBF_.llvm.17749115032731870632"
+     ],
+     [
+      "_RINvNtCsgxBkk5gSRhY_4core3ptr9drop_glueNtNtNtCs2gclYLZIe7Z_4rune7compile4meta6FieldsEBH_.llvm.17652615222563039659",
+      "_RINvNtCsgxBkk5gSRhY_4core3ptr9drop_glueNtNtNtCs2gclYLZIe7Z_4rune7compile4meta6FieldsEBH_.llvm.17749115032731870632"
+     ],
+     [
+      "_RINvNtCsgxBkk5gSRhY_4core3ptr9drop_glueNtNtCs2gclYLZIe7Z_4rune8indexing8FunctionEBF_.llvm.17652615222563039659",
+      "_RINvNtCsgxBkk5gSRhY_4core3ptr9drop_glueNtNtCs2gclYLZIe7Z_4rune8indexing8FunctionEBF_.llvm.17749115032731870632"
+     ],
+     [
+      "_RINvNtCsgxBkk5gSRhY_4core3ptr9drop_glueNtNtNtCs2gclYLZIe7Z_4rune8indexing6scopes5LayerEBH_.llvm.17652615222563039659",
+      "_RINvNtCsgxBkk5gSRhY_4core3ptr9drop_glueNtNtNtCs2gclYLZIe7Z_4rune8indexing6scopes5LayerEBH_.llvm.17749115032731870632"
+     ],
+     [
+      "_RINvNtCsgxBkk5gSRhY_4core3ptr9drop_glueNtNtNtCsdyPUd8mPE5o_9rune_core4item8item_buf7ItemBufECs2gclYLZIe7Z_4rune.llvm.17652615222563039659",
+      "_RINvNtCsgxBkk5gSRhY_4core3ptr9drop_glueNtNtNtCsdyPUd8mPE5o_9rune_core4item8item_buf7ItemBufECs2gclYLZIe7Z_4rune.llvm.17749115032731870632"
+     ],
+     [
+      "_RNCNvNtNtNtCs2gclYLZIe7Z_4rune7modules6macros7builtin18___rune_macro__file0B9_.llvm.17652615222563039659",
+      "_RNCNvNtNtNtCs2gclYLZIe7Z_4rune7modules6macros7builtin18___rune_macro__file0B9_.llvm.17749115032731870632"
+     ],
+     [
+      "_RNCNvNtNtNtCs2gclYLZIe7Z_4rune7modules6macros7builtin18___rune_macro__line0B9_.llvm.17652615222563039659",
+      "_RNCNvNtNtNtCs2gclYLZIe7Z_4rune7modules6macros7builtin18___rune_macro__line0B9_.llvm.17749115032731870632"
+     ],
+     [
+      "_RNSNvYNCNvNtNtNtCs2gclYLZIe7Z_4rune7modules6macros7builtin18___rune_macro__file0INtNtNtCsgxBkk5gSRhY_4core3ops8function6FnOnceTQNtNtNtBe_6macros13macro_context12MacroContextQNtNtB26_12token_stream11TokenStreamEE9call_once6vtableBe_.llvm.17652615222563039659",
+      "_RNSNvYNCNvNtNtNtCs2gclYLZIe7Z_4rune7modules6macros7builtin18___rune_macro__file0INtNtNtCsgxBkk5gSRhY_4core3ops8function6FnOnceTQNtNtNtBe_6macros13macro_context12MacroContextQNtNtB26_12token_stream11TokenStreamEE9call_once6vtableBe_.llvm.17749115032731870632"
+     ],
+     [
+      "_RNSNvYNCNvNtNtNtCs2gclYLZIe7Z_4rune7modules6macros7builtin18___rune_macro__line0INtNtNtCsgxBkk5gSRhY_4core3ops8function6FnOnceTQNtNtNtBe_6macros13macro_context12MacroContextQNtNtB26_12token_stream11TokenStreamEE9call_once6vtableBe_.llvm.17652615222563039659",
+      "_RNSNvYNCNvNtNtNtCs2gclYLZIe7Z_4rune7modules6macros7builtin18___rune_macro__line0INtNtNtCsgxBkk5gSRhY_4core3ops8function6FnOnceTQNtNtNtBe_6macros13macro_context12MacroContextQNtNtB26_12token_stream11TokenStreamEE9call_once6vtableBe_.llvm.17749115032731870632"
+     ],
+     [
+      "_RNvMs2_NtNtCs2gclYLZIe7Z_4rune5query5queryNtB5_5Query20insert_new_item_with.llvm.17652615222563039659",
+      "_RNvMs2_NtNtCs2gclYLZIe7Z_4rune5query5queryNtB5_5Query20insert_new_item_with.llvm.17749115032731870632"
+     ],
+     [
+      "anon.54333d06d9b5d6eb233c93e5c684b5d2.198.llvm.17652615222563039659",
+      "anon.54333d06d9b5d6eb233c93e5c684b5d2.198.llvm.17749115032731870632"
+     ],
+     [
+      "anon.54333d06d9b5d6eb233c93e5c684b5d2.200.llvm.17652615222563039659",
+      "anon.54333d06d9b5d6eb233c93e5c684b5d2.200.llvm.17749115032731870632"
+     ],
+     [
+      "anon.54333d06d9b5d6eb233c93e5c684b5d2.512.llvm.17652615222563039659",
+      "anon.54333d06d9b5d6eb233c93e5c684b5d2.512.llvm.17749115032731870632"
+     ],
+     [
+      "anon.54333d06d9b5d6eb233c93e5c684b5d2.513.llvm.17652615222563039659",
+      "anon.54333d06d9b5d6eb233c93e5c684b5d2.513.llvm.17749115032731870632"
+     ],
+     [
+      "anon.54333d06d9b5d6eb233c93e5c684b5d2.521.llvm.17652615222563039659",
+      "anon.54333d06d9b5d6eb233c93e5c684b5d2.521.llvm.17749115032731870632"
+     ],
+     [
+      "anon.54333d06d9b5d6eb233c93e5c684b5d2.525.llvm.17652615222563039659",
+      "anon.54333d06d9b5d6eb233c93e5c684b5d2.525.llvm.17749115032731870632"
+     ],
+     [
+      "anon.54333d06d9b5d6eb233c93e5c684b5d2.523.llvm.17652615222563039659",
+      "anon.54333d06d9b5d6eb233c93e5c684b5d2.523.llvm.17749115032731870632"
+     ],
+     [
+      "anon.54333d06d9b5d6eb233c93e5c684b5d2.524.llvm.17652615222563039659",
+      "anon.54333d06d9b5d6eb233c93e5c684b5d2.524.llvm.17749115032731870632"
+     ],
+     [
+      "anon.54333d06d9b5d6eb233c93e5c684b5d2.522.llvm.17652615222563039659",
+      "anon.54333d06d9b5d6eb233c93e5c684b5d2.522.llvm.17749115032731870632"
+     ],
+     [
+      "anon.54333d06d9b5d6eb233c93e5c684b5d2.526.llvm.17652615222563039659",
+      "anon.54333d06d9b5d6eb233c93e5c684b5d2.526.llvm.17749115032731870632"
+     ],
+     [
+      "anon.54333d06d9b5d6eb233c93e5c684b5d2.40.llvm.17652615222563039659",
+      "anon.54333d06d9b5d6eb233c93e5c684b5d2.40.llvm.17749115032731870632"
+     ],
+     [
+      "anon.54333d06d9b5d6eb233c93e5c684b5d2.199.llvm.17652615222563039659",
+      "anon.54333d06d9b5d6eb233c93e5c684b5d2.199.llvm.17749115032731870632"
+     ]
+    ]
+   },
+   "moved_locations": [
+    {
+     "file_offset": 6652288,
+     "address": 6660480,
+     "file_pointer": 714234,
+     "file": "/home/me/work/rune-w-0173/crates/rune/src/compile/context.rs",
+     "old_line": 535,
+     "new_line": 537,
+     "column": 47,
+     "source_shift": 2
+    }
+   ],
+   "text_identical": true,
+   "claim": "machine code and all other bytes identical except the enumerated panic line fields, ThinLTO local-symbol suffixes and the derived build-id; panic diagnostics for the moved locations differ"
+  },
+  "seconds": 36.992653323104605,
+  "retained_binary": "/home/me/work/rnx-bench-w-0179d/probes/startup-0179/neutrality-bin/prep2-p0-base-primary",
+  "reference_binary": "/home/me/work/rnx-bench-w-0178d/probes/profile-paired-0178/bin/p0-base-primary",
+  "historical_inputs": {
+   "harness.rs": "920183f259c86ef7c06694924c8bd405270065a6e969d8bf5f8969616d118396",
+   "alloc_track.rs": "4f058476c6a3e225199bc0fb8ea40aa026aa03dedfbefd843da6a6e42b00858c",
+   "harness/Cargo.lock": "bf7cebc2ecb351c81f044864db9b03750697a9779cf1e88d6c93e495abc7b8d4",
+   "harness/Cargo.toml": "5ac77c46f47d8e3952e4e85629f2fb60d017bb111ec47c04b6b6fe4c7529992e",
+   "harness/src/main.rs": "baaed7f5ec8800e66ec516458466d48466a6342a1da17574bc0b5e117f1d547f",
+   "harness/src/registration.rs": "988476e9ad026b5881a7483499636449ab4e17327990099bd9998cc7d7f97787"
+  },
+  "codegen_units_flags": [
+   "None"
+  ],
+  "rune_features": [
+   "alloc",
+   "anyhow",
+   "fmt",
+   "serde",
+   "std"
+  ]
+ },
+ "fetch": {
+  "argv": [
+   "cargo",
+   "fetch",
+   "--locked",
+   "--manifest-path",
+   "/home/me/work/rnx-bench-w-0179d/probes/startup-0179/harness/Cargo.toml"
+  ],
+  "status": 0,
+  "stdout": "",
+  "stderr": "",
+  "timed_out": false,
+  "interrupted": false,
+  "reaped": true,
+  "group_survivors": [],
+  "seconds": 0.12935490510426462
+ }
+}

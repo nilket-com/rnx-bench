@@ -19,7 +19,8 @@
 	as primary, counter, allocation. Every build gets the SAME freshly emptied target path, -j8, --locked --offline,
 	EB (no RUSTFLAGS), `cargo build -v` retained. Build cost is the wall time of the `cargo build` command alone.
 4. Effective settings from the verbose rustc lines: no codegen-units flag on any linked-code invocation (P0); rune's
-	actual --cfg feature set, which must not contain tracing; no invocation may carry the diagnostic cfg.
+	actual --cfg feature set, which must not contain tracing; the diagnostic cfg may appear only inside the
+	`--check-cfg` declaration Cargo always passes, never as a set cfg (diagnostic_cfg_uses).
 5. The 0169 resident driver from its pinned source.
 """
 import json, os, pathlib, re, shutil, subprocess, sys, time
@@ -76,6 +77,15 @@ def rune_features(log):
 	sets = [sorted(set(re.findall(r"feature=\\?\"([a-z0-9_-]+)\\?\"", l))) for l in rustc_lines(log) if "--crate-name rune " in l]
 	assert len(sets) == 1, ("rune rustc invocations", len(sets))
 	return sets[0]
+
+
+def diagnostic_cfg_uses(log):
+	"""Every mention of the diagnostic cfg in a verbose build log EXCEPT its declaration: Cargo passes the crate's
+	[lints.rust] check-cfg list to rustc as `--check-cfg 'cfg(...)'` on every build, which only names the cfg as known.
+	Any other mention (above all `--cfg rune_startup_inventory`) means a measured build could have had it set.
+	The first form of this guard rejected the declaration itself and stopped prep2 (retained)."""
+	stripped = re.sub(r"--check-cfg '[^']*'", "", log)
+	return [l.strip()[:200] for l in stripped.splitlines() if DIAGNOSTIC_CFG in l]
 
 
 def codegen_units(log):
@@ -207,7 +217,7 @@ def main(out):
 					"codegen_units": "1 on every target invocation" if want else "default (no flag) on every target invocation",
 					"rune_features": rune_features(log)}
 				assert "tracing" not in row["rune_features"], ("STOP: tracing feature in measured build", name)
-				assert DIAGNOSTIC_CFG not in log, ("STOP: diagnostic cfg in a measured build", name)
+				assert not diagnostic_cfg_uses(log), ("STOP: diagnostic cfg in a measured build", name, diagnostic_cfg_uses(log)[:3])
 				builds[name] = row
 				print(name, row["sha256"][:12], round(elapsed, 1), "s", flush=True)
 			MANIFEST.write_text(original)

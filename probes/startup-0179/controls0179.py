@@ -267,6 +267,22 @@ def main(out):
 		assert (out / "official-stopped/p0-cand/partial.json").exists()
 		return ledger["status"]
 
+	@control("B1-diagnostic-cfg-guard")
+	def _():
+		declared = "Running `rustc --crate-name rune --check-cfg 'cfg(rune_nightly, rune_docsrs, rune_byte_code, rune_startup_inventory)' --cfg 'feature=\"alloc\"' -C opt-level=3`"
+		assert build.diagnostic_cfg_uses(declared) == [], "the declaration alone must be accepted"
+		real_log = pathlib.Path(measure.REPO / manifest()["build_receipt"]["path"]).parent / "build-p0-cand-primary.log"
+		assert "rune_startup_inventory" in real_log.read_text() and build.diagnostic_cfg_uses(real_log.read_text()) == []
+		got = {}
+		for name, line in (("set", declared.replace(" -C opt", " --cfg rune_startup_inventory -C opt")),
+				("set-quoted", declared.replace(" -C opt", " --cfg 'rune_startup_inventory' -C opt")),
+				("rustflags", "RUSTFLAGS='--cfg rune_startup_inventory' " + declared),
+				("set-without-declaration", "Running `rustc --crate-name rune --cfg rune_startup_inventory`"),
+				("feature-like", declared.replace(" -C opt", " --cfg 'feature=\"rune_startup_inventory\"' -C opt"))):
+			got[name] = build.diagnostic_cfg_uses(line)
+			assert got[name], name
+		return got
+
 	@control("B1-build-lifecycle-gate-after-retention")
 	def _():
 		build.lifecycle_gate(Result(["mock"], 0, "", "", False, False, True, []), "clean")
