@@ -1,0 +1,126 @@
+rehearsal: 0 occurrences
+correctness: 40 identical
+allocation: context delta 1 numeric calls [1036660, 36661] budgets {'numeric-budget-zero': [36659, 36660, 1], 'numeric-budget-default': [1036660, 36661, 0], 'numeric-budget-unlimited': [1036661, 36662, 0], 'numeric-budget-tight': [36773, 36664, 1]}
+reproduction: gated rows within 2%; descriptive {'0169 fifo floor None': 29, '0169 fifo empty-context None': 35}
+pmu done
+calibration: {'true': 0.003, 'floor': -0.002}
+wall done
+DECISION STOP regressions [('context', 'instructions', 0.020849698894150892), ('runtime', 'instructions', 0.018065114990625686), ('compile-answer', 'instructions', 0.015395270000272854), ('run-answer', 'instructions', 0.015404683739846048), ('run-empty', 'instructions', 0.017995414754878203), ('run-fib', 'instructions', 0.08557295694552147), ('run-fib', 'wall', 0.07523651997172043), ('run-calls', 'instructions', 0.039581305327947236), ('run-calls', 'wall', 0.05114857464551603), ('run-overwrite_alias', 'instructions', 0.01518472947837024)] disagreements []
+win instr {'run-numeric': '-30.56%', 'run-range_signed': '-37.48%', 'run-range_negative': '-37.48%'} numeric alloc -96.46%
+floor: instr +0.038% wall +0.07% (band 0.142 ms)
+empty-context: instr +0.041% wall +2.16% (band 0.147 ms)
+context: instr +2.085% wall +0.79% (band 0.418 ms)
+runtime: instr +1.807% wall +0.62% (band 0.445 ms)
+compile-answer: instr +1.540% wall +0.49% (band 0.519 ms)
+run-answer: instr +1.540% wall -0.29% (band 0.574 ms)
+run-empty: instr +1.800% wall +0.20% (band 0.526 ms)
+run-numeric: instr -30.558% wall -39.91% (band 1.416 ms)
+run-fib: instr +8.557% wall +7.52% (band 1.658 ms)
+run-strings: instr -9.076% wall -9.75% (band 1.087 ms)
+run-while: instr -0.047% wall -0.09% (band 0.967 ms)
+run-compare: instr -0.058% wall -0.59% (band 1.034 ms)
+run-calls: instr +3.958% wall +5.11% (band 1.606 ms)
+run-vector: instr +0.081% wall -1.96% (band 1.675 ms)
+run-overwrite_inline: instr -2.936% wall -1.50% (band 0.958 ms)
+run-overwrite_mixed: instr -0.981% wall -0.14% (band 0.812 ms)
+run-overwrite_deep: instr -0.565% wall -3.31% (band 1.737 ms)
+run-overwrite_alias: instr +1.518% wall +0.31% (band 0.593 ms)
+run-range_signed: instr -37.475% wall -50.00% (band 1.443 ms)
+run-range_negative: instr -37.475% wall -49.88% (band 0.932 ms)
+run-range_while: instr -0.058% wall +1.37% (band 1.185 ms)
+lua {'lua54-numeric': 6.354, 'lua54-while': 9.628, 'luajit-numeric': 8.263, 'luajit-while': 8.275}
+PAIR p0 s75 STOP
+rehearsal: 0 occurrences
+correctness: 40 identical
+allocation: context delta 1 numeric calls [1036660, 36661] budgets {'numeric-budget-zero': [36659, 36660, 1], 'numeric-budget-default': [1036660, 36661, 0], 'numeric-budget-unlimited': [1036661, 36662, 0], 'numeric-budget-tight': [36773, 36664, 1]}
+pmu done
+calibration: {'true': -0.004, 'floor': -0.004}
+wall done
+DECISION STOP regressions [('run-fib', 'instructions', 0.022666474974053052), ('run-while', 'instructions', 0.026819136236914565), ('run-compare', 'instructions', 0.027969743222907573), ('run-calls', 'instructions', 0.0211689771166097), ('run-calls', 'wall', 0.014705015280812805), ('run-vector', 'instructions', 0.02405789643747891), ('run-overwrite_inline', 'instructions', 0.027874955824569447), ('run-overwrite_mixed', 'instructions', 0.017847291950066513), ('run-overwrite_deep', 'instructions', 0.009543424354445884), ('run-range_while', 'instructions', 0.024540882335077008)] disagreements []
+win instr {'run-numeric': '-29.63%', 'run-range_signed': '-38.83%', 'run-range_negative': '-38.83%'} numeric alloc -96.46%
+floor: instr +0.046% wall +0.07% (band 0.136 ms)
+empty-context: instr +0.011% wall +3.04% (band 0.233 ms)
+context: instr +0.002% wall +0.69% (band 0.317 ms)
+runtime: instr +0.001% wall +0.44% (band 0.369 ms)
+compile-answer: instr +0.000% wall +0.91% (band 0.445 ms)
+run-answer: instr +0.000% wall +0.49% (band 0.467 ms)
+run-empty: instr +0.002% wall -0.65% (band 0.457 ms)
+run-numeric: instr -29.630% wall -33.75% (band 1.029 ms)
+run-fib: instr +2.267% wall +0.86% (band 1.981 ms)
+run-strings: instr -9.110% wall -9.49% (band 0.962 ms)
+run-while: instr +2.682% wall +0.02% (band 0.826 ms)
+run-compare: instr +2.797% wall +0.28% (band 1.282 ms)
+run-calls: instr +2.117% wall +1.47% (band 1.329 ms)
+run-vector: instr +2.406% wall -0.60% (band 1.372 ms)
+run-overwrite_inline: instr +2.787% wall +0.51% (band 0.929 ms)
+run-overwrite_mixed: instr +1.785% wall +0.39% (band 0.769 ms)
+run-overwrite_deep: instr +0.954% wall +0.64% (band 1.684 ms)
+run-overwrite_alias: instr +0.001% wall +0.53% (band 0.446 ms)
+run-range_signed: instr -38.834% wall -45.73% (band 1.310 ms)
+run-range_negative: instr -38.834% wall -45.98% (band 3.452 ms)
+run-range_while: instr +2.454% wall +1.40% (band 1.176 ms)
+lua {'lua54-numeric': 6.333, 'lua54-while': 9.628, 'luajit-numeric': 8.275, 'luajit-while': 8.269}
+PAIR p1 s75 STOP
+rehearsal: 0 occurrences
+correctness: 40 identical
+allocation: context delta 1 numeric calls [1036660, 36661] budgets {'numeric-budget-zero': [36659, 36660, 1], 'numeric-budget-default': [1036660, 36661, 0], 'numeric-budget-unlimited': [1036661, 36662, 0], 'numeric-budget-tight': [36773, 36664, 1]}
+pmu done
+calibration: {'true': -0.004, 'floor': -0.007}
+wall done
+DECISION STOP regressions [('run-fib', 'instructions', 0.02266616784255615), ('run-while', 'instructions', 0.027608114056216104), ('run-compare', 'instructions', 0.0289717082795109), ('run-compare', 'wall', 0.029641525014745485), ('run-calls', 'instructions', 0.023750315472525596), ('run-vector', 'instructions', 0.024969702688382167), ('run-overwrite_inline', 'instructions', 0.03125363566003303), ('run-overwrite_inline', 'wall', 0.01683746767945138), ('run-overwrite_mixed', 'instructions', 0.01823564820735779), ('run-overwrite_deep', 'instructions', 0.011832261200222627), ('run-range_while', 'instructions', 0.02748541202496857)] disagreements []
+win instr {'run-numeric': '-27.98%', 'run-range_signed': '-36.78%', 'run-range_negative': '-36.78%'} numeric alloc -96.46%
+floor: instr -0.084% wall +5.94% (band 0.123 ms)
+empty-context: instr +0.104% wall +0.77% (band 0.178 ms)
+context: instr +0.001% wall +0.82% (band 0.379 ms)
+runtime: instr +0.000% wall +1.19% (band 0.386 ms)
+compile-answer: instr +0.000% wall +0.49% (band 0.445 ms)
+run-answer: instr +0.002% wall +0.76% (band 0.484 ms)
+run-empty: instr +0.001% wall +1.60% (band 0.412 ms)
+run-numeric: instr -27.978% wall -33.27% (band 3.237 ms)
+run-fib: instr +2.267% wall +0.51% (band 2.166 ms)
+run-strings: instr -8.560% wall -10.40% (band 1.020 ms)
+run-while: instr +2.761% wall +0.85% (band 0.960 ms)
+run-compare: instr +2.897% wall +2.96% (band 1.505 ms)
+run-calls: instr +2.375% wall -0.27% (band 1.509 ms)
+run-vector: instr +2.497% wall +0.96% (band 1.048 ms)
+run-overwrite_inline: instr +3.125% wall +1.68% (band 0.898 ms)
+run-overwrite_mixed: instr +1.824% wall +1.51% (band 0.749 ms)
+run-overwrite_deep: instr +1.183% wall +0.74% (band 2.200 ms)
+run-overwrite_alias: instr +0.000% wall +1.08% (band 0.452 ms)
+run-range_signed: instr -36.783% wall -45.30% (band 1.287 ms)
+run-range_negative: instr -36.783% wall -45.47% (band 1.108 ms)
+run-range_while: instr +2.749% wall -0.38% (band 1.157 ms)
+lua {'lua54-numeric': 6.353, 'lua54-while': 9.577, 'luajit-numeric': 8.266, 'luajit-while': 8.271}
+PAIR p1 s76 STOP
+rehearsal: 0 occurrences
+correctness: 40 identical
+allocation: context delta 1 numeric calls [1036660, 36661] budgets {'numeric-budget-zero': [36659, 36660, 1], 'numeric-budget-default': [1036660, 36661, 0], 'numeric-budget-unlimited': [1036661, 36662, 0], 'numeric-budget-tight': [36773, 36664, 1]}
+reproduction: gated rows within 2%; descriptive {'0169 fifo floor None': 29, '0169 fifo empty-context None': 35}
+pmu done
+calibration: {'true': -0.002, 'floor': -0.0}
+wall done
+DECISION STOP regressions [('context', 'instructions', 0.020867440172910978), ('runtime', 'instructions', 0.01806152652868187), ('compile-answer', 'instructions', 0.015416178969990257), ('run-answer', 'instructions', 0.01540371673869978), ('run-empty', 'instructions', 0.018001146184129402), ('run-fib', 'instructions', 0.07794764737256177), ('run-fib', 'wall', 0.0755652175812973), ('run-calls', 'instructions', 0.03227839515202868), ('run-calls', 'wall', 0.04374318693240853), ('run-overwrite_alias', 'instructions', 0.015194105974733585)] disagreements []
+win instr {'run-numeric': '-32.04%', 'run-range_signed': '-39.08%', 'run-range_negative': '-39.08%'} numeric alloc -96.46%
+floor: instr +0.086% wall +3.16% (band 0.191 ms)
+empty-context: instr +0.137% wall +3.00% (band 0.189 ms)
+context: instr +2.087% wall +0.96% (band 0.402 ms)
+runtime: instr +1.806% wall +0.79% (band 0.455 ms)
+compile-answer: instr +1.542% wall +1.19% (band 0.542 ms)
+run-answer: instr +1.540% wall +0.20% (band 0.575 ms)
+run-empty: instr +1.800% wall +0.38% (band 0.485 ms)
+run-numeric: instr -32.036% wall -40.59% (band 1.199 ms)
+run-fib: instr +7.795% wall +7.56% (band 1.090 ms)
+run-strings: instr -9.603% wall -10.77% (band 1.195 ms)
+run-while: instr -0.922% wall -1.09% (band 0.916 ms)
+run-compare: instr -0.983% wall -0.86% (band 1.040 ms)
+run-calls: instr +3.228% wall +4.37% (band 1.379 ms)
+run-vector: instr -0.695% wall -1.59% (band 1.418 ms)
+run-overwrite_inline: instr -3.812% wall -1.17% (band 1.000 ms)
+run-overwrite_mixed: instr -1.542% wall +0.14% (band 1.009 ms)
+run-overwrite_deep: instr -0.918% wall -3.41% (band 1.772 ms)
+run-overwrite_alias: instr +1.519% wall +0.78% (band 0.536 ms)
+run-range_signed: instr -39.076% wall -52.17% (band 1.264 ms)
+run-range_negative: instr -39.076% wall -52.21% (band 1.049 ms)
+run-range_while: instr -0.911% wall -2.01% (band 0.951 ms)
+lua {'lua54-numeric': 6.347, 'lua54-while': 9.602, 'luajit-numeric': 8.276, 'luajit-while': 8.27}
+PAIR p0 s76 STOP

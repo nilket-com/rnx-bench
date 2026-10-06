@@ -1,0 +1,224 @@
+--------------------------------------------------------------------------------
+Profile data file '/home/me/work/rnx-bench-w-0178d/results/profile-paired-0178/diagnostic1/callgrind.out.p1-base.context' (creator: callgrind-3.26.0)
+--------------------------------------------------------------------------------
+I1 cache: 
+D1 cache: 
+LL cache: 
+Timerange: Basic block 0 - 5494096
+Trigger: Program termination
+Profiled target:  /home/me/work/rnx-bench-w-0178d/probes/profile-paired-0178/bin/p1-base-primary context (PID 3174473, part 1)
+Events recorded:  Ir
+Events shown:     Ir
+Event sort order: Ir
+Thresholds:       99.9
+Include dirs:     
+User annotated:   
+Auto-annotation:  on
+
+--------------------------------------------------------------------------------
+Ir                  
+--------------------------------------------------------------------------------
+27,027,057 (100.0%)  PROGRAM TOTALS
+
+--------------------------------------------------------------------------------
+Ir                   file:function
+--------------------------------------------------------------------------------
+27,027,057 (100.0%)  ???:0x0000000000023340 [/usr/lib/x86_64-linux-gnu/ld-linux-x86-64.so.2]
+26,672,158 (98.69%)  ???:(below main) [/home/me/work/rnx-bench-w-0178d/probes/profile-paired-0178/bin/p1-base-primary]
+26,672,146 (98.69%)  ./csu/../csu/libc-start.c:__libc_start_main@@GLIBC_2.34 [/usr/lib/x86_64-linux-gnu/libc.so.6]
+26,671,965 (98.69%)  ./csu/../sysdeps/nptl/libc_start_call_main.h:(below main) [/usr/lib/x86_64-linux-gnu/libc.so.6]
+26,669,942 (98.68%)  ???:main [/home/me/work/rnx-bench-w-0178d/probes/profile-paired-0178/bin/p1-base-primary]
+26,669,931 (98.68%)  ???:std::rt::lang_start_internal [/home/me/work/rnx-bench-w-0178d/probes/profile-paired-0178/bin/p1-base-primary]
+26,561,531 (98.28%)  ???:std::rt::lang_start::<()>::{closure#0} [/home/me/work/rnx-bench-w-0178d/probes/profile-paired-0178/bin/p1-base-primary]
+26,561,525 (98.28%)  ???:std::sys::backtrace::__rust_begin_short_backtrace::<fn(), ()> [/home/me/work/rnx-bench-w-0178d/probes/profile-paired-0178/bin/p1-base-primary]
+26,561,521 (98.28%)  ???:rune_base_new::main [/home/me/work/rnx-bench-w-0178d/probes/profile-paired-0178/bin/p1-base-primary]
+22,833,832 (84.49%)  ???:<rune::compile::context::Context>::with_default_modules [/home/me/work/rnx-bench-w-0178d/probes/profile-paired-0178/bin/p1-base-primary]
+22,833,830 (84.49%)  ???:<rune::compile::context::Context>::with_config [/home/me/work/rnx-bench-w-0178d/probes/profile-paired-0178/bin/p1-base-primary]
+21,638,028 (80.06%)  ???:<rune::compile::context::Context>::install::<rune::module::module::Module> [/home/me/work/rnx-bench-w-0178d/probes/profile-paired-0178/bin/p1-base-primary]
+19,197,279 (71.03%)  ???:<rune::compile::context::Context>::install_associated [/home/me/work/rnx-bench-w-0178d/probes/profile-paired-0178/bin/p1-base-primary]
+16,579,808 (61.35%)  ???:<rune::compile::context::Context>::install_trait_impl [/home/me/work/rnx-bench-w-0178d/probes/profile-paired-0178/bin/p1-base-primary]
+16,261,481 (60.17%)  ???:<rune::compile::context::TraitContext>::function_inner [/home/me/work/rnx-bench-w-0178d/probes/profile-paired-0178/bin/p1-base-primary]
+13,702,443 (50.70%)  ???:<rune::compile::context::TraitHandler>::new::call_impl::<rune::modules::iter::module::{closure#1}> [/home/me/work/rnx-bench-w-0178d/probes/profile-paired-0178/bin/p1-base-primary]
+ 7,771,803 (28.76%)  ???:core::fmt::write'2 [/home/me/work/rnx-bench-w-0178d/probes/profile-paired-0178/bin/p1-base-primary]
+ 7,434,530 (27.51%)  ???:<rune::compile::context::Context>::install_meta [/home/me/work/rnx-bench-w-0178d/probes/profile-paired-0178/bin/p1-base-primary]
+ 5,176,976 (19.15%)  ???:core::fmt::write [/home/me/work/rnx-bench-w-0178d/probes/profile-paired-0178/bin/p1-base-primary]
+ 5,064,876 (18.74%)  ???:<&rune_core::item::item_buf::ItemBuf as core::fmt::Display>::fmt [/home/me/work/rnx-bench-w-0178d/probes/profile-paired-0178/bin/p1-base-primary]
+ 5,055,376 (18.70%)  ???:<rune_core::item::item::Item as core::fmt::Display>::fmt [/home/me/work/rnx-bench-w-0178d/probes/profile-paired-0178/bin/p1-base-primary]
+ 4,636,884 (17.16%)  ???:<rune::compile::names::Names>::insert::<&rune_core::item::item_buf::ItemBuf> [/home/me/work/rnx-bench-w-0178d/probes/profile-paired-0178/bin/p1-base-primary]
+ 3,725,490 (13.78%)  ???:core::ptr::drop_glue::<rune::compile::context::Context> [/home/me/work/rnx-bench-w-0178d/probes/profile-paired-0178/bin/p1-base-primary]
+ 3,396,104 (12.57%)  ???:<rune_core::item::component_ref::ComponentRef as core::fmt::Display>::fmt [/home/me/work/rnx-bench-w-0178d/probes/profile-paired-0178/bin/p1-base-primary]
+ 3,309,199 (12.24%)  ???:<rune_alloc::alloc::global::Global as rune_alloc::alloc::allocator::Allocator>::deallocate [/home/me/work/rnx-bench-w-0178d/probes/profile-paired-0178/bin/p1-base-primary]
+ 3,204,000 (11.85%)  ???:__rustc::__rust_alloc [/home/me/work/rnx-bench-w-0178d/probes/profile-paired-0178/bin/p1-base-primary]
+ 3,171,694 (11.74%)  ???:__rustc::__rdl_alloc [/home/me/work/rnx-bench-w-0178d/probes/profile-paired-0178/bin/p1-base-primary]
+ 3,066,118 (11.34%)  ???:<rune_alloc::fmt::TryWrite::write_fmt::Writer<rune_alloc::string::String> as core::fmt::Write>::write_str [/home/me/work/rnx-bench-w-0178d/probes/profile-paired-0178/bin/p1-base-primary]
+ 3,046,685 (11.27%)  ???:__rustc::__rust_dealloc [/home/me/work/rnx-bench-w-0178d/probes/profile-paired-0178/bin/p1-base-primary]
+ 3,014,380 (11.15%)  ???:__rustc::__rdl_dealloc [/home/me/work/rnx-bench-w-0178d/probes/profile-paired-0178/bin/p1-base-primary]
+ 2,982,580 (11.04%)  ./malloc/./malloc/malloc.c:free [/usr/lib/x86_64-linux-gnu/libc.so.6]
+ 2,914,694 (10.78%)  ???:rune_alloc::raw_vec::finish_grow::<rune_alloc::alloc::global::Global> [/home/me/work/rnx-bench-w-0178d/probes/profile-paired-0178/bin/p1-base-primary]
+ 2,882,027 (10.66%)  ./malloc/./malloc/malloc.c:malloc [/usr/lib/x86_64-linux-gnu/libc.so.6]
+ 2,653,824 ( 9.82%)  ???:<rune_core::hash::Hash>::type_hash::<&rune_core::item::item_buf::ItemBuf> [/home/me/work/rnx-bench-w-0178d/probes/profile-paired-0178/bin/p1-base-primary]
+ 2,458,604 ( 9.10%)  ???:<rune_alloc::btree::map::BTreeMap<rune_core::item::component::Component, rune::compile::names::Node>>::entry_with::<(), core::convert::Infallible> [/home/me/work/rnx-bench-w-0178d/probes/profile-paired-0178/bin/p1-base-primary]
+ 2,338,845 ( 8.65%)  ???:<&&str as core::fmt::Display>::fmt [/home/me/work/rnx-bench-w-0178d/probes/profile-paired-0178/bin/p1-base-primary]
+ 2,300,100 ( 8.51%)  ???:<str as core::fmt::Display>::fmt [/home/me/work/rnx-bench-w-0178d/probes/profile-paired-0178/bin/p1-base-primary]
+ 2,261,355 ( 8.37%)  ???:<core::fmt::Formatter>::pad [/home/me/work/rnx-bench-w-0178d/probes/profile-paired-0178/bin/p1-base-primary]
+ 2,058,675 ( 7.62%)  ./malloc/./malloc/malloc.c:__libc_malloc2 [/usr/lib/x86_64-linux-gnu/libc.so.6]
+ 1,959,049 ( 7.25%)  ???:<twox_hash::xxhash64::Hasher as core::hash::Hasher>::write [/home/me/work/rnx-bench-w-0178d/probes/profile-paired-0178/bin/p1-base-primary]
+ 1,932,366 ( 7.15%)  ???:<rune_core::item::component_ref::ComponentRef as rune_core::item::into_component::IntoComponent>::hash_component::<twox_hash::xxhash64::Hasher> [/home/me/work/rnx-bench-w-0178d/probes/profile-paired-0178/bin/p1-base-primary]
+ 1,878,249 ( 6.95%)  ./malloc/./malloc/malloc.c:_int_free_chunk [/usr/lib/x86_64-linux-gnu/libc.so.6]
+ 1,820,876 ( 6.74%)  ???:<rune_core::item::item::Item>::extended::<&str> [/home/me/work/rnx-bench-w-0178d/probes/profile-paired-0178/bin/p1-base-primary]
+ 1,748,961 ( 6.47%)  ./malloc/./malloc/malloc.c:_int_malloc [/usr/lib/x86_64-linux-gnu/libc.so.6]
+ 1,651,483 ( 6.11%)  ./malloc/./malloc/malloc.c:_int_free_merge_chunk [/usr/lib/x86_64-linux-gnu/libc.so.6]
+ 1,494,362 ( 5.53%)  ???:<rune::compile::context::TraitContext>::find [/home/me/work/rnx-bench-w-0178d/probes/profile-paired-0178/bin/p1-base-primary]
+ 1,248,044 ( 4.62%)  ./string/../sysdeps/x86_64/multiarch/memmove-vec-unaligned-erms.S:__memcpy_avx_unaligned_erms [/usr/lib/x86_64-linux-gnu/libc.so.6]
+ 1,123,301 ( 4.16%)  ???:rune_core::item::into_component::into_component [/home/me/work/rnx-bench-w-0178d/probes/profile-paired-0178/bin/p1-base-primary]
+ 1,093,060 ( 4.04%)  ???:rune_core::item::internal::write_str::<rune_alloc::alloc::global::Global> [/home/me/work/rnx-bench-w-0178d/probes/profile-paired-0178/bin/p1-base-primary]
+   965,792 ( 3.57%)  ???:<rune::compile::names::Node as core::ops::drop::Drop>::drop [/home/me/work/rnx-bench-w-0178d/probes/profile-paired-0178/bin/p1-base-primary]
+   870,890 ( 3.22%)  ???:<rune::compile::context::Context>::insert_native_fn [/home/me/work/rnx-bench-w-0178d/probes/profile-paired-0178/bin/p1-base-primary]
+   863,484 ( 3.19%)  ???:<rune::compile::context::TraitHandler>::new::call_impl::<rune::modules::cmp::module::{closure#5}> [/home/me/work/rnx-bench-w-0178d/probes/profile-paired-0178/bin/p1-base-primary]
+   836,198 ( 3.09%)  ???:<rune::compile::context::Context>::install_type [/home/me/work/rnx-bench-w-0178d/probes/profile-paired-0178/bin/p1-base-primary]
+   808,195 ( 2.99%)  ???:rune_core::item::internal::write_tag::<rune_alloc::alloc::global::Global> [/home/me/work/rnx-bench-w-0178d/probes/profile-paired-0178/bin/p1-base-primary]
+   800,456 ( 2.96%)  ???:<rune_core::item::iter::Iter as core::iter::traits::iterator::Iterator>::next [/home/me/work/rnx-bench-w-0178d/probes/profile-paired-0178/bin/p1-base-primary]
+   759,387 ( 2.81%)  ???:<rune::compile::context::ContextType as rune_alloc::clone::TryClone>::try_clone [/home/me/work/rnx-bench-w-0178d/probes/profile-paired-0178/bin/p1-base-primary]
+   726,812 ( 2.69%)  ???:core::ptr::drop_glue::<rune_alloc::hashbrown::map::HashMap<rune_core::item::item_buf::ItemBuf, rune_alloc::btree::set::BTreeSet<rune_core::hash::Hash>>> [/home/me/work/rnx-bench-w-0178d/probes/profile-paired-0178/bin/p1-base-primary]
+   708,799 ( 2.62%)  ???:<rune::compile::context::TraitHandler>::new::call_impl::<rune::modules::iter::module::{closure#2}> [/home/me/work/rnx-bench-w-0178d/probes/profile-paired-0178/bin/p1-base-primary]
+   669,709 ( 2.48%)  ./string/../sysdeps/x86_64/multiarch/memcmp-avx2-movbe.S:__memcmp_avx2_movbe [/usr/lib/x86_64-linux-gnu/libc.so.6]
+   617,787 ( 2.29%)  ???:<rune_alloc::alloc::global::Global>::take [/home/me/work/rnx-bench-w-0178d/probes/profile-paired-0178/bin/p1-base-primary]
+   604,090 ( 2.24%)  ???:<rune::compile::context::TraitContext>::function::<rune::modules::iter::module::{closure#1}::{closure#22}, (rune::runtime::value::Value,), rune_core::params::Params<&str, 1>> [/home/me/work/rnx-bench-w-0178d/probes/profile-paired-0178/bin/p1-base-primary]
+   579,242 ( 2.14%)  ???:<rune::module::module::Module>::function_meta [/home/me/work/rnx-bench-w-0178d/probes/profile-paired-0178/bin/p1-base-primary]
+   550,492 ( 2.04%)  ???:<rune::compile::context::TraitContext>::function::<rune::modules::iter::module::{closure#1}::{closure#15}, (rune::runtime::value::Value, rune::runtime::function::Function), &str> [/home/me/work/rnx-bench-w-0178d/probes/profile-paired-0178/bin/p1-base-primary]
+   505,290 ( 1.87%)  ???:<rune::compile::context::TraitHandler>::new::call_impl::<rune::modules::cmp::module::{closure#6}> [/home/me/work/rnx-bench-w-0178d/probes/profile-paired-0178/bin/p1-base-primary]
+   497,811 ( 1.84%)  ???:<rune::compile::context::TraitContext>::function::<rune::modules::iter::module::{closure#1}::{closure#31}, (rune::runtime::value::Value,), rune_core::params::Params<&str, 1>> [/home/me/work/rnx-bench-w-0178d/probes/profile-paired-0178/bin/p1-base-primary]
+   475,071 ( 1.76%)  ???:<rune::compile::context::Context>::install_item [/home/me/work/rnx-bench-w-0178d/probes/profile-paired-0178/bin/p1-base-primary]
+   473,056 ( 1.75%)  ???:core::ptr::drop_glue::<rune_alloc::vec::Vec<rune::compile::context::ContextMeta>> [/home/me/work/rnx-bench-w-0178d/probes/profile-paired-0178/bin/p1-base-primary]
+   471,529 ( 1.74%)  ???:<rune::compile::context::TraitContext>::function::<rune::modules::iter::module::{closure#1}::{closure#11}, (rune::runtime::value::Value,), &str> [/home/me/work/rnx-bench-w-0178d/probes/profile-paired-0178/bin/p1-base-primary]
+   460,833 ( 1.71%)  ???:<rune_alloc::vec::Vec<u8>>::try_into_boxed_slice [/home/me/work/rnx-bench-w-0178d/probes/profile-paired-0178/bin/p1-base-primary]
+   458,426 ( 1.70%)  ???:core::ptr::drop_glue::<rune::runtime::const_value::node::ConstValueBuf> [/home/me/work/rnx-bench-w-0178d/probes/profile-paired-0178/bin/p1-base-primary]
+   457,169 ( 1.69%)  ???:<rune_alloc::btree::map::entry::Entry<rune_core::item::component::Component, rune::compile::names::Node>>::or_try_default [/home/me/work/rnx-bench-w-0178d/probes/profile-paired-0178/bin/p1-base-primary]
+   449,818 ( 1.66%)  ???:<rune::compile::context::TraitContext>::function::<rune::modules::iter::module::{closure#1}::{closure#14}, (rune::runtime::value::Value, rune::runtime::function::Function), &str> [/home/me/work/rnx-bench-w-0178d/probes/profile-paired-0178/bin/p1-base-primary]
+   447,870 ( 1.66%)  ???:<rune::compile::context::TraitContext>::function::<rune::modules::iter::module::{closure#1}::{closure#23}, (rune::runtime::value::Value,), rune_core::params::Params<&str, 1>> [/home/me/work/rnx-bench-w-0178d/probes/profile-paired-0178/bin/p1-base-primary]
+   431,482 ( 1.60%)  ???:<rune::compile::context::TraitContext>::function::<rune::modules::iter::module::{closure#1}::{closure#12}, (rune::runtime::value::Value, rune::runtime::function::Function), &str> [/home/me/work/rnx-bench-w-0178d/probes/profile-paired-0178/bin/p1-base-primary]
+   430,025 ( 1.59%)  ???:<rune::compile::context::TraitHandler>::new::call_impl::<rune::modules::cmp::module::{closure#3}> [/home/me/work/rnx-bench-w-0178d/probes/profile-paired-0178/bin/p1-base-primary]
+   419,900 ( 1.55%)  ???:rune_alloc::limit::take [/home/me/work/rnx-bench-w-0178d/probes/profile-paired-0178/bin/p1-base-primary]
+   414,066 ( 1.53%)  ???:<rune::compile::context::TraitContext>::function::<rune::modules::iter::module::{closure#1}::{closure#26}, (rune::runtime::value::Value,), rune_core::params::Params<&str, 1>> [/home/me/work/rnx-bench-w-0178d/probes/profile-paired-0178/bin/p1-base-primary]
+   412,684 ( 1.53%)  ???:<rune::compile::context::TraitContext>::function::<rune::modules::iter::module::{closure#1}::{closure#27}, (rune::runtime::value::Value,), rune_core::params::Params<&str, 1>> [/home/me/work/rnx-bench-w-0178d/probes/profile-paired-0178/bin/p1-base-primary]
+   411,706 ( 1.52%)  ???:<rune::compile::context::TraitContext>::function::<rune::modules::iter::module::{closure#1}::{closure#6}, (rune::runtime::value::Value, rune::runtime::function::Function), &str> [/home/me/work/rnx-bench-w-0178d/probes/profile-paired-0178/bin/p1-base-primary]
+   411,697 ( 1.52%)  ???:core::ptr::drop_glue::<rune_alloc::btree::set::BTreeSet<rune_core::hash::Hash>> [/home/me/work/rnx-bench-w-0178d/probes/profile-paired-0178/bin/p1-base-primary]
+   406,865 ( 1.51%)  ???:<rune::compile::context::TraitContext>::function::<rune::modules::iter::module::{closure#1}::{closure#3}, (rune::runtime::value::Value,), &str> [/home/me/work/rnx-bench-w-0178d/probes/profile-paired-0178/bin/p1-base-primary]
+   405,501 ( 1.50%)  ???:<rune::compile::context::TraitContext>::function::<rune::modules::iter::module::{closure#1}::{closure#16}, (rune::runtime::value::Value,), &str> [/home/me/work/rnx-bench-w-0178d/probes/profile-paired-0178/bin/p1-base-primary]
+   405,393 ( 1.50%)  ???:<rune::compile::context::TraitContext>::function::<rune::modules::iter::module::{closure#1}::{closure#19}, (rune::runtime::value::Value,), rune_core::params::Params<&str, 1>> [/home/me/work/rnx-bench-w-0178d/probes/profile-paired-0178/bin/p1-base-primary]
+   404,622 ( 1.50%)  ???:<rune::compile::context::TraitContext>::function::<rune::modules::iter::module::{closure#1}::{closure#13}, (rune::runtime::value::Value, rune::runtime::function::Function), &str> [/home/me/work/rnx-bench-w-0178d/probes/profile-paired-0178/bin/p1-base-primary]
+   403,997 ( 1.49%)  ???:<rune::compile::context::TraitContext>::function::<rune::modules::iter::module::{closure#1}::{closure#18}, (rune::runtime::value::Value, usize), &str> [/home/me/work/rnx-bench-w-0178d/probes/profile-paired-0178/bin/p1-base-primary]
+   400,998 ( 1.48%)  ???:<rune::compile::context::TraitContext>::function::<rune::modules::iter::module::{closure#1}::{closure#17}, (rune::runtime::value::Value, usize), &str> [/home/me/work/rnx-bench-w-0178d/probes/profile-paired-0178/bin/p1-base-primary]
+   399,859 ( 1.48%)  ???:<rune::compile::context::TraitContext>::function::<rune::modules::iter::module::{closure#1}::{closure#24}, (rune::runtime::value::Value,), rune_core::params::Params<&str, 1>> [/home/me/work/rnx-bench-w-0178d/probes/profile-paired-0178/bin/p1-base-primary]
+   396,195 ( 1.47%)  ???:<rune::compile::context::TraitContext>::function::<rune::modules::iter::module::{closure#1}::{closure#10}, (rune::runtime::value::Value, rune::runtime::value::Value), &str> [/home/me/work/rnx-bench-w-0178d/probes/profile-paired-0178/bin/p1-base-primary]
+   395,500 ( 1.46%)  ???:<rune::compile::context::TraitContext>::function::<rune::modules::iter::module::{closure#1}::{closure#9}, (rune::runtime::value::Value, rune::runtime::function::Function), &str> [/home/me/work/rnx-bench-w-0178d/probes/profile-paired-0178/bin/p1-base-primary]
+   395,222 ( 1.46%)  ???:<rune::compile::context::TraitContext>::function::<rune::modules::iter::module::{closure#1}::{closure#20}, (rune::runtime::value::Value,), rune_core::params::Params<&str, 1>> [/home/me/work/rnx-bench-w-0178d/probes/profile-paired-0178/bin/p1-base-primary]
+   394,774 ( 1.46%)  ???:<rune::compile::context::TraitContext>::function::<rune::modules::iter::module::{closure#1}::{closure#29}, (rune::runtime::value::Value,), rune_core::params::Params<&str, 1>> [/home/me/work/rnx-bench-w-0178d/probes/profile-paired-0178/bin/p1-base-primary]
+   394,401 ( 1.46%)  ???:<rune::compile::context::TraitContext>::function::<rune::modules::iter::module::{closure#1}::{closure#25}, (rune::runtime::value::Value,), rune_core::params::Params<&str, 1>> [/home/me/work/rnx-bench-w-0178d/probes/profile-paired-0178/bin/p1-base-primary]
+   392,873 ( 1.45%)  ???:<rune::compile::context::TraitContext>::function::<rune::modules::iter::module::{closure#1}::{closure#4}, (rune::runtime::value::Value,), &str> [/home/me/work/rnx-bench-w-0178d/probes/profile-paired-0178/bin/p1-base-primary]
+   391,601 ( 1.45%)  ???:<rune::compile::context::TraitContext>::function::<rune::modules::iter::module::{closure#1}::{closure#5}, (rune::runtime::value::Value, rune::runtime::value::Value, rune::runtime::function::Function), &str> [/home/me/work/rnx-bench-w-0178d/probes/profile-paired-0178/bin/p1-base-primary]
+   390,911 ( 1.45%)  ???:<rune::compile::context::TraitContext>::function::<rune::modules::iter::module::{closure#1}::{closure#7}, (rune::runtime::value::Value, rune::runtime::function::Function), &str> [/home/me/work/rnx-bench-w-0178d/probes/profile-paired-0178/bin/p1-base-primary]
+   390,836 ( 1.45%)  ???:<rune::compile::context::TraitContext>::function::<rune::modules::iter::module::{closure#1}::{closure#28}, (rune::runtime::value::Value,), rune_core::params::Params<&str, 1>> [/home/me/work/rnx-bench-w-0178d/probes/profile-paired-0178/bin/p1-base-primary]
+   389,769 ( 1.44%)  ???:<rune::compile::context::TraitContext>::function::<rune::modules::iter::module::{closure#1}::{closure#21}, (rune::runtime::value::Value,), rune_core::params::Params<&str, 1>> [/home/me/work/rnx-bench-w-0178d/probes/profile-paired-0178/bin/p1-base-primary]
+   388,300 ( 1.44%)  ???:<twox_hash::xxhash64::Hasher as core::hash::Hasher>::finish [/home/me/work/rnx-bench-w-0178d/probes/profile-paired-0178/bin/p1-base-primary]
+   387,724 ( 1.43%)  ???:<rune::compile::context::TraitContext>::function::<rune::modules::iter::module::{closure#1}::{closure#8}, (rune::runtime::value::Value, rune::runtime::function::Function), &str> [/home/me/work/rnx-bench-w-0178d/probes/profile-paired-0178/bin/p1-base-primary]
+   387,705 ( 1.43%)  ???:<rune_core::hash::Hash>::ident [/home/me/work/rnx-bench-w-0178d/probes/profile-paired-0178/bin/p1-base-primary]
+   386,421 ( 1.43%)  ???:<rune::compile::context::TraitContext>::function::<rune::modules::iter::module::{closure#1}::{closure#30}, (rune::runtime::value::Value,), rune_core::params::Params<&str, 1>> [/home/me/work/rnx-bench-w-0178d/probes/profile-paired-0178/bin/p1-base-primary]
+   366,048 ( 1.35%)  ???:<rune::compile::context::Context>::install_type_info [/home/me/work/rnx-bench-w-0178d/probes/profile-paired-0178/bin/p1-base-primary]
+   353,827 ( 1.31%)  ./elf/./elf/rtld.c:_dl_start [/usr/lib/x86_64-linux-gnu/ld-linux-x86-64.so.2]
+   353,207 ( 1.31%)  ./elf/../sysdeps/unix/sysv/linux/dl-sysdep.c:_dl_sysdep_start [/usr/lib/x86_64-linux-gnu/ld-linux-x86-64.so.2]
+   343,297 ( 1.27%)  ./elf/./elf/rtld.c:dl_main [/usr/lib/x86_64-linux-gnu/ld-linux-x86-64.so.2]
+   335,111 ( 1.24%)  ???:<rune_alloc::hashbrown::map::HashMap<rune_core::hash::Hash, rune::runtime::const_value::node::ConstValueBuf, rune::hash::HashBuildHasher>>::try_insert [/home/me/work/rnx-bench-w-0178d/probes/profile-paired-0178/bin/p1-base-primary]
+   328,117 ( 1.21%)  ???:<rune::module::module::Module>::insert_associated_function [/home/me/work/rnx-bench-w-0178d/probes/profile-paired-0178/bin/p1-base-primary]
+   322,841 ( 1.19%)  ???:<rune::runtime::FunctionHandler>::new::drop_impl::<<rune::function_meta::FunctionData>::new<&str, rune::modules::io::__rune_fn__print_impl, (rune::function::Ref<str>,), rune::function::Plain>::{closure#0}> [/home/me/work/rnx-bench-w-0178d/probes/profile-paired-0178/bin/p1-base-primary]
+   320,320 ( 1.19%)  ./malloc/./malloc/malloc.c:_int_free_maybe_trim [/usr/lib/x86_64-linux-gnu/libc.so.6]
+   314,912 ( 1.17%)  ???:<rune_alloc::btree::map::IntoIter<rune_core::item::component::Component, rune::compile::names::Node>>::dying_next [/home/me/work/rnx-bench-w-0178d/probes/profile-paired-0178/bin/p1-base-primary]
+   309,234 ( 1.14%)  ???:<rune_alloc::hashbrown::set::HashSet<rune::module::module::Name>>::try_insert [/home/me/work/rnx-bench-w-0178d/probes/profile-paired-0178/bin/p1-base-primary]
+   307,755 ( 1.14%)  ???:<rune_alloc::hashbrown::raw::RawTable<(rune_core::hash::Hash, rune::runtime::FunctionHandler)>>::reserve_rehash::<(), core::convert::Infallible, rune_alloc::hashbrown::TupleFn<rune_alloc::hashbrown::map::make_hasher<rune_core::hash::Hash, rune::hash::HashBuildHasher>::{closure#0}, rune::runtime::FunctionHandler>> [/home/me/work/rnx-bench-w-0178d/probes/profile-paired-0178/bin/p1-base-primary]
+   301,271 ( 1.11%)  ???:<rune::compile::context::Context>::install_trait [/home/me/work/rnx-bench-w-0178d/probes/profile-paired-0178/bin/p1-base-primary]
+   290,700 ( 1.08%)  ???:rune_alloc::limit::release [/home/me/work/rnx-bench-w-0178d/probes/profile-paired-0178/bin/p1-base-primary]
+   288,524 ( 1.07%)  ./elf/./elf/dl-reloc.c:_dl_relocate_object_no_relro [/usr/lib/x86_64-linux-gnu/ld-linux-x86-64.so.2]
+   288,460 ( 1.07%)  ./elf/./elf/dl-reloc.c:_dl_relocate_object [/usr/lib/x86_64-linux-gnu/ld-linux-x86-64.so.2]
+   277,963 ( 1.03%)  ???:<rune_alloc::sync::Arc<rune::modules::io::dbg_impl>>::drop_slow [/home/me/work/rnx-bench-w-0178d/probes/profile-paired-0178/bin/p1-base-primary]
+   261,233 ( 0.97%)  ./malloc/./malloc/malloc.c:unlink_chunk.isra.0 [/usr/lib/x86_64-linux-gnu/libc.so.6]
+   251,380 ( 0.93%)  ???:<rune::module::module::Module>::insert_associated_name [/home/me/work/rnx-bench-w-0178d/probes/profile-paired-0178/bin/p1-base-primary]
+   222,305 ( 0.82%)  ???:<rune_core::hash::Hash>::type_hash::<&rune_core::item::item::Item> [/home/me/work/rnx-bench-w-0178d/probes/profile-paired-0178/bin/p1-base-primary]
+   218,341 ( 0.81%)  ???:<core::hash::BuildHasherDefault<ahash::fallback_hash::AHasher> as core::hash::BuildHasher>::hash_one::<&rune_alloc::vec::Vec<u8>> [/home/me/work/rnx-bench-w-0178d/probes/profile-paired-0178/bin/p1-base-primary]
+   210,259 ( 0.78%)  ???:<rune_alloc::btree::map::IntoIter<rune_core::item::component::Component, rune::compile::names::Node> as core::ops::drop::Drop>::drop [/home/me/work/rnx-bench-w-0178d/probes/profile-paired-0178/bin/p1-base-primary]
+   209,958 ( 0.78%)  ???:rune::modules::ops::module [/home/me/work/rnx-bench-w-0178d/probes/profile-paired-0178/bin/p1-base-primary]
+   196,128 ( 0.73%)  ???:<rune_alloc::hashbrown::raw::RawTable<(rune_core::item::item_buf::ItemBuf, rune_alloc::btree::set::BTreeSet<rune_core::hash::Hash>)>>::reserve_rehash::<(), core::convert::Infallible, rune_alloc::hashbrown::TupleFn<rune_alloc::hashbrown::map::make_hasher<rune_core::item::item_buf::ItemBuf, core::hash::BuildHasherDefault<ahash::fallback_hash::AHasher>>::{closure#0}, rune_alloc::btree::set::BTreeSet<rune_core::hash::Hash>>> [/home/me/work/rnx-bench-w-0178d/probes/profile-paired-0178/bin/p1-base-primary]
+   194,480 ( 0.72%)  ???:<rune::compile::names::Node as core::ops::drop::Drop>::drop'2 [/home/me/work/rnx-bench-w-0178d/probes/profile-paired-0178/bin/p1-base-primary]
+   190,438 ( 0.70%)  ???:<rune::compile::context::Context>::install_module [/home/me/work/rnx-bench-w-0178d/probes/profile-paired-0178/bin/p1-base-primary]
+   187,553 ( 0.69%)  ???:<rune::compile::context::TraitHandler>::new::call_impl::<rune::modules::clone::module::{closure#0}> [/home/me/work/rnx-bench-w-0178d/probes/profile-paired-0178/bin/p1-base-primary]
+   176,421 ( 0.65%)  ???:<rune::compile::context::TraitContext>::find_or_define::<(rune::runtime::value::Value, rune::runtime::value::Value), rune::modules::cmp::module::{closure#5}::{closure#3}> [/home/me/work/rnx-bench-w-0178d/probes/profile-paired-0178/bin/p1-base-primary]
+   162,674 ( 0.60%)  ???:<rune_alloc::hashbrown::raw::RawTable<(rune::module::module::Name, ())>>::reserve_rehash::<(), core::convert::Infallible, rune_alloc::hashbrown::TupleFn<rune_alloc::hashbrown::map::make_hasher<rune::module::module::Name, core::hash::BuildHasherDefault<ahash::fallback_hash::AHasher>>::{closure#0}, ()>> [/home/me/work/rnx-bench-w-0178d/probes/profile-paired-0178/bin/p1-base-primary]
+   161,876 ( 0.60%)  ???:<rune_alloc::hashbrown::raw::RawTable<(rune_core::hash::Hash, rune::runtime::const_value::node::ConstValueBuf)>>::reserve_rehash::<(), core::convert::Infallible, rune_alloc::hashbrown::TupleFn<rune_alloc::hashbrown::map::make_hasher<rune_core::hash::Hash, rune::hash::HashBuildHasher>::{closure#0}, rune::runtime::const_value::node::ConstValueBuf>> [/home/me/work/rnx-bench-w-0178d/probes/profile-paired-0178/bin/p1-base-primary]
+   161,667 ( 0.60%)  ???:core::ptr::drop_glue::<rune::compile::context::ContextType> [/home/me/work/rnx-bench-w-0178d/probes/profile-paired-0178/bin/p1-base-primary]
+   158,061 ( 0.58%)  ???:<rune::compile::context::TraitHandler>::new::call_impl::<rune::modules::iter::module::{closure#0}> [/home/me/work/rnx-bench-w-0178d/probes/profile-paired-0178/bin/p1-base-primary]
+   157,664 ( 0.58%)  ???:<rune_alloc::hashbrown::raw::RawTable<(rune_core::hash::Hash, rune_alloc::vec::Vec<usize>)>>::reserve_rehash::<(), core::convert::Infallible, rune_alloc::hashbrown::TupleFn<rune_alloc::hashbrown::map::make_hasher<rune_core::hash::Hash, rune::hash::HashBuildHasher>::{closure#0}, rune_alloc::vec::Vec<usize>>> [/home/me/work/rnx-bench-w-0178d/probes/profile-paired-0178/bin/p1-base-primary]
+   139,882 ( 0.52%)  ???:<rune::runtime::FunctionHandler>::new::drop_impl::<<rune::compile::context::TraitContext>::function<rune::modules::cmp::module::{closure#3}::{closure#0}, (rune::runtime::value::Value, rune::runtime::value::Value), &str>::{closure#0}> [/home/me/work/rnx-bench-w-0178d/probes/profile-paired-0178/bin/p1-base-primary]
+   133,458 ( 0.49%)  ???:rune::modules::iter::module [/home/me/work/rnx-bench-w-0178d/probes/profile-paired-0178/bin/p1-base-primary]
+   131,175 ( 0.49%)  ./elf/./elf/dl-lookup.c:_dl_lookup_symbol_x [/usr/lib/x86_64-linux-gnu/ld-linux-x86-64.so.2]
+   124,586 ( 0.46%)  ???:<rune_alloc::sync::Arc<<rune::compile::context::TraitContext>::function<rune::modules::iter::module::{closure#1}::{closure#4}, (rune::runtime::value::Value,), &str>::{closure#0}>>::drop_slow [/home/me/work/rnx-bench-w-0178d/probes/profile-paired-0178/bin/p1-base-primary]
+   122,858 ( 0.45%)  ???:core::ptr::drop_glue::<rune::module::module::Module> [/home/me/work/rnx-bench-w-0178d/probes/profile-paired-0178/bin/p1-base-primary]
+   106,564 ( 0.39%)  ???:<core::hash::BuildHasherDefault<ahash::fallback_hash::AHasher> as core::hash::BuildHasher>::hash_one::<&rune::module::module::Name> [/home/me/work/rnx-bench-w-0178d/probes/profile-paired-0178/bin/p1-base-primary]
+   106,128 ( 0.39%)  ./nptl/./nptl/pthread_getattr_np.c:pthread_getattr_np@@GLIBC_2.32 [/usr/lib/x86_64-linux-gnu/libc.so.6]
+    98,039 ( 0.36%)  ./elf/../sysdeps/x86_64/dl-machine.h:_dl_relocate_object_no_relro
+    96,030 ( 0.36%)  ./elf/./elf/dl-lookup.c:do_lookup_x [/usr/lib/x86_64-linux-gnu/ld-linux-x86-64.so.2]
+    93,160 ( 0.34%)  ./stdio-common/./stdio-common/isoc23_sscanf.c:__isoc23_sscanf [/usr/lib/x86_64-linux-gnu/libc.so.6]
+    91,375 ( 0.34%)  ???:<rune::compile::meta::AssociatedKind as rune_alloc::clone::TryClone>::try_clone [/home/me/work/rnx-bench-w-0178d/probes/profile-paired-0178/bin/p1-base-primary]
+    84,083 ( 0.31%)  ???:core::ptr::drop_glue::<rune::compile::meta::Kind> [/home/me/work/rnx-bench-w-0178d/probes/profile-paired-0178/bin/p1-base-primary]
+    83,918 ( 0.31%)  ./stdio-common/./stdio-common/vfscanf-internal.c:__vfscanf_internal [/usr/lib/x86_64-linux-gnu/libc.so.6]
+    82,870 ( 0.31%)  ???:rune::modules::f64::module [/home/me/work/rnx-bench-w-0178d/probes/profile-paired-0178/bin/p1-base-primary]
+    75,831 ( 0.28%)  ???:rune::modules::string::module [/home/me/work/rnx-bench-w-0178d/probes/profile-paired-0178/bin/p1-base-primary]
+    75,465 ( 0.28%)  ???:<rune::module::module::Module>::insert_constant::<&str, f64> [/home/me/work/rnx-bench-w-0178d/probes/profile-paired-0178/bin/p1-base-primary]
+    71,550 ( 0.26%)  ???:core::ptr::drop_glue::<rune::module::module_meta::ModuleAssociated> [/home/me/work/rnx-bench-w-0178d/probes/profile-paired-0178/bin/p1-base-primary]
+    67,532 ( 0.25%)  ???:<rune::runtime::FunctionHandler>::new::drop_impl::<<rune::compile::context::TraitContext>::function<rune::modules::iter::module::{closure#1}::{closure#19}, (rune::runtime::value::Value,), rune_core::params::Params<&str, 1>>::{closure#0}> [/home/me/work/rnx-bench-w-0178d/probes/profile-paired-0178/bin/p1-base-primary]
+    61,153 ( 0.23%)  ???:<rune::module::module::Module>::function_inner [/home/me/work/rnx-bench-w-0178d/probes/profile-paired-0178/bin/p1-base-primary]
+    60,512 ( 0.22%)  ???:<rune_alloc::sync::Arc<<rune::compile::context::TraitContext>::function<rune::modules::iter::module::{closure#1}::{closure#19}, (rune::runtime::value::Value,), rune_core::params::Params<&str, 1>>::{closure#0}>>::drop_slow [/home/me/work/rnx-bench-w-0178d/probes/profile-paired-0178/bin/p1-base-primary]
+    57,523 ( 0.21%)  ???:<rune_core::item::iter::Iter as core::iter::traits::double_ended::DoubleEndedIterator>::next_back [/home/me/work/rnx-bench-w-0178d/probes/profile-paired-0178/bin/p1-base-primary]
+    53,271 ( 0.20%)  ???:rune::modules::f64::consts::module [/home/me/work/rnx-bench-w-0178d/probes/profile-paired-0178/bin/p1-base-primary]
+    50,560 ( 0.19%)  ???:rune::modules::i64::module [/home/me/work/rnx-bench-w-0178d/probes/profile-paired-0178/bin/p1-base-primary]
+    48,235 ( 0.18%)  ./malloc/./malloc/malloc.c:alloc_perturb [/usr/lib/x86_64-linux-gnu/libc.so.6]
+    46,989 ( 0.17%)  ???:rune::modules::object::module [/home/me/work/rnx-bench-w-0178d/probes/profile-paired-0178/bin/p1-base-primary]
+    46,011 ( 0.17%)  ???:core::ptr::drop_glue::<rune_alloc::vec::Vec<rune::module::module_meta::ModuleTraitImpl>> [/home/me/work/rnx-bench-w-0178d/probes/profile-paired-0178/bin/p1-base-primary]
+    45,851 ( 0.17%)  ???:rune::modules::option::module [/home/me/work/rnx-bench-w-0178d/probes/profile-paired-0178/bin/p1-base-primary]
+    45,715 ( 0.17%)  ???:rune::modules::collections::hash_set::module [/home/me/work/rnx-bench-w-0178d/probes/profile-paired-0178/bin/p1-base-primary]
+    43,945 ( 0.16%)  ???:rune::modules::collections::vec_deque::module [/home/me/work/rnx-bench-w-0178d/probes/profile-paired-0178/bin/p1-base-primary]
+    43,433 ( 0.16%)  ???:rune::modules::u64::module [/home/me/work/rnx-bench-w-0178d/probes/profile-paired-0178/bin/p1-base-primary]
+    43,281 ( 0.16%)  ???:<rune_core::item::item::Item>::join::<[&str; 1]> [/home/me/work/rnx-bench-w-0178d/probes/profile-paired-0178/bin/p1-base-primary]
+    42,244 ( 0.16%)  ???:core::ptr::drop_glue::<rune::module::module_meta::ModuleTraitImpl> [/home/me/work/rnx-bench-w-0178d/probes/profile-paired-0178/bin/p1-base-primary]
+    42,076 ( 0.16%)  ???:rune::modules::collections::hash_map::module [/home/me/work/rnx-bench-w-0178d/probes/profile-paired-0178/bin/p1-base-primary]
+    39,990 ( 0.15%)  ./malloc/./malloc/arena.c:free
+    39,396 ( 0.15%)  ./elf/./elf/do-rel.h:_dl_relocate_object_no_relro
+    38,723 ( 0.14%)  ???:rune::modules::bytes::module [/home/me/work/rnx-bench-w-0178d/probes/profile-paired-0178/bin/p1-base-primary]
+    38,433 ( 0.14%)  ???:rune::modules::vec::module [/home/me/work/rnx-bench-w-0178d/probes/profile-paired-0178/bin/p1-base-primary]
+    35,441 ( 0.13%)  ???:<rune::module::module::Module>::macro_meta [/home/me/work/rnx-bench-w-0178d/probes/profile-paired-0178/bin/p1-base-primary]
+    33,217 ( 0.12%)  ???:<rune_core::item::item::Item>::join::<&rune_core::item::item_buf::ItemBuf> [/home/me/work/rnx-bench-w-0178d/probes/profile-paired-0178/bin/p1-base-primary]
+    32,306 ( 0.12%)  ???:__rustc::__rust_no_alloc_shim_is_unstable_v2 [/home/me/work/rnx-bench-w-0178d/probes/profile-paired-0178/bin/p1-base-primary]
+    32,216 ( 0.12%)  ./string/../sysdeps/x86_64/multiarch/memset-vec-unaligned-erms.S:__memset_avx2_unaligned_erms [/usr/lib/x86_64-linux-gnu/libc.so.6]
+    28,711 ( 0.11%)  ???:rune::modules::result::module [/home/me/work/rnx-bench-w-0178d/probes/profile-paired-0178/bin/p1-base-primary]
+    28,534 ( 0.11%)  ./elf/./elf/dl-lookup.c:check_match [/usr/lib/x86_64-linux-gnu/ld-linux-x86-64.so.2]
+    28,484 ( 0.11%)  ???:<rune::runtime::FunctionHandler>::new::clone_impl::<<rune::function_meta::FunctionData>::new<&str, rune::modules::io::__rune_fn__print_impl, (rune::function::Ref<str>,), rune::function::Plain>::{closure#0}> [/home/me/work/rnx-bench-w-0178d/probes/profile-paired-0178/bin/p1-base-primary]
+    26,954 ( 0.10%)  ./malloc/./malloc/arena.c:__libc_malloc2
+
+--------------------------------------------------------------------------------
+The following files chosen for auto-annotation could not be found:
+--------------------------------------------------------------------------------
+  ./csu/../csu/libc-start.c
+  ./csu/../sysdeps/nptl/libc_start_call_main.h
+  ./elf/../sysdeps/unix/sysv/linux/dl-sysdep.c
+  ./elf/../sysdeps/x86_64/dl-machine.h
+  ./elf/./elf/dl-lookup.c
+  ./elf/./elf/dl-reloc.c
+  ./elf/./elf/do-rel.h
+  ./elf/./elf/rtld.c
+  ./malloc/./malloc/arena.c
+  ./malloc/./malloc/malloc.c
+  ./nptl/./nptl/pthread_getattr_np.c
+  ./stdio-common/./stdio-common/isoc23_sscanf.c
+  ./stdio-common/./stdio-common/vfscanf-internal.c
+  ./string/../sysdeps/x86_64/multiarch/memcmp-avx2-movbe.S
+  ./string/../sysdeps/x86_64/multiarch/memmove-vec-unaligned-erms.S
+  ./string/../sysdeps/x86_64/multiarch/memset-vec-unaligned-erms.S
+

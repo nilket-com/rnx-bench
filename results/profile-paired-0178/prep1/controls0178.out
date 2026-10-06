@@ -1,0 +1,18 @@
+R1-real-manifest-is-consistent PASS
+R1-swapped-profile-definitions-refused PASS
+R1-missing-and-extra-artifact-names-refused PASS
+R1-mismatched-row-identity-refused PASS
+R1-profile-swapped-artifact-refused PASS
+R1-all-four-role-mappings-in-one-process PASS
+PAIR p0 s75 STOP
+PAIR p1 s75 NO-WIN
+PAIR p1 s76 NO-WIN
+PAIR p0 s76 NO-WIN
+R2-matrix-scientific-stop-reaches-all-cells PASS
+PAIR p0 s75 NO-WIN
+PAIR p1 s75 NO-WIN
+R2-matrix-infrastructure-failure-stops-and-retains PASS
+reproduction: gated rows within 2%; descriptive {}
+R2-reproduction-dispatch-p0-only PASS
+R3-build-lifecycle-gate-after-retention PASS
+0178 controls: 10 / 10 pass

@@ -1,0 +1,242 @@
+{
+ "R1-real-manifest-is-consistent": {
+  "pass": true,
+  "detail": "0 problems",
+  "seconds": 0.10927131399512291
+ },
+ "R1-swapped-profile-definitions-refused": {
+  "pass": true,
+  "detail": [
+   [
+    "manifest profile definitions differ from the frozen PROFILES",
+    {
+     "p0": [
+      "codegen-units = 1"
+     ],
+     "p1": []
+    }
+   ]
+  ],
+  "seconds": 0.18646321189589798
+ },
+ "R1-missing-and-extra-artifact-names-refused": {
+  "pass": true,
+  "detail": {
+   "missing": [
+    [
+     "build receipt content"
+    ],
+    [
+     "manifest binaries: artifact names",
+     {
+      "missing": [
+       "p1-s75-counter"
+      ],
+      "extra": []
+     }
+    ],
+    [
+     "manifest hash differs from the receipt row",
+     "p1-s75-counter"
+    ]
+   ],
+   "extra": [
+    [
+     "binary",
+     "p2-base-primary"
+    ],
+    [
+     "build receipt content"
+    ],
+    [
+     "manifest binaries: artifact names",
+     {
+      "missing": [],
+      "extra": [
+       "p2-base-primary"
+      ]
+     }
+    ]
+   ]
+  },
+  "seconds": 0.1805482399649918
+ },
+ "R1-mismatched-row-identity-refused": {
+  "pass": true,
+  "detail": {
+   "relabel": [
+    [
+     "row identity",
+     "p0-s75-primary",
+     [
+      "p1",
+      "s75",
+      "primary",
+      "863370da279031b369ebb0ac1c0d80cd9ca159f6",
+      "\nopt-level = 3\n",
+      "default (no flag) on every target invocation"
+     ]
+    ]
+   ],
+   "section": [
+    [
+     "row identity",
+     "p1-s76-primary",
+     [
+      "p1",
+      "s76",
+      "primary",
+      "6f54bd32ee1038e3927ef384d1a914d8d5b36c4f",
+      "\nopt-level = 3\n",
+      "1 on every target invocation"
+     ]
+    ]
+   ],
+   "rev": [
+    [
+     "row identity",
+     "p0-s76-counter",
+     [
+      "p0",
+      "s76",
+      "counter",
+      "863370da279031b369ebb0ac1c0d80cd9ca159f6",
+      "\nopt-level = 3\n",
+      "default (no flag) on every target invocation"
+     ]
+    ]
+   ]
+  },
+  "seconds": 0.27786547294817865
+ },
+ "R1-profile-swapped-artifact-refused": {
+  "pass": true,
+  "detail": {
+   "verify": [
+    [
+     "binary",
+     "p1-s75-primary"
+    ],
+    [
+     "binary",
+     "p0-s75-primary"
+    ],
+    [
+     "build receipt content"
+    ],
+    [
+     "manifest hash differs from the receipt row",
+     "p1-s75-primary"
+    ],
+    [
+     "manifest hash differs from the receipt row",
+     "p0-s75-primary"
+    ]
+   ],
+   "bind_pair": "Stop(('pair artifact does not match the manifest', 'p0-s75-primary'))"
+  },
+  "seconds": 0.11516977497376502
+ },
+ "R1-all-four-role-mappings-in-one-process": {
+  "pass": true,
+  "detail": {
+   "p0-s75": {
+    "base": "p0-base",
+    "cand": "p0-s75"
+   },
+   "p1-s75": {
+    "base": "p1-base",
+    "cand": "p1-s75"
+   },
+   "p1-s76": {
+    "base": "p1-base",
+    "cand": "p1-s76"
+   },
+   "p0-s76": {
+    "base": "p0-base",
+    "cand": "p0-s76"
+   }
+  },
+  "seconds": 0.23264740407466888
+ },
+ "R2-matrix-scientific-stop-reaches-all-cells": {
+  "pass": true,
+  "detail": {
+   "order": [
+    [
+     "p0",
+     "s75"
+    ],
+    [
+     "p1",
+     "s75"
+    ],
+    [
+     "p1",
+     "s76"
+    ],
+    [
+     "p0",
+     "s76"
+    ]
+   ],
+   "decisions": [
+    "STOP",
+    "NO-WIN",
+    "NO-WIN",
+    "NO-WIN"
+   ]
+  },
+  "seconds": 0.011576915858313441
+ },
+ "R2-matrix-infrastructure-failure-stops-and-retains": {
+  "pass": true,
+  "detail": {
+   "invoked": [
+    [
+     "p0",
+     "s75"
+    ],
+    [
+     "p1",
+     "s75"
+    ],
+    [
+     "p1",
+     "s76"
+    ]
+   ],
+   "status": "STOPPED (infrastructure/semantic failure)"
+  },
+  "seconds": 0.0004362629260867834
+ },
+ "R2-reproduction-dispatch-p0-only": {
+  "pass": true,
+  "detail": {
+   "p1": {
+    "calls_so_far": 0,
+    "returned": null,
+    "file": {
+     "applicable": false,
+     "reason": "not applicable: default-profile historical references do not apply to P1 (plan section 4)"
+    }
+   },
+   "p0": {
+    "calls_so_far": 1,
+    "returned": {},
+    "file": {}
+   }
+  },
+  "seconds": 0.05882057501003146
+ },
+ "R3-build-lifecycle-gate-after-retention": {
+  "pass": true,
+  "detail": {
+   "survivor": "SystemExit(('STOP: process lifecycle', 'survivor', False, False, True, [123456]))",
+   "unreaped": "SystemExit(('STOP: process lifecycle', 'unreaped', False, False, False, []))",
+   "timeout": "SystemExit(('STOP: process lifecycle', 'timeout', True, False, True, []))",
+   "step": "SystemExit(('STOP: process lifecycle', 'mock-build', False, False, True, [123456]))"
+  },
+  "seconds": 0.00016149994917213917
+ }
+}

@@ -1,0 +1,298 @@
+
+/home/me/work/rnx-bench-w-0178d/probes/profile-paired-0178/bin/p1-s75-primary:     file format elf64-x86-64
+
+
+Disassembly of section .text:
+
+0000000000370b30 <<rune::runtime::vm::Vm>::try_range_next>:
+  370b30:	push   %rbp
+  370b31:	push   %r15
+  370b33:	push   %r14
+  370b35:	push   %r13
+  370b37:	push   %r12
+  370b39:	push   %rbx
+  370b3a:	sub    $0xe8,%rsp
+  370b41:	mov    %rcx,%r13
+  370b44:	mov    %rdx,%r12
+  370b47:	mov    %rsi,%r14
+  370b4a:	mov    %rdi,%rbx
+  370b4d:	data16 data16 data16 mov %fs:0x0,%rax
+  370b59:	cmpq   $0x0,-0xb0(%rax)
+  370b61:	je     370dce <<rune::runtime::vm::Vm>::try_range_next+0x29e>
+  370b67:	mov    %rax,%r15
+  370b6a:	call   *0x1f92d8(%rip)        # 569e48 <_DYNAMIC+0xf88>
+  370b70:	test   %al,%al
+  370b72:	jne    370dce <<rune::runtime::vm::Vm>::try_range_next+0x29e>
+  370b78:	cmp    $0xffffffffffffffff,%r13
+  370b7c:	je     370dce <<rune::runtime::vm::Vm>::try_range_next+0x29e>
+  370b82:	cmp    %r12,%r13
+  370b85:	je     370dce <<rune::runtime::vm::Vm>::try_range_next+0x29e>
+  370b8b:	mov    0xc8(%r14),%rax
+  370b92:	add    %rax,%r12
+  370b95:	jb     370dce <<rune::runtime::vm::Vm>::try_range_next+0x29e>
+  370b9b:	mov    0xc0(%r14),%rcx
+  370ba2:	cmp    %rcx,%r12
+  370ba5:	jae    370dce <<rune::runtime::vm::Vm>::try_range_next+0x29e>
+  370bab:	mov    0xb0(%r14),%r8
+  370bb2:	shl    $0x4,%r12
+  370bb6:	add    %r8,%r12
+  370bb9:	movzbl (%r12),%esi
+  370bbe:	lea    -0x9(%rsi),%rdi
+  370bc2:	xor    %edx,%edx
+  370bc4:	cmp    $0xa,%rsi
+  370bc8:	cmovae %rdi,%rdx
+  370bcc:	test   %rdx,%rdx
+  370bcf:	je     370dce <<rune::runtime::vm::Vm>::try_range_next+0x29e>
+  370bd5:	cmp    $0x1,%edx
+  370bd8:	jne    370be8 <<rune::runtime::vm::Vm>::try_range_next+0xb8>
+  370bda:	mov    0x8(%r12),%rdx
+  370bdf:	mov    (%rdx),%rdx
+  370be2:	add    $0x48,%rdx
+  370be6:	jmp    370bf5 <<rune::runtime::vm::Vm>::try_range_next+0xc5>
+  370be8:	mov    0x8(%r12),%rdx
+  370bed:	mov    0x10(%rdx),%rdx
+  370bf1:	add    $0x38,%rdx
+  370bf5:	movabs $0xc4a9b22f151cd9c9,%rsi
+  370bff:	cmp    %rsi,(%rdx)
+  370c02:	jne    370dce <<rune::runtime::vm::Vm>::try_range_next+0x29e>
+  370c08:	lea    (%rax,%r13,1),%rbp
+  370c0c:	cmp    %rax,%rbp
+  370c0f:	setae  %al
+  370c12:	cmp    %rcx,%rbp
+  370c15:	setb   %cl
+  370c18:	test   %cl,%al
+  370c1a:	je     370dce <<rune::runtime::vm::Vm>::try_range_next+0x29e>
+  370c20:	shl    $0x4,%rbp
+  370c24:	movzbl (%r8,%rbp,1),%eax
+  370c29:	cmp    $0x9,%eax
+  370c2c:	ja     370dce <<rune::runtime::vm::Vm>::try_range_next+0x29e>
+  370c32:	test   $0xb,%al
+  370c34:	jne    370dce <<rune::runtime::vm::Vm>::try_range_next+0x29e>
+  370c3a:	mov    0xa8(%r14),%rax
+  370c41:	mov    0xe8(%r14),%rdx
+  370c48:	cmp    0x20(%rax),%rdx
+  370c4c:	jae    370dce <<rune::runtime::vm::Vm>::try_range_next+0x29e>
+  370c52:	mov    0x10(%rax),%rax
+  370c56:	imul   $0x38,%rdx,%rcx
+  370c5a:	cmpq   $0x42,(%rax,%rcx,1)
+  370c5f:	jne    370dce <<rune::runtime::vm::Vm>::try_range_next+0x29e>
+  370c65:	cmp    %r13,0x8(%rax,%rcx,1)
+  370c6a:	jne    370dce <<rune::runtime::vm::Vm>::try_range_next+0x29e>
+  370c70:	cmp    %r13,0x18(%rax,%rcx,1)
+  370c75:	jne    370dce <<rune::runtime::vm::Vm>::try_range_next+0x29e>
+  370c7b:	mov    %rdx,0xc8(%rsp)
+  370c83:	mov    %r8,%r13
+  370c86:	movups (%r12),%xmm0
+  370c8b:	movaps %xmm0,0xd0(%rsp)
+  370c93:	movb   $0x0,(%r12)
+  370c98:	lea    0x10(%rsp),%rdi
+  370c9d:	lea    0xd0(%rsp),%rsi
+  370ca5:	call   1946d0 <<rune::runtime::value::Value>::into_mut::<rune::runtime::range::RangeIter<i64>>>
+  370caa:	mov    0x10(%rsp),%rax
+  370caf:	mov    0x18(%rsp),%rdi
+  370cb4:	test   %rax,%rax
+  370cb7:	je     370de5 <<rune::runtime::vm::Vm>::try_range_next+0x2b5>
+  370cbd:	add    %rbp,%r13
+  370cc0:	mov    0x20(%rsp),%rcx
+  370cc5:	mov    (%rax),%r12
+  370cc8:	cmp    0x8(%rax),%r12
+  370ccc:	jge    370def <<rune::runtime::vm::Vm>::try_range_next+0x2bf>
+  370cd2:	lea    -0xb0(%r15),%r15
+  370cd9:	lea    0x1(%r12),%rdx
+  370cde:	mov    %rdx,(%rax)
+  370ce1:	call   *(%rcx)
+  370ce3:	mov    (%r15),%rax
+  370ce6:	cmp    $0xffffffffffffffff,%rax
+  370cea:	je     370f40 <<rune::runtime::vm::Vm>::try_range_next+0x410>
+  370cf0:	test   %rax,%rax
+  370cf3:	jne    370f3a <<rune::runtime::vm::Vm>::try_range_next+0x40a>
+  370cf9:	lea    0x10(%rsp),%rdi
+  370cfe:	mov    $0x1,%esi
+  370d03:	mov    %r12,%rdx
+  370d06:	call   4bcef0 <<core::option::Option<i64> as rune::runtime::to_value::ToValue>::to_value>
+  370d0b:	movzbl 0x10(%rsp),%eax
+  370d10:	cmp    $0xff,%al
+  370d12:	je     370f84 <<rune::runtime::vm::Vm>::try_range_next+0x454>
+  370d18:	mov    0x11(%rsp),%ecx
+  370d1c:	mov    0x14(%rsp),%edx
+  370d20:	mov    %edx,0x3(%rsp)
+  370d24:	mov    %ecx,(%rsp)
+  370d27:	mov    0x18(%rsp),%rcx
+  370d2c:	movq   $0x0,0x10(%rsp)
+  370d35:	xorps  %xmm0,%xmm0
+  370d38:	movups %xmm0,0x28(%rsp)
+  370d3d:	movups %xmm0,0x38(%rsp)
+  370d42:	movups %xmm0,0x48(%rsp)
+  370d47:	movups %xmm0,0x58(%rsp)
+  370d4c:	movups %xmm0,0x68(%rsp)
+  370d51:	movups %xmm0,0x78(%rsp)
+  370d56:	movups %xmm0,0x88(%rsp)
+  370d5e:	movups %xmm0,0x98(%rsp)
+  370d66:	movq   $0x0,0xa8(%rsp)
+  370d72:	movq   $0x8,0x18(%rsp)
+  370d7b:	movq   $0x0,0x20(%rsp)
+  370d84:	movups 0x0(%r13),%xmm0
+  370d89:	movaps %xmm0,0xb0(%rsp)
+  370d91:	mov    %al,0x0(%r13)
+  370d95:	mov    (%rsp),%eax
+  370d98:	mov    0x3(%rsp),%edx
+  370d9c:	mov    %eax,0x1(%r13)
+  370da0:	mov    %edx,0x4(%r13)
+  370da4:	mov    %rcx,0x8(%r13)
+  370da8:	lea    0x10(%rsp),%rdi
+  370dad:	lea    0xb0(%rsp),%rsi
+  370db5:	call   3ddc20 <<rune::runtime::value::dismantle::Worklist>::dismantle>
+  370dba:	lea    0x10(%rsp),%rdi
+  370dbf:	call   1b5460 <core::ptr::drop_glue::<rune::runtime::value::dismantle::Worklist>>
+  370dc4:	movb   $0x1,0x1(%rbx)
+  370dc8:	xor    %eax,%eax
+  370dca:	mov    %al,(%rbx)
+  370dcc:	jmp    370dd3 <<rune::runtime::vm::Vm>::try_range_next+0x2a3>
+  370dce:	movw   $0x0,(%rbx)
+  370dd3:	add    $0xe8,%rsp
+  370dda:	pop    %rbx
+  370ddb:	pop    %r12
+  370ddd:	pop    %r13
+  370ddf:	pop    %r14
+  370de1:	pop    %r15
+  370de3:	pop    %rbp
+  370de4:	ret
+  370de5:	call   3144a0 <<rune::runtime::vm::Vm>::try_range_next::{closure#0}>
+  370dea:	jmp    371035 <<rune::runtime::vm::Vm>::try_range_next+0x505>
+  370def:	call   *(%rcx)
+  370df1:	lea    0x10(%rsp),%rdi
+  370df6:	xor    %esi,%esi
+  370df8:	call   4bcef0 <<core::option::Option<i64> as rune::runtime::to_value::ToValue>::to_value>
+  370dfd:	movzbl 0x10(%rsp),%eax
+  370e02:	cmp    $0xff,%al
+  370e04:	je     370ec2 <<rune::runtime::vm::Vm>::try_range_next+0x392>
+  370e0a:	mov    0x11(%rsp),%ecx
+  370e0e:	mov    0x14(%rsp),%edx
+  370e12:	mov    %edx,0xb(%rsp)
+  370e16:	mov    %ecx,0x8(%rsp)
+  370e1a:	mov    0x18(%rsp),%rcx
+  370e1f:	movq   $0x0,0x10(%rsp)
+  370e28:	xorps  %xmm0,%xmm0
+  370e2b:	movups %xmm0,0x28(%rsp)
+  370e30:	movups %xmm0,0x38(%rsp)
+  370e35:	movups %xmm0,0x48(%rsp)
+  370e3a:	movups %xmm0,0x58(%rsp)
+  370e3f:	movups %xmm0,0x68(%rsp)
+  370e44:	movups %xmm0,0x78(%rsp)
+  370e49:	movups %xmm0,0x88(%rsp)
+  370e51:	movups %xmm0,0x98(%rsp)
+  370e59:	movq   $0x0,0xa8(%rsp)
+  370e65:	movq   $0x8,0x18(%rsp)
+  370e6e:	movq   $0x0,0x20(%rsp)
+  370e77:	movups 0x0(%r13),%xmm0
+  370e7c:	movaps %xmm0,0xb0(%rsp)
+  370e84:	mov    %al,0x0(%r13)
+  370e88:	mov    0x8(%rsp),%eax
+  370e8c:	mov    0xb(%rsp),%edx
+  370e90:	mov    %eax,0x1(%r13)
+  370e94:	mov    %edx,0x4(%r13)
+  370e98:	mov    %rcx,0x8(%r13)
+  370e9c:	lea    0x10(%rsp),%rdi
+  370ea1:	lea    0xb0(%rsp),%rsi
+  370ea9:	call   3ddc20 <<rune::runtime::value::dismantle::Worklist>::dismantle>
+  370eae:	lea    0x10(%rsp),%rdi
+  370eb3:	call   1b5460 <core::ptr::drop_glue::<rune::runtime::value::dismantle::Worklist>>
+  370eb8:	movw   $0x100,(%rbx)
+  370ebd:	jmp    370dd3 <<rune::runtime::vm::Vm>::try_range_next+0x2a3>
+  370ec2:	mov    0x18(%rsp),%rdi
+  370ec7:	movaps (%rdi),%xmm0
+  370eca:	movaps 0x10(%rdi),%xmm1
+  370ece:	movaps 0x20(%rdi),%xmm2
+  370ed2:	movaps 0x30(%rdi),%xmm3
+  370ed6:	movaps %xmm3,0x40(%rsp)
+  370edb:	movaps %xmm2,0x30(%rsp)
+  370ee0:	movaps %xmm1,0x20(%rsp)
+  370ee5:	movaps %xmm0,0x10(%rsp)
+  370eea:	mov    $0x40,%esi
+  370eef:	mov    $0x10,%edx
+  370ef4:	call   *0x1f833e(%rip)        # 569238 <_DYNAMIC+0x378>
+  370efa:	movq   $0x0,0x50(%rsp)
+  370f03:	movq   $0x10,0x58(%rsp)
+  370f0c:	xorps  %xmm0,%xmm0
+  370f0f:	movaps %xmm0,0x60(%rsp)
+  370f14:	movq   $0x8,0x70(%rsp)
+  370f1d:	movq   $0x0,0x78(%rsp)
+  370f26:	mov    $0x10,%edi
+  370f2b:	mov    $0x70,%esi
+  370f30:	call   3e2340 <alloc::boxed::box_new_uninit>
+  370f35:	jmp    370ff7 <<rune::runtime::vm::Vm>::try_range_next+0x4c7>
+  370f3a:	dec    %rax
+  370f3d:	mov    %rax,(%r15)
+  370f40:	mov    0xc8(%rsp),%rax
+  370f48:	inc    %rax
+  370f4b:	mov    %rax,0xe8(%r14)
+  370f52:	movb   $0x1,0xf8(%r14)
+  370f5a:	movups 0x0(%r13),%xmm0
+  370f5f:	movaps %xmm0,0x10(%rsp)
+  370f64:	movb   $0x4,0x0(%r13)
+  370f69:	mov    %r12,0x8(%r13)
+  370f6d:	lea    0x10(%rsp),%rsi
+  370f72:	mov    %r14,%rdi
+  370f75:	call   3ddc20 <<rune::runtime::value::dismantle::Worklist>::dismantle>
+  370f7a:	movw   $0x100,(%rbx)
+  370f7f:	jmp    370dd3 <<rune::runtime::vm::Vm>::try_range_next+0x2a3>
+  370f84:	mov    0x18(%rsp),%rdi
+  370f89:	movaps (%rdi),%xmm0
+  370f8c:	movaps 0x10(%rdi),%xmm1
+  370f90:	movaps 0x20(%rdi),%xmm2
+  370f94:	movaps 0x30(%rdi),%xmm3
+  370f98:	movaps %xmm3,0x40(%rsp)
+  370f9d:	movaps %xmm2,0x30(%rsp)
+  370fa2:	movaps %xmm1,0x20(%rsp)
+  370fa7:	movaps %xmm0,0x10(%rsp)
+  370fac:	mov    $0x40,%esi
+  370fb1:	mov    $0x10,%edx
+  370fb6:	call   *0x1f827c(%rip)        # 569238 <_DYNAMIC+0x378>
+  370fbc:	movq   $0x0,0x50(%rsp)
+  370fc5:	movq   $0x10,0x58(%rsp)
+  370fce:	xorps  %xmm0,%xmm0
+  370fd1:	movaps %xmm0,0x60(%rsp)
+  370fd6:	movq   $0x8,0x70(%rsp)
+  370fdf:	movq   $0x0,0x78(%rsp)
+  370fe8:	mov    $0x10,%edi
+  370fed:	mov    $0x70,%esi
+  370ff2:	call   3e2340 <alloc::boxed::box_new_uninit>
+  370ff7:	movaps 0x70(%rsp),%xmm0
+  370ffc:	movaps %xmm0,0x60(%rax)
+  371000:	movaps 0x60(%rsp),%xmm0
+  371005:	movaps %xmm0,0x50(%rax)
+  371009:	movaps 0x50(%rsp),%xmm0
+  37100e:	movaps %xmm0,0x40(%rax)
+  371012:	movaps 0x10(%rsp),%xmm0
+  371017:	movaps 0x20(%rsp),%xmm1
+  37101c:	movaps 0x30(%rsp),%xmm2
+  371021:	movaps 0x40(%rsp),%xmm3
+  371026:	movaps %xmm3,0x30(%rax)
+  37102a:	movaps %xmm2,0x20(%rax)
+  37102e:	movaps %xmm1,0x10(%rax)
+  371032:	movaps %xmm0,(%rax)
+  371035:	mov    %rax,0x8(%rbx)
+  371039:	mov    $0x1,%al
+  37103b:	mov    %al,(%rbx)
+  37103d:	jmp    370dd3 <<rune::runtime::vm::Vm>::try_range_next+0x2a3>
+  371042:	mov    %rax,%rbx
+  371045:	lea    0x10(%rsp),%rdi
+  37104a:	call   1b3c40 <core::ptr::drop_glue::<rune::runtime::vm_error::VmErrorInner>>
+  37104f:	jmp    37108e <<rune::runtime::vm::Vm>::try_range_next+0x55e>
+  371051:	call   *0x1f80d1(%rip)        # 569128 <_DYNAMIC+0x268>
+  371057:	mov    %rax,%rbx
+  37105a:	lea    0x10(%rsp),%rdi
+  37105f:	call   1b5460 <core::ptr::drop_glue::<rune::runtime::value::dismantle::Worklist>>
+  371064:	jmp    37108e <<rune::runtime::vm::Vm>::try_range_next+0x55e>
+  371066:	call   *0x1f80bc(%rip)        # 569128 <_DYNAMIC+0x268>
+  37106c:	mov    %rax,%rbx
+  37106f:	lea    0x10(%rsp),%rdi
+  371074:	call   1b3c40 <core::ptr::drop_glue::<rune::runtime::vm_error::VmErrorInner>>
+  371079:	jmp    37108e <<rune::runtime::vm::Vm>::try_range_next+0x55e>
+  37107b:	call   *0x1f80a7(%rip)        # 569128 <_DYNAMIC+0x268>
+  371081:	mov    %rax,%rbx
+  371084:	lea    0x10(%rsp),%rdi
+  371089:	call   1b5460 <core::ptr::drop_glue::<rune::runtime::value::dismantle::Worklist>>
+  37108e:	mov    %rbx,%rdi
+  371091:	call   53d410 <_Unwind_Resume@plt>
+  371096:	call   *0x1f808c(%rip)        # 569128 <_DYNAMIC+0x268>
