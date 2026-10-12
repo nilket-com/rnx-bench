@@ -1,0 +1,25 @@
+[package]
+name = "p2-probe-harness"
+version = "0.0.0"
+edition = "2021"
+publish = false
+
+# Its own root: never part of an enclosing workspace.
+[workspace]
+
+[dependencies]
+# The pinned FUEL commit, checked out clean in its own worktree (see ../PINS.json).
+rune = { path = "/home/me/work/.worktrees/rune-fuel-probe/crates/rune", features = ["fresh-core"] }
+
+[features]
+# fuel-on: the native tier. fuel-off: this feature off. Same source, lock and profile.
+native = ["rune/fresh-core-native"]
+
+# The 0184 protocol profile, spelled out (these are cargo's release defaults).
+[profile.release]
+opt-level = 3
+codegen-units = 16
+lto = false
+panic = "unwind"
+debug = false
+incremental = false

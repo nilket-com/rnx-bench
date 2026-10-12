@@ -195,3 +195,31 @@ On this machine, default standalone compile+link had a 37.6 ms median; none of
 Object/metadata-only emission often did, but does not produce a runnable program.
 This is a tiny warm-cache, one-machine measurement, not a general compiler-speed
 claim. Exact commands, phase labels, frame fractions and clock audits are retained.
+
+## Rune native tier versus LuaJIT (2026-10-12)
+
+Native-tier results, kept separate from the tables above: this
+[probe](probes/rune-native-0184/RESULTS.md) times warmed per-invocation slopes
+with its own repetition harness, not hyperfine whole-process runs, so its
+figures are not interchangeable with the startup and JSON tables.
+
+One sealed session on nano (CPU 4 pinned): Rune's experimental native tier
+(fork commit 346623b6, feature `fresh-core-native`, not on by default) against
+LuaJIT 2.1.1788856981. Ratio = Rune native time / LuaJIT time, so below 1 is
+faster for Rune; marginal 95% paired-bootstrap intervals; all 400 samples valid.
+
+| kernel | vs LuaJIT | vs LuaJIT -joff | native vs Rune interpreter |
+|---|---|---|---|
+| calls (primary) | 1.0190 [0.9644, 1.0282] | 0.0736 [0.0730, 0.0742] | 84.27× faster |
+| while | 1.0172 [1.0142, 1.0256] | 0.1568 [0.1556, 0.1579] | 31.31× faster |
+| numeric | 0.4457 [0.4453, 0.4462] | 0.2480 [0.2476, 0.2483] | 20.94× faster |
+
+The calls target (upper bound ≤ 1.25, i.e. at least 80% of LuaJIT's speed) was
+met; about 98% of LuaJIT's speed is a point estimate only, and calls is not
+shown faster than LuaJIT. Each kernel stands alone; there is no aggregate. The
+two controls (fib, shared_rows; native tier on versus off) were unresolved
+against their 1% margin; the checkpoint was accepted by explicit exception, not
+as a statistical pass. LuaJIT does no overflow or fuel checks and uses doubles
+and host CPU features; Rune checks both on i64 with baseline x86-64 code. The
+exact engine source is not yet publicly available, so public end-to-end
+reproduction is pending; the probe sources are archival copies.
