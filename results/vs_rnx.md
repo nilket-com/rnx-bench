@@ -4,7 +4,7 @@
 | Perl 5.40 | 0.74 ms | 5.8× faster | 8.3 ms | 1.4× faster | JSON::XS (C) |
 | LuaJIT 2.1 | 0.41 ms | 10.6× faster | 8.4 ms | 1.4× faster | cjson (C) |
 | Lua 5.4.7 | 0.38 ms | 11.3× faster | 9.4 ms | 1.2× faster | cjson (C) |
-| rnx (Rune 0.14.2) | 4.3 ms | baseline | 11.4 ms | baseline | host::json_stringify (Rust) |
+| rnx (Rune 0.14.2) | 4.3 ms | baseline | 11.4 ms | baseline | built-in (Rust, serde_json) |
 | Deno 2.9.6 | 11.9 ms | 2.7× slower | 12.0 ms | 1.0× slower | built-in (C++) |
 | Node 22.22.1 official | 11.6 ms | 2.7× slower | 17.2 ms | 1.5× slower | built-in (C++) |
 | Python 3.14.4 | 8.1 ms | 1.9× slower | 30.1 ms | 2.6× slower | json (C) |
