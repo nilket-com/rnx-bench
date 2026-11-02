@@ -94,7 +94,8 @@ def render(raw):
 		if a<=b:
 			return f'rnx default is {b/a:.2f}× faster than {label}'
 		return f'{label} is {a/b:.2f}× faster than rnx default'
-	reading=('From the rendered sample means, '+comparison('fib','rnx native off','native off')+' on fib, '+
+	reading=('From the rendered sample means, '+comparison('fib','rnx native off','native off')+' on fib and '+
+		comparison('awfy_permute','rnx native off','native off')+' on permute. '+
 		comparison('vec_iter_i64','rnx native off','native off')+' on the integer list, and '+
 		comparison('vec_iter_bool','rnx native off','native off')+' on the Boolean list. '+
 		'Against LuaJIT, '+comparison('fib','LuaJIT cjson','LuaJIT')+' on fib and '+
@@ -104,7 +105,7 @@ def render(raw):
 		comparison('numeric_calls','Node official','official Node')+', and '+
 		comparison('numeric_calls','Python','Python')+'. '+
 		'At startup, '+comparison('bare','LuaJIT cjson','LuaJIT')+' and '+comparison('bare','Bun','Bun')+'. '+
-		'These are ratios of whole-process sample means, not confidence-bound rankings; permute and shared_rows remain interpreted.')
+		'These are ratios of whole-process sample means, not confidence-bound rankings.')
 	compute=table(KERNELS)+'\n\n'+availability+'\n\n'+footnote+'\n\n### Reading the tables\n\n'+reading
 	return summary, table(['bare','json']), compute
 
@@ -116,12 +117,13 @@ def main():
 	repo = Path(__file__).resolve().parents[1]
 	summary, startup, compute = render(args.raw)
 	stamp = summary['date'][:10]
-	destination = repo/'results'/('cross-runtime-'+stamp)
+	name = 'cross-runtime-'+stamp+'-'+RNX[:8]
+	destination = repo/'results'/name
 	destination.with_suffix('.json').write_text(json.dumps(summary,indent=2)+'\n')
 	intro = f'''# Cross-runtime matrix, {stamp} (UTC)
 
 Intel i7-14700, Linux {summary['kernel']}; CPU {summary['cpu']} affinity inherited by
-all child threads. rnx `{RNX[:8]}`, public Rune N5 `{RUNE[:8]}`. Default native
+all child threads. rnx `{RNX[:8]}`, public Rune N6 `{RUNE[:8]}`. Default native
 on, native off and legacy use the same locked production binary.
 
 Times are **whole-process milliseconds, mean ± sample standard deviation**.
@@ -173,8 +175,10 @@ reads/writes/iteration/appends, and scalar direct self recursion. `fib` and
 numeric/list kernels use those paths. Sieve combines native list loops with
 interpreted surrounding methods. Recursive first calls can replay in the
 interpreter until sufficient engine stack room exists; later calls can complete
-native. That first-call behavior is included here. `permute` and `shared_rows`
-remain interpreted; N5 adds neither method dispatch nor string/table search.
+native. That first-call behavior is included here. Permute uses a guarded named
+receiver with scalar fields, one integer list, closed helpers and self recursion;
+its setup and verification stay interpreted. `shared_rows` keeps its string/table
+search in the interpreter.
 
 '''
 	versions = '\n\n## Versions and provenance\n\n'
@@ -184,7 +188,7 @@ remain interpreted; N5 adds neither method dispatch nor string/table search.
 Kotlin/Scala are precompiled jars on the listed JVM, so source compilation is
 excluded but JVM startup/JIT is included. Jar hashes, binary hash, versions,
 round counts, sample summaries and thermal counters are retained in the
-[machine-readable summary](cross-runtime-{stamp}.json). The Kotlin/Scala source
+[machine-readable summary]({name}.json). The Kotlin/Scala source
 and build instructions are in [scripts/jvm](../scripts/jvm/README.md).
 These rows describe the identified artifacts, not arbitrary installations.
 
@@ -193,12 +197,12 @@ the normal locked feature set and retaining its BUILD.json (commit, Rune pin,
 clean source directories, executable hash/size):
 
 ```sh
-python3 -I -B scripts/build_matrix_rnx.py target/readme-n5-build
+python3 -I -B scripts/build_matrix_rnx.py target/readme-n6-build
 export JULIAUP_NO_SELFUPDATE=1
 JULIA_REAL="$(julia --startup-file=no -e 'print(joinpath(Sys.BINDIR,Base.julia_exename()))')"
 JULIA_SYSIMAGE="$(julia --startup-file=no -e 'print(unsafe_string(Base.JLOptions().image_file))')"
-python3 -I -B scripts/current_matrix.py --build target/readme-n5-build/BUILD.json --out target/readme-n5-new-run --julia "$JULIA_REAL" --julia-sysimage "$JULIA_SYSIMAGE"
-python3 -I -B scripts/render_current_matrix.py target/readme-n5-new-run
+python3 -I -B scripts/current_matrix.py --build target/readme-n6-build/BUILD.json --out target/readme-n6-new-run --julia "$JULIA_REAL" --julia-sysimage "$JULIA_SYSIMAGE"
+python3 -I -B scripts/render_current_matrix.py target/readme-n6-new-run
 ```
 
 The harness uses the exact Rune/rnx sources named by that receipt, installed
@@ -215,7 +219,7 @@ receipts and sample counts before replacing tables or README content.
 	start, end = '<!-- current-matrix:start -->', '<!-- current-matrix:end -->'
 	assert text.count(start)==text.count(end)==1
 	a,b=text.index(start)+len(start),text.index(end)
-	block = '\n\n'+startup+'\n\n'+compute+f'\n\n† = thermally throttled batch; n/a = no matching port. All cells are milliseconds,\nmean ± sample standard deviation. [Conditions, versions and provenance](results/cross-runtime-{stamp}.md).\n\n'
+	block = '\n\n'+startup+'\n\n'+compute+f'\n\n† = thermally throttled batch; n/a = no matching port. All cells are milliseconds,\nmean ± sample standard deviation. [Conditions, versions and provenance](results/{name}.md).\n\n'
 	readme.write_text(text[:a]+block+text[b:])
 	print('PASS',destination.with_suffix('.md'))
 

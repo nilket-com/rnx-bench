@@ -18,8 +18,8 @@ import time
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 from compute_matrix import port
 
-RNX = '83d94173bbfcb5228878eb5f1d64cdb92f3c4f79'
-RUNE = '2565a2a4563a915d49de061931f2951fd5dede31'
+RNX = 'c32a6ba77e8318a8c763b0c2eaac336cdebfde48'
+RUNE = 'a68e739e6213dd02877258503f16df7ddaae6fc7'
 KERNELS = ['fib', 'loops', 'numeric_calls', 'awfy_sieve', 'awfy_permute',
 		   'shared_rows', 'vec_iter_i64', 'vec_iter_bool',
 		   'vec_append_million_i64', 'vec_append_million_bool']
@@ -52,7 +52,7 @@ def canonical(stdout, workload):
 
 def main():
 	parser = argparse.ArgumentParser(description=__doc__)
-	parser.add_argument('--build', type=Path, required=True, help='locked rnx0203 BUILD.json')
+	parser.add_argument('--build', type=Path, required=True, help='locked rnx0204 BUILD.json')
 	parser.add_argument('--out', type=Path, required=True, help='new ignored raw run directory')
 	parser.add_argument('--cpu', type=int, default=4)
 	parser.add_argument('--julia', type=Path, required=True, help='actual Julia executable, outside juliaup')
