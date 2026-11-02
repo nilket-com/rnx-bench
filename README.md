@@ -3,10 +3,11 @@
 Measurements of rnx and the Rune engine against other dynamic runtimes, with
 rerunnable harnesses, output checks and retained results.
 
-rnx `83d94173` pins public [Rune N5](https://github.com/nilket-com/rune/commit/2565a2a4563a915d49de061931f2951fd5dede31).
+rnx `c32a6ba7` pins public [Rune N6](https://github.com/nilket-com/rune/commit/a68e739e6213dd02877258503f16df7ddaae6fc7).
 `rnx run` enables its native tier by default. The same binary supports
 `--native=off` and `--engine=legacy`. The pinned production binary passed native
-entry/return witnesses, including fib with the default native setting and budget.
+entry/return witnesses for permute and two additional method fixtures, including
+a field loop with the default native setting and budget.
 
 ## Current cross-runtime matrix
 
@@ -28,57 +29,58 @@ implementation. The ± values show sample spread, not confidence intervals.
 
 The list columns include construction and eight reads. Native regions handle
 admitted scalar loops, integer/Boolean list loops and scalar direct self
-recursion. Sieve also has interpreted surrounding methods. `permute` and
-`shared_rows` remain interpreted; the native tier does not handle their method
-calls or string/table search.
+recursion. Permute uses a guarded named receiver with scalar fields, one integer
+list, closed helpers and self recursion; its setup and verification stay
+interpreted. Sieve also has interpreted surrounding methods. `shared_rows` keeps
+its string/table search in the interpreter.
 
 <!-- current-matrix:start -->
 
 | Runtime | Startup | 10k JSON † |
 |---|---:|---:|
-| rnx default | 3.065 ± 0.026 | 13.880 ± 0.257 |
-| rnx native off | 3.065 ± 0.046 | 14.689 ± 0.503 |
-| rnx legacy | 3.075 ± 0.029 | 13.745 ± 0.132 |
-| Bun | 1.395 ± 0.023 | 2.817 ± 0.130 |
-| Node official | 10.074 ± 0.227 | 13.201 ± 0.352 |
-| Node distro | 51.712 ± 0.313 | 54.801 ± 0.632 |
-| Deno | 9.346 ± 0.536 | 9.294 ± 0.509 |
-| Python | 6.156 ± 0.122 | 22.931 ± 0.429 |
-| Perl JSON::PP | 0.553 ± 0.017 | 52.436 ± 0.661 |
-| Perl JSON::XS | 0.551 ± 0.016 | 6.319 ± 0.059 |
-| Ruby | 26.559 ± 0.223 | 36.275 ± 0.232 |
-| LuaJIT cjson | 0.316 ± 0.012 | 6.389 ± 0.155 |
-| LuaJIT json.lua | 0.319 ± 0.012 | 13.883 ± 0.522 |
-| Lua 5.4 cjson | 0.295 ± 0.010 | 7.167 ± 0.064 |
-| Lua 5.4 json.lua | 0.287 ± 0.010 | 30.506 ± 0.431 |
-| Kotlin jar | 25.375 ± 1.268 | 82.896 ± 3.477 |
-| Scala jar | 88.670 ± 1.254 | 196.034 ± 4.051 |
-| Julia | 96.019 ± 0.734 | 347.280 ± 8.160 |
-| R | 71.407 ± 2.371 | 783.510 ± 14.114 |
+| rnx default | 3.091 ± 0.050 | 13.516 ± 0.082 |
+| rnx native off | 3.088 ± 0.026 | 13.478 ± 0.069 |
+| rnx legacy | 3.090 ± 0.046 | 13.659 ± 0.260 |
+| Bun | 1.405 ± 0.023 | 2.802 ± 0.129 |
+| Node official | 10.093 ± 0.171 | 13.214 ± 0.330 |
+| Node distro | 52.012 ± 1.894 | 54.605 ± 0.597 |
+| Deno | 9.588 ± 0.477 | 9.115 ± 0.440 |
+| Python | 6.162 ± 0.062 | 22.691 ± 0.220 |
+| Perl JSON::PP | 0.563 ± 0.020 | 51.521 ± 0.738 |
+| Perl JSON::XS | 0.552 ± 0.015 | 6.319 ± 0.095 |
+| Ruby | 26.479 ± 0.239 | 35.785 ± 0.235 |
+| LuaJIT cjson | 0.317 ± 0.014 | 6.348 ± 0.119 |
+| LuaJIT json.lua | 0.317 ± 0.012 | 13.744 ± 0.532 |
+| Lua 5.4 cjson | 0.294 ± 0.012 | 7.114 ± 0.098 |
+| Lua 5.4 json.lua | 0.287 ± 0.007 | 30.427 ± 0.214 |
+| Kotlin jar | 25.586 ± 1.198 | 82.979 ± 2.815 |
+| Scala jar | 89.419 ± 1.357 | 194.717 ± 4.350 |
+| Julia | 95.519 ± 1.855 | 349.595 ± 11.051 |
+| R | 71.182 ± 0.354 | 782.030 ± 16.440 |
 
-| Runtime | fib | loops | numeric calls | sieve | permute † | shared rows | list i64 † | list bool † | 1M i64 † | 1M bool † |
+| Runtime | fib † | loops | numeric calls † | sieve † | permute † | shared rows | list i64 † | list bool † | 1M i64 † | 1M bool † |
 |---|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|
-| rnx default | 12.935 ± 0.141 | 4.331 ± 0.058 | 4.491 ± 0.068 | 6.074 ± 0.063 | 48.002 ± 0.907 | 3.435 ± 0.116 | 7.102 ± 0.093 | 6.999 ± 0.105 | 32.256 ± 0.481 | 32.937 ± 0.445 |
-| rnx native off | 22.090 ± 0.404 | 8.062 ± 0.162 | 11.096 ± 0.072 | 13.905 ± 0.096 | 47.683 ± 0.568 | 3.544 ± 0.053 | 32.651 ± 0.306 | 42.449 ± 0.529 | 199.552 ± 4.489 | 251.044 ± 11.568 |
-| rnx legacy | 35.444 ± 0.777 | 20.361 ± 0.417 | 26.982 ± 0.330 | 37.091 ± 0.511 | 82.357 ± 1.486 | 3.543 ± 0.040 | 117.093 ± 1.562 | 137.125 ± 6.253 | 718.710 ± 15.721 | 837.530 ± 28.864 |
-| Bun | 5.510 ± 1.567 | 3.524 ± 1.103 | 6.335 ± 1.859 | n/a | n/a | n/a | 8.696 ± 1.596 | 9.055 ± 1.612 | 32.372 ± 1.889 | 34.433 ± 0.728 |
-| Node official | 11.635 ± 0.422 | 12.294 ± 0.207 | 12.326 ± 0.426 | n/a | n/a | n/a | 19.819 ± 0.657 | 20.267 ± 0.789 | 55.583 ± 0.715 | 58.562 ± 0.849 |
-| Node distro | 54.831 ± 0.865 | 54.355 ± 0.495 | 54.738 ± 0.884 | n/a | n/a | n/a | 61.421 ± 1.323 | 60.178 ± 0.470 | 97.415 ± 4.892 | 100.947 ± 2.396 |
-| Deno | 8.882 ± 0.240 | 8.722 ± 0.267 | 8.665 ± 0.527 | n/a | n/a | n/a | 15.686 ± 2.021 | 15.449 ± 1.893 | 49.109 ± 0.874 | 51.972 ± 0.640 |
-| Python | 14.560 ± 0.186 | 10.579 ± 0.136 | 12.227 ± 0.143 | n/a | n/a | n/a | 23.427 ± 0.334 | 22.240 ± 0.230 | 112.846 ± 0.385 | 112.435 ± 1.745 |
-| LuaJIT | 1.082 ± 0.062 | 1.581 ± 0.094 | 1.486 ± 0.020 | 0.979 ± 0.028 | 5.107 ± 10.093 ‡ | 0.406 ± 0.009 | 1.826 ± 0.030 | 8.798 ± 0.117 | 7.590 ± 0.127 | 42.836 ± 0.428 |
-| Lua 5.4 | 5.498 ± 0.080 | 1.390 ± 0.036 | 3.257 ± 0.038 | 2.970 ± 0.150 | 11.582 ± 0.432 | 0.353 ± 0.009 | 17.459 ± 0.333 | 18.965 ± 0.328 | 108.402 ± 4.482 | 110.209 ± 2.422 |
+| rnx default | 13.087 ± 0.529 | 4.255 ± 0.080 | 4.579 ± 0.068 | 5.805 ± 0.058 | 23.445 ± 0.456 | 3.521 ± 0.078 | 7.021 ± 0.092 | 7.524 ± 0.256 | 32.373 ± 0.446 | 32.509 ± 0.215 |
+| rnx native off | 22.239 ± 0.512 | 8.010 ± 0.146 | 10.987 ± 0.208 | 13.515 ± 0.146 | 45.981 ± 1.462 | 3.498 ± 0.069 | 32.522 ± 0.344 | 43.647 ± 0.954 | 193.915 ± 4.933 | 246.826 ± 10.401 |
+| rnx legacy | 35.337 ± 0.625 | 20.639 ± 0.128 | 27.367 ± 1.438 | 34.975 ± 0.464 | 80.872 ± 2.291 | 3.512 ± 0.125 | 118.801 ± 3.012 | 140.749 ± 3.572 | 719.989 ± 16.675 | 851.567 ± 13.431 |
+| Bun | 5.296 ± 1.337 | 3.659 ± 1.272 | 6.195 ± 1.923 | n/a | n/a | n/a | 8.727 ± 1.519 | 9.422 ± 1.184 | 32.238 ± 2.559 | 34.108 ± 1.433 |
+| Node official | 11.784 ± 0.572 | 12.279 ± 0.537 | 12.234 ± 0.703 | n/a | n/a | n/a | 19.587 ± 0.704 | 20.070 ± 0.811 | 55.281 ± 0.324 | 58.042 ± 0.389 |
+| Node distro | 55.368 ± 2.165 | 53.862 ± 0.577 | 54.182 ± 0.319 | n/a | n/a | n/a | 61.411 ± 3.368 | 61.069 ± 0.911 | 95.738 ± 0.984 | 99.675 ± 1.401 |
+| Deno | 8.923 ± 0.256 | 8.780 ± 0.444 | 8.764 ± 0.706 | n/a | n/a | n/a | 14.551 ± 1.444 | 14.931 ± 1.678 | 49.236 ± 0.453 | 51.761 ± 0.577 |
+| Python | 14.243 ± 0.253 | 10.824 ± 0.186 | 12.223 ± 0.178 | n/a | n/a | n/a | 23.628 ± 0.394 | 22.650 ± 0.317 | 113.640 ± 3.874 | 109.231 ± 2.120 |
+| LuaJIT | 1.322 ± 0.268 | 1.522 ± 0.018 | 1.485 ± 0.018 | 0.970 ± 0.021 | 4.055 ± 5.023 ‡ | 0.409 ± 0.009 | 1.839 ± 0.022 | 9.231 ± 0.099 | 7.320 ± 0.201 | 42.809 ± 0.465 |
+| Lua 5.4 | 5.437 ± 0.088 | 1.384 ± 0.041 | 3.511 ± 0.053 | 2.709 ± 0.035 | 12.244 ± 0.904 | 0.352 ± 0.005 | 17.438 ± 0.254 | 18.683 ± 0.385 | 103.973 ± 0.911 | 108.921 ± 0.865 |
 
 Perl, Ruby, Kotlin, Scala, Julia and R have startup/JSON cells only. Compute uses one fixed cjson-labelled capture for each Lua runtime, without averaging the encoder-labelled duplicates.
 
-‡ LuaJIT permute: median 1.935 ms, maximum 52.664 ms. Its standard deviation exceeds its mean; extreme samples dominate the mean. This batch also showed thermal throttling (†).
+‡ LuaJIT permute: median 1.898 ms, maximum 25.353 ms. Its standard deviation exceeds its mean; extreme samples dominate the mean. This batch also showed thermal throttling (†).
 
 ### Reading the tables
 
-From the rendered sample means, rnx default is 1.71× faster than native off on fib, rnx default is 4.60× faster than native off on the integer list, and rnx default is 6.07× faster than native off on the Boolean list. Against LuaJIT, LuaJIT is 11.95× faster than rnx default on fib and LuaJIT is 3.89× faster than rnx default on the integer list, while rnx default is 1.26× faster than LuaJIT on the Boolean list. On numeric calls, rnx default is 1.41× faster than Bun, rnx default is 2.74× faster than official Node, and rnx default is 2.72× faster than Python. At startup, LuaJIT is 9.70× faster than rnx default and Bun is 2.20× faster than rnx default. These are ratios of whole-process sample means, not confidence-bound rankings; permute and shared_rows remain interpreted.
+From the rendered sample means, rnx default is 1.70× faster than native off on fib and rnx default is 1.96× faster than native off on permute. rnx default is 4.63× faster than native off on the integer list, and rnx default is 5.80× faster than native off on the Boolean list. Against LuaJIT, LuaJIT is 9.90× faster than rnx default on fib and LuaJIT is 3.82× faster than rnx default on the integer list, while rnx default is 1.23× faster than LuaJIT on the Boolean list. On numeric calls, rnx default is 1.35× faster than Bun, rnx default is 2.67× faster than official Node, and rnx default is 2.67× faster than Python. At startup, LuaJIT is 9.75× faster than rnx default and Bun is 2.20× faster than rnx default. These are ratios of whole-process sample means, not confidence-bound rankings.
 
 † = thermally throttled batch; n/a = no matching port. All cells are milliseconds,
-mean ± sample standard deviation. [Conditions, versions and provenance](results/cross-runtime-2026-11-02.md).
+mean ± sample standard deviation. [Conditions, versions and provenance](results/cross-runtime-2026-11-02-c32a6ba7.md).
 
 <!-- current-matrix:end -->
 
@@ -90,12 +92,12 @@ prerequisites and JVM jar build instructions are documented in
 [scripts/jvm](scripts/jvm/README.md). Run from this repository's root:
 
 ```sh
-python3 -I -B scripts/build_matrix_rnx.py target/readme-n5-build
+python3 -I -B scripts/build_matrix_rnx.py target/readme-n6-build
 export JULIAUP_NO_SELFUPDATE=1
 JULIA_REAL="$(julia --startup-file=no -e 'print(joinpath(Sys.BINDIR,Base.julia_exename()))')"
 JULIA_SYSIMAGE="$(julia --startup-file=no -e 'print(unsafe_string(Base.JLOptions().image_file))')"
-python3 -I -B scripts/current_matrix.py --build target/readme-n5-build/BUILD.json --out target/readme-n5-new-run --julia "$JULIA_REAL" --julia-sysimage "$JULIA_SYSIMAGE"
-python3 -I -B scripts/render_current_matrix.py target/readme-n5-new-run
+python3 -I -B scripts/current_matrix.py --build target/readme-n6-build/BUILD.json --out target/readme-n6-new-run --julia "$JULIA_REAL" --julia-sysimage "$JULIA_SYSIMAGE"
+python3 -I -B scripts/render_current_matrix.py target/readme-n6-new-run
 ```
 
 The harness validates every output before invoking hyperfine, records versions,
@@ -114,13 +116,15 @@ their historical working exports. They do not refresh the current matrix.
 Historical measurements describe their named binaries and method. They are not
 relabelled as measurements of today's engine:
 
+- [2026-11-02 N5 matrix](results/cross-runtime-2026-11-02.md) preserves the previous
+  rnx `83d94173` / Rune `2565a2a4` snapshot.
 - [Cross-runtime startup and JSON, 2026-09-13](results/cross-runtime-2026-09-13.md)
   used rnx `3af1ccb` and Rune 0.14.2.
 - [Native-tier probe, 2026-10-12](probes/rune-native-0184/RESULTS.md) used an
   experimental fork and warmed per-invocation slopes. Its calls target passed;
   two controls were accepted by exception. That method differs from the
   whole-process matrix above. Its archived source/binary availability statements
-  describe that checkpoint, while the current N5 engine is public.
+  describe that checkpoint, while the current N6 engine is public.
 - [Rune base 0168](probes/rune-base-0168/README.md),
   [interpreter profile 0170](probes/interp-profile-0170/README.md),
   [Rust-hosted Lua](probes/lua-rust-0001/README.md),
