@@ -1,0 +1,1339 @@
+{
+  "date": "2026-11-02T00:05:51.033121+00:00",
+  "cpu_model": "Intel(R) Core(TM) i7-14700",
+  "cpu": 4,
+  "kernel": "7.0.0-31-generic",
+  "rnx": "83d94173bbfcb5228878eb5f1d64cdb92f3c4f79",
+  "rune": "2565a2a4563a915d49de061931f2951fd5dede31",
+  "hyperfine": "hyperfine 1.20.0",
+  "versions": {
+    "rnx default": "rnx 0.0.0; rune 0.15.0 (git 2565a2a4563a915d49de061931f2951fd5dede31)",
+    "rnx native off": "rnx 0.0.0; rune 0.15.0 (git 2565a2a4563a915d49de061931f2951fd5dede31)",
+    "rnx legacy": "rnx 0.0.0; rune 0.15.0 (git 2565a2a4563a915d49de061931f2951fd5dede31)",
+    "Bun": "1.4.2",
+    "Node official": "v22.22.1",
+    "Node distro": "v22.22.1",
+    "Deno": "deno 2.9.6 (stable, release, x86_64-unknown-linux-gnu); v8 15.0.245.2-rusty; typescript 6.0.3",
+    "Python": "Python 3.14.4",
+    "Perl JSON::PP": "v5.40.1 JSON::PP=4.16",
+    "Perl JSON::XS": "v5.40.1 JSON::XS=4.04",
+    "Ruby": "ruby 3.3.8 (2025-04-09 revision b200bad6cd) [x86_64-linux-gnu]",
+    "LuaJIT cjson": "LuaJIT 2.1.1788856981 -- Copyright (C) 2005-2026 Mike Pall. https://luajit.org/",
+    "LuaJIT json.lua": "LuaJIT 2.1.1788856981 -- Copyright (C) 2005-2026 Mike Pall. https://luajit.org/",
+    "Lua 5.4 cjson": "Lua 5.4.7  Copyright (C) 1994-2024 Lua.org, PUC-Rio",
+    "Lua 5.4 json.lua": "Lua 5.4.7  Copyright (C) 1994-2024 Lua.org, PUC-Rio",
+    "Kotlin jar": "openjdk version \"25.0.4.1\" 2026-08-18; OpenJDK Runtime Environment (build 25.0.4.1+1-1-26.04.4-Ubuntu); OpenJDK 64-Bit Server VM (build 25.0.4.1+1-1-26.04.4-Ubuntu, mixed mode, sharing)",
+    "Scala jar": "openjdk version \"25.0.4.1\" 2026-08-18; OpenJDK Runtime Environment (build 25.0.4.1+1-1-26.04.4-Ubuntu); OpenJDK 64-Bit Server VM (build 25.0.4.1+1-1-26.04.4-Ubuntu, mixed mode, sharing)",
+    "Julia": "julia version 1.13.0",
+    "R": "Rscript (R) version 4.5.2 (2025-10-31)"
+  },
+  "binary_sha256": "2ff8549e31e5e107797ccf5f2d6669dd1eb224de510b3ccad13845eb0831e435",
+  "artifacts": [
+    {
+      "bytes": 9825574,
+      "sha256": "2c610f994b2e7ad0ecb5a9cf058bc6c0baeac2034b75f0dd16a6dad487fcd7eb",
+      "file": "bare-scala.jar"
+    },
+    {
+      "bytes": 5740571,
+      "sha256": "ef49a15687827f97e017d96a6bc21d8a7b5cf7d47fe9ca0d4da127c94e0b730d",
+      "file": "bare-kotlin.jar"
+    },
+    {
+      "bytes": 5740891,
+      "sha256": "b048dd139052ee26f85fddf05d1ad159bbe9b498011dd90d19eb906fbd63594e",
+      "file": "json-kotlin.jar"
+    },
+    {
+      "bytes": 11125872,
+      "sha256": "ee9490c6d062a217974bb6cc4a7b1f8a94f9e93b5680a3f0207fdca61ee052a2",
+      "file": "json-scala.jar"
+    },
+    {
+      "bytes": 82710,
+      "sha256": "3ea61b2a06e31edf1c91134fe9106b0ebb16628be169f3db75bc7a2b06b45796",
+      "file": "json.jar"
+    },
+    {
+      "bytes": 292649440,
+      "sha256": "ca5acd85df786ae901144bcc22e8e3e110fe1691774164b954c65f1baf2abc14",
+      "file": "sys.so"
+    }
+  ],
+  "checksums": {
+    "bare": "42",
+    "json": "{\"a\":[9999,2,3],\"b\":\"hello\"}",
+    "fib": "141688",
+    "loops": "7673800",
+    "numeric_calls": "7412377",
+    "awfy_sieve": "10704",
+    "awfy_permute": "138560",
+    "shared_rows": "145713968",
+    "vec_iter_i64": "61399104",
+    "vec_iter_bool": "426664",
+    "vec_append_million_i64": "383992656",
+    "vec_append_million_bool": "2666664"
+  },
+  "captures": [
+    {
+      "bytes": 31153,
+      "sha256": "659c5d581a7fe8c6889862d8014bffe3b453a599dddc7a18d8e100e2f3f2b398",
+      "file": "RESULT.json"
+    },
+    {
+      "bytes": 45951,
+      "sha256": "2d2bb428653dd3034dc4967f330f09258e37dea0b3f34e4efc432c09cf053b24",
+      "file": "METADATA.json"
+    },
+    {
+      "bytes": 5326,
+      "sha256": "b0fb8b6472f2bc64ef77f3d51a9015005cb156f95672ba47140ef951425621e7",
+      "file": "OUTPUT-CHECKS.json"
+    },
+    {
+      "bytes": 58204,
+      "sha256": "9c7a317faee6492a597aca933c1e3117d3a80be7df48d5a34a94aeed2ec630ff",
+      "file": "bare.json"
+    },
+    {
+      "bytes": 38268,
+      "sha256": "13986d02ffe2e5e7955ea84785dd8df4955d5d33d9413e23f6fe986745ef7b18",
+      "file": "json.json"
+    },
+    {
+      "bytes": 23783,
+      "sha256": "52310ef976caf629b2ceb7207b692b3fc954fa61e3cf8ae40018eaee37aa29ab",
+      "file": "fib.json"
+    },
+    {
+      "bytes": 23789,
+      "sha256": "1977702a4f922e19d4b81c0c96cf03f43632801e9524d0d31dca4a8c76c9d8dd",
+      "file": "loops.json"
+    },
+    {
+      "bytes": 23735,
+      "sha256": "ba27863c33df5f708a9fd347024b8a6853c326a0de9ac06ef891e5a70bcba393",
+      "file": "numeric_calls.json"
+    },
+    {
+      "bytes": 13936,
+      "sha256": "5e202d83d9e1435b02cb2980ce44f18ac7d18d0cc629bc80bb85abc894159efc",
+      "file": "awfy_sieve.json"
+    },
+    {
+      "bytes": 13933,
+      "sha256": "fe1d609c3b0b0ea3ce85a53e2635d0a277cea39552cba109980836e2b64f1b80",
+      "file": "awfy_permute.json"
+    },
+    {
+      "bytes": 14130,
+      "sha256": "d008d6a1b3fe0262ee9d08a2afe4216659e8395d9527e6d5d5c06a9a5d9e9f69",
+      "file": "shared_rows.json"
+    },
+    {
+      "bytes": 23892,
+      "sha256": "d7c6d5991e2d4a0d826a698c819812d900dc5d0c5bda83d3f838ed9023079b71",
+      "file": "vec_iter_i64.json"
+    },
+    {
+      "bytes": 23684,
+      "sha256": "6422c1f66da498254a8bca6b3cfb9d897085e1fed04d0c0694cc97072b47916e",
+      "file": "vec_iter_bool.json"
+    },
+    {
+      "bytes": 24150,
+      "sha256": "3c8170ecdc241ff5f40d2e56c293d5889834786ba784d067780b04c2408fbbb1",
+      "file": "vec_append_million_i64.json"
+    },
+    {
+      "bytes": 23783,
+      "sha256": "cda283cc6884f5d0bb6f59c581f0b4f1e7c547d0f7053b75cb74387d407b5e3e",
+      "file": "vec_append_million_bool.json"
+    }
+  ],
+  "operators": [
+    {
+      "bytes": 2444,
+      "sha256": "6f9b50e3532490b9c8c4608072a950f0cbb0fbbc4a03e70ff38274ead8bffdff",
+      "file": "compute_matrix.py"
+    },
+    {
+      "bytes": 11067,
+      "sha256": "47217c64d28c5fe058a0e76f3b45ab9ceb15f8808dcec3c39d46ce079ea216eb",
+      "file": "current_matrix.py"
+    }
+  ],
+  "rounds": {
+    "fib": 16,
+    "loops": 16,
+    "numeric_calls": 16,
+    "awfy_sieve": 16,
+    "awfy_permute": 16,
+    "shared_rows": 16,
+    "vec_iter_i64": 16,
+    "vec_iter_bool": 16,
+    "vec_append_million_i64": 1,
+    "vec_append_million_bool": 1
+  },
+  "measurements": {
+    "bare": {
+      "Deno": {
+        "mean_ms": 9.34562344,
+        "stddev_ms": 0.5364237865075981,
+        "median_ms": 9.634078500000001,
+        "max_ms": 9.902588999999999,
+        "samples": 50
+      },
+      "Python": {
+        "mean_ms": 6.15642504,
+        "stddev_ms": 0.12222658968555757,
+        "median_ms": 6.132776000000001,
+        "max_ms": 6.936350000000001,
+        "samples": 50
+      },
+      "Scala jar": {
+        "mean_ms": 88.66991881999998,
+        "stddev_ms": 1.2542720271150818,
+        "median_ms": 88.49944900000001,
+        "max_ms": 91.191057,
+        "samples": 50
+      },
+      "Perl JSON::PP": {
+        "mean_ms": 0.55335662,
+        "stddev_ms": 0.016765162388532883,
+        "median_ms": 0.5463914999999999,
+        "max_ms": 0.6108250000000001,
+        "samples": 50
+      },
+      "Perl JSON::XS": {
+        "mean_ms": 0.5513032,
+        "stddev_ms": 0.01607627555481325,
+        "median_ms": 0.546409,
+        "max_ms": 0.60423,
+        "samples": 50
+      },
+      "Lua 5.4 json.lua": {
+        "mean_ms": 0.28729247999999996,
+        "stddev_ms": 0.009932516314425386,
+        "median_ms": 0.28434050000000005,
+        "max_ms": 0.319903,
+        "samples": 50
+      },
+      "Kotlin jar": {
+        "mean_ms": 25.375129680000008,
+        "stddev_ms": 1.2679273173984391,
+        "median_ms": 24.926620500000002,
+        "max_ms": 29.544813000000005,
+        "samples": 50
+      },
+      "R": {
+        "mean_ms": 71.40729194000001,
+        "stddev_ms": 2.370590337954408,
+        "median_ms": 70.86931050000001,
+        "max_ms": 84.011734,
+        "samples": 50
+      },
+      "Node distro": {
+        "mean_ms": 51.71223482,
+        "stddev_ms": 0.31285557128122476,
+        "median_ms": 51.737412500000005,
+        "max_ms": 52.610951,
+        "samples": 50
+      },
+      "Node official": {
+        "mean_ms": 10.073794240000003,
+        "stddev_ms": 0.2271416124659124,
+        "median_ms": 10.047973500000001,
+        "max_ms": 10.769886000000001,
+        "samples": 50
+      },
+      "Julia": {
+        "mean_ms": 96.0190603,
+        "stddev_ms": 0.7344822309342636,
+        "median_ms": 95.9538795,
+        "max_ms": 98.118988,
+        "samples": 50
+      },
+      "Ruby": {
+        "mean_ms": 26.559151699999994,
+        "stddev_ms": 0.22281149850419243,
+        "median_ms": 26.552053500000003,
+        "max_ms": 27.546899000000003,
+        "samples": 50
+      },
+      "Lua 5.4 cjson": {
+        "mean_ms": 0.2951128600000001,
+        "stddev_ms": 0.01030999557989968,
+        "median_ms": 0.29197200000000006,
+        "max_ms": 0.333157,
+        "samples": 50
+      },
+      "rnx default": {
+        "mean_ms": 3.0653387,
+        "stddev_ms": 0.025683092972273624,
+        "median_ms": 3.0640730000000005,
+        "max_ms": 3.1379230000000002,
+        "samples": 50
+      },
+      "LuaJIT cjson": {
+        "mean_ms": 0.31576645999999997,
+        "stddev_ms": 0.011783350324322633,
+        "median_ms": 0.3125075,
+        "max_ms": 0.357252,
+        "samples": 50
+      },
+      "rnx native off": {
+        "mean_ms": 3.065243379999999,
+        "stddev_ms": 0.04590645052797199,
+        "median_ms": 3.0586650000000004,
+        "max_ms": 3.251766,
+        "samples": 50
+      },
+      "LuaJIT json.lua": {
+        "mean_ms": 0.3190948,
+        "stddev_ms": 0.012454227747054824,
+        "median_ms": 0.31653400000000004,
+        "max_ms": 0.38475600000000004,
+        "samples": 50
+      },
+      "Bun": {
+        "mean_ms": 1.3951406199999996,
+        "stddev_ms": 0.023137340804546117,
+        "median_ms": 1.3874005000000003,
+        "max_ms": 1.4732,
+        "samples": 50
+      },
+      "rnx legacy": {
+        "mean_ms": 3.07496792,
+        "stddev_ms": 0.02861253091533887,
+        "median_ms": 3.067793,
+        "max_ms": 3.141141,
+        "samples": 50
+      }
+    },
+    "json": {
+      "Scala jar": {
+        "mean_ms": 196.0337253,
+        "stddev_ms": 4.051065865740352,
+        "median_ms": 196.096732,
+        "max_ms": 204.228766,
+        "samples": 30
+      },
+      "Kotlin jar": {
+        "mean_ms": 82.89603470000003,
+        "stddev_ms": 3.476631330264847,
+        "median_ms": 81.7947505,
+        "max_ms": 95.718176,
+        "samples": 30
+      },
+      "Julia": {
+        "mean_ms": 347.2799785666666,
+        "stddev_ms": 8.160274403224841,
+        "median_ms": 345.9177695,
+        "max_ms": 390.17402100000004,
+        "samples": 30
+      },
+      "LuaJIT cjson": {
+        "mean_ms": 6.388875933333331,
+        "stddev_ms": 0.15491266261836917,
+        "median_ms": 6.434819,
+        "max_ms": 6.901733,
+        "samples": 30
+      },
+      "Perl JSON::XS": {
+        "mean_ms": 6.318848899999999,
+        "stddev_ms": 0.05877981044680282,
+        "median_ms": 6.320811000000001,
+        "max_ms": 6.510816,
+        "samples": 30
+      },
+      "Node official": {
+        "mean_ms": 13.2005811,
+        "stddev_ms": 0.3515175593825024,
+        "median_ms": 13.133264000000002,
+        "max_ms": 14.574696000000001,
+        "samples": 30
+      },
+      "Lua 5.4 json.lua": {
+        "mean_ms": 30.505964366666674,
+        "stddev_ms": 0.43103394778021736,
+        "median_ms": 30.411294,
+        "max_ms": 32.65998200000001,
+        "samples": 30
+      },
+      "Python": {
+        "mean_ms": 22.931267099999996,
+        "stddev_ms": 0.4292451567386758,
+        "median_ms": 22.8671715,
+        "max_ms": 24.311971000000003,
+        "samples": 30
+      },
+      "Perl JSON::PP": {
+        "mean_ms": 52.4361808,
+        "stddev_ms": 0.6610503665655969,
+        "median_ms": 52.389433,
+        "max_ms": 53.846014000000004,
+        "samples": 30
+      },
+      "Lua 5.4 cjson": {
+        "mean_ms": 7.166641866666666,
+        "stddev_ms": 0.06387050716217949,
+        "median_ms": 7.1832575,
+        "max_ms": 7.259354000000001,
+        "samples": 30
+      },
+      "Bun": {
+        "mean_ms": 2.8170324666666673,
+        "stddev_ms": 0.12999078234979833,
+        "median_ms": 2.865918,
+        "max_ms": 3.0820810000000005,
+        "samples": 30
+      },
+      "Ruby": {
+        "mean_ms": 36.275400266666665,
+        "stddev_ms": 0.2315540245376475,
+        "median_ms": 36.219339500000004,
+        "max_ms": 37.067581000000004,
+        "samples": 30
+      },
+      "rnx default": {
+        "mean_ms": 13.879710400000004,
+        "stddev_ms": 0.25686455801769825,
+        "median_ms": 13.908412500000003,
+        "max_ms": 14.259601,
+        "samples": 30
+      },
+      "Deno": {
+        "mean_ms": 9.293619166666671,
+        "stddev_ms": 0.5094499444982276,
+        "median_ms": 9.052672500000002,
+        "max_ms": 10.535848,
+        "samples": 30
+      },
+      "rnx native off": {
+        "mean_ms": 14.688922166666668,
+        "stddev_ms": 0.5034006017514577,
+        "median_ms": 14.498887,
+        "max_ms": 16.321979,
+        "samples": 30
+      },
+      "Node distro": {
+        "mean_ms": 54.801199400000016,
+        "stddev_ms": 0.6323974494970593,
+        "median_ms": 54.80513200000001,
+        "max_ms": 56.579838,
+        "samples": 30
+      },
+      "LuaJIT json.lua": {
+        "mean_ms": 13.882873966666669,
+        "stddev_ms": 0.5224004404444784,
+        "median_ms": 13.892795,
+        "max_ms": 14.627024,
+        "samples": 30
+      },
+      "rnx legacy": {
+        "mean_ms": 13.744744833333337,
+        "stddev_ms": 0.13230467038100513,
+        "median_ms": 13.7674625,
+        "max_ms": 13.979115,
+        "samples": 30
+      },
+      "R": {
+        "mean_ms": 783.5096988333332,
+        "stddev_ms": 14.114286706909486,
+        "median_ms": 785.452608,
+        "max_ms": 816.9486740000001,
+        "samples": 30
+      }
+    },
+    "fib": {
+      "Python": {
+        "mean_ms": 14.560289433333333,
+        "stddev_ms": 0.18578801791320163,
+        "median_ms": 14.574861000000002,
+        "max_ms": 15.240488000000001,
+        "samples": 30
+      },
+      "Node distro": {
+        "mean_ms": 54.830927900000006,
+        "stddev_ms": 0.8647240630949299,
+        "median_ms": 54.803010500000006,
+        "max_ms": 57.114605000000005,
+        "samples": 30
+      },
+      "LuaJIT cjson": {
+        "mean_ms": 1.0818081333333334,
+        "stddev_ms": 0.06156316997996131,
+        "median_ms": 1.06426,
+        "max_ms": 1.2397960000000001,
+        "samples": 30
+      },
+      "rnx default": {
+        "mean_ms": 12.935050466666668,
+        "stddev_ms": 0.14073002069644902,
+        "median_ms": 12.9557965,
+        "max_ms": 13.298681000000002,
+        "samples": 30
+      },
+      "Lua 5.4 json.lua": {
+        "mean_ms": 5.576827300000001,
+        "stddev_ms": 0.11553544545234769,
+        "median_ms": 5.5612715,
+        "max_ms": 5.9530080000000005,
+        "samples": 30
+      },
+      "Deno": {
+        "mean_ms": 8.881986433333333,
+        "stddev_ms": 0.2395233978474587,
+        "median_ms": 8.879975500000002,
+        "max_ms": 9.514684,
+        "samples": 30
+      },
+      "Node official": {
+        "mean_ms": 11.634578033333336,
+        "stddev_ms": 0.42172916391402165,
+        "median_ms": 11.624551,
+        "max_ms": 13.301921000000002,
+        "samples": 30
+      },
+      "Bun": {
+        "mean_ms": 5.510351533333334,
+        "stddev_ms": 1.5670109945833894,
+        "median_ms": 4.90203,
+        "max_ms": 9.475790000000002,
+        "samples": 30
+      },
+      "LuaJIT json.lua": {
+        "mean_ms": 1.0437088333333335,
+        "stddev_ms": 0.04823980840735339,
+        "median_ms": 1.031079,
+        "max_ms": 1.203977,
+        "samples": 30
+      },
+      "Lua 5.4 cjson": {
+        "mean_ms": 5.498375,
+        "stddev_ms": 0.08040318389389725,
+        "median_ms": 5.4708225,
+        "max_ms": 5.708885,
+        "samples": 30
+      },
+      "rnx legacy": {
+        "mean_ms": 35.44405966666667,
+        "stddev_ms": 0.7769422801156248,
+        "median_ms": 35.3224385,
+        "max_ms": 38.81558700000001,
+        "samples": 30
+      },
+      "rnx native off": {
+        "mean_ms": 22.090295,
+        "stddev_ms": 0.40367415644116117,
+        "median_ms": 21.957162500000003,
+        "max_ms": 23.193875000000002,
+        "samples": 30
+      }
+    },
+    "loops": {
+      "rnx legacy": {
+        "mean_ms": 20.361113499999995,
+        "stddev_ms": 0.41744256281708186,
+        "median_ms": 20.395763000000006,
+        "max_ms": 21.297239,
+        "samples": 30
+      },
+      "Python": {
+        "mean_ms": 10.578690033333332,
+        "stddev_ms": 0.13579882271910695,
+        "median_ms": 10.5548695,
+        "max_ms": 11.026039,
+        "samples": 30
+      },
+      "Deno": {
+        "mean_ms": 8.7222306,
+        "stddev_ms": 0.267339044568245,
+        "median_ms": 8.6891495,
+        "max_ms": 9.235178,
+        "samples": 30
+      },
+      "rnx native off": {
+        "mean_ms": 8.062084666666669,
+        "stddev_ms": 0.16202139229069748,
+        "median_ms": 8.062423500000001,
+        "max_ms": 8.664285000000001,
+        "samples": 30
+      },
+      "rnx default": {
+        "mean_ms": 4.331416433333333,
+        "stddev_ms": 0.05792056635551557,
+        "median_ms": 4.337479,
+        "max_ms": 4.4377320000000005,
+        "samples": 30
+      },
+      "Node official": {
+        "mean_ms": 12.294353166666664,
+        "stddev_ms": 0.20659834716952152,
+        "median_ms": 12.323339500000001,
+        "max_ms": 12.669485000000002,
+        "samples": 30
+      },
+      "LuaJIT json.lua": {
+        "mean_ms": 1.5766455333333336,
+        "stddev_ms": 0.1191243374753754,
+        "median_ms": 1.5390295,
+        "max_ms": 2.0335370000000004,
+        "samples": 30
+      },
+      "LuaJIT cjson": {
+        "mean_ms": 1.5811309666666666,
+        "stddev_ms": 0.09359806713134085,
+        "median_ms": 1.5675245,
+        "max_ms": 2.057531,
+        "samples": 30
+      },
+      "Node distro": {
+        "mean_ms": 54.35530026666667,
+        "stddev_ms": 0.49503899329460244,
+        "median_ms": 54.1670615,
+        "max_ms": 55.588758,
+        "samples": 30
+      },
+      "Bun": {
+        "mean_ms": 3.5241557000000006,
+        "stddev_ms": 1.1030801564933173,
+        "median_ms": 2.9972790000000002,
+        "max_ms": 6.062394,
+        "samples": 30
+      },
+      "Lua 5.4 cjson": {
+        "mean_ms": 1.3895229333333334,
+        "stddev_ms": 0.035963316798757805,
+        "median_ms": 1.3806855000000002,
+        "max_ms": 1.49672,
+        "samples": 30
+      },
+      "Lua 5.4 json.lua": {
+        "mean_ms": 1.4127292333333334,
+        "stddev_ms": 0.04509962774422663,
+        "median_ms": 1.3901080000000001,
+        "max_ms": 1.540263,
+        "samples": 30
+      }
+    },
+    "numeric_calls": {
+      "LuaJIT json.lua": {
+        "mean_ms": 1.5115641,
+        "stddev_ms": 0.10992191527322696,
+        "median_ms": 1.488811,
+        "max_ms": 2.08353,
+        "samples": 30
+      },
+      "rnx default": {
+        "mean_ms": 4.4914818,
+        "stddev_ms": 0.06769360598512211,
+        "median_ms": 4.497414,
+        "max_ms": 4.640824,
+        "samples": 30
+      },
+      "Python": {
+        "mean_ms": 12.226610366666666,
+        "stddev_ms": 0.14302896224275785,
+        "median_ms": 12.238991,
+        "max_ms": 12.639792,
+        "samples": 30
+      },
+      "Bun": {
+        "mean_ms": 6.335058600000001,
+        "stddev_ms": 1.8592568614546274,
+        "median_ms": 5.959840000000001,
+        "max_ms": 11.548932,
+        "samples": 30
+      },
+      "LuaJIT cjson": {
+        "mean_ms": 1.4862069333333334,
+        "stddev_ms": 0.019509904570249193,
+        "median_ms": 1.4811300000000003,
+        "max_ms": 1.5484300000000002,
+        "samples": 30
+      },
+      "Node distro": {
+        "mean_ms": 54.73763533333333,
+        "stddev_ms": 0.8842258748253043,
+        "median_ms": 54.7488985,
+        "max_ms": 57.930632,
+        "samples": 30
+      },
+      "Node official": {
+        "mean_ms": 12.326470799999997,
+        "stddev_ms": 0.425506998859365,
+        "median_ms": 12.309855,
+        "max_ms": 13.182826000000002,
+        "samples": 30
+      },
+      "Deno": {
+        "mean_ms": 8.664528666666667,
+        "stddev_ms": 0.5269949647768569,
+        "median_ms": 8.5036105,
+        "max_ms": 10.906387,
+        "samples": 30
+      },
+      "rnx native off": {
+        "mean_ms": 11.095531999999997,
+        "stddev_ms": 0.07240092573612764,
+        "median_ms": 11.098650500000002,
+        "max_ms": 11.250011,
+        "samples": 30
+      },
+      "Lua 5.4 json.lua": {
+        "mean_ms": 3.2524192,
+        "stddev_ms": 0.03919944420999379,
+        "median_ms": 3.23577,
+        "max_ms": 3.327205,
+        "samples": 30
+      },
+      "Lua 5.4 cjson": {
+        "mean_ms": 3.2574314333333336,
+        "stddev_ms": 0.03835066291715254,
+        "median_ms": 3.2507005,
+        "max_ms": 3.329549,
+        "samples": 30
+      },
+      "rnx legacy": {
+        "mean_ms": 26.982041433333336,
+        "stddev_ms": 0.33038869303591173,
+        "median_ms": 26.908322000000002,
+        "max_ms": 28.280388,
+        "samples": 30
+      }
+    },
+    "awfy_sieve": {
+      "LuaJIT cjson": {
+        "mean_ms": 0.9790135333333334,
+        "stddev_ms": 0.027629212355058552,
+        "median_ms": 0.9702560000000001,
+        "max_ms": 1.053643,
+        "samples": 30
+      },
+      "rnx legacy": {
+        "mean_ms": 37.091492833333334,
+        "stddev_ms": 0.5107544153739024,
+        "median_ms": 37.1085165,
+        "max_ms": 37.976708,
+        "samples": 30
+      },
+      "LuaJIT json.lua": {
+        "mean_ms": 1.0597138666666666,
+        "stddev_ms": 0.01799720807798527,
+        "median_ms": 1.058065,
+        "max_ms": 1.0975620000000001,
+        "samples": 30
+      },
+      "rnx native off": {
+        "mean_ms": 13.904603433333335,
+        "stddev_ms": 0.09649697854111489,
+        "median_ms": 13.934916000000001,
+        "max_ms": 14.042598000000002,
+        "samples": 30
+      },
+      "Lua 5.4 json.lua": {
+        "mean_ms": 2.8447161333333333,
+        "stddev_ms": 0.054177537929021614,
+        "median_ms": 2.834237,
+        "max_ms": 2.937409,
+        "samples": 30
+      },
+      "rnx default": {
+        "mean_ms": 6.074444733333334,
+        "stddev_ms": 0.0626844298997563,
+        "median_ms": 6.092745,
+        "max_ms": 6.164144000000001,
+        "samples": 30
+      },
+      "Lua 5.4 cjson": {
+        "mean_ms": 2.9698884666666667,
+        "stddev_ms": 0.15039031237846395,
+        "median_ms": 2.923414,
+        "max_ms": 3.3076420000000004,
+        "samples": 30
+      }
+    },
+    "awfy_permute": {
+      "rnx native off": {
+        "mean_ms": 47.68255993333333,
+        "stddev_ms": 0.568080198347814,
+        "median_ms": 47.766045000000005,
+        "max_ms": 49.70285,
+        "samples": 30
+      },
+      "rnx legacy": {
+        "mean_ms": 82.35712713333335,
+        "stddev_ms": 1.485848890201102,
+        "median_ms": 82.21042550000001,
+        "max_ms": 86.30694600000001,
+        "samples": 30
+      },
+      "rnx default": {
+        "mean_ms": 48.00214323333333,
+        "stddev_ms": 0.9065085836489847,
+        "median_ms": 47.919542500000006,
+        "max_ms": 50.815977000000004,
+        "samples": 30
+      },
+      "Lua 5.4 json.lua": {
+        "mean_ms": 11.45216576666667,
+        "stddev_ms": 0.4198829993507375,
+        "median_ms": 11.5016625,
+        "max_ms": 12.356285000000002,
+        "samples": 30
+      },
+      "LuaJIT cjson": {
+        "mean_ms": 5.106961633333334,
+        "stddev_ms": 10.093021109148454,
+        "median_ms": 1.935019,
+        "max_ms": 52.663659,
+        "samples": 30
+      },
+      "Lua 5.4 cjson": {
+        "mean_ms": 11.582441933333335,
+        "stddev_ms": 0.43249083970478164,
+        "median_ms": 11.574293500000001,
+        "max_ms": 12.778493000000001,
+        "samples": 30
+      },
+      "LuaJIT json.lua": {
+        "mean_ms": 9.2459112,
+        "stddev_ms": 16.48725140809489,
+        "median_ms": 2.429748,
+        "max_ms": 57.921052,
+        "samples": 30
+      }
+    },
+    "shared_rows": {
+      "Lua 5.4 cjson": {
+        "mean_ms": 0.35320099999999993,
+        "stddev_ms": 0.00910550721570042,
+        "median_ms": 0.351486,
+        "max_ms": 0.38479,
+        "samples": 30
+      },
+      "rnx default": {
+        "mean_ms": 3.434772366666667,
+        "stddev_ms": 0.11633743908146398,
+        "median_ms": 3.4160325,
+        "max_ms": 3.678998,
+        "samples": 30
+      },
+      "LuaJIT json.lua": {
+        "mean_ms": 0.43141860000000015,
+        "stddev_ms": 0.014598757910320248,
+        "median_ms": 0.427115,
+        "max_ms": 0.49468000000000006,
+        "samples": 30
+      },
+      "Lua 5.4 json.lua": {
+        "mean_ms": 0.38911643333333334,
+        "stddev_ms": 0.016300003350292303,
+        "median_ms": 0.3851125,
+        "max_ms": 0.443161,
+        "samples": 30
+      },
+      "rnx native off": {
+        "mean_ms": 3.5438172333333324,
+        "stddev_ms": 0.052748680518671966,
+        "median_ms": 3.5397695000000002,
+        "max_ms": 3.6722590000000004,
+        "samples": 30
+      },
+      "LuaJIT cjson": {
+        "mean_ms": 0.40638446666666656,
+        "stddev_ms": 0.008748146778065324,
+        "median_ms": 0.404015,
+        "max_ms": 0.426069,
+        "samples": 30
+      },
+      "rnx legacy": {
+        "mean_ms": 3.543215633333333,
+        "stddev_ms": 0.039574283073631956,
+        "median_ms": 3.5327875000000004,
+        "max_ms": 3.6285420000000004,
+        "samples": 30
+      }
+    },
+    "vec_iter_i64": {
+      "Node distro": {
+        "mean_ms": 61.42075916666668,
+        "stddev_ms": 1.323418032270385,
+        "median_ms": 61.32836,
+        "max_ms": 65.32575899999999,
+        "samples": 30
+      },
+      "Deno": {
+        "mean_ms": 15.685520266666666,
+        "stddev_ms": 2.0209639408226567,
+        "median_ms": 15.0274245,
+        "max_ms": 22.410051,
+        "samples": 30
+      },
+      "LuaJIT cjson": {
+        "mean_ms": 1.825984866666667,
+        "stddev_ms": 0.03004069952894751,
+        "median_ms": 1.8183495,
+        "max_ms": 1.9329140000000002,
+        "samples": 30
+      },
+      "Lua 5.4 cjson": {
+        "mean_ms": 17.4590933,
+        "stddev_ms": 0.33348253764499936,
+        "median_ms": 17.419089000000003,
+        "max_ms": 18.623771,
+        "samples": 30
+      },
+      "rnx native off": {
+        "mean_ms": 32.65080400000001,
+        "stddev_ms": 0.3064017395939629,
+        "median_ms": 32.614284000000005,
+        "max_ms": 33.587651,
+        "samples": 30
+      },
+      "LuaJIT json.lua": {
+        "mean_ms": 1.8522493333333336,
+        "stddev_ms": 0.03741135152029008,
+        "median_ms": 1.8496100000000002,
+        "max_ms": 2.002771,
+        "samples": 30
+      },
+      "Bun": {
+        "mean_ms": 8.695662400000002,
+        "stddev_ms": 1.59589262672664,
+        "median_ms": 8.0484845,
+        "max_ms": 13.73235,
+        "samples": 30
+      },
+      "Lua 5.4 json.lua": {
+        "mean_ms": 17.664801900000004,
+        "stddev_ms": 0.27853428876028263,
+        "median_ms": 17.624617500000003,
+        "max_ms": 18.322573000000002,
+        "samples": 30
+      },
+      "Node official": {
+        "mean_ms": 19.81895646666667,
+        "stddev_ms": 0.6571630278521791,
+        "median_ms": 19.937167000000002,
+        "max_ms": 21.09113,
+        "samples": 30
+      },
+      "Python": {
+        "mean_ms": 23.427099466666668,
+        "stddev_ms": 0.33425991833681346,
+        "median_ms": 23.29069,
+        "max_ms": 24.145829,
+        "samples": 30
+      },
+      "rnx default": {
+        "mean_ms": 7.102083533333336,
+        "stddev_ms": 0.09288859057020697,
+        "median_ms": 7.118568000000001,
+        "max_ms": 7.261114000000001,
+        "samples": 30
+      },
+      "rnx legacy": {
+        "mean_ms": 117.09292710000003,
+        "stddev_ms": 1.561523557305743,
+        "median_ms": 117.2000605,
+        "max_ms": 120.33856700000001,
+        "samples": 30
+      }
+    },
+    "vec_iter_bool": {
+      "Bun": {
+        "mean_ms": 9.0552969,
+        "stddev_ms": 1.6118839969724303,
+        "median_ms": 8.388005,
+        "max_ms": 13.816216,
+        "samples": 30
+      },
+      "LuaJIT cjson": {
+        "mean_ms": 8.797665466666666,
+        "stddev_ms": 0.11706474277575658,
+        "median_ms": 8.773784500000001,
+        "max_ms": 9.179257000000002,
+        "samples": 30
+      },
+      "rnx default": {
+        "mean_ms": 6.9990741000000005,
+        "stddev_ms": 0.10501876483403108,
+        "median_ms": 6.9962425,
+        "max_ms": 7.190112,
+        "samples": 30
+      },
+      "Deno": {
+        "mean_ms": 15.449343566666668,
+        "stddev_ms": 1.8931453802794875,
+        "median_ms": 15.2694305,
+        "max_ms": 21.222198000000002,
+        "samples": 30
+      },
+      "Lua 5.4 json.lua": {
+        "mean_ms": 19.251805366666666,
+        "stddev_ms": 0.49794236078018506,
+        "median_ms": 19.138908500000003,
+        "max_ms": 20.932890000000004,
+        "samples": 30
+      },
+      "rnx native off": {
+        "mean_ms": 42.448742100000004,
+        "stddev_ms": 0.52938531281949,
+        "median_ms": 42.4088915,
+        "max_ms": 43.72382,
+        "samples": 30
+      },
+      "LuaJIT json.lua": {
+        "mean_ms": 8.79044346666667,
+        "stddev_ms": 0.08725990817082954,
+        "median_ms": 8.7913905,
+        "max_ms": 8.945606,
+        "samples": 30
+      },
+      "Node distro": {
+        "mean_ms": 60.178059966666666,
+        "stddev_ms": 0.4695526248769787,
+        "median_ms": 60.1463705,
+        "max_ms": 61.631887000000006,
+        "samples": 30
+      },
+      "Python": {
+        "mean_ms": 22.239882933333337,
+        "stddev_ms": 0.2297715064604377,
+        "median_ms": 22.196449,
+        "max_ms": 22.703194000000003,
+        "samples": 30
+      },
+      "rnx legacy": {
+        "mean_ms": 137.12468360000005,
+        "stddev_ms": 6.2533249531925925,
+        "median_ms": 136.64785700000002,
+        "max_ms": 167.194431,
+        "samples": 30
+      },
+      "Lua 5.4 cjson": {
+        "mean_ms": 18.9648317,
+        "stddev_ms": 0.32759672310328497,
+        "median_ms": 18.8705885,
+        "max_ms": 19.919895,
+        "samples": 30
+      },
+      "Node official": {
+        "mean_ms": 20.26736613333334,
+        "stddev_ms": 0.7893972087017538,
+        "median_ms": 20.036047500000002,
+        "max_ms": 22.812415,
+        "samples": 30
+      }
+    },
+    "vec_append_million_i64": {
+      "rnx native off": {
+        "mean_ms": 199.55215113333333,
+        "stddev_ms": 4.488592909052756,
+        "median_ms": 198.555443,
+        "max_ms": 209.20043,
+        "samples": 30
+      },
+      "Deno": {
+        "mean_ms": 49.108628566666674,
+        "stddev_ms": 0.8742353300133181,
+        "median_ms": 48.872608500000005,
+        "max_ms": 51.755278000000004,
+        "samples": 30
+      },
+      "Bun": {
+        "mean_ms": 32.37234633333334,
+        "stddev_ms": 1.8887310571089844,
+        "median_ms": 32.497682499999996,
+        "max_ms": 36.671594,
+        "samples": 30
+      },
+      "rnx default": {
+        "mean_ms": 32.25612243333333,
+        "stddev_ms": 0.48053055453032273,
+        "median_ms": 32.160157000000005,
+        "max_ms": 34.146257,
+        "samples": 30
+      },
+      "Lua 5.4 cjson": {
+        "mean_ms": 108.40200083333335,
+        "stddev_ms": 4.482141017192037,
+        "median_ms": 106.9273715,
+        "max_ms": 128.04691300000002,
+        "samples": 30
+      },
+      "LuaJIT json.lua": {
+        "mean_ms": 7.513569900000002,
+        "stddev_ms": 0.06685083495795592,
+        "median_ms": 7.527386000000001,
+        "max_ms": 7.651053,
+        "samples": 30
+      },
+      "LuaJIT cjson": {
+        "mean_ms": 7.5896319000000005,
+        "stddev_ms": 0.12745694343293154,
+        "median_ms": 7.5502295,
+        "max_ms": 8.105354,
+        "samples": 30
+      },
+      "Lua 5.4 json.lua": {
+        "mean_ms": 107.3362967,
+        "stddev_ms": 1.4481745376889361,
+        "median_ms": 107.405962,
+        "max_ms": 110.986918,
+        "samples": 30
+      },
+      "rnx legacy": {
+        "mean_ms": 718.7102577000002,
+        "stddev_ms": 15.720617209086365,
+        "median_ms": 714.0324430000001,
+        "max_ms": 759.316808,
+        "samples": 30
+      },
+      "Node distro": {
+        "mean_ms": 97.41517223333338,
+        "stddev_ms": 4.892031438710329,
+        "median_ms": 96.206554,
+        "max_ms": 122.348826,
+        "samples": 30
+      },
+      "Node official": {
+        "mean_ms": 55.58346483333334,
+        "stddev_ms": 0.7151243087885361,
+        "median_ms": 55.23826700000001,
+        "max_ms": 57.620477,
+        "samples": 30
+      },
+      "Python": {
+        "mean_ms": 112.84557230000001,
+        "stddev_ms": 0.38489279841733537,
+        "median_ms": 112.791841,
+        "max_ms": 113.89521300000001,
+        "samples": 30
+      }
+    },
+    "vec_append_million_bool": {
+      "rnx legacy": {
+        "mean_ms": 837.5303858000003,
+        "stddev_ms": 28.864323492231318,
+        "median_ms": 828.989969,
+        "max_ms": 914.7643750000001,
+        "samples": 30
+      },
+      "Node distro": {
+        "mean_ms": 100.94679976666669,
+        "stddev_ms": 2.3959464847014624,
+        "median_ms": 99.7441445,
+        "max_ms": 105.378253,
+        "samples": 30
+      },
+      "Lua 5.4 cjson": {
+        "mean_ms": 110.20925683333334,
+        "stddev_ms": 2.422227470729116,
+        "median_ms": 109.3464515,
+        "max_ms": 117.35329300000001,
+        "samples": 30
+      },
+      "Python": {
+        "mean_ms": 112.43497279999998,
+        "stddev_ms": 1.7446239305974827,
+        "median_ms": 112.89467850000001,
+        "max_ms": 116.27288000000001,
+        "samples": 30
+      },
+      "rnx native off": {
+        "mean_ms": 251.0437880666667,
+        "stddev_ms": 11.56845039781116,
+        "median_ms": 246.9388855,
+        "max_ms": 302.413728,
+        "samples": 30
+      },
+      "rnx default": {
+        "mean_ms": 32.93688399999999,
+        "stddev_ms": 0.4445668618652979,
+        "median_ms": 32.8607345,
+        "max_ms": 34.107452,
+        "samples": 30
+      },
+      "Node official": {
+        "mean_ms": 58.56164986666668,
+        "stddev_ms": 0.8494221251062286,
+        "median_ms": 58.193293000000004,
+        "max_ms": 61.11309,
+        "samples": 30
+      },
+      "LuaJIT json.lua": {
+        "mean_ms": 42.77103376666668,
+        "stddev_ms": 0.4219204509831683,
+        "median_ms": 42.633614,
+        "max_ms": 43.791276,
+        "samples": 30
+      },
+      "Deno": {
+        "mean_ms": 51.971858766666664,
+        "stddev_ms": 0.6398536918679781,
+        "median_ms": 51.679404,
+        "max_ms": 53.696672,
+        "samples": 30
+      },
+      "Lua 5.4 json.lua": {
+        "mean_ms": 109.65177013333336,
+        "stddev_ms": 0.9716156524777904,
+        "median_ms": 109.51125350000001,
+        "max_ms": 111.809531,
+        "samples": 30
+      },
+      "LuaJIT cjson": {
+        "mean_ms": 42.83575250000001,
+        "stddev_ms": 0.42792744767902713,
+        "median_ms": 42.79227000000001,
+        "max_ms": 44.185467,
+        "samples": 30
+      },
+      "Bun": {
+        "mean_ms": 34.433308333333336,
+        "stddev_ms": 0.7280820810122012,
+        "median_ms": 34.50629850000001,
+        "max_ms": 37.154009,
+        "samples": 30
+      }
+    }
+  },
+  "thermal": {
+    "bare": {
+      "before": {
+        "core_throttle_count": 6604,
+        "package_throttle_count": 172010
+      },
+      "after": {
+        "core_throttle_count": 6604,
+        "package_throttle_count": 172010
+      },
+      "throttled": false
+    },
+    "json": {
+      "before": {
+        "core_throttle_count": 6604,
+        "package_throttle_count": 172010
+      },
+      "after": {
+        "core_throttle_count": 6663,
+        "package_throttle_count": 172069
+      },
+      "throttled": true
+    },
+    "fib": {
+      "before": {
+        "core_throttle_count": 6663,
+        "package_throttle_count": 172069
+      },
+      "after": {
+        "core_throttle_count": 6663,
+        "package_throttle_count": 172069
+      },
+      "throttled": false
+    },
+    "loops": {
+      "before": {
+        "core_throttle_count": 6663,
+        "package_throttle_count": 172069
+      },
+      "after": {
+        "core_throttle_count": 6663,
+        "package_throttle_count": 172069
+      },
+      "throttled": false
+    },
+    "numeric_calls": {
+      "before": {
+        "core_throttle_count": 6663,
+        "package_throttle_count": 172069
+      },
+      "after": {
+        "core_throttle_count": 6663,
+        "package_throttle_count": 172069
+      },
+      "throttled": false
+    },
+    "awfy_sieve": {
+      "before": {
+        "core_throttle_count": 6663,
+        "package_throttle_count": 172069
+      },
+      "after": {
+        "core_throttle_count": 6663,
+        "package_throttle_count": 172069
+      },
+      "throttled": false
+    },
+    "awfy_permute": {
+      "before": {
+        "core_throttle_count": 6663,
+        "package_throttle_count": 172069
+      },
+      "after": {
+        "core_throttle_count": 6664,
+        "package_throttle_count": 172070
+      },
+      "throttled": true
+    },
+    "shared_rows": {
+      "before": {
+        "core_throttle_count": 6664,
+        "package_throttle_count": 172070
+      },
+      "after": {
+        "core_throttle_count": 6664,
+        "package_throttle_count": 172070
+      },
+      "throttled": false
+    },
+    "vec_iter_i64": {
+      "before": {
+        "core_throttle_count": 6664,
+        "package_throttle_count": 172070
+      },
+      "after": {
+        "core_throttle_count": 6748,
+        "package_throttle_count": 172154
+      },
+      "throttled": true
+    },
+    "vec_iter_bool": {
+      "before": {
+        "core_throttle_count": 6748,
+        "package_throttle_count": 172154
+      },
+      "after": {
+        "core_throttle_count": 6798,
+        "package_throttle_count": 172204
+      },
+      "throttled": true
+    },
+    "vec_append_million_i64": {
+      "before": {
+        "core_throttle_count": 6798,
+        "package_throttle_count": 172204
+      },
+      "after": {
+        "core_throttle_count": 7210,
+        "package_throttle_count": 172616
+      },
+      "throttled": true
+    },
+    "vec_append_million_bool": {
+      "before": {
+        "core_throttle_count": 7210,
+        "package_throttle_count": 172616
+      },
+      "after": {
+        "core_throttle_count": 7598,
+        "package_throttle_count": 173004
+      },
+      "throttled": true
+    }
+  }
+}
