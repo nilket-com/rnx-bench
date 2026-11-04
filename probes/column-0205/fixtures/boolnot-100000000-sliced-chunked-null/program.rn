@@ -1,0 +1,22 @@
+pub fn main(args) {
+let input0 = polars::Series::from_iter_option_bool([Some(true)])?.new_from_index(0, 50000003)?;
+input0.append(polars::Series::full_null("", 50000000, polars::DataType::Boolean())?)?;
+let input0 = input0.slice(3, 100000000)?;
+let expected = polars::Series::from_iter_option_bool([Some(false)])?.new_from_index(0, 50000003)?;
+expected.append(polars::Series::full_null("", 50000000, polars::DataType::Boolean())?)?;
+let expected = expected.slice(3, 100000000)?;
+let prep_start = time::monotonic_ms();
+let k = polars::column_kernel("pub fn map(x) { !x }", "map", ["bool"], "bool")?;
+let prep_ms = time::monotonic_ms() - prep_start;
+println!("COLUMN_PREP ms={} {}", prep_ms, k.explain());
+for call in 0..2 {
+println!("COLUMN_ENTER {}", call);
+let started = time::monotonic_ms();
+let output = k.map([input0])?;
+let elapsed_ms = time::monotonic_ms() - started;
+assert!(output.equals_missing(expected));
+assert_eq!(output.len()?, 100000000);
+println!("COLUMN_OK call={} ms={} {}", call, elapsed_ms, k.last_path());
+}
+Ok(())
+}

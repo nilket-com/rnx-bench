@@ -1,0 +1,1386 @@
+{
+  "status": "PASS",
+  "binary_sha256": "544f4909ac58f4316b5a829cc71008ab7eea523d2978fcec2aa965c7a493ae08",
+  "cases": [
+    {
+      "kind": "i64add",
+      "rows": 10000000,
+      "layout": "flat",
+      "budget": 1000000000,
+      "fixture_sha256": "fac897489b2fb9929273c0d94d6d1365b3a32fd7cbcf03fc4e68b85cfdc709d3",
+      "map_elapsed_ms": [
+        28,
+        26
+      ],
+      "timing_resolution_ms": 1,
+      "thermal_stable": true,
+      "gdb": {
+        "status": "PASS",
+        "entries": [
+          1,
+          1
+        ],
+        "returns": [
+          1,
+          1
+        ],
+        "workers": [
+          2,
+          3
+        ],
+        "errors": [],
+        "exit": 0
+      },
+      "observations": [
+        {
+          "call": 0,
+          "ms": 28,
+          "path": "avx2",
+          "completed": true,
+          "rows": 10000000,
+          "valid_rows": 10000000,
+          "attempts": 1,
+          "replays": 0,
+          "refusal": "None"
+        },
+        {
+          "call": 1,
+          "ms": 26,
+          "path": "avx2",
+          "completed": true,
+          "rows": 10000000,
+          "valid_rows": 10000000,
+          "attempts": 1,
+          "replays": 0,
+          "refusal": "None"
+        }
+      ],
+      "capture_sha256": "6917b1f88fde3c94687a99d9bfa855f18153796aa56c51c6dea73138a1ae8f69",
+      "output_sha256": "d32478f4101f68b69e3970b5658f03af3bfc668a948352383a20ac3775998dd0",
+      "profiles": [
+        {
+          "Ir": 22320309,
+          "sha256": "87e909e58ea03d3567b34555aeb518728982b3c0f5d1c1e7b54a000eddc1aff1"
+        },
+        {
+          "Ir": 22318461,
+          "sha256": "0230e068626c62ed61fda025b4969a2f6dbdac80533b7c74dc713448bab13da9"
+        }
+      ],
+      "direct_exit": 0,
+      "profile_exit": 0,
+      "prepare_ms": 3
+    },
+    {
+      "kind": "i64add",
+      "rows": 10000000,
+      "layout": "sliced-chunked-null",
+      "budget": 1000000000,
+      "fixture_sha256": "8c823d8923554098e774e9818fd621070ec49988d75520afc18906545feef4cb",
+      "map_elapsed_ms": [
+        51,
+        51
+      ],
+      "timing_resolution_ms": 1,
+      "thermal_stable": true,
+      "gdb": {
+        "status": "PASS",
+        "entries": [
+          1,
+          1
+        ],
+        "returns": [
+          1,
+          1
+        ],
+        "workers": [
+          2,
+          3
+        ],
+        "errors": [],
+        "exit": 0
+      },
+      "observations": [
+        {
+          "call": 0,
+          "ms": 51,
+          "path": "avx2",
+          "completed": true,
+          "rows": 10000000,
+          "valid_rows": 5000000,
+          "attempts": 1,
+          "replays": 0,
+          "refusal": "None"
+        },
+        {
+          "call": 1,
+          "ms": 51,
+          "path": "avx2",
+          "completed": true,
+          "rows": 10000000,
+          "valid_rows": 5000000,
+          "attempts": 1,
+          "replays": 0,
+          "refusal": "None"
+        }
+      ],
+      "capture_sha256": "720acede6926d7187945d68afc9d5c054f79e3f05c394487ea2522b47ac3bee7",
+      "output_sha256": "d3dd0d02bd2624b22782d032d081d36c38290d8826947ebfb56e94b534c20314",
+      "profiles": [
+        {
+          "Ir": 808664019,
+          "sha256": "74c7e8958e8ca809b4afc8e542fe44b0f2ad4ea69475f10ef8d82d73cd977905"
+        },
+        {
+          "Ir": 808662114,
+          "sha256": "0d5971695a6082a786b786025accdaa7de1d391a564132e65c6765de54132e8d"
+        }
+      ],
+      "direct_exit": 0,
+      "profile_exit": 0,
+      "prepare_ms": 3
+    },
+    {
+      "kind": "axpy",
+      "rows": 10000000,
+      "layout": "flat",
+      "budget": 1000000000,
+      "fixture_sha256": "0089eaad5048a61d9a76a1d8bbb05f1162d9bd9a645e56308e0ecae86a85afc1",
+      "map_elapsed_ms": [
+        31,
+        29
+      ],
+      "timing_resolution_ms": 1,
+      "thermal_stable": true,
+      "gdb": {
+        "status": "PASS",
+        "entries": [
+          1,
+          1
+        ],
+        "returns": [
+          1,
+          1
+        ],
+        "workers": [
+          2,
+          3
+        ],
+        "errors": [],
+        "exit": 0
+      },
+      "observations": [
+        {
+          "call": 0,
+          "ms": 31,
+          "path": "avx2",
+          "completed": true,
+          "rows": 10000000,
+          "valid_rows": 10000000,
+          "attempts": 1,
+          "replays": 0,
+          "refusal": "None"
+        },
+        {
+          "call": 1,
+          "ms": 29,
+          "path": "avx2",
+          "completed": true,
+          "rows": 10000000,
+          "valid_rows": 10000000,
+          "attempts": 1,
+          "replays": 0,
+          "refusal": "None"
+        }
+      ],
+      "capture_sha256": "f918d84635a613a67a7ce64067297bfe967ed21091e7d13645afd2df48a7b1f5",
+      "output_sha256": "ab8b81a3af2dce67ef7bb57f81d01a90004c2139b2521c8eb26281e15c592801",
+      "profiles": [
+        {
+          "Ir": 37926361,
+          "sha256": "fb51d08545b16513c7b3c864924b927627692553a90f2ea0587436821c6c2d79"
+        },
+        {
+          "Ir": 37924450,
+          "sha256": "cbbe9cd71c0cf11f461c624bc6b467e2d5858ea247abc1ed6a32dde5e33b6bcc"
+        }
+      ],
+      "direct_exit": 0,
+      "profile_exit": 0,
+      "prepare_ms": 3
+    },
+    {
+      "kind": "axpy",
+      "rows": 10000000,
+      "layout": "sliced-chunked-null",
+      "budget": 1000000000,
+      "fixture_sha256": "a48c15e2792fee8179d2e3d5b99adfe54cb83d0694c870ca96953bbdfb4b7b71",
+      "map_elapsed_ms": [
+        63,
+        62
+      ],
+      "timing_resolution_ms": 1,
+      "thermal_stable": true,
+      "gdb": {
+        "status": "PASS",
+        "entries": [
+          1,
+          1
+        ],
+        "returns": [
+          1,
+          1
+        ],
+        "workers": [
+          2,
+          3
+        ],
+        "errors": [],
+        "exit": 0
+      },
+      "observations": [
+        {
+          "call": 0,
+          "ms": 63,
+          "path": "avx2",
+          "completed": true,
+          "rows": 10000000,
+          "valid_rows": 5000000,
+          "attempts": 1,
+          "replays": 0,
+          "refusal": "None"
+        },
+        {
+          "call": 1,
+          "ms": 62,
+          "path": "avx2",
+          "completed": true,
+          "rows": 10000000,
+          "valid_rows": 5000000,
+          "attempts": 1,
+          "replays": 0,
+          "refusal": "None"
+        }
+      ],
+      "capture_sha256": "e316a599ebc180b0cb275e2591eae0cfbf45e7f28ec4201513c9aa7da7a8dc3c",
+      "output_sha256": "3b343f33ad0b9dbf2fb4aab81cd17ff3ba394db86e21b007960a05c5047054d1",
+      "profiles": [
+        {
+          "Ir": 1116648217,
+          "sha256": "5ffaced3a38567f068825eff9099336f4df5c8204c07984e9354469f57bc7199"
+        },
+        {
+          "Ir": 1116646746,
+          "sha256": "3ded4ac913da3fd03be645ad9c8d0ae44616fec962a24a98806bbebe811c4abd"
+        }
+      ],
+      "direct_exit": 0,
+      "profile_exit": 0,
+      "prepare_ms": 3
+    },
+    {
+      "kind": "multiply3",
+      "rows": 10000000,
+      "layout": "flat",
+      "budget": 1000000000,
+      "fixture_sha256": "644bfab91b311f5d95bcfef9d2e157ca9abb0c2e8d250cbd219974eee31405ae",
+      "map_elapsed_ms": [
+        61,
+        59
+      ],
+      "timing_resolution_ms": 1,
+      "thermal_stable": true,
+      "gdb": {
+        "status": "PASS",
+        "entries": [
+          1,
+          1
+        ],
+        "returns": [
+          1,
+          1
+        ],
+        "workers": [
+          2,
+          3
+        ],
+        "errors": [],
+        "exit": 0
+      },
+      "observations": [
+        {
+          "call": 0,
+          "ms": 61,
+          "path": "scalar-primitives",
+          "completed": true,
+          "rows": 10000000,
+          "valid_rows": 10000000,
+          "attempts": 1,
+          "replays": 0,
+          "refusal": "None"
+        },
+        {
+          "call": 1,
+          "ms": 59,
+          "path": "scalar-primitives",
+          "completed": true,
+          "rows": 10000000,
+          "valid_rows": 10000000,
+          "attempts": 1,
+          "replays": 0,
+          "refusal": "None"
+        }
+      ],
+      "capture_sha256": "ecac2271c9694c2ee5ff653abe2b5f322b136637b5449578f458f00b40b85373",
+      "output_sha256": "beaff19f6de19208cc290000281bdfdd022b1e512baf00f1b818a18797e74264",
+      "profiles": [
+        {
+          "Ir": 910670556,
+          "sha256": "d8004e47e6b0a6bad729091f768aa540f29ab09986aae3a9c314f2f099df58ba"
+        },
+        {
+          "Ir": 910668649,
+          "sha256": "6bba5997983e240390c1fdae8d8aad39689c963a59a9b507032380012cd64111"
+        }
+      ],
+      "direct_exit": 0,
+      "profile_exit": 0,
+      "prepare_ms": 3
+    },
+    {
+      "kind": "multiply3",
+      "rows": 10000000,
+      "layout": "sliced-chunked-null",
+      "budget": 1000000000,
+      "fixture_sha256": "4243654b9c4d44ac421e0975a9b9d46f5d6c9d7e09adc7e71edb626b3f058ce2",
+      "map_elapsed_ms": [
+        79,
+        78
+      ],
+      "timing_resolution_ms": 1,
+      "thermal_stable": true,
+      "gdb": {
+        "status": "PASS",
+        "entries": [
+          1,
+          1
+        ],
+        "returns": [
+          1,
+          1
+        ],
+        "workers": [
+          2,
+          3
+        ],
+        "errors": [],
+        "exit": 0
+      },
+      "observations": [
+        {
+          "call": 0,
+          "ms": 79,
+          "path": "scalar-primitives",
+          "completed": true,
+          "rows": 10000000,
+          "valid_rows": 5000000,
+          "attempts": 1,
+          "replays": 0,
+          "refusal": "None"
+        },
+        {
+          "call": 1,
+          "ms": 78,
+          "path": "scalar-primitives",
+          "completed": true,
+          "rows": 10000000,
+          "valid_rows": 5000000,
+          "attempts": 1,
+          "replays": 0,
+          "refusal": "None"
+        }
+      ],
+      "capture_sha256": "b6bc3ea18b82b09360c87ec539f1d06a633d7ea14c285afe445da5fa2e3bfa6b",
+      "output_sha256": "dc0d7b420803a991d6d965ed8e1cadeb30e7d7fd8e3b855a93ca0bb3662449b9",
+      "profiles": [
+        {
+          "Ir": 1553020312,
+          "sha256": "fec4c61a70be2ba1e87ea1f864e1317dcaf13471bf6df2558d74683f6f72fa25"
+        },
+        {
+          "Ir": 1553018841,
+          "sha256": "260b7d4f5d2bec3ae0b59026363d6bdf7a9c080f2c878d9251e536fceab207c6"
+        }
+      ],
+      "direct_exit": 0,
+      "profile_exit": 0,
+      "prepare_ms": 3
+    },
+    {
+      "kind": "f64add",
+      "rows": 10000000,
+      "layout": "flat",
+      "budget": 1000000000,
+      "fixture_sha256": "37677cdda4baa19b8cfab433250d53f349223ac99b94d61237a91f1c25d6e3da",
+      "map_elapsed_ms": [
+        51,
+        50
+      ],
+      "timing_resolution_ms": 1,
+      "thermal_stable": true,
+      "gdb": {
+        "status": "PASS",
+        "entries": [
+          1,
+          1
+        ],
+        "returns": [
+          1,
+          1
+        ],
+        "workers": [
+          2,
+          3
+        ],
+        "errors": [],
+        "exit": 0
+      },
+      "observations": [
+        {
+          "call": 0,
+          "ms": 51,
+          "path": "scalar-primitives",
+          "completed": true,
+          "rows": 10000000,
+          "valid_rows": 10000000,
+          "attempts": 1,
+          "replays": 0,
+          "refusal": "None"
+        },
+        {
+          "call": 1,
+          "ms": 50,
+          "path": "scalar-primitives",
+          "completed": true,
+          "rows": 10000000,
+          "valid_rows": 10000000,
+          "attempts": 1,
+          "replays": 0,
+          "refusal": "None"
+        }
+      ],
+      "capture_sha256": "ac15d2c788412e47b144023d69500d9ec1e1d6c84c1d203ce8deedb93a264800",
+      "output_sha256": "f721a55893440484e4b30d31c1ec47aa1a0396247d7870349c90486b22ab8f03",
+      "profiles": [
+        {
+          "Ir": 665632549,
+          "sha256": "e602b568abe0b75332f3d56e0cd36e22983cddc0bcd5e7693bd6bf5930a236b8"
+        },
+        {
+          "Ir": 665631173,
+          "sha256": "69cab87d640e316e66b094ccc28356bfd0660cc969236ea33b7d382c257284a3"
+        }
+      ],
+      "direct_exit": 0,
+      "profile_exit": 0,
+      "prepare_ms": 3
+    },
+    {
+      "kind": "f64add",
+      "rows": 10000000,
+      "layout": "sliced-chunked-null",
+      "budget": 1000000000,
+      "fixture_sha256": "942337b62fdf7a4ac7d680cf5aee4698fcde55e34bdc1b12a46224c09c17e54f",
+      "map_elapsed_ms": [
+        74,
+        74
+      ],
+      "timing_resolution_ms": 1,
+      "thermal_stable": true,
+      "gdb": {
+        "status": "PASS",
+        "entries": [
+          1,
+          1
+        ],
+        "returns": [
+          1,
+          1
+        ],
+        "workers": [
+          2,
+          3
+        ],
+        "errors": [],
+        "exit": 0
+      },
+      "observations": [
+        {
+          "call": 0,
+          "ms": 74,
+          "path": "scalar-primitives",
+          "completed": true,
+          "rows": 10000000,
+          "valid_rows": 5000000,
+          "attempts": 1,
+          "replays": 0,
+          "refusal": "None"
+        },
+        {
+          "call": 1,
+          "ms": 74,
+          "path": "scalar-primitives",
+          "completed": true,
+          "rows": 10000000,
+          "valid_rows": 5000000,
+          "attempts": 1,
+          "replays": 0,
+          "refusal": "None"
+        }
+      ],
+      "capture_sha256": "d01d13a055d072f6a59d55063cb3479c4b262560c6502bd6a6353a31a305cf7c",
+      "output_sha256": "8503615248f04c71d0fd5dc0d445c1ac775e524e261fdaad533a67afb099adcf",
+      "profiles": [
+        {
+          "Ir": 1430496555,
+          "sha256": "72e3874b1546100a51e3417750e69463f1db24a036cc205c82447e6f2f9a32ed"
+        },
+        {
+          "Ir": 1430494966,
+          "sha256": "9317ee73fc3b3139699f14cfa671ed38d678086e31d85e100787162a11af22dc"
+        }
+      ],
+      "direct_exit": 0,
+      "profile_exit": 0,
+      "prepare_ms": 3
+    },
+    {
+      "kind": "boolnot",
+      "rows": 10000000,
+      "layout": "flat",
+      "budget": 1000000000,
+      "fixture_sha256": "be48bd0f3dfc983a13568934a1d7fea5c7258570fce6e21e775bf0f79f575221",
+      "map_elapsed_ms": [
+        0,
+        0
+      ],
+      "timing_resolution_ms": 1,
+      "thermal_stable": true,
+      "gdb": {
+        "status": "PASS",
+        "entries": [
+          1,
+          1
+        ],
+        "returns": [
+          1,
+          1
+        ],
+        "workers": [
+          2,
+          3
+        ],
+        "errors": [],
+        "exit": 0
+      },
+      "observations": [
+        {
+          "call": 0,
+          "ms": 0,
+          "path": "avx2",
+          "completed": true,
+          "rows": 10000000,
+          "valid_rows": 10000000,
+          "attempts": 1,
+          "replays": 0,
+          "refusal": "None"
+        },
+        {
+          "call": 1,
+          "ms": 0,
+          "path": "avx2",
+          "completed": true,
+          "rows": 10000000,
+          "valid_rows": 10000000,
+          "attempts": 1,
+          "replays": 0,
+          "refusal": "None"
+        }
+      ],
+      "capture_sha256": "84af3d1a82cbbdffed6f03d3cce395202be9b76dd32857cd23fd86107fa832f3",
+      "output_sha256": "ef2b5497b1a68632ffd82d3b65ed1a0b438c07dcf49c552bdb84556c54318258",
+      "profiles": [
+        {
+          "Ir": 680776,
+          "sha256": "ca7be1adc582572369f98c22d50561583a91109d8024a4d15713d55a87d319e2"
+        },
+        {
+          "Ir": 678875,
+          "sha256": "a3570ba7fab1724af7796e934959d28dc966eaf881bde31edebfa2184698fac0"
+        }
+      ],
+      "direct_exit": 0,
+      "profile_exit": 0,
+      "prepare_ms": 3
+    },
+    {
+      "kind": "boolnot",
+      "rows": 10000000,
+      "layout": "sliced-chunked-null",
+      "budget": 1000000000,
+      "fixture_sha256": "b03257870989c01124add967c64b642a2730220a68fcc0d69dd93ecfadd99451",
+      "map_elapsed_ms": [
+        37,
+        37
+      ],
+      "timing_resolution_ms": 1,
+      "thermal_stable": true,
+      "gdb": {
+        "status": "PASS",
+        "entries": [
+          1,
+          1
+        ],
+        "returns": [
+          1,
+          1
+        ],
+        "workers": [
+          2,
+          3
+        ],
+        "errors": [],
+        "exit": 0
+      },
+      "observations": [
+        {
+          "call": 0,
+          "ms": 37,
+          "path": "scalar-primitives",
+          "completed": true,
+          "rows": 10000000,
+          "valid_rows": 5000000,
+          "attempts": 1,
+          "replays": 0,
+          "refusal": "None"
+        },
+        {
+          "call": 1,
+          "ms": 37,
+          "path": "scalar-primitives",
+          "completed": true,
+          "rows": 10000000,
+          "valid_rows": 5000000,
+          "attempts": 1,
+          "replays": 0,
+          "refusal": "None"
+        }
+      ],
+      "capture_sha256": "55755a39c9e9309c40eecef361bdb7daefda6abf3505247ed844cd59c5476899",
+      "output_sha256": "b821c63cdc93fea3d895ec3e1cf694aa40251c3429841ef8b6388143e5fb1347",
+      "profiles": [
+        {
+          "Ir": 1085584577,
+          "sha256": "31f7048a93f09ad77549955d0206a6c836e714f4088ada51ed5d5b1b83475441"
+        },
+        {
+          "Ir": 1085582740,
+          "sha256": "8efe387e341eba31269af30504ac90cd77a3f7c9a2b32325c5d25248e8118696"
+        }
+      ],
+      "direct_exit": 0,
+      "profile_exit": 0,
+      "prepare_ms": 3
+    },
+    {
+      "kind": "i64add",
+      "rows": 100000000,
+      "layout": "flat",
+      "budget": 1000000000,
+      "fixture_sha256": "bdb13fc12828b0d10e8f3b08c5077c6254069ea1018d00ebf3bfb1938c20e4cd",
+      "map_elapsed_ms": [
+        269,
+        268
+      ],
+      "timing_resolution_ms": 1,
+      "thermal_stable": true,
+      "gdb": {
+        "status": "PASS",
+        "entries": [
+          1,
+          1
+        ],
+        "returns": [
+          1,
+          1
+        ],
+        "workers": [
+          2,
+          3
+        ],
+        "errors": [],
+        "exit": 0
+      },
+      "observations": [
+        {
+          "call": 0,
+          "ms": 269,
+          "path": "avx2",
+          "completed": true,
+          "rows": 100000000,
+          "valid_rows": 100000000,
+          "attempts": 1,
+          "replays": 0,
+          "refusal": "None"
+        },
+        {
+          "call": 1,
+          "ms": 268,
+          "path": "avx2",
+          "completed": true,
+          "rows": 100000000,
+          "valid_rows": 100000000,
+          "attempts": 1,
+          "replays": 0,
+          "refusal": "None"
+        }
+      ],
+      "capture_sha256": "47c1ad2f71960ea003ec60969dab6aee248de64b9621e331dec7d216f70b6224",
+      "output_sha256": "348de1957626e1e57a0174e2b66aa1a78899450c1b235cffbb51e36036c7a1b0",
+      "profiles": [
+        {
+          "Ir": 222798874,
+          "sha256": "75ab54df9e5d42321c3b4230407581e45433a562c0f139189415c68179e1ea24"
+        },
+        {
+          "Ir": 222797007,
+          "sha256": "84ccb99b41c8fdf413aff374b73d2b503e25ebcb5a8ebf5cf359f8fee36d7f07"
+        }
+      ],
+      "direct_exit": 0,
+      "profile_exit": 0,
+      "prepare_ms": 3
+    },
+    {
+      "kind": "i64add",
+      "rows": 100000000,
+      "layout": "sliced-chunked-null",
+      "budget": 1000000000,
+      "fixture_sha256": "0a74139e32e7a9a2760a961347a18b64eb49a7dd744b0a1fd10bb2657e3cb9b6",
+      "map_elapsed_ms": [
+        507,
+        506
+      ],
+      "timing_resolution_ms": 1,
+      "thermal_stable": false,
+      "gdb": {
+        "status": "PASS",
+        "entries": [
+          1,
+          1
+        ],
+        "returns": [
+          1,
+          1
+        ],
+        "workers": [
+          2,
+          3
+        ],
+        "errors": [],
+        "exit": 0
+      },
+      "observations": [
+        {
+          "call": 0,
+          "ms": 507,
+          "path": "avx2",
+          "completed": true,
+          "rows": 100000000,
+          "valid_rows": 50000000,
+          "attempts": 1,
+          "replays": 0,
+          "refusal": "None"
+        },
+        {
+          "call": 1,
+          "ms": 506,
+          "path": "avx2",
+          "completed": true,
+          "rows": 100000000,
+          "valid_rows": 50000000,
+          "attempts": 1,
+          "replays": 0,
+          "refusal": "None"
+        }
+      ],
+      "capture_sha256": "ed054d5fffa35f266adcbf28bb38c4c0a18421f96dae0fee63355c658c9fff18",
+      "output_sha256": "6f1bf0fb79936b1522ab1ce1f5ba4ae69173019946e0a6c3fbecc366ee647717",
+      "profiles": [
+        {
+          "Ir": 8086227745,
+          "sha256": "aae39be85f4ef6df4ad8d133669d0a4fb3b40d5366312fef64cb8de646e4d57b"
+        },
+        {
+          "Ir": 8086225710,
+          "sha256": "c582199e966ecec1ac5d6398f20b753a71400777e82af8927eb15f04c8b0f34b"
+        }
+      ],
+      "direct_exit": 0,
+      "profile_exit": 0,
+      "prepare_ms": 3
+    },
+    {
+      "kind": "axpy",
+      "rows": 100000000,
+      "layout": "flat",
+      "budget": 1000000000,
+      "fixture_sha256": "66c2a6657efa254e1d5fd856d7a22d3a3113bb50f13676df51cff1923b4f9d95",
+      "map_elapsed_ms": [
+        291,
+        291
+      ],
+      "timing_resolution_ms": 1,
+      "thermal_stable": true,
+      "gdb": {
+        "status": "PASS",
+        "entries": [
+          1,
+          1
+        ],
+        "returns": [
+          1,
+          1
+        ],
+        "workers": [
+          2,
+          3
+        ],
+        "errors": [],
+        "exit": 0
+      },
+      "observations": [
+        {
+          "call": 0,
+          "ms": 291,
+          "path": "avx2",
+          "completed": true,
+          "rows": 100000000,
+          "valid_rows": 100000000,
+          "attempts": 1,
+          "replays": 0,
+          "refusal": "None"
+        },
+        {
+          "call": 1,
+          "ms": 291,
+          "path": "avx2",
+          "completed": true,
+          "rows": 100000000,
+          "valid_rows": 100000000,
+          "attempts": 1,
+          "replays": 0,
+          "refusal": "None"
+        }
+      ],
+      "capture_sha256": "d51f9f8e8156bbc724f07473bd1bc2449f779f19b7c7ad24c224b57791d45180",
+      "output_sha256": "a19a57fff234055dadb3bf4547cbb9edf653fa94278c9c48891b88dc6b961d91",
+      "profiles": [
+        {
+          "Ir": 378766314,
+          "sha256": "d8e050c8d39cd0810703d941067ffaa8bfa0bd23484c1d8ee94867bde83b106f"
+        },
+        {
+          "Ir": 378764385,
+          "sha256": "90d954b9f92d7aa0283784935a35a47fd2c227d8f579ff6d33a3b009d8aa18aa"
+        }
+      ],
+      "direct_exit": 0,
+      "profile_exit": 0,
+      "prepare_ms": 3
+    },
+    {
+      "kind": "axpy",
+      "rows": 100000000,
+      "layout": "sliced-chunked-null",
+      "budget": 1000000000,
+      "fixture_sha256": "40f4606940cb2da4749ec81ecba0e123728c12103bd30e88d05d3b4df1dd55c0",
+      "map_elapsed_ms": [
+        627,
+        620
+      ],
+      "timing_resolution_ms": 1,
+      "thermal_stable": false,
+      "gdb": {
+        "status": "PASS",
+        "entries": [
+          1,
+          1
+        ],
+        "returns": [
+          1,
+          1
+        ],
+        "workers": [
+          2,
+          3
+        ],
+        "errors": [],
+        "exit": 0
+      },
+      "observations": [
+        {
+          "call": 0,
+          "ms": 627,
+          "path": "avx2",
+          "completed": true,
+          "rows": 100000000,
+          "valid_rows": 50000000,
+          "attempts": 1,
+          "replays": 0,
+          "refusal": "None"
+        },
+        {
+          "call": 1,
+          "ms": 620,
+          "path": "avx2",
+          "completed": true,
+          "rows": 100000000,
+          "valid_rows": 50000000,
+          "attempts": 1,
+          "replays": 0,
+          "refusal": "None"
+        }
+      ],
+      "capture_sha256": "771892b5e44896df9b6665fe6aac22086e375bae6b2d4f25f051385897e58b89",
+      "output_sha256": "23d4448fbb7c6fde9d32aa3984acc8cba8fc17070a354333e7ba174caf6076f2",
+      "profiles": [
+        {
+          "Ir": 11165974730,
+          "sha256": "918bd0b18ddb1f57d87faf10e26998aa6d8d6deebaaee91cc344292423b95070"
+        },
+        {
+          "Ir": 11165973137,
+          "sha256": "f525a9321a3d2a40e46cc6bf36d8c9f6f1d2c36c3fad7b2c0c9190af138d129c"
+        }
+      ],
+      "direct_exit": 0,
+      "profile_exit": 0,
+      "prepare_ms": 3
+    },
+    {
+      "kind": "multiply3",
+      "rows": 100000000,
+      "layout": "flat",
+      "budget": 1000000000,
+      "fixture_sha256": "1219239ad9e1322577c3684164a83187e75fc91d4fb94ee3ae3a98e664bf0ee5",
+      "map_elapsed_ms": [
+        559,
+        557
+      ],
+      "timing_resolution_ms": 1,
+      "thermal_stable": true,
+      "gdb": {
+        "status": "PASS",
+        "entries": [
+          1,
+          1
+        ],
+        "returns": [
+          1,
+          1
+        ],
+        "workers": [
+          2,
+          3
+        ],
+        "errors": [],
+        "exit": 0
+      },
+      "observations": [
+        {
+          "call": 0,
+          "ms": 559,
+          "path": "scalar-primitives",
+          "completed": true,
+          "rows": 100000000,
+          "valid_rows": 100000000,
+          "attempts": 1,
+          "replays": 0,
+          "refusal": "None"
+        },
+        {
+          "call": 1,
+          "ms": 557,
+          "path": "scalar-primitives",
+          "completed": true,
+          "rows": 100000000,
+          "valid_rows": 100000000,
+          "attempts": 1,
+          "replays": 0,
+          "refusal": "None"
+        }
+      ],
+      "capture_sha256": "ab0474424604e9ebd84a2461b9ed20ef9544090e42980b75203941988178fc58",
+      "output_sha256": "8dcbd202893f5ad8497b2e69042771f195dbfec39f19a7b8fffec08a8039645e",
+      "profiles": [
+        {
+          "Ir": 9106207822,
+          "sha256": "5d34158b9deaf2260d76fda476d92a25698fad0c8144db4e807d7846b5d6ca5f"
+        },
+        {
+          "Ir": 9106205902,
+          "sha256": "47ab31e3319bcd5be1d3593992eca1a1247258ec18eb1cbb05db1d9670b59b41"
+        }
+      ],
+      "direct_exit": 0,
+      "profile_exit": 0,
+      "prepare_ms": 3
+    },
+    {
+      "kind": "multiply3",
+      "rows": 100000000,
+      "layout": "sliced-chunked-null",
+      "budget": 1000000000,
+      "fixture_sha256": "c113426e675eb5f6e9f633b143d345c28dcb5b37e13dd06f77d7d0754e02f13f",
+      "map_elapsed_ms": [
+        770,
+        769
+      ],
+      "timing_resolution_ms": 1,
+      "thermal_stable": true,
+      "gdb": {
+        "status": "PASS",
+        "entries": [
+          1,
+          1
+        ],
+        "returns": [
+          1,
+          1
+        ],
+        "workers": [
+          2,
+          3
+        ],
+        "errors": [],
+        "exit": 0
+      },
+      "observations": [
+        {
+          "call": 0,
+          "ms": 770,
+          "path": "scalar-primitives",
+          "completed": true,
+          "rows": 100000000,
+          "valid_rows": 50000000,
+          "attempts": 1,
+          "replays": 0,
+          "refusal": "None"
+        },
+        {
+          "call": 1,
+          "ms": 769,
+          "path": "scalar-primitives",
+          "completed": true,
+          "rows": 100000000,
+          "valid_rows": 50000000,
+          "attempts": 1,
+          "replays": 0,
+          "refusal": "None"
+        }
+      ],
+      "capture_sha256": "b1ce8a16cafc366cf3568ba219bee5c6ba5d99f74f989a98c03ccd93a81c4c20",
+      "output_sha256": "ad316bcd015a4183093d55c0e14db51572ee84ac07731d535b6b19ede61827de",
+      "profiles": [
+        {
+          "Ir": 15529695530,
+          "sha256": "8cabb689476a9cc61d704c256629e0f3f089cc08bfbb8954129dc2cc6235bb7d"
+        },
+        {
+          "Ir": 15529694058,
+          "sha256": "4b044c211220e1bbba73684e56652f34c83f3e81df0cbf64c90221ee7923f5d8"
+        }
+      ],
+      "direct_exit": 0,
+      "profile_exit": 0,
+      "prepare_ms": 3
+    },
+    {
+      "kind": "f64add",
+      "rows": 100000000,
+      "layout": "flat",
+      "budget": 1000000000,
+      "fixture_sha256": "16d7c89a73807b92b49a748e112d67877a9408e5960a0f9b068a60742e76562f",
+      "map_elapsed_ms": [
+        466,
+        462
+      ],
+      "timing_resolution_ms": 1,
+      "thermal_stable": true,
+      "gdb": {
+        "status": "PASS",
+        "entries": [
+          1,
+          1
+        ],
+        "returns": [
+          1,
+          1
+        ],
+        "workers": [
+          2,
+          3
+        ],
+        "errors": [],
+        "exit": 0
+      },
+      "observations": [
+        {
+          "call": 0,
+          "ms": 466,
+          "path": "scalar-primitives",
+          "completed": true,
+          "rows": 100000000,
+          "valid_rows": 100000000,
+          "attempts": 1,
+          "replays": 0,
+          "refusal": "None"
+        },
+        {
+          "call": 1,
+          "ms": 462,
+          "path": "scalar-primitives",
+          "completed": true,
+          "rows": 100000000,
+          "valid_rows": 100000000,
+          "attempts": 1,
+          "replays": 0,
+          "refusal": "None"
+        }
+      ],
+      "capture_sha256": "f11045a532288d9917675a6adef7080cde4df5835e7f0b74a6ea1021078ae8c3",
+      "output_sha256": "d202e016e9539ff7c8651e4ddd82d427a32c7fba49b7b9d1c62537b4cc7ecd61",
+      "profiles": [
+        {
+          "Ir": 6655906137,
+          "sha256": "d9614b589fff9d3afbe62cd8159fcc1cab98c367bc6a353f0463f964a2c24eb5"
+        },
+        {
+          "Ir": 6655904763,
+          "sha256": "1b75f4d991a5d3b77bc20e3b11a57dd1c1c210d1c87ceba642f5357d6c9216ca"
+        }
+      ],
+      "direct_exit": 0,
+      "profile_exit": 0,
+      "prepare_ms": 3
+    },
+    {
+      "kind": "f64add",
+      "rows": 100000000,
+      "layout": "sliced-chunked-null",
+      "budget": 1000000000,
+      "fixture_sha256": "09e59fafd050737322453886b012246a887fdb6da37ba17bdfc091f11415f00c",
+      "map_elapsed_ms": [
+        708,
+        705
+      ],
+      "timing_resolution_ms": 1,
+      "thermal_stable": false,
+      "gdb": {
+        "status": "PASS",
+        "entries": [
+          1,
+          1
+        ],
+        "returns": [
+          1,
+          1
+        ],
+        "workers": [
+          2,
+          3
+        ],
+        "errors": [],
+        "exit": 0
+      },
+      "observations": [
+        {
+          "call": 0,
+          "ms": 708,
+          "path": "scalar-primitives",
+          "completed": true,
+          "rows": 100000000,
+          "valid_rows": 50000000,
+          "attempts": 1,
+          "replays": 0,
+          "refusal": "None"
+        },
+        {
+          "call": 1,
+          "ms": 705,
+          "path": "scalar-primitives",
+          "completed": true,
+          "rows": 100000000,
+          "valid_rows": 50000000,
+          "attempts": 1,
+          "replays": 0,
+          "refusal": "None"
+        }
+      ],
+      "capture_sha256": "89209f0672c765d195e12163b2fb96b80f419ac7153e3645c105269fdf9a97fa",
+      "output_sha256": "cc94621984b75b905b428fdb1b717b9d53a3fc1c1c7451e2629a0b3ad3f7e5b9",
+      "profiles": [
+        {
+          "Ir": 14304539942,
+          "sha256": "06520971bc75160c4d822ded917e07e11097dd7b3b01c1f7b83a3cc28d3f1e3e"
+        },
+        {
+          "Ir": 14304538324,
+          "sha256": "7af9e81b04bc6f28fe36e515413e4b6664b0238cdbbd0a3ad8c2f66d2a209bb7"
+        }
+      ],
+      "direct_exit": 0,
+      "profile_exit": 0,
+      "prepare_ms": 3
+    },
+    {
+      "kind": "boolnot",
+      "rows": 100000000,
+      "layout": "flat",
+      "budget": 1000000000,
+      "fixture_sha256": "1f409d887ad51fa506df1e3a22aacfa54c4aad23a494fb0037deff9a5f616bb8",
+      "map_elapsed_ms": [
+        4,
+        3
+      ],
+      "timing_resolution_ms": 1,
+      "thermal_stable": true,
+      "gdb": {
+        "status": "PASS",
+        "entries": [
+          1,
+          1
+        ],
+        "returns": [
+          1,
+          1
+        ],
+        "workers": [
+          2,
+          3
+        ],
+        "errors": [],
+        "exit": 0
+      },
+      "observations": [
+        {
+          "call": 0,
+          "ms": 4,
+          "path": "avx2",
+          "completed": true,
+          "rows": 100000000,
+          "valid_rows": 100000000,
+          "attempts": 1,
+          "replays": 0,
+          "refusal": "None"
+        },
+        {
+          "call": 1,
+          "ms": 3,
+          "path": "avx2",
+          "completed": true,
+          "rows": 100000000,
+          "valid_rows": 100000000,
+          "attempts": 1,
+          "replays": 0,
+          "refusal": "None"
+        }
+      ],
+      "capture_sha256": "b7917ecbb5da6f5a6714662ad164b0a54d5319392524c1ffb2781b979cfc03d9",
+      "output_sha256": "43516ebb3e0ece8cfc78cd638f713e75fc471f2445a91316d493cf5730bb6279",
+      "profiles": [
+        {
+          "Ir": 6481697,
+          "sha256": "2d39f33808963f19358163c327cf88270ccb625468c8ff04c67a0d333e266f9e"
+        },
+        {
+          "Ir": 6479742,
+          "sha256": "2651c7797c73d759fdda6a1379d4cc60a2c910ebde39957d9ec4d8e32b14a5fb"
+        }
+      ],
+      "direct_exit": 0,
+      "profile_exit": 0,
+      "prepare_ms": 3
+    },
+    {
+      "kind": "boolnot",
+      "rows": 100000000,
+      "layout": "sliced-chunked-null",
+      "budget": 1000000000,
+      "fixture_sha256": "b0966d47664814ef6943c08990d776e320d45475e7e9eedde820f870c1f7d7c9",
+      "map_elapsed_ms": [
+        372,
+        371
+      ],
+      "timing_resolution_ms": 1,
+      "thermal_stable": true,
+      "gdb": {
+        "status": "PASS",
+        "entries": [
+          1,
+          1
+        ],
+        "returns": [
+          1,
+          1
+        ],
+        "workers": [
+          2,
+          3
+        ],
+        "errors": [],
+        "exit": 0
+      },
+      "observations": [
+        {
+          "call": 0,
+          "ms": 372,
+          "path": "scalar-primitives",
+          "completed": true,
+          "rows": 100000000,
+          "valid_rows": 50000000,
+          "attempts": 1,
+          "replays": 0,
+          "refusal": "None"
+        },
+        {
+          "call": 1,
+          "ms": 371,
+          "path": "scalar-primitives",
+          "completed": true,
+          "rows": 100000000,
+          "valid_rows": 50000000,
+          "attempts": 1,
+          "replays": 0,
+          "refusal": "None"
+        }
+      ],
+      "capture_sha256": "39ce52efec86ae715fd16cef0886cea7ba121599e3c762d84dbbe5d900e09013",
+      "output_sha256": "4b4d4a96be7dad06f7a917888a5f1dc1c82accc9c997e03a40e18b723057dc2e",
+      "profiles": [
+        {
+          "Ir": 10855506660,
+          "sha256": "e77d4187daee7bdd83ab385896389dac0eb41470f613125bbfb042d688f5fd1d"
+        },
+        {
+          "Ir": 10855504969,
+          "sha256": "13947a061b51b0f36582858829eaf7eab423e5631091246c6396d570e8669a41"
+        }
+      ],
+      "direct_exit": 0,
+      "profile_exit": 0,
+      "prepare_ms": 3
+    }
+  ]
+}

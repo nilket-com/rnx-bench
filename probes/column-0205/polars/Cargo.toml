@@ -1,0 +1,25 @@
+[package]
+name = "column-polars21-step0"
+version = "0.0.0"
+edition = "2021"
+publish = false
+build = "build.rs"
+[workspace]
+[dependencies]
+polars-arrow = { git = "file://<WORK_ROOT>/polars", rev = "7f902bd3ffd27ff82d14278a09a295ff2f7aed92", default-features = false }
+polars-core = { git = "file://<WORK_ROOT>/polars", rev = "7f902bd3ffd27ff82d14278a09a295ff2f7aed92", default-features = false }
+cranelift-codegen = "=0.135.5"
+cranelift-frontend = "=0.135.5"
+cranelift-jit = "=0.135.5"
+cranelift-module = "=0.135.5"
+cranelift-native = "=0.135.5"
+serde_json = "1"
+[build-dependencies]
+cc = "1"
+[profile.release]
+opt-level = 3
+codegen-units = 1
+lto = false
+panic = "unwind"
+debug = false
+incremental = false

@@ -1,0 +1,31 @@
+{
+  "status": "PASS",
+  "command": "rustfmt +1.98.1 --edition 2021 --config hard_tabs=true,reorder_imports=false",
+  "scope": "Only leading whitespace changed. Expanding tabs to four-column stops reproduces the complete pre-format archive bytes. Measured source hashes retain the pre-redaction, pre-format bytes.",
+  "files": [
+    {
+      "archive": "probes/column-0205/polars/build.rs",
+      "measured_sha256": "5fb423793d56164d092336b52f6fa6ca032551dd1837bde0bbac8b02e9e4e465",
+      "pre_tab_archive_sha256": "4c65c68c06f375a7589c98342864fcce3a7a71920c76b0928de7a56f09d57134",
+      "post_tab_archive_sha256": "818ee13c7c0840ce962383b0111a8bef047ab4752b7409ecf6370e67746877ac",
+      "diff_w_empty": true,
+      "expandtabs_4_reconstructs_pre_tab_bytes": true
+    },
+    {
+      "archive": "probes/column-0205/polars/src/jit.rs",
+      "measured_sha256": "f2e4ec2c77fa2cb74a2e1b7cc2768346e17c267380289bf1b93b876c7ed161f0",
+      "pre_tab_archive_sha256": "f2e4ec2c77fa2cb74a2e1b7cc2768346e17c267380289bf1b93b876c7ed161f0",
+      "post_tab_archive_sha256": "e9d32317985b965a2bd972a891e5b372e3140308db829297bdce538f0fb79212",
+      "diff_w_empty": true,
+      "expandtabs_4_reconstructs_pre_tab_bytes": true
+    },
+    {
+      "archive": "probes/column-0205/polars/src/main.rs",
+      "measured_sha256": "05a43578c8642674954c6d873042d28d6a7a9ca3d272a2de1d994727ee17dcb7",
+      "pre_tab_archive_sha256": "05a43578c8642674954c6d873042d28d6a7a9ca3d272a2de1d994727ee17dcb7",
+      "post_tab_archive_sha256": "278468f7efddb328a932ba7db0655dcaae9b7a9d31c53a6e8bb4d9d9f059cc06",
+      "diff_w_empty": true,
+      "expandtabs_4_reconstructs_pre_tab_bytes": true
+    }
+  ]
+}

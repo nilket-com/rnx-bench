@@ -1,0 +1,11 @@
+[package]
+name = "column-0205-headline"
+version = "0.0.0"
+edition = "2024"
+publish = false
+build = "build.rs"
+[workspace]
+[dependencies]
+rnx = { path = "<RNX_ROOT>", default-features = false, features = ["count-allocations"] }
+[profile.release]
+debug = false

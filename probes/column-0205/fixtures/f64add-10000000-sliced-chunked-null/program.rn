@@ -1,0 +1,24 @@
+pub fn main(args) {
+let input0 = polars::Series::from_iter_option_f64([Some(1.0)])?.new_from_index(0, 5000003)?;
+input0.append(polars::Series::full_null("", 5000000, polars::DataType::Float64())?)?;
+let input0 = input0.slice(3, 10000000)?;
+let input1 = polars::Series::from_iter_option_f64([Some(2.0)])?.new_from_index(0, 10000005)?;
+let input1 = input1.slice(5, 10000000)?;
+let expected = polars::Series::from_iter_option_f64([Some(3.0)])?.new_from_index(0, 5000003)?;
+expected.append(polars::Series::full_null("", 5000000, polars::DataType::Float64())?)?;
+let expected = expected.slice(3, 10000000)?;
+let prep_start = time::monotonic_ms();
+let k = polars::column_kernel("pub fn map(x,y) { x + y }", "map", ["f64", "f64"], "f64")?;
+let prep_ms = time::monotonic_ms() - prep_start;
+println!("COLUMN_PREP ms={} {}", prep_ms, k.explain());
+for call in 0..2 {
+println!("COLUMN_ENTER {}", call);
+let started = time::monotonic_ms();
+let output = k.map([input0, input1])?;
+let elapsed_ms = time::monotonic_ms() - started;
+assert!(output.equals_missing(expected));
+assert_eq!(output.len()?, 10000000);
+println!("COLUMN_OK call={} ms={} {}", call, elapsed_ms, k.last_path());
+}
+Ok(())
+}

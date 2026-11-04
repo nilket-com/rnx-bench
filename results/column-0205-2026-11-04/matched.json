@@ -1,0 +1,699 @@
+{
+  "status": "PASS",
+  "records": [
+    {
+      "mode": "auto",
+      "rows": 10000000,
+      "profiled": false,
+      "thermal_stable": true,
+      "data": {
+        "status": "PASS",
+        "scope": "Rust host map: output allocation included; no Arrow wrapper; input and full validation excluded",
+        "mode": "auto",
+        "rows": 10000000,
+        "prepare_ns": 3163689,
+        "row_charge": 1,
+        "retained_bytes": 1968,
+        "samples": [
+          {
+            "call": 0,
+            "elapsed_ns": 28004508,
+            "cycles_raw": 79562347,
+            "pmu_enabled": 27994195,
+            "pmu_running": 27994195,
+            "path": "Some(Avx2)",
+            "output_capacity_bytes": 80000000,
+            "checksum": 13008665724074575509,
+            "cycles_valid": true
+          },
+          {
+            "call": 1,
+            "elapsed_ns": 26273360,
+            "cycles_raw": 79511629,
+            "pmu_enabled": 26254936,
+            "pmu_running": 26254936,
+            "path": "Some(Avx2)",
+            "output_capacity_bytes": 80000000,
+            "checksum": 13008665724074575509,
+            "cycles_valid": true
+          }
+        ]
+      },
+      "profiles": [],
+      "capture_sha256": "df15dcda803d0c8f50ffe14b0f2ad4ab067ce87e88945f1d19fe9ed4d7211518"
+    },
+    {
+      "mode": "auto",
+      "rows": 10000000,
+      "profiled": true,
+      "thermal_stable": true,
+      "data": {
+        "status": "PASS",
+        "scope": "Rust host map: output allocation included; no Arrow wrapper; input and full validation excluded",
+        "mode": "auto",
+        "rows": 10000000,
+        "prepare_ns": 344216964,
+        "row_charge": 1,
+        "retained_bytes": 1968,
+        "samples": [
+          {
+            "call": 0,
+            "elapsed_ns": 90448016,
+            "cycles_raw": 250293685,
+            "pmu_enabled": 61141725,
+            "pmu_running": 61141725,
+            "path": "Some(Avx2)",
+            "output_capacity_bytes": 80000000,
+            "checksum": 13008665724074575509
+          },
+          {
+            "call": 1,
+            "elapsed_ns": 62101598,
+            "cycles_raw": 244168212,
+            "pmu_enabled": 59794012,
+            "pmu_running": 59794012,
+            "path": "Some(Avx2)",
+            "output_capacity_bytes": 80000000,
+            "checksum": 13008665724074575509
+          }
+        ]
+      },
+      "profiles": [
+        {
+          "call": 0,
+          "sha256": "289f80cd81025e673ce4b95c742c7eada4d8970287dd74a40762c0a1f628a387",
+          "Ir": 22290127,
+          "Ir_per_row": 2.2290127
+        },
+        {
+          "call": 1,
+          "sha256": "51aeb6c58fba0a4fc33d114752ac4801c2d47d538e7182b5f6746e4657e95988",
+          "Ir": 22284522,
+          "Ir_per_row": 2.2284522
+        }
+      ],
+      "capture_sha256": "16db4d2268a4d3d88cca3568d4bc99898b21db05a1d034348e2bcf3277983847"
+    },
+    {
+      "mode": "portable",
+      "rows": 10000000,
+      "profiled": false,
+      "thermal_stable": true,
+      "data": {
+        "status": "PASS",
+        "scope": "Rust host map: output allocation included; no Arrow wrapper; input and full validation excluded",
+        "mode": "portable",
+        "rows": 10000000,
+        "prepare_ns": 3196983,
+        "row_charge": 1,
+        "retained_bytes": 1968,
+        "samples": [
+          {
+            "call": 0,
+            "elapsed_ns": 29070862,
+            "cycles_raw": 86053831,
+            "pmu_enabled": 29052523,
+            "pmu_running": 29052523,
+            "path": "Some(ScalarPrimitives)",
+            "output_capacity_bytes": 80000000,
+            "checksum": 13008665724074575509,
+            "cycles_valid": true
+          },
+          {
+            "call": 1,
+            "elapsed_ns": 27412076,
+            "cycles_raw": 85544063,
+            "pmu_enabled": 27410142,
+            "pmu_running": 27410142,
+            "path": "Some(ScalarPrimitives)",
+            "output_capacity_bytes": 80000000,
+            "checksum": 13008665724074575509,
+            "cycles_valid": true
+          }
+        ]
+      },
+      "profiles": [],
+      "capture_sha256": "cd2a01ca97c84d21055ee5308d82a228471b57c1848ab3fa049b0f59f4cdbbb7"
+    },
+    {
+      "mode": "portable",
+      "rows": 10000000,
+      "profiled": true,
+      "thermal_stable": true,
+      "data": {
+        "status": "PASS",
+        "scope": "Rust host map: output allocation included; no Arrow wrapper; input and full validation excluded",
+        "mode": "portable",
+        "rows": 10000000,
+        "prepare_ns": 344455889,
+        "row_charge": 1,
+        "retained_bytes": 1968,
+        "samples": [
+          {
+            "call": 0,
+            "elapsed_ns": 150877087,
+            "cycles_raw": 568660832,
+            "pmu_enabled": 121564578,
+            "pmu_running": 121564578,
+            "path": "Some(ScalarPrimitives)",
+            "output_capacity_bytes": 80000000,
+            "checksum": 13008665724074575509
+          },
+          {
+            "call": 1,
+            "elapsed_ns": 122535012,
+            "cycles_raw": 566165903,
+            "pmu_enabled": 120241792,
+            "pmu_running": 120241792,
+            "path": "Some(ScalarPrimitives)",
+            "output_capacity_bytes": 80000000,
+            "checksum": 13008665724074575509
+          }
+        ]
+      },
+      "profiles": [
+        {
+          "call": 0,
+          "sha256": "9af94b1c6b9ed462cd616d206cab8479c9f40fe725982e654ce2bc364c8b4ab0",
+          "Ir": 70824949,
+          "Ir_per_row": 7.0824949
+        },
+        {
+          "call": 1,
+          "sha256": "f20508fa6ad9b5448d52130133cc2bab5e83af26b5bd6d55f8bd4da9ed57cee4",
+          "Ir": 70819665,
+          "Ir_per_row": 7.0819665
+        }
+      ],
+      "capture_sha256": "a98a6b86461525f3f8558a9dd2faffc890ccd8afd367c44e6a7ea4b880055f95"
+    },
+    {
+      "mode": "reference",
+      "rows": 10000000,
+      "profiled": false,
+      "thermal_stable": true,
+      "data": {
+        "status": "PASS",
+        "scope": "Rust host map: output allocation included; no Arrow wrapper; input and full validation excluded",
+        "mode": "reference",
+        "rows": 10000000,
+        "prepare_ns": 3211621,
+        "row_charge": 1,
+        "retained_bytes": 1968,
+        "samples": [
+          {
+            "call": 0,
+            "elapsed_ns": 660329983,
+            "cycles_raw": 3415910890,
+            "pmu_enabled": 660220125,
+            "pmu_running": 660220125,
+            "path": "Some(ScalarFallback)",
+            "output_capacity_bytes": 80000000,
+            "checksum": 13008665724074575509,
+            "cycles_valid": true
+          },
+          {
+            "call": 1,
+            "elapsed_ns": 660398931,
+            "cycles_raw": 3416192865,
+            "pmu_enabled": 659847099,
+            "pmu_running": 659847099,
+            "path": "Some(ScalarFallback)",
+            "output_capacity_bytes": 80000000,
+            "checksum": 13008665724074575509,
+            "cycles_valid": true
+          }
+        ]
+      },
+      "profiles": [],
+      "capture_sha256": "9eab7fd48234e50ce2e72e550b6508949471b2b7aed1686a6a5f82315005595c"
+    },
+    {
+      "mode": "reference",
+      "rows": 10000000,
+      "profiled": true,
+      "thermal_stable": true,
+      "data": {
+        "status": "PASS",
+        "scope": "Rust host map: output allocation included; no Arrow wrapper; input and full validation excluded",
+        "mode": "reference",
+        "rows": 10000000,
+        "prepare_ns": 344165730,
+        "row_charge": 1,
+        "retained_bytes": 1968,
+        "samples": [
+          {
+            "call": 0,
+            "elapsed_ns": 28727952012,
+            "cycles_raw": 150586538870,
+            "pmu_enabled": 28641061899,
+            "pmu_running": 28641061899,
+            "path": "Some(ScalarFallback)",
+            "output_capacity_bytes": 80000000,
+            "checksum": 13008665724074575509
+          },
+          {
+            "call": 1,
+            "elapsed_ns": 29550098951,
+            "cycles_raw": 149810096800,
+            "pmu_enabled": 29513503784,
+            "pmu_running": 29513503784,
+            "path": "Some(ScalarFallback)",
+            "output_capacity_bytes": 80000000,
+            "checksum": 13008665724074575509
+          }
+        ]
+      },
+      "profiles": [
+        {
+          "call": 0,
+          "sha256": "2dcfb6d6301410dd3e6b5aef153c01c5bebdc08529e8891670093cdbea614271",
+          "Ir": 11342508347,
+          "Ir_per_row": 1134.2508347
+        },
+        {
+          "call": 1,
+          "sha256": "eef130de19b244ce0174f3f6dc75c1823adc02374b9af2691a202f45ad8e9200",
+          "Ir": 11342503070,
+          "Ir_per_row": 1134.250307
+        }
+      ],
+      "capture_sha256": "08e43f9e355299dc2dbf1de301c668ed94499ee1ad0971a7053f7dfe078912b2"
+    },
+    {
+      "mode": "polars",
+      "rows": 10000000,
+      "profiled": false,
+      "thermal_stable": true,
+      "data": {
+        "backend": "polars",
+        "checksum": 13008665724074575509,
+        "compile_ns": 88,
+        "cycles": 27779985,
+        "jit_address": null,
+        "jit_bytes": null,
+        "lanes": 2,
+        "measured_ns": 19673318,
+        "op": "i64add",
+        "pmu_enabled": 19665928,
+        "pmu_running": 19665928,
+        "repeat": 1,
+        "rows": 10000000,
+        "scope": "nonnull borrowed numeric slices/byte-aligned packed Bool; preallocated Rust/JIT output; eager Polars allocates output; checked arithmetic except wrapadd and Polars wrapping",
+        "status": "PASS",
+        "warm_alloc": {
+          "alloc": 5,
+          "realloc": 0,
+          "requested_bytes": 80000248
+        },
+        "cycles_valid": true
+      },
+      "profiles": [],
+      "capture_sha256": "199238100257ad89bcb43185e2466f67a5fe35180ac2982bcd21503cbd253486"
+    },
+    {
+      "mode": "polars",
+      "rows": 10000000,
+      "profiled": true,
+      "thermal_stable": true,
+      "data": {
+        "backend": "polars",
+        "checksum": 13008665724074575509,
+        "compile_ns": 73185,
+        "cycles": 78143476,
+        "jit_address": null,
+        "jit_bytes": null,
+        "lanes": 2,
+        "measured_ns": 38622348,
+        "op": "i64add",
+        "pmu_enabled": 29404101,
+        "pmu_running": 29404101,
+        "repeat": 1,
+        "rows": 10000000,
+        "scope": "nonnull borrowed numeric slices/byte-aligned packed Bool; preallocated Rust/JIT output; eager Polars allocates output; checked arithmetic except wrapadd and Polars wrapping",
+        "status": "PASS",
+        "warm_alloc": {
+          "alloc": 5,
+          "realloc": 0,
+          "requested_bytes": 80000248
+        }
+      },
+      "profiles": [
+        {
+          "call": 0,
+          "sha256": "fe970f4861272ae561a2b396d0f68c3207606f2059209caddbe36431c6f86761",
+          "Ir": 6876682,
+          "Ir_per_row": 0.6876682
+        }
+      ],
+      "capture_sha256": "bc6b5dd05f78071f931305c248d774c794f5eaa5b45d810e9505e470880f9f88"
+    },
+    {
+      "mode": "auto",
+      "rows": 100000000,
+      "profiled": false,
+      "thermal_stable": true,
+      "data": {
+        "status": "PASS",
+        "scope": "Rust host map: output allocation included; no Arrow wrapper; input and full validation excluded",
+        "mode": "auto",
+        "rows": 100000000,
+        "prepare_ns": 3214422,
+        "row_charge": 1,
+        "retained_bytes": 1968,
+        "samples": [
+          {
+            "call": 0,
+            "elapsed_ns": 266891683,
+            "cycles_raw": 798706869,
+            "pmu_enabled": 266853314,
+            "pmu_running": 266853314,
+            "path": "Some(Avx2)",
+            "output_capacity_bytes": 800000000,
+            "checksum": 16112499863810165262,
+            "cycles_valid": true
+          },
+          {
+            "call": 1,
+            "elapsed_ns": 265868586,
+            "cycles_raw": 801291997,
+            "pmu_enabled": 265832639,
+            "pmu_running": 265832639,
+            "path": "Some(Avx2)",
+            "output_capacity_bytes": 800000000,
+            "checksum": 16112499863810165262,
+            "cycles_valid": true
+          }
+        ]
+      },
+      "profiles": [],
+      "capture_sha256": "ab527fa5bc6191ff822ce93701af194bcc6e68a51124dfe42613bb853ae2b362"
+    },
+    {
+      "mode": "auto",
+      "rows": 100000000,
+      "profiled": true,
+      "thermal_stable": true,
+      "data": {
+        "status": "PASS",
+        "scope": "Rust host map: output allocation included; no Arrow wrapper; input and full validation excluded",
+        "mode": "auto",
+        "rows": 100000000,
+        "prepare_ns": 344930228,
+        "row_charge": 1,
+        "retained_bytes": 1968,
+        "samples": [
+          {
+            "call": 0,
+            "elapsed_ns": 519591680,
+            "cycles_raw": 1897796696,
+            "pmu_enabled": 489658507,
+            "pmu_running": 489658507,
+            "path": "Some(Avx2)",
+            "output_capacity_bytes": 800000000,
+            "checksum": 16112499863810165262
+          },
+          {
+            "call": 1,
+            "elapsed_ns": 491799671,
+            "cycles_raw": 1896631108,
+            "pmu_enabled": 489466230,
+            "pmu_running": 489466230,
+            "path": "Some(Avx2)",
+            "output_capacity_bytes": 800000000,
+            "checksum": 16112499863810165262
+          }
+        ]
+      },
+      "profiles": [
+        {
+          "call": 0,
+          "sha256": "6a5740c7304cc4f84b537edcd530b79aa62437138b6babc7c1a8d0e1b544df24",
+          "Ir": 222592924,
+          "Ir_per_row": 2.22592924
+        },
+        {
+          "call": 1,
+          "sha256": "89aad9f6a3b1044c81f9971fd083ec15fe4ab7c186bf285a7f86711fcdcf481f",
+          "Ir": 222587319,
+          "Ir_per_row": 2.22587319
+        }
+      ],
+      "capture_sha256": "682f33a59edd23cdd94ff43b2bb7761d75f44e1843e52a5c04c897587d53f27f"
+    },
+    {
+      "mode": "portable",
+      "rows": 100000000,
+      "profiled": false,
+      "thermal_stable": true,
+      "data": {
+        "status": "PASS",
+        "scope": "Rust host map: output allocation included; no Arrow wrapper; input and full validation excluded",
+        "mode": "portable",
+        "rows": 100000000,
+        "prepare_ns": 3131214,
+        "row_charge": 1,
+        "retained_bytes": 1968,
+        "samples": [
+          {
+            "call": 0,
+            "elapsed_ns": 268748883,
+            "cycles_raw": 809871052,
+            "pmu_enabled": 268730859,
+            "pmu_running": 268730859,
+            "path": "Some(ScalarPrimitives)",
+            "output_capacity_bytes": 800000000,
+            "checksum": 16112499863810165262,
+            "cycles_valid": true
+          },
+          {
+            "call": 1,
+            "elapsed_ns": 268417738,
+            "cycles_raw": 816280232,
+            "pmu_enabled": 268386292,
+            "pmu_running": 268386292,
+            "path": "Some(ScalarPrimitives)",
+            "output_capacity_bytes": 800000000,
+            "checksum": 16112499863810165262,
+            "cycles_valid": true
+          }
+        ]
+      },
+      "profiles": [],
+      "capture_sha256": "d665a8fb82fed79db89495f1219a03615db48a8bab23cc81b929672329d4537d"
+    },
+    {
+      "mode": "portable",
+      "rows": 100000000,
+      "profiled": true,
+      "thermal_stable": true,
+      "data": {
+        "status": "PASS",
+        "scope": "Rust host map: output allocation included; no Arrow wrapper; input and full validation excluded",
+        "mode": "portable",
+        "rows": 100000000,
+        "prepare_ns": 344229425,
+        "row_charge": 1,
+        "retained_bytes": 1968,
+        "samples": [
+          {
+            "call": 0,
+            "elapsed_ns": 1133562378,
+            "cycles_raw": 5139916168,
+            "pmu_enabled": 1104149558,
+            "pmu_running": 1104149558,
+            "path": "Some(ScalarPrimitives)",
+            "output_capacity_bytes": 800000000,
+            "checksum": 16112499863810165262
+          },
+          {
+            "call": 1,
+            "elapsed_ns": 1111003711,
+            "cycles_raw": 5162798747,
+            "pmu_enabled": 1108554791,
+            "pmu_running": 1108554791,
+            "path": "Some(ScalarPrimitives)",
+            "output_capacity_bytes": 800000000,
+            "checksum": 16112499863810165262
+          }
+        ]
+      },
+      "profiles": [
+        {
+          "call": 0,
+          "sha256": "397ad5fb4da9c671b475eaf8b77ca4e9a20706c7bedecca0af415c174e409158",
+          "Ir": 707944144,
+          "Ir_per_row": 7.07944144
+        },
+        {
+          "call": 1,
+          "sha256": "a72460ddca4eccee895d6749ecbe9affb976d717564f1cdd31942566f2dc6708",
+          "Ir": 707938860,
+          "Ir_per_row": 7.0793886
+        }
+      ],
+      "capture_sha256": "904012d3166c665c0c6891869e604e99f01c16d2ad28650ca4ad57a03adaa1f3"
+    },
+    {
+      "mode": "reference",
+      "rows": 100000000,
+      "profiled": false,
+      "thermal_stable": true,
+      "data": {
+        "status": "PASS",
+        "scope": "Rust host map: output allocation included; no Arrow wrapper; input and full validation excluded",
+        "mode": "reference",
+        "rows": 100000000,
+        "prepare_ns": 3162778,
+        "row_charge": 1,
+        "retained_bytes": 1968,
+        "samples": [
+          {
+            "call": 0,
+            "elapsed_ns": 6579868756,
+            "cycles_raw": 34063659411,
+            "pmu_enabled": 6577559676,
+            "pmu_running": 6577559676,
+            "path": "Some(ScalarFallback)",
+            "output_capacity_bytes": 800000000,
+            "checksum": 16112499863810165262,
+            "cycles_valid": true
+          },
+          {
+            "call": 1,
+            "elapsed_ns": 6601214467,
+            "cycles_raw": 34062694817,
+            "pmu_enabled": 6576833117,
+            "pmu_running": 6576833117,
+            "path": "Some(ScalarFallback)",
+            "output_capacity_bytes": 800000000,
+            "checksum": 16112499863810165262,
+            "cycles_valid": true
+          }
+        ]
+      },
+      "profiles": [],
+      "capture_sha256": "a58d6c59ec59664fb077b8c16f7fb64a638e112a3700219c6364f67b9cfa6364"
+    },
+    {
+      "mode": "reference",
+      "rows": 100000000,
+      "profiled": true,
+      "thermal_stable": false,
+      "data": {
+        "status": "PASS",
+        "scope": "Rust host map: output allocation included; no Arrow wrapper; input and full validation excluded",
+        "mode": "reference",
+        "rows": 100000000,
+        "prepare_ns": 345009849,
+        "row_charge": 1,
+        "retained_bytes": 1968,
+        "samples": [
+          {
+            "call": 0,
+            "elapsed_ns": 299981970967,
+            "cycles_raw": 1509900697467,
+            "pmu_enabled": 299537019951,
+            "pmu_running": 299537019951,
+            "path": "Some(ScalarFallback)",
+            "output_capacity_bytes": 800000000,
+            "checksum": 16112499863810165262
+          },
+          {
+            "call": 1,
+            "elapsed_ns": 298347048427,
+            "cycles_raw": 1504923077048,
+            "pmu_enabled": 297963844961,
+            "pmu_running": 297963844961,
+            "path": "Some(ScalarFallback)",
+            "output_capacity_bytes": 800000000,
+            "checksum": 16112499863810165262
+          }
+        ]
+      },
+      "profiles": [
+        {
+          "call": 0,
+          "sha256": "fd05cf05221ffa5c585bbd15a662eb016c5dcd8055b0b39e9094dd3a6171e26b",
+          "Ir": 113425008347,
+          "Ir_per_row": 1134.25008347
+        },
+        {
+          "call": 1,
+          "sha256": "544a6232100d10200891f2d508daf75d58575fe70082bd15b046c5eed6fef6aa",
+          "Ir": 113425003070,
+          "Ir_per_row": 1134.2500307
+        }
+      ],
+      "capture_sha256": "9deb111573379015635577b53edef8dd1e78721e44c5ff84bf24f1000c1b0de5"
+    },
+    {
+      "mode": "polars",
+      "rows": 100000000,
+      "profiled": false,
+      "thermal_stable": true,
+      "data": {
+        "backend": "polars",
+        "checksum": 16112499863810165262,
+        "compile_ns": 107,
+        "cycles": 264114237,
+        "jit_address": null,
+        "jit_bytes": null,
+        "lanes": 2,
+        "measured_ns": 186579110,
+        "op": "i64add",
+        "pmu_enabled": 186521703,
+        "pmu_running": 186521703,
+        "repeat": 1,
+        "rows": 100000000,
+        "scope": "nonnull borrowed numeric slices/byte-aligned packed Bool; preallocated Rust/JIT output; eager Polars allocates output; checked arithmetic except wrapadd and Polars wrapping",
+        "status": "PASS",
+        "warm_alloc": {
+          "alloc": 5,
+          "realloc": 0,
+          "requested_bytes": 800000248
+        },
+        "cycles_valid": true
+      },
+      "profiles": [],
+      "capture_sha256": "3891b38b252644e2f27b1e5ffc49dc41535cbc96bc16ab1d4f532ef3c9f96c03"
+    },
+    {
+      "mode": "polars",
+      "rows": 100000000,
+      "profiled": true,
+      "thermal_stable": true,
+      "data": {
+        "backend": "polars",
+        "checksum": 16112499863810165262,
+        "compile_ns": 73788,
+        "cycles": 586374683,
+        "jit_address": null,
+        "jit_bytes": null,
+        "lanes": 2,
+        "measured_ns": 255935836,
+        "op": "i64add",
+        "pmu_enabled": 246676022,
+        "pmu_running": 246676022,
+        "repeat": 1,
+        "rows": 100000000,
+        "scope": "nonnull borrowed numeric slices/byte-aligned packed Bool; preallocated Rust/JIT output; eager Polars allocates output; checked arithmetic except wrapadd and Polars wrapping",
+        "status": "PASS",
+        "warm_alloc": {
+          "alloc": 5,
+          "realloc": 0,
+          "requested_bytes": 800000248
+        }
+      },
+      "profiles": [
+        {
+          "call": 0,
+          "sha256": "328cdadff9701e26f9874f5aa90c553d97325f80f87ac135d7a5e47870eb8327",
+          "Ir": 68751682,
+          "Ir_per_row": 0.68751682
+        }
+      ],
+      "capture_sha256": "c8be627fde0d273de6307c97c081e3686c7ce67ccbfabb0dd246144e7f9cb559"
+    }
+  ]
+}

@@ -1,0 +1,65 @@
+{
+  "rnx": "bc0fada750c6fa50f2b0e765a2985155bd933e00",
+  "rune": "1b4b66bd3657868ecb1d49f8b3f355585b3ec98d",
+  "polars": "7f902bd3ffd27ff82d14278a09a295ff2f7aed92",
+  "host": "Intel i7-14700 measurement host",
+  "cpu_affinity": 2,
+  "compiler": "rustc 1.98.1, LLVM 22.1.8",
+  "rustflags": [],
+  "capture_product_source": "cb3199b7db5eece4fd41e9610f6dcfb139c7cf26",
+  "capture_host_source": "486913ba8c8adb3e4aec37c67f2463f3acbbf517",
+  "binaries": {
+    "cli": "544f4909ac58f4316b5a829cc71008ab7eea523d2978fcec2aa965c7a493ae08",
+    "host": "90ca6e8b200c70afc7d0e3d3aeb0bcbfdc2458124d17d235b210994bbb71b0b0",
+    "polars": "3787e791f6a57a27eb1c116368ff488861cffdf17874cea1700403fd01011642"
+  },
+  "acceptance": "PASS",
+  "identity": {
+    "criterion": "same-directory paired .text and .rodata identity",
+    "baseline": "70e6c6cae154f1efa140e118aabe72ea9542f78e",
+    "candidate": "2582f7924c231b2890e5662dd5e74c1e789e1580",
+    "whole_binary_identical": false,
+    "sections": {
+      ".text": {
+        "size": 95465998,
+        "sha256": "fc69eb7234d7a66b0856bbfe2a00beede2a03f2db885ffd69daa42a0f3f744c7"
+      },
+      ".rodata": {
+        "size": 4989528,
+        "sha256": "08345a1ef2f07065b400ad01dd9ad056752c31d8182edfcedb8c86721dfdeb7a"
+      }
+    }
+  },
+  "existing_path": {
+    "raw_status": "FAIL",
+    "reviewed_status": "ACCEPTED_ATTRIBUTED",
+    "rulings": [
+      26301,
+      26367
+    ],
+    "exception_groups": [
+      "callback +10 Ir/row: inlining drift",
+      "payload +1 Ir/access: Rune-pin code generation",
+      "fib and permute allocator variation"
+    ]
+  },
+  "f64_constant": {
+    "status": "PASS",
+    "observations": [
+      "COLUMN_OK call=0 ms=0 path=avx2; completed=true; rows=4096; valid_rows=4096; attempts=1; replays=0; refusal=None",
+      "COLUMN_OK call=1 ms=0 path=avx2; completed=true; rows=4096; valid_rows=4096; attempts=1; replays=0; refusal=None"
+    ],
+    "fixture_sha256": "4408b635dbdd5a96d75ae8f7940a661a9b5c73734ad8b5677e1d67ec23416f8f"
+  },
+  "original_receipt_sha256": {
+    "cli-large": "0d1aa7f210d23c48ef7c7b196d62fcd0e8f56a0ae74e3027a8d3fccfc6e36b89",
+    "matched-full": "f1de41b0c4f77f3b805c6a2082c76447bf3539d9efd2312d4760d468ed69d17a",
+    "allocation-proof": "39ec87e9c6de6100017a0411ba45342a0221871ab0a547ac2077395465ab4c43",
+    "production-pair": "88631e7bacfacc3bcbfc20351325324443e4013fbc5239de90fd0cd8d7685cab",
+    "final-acceptance": "5357aaaa66237edcfd693aa8237fba49a3130d23c6f761885d44b1bb12422613",
+    "existing-path-raw": "a1707f1663b93f7e62eaccf869ebb77e272a7c9f442e95150c23d3b791f07058",
+    "existing-path-reviewed": "1e32f95e624a93b9dc34c2ad3dd25ff51fb7310a7c5ea019e8e992d4c3857dd0",
+    "f64-constant-witness": "a0490e5ec8223715769007b36e82d2ae3ac5fa7deeee0f0e45275a188db5f63d"
+  },
+  "preserved_n6_matrix_sha256": "ec57eeeed3bce0ec25c22f24ed2c37b1a5f24e3a5ae2cc9e10e4a4e34a4ab470"
+}

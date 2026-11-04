@@ -3,11 +3,47 @@
 Measurements of rnx and the Rune engine against other dynamic runtimes, with
 rerunnable harnesses, output checks and retained results.
 
-rnx `c32a6ba7` pins public [Rune N6](https://github.com/nilket-com/rune/commit/a68e739e6213dd02877258503f16df7ddaae6fc7).
+The whole-process matrix uses rnx `c32a6ba7`, which pins public [Rune N6](https://github.com/nilket-com/rune/commit/a68e739e6213dd02877258503f16df7ddaae6fc7).
 `rnx run` enables its native tier by default. The same binary supports
 `--native=off` and `--engine=legacy`. The pinned production binary passed native
 entry/return witnesses for permute and two additional method fixtures, including
 a field loop with the default native setting and budget.
+
+## Column kernels — 2026-11-04
+
+<!-- column-summary:start -->
+
+Published **rnx 0205 `bc0fada` / Rune `1b4b66bd`** adds the explicit
+`polars::column_kernel(...).map(...)` path for borrowed numeric/Boolean columns.
+The following warm `x + 1` measurements process **100 million non-null i64 rows**
+and include output allocation. Input construction and validation are outside
+the interval. These are individual calls, not repeated-sample means.
+
+| Path | Warm ms | Instructions/row |
+|---|---:|---:|
+| Actual Rune CLI map | 268 | 2.228 |
+| Rune host AVX2 | 265.869 | 2.226 |
+| Rune per-row | 6601.214 | 1134.250 |
+| Polars py-2.1.0 | 186.579 | 0.688 |
+
+On these warm measurements, Rune host AVX2 is 24.83× faster than per-row Rune; Polars is 1.42× faster than Rune host AVX2. These are ratios of individual measured calls, not statistical rankings.
+
+The matched host/Polars comparison uses varied inputs; the CLI uses constant
+inputs and includes Arrow adaptation and the worker join. Host timing excludes
+Arrow wrapping/output destruction; Polars eager assignment includes dropping
+the prior output. Polars wraps integers, while Rune checks overflow; these inputs
+do not overflow. Build recipes differ. No one-instruction-per-row claim is made.
+
+The full report includes 10M/100M first and warm calls, preparation, all twenty
+CLI cases, selected paths, null/slice/chunk costs, allocation proofs and thermal
+exclusions. Large CLI cases set `--budget 1000000000`; the default remains
+2,000,000. User-cycle counts exclude kernel page-fault time. Existing-path
+publication includes three explicitly attributed performance exceptions.
+
+[Results, limits and archived evidence](results/column-0205-2026-11-04.md).
+The older whole-process N6 matrix below retains its original binary and numbers.
+
+<!-- column-summary:end -->
 
 ## Current cross-runtime matrix
 

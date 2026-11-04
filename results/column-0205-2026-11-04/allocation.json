@@ -1,0 +1,78 @@
+[
+  {
+    "rows": 10000000,
+    "auto": {
+      "scalar_entry_functions": {},
+      "malloc_calls": 8,
+      "kernel_blocks": 9766
+    },
+    "reference": {
+      "scalar_entry_functions": {
+        "<rnx::column::scalar::Engine>::call": {
+          "self_Ir": 1590000000,
+          "calls": 10000000
+        },
+        "<rune::experimental_core::execute::Executor>::invoke": {
+          "self_Ir": 1350000000,
+          "calls": 10000000
+        },
+        "<rune::experimental_core::execute::Executor>::invoke_args::<false, false, false, false, rune::experimental_core::region::cache::recursion::RecursiveProgram>::{closure#0}": {
+          "self_Ir": 2710000000,
+          "calls": 10000000
+        },
+        "<rnx::column::scalar::Engine>::new": {
+          "self_Ir": 153,
+          "calls": 1
+        },
+        "core::ptr::drop_glue::<rnx::column::scalar::Engine>": {
+          "self_Ir": 55,
+          "calls": 1
+        },
+        "rnx::column::scalar::run::<column_0205_headline::main::{closure#1}>": {
+          "self_Ir": 770000151,
+          "calls": 1
+        }
+      },
+      "malloc_calls": 7,
+      "kernel_blocks": 0
+    }
+  },
+  {
+    "rows": 100000000,
+    "auto": {
+      "scalar_entry_functions": {},
+      "malloc_calls": 8,
+      "kernel_blocks": 97657
+    },
+    "reference": {
+      "scalar_entry_functions": {
+        "<rnx::column::scalar::Engine>::call": {
+          "self_Ir": 15900000000,
+          "calls": 100000000
+        },
+        "<rune::experimental_core::execute::Executor>::invoke": {
+          "self_Ir": 13500000000,
+          "calls": 100000000
+        },
+        "<rune::experimental_core::execute::Executor>::invoke_args::<false, false, false, false, rune::experimental_core::region::cache::recursion::RecursiveProgram>::{closure#0}": {
+          "self_Ir": 27100000000,
+          "calls": 100000000
+        },
+        "<rnx::column::scalar::Engine>::new": {
+          "self_Ir": 153,
+          "calls": 1
+        },
+        "core::ptr::drop_glue::<rnx::column::scalar::Engine>": {
+          "self_Ir": 55,
+          "calls": 1
+        },
+        "rnx::column::scalar::run::<column_0205_headline::main::{closure#1}>": {
+          "self_Ir": 7700000151,
+          "calls": 1
+        }
+      },
+      "malloc_calls": 7,
+      "kernel_blocks": 0
+    }
+  }
+]
