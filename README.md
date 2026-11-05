@@ -9,7 +9,35 @@ The whole-process matrix uses rnx `c32a6ba7`, which pins public [Rune N6](https:
 entry/return witnesses for permute and two additional method fixtures, including
 a field loop with the default native setting and budget.
 
-## Column kernels — 2026-11-04
+## Column kernels — 2026-11-05
+
+<!-- column-0206:start -->
+
+Published **rnx 0206 `002584a` / Rune `fed878b5`** improves nullable
+column kernels, adds typed two-input F64 arithmetic and checked constant
+multiplication, and counts output validity in words. The explicit
+`polars::column_kernel(...).map(...)` API is unchanged.
+
+The table below reports **instructions per row at 100 million rows**, including
+Arrow adaptation, output allocation and worker join. Input construction,
+preparation and validation are outside the map interval. First and warm calls
+are separate; these are individual calls, not repeated-sample means.
+
+| Kernel / layout | 0205 first | 0206 first | 0205 warm | 0206 warm |
+|---|---:|---:|---:|---:|
+| checked x+1 / flat | 2.228 | 2.219 | 2.228 | 2.219 |
+| checked x*2+y / flat | 3.788 | 3.778 | 3.788 | 3.778 |
+| checked x*3+y / flat | 91.062 | 10.732 | 91.062 | 10.732 |
+| F64 x+1.0 / flat | 1.284 | 1.278 | 1.284 | 1.278 |
+| F64 x+y / flat | 66.559 | 1.618 | 66.559 | 1.618 |
+| packed !x / flat | 0.065 | 0.065 | 0.065 | 0.065 |
+
+[Full nullable-layout matrix, timing caveats and evidence hashes](results/column-0206-2026-11-05.md).
+The historical 0205 host/Polars comparison below has not been remeasured.
+
+<!-- column-0206:end -->
+
+## Historical column comparison — 2026-11-04
 
 <!-- column-summary:start -->
 

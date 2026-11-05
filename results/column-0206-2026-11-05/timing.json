@@ -1,0 +1,59 @@
+{
+  "scope": "whole CLI process: startup, input creation, two map calls, validation and teardown; not kernel-only",
+  "samples": [
+    {
+      "kind": "i64add",
+      "rows": 10000000,
+      "layout": "alternating",
+      "role": "baseline",
+      "wall_seconds": null,
+      "user_cycles": 1331502743,
+      "binary_sha256": "c979aa34247dae1332af59ba7e16d8a679f163c612338d96545c6e735b47cbca",
+      "fixture_sha256": "cf5a1629debe5353c81046e56e98bbb7a9e3eb08fab5bd5d6cbe86389b7db9ec",
+      "output_sha256": "17b93ded6be14b054203ff39355f638867a1080bb4bdf2dd9d53b5f476c6270e",
+      "perf_sha256": "83423883acfe88d7b96599a65055a47d301fcd3ba2de0d4bb604c55745f346ef",
+      "single_sample": true
+    },
+    {
+      "kind": "i64add",
+      "rows": 10000000,
+      "layout": "alternating",
+      "role": "candidate",
+      "wall_seconds": 0.3169036339968443,
+      "user_cycles": 683221117,
+      "binary_sha256": "75a8905e96a2370481c1a8e430b4a5d23f8f1bd0b36a8ca1123435b0575b5182",
+      "fixture_sha256": "cf5a1629debe5353c81046e56e98bbb7a9e3eb08fab5bd5d6cbe86389b7db9ec",
+      "output_sha256": "17b93ded6be14b054203ff39355f638867a1080bb4bdf2dd9d53b5f476c6270e",
+      "perf_sha256": "8170b8613d2e7925978d907a99c4cfb3e1100ebeb4f88af8025013aef3a5ed35",
+      "single_sample": true
+    },
+    {
+      "kind": "i64add",
+      "rows": 10000000,
+      "layout": "flat",
+      "role": "baseline",
+      "wall_seconds": null,
+      "user_cycles": 345337324,
+      "binary_sha256": "c979aa34247dae1332af59ba7e16d8a679f163c612338d96545c6e735b47cbca",
+      "fixture_sha256": "fac897489b2fb9929273c0d94d6d1365b3a32fd7cbcf03fc4e68b85cfdc709d3",
+      "output_sha256": "600f2f2c2518b76a79c3be08caea5a03d9d65a0c061caf6aac782fda0d5640d5",
+      "perf_sha256": "3e7a762ffca7a4714f3434bfc0d7ad061de54db1832922066522f07dc5a67168",
+      "single_sample": true
+    },
+    {
+      "kind": "i64add",
+      "rows": 10000000,
+      "layout": "flat",
+      "role": "candidate",
+      "wall_seconds": 0.16613815631717443,
+      "user_cycles": 357100470,
+      "binary_sha256": "75a8905e96a2370481c1a8e430b4a5d23f8f1bd0b36a8ca1123435b0575b5182",
+      "fixture_sha256": "fac897489b2fb9929273c0d94d6d1365b3a32fd7cbcf03fc4e68b85cfdc709d3",
+      "output_sha256": "d32478f4101f68b69e3970b5658f03af3bfc668a948352383a20ac3775998dd0",
+      "perf_sha256": "6b6e1d94107630d24638a164e29f685770da789a2202423fc263799d2f6fb710",
+      "single_sample": true
+    }
+  ],
+  "source_receipt_sha256": "419db5871277ba37eea897b8f3076c4a263911f8e284a9e1c3f91c5cb53cbeda",
+  "baseline_wall_note": "Not persisted before reporting errors; successful measurements were retained without repeating."
+}
