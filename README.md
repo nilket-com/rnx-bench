@@ -9,6 +9,56 @@ The whole-process matrix uses rnx `c32a6ba7`, which pins public [Rune N6](https:
 entry/return witnesses for permute and two additional method fixtures, including
 a field loop with the default native setting and budget.
 
+<!-- column-0215:start -->
+## Flat numeric output initialization — ADR 0215
+
+Published rnx **`956ed4d5`** removes the initial zero fill for specialized flat
+numeric outputs. Each primitive writes its whole block before the output becomes
+visible. Generic, masked and Boolean outputs keep initialized storage. The record
+also makes bounded null clearing explicit and separates masked-float entry signatures.
+
+Whole-map instructions per row at **100 million rows**, including adaptation,
+per-map preparation, allocation and worker join; input construction, initial
+kernel compilation and output validation are outside the measured interval.
+
+| Kernel | 0214 first / warm | 0216 first / warm | 0215 first / warm | Warm reduction vs 0216 |
+|---|---:|---:|---:|---:|
+| I64 x+1 | 2.208 / 2.208 | 2.204 / 2.204 | 1.726 / 1.726 | 21.7% |
+| I64 x*2+y | 3.768 / 3.768 | 3.764 / 3.764 | 3.237 / 3.237 | 14.0% |
+| F64 x+1.0 | 1.267 / 1.267 | 1.267 / 1.267 | 0.782 / 0.782 | 38.2% |
+| F64 x+y | 1.607 / 1.607 | 1.607 / 1.607 | 1.085 / 1.085 | 32.5% |
+
+Quiet single-process-sample wall times for the same 100M-row map, in milliseconds
+(first / warm). These are descriptive observations, not statistical estimates.
+
+| Kernel | 0214 | 0216 | 0215 |
+|---|---:|---:|---:|
+| I64 x+1 | 280 / 276 | 279 / 275 | 199 / 195 |
+| I64 x*2+y | 286 / 305 | 327 / 291 | 210 / 207 |
+| F64 x+1.0 | 280 / 276 | 279 / 274 | 199 / 194 |
+| F64 x+y | 287 / 284 | 287 / 285 | 202 / 198 |
+
+The complete 10M/100M matrix passed reviewed program checks against both baselines,
+whole-map ceilings and applicable system-library checks. Unchanged paths retain
+reviewed, exactly attributed setup costs of 17–82 instructions per call; no per-row
+or per-block allowance was needed. Correctness, targeted Miri and host checks passed.
+
+[Complete matrix, first/warm timings and evidence hashes](results/column-0215-summary.json).
+
+Limitations from the approved publication packet:
+
+- Timing single serial sample per binary/kernel with first/warm map milliseconds; descriptive, not statistical or a general workload claim.
+- Old VM benchmarks not remeasured: production scope column primitives and output allocation/execution.
+- Fixed reviewed setup costs17..82 Ir/call pinned to measured candidate and exact function vectors; no per-block allowance.
+- Baseline shape mismatch retained under explicit review; two-composition and exact loop gates pass.
+- Safety uses portable Miri plus native/portable controls; Miri does not execute AVX2.
+- 0216 prerequisite only measured4096/65536;0215 measured10M/100M against both published0216 and original0214.
+
+Measured candidate: `89182b3b3235cdbf66b3312f844792608d6f1e12`. The published commit adds only the reviewed
+scorer, policy and tests. This is not a new cross-runtime comparison.
+
+<!-- column-0215:end -->
+
 ## Constant integer arithmetic in masked chains — ADR 0214
 
 Published rnx **`99790566`** vectorizes constant integer addition and subtraction
