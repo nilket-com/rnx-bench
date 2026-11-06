@@ -9,6 +9,58 @@ The whole-process matrix uses rnx `c32a6ba7`, which pins public [Rune N6](https:
 entry/return witnesses for permute and two additional method fixtures, including
 a field loop with the default native setting and budget.
 
+## Constant integer arithmetic in masked chains — ADR 0214
+
+Published rnx **`99790566`** vectorizes constant integer addition and subtraction
+in generic masked chains, including constants on either side. Invalid input
+lanes are replaced with zero for addition and the constant for subtraction, so
+null payloads cannot trigger arithmetic overflow. Valid overflow still triggers
+a bounded scalar rescan and the existing first-fault replay. Final null output
+values remain zero; standalone specialized `x+c` is unchanged.
+
+Whole-map **instructions per row at 100 million rows**, including Arrow adaptation,
+per-map plan preparation, output allocation and worker join. Input construction,
+initial kernel compilation and result validation are outside this interval.
+
+| Expression | Input | 0213 first | 0214 first | 0213 warm | 0214 warm |
+|---|---|---:|---:|---:|---:|
+| `(x+y)+1` | benign | 33.282 | 22.375 | 33.282 | 22.375 |
+| `(x+y)+1` | adversarial | 33.282 | 22.375 | 33.282 | 22.375 |
+| `1+(x+y)` | benign | 33.266 | 22.438 | 33.266 | 22.438 |
+| `1+(x+y)` | adversarial | 33.266 | 22.438 | 33.266 | 22.438 |
+| `(x+y)-1` | benign | 33.266 | 22.344 | 33.266 | 22.344 |
+| `(x+y)-1` | adversarial | 33.266 | 22.344 | 33.266 | 22.344 |
+| `1-(x+y)` | benign | 33.250 | 22.407 | 33.250 | 22.407 |
+| `1-(x+y)` | adversarial | 33.250 | 22.407 | 33.250 | 22.407 |
+
+Across 10M and 100M rows, first/warm calls and both input patterns, these four
+expressions use **32.5–32.8% fewer instructions** (22.34–22.44 Ir/row). All meet
+both approved targets: at most 32 Ir/row and at most 80% of the same-expression
+baseline. These are instruction counts, not elapsed-time or cross-runtime claims.
+
+The benign fixture alternates valid `x=1` with nulls and uses `y=2`. The adversarial
+twin places MAX (addition) or MIN (subtraction) in `y` where `x` is null: the
+preceding pair add stays representable, but constant arithmetic would overflow
+without neutralization. Both compare the complete output and valid-row counts.
+Profiles at 4,096 and 65,536 rows prove zero scalar rescans for benign and null-only
+overflow inputs. Separate valid-overflow fixtures prove exactly one rescan per
+call and arithmetic replay, in all four shapes and first/warm calls.
+
+The protected six-kernel 10M/100M matrix has no program-plus-unknown instruction
+growth; existing numeric ceilings and system-library bounds remain enforced.
+No new preparation exceptions apply. The archived raw strict-improvement failure
+is retained alongside the approved non-regression verdict.
+
+Baseline: `49eb4453cf333e926357ecd71448175449d5a07c`.
+Measured candidate: `019d729e2944b0baf4fd573274ab49bad6d7bf63`.
+Published candidate: `99790566bbf72e1b1431df95fd0a6e4e89ad7e0b` differs only in
+two scoring/control files; measured production source is unchanged.
+[Full first/warm matrices, rescan witnesses and provenance hashes](results/column-0214-summary.json).
+
+Output zero-initialization remains; generic F64/Bool expansion is outside this
+record. **Old-path benchmarks not re-measured for 0214 (column-only source scope).**
+The reports below describe their original revisions.
+
 ## Mixed-mask integer SIMD — ADR 0213
 
 Published rnx **`49eb4453`** runs supported generic integer nodes with checked
