@@ -1,0 +1,2156 @@
+{
+  "baseline": "9b161210578a53d010e6c4ea8ab61d6bb01f9c8a",
+  "measured_candidate": "1d2bc05e79b7a75cb6b11dddc6b0a5a4e0025cdd",
+  "published_candidate": "0f95d955081fd21d43b04bba6b5fac6f1b6bc084",
+  "source_receipt_sha256": "f3dafc7763e7449b25b1565393fd9c135571d809df5f55628bf44cf8c4d33fa8",
+  "build_receipt_sha256": "73e05c683afa4d6ff25d3cb9dfd7899515cf7e5635fe7f6cd153b4d1e651cc22",
+  "binaries": [
+    {
+      "role": "baseline",
+      "source_commit": "9b161210578a53d010e6c4ea8ab61d6bb01f9c8a",
+      "sha256": "afb7fb19da28b04a419a2c5e24456ee7b6ace9e248e341623d14f9f55046ce8c",
+      "command": [
+        "cargo",
+        "+1.98.1",
+        "build",
+        "--locked",
+        "--release",
+        "--manifest-path",
+        "adapters/polars/Cargo.toml",
+        "--bin",
+        "rnx-polars"
+      ]
+    },
+    {
+      "role": "candidate",
+      "source_commit": "1d2bc05e79b7a75cb6b11dddc6b0a5a4e0025cdd",
+      "sha256": "169f7f82956216a33edbb8d19a1129a970e4bfce98b665be0de08721e3447f13",
+      "command": [
+        "cargo",
+        "+1.98.1",
+        "build",
+        "--locked",
+        "--release",
+        "--manifest-path",
+        "adapters/polars/Cargo.toml",
+        "--bin",
+        "rnx-polars"
+      ]
+    }
+  ],
+  "rows": [
+    {
+      "kind": "i64add",
+      "rows": 10000000,
+      "layout": "alternating",
+      "role": "baseline",
+      "calls": [
+        {
+          "call": "first",
+          "Ir": 94715934,
+          "rnx_Ir": 90020033,
+          "dynamic_Ir": 4695825,
+          "other_Ir": 76
+        },
+        {
+          "call": "warm",
+          "Ir": 94714868,
+          "rnx_Ir": 90019712,
+          "dynamic_Ir": 4695080,
+          "other_Ir": 76
+        }
+      ]
+    },
+    {
+      "kind": "i64add",
+      "rows": 10000000,
+      "layout": "deterministic-random",
+      "role": "candidate",
+      "calls": [
+        {
+          "call": "first",
+          "Ir": 93099053,
+          "rnx_Ir": 88428055,
+          "dynamic_Ir": 4670922,
+          "other_Ir": 76
+        },
+        {
+          "call": "warm",
+          "Ir": 93097643,
+          "rnx_Ir": 88427734,
+          "dynamic_Ir": 4669833,
+          "other_Ir": 76
+        }
+      ]
+    },
+    {
+      "kind": "i64add",
+      "rows": 10000000,
+      "layout": "sliced-chunked-null",
+      "role": "baseline",
+      "calls": [
+        {
+          "call": "first",
+          "Ir": 41060682,
+          "rnx_Ir": 36258319,
+          "dynamic_Ir": 4802287,
+          "other_Ir": 76
+        },
+        {
+          "call": "warm",
+          "Ir": 41060403,
+          "rnx_Ir": 36257998,
+          "dynamic_Ir": 4802329,
+          "other_Ir": 76
+        }
+      ]
+    },
+    {
+      "kind": "i64add",
+      "rows": 10000000,
+      "layout": "flat",
+      "role": "candidate",
+      "calls": [
+        {
+          "call": "first",
+          "Ir": 22098292,
+          "rnx_Ir": 17712329,
+          "dynamic_Ir": 4385887,
+          "other_Ir": 76
+        },
+        {
+          "call": "warm",
+          "Ir": 22097863,
+          "rnx_Ir": 17712008,
+          "dynamic_Ir": 4385779,
+          "other_Ir": 76
+        }
+      ]
+    },
+    {
+      "kind": "i64add",
+      "rows": 10000000,
+      "layout": "deterministic-random",
+      "role": "baseline",
+      "calls": [
+        {
+          "call": "first",
+          "Ir": 94715939,
+          "rnx_Ir": 90020033,
+          "dynamic_Ir": 4695830,
+          "other_Ir": 76
+        },
+        {
+          "call": "warm",
+          "Ir": 94714873,
+          "rnx_Ir": 90019712,
+          "dynamic_Ir": 4695085,
+          "other_Ir": 76
+        }
+      ]
+    },
+    {
+      "kind": "i64add",
+      "rows": 10000000,
+      "layout": "sliced-chunked-null",
+      "role": "candidate",
+      "calls": [
+        {
+          "call": "first",
+          "Ir": 38681905,
+          "rnx_Ir": 33904631,
+          "dynamic_Ir": 4777198,
+          "other_Ir": 76
+        },
+        {
+          "call": "warm",
+          "Ir": 38681345,
+          "rnx_Ir": 33904310,
+          "dynamic_Ir": 4776959,
+          "other_Ir": 76
+        }
+      ]
+    },
+    {
+      "kind": "i64add",
+      "rows": 10000000,
+      "layout": "flat",
+      "role": "baseline",
+      "calls": [
+        {
+          "call": "first",
+          "Ir": 22230846,
+          "rnx_Ir": 17819864,
+          "dynamic_Ir": 4410906,
+          "other_Ir": 76
+        },
+        {
+          "call": "warm",
+          "Ir": 22230847,
+          "rnx_Ir": 17819543,
+          "dynamic_Ir": 4411228,
+          "other_Ir": 76
+        }
+      ]
+    },
+    {
+      "kind": "i64add",
+      "rows": 10000000,
+      "layout": "alternating",
+      "role": "candidate",
+      "calls": [
+        {
+          "call": "first",
+          "Ir": 93098814,
+          "rnx_Ir": 88428055,
+          "dynamic_Ir": 4670683,
+          "other_Ir": 76
+        },
+        {
+          "call": "warm",
+          "Ir": 93097582,
+          "rnx_Ir": 88427734,
+          "dynamic_Ir": 4669772,
+          "other_Ir": 76
+        }
+      ]
+    },
+    {
+      "kind": "axpy",
+      "rows": 10000000,
+      "layout": "flat",
+      "role": "baseline",
+      "calls": [
+        {
+          "call": "first",
+          "Ir": 37828603,
+          "rnx_Ir": 33407041,
+          "dynamic_Ir": 4421486,
+          "other_Ir": 76
+        },
+        {
+          "call": "warm",
+          "Ir": 37826754,
+          "rnx_Ir": 33406720,
+          "dynamic_Ir": 4419958,
+          "other_Ir": 76
+        }
+      ]
+    },
+    {
+      "kind": "axpy",
+      "rows": 10000000,
+      "layout": "flat",
+      "role": "candidate",
+      "calls": [
+        {
+          "call": "first",
+          "Ir": 37705081,
+          "rnx_Ir": 33309355,
+          "dynamic_Ir": 4395650,
+          "other_Ir": 76
+        },
+        {
+          "call": "warm",
+          "Ir": 37704750,
+          "rnx_Ir": 33309034,
+          "dynamic_Ir": 4395640,
+          "other_Ir": 76
+        }
+      ]
+    },
+    {
+      "kind": "axpy",
+      "rows": 10000000,
+      "layout": "sliced-chunked-null",
+      "role": "baseline",
+      "calls": [
+        {
+          "call": "first",
+          "Ir": 50632744,
+          "rnx_Ir": 45820096,
+          "dynamic_Ir": 4812572,
+          "other_Ir": 76
+        },
+        {
+          "call": "warm",
+          "Ir": 50631024,
+          "rnx_Ir": 45819775,
+          "dynamic_Ir": 4811173,
+          "other_Ir": 76
+        }
+      ]
+    },
+    {
+      "kind": "axpy",
+      "rows": 10000000,
+      "layout": "sliced-chunked-null",
+      "role": "candidate",
+      "calls": [
+        {
+          "call": "first",
+          "Ir": 48233804,
+          "rnx_Ir": 43446958,
+          "dynamic_Ir": 4786770,
+          "other_Ir": 76
+        },
+        {
+          "call": "warm",
+          "Ir": 48233033,
+          "rnx_Ir": 43446637,
+          "dynamic_Ir": 4786320,
+          "other_Ir": 76
+        }
+      ]
+    },
+    {
+      "kind": "axpy",
+      "rows": 10000000,
+      "layout": "alternating",
+      "role": "baseline",
+      "calls": [
+        {
+          "call": "first",
+          "Ir": 117568196,
+          "rnx_Ir": 113006062,
+          "dynamic_Ir": 4562058,
+          "other_Ir": 76
+        },
+        {
+          "call": "warm",
+          "Ir": 117567855,
+          "rnx_Ir": 113005741,
+          "dynamic_Ir": 4562038,
+          "other_Ir": 76
+        }
+      ]
+    },
+    {
+      "kind": "axpy",
+      "rows": 10000000,
+      "layout": "deterministic-random",
+      "role": "baseline",
+      "calls": [
+        {
+          "call": "first",
+          "Ir": 117567581,
+          "rnx_Ir": 113006062,
+          "dynamic_Ir": 4561443,
+          "other_Ir": 76
+        },
+        {
+          "call": "warm",
+          "Ir": 117566552,
+          "rnx_Ir": 113005741,
+          "dynamic_Ir": 4560735,
+          "other_Ir": 76
+        }
+      ]
+    },
+    {
+      "kind": "axpy",
+      "rows": 10000000,
+      "layout": "alternating",
+      "role": "candidate",
+      "calls": [
+        {
+          "call": "first",
+          "Ir": 116036314,
+          "rnx_Ir": 111498784,
+          "dynamic_Ir": 4537454,
+          "other_Ir": 76
+        },
+        {
+          "call": "warm",
+          "Ir": 116035165,
+          "rnx_Ir": 111498463,
+          "dynamic_Ir": 4536626,
+          "other_Ir": 76
+        }
+      ]
+    },
+    {
+      "kind": "axpy",
+      "rows": 10000000,
+      "layout": "deterministic-random",
+      "role": "candidate",
+      "calls": [
+        {
+          "call": "first",
+          "Ir": 116036266,
+          "rnx_Ir": 111498784,
+          "dynamic_Ir": 4537406,
+          "other_Ir": 76
+        },
+        {
+          "call": "warm",
+          "Ir": 116035097,
+          "rnx_Ir": 111498463,
+          "dynamic_Ir": 4536558,
+          "other_Ir": 76
+        }
+      ]
+    },
+    {
+      "kind": "multiply3",
+      "rows": 10000000,
+      "layout": "flat",
+      "role": "baseline",
+      "calls": [
+        {
+          "call": "first",
+          "Ir": 107369834,
+          "rnx_Ir": 87381799,
+          "dynamic_Ir": 19987959,
+          "other_Ir": 76
+        },
+        {
+          "call": "warm",
+          "Ir": 107367859,
+          "rnx_Ir": 87381478,
+          "dynamic_Ir": 19986305,
+          "other_Ir": 76
+        }
+      ]
+    },
+    {
+      "kind": "multiply3",
+      "rows": 10000000,
+      "layout": "flat",
+      "role": "candidate",
+      "calls": [
+        {
+          "call": "first",
+          "Ir": 79521649,
+          "rnx_Ir": 75125923,
+          "dynamic_Ir": 4395650,
+          "other_Ir": 76
+        },
+        {
+          "call": "warm",
+          "Ir": 79521318,
+          "rnx_Ir": 75125602,
+          "dynamic_Ir": 4395640,
+          "other_Ir": 76
+        }
+      ]
+    },
+    {
+      "kind": "multiply3",
+      "rows": 10000000,
+      "layout": "sliced-chunked-null",
+      "role": "baseline",
+      "calls": [
+        {
+          "call": "first",
+          "Ir": 139831190,
+          "rnx_Ir": 116991967,
+          "dynamic_Ir": 22839147,
+          "other_Ir": 76
+        },
+        {
+          "call": "warm",
+          "Ir": 139830615,
+          "rnx_Ir": 116991646,
+          "dynamic_Ir": 22838893,
+          "other_Ir": 76
+        }
+      ]
+    },
+    {
+      "kind": "multiply3",
+      "rows": 10000000,
+      "layout": "sliced-chunked-null",
+      "role": "candidate",
+      "calls": [
+        {
+          "call": "first",
+          "Ir": 102765050,
+          "rnx_Ir": 97978204,
+          "dynamic_Ir": 4786770,
+          "other_Ir": 76
+        },
+        {
+          "call": "warm",
+          "Ir": 102764279,
+          "rnx_Ir": 97977883,
+          "dynamic_Ir": 4786320,
+          "other_Ir": 76
+        }
+      ]
+    },
+    {
+      "kind": "f64const",
+      "rows": 10000000,
+      "layout": "flat",
+      "role": "candidate",
+      "calls": [
+        {
+          "call": "first",
+          "Ir": 12684351,
+          "rnx_Ir": 8298287,
+          "dynamic_Ir": 4385988,
+          "other_Ir": 76
+        },
+        {
+          "call": "warm",
+          "Ir": 12683858,
+          "rnx_Ir": 8297966,
+          "dynamic_Ir": 4385816,
+          "other_Ir": 76
+        }
+      ]
+    },
+    {
+      "kind": "multiply3",
+      "rows": 10000000,
+      "layout": "alternating",
+      "role": "baseline",
+      "calls": [
+        {
+          "call": "first",
+          "Ir": 490317108,
+          "rnx_Ir": 449726356,
+          "dynamic_Ir": 40590676,
+          "other_Ir": 76
+        },
+        {
+          "call": "warm",
+          "Ir": 490315528,
+          "rnx_Ir": 449726035,
+          "dynamic_Ir": 40589417,
+          "other_Ir": 76
+        }
+      ]
+    },
+    {
+      "kind": "multiply3",
+      "rows": 10000000,
+      "layout": "alternating",
+      "role": "candidate",
+      "calls": [
+        {
+          "call": "first",
+          "Ir": 475100172,
+          "rnx_Ir": 470562642,
+          "dynamic_Ir": 4537454,
+          "other_Ir": 76
+        },
+        {
+          "call": "warm",
+          "Ir": 475099120,
+          "rnx_Ir": 470562321,
+          "dynamic_Ir": 4536723,
+          "other_Ir": 76
+        }
+      ]
+    },
+    {
+      "kind": "multiply3",
+      "rows": 10000000,
+      "layout": "deterministic-random",
+      "role": "baseline",
+      "calls": [
+        {
+          "call": "first",
+          "Ir": 490330135,
+          "rnx_Ir": 449726356,
+          "dynamic_Ir": 40603703,
+          "other_Ir": 76
+        },
+        {
+          "call": "warm",
+          "Ir": 490328956,
+          "rnx_Ir": 449726035,
+          "dynamic_Ir": 40602845,
+          "other_Ir": 76
+        }
+      ]
+    },
+    {
+      "kind": "f64const",
+      "rows": 10000000,
+      "layout": "flat",
+      "role": "baseline",
+      "calls": [
+        {
+          "call": "first",
+          "Ir": 12816823,
+          "rnx_Ir": 8405825,
+          "dynamic_Ir": 4410922,
+          "other_Ir": 76
+        },
+        {
+          "call": "warm",
+          "Ir": 12816823,
+          "rnx_Ir": 8405504,
+          "dynamic_Ir": 4411243,
+          "other_Ir": 76
+        }
+      ]
+    },
+    {
+      "kind": "f64const",
+      "rows": 10000000,
+      "layout": "sliced-chunked-null",
+      "role": "baseline",
+      "calls": [
+        {
+          "call": "first",
+          "Ir": 19141833,
+          "rnx_Ir": 14124618,
+          "dynamic_Ir": 5017139,
+          "other_Ir": 76
+        },
+        {
+          "call": "warm",
+          "Ir": 19141645,
+          "rnx_Ir": 14124297,
+          "dynamic_Ir": 5017272,
+          "other_Ir": 76
+        }
+      ]
+    },
+    {
+      "kind": "multiply3",
+      "rows": 10000000,
+      "layout": "deterministic-random",
+      "role": "candidate",
+      "calls": [
+        {
+          "call": "first",
+          "Ir": 475100140,
+          "rnx_Ir": 470562642,
+          "dynamic_Ir": 4537422,
+          "other_Ir": 76
+        },
+        {
+          "call": "warm",
+          "Ir": 475098867,
+          "rnx_Ir": 470562321,
+          "dynamic_Ir": 4536470,
+          "other_Ir": 76
+        }
+      ]
+    },
+    {
+      "kind": "f64const",
+      "rows": 10000000,
+      "layout": "sliced-chunked-null",
+      "role": "candidate",
+      "calls": [
+        {
+          "call": "first",
+          "Ir": 17696448,
+          "rnx_Ir": 12703541,
+          "dynamic_Ir": 4992831,
+          "other_Ir": 76
+        },
+        {
+          "call": "warm",
+          "Ir": 17695483,
+          "rnx_Ir": 12703220,
+          "dynamic_Ir": 4992187,
+          "other_Ir": 76
+        }
+      ]
+    },
+    {
+      "kind": "f64add",
+      "rows": 10000000,
+      "layout": "flat",
+      "role": "baseline",
+      "calls": [
+        {
+          "call": "first",
+          "Ir": 16217057,
+          "rnx_Ir": 11805071,
+          "dynamic_Ir": 4411910,
+          "other_Ir": 76
+        },
+        {
+          "call": "warm",
+          "Ir": 16216918,
+          "rnx_Ir": 11804750,
+          "dynamic_Ir": 4412092,
+          "other_Ir": 76
+        }
+      ]
+    },
+    {
+      "kind": "f64const",
+      "rows": 10000000,
+      "layout": "alternating",
+      "role": "candidate",
+      "calls": [
+        {
+          "call": "first",
+          "Ir": 37289155,
+          "rnx_Ir": 32403227,
+          "dynamic_Ir": 4885852,
+          "other_Ir": 76
+        },
+        {
+          "call": "warm",
+          "Ir": 37287604,
+          "rnx_Ir": 32402906,
+          "dynamic_Ir": 4884622,
+          "other_Ir": 76
+        }
+      ]
+    },
+    {
+      "kind": "f64const",
+      "rows": 10000000,
+      "layout": "alternating",
+      "role": "baseline",
+      "calls": [
+        {
+          "call": "first",
+          "Ir": 38739969,
+          "rnx_Ir": 33829200,
+          "dynamic_Ir": 4910693,
+          "other_Ir": 76
+        },
+        {
+          "call": "warm",
+          "Ir": 38738599,
+          "rnx_Ir": 33828879,
+          "dynamic_Ir": 4909644,
+          "other_Ir": 76
+        }
+      ]
+    },
+    {
+      "kind": "f64add",
+      "rows": 10000000,
+      "layout": "flat",
+      "role": "candidate",
+      "calls": [
+        {
+          "call": "first",
+          "Ir": 16084905,
+          "rnx_Ir": 11697527,
+          "dynamic_Ir": 4387302,
+          "other_Ir": 76
+        },
+        {
+          "call": "warm",
+          "Ir": 16084074,
+          "rnx_Ir": 11697206,
+          "dynamic_Ir": 4386792,
+          "other_Ir": 76
+        }
+      ]
+    },
+    {
+      "kind": "f64const",
+      "rows": 10000000,
+      "layout": "deterministic-random",
+      "role": "candidate",
+      "calls": [
+        {
+          "call": "first",
+          "Ir": 37288880,
+          "rnx_Ir": 32403227,
+          "dynamic_Ir": 4885577,
+          "other_Ir": 76
+        },
+        {
+          "call": "warm",
+          "Ir": 37287506,
+          "rnx_Ir": 32402906,
+          "dynamic_Ir": 4884524,
+          "other_Ir": 76
+        }
+      ]
+    },
+    {
+      "kind": "f64const",
+      "rows": 10000000,
+      "layout": "deterministic-random",
+      "role": "baseline",
+      "calls": [
+        {
+          "call": "first",
+          "Ir": 38740470,
+          "rnx_Ir": 33829200,
+          "dynamic_Ir": 4911194,
+          "other_Ir": 76
+        },
+        {
+          "call": "warm",
+          "Ir": 38738600,
+          "rnx_Ir": 33828879,
+          "dynamic_Ir": 4909645,
+          "other_Ir": 76
+        }
+      ]
+    },
+    {
+      "kind": "f64add",
+      "rows": 10000000,
+      "layout": "sliced-chunked-null",
+      "role": "baseline",
+      "calls": [
+        {
+          "call": "first",
+          "Ir": 21257361,
+          "rnx_Ir": 16239668,
+          "dynamic_Ir": 5017617,
+          "other_Ir": 76
+        },
+        {
+          "call": "warm",
+          "Ir": 21257184,
+          "rnx_Ir": 16239347,
+          "dynamic_Ir": 5017761,
+          "other_Ir": 76
+        }
+      ]
+    },
+    {
+      "kind": "f64add",
+      "rows": 10000000,
+      "layout": "sliced-chunked-null",
+      "role": "candidate",
+      "calls": [
+        {
+          "call": "first",
+          "Ir": 19792137,
+          "rnx_Ir": 14799053,
+          "dynamic_Ir": 4993008,
+          "other_Ir": 76
+        },
+        {
+          "call": "warm",
+          "Ir": 19791218,
+          "rnx_Ir": 14798732,
+          "dynamic_Ir": 4992410,
+          "other_Ir": 76
+        }
+      ]
+    },
+    {
+      "kind": "f64add",
+      "rows": 10000000,
+      "layout": "alternating",
+      "role": "candidate",
+      "calls": [
+        {
+          "call": "first",
+          "Ir": 45516978,
+          "rnx_Ir": 40916286,
+          "dynamic_Ir": 4600616,
+          "other_Ir": 76
+        },
+        {
+          "call": "warm",
+          "Ir": 45515600,
+          "rnx_Ir": 40915965,
+          "dynamic_Ir": 4599559,
+          "other_Ir": 76
+        }
+      ]
+    },
+    {
+      "kind": "f64add",
+      "rows": 10000000,
+      "layout": "deterministic-random",
+      "role": "baseline",
+      "calls": [
+        {
+          "call": "first",
+          "Ir": 46986834,
+          "rnx_Ir": 42361802,
+          "dynamic_Ir": 4624956,
+          "other_Ir": 76
+        },
+        {
+          "call": "warm",
+          "Ir": 46985565,
+          "rnx_Ir": 42361481,
+          "dynamic_Ir": 4624008,
+          "other_Ir": 76
+        }
+      ]
+    },
+    {
+      "kind": "f64add",
+      "rows": 10000000,
+      "layout": "alternating",
+      "role": "baseline",
+      "calls": [
+        {
+          "call": "first",
+          "Ir": 46987468,
+          "rnx_Ir": 42361817,
+          "dynamic_Ir": 4625575,
+          "other_Ir": 76
+        },
+        {
+          "call": "warm",
+          "Ir": 46986296,
+          "rnx_Ir": 42361496,
+          "dynamic_Ir": 4624724,
+          "other_Ir": 76
+        }
+      ]
+    },
+    {
+      "kind": "boolnot",
+      "rows": 10000000,
+      "layout": "flat",
+      "role": "baseline",
+      "calls": [
+        {
+          "call": "first",
+          "Ir": 679370,
+          "rnx_Ir": 583515,
+          "dynamic_Ir": 95779,
+          "other_Ir": 76
+        },
+        {
+          "call": "warm",
+          "Ir": 679295,
+          "rnx_Ir": 583194,
+          "dynamic_Ir": 96025,
+          "other_Ir": 76
+        }
+      ]
+    },
+    {
+      "kind": "boolnot",
+      "rows": 10000000,
+      "layout": "flat",
+      "role": "candidate",
+      "calls": [
+        {
+          "call": "first",
+          "Ir": 663563,
+          "rnx_Ir": 583405,
+          "dynamic_Ir": 80082,
+          "other_Ir": 76
+        },
+        {
+          "call": "warm",
+          "Ir": 662170,
+          "rnx_Ir": 583084,
+          "dynamic_Ir": 79010,
+          "other_Ir": 76
+        }
+      ]
+    },
+    {
+      "kind": "boolnot",
+      "rows": 10000000,
+      "layout": "sliced-chunked-null",
+      "role": "candidate",
+      "calls": [
+        {
+          "call": "first",
+          "Ir": 11065452,
+          "rnx_Ir": 10056972,
+          "dynamic_Ir": 1008404,
+          "other_Ir": 76
+        },
+        {
+          "call": "warm",
+          "Ir": 11064410,
+          "rnx_Ir": 10056651,
+          "dynamic_Ir": 1007683,
+          "other_Ir": 76
+        }
+      ]
+    },
+    {
+      "kind": "f64add",
+      "rows": 10000000,
+      "layout": "deterministic-random",
+      "role": "candidate",
+      "calls": [
+        {
+          "call": "first",
+          "Ir": 45516115,
+          "rnx_Ir": 40916271,
+          "dynamic_Ir": 4599768,
+          "other_Ir": 76
+        },
+        {
+          "call": "warm",
+          "Ir": 45514950,
+          "rnx_Ir": 40915950,
+          "dynamic_Ir": 4598924,
+          "other_Ir": 76
+        }
+      ]
+    },
+    {
+      "kind": "boolnot",
+      "rows": 10000000,
+      "layout": "sliced-chunked-null",
+      "role": "baseline",
+      "calls": [
+        {
+          "call": "first",
+          "Ir": 12517977,
+          "rnx_Ir": 11492687,
+          "dynamic_Ir": 1025214,
+          "other_Ir": 76
+        },
+        {
+          "call": "warm",
+          "Ir": 12516871,
+          "rnx_Ir": 11492366,
+          "dynamic_Ir": 1024429,
+          "other_Ir": 76
+        }
+      ]
+    },
+    {
+      "kind": "boolnot",
+      "rows": 10000000,
+      "layout": "alternating",
+      "role": "candidate",
+      "calls": [
+        {
+          "call": "first",
+          "Ir": 13567863,
+          "rnx_Ir": 12774135,
+          "dynamic_Ir": 793652,
+          "other_Ir": 76
+        },
+        {
+          "call": "warm",
+          "Ir": 13567308,
+          "rnx_Ir": 12773814,
+          "dynamic_Ir": 793418,
+          "other_Ir": 76
+        }
+      ]
+    },
+    {
+      "kind": "boolnot",
+      "rows": 10000000,
+      "layout": "deterministic-random",
+      "role": "baseline",
+      "calls": [
+        {
+          "call": "first",
+          "Ir": 15020455,
+          "rnx_Ir": 14209865,
+          "dynamic_Ir": 810514,
+          "other_Ir": 76
+        },
+        {
+          "call": "warm",
+          "Ir": 15019476,
+          "rnx_Ir": 14209544,
+          "dynamic_Ir": 809856,
+          "other_Ir": 76
+        }
+      ]
+    },
+    {
+      "kind": "boolnot",
+      "rows": 10000000,
+      "layout": "alternating",
+      "role": "baseline",
+      "calls": [
+        {
+          "call": "first",
+          "Ir": 15020051,
+          "rnx_Ir": 14209865,
+          "dynamic_Ir": 810110,
+          "other_Ir": 76
+        },
+        {
+          "call": "warm",
+          "Ir": 15018631,
+          "rnx_Ir": 14209544,
+          "dynamic_Ir": 809011,
+          "other_Ir": 76
+        }
+      ]
+    },
+    {
+      "kind": "boolnot",
+      "rows": 10000000,
+      "layout": "deterministic-random",
+      "role": "candidate",
+      "calls": [
+        {
+          "call": "first",
+          "Ir": 13567675,
+          "rnx_Ir": 12774135,
+          "dynamic_Ir": 793464,
+          "other_Ir": 76
+        },
+        {
+          "call": "warm",
+          "Ir": 13566967,
+          "rnx_Ir": 12773814,
+          "dynamic_Ir": 793077,
+          "other_Ir": 76
+        }
+      ]
+    },
+    {
+      "kind": "i64add",
+      "rows": 100000000,
+      "layout": "flat",
+      "role": "baseline",
+      "calls": [
+        {
+          "call": "first",
+          "Ir": 221918550,
+          "rnx_Ir": 178132424,
+          "dynamic_Ir": 43786050,
+          "other_Ir": 76
+        },
+        {
+          "call": "warm",
+          "Ir": 221918406,
+          "rnx_Ir": 178132103,
+          "dynamic_Ir": 43786227,
+          "other_Ir": 76
+        }
+      ]
+    },
+    {
+      "kind": "i64add",
+      "rows": 100000000,
+      "layout": "flat",
+      "role": "candidate",
+      "calls": [
+        {
+          "call": "first",
+          "Ir": 220818955,
+          "rnx_Ir": 177058088,
+          "dynamic_Ir": 43760791,
+          "other_Ir": 76
+        },
+        {
+          "call": "warm",
+          "Ir": 220818615,
+          "rnx_Ir": 177057767,
+          "dynamic_Ir": 43760772,
+          "other_Ir": 76
+        }
+      ]
+    },
+    {
+      "kind": "i64add",
+      "rows": 100000000,
+      "layout": "sliced-chunked-null",
+      "role": "baseline",
+      "calls": [
+        {
+          "call": "first",
+          "Ir": 410201766,
+          "rnx_Ir": 362508761,
+          "dynamic_Ir": 47692929,
+          "other_Ir": 76
+        },
+        {
+          "call": "warm",
+          "Ir": 410201485,
+          "rnx_Ir": 362508440,
+          "dynamic_Ir": 47692969,
+          "other_Ir": 76
+        }
+      ]
+    },
+    {
+      "kind": "i64add",
+      "rows": 100000000,
+      "layout": "sliced-chunked-null",
+      "role": "candidate",
+      "calls": [
+        {
+          "call": "first",
+          "Ir": 386642057,
+          "rnx_Ir": 338973464,
+          "dynamic_Ir": 47668517,
+          "other_Ir": 76
+        },
+        {
+          "call": "warm",
+          "Ir": 386641388,
+          "rnx_Ir": 338973143,
+          "dynamic_Ir": 47668169,
+          "other_Ir": 76
+        }
+      ]
+    },
+    {
+      "kind": "i64add",
+      "rows": 100000000,
+      "layout": "alternating",
+      "role": "baseline",
+      "calls": [
+        {
+          "call": "first",
+          "Ir": 946728126,
+          "rnx_Ir": 900108024,
+          "dynamic_Ir": 46620026,
+          "other_Ir": 76
+        },
+        {
+          "call": "warm",
+          "Ir": 946726707,
+          "rnx_Ir": 900107703,
+          "dynamic_Ir": 46618928,
+          "other_Ir": 76
+        }
+      ]
+    },
+    {
+      "kind": "i64add",
+      "rows": 100000000,
+      "layout": "deterministic-random",
+      "role": "candidate",
+      "calls": [
+        {
+          "call": "first",
+          "Ir": 930784432,
+          "rnx_Ir": 884189898,
+          "dynamic_Ir": 46594458,
+          "other_Ir": 76
+        },
+        {
+          "call": "warm",
+          "Ir": 930783305,
+          "rnx_Ir": 884189577,
+          "dynamic_Ir": 46593652,
+          "other_Ir": 76
+        }
+      ]
+    },
+    {
+      "kind": "i64add",
+      "rows": 100000000,
+      "layout": "alternating",
+      "role": "candidate",
+      "calls": [
+        {
+          "call": "first",
+          "Ir": 930784671,
+          "rnx_Ir": 884189899,
+          "dynamic_Ir": 46594696,
+          "other_Ir": 76
+        },
+        {
+          "call": "warm",
+          "Ir": 930783281,
+          "rnx_Ir": 884189578,
+          "dynamic_Ir": 46593627,
+          "other_Ir": 76
+        }
+      ]
+    },
+    {
+      "kind": "axpy",
+      "rows": 100000000,
+      "layout": "flat",
+      "role": "baseline",
+      "calls": [
+        {
+          "call": "first",
+          "Ir": 377789623,
+          "rnx_Ir": 333993061,
+          "dynamic_Ir": 43796486,
+          "other_Ir": 76
+        },
+        {
+          "call": "warm",
+          "Ir": 377787774,
+          "rnx_Ir": 333992740,
+          "dynamic_Ir": 43794958,
+          "other_Ir": 76
+        }
+      ]
+    },
+    {
+      "kind": "i64add",
+      "rows": 100000000,
+      "layout": "deterministic-random",
+      "role": "baseline",
+      "calls": [
+        {
+          "call": "first",
+          "Ir": 946728040,
+          "rnx_Ir": 900108023,
+          "dynamic_Ir": 46619941,
+          "other_Ir": 76
+        },
+        {
+          "call": "warm",
+          "Ir": 946726419,
+          "rnx_Ir": 900107702,
+          "dynamic_Ir": 46618641,
+          "other_Ir": 76
+        }
+      ]
+    },
+    {
+      "kind": "axpy",
+      "rows": 100000000,
+      "layout": "flat",
+      "role": "candidate",
+      "calls": [
+        {
+          "call": "first",
+          "Ir": 376787213,
+          "rnx_Ir": 333016465,
+          "dynamic_Ir": 43770672,
+          "other_Ir": 76
+        },
+        {
+          "call": "warm",
+          "Ir": 376786860,
+          "rnx_Ir": 333016144,
+          "dynamic_Ir": 43770640,
+          "other_Ir": 76
+        }
+      ]
+    },
+    {
+      "kind": "axpy",
+      "rows": 100000000,
+      "layout": "sliced-chunked-null",
+      "role": "baseline",
+      "calls": [
+        {
+          "call": "first",
+          "Ir": 505818853,
+          "rnx_Ir": 458115563,
+          "dynamic_Ir": 47703214,
+          "other_Ir": 76
+        },
+        {
+          "call": "warm",
+          "Ir": 505817131,
+          "rnx_Ir": 458115242,
+          "dynamic_Ir": 47701813,
+          "other_Ir": 76
+        }
+      ]
+    },
+    {
+      "kind": "axpy",
+      "rows": 100000000,
+      "layout": "sliced-chunked-null",
+      "role": "candidate",
+      "calls": [
+        {
+          "call": "first",
+          "Ir": 482062359,
+          "rnx_Ir": 434385032,
+          "dynamic_Ir": 47677251,
+          "other_Ir": 76
+        },
+        {
+          "call": "warm",
+          "Ir": 482061900,
+          "rnx_Ir": 434384711,
+          "dynamic_Ir": 47677113,
+          "other_Ir": 76
+        }
+      ]
+    },
+    {
+      "kind": "axpy",
+      "rows": 100000000,
+      "layout": "alternating",
+      "role": "baseline",
+      "calls": [
+        {
+          "call": "first",
+          "Ir": 1175126499,
+          "rnx_Ir": 1129930054,
+          "dynamic_Ir": 45196369,
+          "other_Ir": 76
+        },
+        {
+          "call": "warm",
+          "Ir": 1175125601,
+          "rnx_Ir": 1129929733,
+          "dynamic_Ir": 45195792,
+          "other_Ir": 76
+        }
+      ]
+    },
+    {
+      "kind": "multiply3",
+      "rows": 100000000,
+      "layout": "flat",
+      "role": "baseline",
+      "calls": [
+        {
+          "call": "first",
+          "Ir": 1073200124,
+          "rnx_Ir": 873739456,
+          "dynamic_Ir": 199460592,
+          "other_Ir": 76
+        },
+        {
+          "call": "warm",
+          "Ir": 1073198275,
+          "rnx_Ir": 873739135,
+          "dynamic_Ir": 199459064,
+          "other_Ir": 76
+        }
+      ]
+    },
+    {
+      "kind": "multiply3",
+      "rows": 100000000,
+      "layout": "flat",
+      "role": "candidate",
+      "calls": [
+        {
+          "call": "first",
+          "Ir": 794951592,
+          "rnx_Ir": 751180855,
+          "dynamic_Ir": 43770661,
+          "other_Ir": 76
+        },
+        {
+          "call": "warm",
+          "Ir": 794951250,
+          "rnx_Ir": 751180534,
+          "dynamic_Ir": 43770640,
+          "other_Ir": 76
+        }
+      ]
+    },
+    {
+      "kind": "multiply3",
+      "rows": 100000000,
+      "layout": "sliced-chunked-null",
+      "role": "baseline",
+      "calls": [
+        {
+          "call": "first",
+          "Ir": 1397615703,
+          "rnx_Ir": 1169834309,
+          "dynamic_Ir": 227781318,
+          "other_Ir": 76
+        },
+        {
+          "call": "warm",
+          "Ir": 1397614003,
+          "rnx_Ir": 1169833988,
+          "dynamic_Ir": 227779939,
+          "other_Ir": 76
+        }
+      ]
+    },
+    {
+      "kind": "axpy",
+      "rows": 100000000,
+      "layout": "deterministic-random",
+      "role": "candidate",
+      "calls": [
+        {
+          "call": "first",
+          "Ir": 1160030407,
+          "rnx_Ir": 1114858095,
+          "dynamic_Ir": 45172236,
+          "other_Ir": 76
+        },
+        {
+          "call": "warm",
+          "Ir": 1160029184,
+          "rnx_Ir": 1114857774,
+          "dynamic_Ir": 45171334,
+          "other_Ir": 76
+        }
+      ]
+    },
+    {
+      "kind": "axpy",
+      "rows": 100000000,
+      "layout": "alternating",
+      "role": "candidate",
+      "calls": [
+        {
+          "call": "first",
+          "Ir": 1160030814,
+          "rnx_Ir": 1114858347,
+          "dynamic_Ir": 45172391,
+          "other_Ir": 76
+        },
+        {
+          "call": "warm",
+          "Ir": 1160029595,
+          "rnx_Ir": 1114858026,
+          "dynamic_Ir": 45171493,
+          "other_Ir": 76
+        }
+      ]
+    },
+    {
+      "kind": "axpy",
+      "rows": 100000000,
+      "layout": "deterministic-random",
+      "role": "baseline",
+      "calls": [
+        {
+          "call": "first",
+          "Ir": 1175126049,
+          "rnx_Ir": 1129929793,
+          "dynamic_Ir": 45196180,
+          "other_Ir": 76
+        },
+        {
+          "call": "warm",
+          "Ir": 1175125058,
+          "rnx_Ir": 1129929472,
+          "dynamic_Ir": 45195510,
+          "other_Ir": 76
+        }
+      ]
+    },
+    {
+      "kind": "multiply3",
+      "rows": 100000000,
+      "layout": "sliced-chunked-null",
+      "role": "candidate",
+      "calls": [
+        {
+          "call": "first",
+          "Ir": 1027375016,
+          "rnx_Ir": 979697528,
+          "dynamic_Ir": 47677412,
+          "other_Ir": 76
+        },
+        {
+          "call": "warm",
+          "Ir": 1027374243,
+          "rnx_Ir": 979697207,
+          "dynamic_Ir": 47676960,
+          "other_Ir": 76
+        }
+      ]
+    },
+    {
+      "kind": "f64const",
+      "rows": 100000000,
+      "layout": "flat",
+      "role": "baseline",
+      "calls": [
+        {
+          "call": "first",
+          "Ir": 127777903,
+          "rnx_Ir": 83991821,
+          "dynamic_Ir": 43786006,
+          "other_Ir": 76
+        },
+        {
+          "call": "warm",
+          "Ir": 127777554,
+          "rnx_Ir": 83991500,
+          "dynamic_Ir": 43785978,
+          "other_Ir": 76
+        }
+      ]
+    },
+    {
+      "kind": "f64const",
+      "rows": 100000000,
+      "layout": "flat",
+      "role": "candidate",
+      "calls": [
+        {
+          "call": "first",
+          "Ir": 126678392,
+          "rnx_Ir": 82917482,
+          "dynamic_Ir": 43760834,
+          "other_Ir": 76
+        },
+        {
+          "call": "warm",
+          "Ir": 126678456,
+          "rnx_Ir": 82917161,
+          "dynamic_Ir": 43761219,
+          "other_Ir": 76
+        }
+      ]
+    },
+    {
+      "kind": "f64const",
+      "rows": 100000000,
+      "layout": "sliced-chunked-null",
+      "role": "baseline",
+      "calls": [
+        {
+          "call": "first",
+          "Ir": 191012634,
+          "rnx_Ir": 141171175,
+          "dynamic_Ir": 49841383,
+          "other_Ir": 76
+        },
+        {
+          "call": "warm",
+          "Ir": 191012444,
+          "rnx_Ir": 141170854,
+          "dynamic_Ir": 49841514,
+          "other_Ir": 76
+        }
+      ]
+    },
+    {
+      "kind": "f64const",
+      "rows": 100000000,
+      "layout": "sliced-chunked-null",
+      "role": "candidate",
+      "calls": [
+        {
+          "call": "first",
+          "Ir": 176778957,
+          "rnx_Ir": 126962032,
+          "dynamic_Ir": 49816849,
+          "other_Ir": 76
+        },
+        {
+          "call": "warm",
+          "Ir": 176778207,
+          "rnx_Ir": 126961711,
+          "dynamic_Ir": 49816420,
+          "other_Ir": 76
+        }
+      ]
+    },
+    {
+      "kind": "f64const",
+      "rows": 100000000,
+      "layout": "alternating",
+      "role": "baseline",
+      "calls": [
+        {
+          "call": "first",
+          "Ir": 386962689,
+          "rnx_Ir": 338194627,
+          "dynamic_Ir": 48767986,
+          "other_Ir": 76
+        },
+        {
+          "call": "warm",
+          "Ir": 386961532,
+          "rnx_Ir": 338194306,
+          "dynamic_Ir": 48767150,
+          "other_Ir": 76
+        }
+      ]
+    },
+    {
+      "kind": "f64const",
+      "rows": 100000000,
+      "layout": "deterministic-random",
+      "role": "candidate",
+      "calls": [
+        {
+          "call": "first",
+          "Ir": 372679278,
+          "rnx_Ir": 323936650,
+          "dynamic_Ir": 48742552,
+          "other_Ir": 76
+        },
+        {
+          "call": "warm",
+          "Ir": 372678620,
+          "rnx_Ir": 323936329,
+          "dynamic_Ir": 48742215,
+          "other_Ir": 76
+        }
+      ]
+    },
+    {
+      "kind": "f64const",
+      "rows": 100000000,
+      "layout": "alternating",
+      "role": "candidate",
+      "calls": [
+        {
+          "call": "first",
+          "Ir": 372679894,
+          "rnx_Ir": 323936648,
+          "dynamic_Ir": 48743170,
+          "other_Ir": 76
+        },
+        {
+          "call": "warm",
+          "Ir": 372678582,
+          "rnx_Ir": 323936327,
+          "dynamic_Ir": 48742179,
+          "other_Ir": 76
+        }
+      ]
+    },
+    {
+      "kind": "multiply3",
+      "rows": 100000000,
+      "layout": "alternating",
+      "role": "candidate",
+      "calls": [
+        {
+          "call": "first",
+          "Ir": 4750657019,
+          "rnx_Ir": 4705484705,
+          "dynamic_Ir": 45172238,
+          "other_Ir": 76
+        },
+        {
+          "call": "warm",
+          "Ir": 4750655491,
+          "rnx_Ir": 4705484384,
+          "dynamic_Ir": 45171031,
+          "other_Ir": 76
+        }
+      ]
+    },
+    {
+      "kind": "f64const",
+      "rows": 100000000,
+      "layout": "deterministic-random",
+      "role": "baseline",
+      "calls": [
+        {
+          "call": "first",
+          "Ir": 386962306,
+          "rnx_Ir": 338194629,
+          "dynamic_Ir": 48767601,
+          "other_Ir": 76
+        },
+        {
+          "call": "warm",
+          "Ir": 386961302,
+          "rnx_Ir": 338194308,
+          "dynamic_Ir": 48766918,
+          "other_Ir": 76
+        }
+      ]
+    },
+    {
+      "kind": "multiply3",
+      "rows": 100000000,
+      "layout": "alternating",
+      "role": "baseline",
+      "calls": [
+        {
+          "call": "first",
+          "Ir": 4902732375,
+          "rnx_Ir": 4497119098,
+          "dynamic_Ir": 405613201,
+          "other_Ir": 76
+        },
+        {
+          "call": "warm",
+          "Ir": 4902730869,
+          "rnx_Ir": 4497118777,
+          "dynamic_Ir": 405612016,
+          "other_Ir": 76
+        }
+      ]
+    },
+    {
+      "kind": "multiply3",
+      "rows": 100000000,
+      "layout": "deterministic-random",
+      "role": "baseline",
+      "calls": [
+        {
+          "call": "first",
+          "Ir": 4902601118,
+          "rnx_Ir": 4497118416,
+          "dynamic_Ir": 405482626,
+          "other_Ir": 76
+        },
+        {
+          "call": "warm",
+          "Ir": 4902599804,
+          "rnx_Ir": 4497118095,
+          "dynamic_Ir": 405481633,
+          "other_Ir": 76
+        }
+      ]
+    },
+    {
+      "kind": "multiply3",
+      "rows": 100000000,
+      "layout": "deterministic-random",
+      "role": "candidate",
+      "calls": [
+        {
+          "call": "first",
+          "Ir": 4750656388,
+          "rnx_Ir": 4705484076,
+          "dynamic_Ir": 45172236,
+          "other_Ir": 76
+        },
+        {
+          "call": "warm",
+          "Ir": 4750655165,
+          "rnx_Ir": 4705483755,
+          "dynamic_Ir": 45171334,
+          "other_Ir": 76
+        }
+      ]
+    },
+    {
+      "kind": "f64add",
+      "rows": 100000000,
+      "layout": "flat",
+      "role": "baseline",
+      "calls": [
+        {
+          "call": "first",
+          "Ir": 161764046,
+          "rnx_Ir": 117977039,
+          "dynamic_Ir": 43786931,
+          "other_Ir": 76
+        },
+        {
+          "call": "warm",
+          "Ir": 161763907,
+          "rnx_Ir": 117976718,
+          "dynamic_Ir": 43787113,
+          "other_Ir": 76
+        }
+      ]
+    },
+    {
+      "kind": "f64add",
+      "rows": 100000000,
+      "layout": "sliced-chunked-null",
+      "role": "baseline",
+      "calls": [
+        {
+          "call": "first",
+          "Ir": 212156604,
+          "rnx_Ir": 162314667,
+          "dynamic_Ir": 49841861,
+          "other_Ir": 76
+        },
+        {
+          "call": "warm",
+          "Ir": 212156425,
+          "rnx_Ir": 162314346,
+          "dynamic_Ir": 49842003,
+          "other_Ir": 76
+        }
+      ]
+    },
+    {
+      "kind": "f64add",
+      "rows": 100000000,
+      "layout": "flat",
+      "role": "candidate",
+      "calls": [
+        {
+          "call": "first",
+          "Ir": 160664863,
+          "rnx_Ir": 116902694,
+          "dynamic_Ir": 43762093,
+          "other_Ir": 76
+        },
+        {
+          "call": "warm",
+          "Ir": 160664112,
+          "rnx_Ir": 116902373,
+          "dynamic_Ir": 43761663,
+          "other_Ir": 76
+        }
+      ]
+    },
+    {
+      "kind": "f64add",
+      "rows": 100000000,
+      "layout": "sliced-chunked-null",
+      "role": "candidate",
+      "calls": [
+        {
+          "call": "first",
+          "Ir": 197727530,
+          "rnx_Ir": 147910202,
+          "dynamic_Ir": 49817252,
+          "other_Ir": 76
+        },
+        {
+          "call": "warm",
+          "Ir": 197726609,
+          "rnx_Ir": 147909881,
+          "dynamic_Ir": 49816652,
+          "other_Ir": 76
+        }
+      ]
+    },
+    {
+      "kind": "boolnot",
+      "rows": 100000000,
+      "layout": "flat",
+      "role": "baseline",
+      "calls": [
+        {
+          "call": "first",
+          "Ir": 6480313,
+          "rnx_Ir": 5769048,
+          "dynamic_Ir": 711189,
+          "other_Ir": 76
+        },
+        {
+          "call": "warm",
+          "Ir": 6480330,
+          "rnx_Ir": 5768727,
+          "dynamic_Ir": 711527,
+          "other_Ir": 76
+        }
+      ]
+    },
+    {
+      "kind": "boolnot",
+      "rows": 100000000,
+      "layout": "flat",
+      "role": "candidate",
+      "calls": [
+        {
+          "call": "first",
+          "Ir": 6464838,
+          "rnx_Ir": 5768938,
+          "dynamic_Ir": 695824,
+          "other_Ir": 76
+        },
+        {
+          "call": "warm",
+          "Ir": 6463265,
+          "rnx_Ir": 5768617,
+          "dynamic_Ir": 694572,
+          "other_Ir": 76
+        }
+      ]
+    },
+    {
+      "kind": "boolnot",
+      "rows": 100000000,
+      "layout": "sliced-chunked-null",
+      "role": "baseline",
+      "calls": [
+        {
+          "call": "first",
+          "Ir": 124843288,
+          "rnx_Ir": 114852882,
+          "dynamic_Ir": 9990330,
+          "other_Ir": 76
+        },
+        {
+          "call": "warm",
+          "Ir": 124841796,
+          "rnx_Ir": 114852561,
+          "dynamic_Ir": 9989159,
+          "other_Ir": 76
+        }
+      ]
+    },
+    {
+      "kind": "f64add",
+      "rows": 100000000,
+      "layout": "alternating",
+      "role": "baseline",
+      "calls": [
+        {
+          "call": "first",
+          "Ir": 469389861,
+          "rnx_Ir": 423485129,
+          "dynamic_Ir": 45904656,
+          "other_Ir": 76
+        },
+        {
+          "call": "warm",
+          "Ir": 469388394,
+          "rnx_Ir": 423484808,
+          "dynamic_Ir": 45903510,
+          "other_Ir": 76
+        }
+      ]
+    },
+    {
+      "kind": "boolnot",
+      "rows": 100000000,
+      "layout": "alternating",
+      "role": "baseline",
+      "calls": [
+        {
+          "call": "first",
+          "Ir": 149844769,
+          "rnx_Ir": 142003034,
+          "dynamic_Ir": 7841659,
+          "other_Ir": 76
+        },
+        {
+          "call": "warm",
+          "Ir": 149843620,
+          "rnx_Ir": 142002713,
+          "dynamic_Ir": 7840831,
+          "other_Ir": 76
+        }
+      ]
+    },
+    {
+      "kind": "boolnot",
+      "rows": 100000000,
+      "layout": "sliced-chunked-null",
+      "role": "candidate",
+      "calls": [
+        {
+          "call": "first",
+          "Ir": 110470627,
+          "rnx_Ir": 100497263,
+          "dynamic_Ir": 9973288,
+          "other_Ir": 76
+        },
+        {
+          "call": "warm",
+          "Ir": 110469583,
+          "rnx_Ir": 100496942,
+          "dynamic_Ir": 9972565,
+          "other_Ir": 76
+        }
+      ]
+    },
+    {
+      "kind": "f64add",
+      "rows": 100000000,
+      "layout": "deterministic-random",
+      "role": "baseline",
+      "calls": [
+        {
+          "call": "first",
+          "Ir": 469389458,
+          "rnx_Ir": 423484873,
+          "dynamic_Ir": 45904509,
+          "other_Ir": 76
+        },
+        {
+          "call": "warm",
+          "Ir": 469388294,
+          "rnx_Ir": 423484552,
+          "dynamic_Ir": 45903666,
+          "other_Ir": 76
+        }
+      ]
+    },
+    {
+      "kind": "f64add",
+      "rows": 100000000,
+      "layout": "alternating",
+      "role": "candidate",
+      "calls": [
+        {
+          "call": "first",
+          "Ir": 454911458,
+          "rnx_Ir": 409031810,
+          "dynamic_Ir": 45879572,
+          "other_Ir": 76
+        },
+        {
+          "call": "warm",
+          "Ir": 454910247,
+          "rnx_Ir": 409031489,
+          "dynamic_Ir": 45878682,
+          "other_Ir": 76
+        }
+      ]
+    },
+    {
+      "kind": "boolnot",
+      "rows": 100000000,
+      "layout": "alternating",
+      "role": "candidate",
+      "calls": [
+        {
+          "call": "first",
+          "Ir": 135473053,
+          "rnx_Ir": 127647407,
+          "dynamic_Ir": 7825570,
+          "other_Ir": 76
+        },
+        {
+          "call": "warm",
+          "Ir": 135471488,
+          "rnx_Ir": 127647086,
+          "dynamic_Ir": 7824326,
+          "other_Ir": 76
+        }
+      ]
+    },
+    {
+      "kind": "boolnot",
+      "rows": 100000000,
+      "layout": "deterministic-random",
+      "role": "baseline",
+      "calls": [
+        {
+          "call": "first",
+          "Ir": 149844258,
+          "rnx_Ir": 142003034,
+          "dynamic_Ir": 7841148,
+          "other_Ir": 76
+        },
+        {
+          "call": "warm",
+          "Ir": 149843098,
+          "rnx_Ir": 142002713,
+          "dynamic_Ir": 7840309,
+          "other_Ir": 76
+        }
+      ]
+    },
+    {
+      "kind": "boolnot",
+      "rows": 100000000,
+      "layout": "deterministic-random",
+      "role": "candidate",
+      "calls": [
+        {
+          "call": "first",
+          "Ir": 135472190,
+          "rnx_Ir": 127647407,
+          "dynamic_Ir": 7824707,
+          "other_Ir": 76
+        },
+        {
+          "call": "warm",
+          "Ir": 135471109,
+          "rnx_Ir": 127647086,
+          "dynamic_Ir": 7823947,
+          "other_Ir": 76
+        }
+      ]
+    },
+    {
+      "kind": "f64add",
+      "rows": 100000000,
+      "layout": "deterministic-random",
+      "role": "candidate",
+      "calls": [
+        {
+          "call": "first",
+          "Ir": 454911432,
+          "rnx_Ir": 409031555,
+          "dynamic_Ir": 45879801,
+          "other_Ir": 76
+        },
+        {
+          "call": "warm",
+          "Ir": 454910083,
+          "rnx_Ir": 409031234,
+          "dynamic_Ir": 45878773,
+          "other_Ir": 76
+        }
+      ]
+    }
+  ],
+  "disclosure": "Old-path benchmarks not re-measured for 0212 (column-only source scope)."
+}
