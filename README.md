@@ -9,6 +9,63 @@ The whole-process matrix uses rnx `c32a6ba7`, which pins public [Rune N6](https:
 entry/return witnesses for permute and two additional method fixtures, including
 a field loop with the default native setting and budget.
 
+## Mixed-mask integer SIMD — ADR 0213
+
+Published rnx **`49eb4453`** runs supported generic integer nodes with checked
+AVX2 across a block. An overflow flag triggers one validity-aware scalar rescan
+of that node; overflow in a null lane does not become a script error. Final null
+output values remain zero.
+
+Whole-map **instructions per row at 100 million rows**, including Arrow adaptation,
+per-map plan preparation, output allocation and worker join. Input construction,
+initial kernel compilation and result validation are outside this interval.
+
+| Checked `x*3+y` layout | 0212 first | 0213 first | 0212 warm | 0213 warm |
+|---|---:|---:|---:|---:|
+| flat | 7.950 | 7.948 | 7.950 | 7.948 |
+| sliced-chunked-null | 10.274 | 10.258 | 10.274 | 10.258 |
+| alternating | 47.507 | 22.585 | 47.507 | 22.585 |
+| deterministic-random | 47.507 | 22.585 | 47.507 | 22.585 |
+
+Mixed-mask `x*3+y` uses about **52% fewer instructions**; flat and sliced inputs
+are slightly cheaper. These counts do not establish elapsed-time savings or a
+new cross-runtime comparison.
+
+The adversarial control uses alternating nulls in `x` and `y=MAX` on those rows,
+forcing overflow only in the final add's invalid lanes. Valid rows produce 7.
+The benign twin uses `y=2` throughout. Both check complete output and valid-row
+counts, with first and warm calls measured separately:
+
+| `(x*3+y)+y`, 65,536 rows | 0212 first | 0213 first | 0212 warm | 0213 warm |
+|---|---:|---:|---:|---:|
+| benign | 76.388 | 36.544 | 76.347 | 36.512 |
+| adversarial | 76.382 | 53.259 | 76.345 | 53.218 |
+
+Profiles prove exactly one scalar rescan per mixed block: 64 at 4,096 rows and
+1,024 at 65,536 rows, in each adversarial call; zero in the benign calls.
+The adversarial case remains cheaper than the same-expression 0212 baseline.
+
+Acceptance includes reviewed, commit-pair-pinned preparation constants:
+`i64add +10`, `axpy +56`, `f64const +10`, `f64add +11` instructions per map;
+`multiply3` has the same +56 preparation component but cheaper execution.
+Four attributed preparation-function deltas must match exactly across all sizes
+and calls. There is no per-row allowance. Unchanged kernels retain program
+non-regression after that constant and the approved system-library band; existing
+ceilings and the 25 Ir/row mixed-mask target remain enforced. The original raw
+failure and reviewed rescore are both identified in the archive.
+
+Baseline: `0f95d955081fd21d43b04bba6b5fac6f1b6bc084`.
+Measured candidate: `1263b1e449d7470e947701874f075841b9843739`.
+Published candidate: `49eb4453cf333e926357ecd71448175449d5a07c` differs only in
+backlog documentation and four scoring/control files; product source is unchanged.
+[Full first/warm matrix, adversarial results and provenance hashes](results/column-0213-summary.json).
+
+Constant Add/Sub still uses scalar execution in generic masked chains. Output
+zero-initialization remains; generic F64/Bool expansion is outside this record.
+**Old-path benchmarks not re-measured for 0213 (column-only source scope).**
+Source isolation does not establish unchanged LTO code generation elsewhere.
+Earlier reports below retain their original commits and measurements.
+
 ## Borrowed column operands — ADR 0212
 
 Published rnx **`0f95d955`** removes generic numeric input staging and writes
