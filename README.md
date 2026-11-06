@@ -9,6 +9,38 @@ The whole-process matrix uses rnx `c32a6ba7`, which pins public [Rune N6](https:
 entry/return witnesses for permute and two additional method fixtures, including
 a field loop with the default native setting and budget.
 
+## Borrowed column operands — ADR 0212
+
+Published rnx **`0f95d955`** removes generic numeric input staging and writes
+final column results directly to owned output. It also reuses the core's valid-row
+count. Output allocation/zero-initialization remains; generic mixed-mask SIMD is
+still deferred.
+
+Whole-map instructions per row at **100 million rows**, including Arrow adaptation,
+output allocation and worker join, excluding preparation/input construction and
+validation. First and warm calls are shown separately:
+
+| Checked `x*3+y` layout | Baseline first | 0212 first | Baseline warm | 0212 warm |
+|---|---:|---:|---:|---:|
+| flat | 10.732 | 7.950 | 10.732 | 7.950 |
+| sliced-chunked-null | 13.976 | 10.274 | 13.976 | 10.274 |
+| alternating | 49.027 | 47.507 | 49.027 | 47.507 |
+| deterministic-random | 49.026 | 47.507 | 49.026 | 47.507 |
+
+Flat and sliced `x*3+y` use about 26% fewer instructions; mixed-mask cases improve
+about 3%. These are instruction counts, not elapsed-time or new cross-runtime
+comparisons. The paired 10M/100M capture passed the accepted column gates.
+
+Baseline: `9b161210578a53d010e6c4ea8ab61d6bb01f9c8a`.
+Measured candidate: `1d2bc05e79b7a75cb6b11dddc6b0a5a4e0025cdd`.
+Published candidate: `0f95d955081fd21d43b04bba6b5fac6f1b6bc084` differs only in the
+acceptance launcher's cross-verifier output path; product source is unchanged.
+[All six kernels, four layouts, both sizes/calls and provenance hashes](results/column-0212-summary.json).
+
+**Old-path benchmarks not re-measured for 0212 (column-only source scope).**
+Source isolation does not establish unchanged LTO code generation elsewhere.
+Earlier results below retain their original commits and measurements.
+
 ## Column kernels — 2026-11-05
 
 <!-- column-0206:start -->
