@@ -9,6 +9,67 @@ The whole-process matrix uses rnx `c32a6ba7`, which pins public [Rune N6](https:
 entry/return witnesses for permute and two additional method fixtures, including
 a field loop with the default native setting and budget.
 
+<!-- column-0228:start -->
+## Explicit output reuse — ADR 0228
+
+Published rnx **`c7d08d9b`** adds consuming
+`kernel.map_reusing(inputs, previous)` for eligible F64 outputs.
+At 100M rows, warm calls save **38%** for flat const/add, **8%** for a flat
+chain, and **21%** for a chain on nullable columns versus the same binary's
+plain map. Nullable const/add still allocate fresh, as planned.
+
+The caller supplies the previous output; there is no hidden buffer cache.
+Reuse requires exclusive whole-buffer ownership and capacity between the
+needed size and twice that size. Shared, sliced, non-F64 and unsuitable-size
+donors fall back to fresh allocation. Rejected buffers are dropped before
+fresh allocation; memory is not retained beyond caller-owned outputs.
+
+Milliseconds: median [minimum, maximum] across five fresh processes.
+Each process makes one first call and five warm calls; warm statistics use
+each process's median. The first reuse call allocates fresh. Input creation,
+preparation and full-output validation are outside timing. Role order
+alternates by round with a fixed 120-second cooldown. No retries or
+statistical-confidence claim. Baseline plain map is rnx `7802ce4a`.
+
+| Expression | Layout | Call | Baseline plain ms | New plain ms | Reuse ms |
+|---|---|---|---:|---:|---:|
+| f64const | flat | first | 120.3 [117.0, 123.8] | 122.7 [115.0, 124.1] | 120.9 [119.1, 126.1] |
+| f64const | flat | warm | 118.7 [117.6, 120.8] | 120.7 [116.7, 124.7] | 75.1 [74.4, 75.4] |
+| f64const | alternating | first | 172.7 [170.2, 177.4] | 176.2 [173.0, 181.2] | 179.0 [176.0, 180.5] |
+| f64const | alternating | warm | 175.1 [168.5, 180.4] | 168.1 [167.3, 173.0] | 168.7 [167.6, 168.8] |
+| f64add | flat | first | 143.4 [132.4, 161.0] | 152.2 [144.7, 164.7] | 162.7 [149.4, 165.3] |
+| f64add | flat | warm | 153.5 [153.1, 155.0] | 153.7 [141.4, 157.7] | 95.4 [94.9, 96.1] |
+| f64add | alternating | first | 202.3 [199.4, 204.6] | 198.7 [193.7, 203.9] | 193.0 [186.3, 204.8] |
+| f64add | alternating | warm | 189.8 [188.7, 196.9] | 192.4 [188.8, 200.4] | 189.7 [186.5, 191.1] |
+| f64chain | flat | first | 214.5 [184.5, 220.4] | 219.8 [179.8, 225.7] | 222.0 [184.1, 228.7] |
+| f64chain | flat | warm | 215.0 [214.0, 216.1] | 217.9 [187.3, 221.4] | 200.3 [161.2, 207.3] |
+| f64chain | alternating | first | 247.7 [204.8, 254.1] | 236.1 [220.1, 251.4] | 254.7 [221.8, 255.9] |
+| f64chain | alternating | warm | 239.9 [210.0, 243.8] | 241.1 [230.5, 242.4] | 191.3 [158.8, 192.5] |
+
+Warm page faults fall from **622–1,133 to 0–3** on the four eligible cells.
+Nullable const/add remain at 1,133 in the separate diagnostic.
+
+The user approved an exact instruction-count exception for plain map:
+flat F64 const adds **1 instruction per 1,024-row block**; flat axpy and
+I64 add add **2**. At 10M and 100M the total program deltas are exactly
+`ceil(n/1024)+96`, `2*ceil(n/1024)+88`, and `2*ceil(n/1024)+98` respectively.
+Fixed setup vectors for other paths are pinned too. Binary-pair checks
+reject an extra instruction per call or block and changed call counts.
+The affected instruction totals rise about **0.06–0.13%**. Plain-map warm
+medians range from **0.96–1.02×** baseline; this does not prove zero timing cost.
+Raw failures remain recorded alongside approved rescores.
+
+ADR 0224 measured Arrow at roughly 70 ms for flat const, 92 ms for add,
+203 ms for a flat chain and 210 ms for a nullable chain. Arrow and Polars
+results there came from a **different run/day**, not this paired experiment;
+they provide context, not evidence of parity or a win over either engine.
+
+Core, targeted Miri, ownership/retention, host, integration, generated-project,
+cross and commit checks passed. Unchanged interpreter paths were not re-measured.
+[Raw sample times, ranges, binary identities and receipt hashes](results/column-0228-summary.json).
+[Renderer and validation](scripts/render_column_0228.py).
+<!-- column-0228:end -->
+
 <!-- column-0227:start -->
 ## Huge-page advice for large outputs — ADR 0227
 
