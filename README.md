@@ -9,6 +9,44 @@ The whole-process matrix uses rnx `c32a6ba7`, which pins public [Rune N6](https:
 entry/return witnesses for permute and two additional method fixtures, including
 a field loop with the default native setting and budget.
 
+<!-- column-0221:start -->
+## Pure-F64 multi-operation plans — ADR 0221
+
+Published rnx **`7c51bf60`** runs qualifying pure-F64 plans
+with at least two Add/Sub/Mul operations in a separate whole-plan driver.
+The measured expression is `x*2.0+y`; single-operation plans keep existing paths.
+
+Whole-map executed instructions per row, including setup and system-library work.
+Input construction, initial compilation and output validation are outside the
+measured interval. First and warm are two map calls in each capture.
+Baseline is published **`662a8214`**. No adjustments are subtracted.
+
+| Operation | Layout | Rows | Baseline first | 0221 first | Baseline warm | 0221 warm |
+|---|---|---:|---:|---:|---:|---:|
+| f64chain | flat | 10000000 | 104.034203 | 11.190270 | 104.034169 | 11.190268 |
+| f64chain | sliced-chunked-null | 10000000 | 58.003076 | 11.576147 | 58.002999 | 11.576102 |
+| f64chain | alternating | 10000000 | 126.556895 | 19.499139 | 126.556764 | 19.499077 |
+| f64chain | deterministic-random | 10000000 | 126.556917 | 18.874135 | 126.556811 | 18.874060 |
+| f64chain | sliced-chunked-null | 100000000 | 58.000314 | 11.572670 | 58.000306 | 11.572666 |
+| f64chain | flat | 100000000 | 104.031548 | 11.186901 | 104.031544 | 11.186901 |
+| f64chain | alternating | 100000000 | 126.553442 | 19.494934 | 126.553430 | 19.494926 |
+| f64chain | deterministic-random | 100000000 | 126.553436 | 18.869936 | 126.553422 | 18.869922 |
+
+Protected column paths passed exact function-vector checks with reviewed setup
+constants and pinned run_flat-to-map inlining redistribution (net nonpositive
+per block). Unknown-object totals stayed exact; system-library bands passed.
+NaN bit equality was verified on x86-64 only, not asserted across platforms.
+
+Output zero-initialization remains. Its measured 8 versus 0.44 Ir/row size
+dependence is backlogged for attribution and a separate ownership change.
+
+**Column-only scope: old interpreter paths were not re-measured. These are
+instruction counts only, with no elapsed-time or cycle measurements. The gains
+apply to qualifying pure-F64 plans, not arbitrary scripts.**
+
+[Exact totals, measured/published commits and source receipt hash](results/column-0221-summary.json).
+<!-- column-0221:end -->
+
 <!-- column-0220:start -->
 ## Packed Boolean plans — ADR 0220
 
