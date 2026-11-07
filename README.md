@@ -9,6 +9,70 @@ The whole-process matrix uses rnx `c32a6ba7`, which pins public [Rune N6](https:
 entry/return witnesses for permute and two additional method fixtures, including
 a field loop with the default native setting and budget.
 
+<!-- column-0226:start -->
+## Packed Boolean XOR and equality — ADR 0226
+
+Published rnx **`94c30cee`** adds `^`, `==` and `!=` to the
+pure-Boolean packed driver, including chains with `&`, `|` and `!`.
+Equality uses word-wise XNOR; XOR and inequality use XOR. Strict input-null
+intersection, zero invalid payload and tail masking are preserved. Numeric
+comparison plans remain in the separate predicate driver.
+
+Whole-map executed instructions per row, including system-library work.
+First/warm are two map calls per capture. Construction, initial compilation
+and output validation are outside the measured interval. Baseline is
+**`b177e963`**, runtime-identical to measured `45823dda`.
+No adjustments are subtracted. This is **Ir only, column-only scope**:
+no new wall-time or unchanged interpreter performance claim.
+
+| Shape | Layout | Baseline first | Candidate first | Baseline warm | Candidate warm |
+|---|---|---:|---:|---:|---:|
+| booland | flat | 0.740441 | 0.746300 | 0.740434 | 0.746294 |
+| booland | sliced-chunked-null | 1.696524 | 1.702383 | 1.696512 | 1.702370 |
+| booland | alternating | 2.513973 | 2.519831 | 2.513958 | 2.519825 |
+| booland | deterministic-random | 2.513971 | 2.519833 | 2.513963 | 2.519823 |
+| boolor | flat | 0.743365 | 0.746301 | 0.743365 | 0.746294 |
+| boolor | sliced-chunked-null | 1.699443 | 1.702380 | 1.699443 | 1.702366 |
+| boolor | alternating | 2.516914 | 2.519830 | 2.516901 | 2.519821 |
+| boolor | deterministic-random | 2.516902 | 2.519831 | 2.516894 | 2.519823 |
+| boolchain | flat | 1.107665 | 1.120363 | 1.107661 | 1.120355 |
+| boolchain | sliced-chunked-null | 2.232694 | 2.245390 | 2.232687 | 2.245382 |
+| boolchain | alternating | 3.344160 | 3.356850 | 3.344143 | 3.356841 |
+| boolchain | deterministic-random | 3.344153 | 3.356852 | 3.344144 | 3.356845 |
+| booleq | flat | 94.387899 | 0.755088 | 94.387892 | 0.755084 |
+| booleq | sliced-chunked-null | 51.343002 | 1.711173 | 51.342990 | 1.711164 |
+| booleq | alternating | 109.802364 | 2.528622 | 109.802363 | 2.528610 |
+| booleq | deterministic-random | 109.802363 | 2.528617 | 109.802352 | 2.528613 |
+| boolne | flat | 94.387902 | 0.746295 | 94.387895 | 0.746292 |
+| boolne | sliced-chunked-null | 51.342992 | 1.702371 | 51.342988 | 1.702370 |
+| boolne | alternating | 109.802370 | 2.519834 | 109.802358 | 2.519827 |
+| boolne | deterministic-random | 109.802363 | 2.519834 | 109.802349 | 2.519824 |
+| boolxor | flat | 93.387904 | 0.746300 | 93.387895 | 0.746294 |
+| boolxor | sliced-chunked-null | 50.843003 | 1.702384 | 50.842992 | 1.702375 |
+| boolxor | alternating | 108.802373 | 2.519828 | 108.802361 | 2.519831 |
+| boolxor | deterministic-random | 108.802362 | 2.519830 | 108.802346 | 2.519824 |
+
+The table shows 100M rows. All new shapes pass at 10M and 100M, first and
+warm, across all four layouts: at most 2 Ir/row flat, 4 nullable, and 10% of
+baseline instructions. Deterministic-random validity repeats a 256-bit mask.
+
+The edited driver increases existing AND/OR/chain work by **6/3/13 instructions
+per 1,024-row block** in the small diagnostic. Those paths retain their raw
+ceilings: 2/4 Ir per row for AND/OR and 2.5/5 for chains, flat/nullable.
+Unchanged paths retain exact function vectors plus reviewed fixed setup pins.
+
+This record also repairs two stale cross-check fixtures left by ADR 0224,
+whose gate set omitted cross: the live `src/time.rs` fingerprint and the
+registry count after adding `time::monotonic_ns`. The checked refresh verifies
+exact old/new witnesses, allowing only that addition and the source-proven
+`monotonic_ms` documentation change. Historical provenance is unchanged.
+Failed receipts are retained; cross passed after repair. Other passed stages
+were reused with tooling-only diff proofs.
+
+[Exact totals, reviewed table, binary identities and receipt hashes](results/column-0226-summary.json).
+[Renderer and validation](scripts/render_column_0226.py).
+<!-- column-0226:end -->
+
 <!-- column-0224:start -->
 ## Cross-engine column comparison — ADR 0224
 
