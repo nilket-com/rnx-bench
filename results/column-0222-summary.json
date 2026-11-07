@@ -1,0 +1,193 @@
+{
+  "receipt_sha256": "e3e1d3ab90654bbb7c333298b0947ac60baf398a216da4fee5af1082edf74140",
+  "timing_receipt_sha256": "267255c1eef96f5254d5b4c649b3001aee3f348b330a18468e0e88f42f4b6378",
+  "published": "e4e6f465f14740476bf57f1425e48df7e796ef10",
+  "baseline": "7c51bf600f9f0655b6d98034dfc2b0d4caafa2ce",
+  "rows": [
+    {
+      "operation": "f64chain",
+      "layout": "flat",
+      "rows": 10000000,
+      "baseline_Ir": [
+        111902668,
+        111902659
+      ],
+      "candidate_Ir": [
+        97937812,
+        97937803
+      ]
+    },
+    {
+      "operation": "f64chain",
+      "layout": "flat",
+      "rows": 100000000,
+      "baseline_Ir": [
+        1118690156,
+        1118690135
+      ],
+      "candidate_Ir": [
+        979041687,
+        979041677
+      ]
+    },
+    {
+      "operation": "f64chain",
+      "layout": "sliced-chunked-null",
+      "rows": 10000000,
+      "baseline_Ir": [
+        115761469,
+        115761019
+      ],
+      "candidate_Ir": [
+        110234116,
+        110233666
+      ]
+    },
+    {
+      "operation": "f64chain",
+      "layout": "sliced-chunked-null",
+      "rows": 100000000,
+      "baseline_Ir": [
+        1157267036,
+        1157266584
+      ],
+      "candidate_Ir": [
+        1101993570,
+        1101993118
+      ]
+    },
+    {
+      "operation": "f64chain",
+      "layout": "alternating",
+      "rows": 10000000,
+      "baseline_Ir": [
+        194991171,
+        194990290
+      ],
+      "candidate_Ir": [
+        176416999,
+        176416118
+      ]
+    },
+    {
+      "operation": "f64chain",
+      "layout": "deterministic-random",
+      "rows": 10000000,
+      "baseline_Ir": [
+        188740803,
+        188740576
+      ],
+      "candidate_Ir": [
+        176611966,
+        176611063
+      ]
+    },
+    {
+      "operation": "f64chain",
+      "layout": "alternating",
+      "rows": 100000000,
+      "baseline_Ir": [
+        1949493558,
+        1949492199
+      ],
+      "candidate_Ir": [
+        1763751412,
+        1763750053
+      ]
+    },
+    {
+      "operation": "f64chain",
+      "layout": "deterministic-random",
+      "rows": 100000000,
+      "baseline_Ir": [
+        1886993430,
+        1886992400
+      ],
+      "candidate_Ir": [
+        1765704470,
+        1765703081
+      ]
+    }
+  ],
+  "timings": [
+    {
+      "layout": "flat",
+      "role": "baseline",
+      "map_ms": [
+        335,
+        333
+      ],
+      "binary_sha256": "7ffa2e1560b40753e19a2ee24e11f4a183e02ccf422cb285409eca0bf0e4e397"
+    },
+    {
+      "layout": "flat",
+      "role": "candidate",
+      "map_ms": [
+        251,
+        256
+      ],
+      "binary_sha256": "9d3a28f7caebbf6844be9c687e3702484740e00ea4b6b2381f226c943f50b84b"
+    },
+    {
+      "layout": "sliced-chunked-null",
+      "role": "baseline",
+      "map_ms": [
+        366,
+        330
+      ],
+      "binary_sha256": "7ffa2e1560b40753e19a2ee24e11f4a183e02ccf422cb285409eca0bf0e4e397"
+    },
+    {
+      "layout": "sliced-chunked-null",
+      "role": "candidate",
+      "map_ms": [
+        307,
+        270
+      ],
+      "binary_sha256": "9d3a28f7caebbf6844be9c687e3702484740e00ea4b6b2381f226c943f50b84b"
+    },
+    {
+      "layout": "alternating",
+      "role": "baseline",
+      "map_ms": [
+        352,
+        351
+      ],
+      "binary_sha256": "7ffa2e1560b40753e19a2ee24e11f4a183e02ccf422cb285409eca0bf0e4e397"
+    },
+    {
+      "layout": "alternating",
+      "role": "candidate",
+      "map_ms": [
+        290,
+        290
+      ],
+      "binary_sha256": "9d3a28f7caebbf6844be9c687e3702484740e00ea4b6b2381f226c943f50b84b"
+    },
+    {
+      "layout": "deterministic-random",
+      "role": "baseline",
+      "map_ms": [
+        349,
+        349
+      ],
+      "binary_sha256": "7ffa2e1560b40753e19a2ee24e11f4a183e02ccf422cb285409eca0bf0e4e397"
+    },
+    {
+      "layout": "deterministic-random",
+      "role": "candidate",
+      "map_ms": [
+        299,
+        300
+      ],
+      "binary_sha256": "9d3a28f7caebbf6844be9c687e3702484740e00ea4b6b2381f226c943f50b84b"
+    }
+  ],
+  "retained_timing_failures": {
+    "v1": "f53c4c6c2f36d5a1d39f451fb4ccb8d588002c1e2aade67ade1c1b205a4798b6",
+    "v2": "8330262e6fbc3836e35890cfcb9e1cc3789f6c89b53c34e0fb550c1fb5a54c81",
+    "v3": "37a28fd809b084a03c6f5a2f3f196fe9231912e29e8fb5e6899e5e3ddac5bbdc"
+  },
+  "measured_baseline": "3893e38f3bb8d7d99a2fe969e2a2c715941ce4b9",
+  "measured_candidate": "1f575d208caa08931bcae56890076e2d8ab93509"
+}

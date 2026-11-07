@@ -9,6 +9,67 @@ The whole-process matrix uses rnx `c32a6ba7`, which pins public [Rune N6](https:
 entry/return witnesses for permute and two additional method fixtures, including
 a field loop with the default native setting and budget.
 
+<!-- column-0222:start -->
+## F64 write-only output — ADR 0222
+
+Published rnx **`e4e6f465`** runs qualifying pure-F64 plans
+with at least two Add/Sub/Mul operations using write-only output storage.
+The measured expression is `x*2.0+y`; single-operation plans keep existing paths.
+
+Whole-map executed instructions per row, including setup and system-library work.
+Input construction, initial compilation and output validation are outside the
+measured interval. First and warm are two map calls in each capture.
+Baseline is published **`7c51bf60`**. No adjustments are subtracted.
+
+| Operation | Layout | Rows | Baseline first | 0222 first | Baseline warm | 0222 warm |
+|---|---|---:|---:|---:|---:|---:|
+| f64chain | flat | 10000000 | 11.190267 | 9.793781 | 11.190266 | 9.793780 |
+| f64chain | flat | 100000000 | 11.186902 | 9.790417 | 11.186901 | 9.790417 |
+| f64chain | sliced-chunked-null | 10000000 | 11.576147 | 11.023412 | 11.576102 | 11.023367 |
+| f64chain | sliced-chunked-null | 100000000 | 11.572670 | 11.019936 | 11.572666 | 11.019931 |
+| f64chain | alternating | 10000000 | 19.499117 | 17.641700 | 19.499029 | 17.641612 |
+| f64chain | deterministic-random | 10000000 | 18.874080 | 17.661197 | 18.874058 | 17.661106 |
+| f64chain | alternating | 100000000 | 19.494936 | 17.637514 | 19.494922 | 17.637501 |
+| f64chain | deterministic-random | 100000000 | 18.869934 | 17.657045 | 18.869924 | 17.657031 |
+
+Descriptive quiet 100M-row map wall time in milliseconds. One sample per
+role/layout, containing first and warm calls; no statistical claim or timing
+acceptance threshold. The lease and readiness policy used a fixed 120-second
+cooldown before each sample. Construction and validation are outside map time.
+
+| Layout | Version | First ms | Warm ms |
+|---|---|---:|---:|
+| flat | 0221 | 335 | 333 |
+| flat | 0222 | 251 | 256 |
+| sliced-chunked-null | 0221 | 366 | 330 |
+| sliced-chunked-null | 0222 | 307 | 270 |
+| alternating | 0221 | 352 | 351 |
+| alternating | 0222 | 290 | 290 |
+| deterministic-random | 0221 | 349 | 349 |
+| deterministic-random | 0222 | 299 | 300 |
+
+Timing recovery: v1 lacked clocks in mixed-null fixtures; v2 used an invalid
+small fixture size; v3 put preflight artifacts in the recorder directory.
+All three FAIL receipts were retained. Four completed, validated flat/sliced
+samples were reused with receipt and binary identity checks; only missing
+mixed-layout samples were measured after correcting the harness.
+
+The removed fill measured 8 Ir/row at small sizes (Callgrind counts repeated
+byte stores) and 0.4375 Ir/row at large sizes (glibc non-temporal stores).
+Both paths write 8 bytes per row: removing the fill avoids a redundant 800 MB
+pass at 100M rows. Ir savings do not express memory traffic or predict timing.
+
+Protected column vectors passed with reviewed fixed setup pins, exact unknown
+object totals and unchanged system-library bands. Every candidate F64 profile
+lacked the output-fill edge; baseline profiles supplied the positive control.
+NaN bit equality was verified on x86-64 only. Boolean output is unchanged.
+
+**Column-only scope: old interpreter paths were not re-measured. Gains apply
+only to qualifying pure-F64 plans, not arbitrary scripts.**
+
+[Exact totals, timing samples, commits and receipt hashes](results/column-0222-summary.json).
+<!-- column-0222:end -->
+
 <!-- column-0221:start -->
 ## Pure-F64 multi-operation plans — ADR 0221
 
