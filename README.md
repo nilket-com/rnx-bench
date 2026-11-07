@@ -9,6 +9,58 @@ The whole-process matrix uses rnx `c32a6ba7`, which pins public [Rune N6](https:
 entry/return witnesses for permute and two additional method fixtures, including
 a field loop with the default native setting and budget.
 
+<!-- column-0220:start -->
+## Packed Boolean plans — ADR 0220
+
+Published rnx **`662a8214`** evaluates pure-Boolean AND/OR plans
+and their NOT intermediates as packed words in a separate whole-plan driver.
+Null semantics remain strict: all inputs must be valid for an output row to be valid.
+NOT-only plans, comparisons, XOR and numeric plans keep their existing paths.
+
+Whole-map executed instructions per row, including setup and system-library work.
+Input construction, initial kernel compilation and output validation are outside
+the measured interval. First and warm are the two map calls in each capture.
+Baseline is published **`e05ce43c`**. No adjustments are subtracted.
+
+| Operation | Layout | Rows | Baseline first | 0220 first | Baseline warm | 0220 warm |
+|---|---|---:|---:|---:|---:|---:|
+| booland | flat | 10000000 | 93.390744 | 0.742272 | 93.390646 | 0.742219 |
+| booland | flat | 100000000 | 93.388881 | 0.740435 | 93.388871 | 0.740433 |
+| booland | sliced-chunked-null | 10000000 | 50.844916 | 1.698383 | 50.844817 | 1.698396 |
+| booland | sliced-chunked-null | 100000000 | 50.842996 | 1.696518 | 50.842985 | 1.696510 |
+| booland | alternating | 10000000 | 108.804893 | 2.516614 | 108.804807 | 2.516516 |
+| booland | alternating | 100000000 | 108.802365 | 2.513971 | 108.802353 | 2.513955 |
+| booland | deterministic-random | 10000000 | 108.804916 | 2.516692 | 108.804710 | 2.516570 |
+| booland | deterministic-random | 100000000 | 108.802361 | 2.513971 | 108.802347 | 2.513961 |
+| boolor | flat | 10000000 | 93.390734 | 0.745202 | 93.390643 | 0.745149 |
+| boolor | flat | 100000000 | 93.388878 | 0.743369 | 93.388870 | 0.743365 |
+| boolor | sliced-chunked-null | 10000000 | 50.844924 | 1.701396 | 50.844874 | 1.701304 |
+| boolor | sliced-chunked-null | 100000000 | 50.842989 | 1.699449 | 50.842985 | 1.699436 |
+| boolor | alternating | 10000000 | 108.804890 | 2.519585 | 108.804737 | 2.519467 |
+| boolor | alternating | 100000000 | 108.802370 | 2.516906 | 108.802356 | 2.516895 |
+| boolor | deterministic-random | 10000000 | 108.804868 | 2.519603 | 108.804791 | 2.519516 |
+| boolor | deterministic-random | 100000000 | 108.802362 | 2.516906 | 108.802358 | 2.516901 |
+| boolchain | flat | 10000000 | 160.665364 | 1.109819 | 160.665255 | 1.109780 |
+| boolchain | flat | 100000000 | 160.662437 | 1.107665 | 160.662427 | 1.107661 |
+| boolchain | sliced-chunked-null | 10000000 | 86.306088 | 2.234993 | 86.306010 | 2.234832 |
+| boolchain | sliced-chunked-null | 100000000 | 86.303079 | 2.232693 | 86.303061 | 2.232692 |
+| boolchain | alternating | 10000000 | 185.802863 | 3.347865 | 185.802766 | 3.347784 |
+| boolchain | alternating | 100000000 | 185.798635 | 3.344153 | 185.798626 | 3.344150 |
+| boolchain | deterministic-random | 10000000 | 185.802418 | 3.347706 | 185.802324 | 3.347638 |
+| boolchain | deterministic-random | 100000000 | 185.798609 | 3.344157 | 185.798598 | 3.344148 |
+
+Protected column paths passed exact function-vector checks with reviewed fixed
+setup differences and the pinned beneficial invoke formula; unknown-object totals
+matched and unchanged-path system-library bands passed. This is not a claim of
+byte-identical binaries or identical setup cost.
+
+**Column-only scope: old interpreter paths were not re-measured. These are instruction
+counts only; no wall-clock or cycle measurements were taken for this record. Gains
+apply to qualifying pure-Boolean plans, not arbitrary scripts.**
+
+[Exact totals, measured/published commits and source receipt hash](results/column-0220-summary.json).
+<!-- column-0220:end -->
+
 <!-- column-0215:start -->
 ## Flat numeric output initialization — ADR 0215
 
