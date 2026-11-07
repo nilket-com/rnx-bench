@@ -9,6 +9,109 @@ The whole-process matrix uses rnx `c32a6ba7`, which pins public [Rune N6](https:
 entry/return witnesses for permute and two additional method fixtures, including
 a field loop with the default native setting and budget.
 
+<!-- column-0224:start -->
+## Cross-engine column comparison — ADR 0224
+
+rnx **`45823dda`**, Polars **2.1.0**, direct Arrow kernels (PyArrow
+**26.0.1**) and DuckDB **2.0.0**, measured at 10M and 100M rows.
+This is a wall-time comparison, not a new instruction-count result or an
+aggregate ranking. [All 640 cells with ranges](results/column-0224-tables.md)
+place equivalent and native semantics side by side;
+[compact samples and settings](results/column-0224-summary.json) retain all 2,976
+process samples. [Renderer/validator](scripts/render_column_0224.py).
+
+The first three expressions produce F64 columns; the others produce Boolean
+masks, **not filtered tables**. Primary results enforce rnx's strict input-null
+intersection and unordered NaN comparisons. Polars and DuckDB use explicit
+semantic adaptations where needed. Their secondary native panel omits those
+adaptations and is **not generally semantically equivalent**, even when these
+finite flat inputs happen to produce the same answers. Arrow uses direct
+strict Boolean kernels; it is not an Arrow-backed dataframe benchmark.
+
+100M **flat**, equivalent semantics, median **first / warm milliseconds**.
+Ranges for every entry are in the complete table.
+
+| Key / expression | rnx serial | Arrow serial | Polars 1 | Polars 28 | DuckDB 1 | DuckDB 28 |
+|---|---:|---:|---:|---:|---:|---:|
+| f64const: `x + 1.0` | 247.88 / 243.66 | 120.53 / 69.03 | 248.54 / 70.69 | 253.59 / 70.67 | 627.41 / 300.88 | 360.25 / 171.24 |
+| f64add: `x + y` | 273.85 / 265.14 | 145.75 / 89.90 | 269.10 / 93.54 | 274.96 / 94.39 | 668.87 / 433.58 | 396.52 / 205.91 |
+| f64chain: `x * 2.0 + y` | 340.42 / 336.14 | 252.58 / 200.40 | 328.39 / 147.92 | 326.92 / 145.18 | 699.77 / 476.42 | 423.70 / 237.66 |
+| booland: `a & b` | 12.92 / 8.43 | 5.13 / 3.99 | 17.12 / 14.67 | 18.33 / 14.41 | 303.26 / 269.24 | 170.73 / 138.31 |
+| boolor: `a &#124; b` | 14.94 / 11.58 | 5.28 / 4.06 | 17.04 / 11.40 | 17.79 / 11.77 | 283.38 / 251.07 | 166.36 / 139.47 |
+| boolchain: `(a & b) &#124; c` | 17.02 / 14.12 | 9.92 / 10.01 | 22.50 / 15.86 | 29.79 / 16.53 | 311.16 / 281.07 | 194.31 / 162.33 |
+| f64gt: `x > 1.0` | 57.82 / 61.55 | 70.08 / 53.82 | 87.45 / 83.04 | 106.07 / 82.93 | 337.62 / 293.34 | 222.52 / 180.28 |
+| i64eq: `i == 2` | 89.23 / 86.40 | 55.31 / 54.27 | 48.58 / 33.08 | 50.19 / 33.13 | 253.23 / 219.50 | 134.03 / 103.93 |
+| f64and: `(x > 1.0) & (y < 2.0)` | 105.98 / 111.50 | 118.55 / 118.22 | 182.14 / 178.35 | 206.44 / 184.96 | 523.64 / 487.25 | 409.95 / 373.30 |
+| mixedor: `((x > 1.0) & (y < 2.0)) &#124; c` | 122.60 / 125.84 | 121.58 / 121.05 | 188.96 / 183.02 | 184.75 / 228.68 | 555.75 / 520.93 | 439.75 / 403.54 |
+| arithcmp: `x * 2.0 + y > 3.0` | 133.46 / 128.64 | 303.90 / 305.39 | 563.75 / 560.18 | 563.57 / 558.32 | 435.16 / 397.50 | 316.19 / 282.00 |
+
+On these flat F64 arithmetic examples, rnx warm calls take approximately
+1.7–3.5× Arrow/Polars time. Some nullable layouts have larger gaps; this range
+does not summarize the entire matrix. Arrow leads these flat Boolean examples,
+and Polars/Arrow lead I64 equality. rnx is competitive on F64 predicates and
+leads the arithmetic-plus-comparison example under equivalent semantics, but
+is not universally fastest: Arrow's flat `f64gt` warm result is 53.82 ms versus
+rnx's 61.55 ms, and its alternating `f64and` is 126.47 versus 131.81 ms.
+
+The native panel changes the picture substantially. At 100M flat rows,
+Polars single-thread native Boolean AND is **0.194 ms**, versus **14.67 ms**
+with strict semantics; native `f64gt` is **34.15 ms**, versus **83.04 ms**.
+DuckDB default native `arithcmp` is **93.63 ms**, versus **282.00 ms**.
+Fixtures use uniform finite values and can enable engine-specific shortcuts:
+these native numbers must not be described as general kernel throughput.
+
+**Unexplained observation:** rnx first and warm times are close for large F64
+outputs, while Arrow and Polars become sharply faster warm. The cause was not
+measured. These results do not establish an allocation, page-fault or ownership
+explanation.
+
+Measurement details and limits:
+
+- Each primary cell has five fresh processes, each with one first call and five
+  warm calls. The reported warm value is the median of the five within-process
+  medians; its range is across processes, not 25 independent samples. The native
+  panel has three processes per cell and only 100M rows. No confidence intervals
+  or statistical-significance claims are made.
+- First means first **after preparation**, not cold startup. Input construction,
+  expression preparation and full-output validation are outside the clock.
+  Output materialization is inside. DuckDB preloads a physical table, normalizes
+  input offsets/chunks, and times SQL execution plus Arrow export. Polars' Arrow
+  conversion for validation is outside the clock. These API boundaries differ.
+- Polars and DuckDB use 1 or 28 threads. rnx is single-threaded and Arrow uses
+  serial direct kernels; each is measured once and reused for both thread
+  comparisons, without pretending these are independent measurements.
+- Layouts are flat, sliced/chunked/null, alternating validity and deterministic
+  random validity. The random validity mask repeats every 256 bits; values are
+  uniform, not representative random data. Semantic probes separately test
+  heterogeneous values, nulls, NaNs and signed zero. NaN payload identity is not
+  promised. Every timed output is validated after the clock stops.
+- Runs were serial, with a fixed 120-second cooldown before each round. No
+  slow/hot samples were replaced. The sample span was 4.83 hours, excluding the
+  initial cooldown. **1,743 samples flagged load average >1**; this lagging metric
+  does not establish concurrent competing work or an idle host. The x86 package
+  sensor observed **48–68°C**. Invalid ACPI readings (−268.4 to −266°C) are retained
+  in raw local evidence but excluded as physical temperature measurements.
+- Nanosecond units are not nanosecond accuracy. Python reports 1 ns clock
+  resolution; Rust `Instant` resolution is unknown. Process peak RSS includes
+  construction and validation and is not a kernel-only memory measurement.
+- Existing interpreter paths were not re-measured for this report. The runtime
+  change is the nanosecond clock; column implementation is unchanged from
+  `6d253fad`. No next optimization is implied by these observations.
+
+Published [implementation and harness](https://github.com/nilket-com/rnx/tree/45823ddaf2a5890afcafd9e06e45bd71a56a9a5c/tools/column/compare).
+The compact summary retains each process’s first-call and warm-median nanoseconds,
+cell statistics, settings and condition-flag counts; individual warm calls and
+per-call metadata remain in local raw evidence. The full original summary SHA-256 is
+`dedb0654888f9ef9472d350e2ea31b02f47452081662e2c86f272eba482f93a9`;
+the terminal matrix receipt SHA-256 is
+`83b3bb1f179040a3ad9cf4d99d1995cd47a9604ea16611398adc913841f2ed4d`.
+Production binary SHA-256:
+`e787bf81f86f88120a2444c539686a103774bfc9e9d269d662abfad067c9f8bf`.
+The matrix passed all 2,976 samples; the preceding full oracle validation
+passed 752 cases. Failed development receipts were retained; no failed final
+timing sample was retried. Re-render with `python3 scripts/render_column_0224.py`.
+<!-- column-0224:end -->
+
 <!-- column-0223:start -->
 ## Numeric predicate masks — ADR 0223
 
