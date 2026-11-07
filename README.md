@@ -9,6 +9,86 @@ The whole-process matrix uses rnx `c32a6ba7`, which pins public [Rune N6](https:
 entry/return witnesses for permute and two additional method fixtures, including
 a field loop with the default native setting and budget.
 
+<!-- column-0223:start -->
+## Numeric predicate masks — ADR 0223
+
+Published rnx **`6d253fad`** adds a separate driver for Bool-output
+plans containing I64/F64 comparisons, optionally F64 Add/Sub/Mul and Boolean
+combinations. I64 arithmetic is excluded. The result is a Boolean mask column,
+**not a row-filter operator**. Validity is the intersection of all input validity;
+invalid output payload bits are zero.
+
+| Fixture | Expression |
+|---|---|
+| f64gt | `x > 1.0` |
+| f64le | `x <= 1.0` |
+| i64eq | `x == 2` |
+| f64and | `(x > 1.0) & (y < 2.0)` |
+| mixedor | `((x > 1.0) & (y < 2.0)) &#124; z` |
+| arithcmp | `x * 2.0 + y > 3.0` |
+
+Whole-map executed instructions per row, including setup and system-library work.
+Construction, initial compilation and output validation are outside the interval.
+First/warm are two map calls in each capture. Baseline is published **`e4e6f465`**.
+No adjustments are subtracted. The table shows 100M rows; exact totals for both
+10M and 100M are in the linked summary. Deterministic-random validity repeats a
+256-bit mask; it is not an independent random draw per row.
+
+| Predicate | Layout | Baseline first | 0223 first | Baseline warm | 0223 warm |
+|---|---|---:|---:|---:|---:|
+| f64gt | alternating | 79.002191 | 4.680913 | 79.002181 | 4.680901 |
+| f64gt | deterministic-random | 79.002177 | 4.680901 | 79.002173 | 4.680899 |
+| f64gt | flat | 64.330264 | 3.775577 | 64.330263 | 3.775578 |
+| f64gt | sliced-chunked-null | 36.123253 | 4.495333 | 36.123247 | 4.495325 |
+| f64le | alternating | 80.002177 | 4.135006 | 80.002176 | 4.134994 |
+| f64le | deterministic-random | 80.002182 | 4.135005 | 80.002172 | 4.135000 |
+| f64le | flat | 65.330268 | 3.229677 | 65.330261 | 3.229673 |
+| f64le | sliced-chunked-null | 36.623253 | 3.949429 | 36.623253 | 3.949433 |
+| i64eq | alternating | 74.111554 | 7.974847 | 74.111542 | 7.974840 |
+| i64eq | deterministic-random | 74.111559 | 7.974848 | 74.111549 | 7.974841 |
+| i64eq | flat | 59.336123 | 7.069523 | 59.336123 | 7.069516 |
+| i64eq | sliced-chunked-null | 33.670130 | 7.789275 | 33.670122 | 7.789271 |
+| f64and | alternating | 202.482240 | 8.557142 | 202.482234 | 8.557137 |
+| f64and | deterministic-random | 202.482240 | 8.557143 | 202.482231 | 8.557136 |
+| f64and | flat | 168.819727 | 7.047261 | 168.819729 | 7.047265 |
+| f64and | sliced-chunked-null | 91.819731 | 7.804123 | 91.819724 | 7.804110 |
+| mixedor | alternating | 279.478524 | 9.417691 | 279.478511 | 9.417678 |
+| mixedor | deterministic-random | 279.478477 | 9.417691 | 279.478461 | 9.417677 |
+| mixedor | flat | 236.092305 | 7.444842 | 236.092300 | 7.444839 |
+| mixedor | sliced-chunked-null | 127.279809 | 8.370647 | 127.279803 | 8.370644 |
+| arithcmp | alternating | 201.482251 | 10.755377 | 201.482234 | 10.755373 |
+| arithcmp | deterministic-random | 201.482237 | 10.755375 | 201.482226 | 10.755377 |
+| arithcmp | flat | 167.819726 | 9.245510 | 167.819724 | 9.245503 |
+| arithcmp | sliced-chunked-null | 91.319732 | 10.002364 | 91.319731 | 10.002364 |
+
+All six predicates meet their absolute instruction ceilings and use at most
+25% of baseline instructions across both sizes, all layouts and both calls.
+Comparison forms were selected by measurement: F64 uses packed comparisons
+over 64-lane words; I64 retains bounded eight-lane scalar comparisons because
+the tested packed SSE2 form cost more. F64 arithmetic uses packed four-lane loops.
+
+The original small and large FAIL receipts are retained with hashes. The small
+rescore applies reviewed, binary-pair-pinned per-function setup constants and
+exact call counts, with no per-row allowance. Untouched `dismantle_repr` source
+showed a fixed instruction decrease attributed to code-generation redistribution.
+The large rescore classifies the unchanged `f64chain` path under the ELF-object
+rule: program instructions decreased by seven, unknown-object totals matched,
+and system-library variation stayed within the existing band (0.001 Ir/row plus
+4,096 fixed instructions). Its absolute whole-map ceiling remains enforced.
+Neither rescore reran measurements or changed raw totals.
+
+Core tests, targeted Miri, executed assembly snapshots, protected column checks,
+host integration, generated projects and cross verification passed.
+NaN behavior and bit equality were checked on x86-64; this is not a portable
+NaN-payload guarantee. These are instruction counts only: no new timing result
+or proportional elapsed-time claim is made.
+
+**Column-only scope: old interpreter paths were not re-measured. These gains do
+not describe arbitrary scripts or the cost of materializing filtered rows.**
+
+[Exact totals, measured/published commits and retained receipt hashes](results/column-0223-summary.json).
+<!-- column-0223:end -->
+
 <!-- column-0222:start -->
 ## F64 write-only output — ADR 0222
 
