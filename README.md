@@ -9,6 +9,62 @@ The whole-process matrix uses rnx `c32a6ba7`, which pins public [Rune N6](https:
 entry/return witnesses for permute and two additional method fixtures, including
 a field loop with the default native setting and budget.
 
+<!-- column-0227:start -->
+## Huge-page advice for large outputs — ADR 0227
+
+Published rnx **`7802ce4a`** gives the operating system a
+best-effort huge-page hint for large column buffers before first touch.
+The matched baseline is **`94c30cee`**. At 100M rows, these
+F64 workloads take **34–51% less elapsed time** on the measurement host.
+
+Milliseconds: median [minimum, maximum] across five fresh processes.
+Each process makes one first call after preparation and five warm calls.
+Warm statistics summarize each process's median of those five calls.
+Construction, preparation and full-output validation are outside timing.
+Binary order alternates by round, with a fixed 120-second round cooldown.
+No retries and no statistical confidence claim.
+
+| Expression | Layout | Call | Baseline ms | Candidate ms | Reduction |
+|---|---|---|---:|---:|---:|
+| f64const | flat | first | 241.2 [231.6, 242.4] | 118.6 [116.3, 134.8] | 50.8% |
+| f64const | flat | warm | 230.9 [228.6, 234.4] | 120.0 [116.0, 125.1] | 48.0% |
+| f64const | alternating | first | 356.9 [348.8, 361.8] | 176.2 [172.0, 180.4] | 50.6% |
+| f64const | alternating | warm | 345.9 [342.2, 348.0] | 168.1 [166.3, 182.4] | 51.4% |
+| f64add | flat | first | 257.9 [254.5, 261.7] | 152.9 [149.3, 165.1] | 40.7% |
+| f64add | flat | warm | 251.9 [247.1, 261.9] | 155.1 [146.3, 156.5] | 38.4% |
+| f64add | alternating | first | 372.3 [366.0, 387.8] | 195.1 [182.3, 196.7] | 47.6% |
+| f64add | alternating | warm | 364.5 [362.7, 378.3] | 193.4 [187.0, 197.9] | 46.9% |
+| f64chain | flat | first | 328.0 [321.4, 343.1] | 216.8 [187.0, 222.8] | 33.9% |
+| f64chain | flat | warm | 327.9 [309.4, 339.0] | 214.8 [194.8, 218.2] | 34.5% |
+| f64chain | alternating | first | 393.6 [375.7, 399.7] | 210.6 [206.7, 253.7] | 46.5% |
+| f64chain | alternating | warm | 386.4 [358.6, 387.2] | 239.7 [230.0, 241.8] | 38.0% |
+
+The instruction gate includes an explicit user-approved exception: unchanged
+integer `x*3+y` executes one extra jump per all-valid executor call (about
++0.001 Ir/row flat and +0.008 for the sliced fixture). Exact binary-pair pins
+check the formula and absolute calls at 10M and 100M, including partial blocks.
+Mixed-valid calls save two instructions; flat F64 pair calls save four.
+Advice and page-size initialization add exact first/warm constants, selected
+separately when data and validity allocations reach 4 MiB. Every pin rejects
+an extra instruction or changed call count. Raw failed captures are retained;
+reviewed rescores pass without repeating measurements.
+
+The separate page-fault diagnostic improved by a median **172×**, which is
+not a 172× speedup. One cold call improved only **7.317×**, with partial
+huge-page backing: 675,840 KiB versus 780,288 KiB warm. The hint was present;
+the kernel fallback cause is unproven. No call was worse than baseline.
+Huge-page availability and elapsed-time gains can vary by host and call.
+
+For context only, flat F64 `x+1.0` warm is now about **120 ms**; ADR 0224
+reported Arrow about **69 ms** and Polars about **71 ms** on a different day.
+These are **not directly comparable measurements**. This report covers
+column buffers; unchanged interpreter paths were not re-measured.
+
+Core, Miri, host, integration, generated-project and cross checks passed.
+[Raw sample times, ranges, binary identities and receipt hashes](results/column-0227-summary.json).
+[Renderer and validation](scripts/render_column_0227.py).
+<!-- column-0227:end -->
+
 <!-- column-0226:start -->
 ## Packed Boolean XOR and equality — ADR 0226
 
