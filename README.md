@@ -9,6 +9,69 @@ The whole-process matrix uses rnx `c32a6ba7`, which pins public [Rune N6](https:
 entry/return witnesses for permute and two additional method fixtures, including
 a field loop with the default native setting and budget.
 
+<!-- column-0230:start -->
+## Reuse for masked F64 outputs — ADR 0230
+
+Published rnx **`e3d4365e`** admits masked single-operation F64
+const/add/sub/mul outputs to `kernel.map_reusing(inputs, previous)`.
+The existing rules remain: exclusive whole-buffer donors, nonzero output,
+needed length ≤ capacity ≤ twice needed length, capacity charged once,
+and fresh allocation on refusal. There is no hidden buffer cache or retention.
+
+At 100M rows, warm reuse is **32–38% faster** for all six measured nullable
+const/add cells. Plain map and reuse use the **same candidate binary**.
+Plain-map instruction vectors match the published baseline `8d104dd1`
+exactly in the 4K/64K comparison; no instruction exception was needed.
+
+Milliseconds: median [minimum, maximum] across five fresh processes.
+Each process makes one first call and five warm calls; warm statistics use
+its median. First reuse calls allocate fresh; their observed ranges overlap
+plain map, and no first-call speedup is claimed. Construction and full-output
+validation are outside timing. Role order alternates; cooldown is 120 seconds
+per round. No retries or statistical-confidence claim. Condition flags remain
+in the summary.
+
+| Expression | Layout | Call | Plain map ms | Reuse ms |
+|---|---|---|---:|---:|
+| f64const | alternating | first | 130.2 [116.7, 136.1] | 123.7 [117.4, 134.1] |
+| f64const | alternating | warm | 125.0 [123.3, 137.8] | 78.1 [76.3, 78.4] |
+| f64const | deterministic-random | first | 127.7 [121.6, 132.0] | 135.0 [126.4, 140.6] |
+| f64const | deterministic-random | warm | 124.6 [124.4, 130.3] | 78.1 [77.6, 78.7] |
+| f64const | sliced-chunked-null | first | 111.1 [104.4, 112.0] | 107.0 [104.4, 116.0] |
+| f64const | sliced-chunked-null | warm | 113.2 [109.5, 115.2] | 72.4 [72.1, 72.7] |
+| f64add | alternating | first | 157.6 [139.1, 164.0] | 160.5 [154.0, 163.7] |
+| f64add | alternating | warm | 152.5 [150.6, 161.5] | 99.8 [99.4, 100.2] |
+| f64add | deterministic-random | first | 157.7 [141.3, 167.8] | 154.9 [138.7, 169.7] |
+| f64add | deterministic-random | warm | 151.2 [146.2, 158.0] | 99.8 [99.3, 100.0] |
+| f64add | sliced-chunked-null | first | 123.7 [118.1, 130.7] | 123.9 [117.9, 135.9] |
+| f64add | sliced-chunked-null | warm | 123.6 [122.7, 130.5] | 83.8 [82.6, 83.9] |
+
+**Fault-scope correction approved by the user:** the original ≤1% total warm
+fault rule passed for alternating/random columns (1,133 plain faults versus
+zero with reuse), but failed for sliced-null: reuse retained **465–762 total
+faults**, versus 1,087–1,830 plain. That original FAIL remains recorded.
+A separate phase capture found a stable donated pointer and capacity, with
+**zero faults in warm output execution and transfer**. Its residual faults
+occurred before validity intersection, in bitmap/setup allocation; a single
+add call also had one outer-setup fault. The bitmap is 12.5 MB at 100M rows.
+The phase probe does not identify every allocation within that span.
+The revised sliced-null criterion covers output faults, while total faults
+remain reported. It does not claim zero faults for the complete call.
+
+| Kind | Warm call | Total faults (phase probe) | Before validity | Outer setup | Output execution | Transfer |
+|---|---:|---:|---:|---:|---:|---:|
+| f64const | 1 | 697 | 697 | 0 | 0 | 0 |
+| f64const | 2 | 465 | 465 | 0 | 0 | 0 |
+| f64add | 1 | 698 | 697 | 1 | 0 | 0 |
+| f64add | 2 | 465 | 465 | 0 | 0 | 0 |
+
+Bitwise/Path parity, donor fallback, refusal, cancellation, retention, core,
+Miri, instance/identity, host, integration, generated-project, cross and
+commit checks passed. Unchanged interpreter paths were not re-measured.
+[Samples, ranges, total faults, phase attribution and receipt hashes](results/column-0230-summary.json).
+[Renderer and validation](scripts/render_column_0230.py).
+<!-- column-0230:end -->
+
 <!-- column-0229:start -->
 ## Write-only masked F64 output — ADR 0229
 
