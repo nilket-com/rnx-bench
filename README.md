@@ -9,6 +9,85 @@ The whole-process matrix uses rnx `c32a6ba7`, which pins public [Rune N6](https:
 entry/return witnesses for permute and two additional method fixtures, including
 a field loop with the default native setting and budget.
 
+<!-- column-0233:start -->
+## Packed I64 comparisons — ADR 0233
+
+Published rnx **`bc4a2065`** uses runtime-dispatched AVX2 for I64
+`==`, `!=`, `<`, `<=`, `>` and `>=`, including column/column and both constant
+orientations. Signed extremes, nulls, slices, chunks and tails retain bitwise
+parity; unsupported CPUs and forced-portable mode keep the scalar comparison.
+
+All six operations reduced total instruction counts in every tested layout
+at 64K and 10M rows, on first and warm calls. Live AVX2 symbols were checked.
+
+| Operation | Total instruction reduction across measured cases |
+|---|---:|
+| eq | 62.45–78.14% |
+| ne | 60.18–75.48% |
+| lt | 60.42–78.14% |
+| le | 57.74–75.48% |
+| gt | 60.55–78.14% |
+| ge | 58.27–75.48% |
+
+**Timing caveat:** the original run accidentally kept the same binary order
+within each case. The scheduling formula canceled the intended alternation.
+These measurements are retained and disclosed, not described as counterbalanced.
+At 100M rows, five fresh processes per binary each made one first call and
+five warm calls, with a 120-second cooldown per round. Warm values below are
+the median [minimum, maximum] of the five process medians, in milliseconds.
+Input construction and full-output validation were outside the timed interval.
+
+| I64 equality layout | Baseline warm ms | Candidate warm ms | Change |
+|---|---:|---:|---:|
+| flat | 84.59 [82.03, 86.46] | 67.50 [63.94, 75.36] | -20.2% |
+| alternating | 83.83 [81.33, 86.57] | 64.00 [52.62, 70.20] | -23.7% |
+| deterministic-random | 92.08 [81.77, 93.63] | 65.18 [57.95, 67.10] | -29.2% |
+| sliced-chunked-null | 72.92 [70.62, 75.24] | 47.08 [43.71, 51.12] | -35.4% |
+
+**Exact exceptions approved by the user:** shared F64 predicate dispatch
+adds 4/5 instructions per 1,024-row block for greater-than/less-or-equal,
+6/7 for arithmetic comparison, 9/10 for F64 AND, and 11/12 for mixed OR
+(flat/nonflat). Function-level setup constants and these slopes are pinned
+to the measured binary pair; +1 instruction, extra calls and extra slope fail.
+The original scalar/F64 comparison kernels remain unchanged: 246 protected
+routines passed resolved assembly identity. The shared driver is outside that set.
+
+A separate portable host probe measured all six operators at 4K/64K rows.
+Its total overhead is exactly **6 instructions per map**, with zero net slope:
+the driver gains `6 + 2×blocks`, offset by a helper changing from `30×blocks`
+to `28×blocks`. Its exact scorer also rejects redistribution hidden behind the
+same total. This probe uses its own paired binaries; it is not the CLI binary.
+
+**F64 timing investigation:** the original flat greater-than run reported a
+17% warm slowdown. A separate disclosed investigation alternated order across
+ten fresh processes per binary (five of each order), with the same cooldown.
+It did not reproduce that result. First-call medians remained higher for the
+candidate; overlapping ranges do not establish zero effect or statistical
+significance. The I64 timing above was not repeated.
+
+| F64 flat case | Call | Baseline ms | Candidate ms |
+|---|---|---:|---:|
+| f64gt | first | 64.51 [42.49, 70.81] | 67.37 [50.68, 78.24] |
+| f64gt | warm | 61.68 [59.19, 70.19] | 60.61 [55.85, 69.18] |
+| f64le | first | 61.29 [41.20, 71.39] | 64.93 [48.96, 71.18] |
+| f64le | warm | 64.61 [56.91, 69.04] | 62.24 [52.38, 67.40] |
+
+The investigation also records per-call process CPU ticks and faults.
+CPU tick resolution is 10 ms; those counter intervals include snapshot overhead,
+while the wall timer excludes snapshots. No claim rests on sub-tick CPU changes.
+
+For **cross-day context only**, ADR 0224 measured flat 100M I64 equality at
+about 33.08 ms for single-thread Polars and 54.27 ms for direct Arrow, versus
+the 67.50 ms observed here for rnx. These are not matched same-day comparisons.
+Core, hardware parity, Miri, exact-vector/identity, host, integration, generated
+projects, cross and commit checks passed. Unchanged interpreter paths were not
+re-measured. Unchanged-path system-library bands at 100M were not measured;
+the accepted coverage is SMALL vectors and the changed-path 64K/10M matrix.
+Failed exploratory captures and the original timing remain recorded.
+[Samples, exact pins, receipt hashes and caveats](results/column-0233-summary.json).
+[Renderer and validation](scripts/render_column_0233.py).
+<!-- column-0233:end -->
+
 <!-- column-0230:start -->
 ## Reuse for masked F64 outputs — ADR 0230
 
