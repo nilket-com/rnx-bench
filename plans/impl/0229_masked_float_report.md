@@ -2,7 +2,8 @@
 
 Status: Accepted
 
-Follow rnx ADR 0229 after publication. Report the six 100M const/add cells,
+Follow rnx ADR 0229 at published commit
+`8d104dd1ba4eed4a072e9aa6b7e39a7a7dc6ba78`. Report the six 100M const/add cells,
 first and warm medians and ranges across five processes, raw sample times,
 binary identities and receipt hashes. Explain removal of the output prefill,
 unchanged reuse admission, the user-approved sliced-null REP-store exception,

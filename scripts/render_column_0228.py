@@ -29,6 +29,19 @@ for r in s['table']:
 	assert abs(r['reuse_vs_candidate'] - r['reuse_ms'] / r['candidate_ms']) < 1e-14
 for v in s['receipts'].values(): assert re.fullmatch('[0-9a-f]{64}', v)
 for k in ('published', 'baseline'): assert re.fullmatch('[0-9a-f]{40}', s[k])
+context = {}
+source = json.loads((ROOT / 'results/column-0224-summary.json').read_text())
+for engine in ('arrow','polars'):
+	context[engine] = {}
+	for kind in ('f64const','f64add','f64chain'):
+		rows = [x for x in source['rows'] if x['engine'] == engine and x['kind'] == kind
+			and x['layout'] == 'flat' and x['rows'] == 100000000
+			and x['threads'] == 'single' and x['panel'] == 'equivalent']
+		assert len(rows) == 1
+		context[engine][kind] = rows[0]['warm_ms']['median']
+reuse_rows = [x for x in s['table'] if (x['kind'],x['layout'],x['mode']) == ('f64chain','flat','warm')]
+assert len(reuse_rows) == 1
+reuse_chain = reuse_rows[0]['reuse_ms']
 lines = ['## Explicit output reuse — ADR 0228', '',
 'Published rnx **`' + s['published'][:8] + '`** adds consuming',
 '`kernel.map_reusing(inputs, previous)` for eligible F64 outputs.',
@@ -65,10 +78,15 @@ lines += ['',
 'The affected instruction totals rise about **0.06–0.13%**. Plain-map warm',
 'medians range from **0.96–1.02×** baseline; this does not prove zero timing cost.',
 'Raw failures remain recorded alongside approved rescores.', '',
-'ADR 0224 measured Arrow at roughly 70 ms for flat const, 92 ms for add,',
-'203 ms for a flat chain and 210 ms for a nullable chain. Arrow and Polars',
-'results there came from a **different run/day**, not this paired experiment;',
-'they provide context, not evidence of parity or a win over either engine.', '',
+f"ADR 0224 warm medians: Arrow flat const {context['arrow']['f64const']:.1f} ms, add",
+f"{context['arrow']['f64add']:.1f} ms and chain {context['arrow']['f64chain']:.1f} ms; single-thread Polars",
+f"{context['polars']['f64const']:.1f}, {context['polars']['f64add']:.1f} and {context['polars']['f64chain']:.1f} ms respectively.",
+f"Polars leads the flat-chain context result (about {context['polars']['f64chain']:.0f} ms",
+f"versus {reuse_chain:.0f} ms for reuse).",
+'These came from a **different run/day**, not this paired experiment.',
+'The previously quoted 70/92/203/210 ms Arrow figures were from the instrumented',
+'0228 diagnostic, not ADR 0224. This corrects that attribution; context does not',
+'establish parity or a win over either engine.', '',
 'Core, targeted Miri, ownership/retention, host, integration, generated-project,',
 'cross and commit checks passed. Unchanged interpreter paths were not re-measured.',
 '[Raw sample times, ranges, binary identities and receipt hashes](results/column-0228-summary.json).',

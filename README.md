@@ -9,6 +9,59 @@ The whole-process matrix uses rnx `c32a6ba7`, which pins public [Rune N6](https:
 entry/return witnesses for permute and two additional method fixtures, including
 a field loop with the default native setting and budget.
 
+<!-- column-0229:start -->
+## Write-only masked F64 output — ADR 0229
+
+Published rnx **`8d104dd1`** removes the output zero-prefill pass
+from masked single-operation F64 const/add/sub/mul. Each block writes its
+complete result, including positive-zero null lanes, before publication.
+Reuse admission is unchanged; nullable const/add still allocate fresh.
+
+At 100M rows, the measured const/add cases improve **16–25% on first calls**
+and **17–29% on warm calls** versus `c7d08d9b`.
+Milliseconds below are median [minimum, maximum] across five fresh processes.
+Each process makes one first and five warm calls; warm statistics use its
+median. Construction and full-output validation are outside timing. Roles
+alternate by round, with a fixed 120-second cooldown. There were no retries.
+All twelve observed ranges are disjoint; this is not a confidence interval
+or a guarantee for other machines. Raw condition flags are retained.
+
+| Expression | Layout | Call | Baseline ms | Candidate ms | Reduction |
+|---|---|---|---:|---:|---:|
+| f64const | alternating | first | 170.0 [166.3, 179.0] | 128.0 [124.8, 136.4] | 24.7% |
+| f64const | alternating | warm | 173.3 [167.1, 174.7] | 126.9 [120.7, 129.6] | 26.8% |
+| f64const | deterministic-random | first | 174.6 [168.2, 182.7] | 132.2 [127.6, 135.6] | 24.3% |
+| f64const | deterministic-random | warm | 175.8 [165.3, 181.8] | 124.4 [121.0, 132.9] | 29.2% |
+| f64const | sliced-chunked-null | first | 144.3 [135.3, 146.0] | 115.0 [105.4, 121.9] | 20.3% |
+| f64const | sliced-chunked-null | warm | 141.0 [132.5, 143.9] | 108.2 [106.3, 115.7] | 23.3% |
+| f64add | alternating | first | 198.7 [190.0, 203.8] | 166.7 [159.0, 168.3] | 16.1% |
+| f64add | alternating | warm | 191.7 [189.5, 201.8] | 153.4 [151.0, 172.2] | 20.0% |
+| f64add | deterministic-random | first | 202.0 [198.8, 217.8] | 155.8 [152.3, 175.5] | 22.9% |
+| f64add | deterministic-random | warm | 193.2 [190.8, 203.5] | 151.3 [148.3, 163.4] | 21.7% |
+| f64add | sliced-chunked-null | first | 151.5 [148.8, 161.0] | 123.8 [113.4, 133.8] | 18.3% |
+| f64add | sliced-chunked-null | warm | 151.1 [148.8, 158.8] | 125.2 [122.8, 134.3] | 17.1% |
+
+**Two explicit user-approved exceptions:** the sliced-chunked-null route
+is judged by measured wall time instead of total instructions. At 10M rows
+its 4,883 small memset calls write 40,000,000 null bytes; Callgrind counts
+40 million REP-store iterations. The baseline uses one 80MB memset with
+a different libc implementation path. The higher instruction count remains
+reported; it was not erased or called a passing original gate. Other changed
+layouts retain the total-instruction criterion. Exact binary-pair, program,
+accounting and profile seals prevent widening this exception.
+
+The strict no-more-page-faults rule also failed. Cold differences were
+−4 to +3; one warm const sliced-null call rose from 1,319 to 1,383 (+64).
+Every other warm count matched. These observations were accepted explicitly;
+**no fault reduction or exact fault equality is claimed**. Exact fault pins
+and +1 negative controls preserve the approved scope.
+
+Core, targeted Miri, instance/identity, host, integration, generated-project,
+cross and commit checks passed. Unchanged interpreter paths were not re-measured.
+[Samples, ranges, faults, identities and receipt hashes](results/column-0229-summary.json).
+[Renderer and validation](scripts/render_column_0229.py).
+<!-- column-0229:end -->
+
 <!-- column-0228:start -->
 ## Explicit output reuse — ADR 0228
 
@@ -59,10 +112,15 @@ The affected instruction totals rise about **0.06–0.13%**. Plain-map warm
 medians range from **0.96–1.02×** baseline; this does not prove zero timing cost.
 Raw failures remain recorded alongside approved rescores.
 
-ADR 0224 measured Arrow at roughly 70 ms for flat const, 92 ms for add,
-203 ms for a flat chain and 210 ms for a nullable chain. Arrow and Polars
-results there came from a **different run/day**, not this paired experiment;
-they provide context, not evidence of parity or a win over either engine.
+ADR 0224 warm medians: Arrow flat const 69.0 ms, add
+89.9 ms and chain 200.4 ms; single-thread Polars
+70.7, 93.5 and 147.9 ms respectively.
+Polars leads the flat-chain context result (about 148 ms
+versus 200 ms for reuse).
+These came from a **different run/day**, not this paired experiment.
+The previously quoted 70/92/203/210 ms Arrow figures were from the instrumented
+0228 diagnostic, not ADR 0224. This corrects that attribution; context does not
+establish parity or a win over either engine.
 
 Core, targeted Miri, ownership/retention, host, integration, generated-project,
 cross and commit checks passed. Unchanged interpreter paths were not re-measured.
