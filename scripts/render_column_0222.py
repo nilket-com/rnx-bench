@@ -2,10 +2,11 @@
 import itertools
 import json
 from pathlib import Path
+from archive_inputs import evidence
 import re
 
 ROOT = Path(__file__).resolve().parents[1]
-text = (ROOT / 'results/column-0222-summary.json').read_text()
+text = (evidence('results/column-0222-summary.json')).read_text()
 assert not re.search(r'/(?:home|Users)/|[A-Z]:\\Users\\', text)
 s = json.loads(text)
 assert re.fullmatch('[0-9a-f]{64}', s['receipt_sha256'])
@@ -59,7 +60,7 @@ lines += ['', 'Timing recovery: v1 lacked clocks in mixed-null fixtures; v2 used
 'NaN bit equality was verified on x86-64 only. Boolean output is unchanged.', '',
 '**Column-only scope: old interpreter paths were not re-measured. Gains apply',
 'only to qualifying pure-F64 plans, not arbitrary scripts.**', '',
-'[Exact totals, timing samples, commits and receipt hashes](results/column-0222-summary.json).', '']
+'[Exact totals, timing samples, commits and receipt hashes](ARCHIVED-DATA.md?path=results/column-0222-summary.json#lookup).', '']
 section = '\n'.join(lines)
 p = ROOT / 'README.md'; original = p.read_text()
 start = '<!-- column-0222:start -->'; end = '<!-- column-0222:end -->'

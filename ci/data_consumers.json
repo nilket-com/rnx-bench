@@ -1,0 +1,36 @@
+{
+  "duplicate_exemptions": {},
+  "entries": {
+    "ci/data_consumers.json": {
+      "class": "source-configuration",
+      "max_bytes": 1048576,
+      "reason": "Reviewed data hygiene policy."
+    },
+    "probes/context-registration/instrumentation.patch": {
+      "class": "reviewed-retention",
+      "max_bytes": 21839,
+      "reason": "ADR 0240 conservative retention: unresolved supported fixture or historical record retained pending dependency review; no blanket exemption for new data."
+    },
+    "probes/context-registration/results/upstream/modules_iter.rs.diff": {
+      "class": "reviewed-retention",
+      "max_bytes": 55092,
+      "reason": "ADR 0240 conservative retention: unresolved supported fixture or historical record retained pending dependency review; no blanket exemption for new data."
+    },
+    "probes/frame-seam/candidate.patch": {
+      "class": "reviewed-retention",
+      "max_bytes": 42580,
+      "reason": "ADR 0240 conservative retention: unresolved supported fixture or historical record retained pending dependency review; no blanket exemption for new data."
+    },
+    "probes/rune-runtime/registration.patch": {
+      "class": "reviewed-retention",
+      "max_bytes": 29231,
+      "reason": "ADR 0240 conservative retention: unresolved supported fixture or historical record retained pending dependency review; no blanket exemption for new data."
+    },
+    "probes/shared-build-seam/candidate.patch": {
+      "class": "reviewed-retention",
+      "max_bytes": 36413,
+      "reason": "ADR 0240 conservative retention: unresolved supported fixture or historical record retained pending dependency review; no blanket exemption for new data."
+    }
+  },
+  "schema": 1
+}

@@ -2,10 +2,11 @@
 import itertools
 import json
 from pathlib import Path
+from archive_inputs import evidence
 import re
 
 ROOT = Path(__file__).resolve().parents[1]
-text = (ROOT / 'results/column-0226-summary.json').read_text()
+text = (evidence('results/column-0226-summary.json')).read_text()
 assert not re.search(r'/(?:home|Users)/|[A-Z]:\\Users\\', text)
 s = json.loads(text)
 kinds = ('booland', 'boolor', 'boolchain', 'booleq', 'boolne', 'boolxor')
@@ -50,7 +51,7 @@ lines += ['', 'The table shows 100M rows. All new shapes pass at 10M and 100M, f
 '`monotonic_ms` documentation change. Historical provenance is unchanged.',
 'Failed receipts are retained; cross passed after repair. Other passed stages',
 'were reused with tooling-only diff proofs.', '',
-'[Exact totals, reviewed table, binary identities and receipt hashes](results/column-0226-summary.json).',
+'[Exact totals, reviewed table, binary identities and receipt hashes](ARCHIVED-DATA.md?path=results/column-0226-summary.json#lookup).',
 '[Renderer and validation](scripts/render_column_0226.py).']
 block = '<!-- column-0226:start -->\n' + '\n'.join(lines) + '\n<!-- column-0226:end -->'
 p = ROOT / 'README.md'; old = p.read_text()

@@ -2,10 +2,11 @@
 import itertools
 import json
 from pathlib import Path
+from archive_inputs import evidence
 import re
 
 ROOT = Path(__file__).resolve().parents[1]
-text = (ROOT / 'results/column-0223-summary.json').read_text()
+text = (evidence('results/column-0223-summary.json')).read_text()
 assert not re.search(r'/(?:home|Users)/|[A-Z]:\\Users\\', text)
 s = json.loads(text)
 for key in ('published', 'baseline', 'measured_baseline', 'measured_candidate'):
@@ -62,7 +63,7 @@ lines += ['', 'All six predicates meet their absolute instruction ceilings and u
 'or proportional elapsed-time claim is made.', '',
 '**Column-only scope: old interpreter paths were not re-measured. These gains do',
 'not describe arbitrary scripts or the cost of materializing filtered rows.**', '',
-'[Exact totals, measured/published commits and retained receipt hashes](results/column-0223-summary.json).', '']
+'[Exact totals, measured/published commits and retained receipt hashes](ARCHIVED-DATA.md?path=results/column-0223-summary.json#lookup).', '']
 p = ROOT / 'README.md'
 original = p.read_text()
 start, end = '<!-- column-0223:start -->', '<!-- column-0223:end -->'

@@ -2,10 +2,11 @@
 import itertools
 import json
 from pathlib import Path
+from archive_inputs import evidence
 import re
 
 ROOT = Path(__file__).resolve().parents[1]
-text = (ROOT / 'results/column-0220-summary.json').read_text()
+text = (evidence('results/column-0220-summary.json')).read_text()
 assert not re.search(r'/(?:home|Users)/|[A-Z]:\\Users\\', text)
 s = json.loads(text)
 assert re.fullmatch('[0-9a-f]{64}', s['receipt_sha256'])
@@ -37,7 +38,7 @@ lines += ['', 'Protected column paths passed exact function-vector checks with r
 '**Column-only scope: old interpreter paths were not re-measured. These are instruction',
 'counts only; no wall-clock or cycle measurements were taken for this record. Gains',
 'apply to qualifying pure-Boolean plans, not arbitrary scripts.**', '',
-'[Exact totals, measured/published commits and source receipt hash](results/column-0220-summary.json).', '']
+'[Exact totals, measured/published commits and source receipt hash](ARCHIVED-DATA.md?path=results/column-0220-summary.json#lookup).', '']
 section = '\n'.join(lines)
 p = ROOT / 'README.md'; original = p.read_text()
 start = '<!-- column-0220:start -->'; end = '<!-- column-0220:end -->'

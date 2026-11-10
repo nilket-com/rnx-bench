@@ -3,10 +3,11 @@
 import hashlib
 import json
 from pathlib import Path
+from archive_inputs import evidence
 from statistics import median
 
 ROOT = Path(__file__).resolve().parents[1]
-SOURCE = ROOT / 'results/column-0224-summary.json'
+SOURCE = evidence('results/column-0224-summary.json')
 KINDS = ('f64const', 'f64add', 'f64chain', 'booland', 'boolor', 'boolchain', 'f64gt', 'i64eq', 'f64and', 'mixedor', 'arithcmp')
 LAYOUTS = ('flat', 'sliced-chunked-null', 'alternating', 'deterministic-random')
 ENGINES = (('rnx', 'single'), ('arrow', 'single'), ('polars', 'single'), ('polars', 'default'), ('duckdb', 'single'), ('duckdb', 'default'))

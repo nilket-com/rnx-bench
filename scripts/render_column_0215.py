@@ -2,10 +2,11 @@
 import itertools
 import json
 from pathlib import Path
+from archive_inputs import evidence
 import re
 
 ROOT = Path(__file__).resolve().parents[1]
-p = ROOT / 'results/column-0215-summary.json'
+p = evidence('results/column-0215-summary.json')
 text = p.read_text()
 assert not re.search(r'/(?:home|Users)/|[A-Z]:\\Users\\', text)
 s = json.loads(text)
@@ -52,7 +53,7 @@ lines += ['', 'The complete 10M/100M matrix passed reviewed program checks again
 'whole-map ceilings and applicable system-library checks. Unchanged paths retain',
 'reviewed, exactly attributed setup costs of 17–82 instructions per call; no per-row',
 'or per-block allowance was needed. Correctness, targeted Miri and host checks passed.', '',
-'[Complete matrix, first/warm timings and evidence hashes](results/column-0215-summary.json).', '',
+'[Complete matrix, first/warm timings and evidence hashes](ARCHIVED-DATA.md?path=results/column-0215-summary.json#lookup).', '',
 'Limitations from the approved publication packet:', '']
 lines += ['- '+x for x in s['limitations']]
 lines += ['', 'Measured candidate: `'+s['measured']+'`. The published commit adds only the reviewed',

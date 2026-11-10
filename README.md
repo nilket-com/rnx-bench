@@ -84,7 +84,7 @@ projects, cross and commit checks passed. Unchanged interpreter paths were not
 re-measured. Unchanged-path system-library bands at 100M were not measured;
 the accepted coverage is SMALL vectors and the changed-path 64K/10M matrix.
 Failed exploratory captures and the original timing remain recorded.
-[Samples, exact pins, receipt hashes and caveats](results/column-0233-summary.json).
+[Samples, exact pins, receipt hashes and caveats](ARCHIVED-DATA.md?path=results/column-0233-summary.json#lookup).
 [Renderer and validation](scripts/render_column_0233.py).
 <!-- column-0233:end -->
 
@@ -147,7 +147,7 @@ remain reported. It does not claim zero faults for the complete call.
 Bitwise/Path parity, donor fallback, refusal, cancellation, retention, core,
 Miri, instance/identity, host, integration, generated-project, cross and
 commit checks passed. Unchanged interpreter paths were not re-measured.
-[Samples, ranges, total faults, phase attribution and receipt hashes](results/column-0230-summary.json).
+[Samples, ranges, total faults, phase attribution and receipt hashes](ARCHIVED-DATA.md?path=results/column-0230-summary.json#lookup).
 [Renderer and validation](scripts/render_column_0230.py).
 <!-- column-0230:end -->
 
@@ -200,7 +200,7 @@ and +1 negative controls preserve the approved scope.
 
 Core, targeted Miri, instance/identity, host, integration, generated-project,
 cross and commit checks passed. Unchanged interpreter paths were not re-measured.
-[Samples, ranges, faults, identities and receipt hashes](results/column-0229-summary.json).
+[Samples, ranges, faults, identities and receipt hashes](ARCHIVED-DATA.md?path=results/column-0229-summary.json#lookup).
 [Renderer and validation](scripts/render_column_0229.py).
 <!-- column-0229:end -->
 
@@ -266,7 +266,7 @@ establish parity or a win over either engine.
 
 Core, targeted Miri, ownership/retention, host, integration, generated-project,
 cross and commit checks passed. Unchanged interpreter paths were not re-measured.
-[Raw sample times, ranges, binary identities and receipt hashes](results/column-0228-summary.json).
+[Raw sample times, ranges, binary identities and receipt hashes](ARCHIVED-DATA.md?path=results/column-0228-summary.json#lookup).
 [Renderer and validation](scripts/render_column_0228.py).
 <!-- column-0228:end -->
 
@@ -322,7 +322,7 @@ These are **not directly comparable measurements**. This report covers
 column buffers; unchanged interpreter paths were not re-measured.
 
 Core, Miri, host, integration, generated-project and cross checks passed.
-[Raw sample times, ranges, binary identities and receipt hashes](results/column-0227-summary.json).
+[Raw sample times, ranges, binary identities and receipt hashes](ARCHIVED-DATA.md?path=results/column-0227-summary.json#lookup).
 [Renderer and validation](scripts/render_column_0227.py).
 <!-- column-0227:end -->
 
@@ -386,7 +386,7 @@ exact old/new witnesses, allowing only that addition and the source-proven
 Failed receipts are retained; cross passed after repair. Other passed stages
 were reused with tooling-only diff proofs.
 
-[Exact totals, reviewed table, binary identities and receipt hashes](results/column-0226-summary.json).
+[Exact totals, reviewed table, binary identities and receipt hashes](ARCHIVED-DATA.md?path=results/column-0226-summary.json#lookup).
 [Renderer and validation](scripts/render_column_0226.py).
 <!-- column-0226:end -->
 
@@ -398,7 +398,7 @@ rnx **`45823dda`**, Polars **2.1.0**, direct Arrow kernels (PyArrow
 This is a wall-time comparison, not a new instruction-count result or an
 aggregate ranking. [All 640 cells with ranges](results/column-0224-tables.md)
 place equivalent and native semantics side by side;
-[compact samples and settings](results/column-0224-summary.json) retain all 2,976
+[compact samples and settings](ARCHIVED-DATA.md?path=results/column-0224-summary.json#lookup) retain all 2,976
 process samples. [Renderer/validator](scripts/render_column_0224.py).
 
 The first three expressions produce F64 columns; the others produce Boolean
@@ -570,7 +570,7 @@ or proportional elapsed-time claim is made.
 **Column-only scope: old interpreter paths were not re-measured. These gains do
 not describe arbitrary scripts or the cost of materializing filtered rows.**
 
-[Exact totals, measured/published commits and retained receipt hashes](results/column-0223-summary.json).
+[Exact totals, measured/published commits and retained receipt hashes](ARCHIVED-DATA.md?path=results/column-0223-summary.json#lookup).
 <!-- column-0223:end -->
 
 <!-- column-0222:start -->
@@ -631,7 +631,7 @@ NaN bit equality was verified on x86-64 only. Boolean output is unchanged.
 **Column-only scope: old interpreter paths were not re-measured. Gains apply
 only to qualifying pure-F64 plans, not arbitrary scripts.**
 
-[Exact totals, timing samples, commits and receipt hashes](results/column-0222-summary.json).
+[Exact totals, timing samples, commits and receipt hashes](ARCHIVED-DATA.md?path=results/column-0222-summary.json#lookup).
 <!-- column-0222:end -->
 
 <!-- column-0221:start -->
@@ -669,7 +669,7 @@ dependence is backlogged for attribution and a separate ownership change.
 instruction counts only, with no elapsed-time or cycle measurements. The gains
 apply to qualifying pure-F64 plans, not arbitrary scripts.**
 
-[Exact totals, measured/published commits and source receipt hash](results/column-0221-summary.json).
+[Exact totals, measured/published commits and source receipt hash](ARCHIVED-DATA.md?path=results/column-0221-summary.json#lookup).
 <!-- column-0221:end -->
 
 <!-- column-0220:start -->
@@ -721,7 +721,7 @@ byte-identical binaries or identical setup cost.
 counts only; no wall-clock or cycle measurements were taken for this record. Gains
 apply to qualifying pure-Boolean plans, not arbitrary scripts.**
 
-[Exact totals, measured/published commits and source receipt hash](results/column-0220-summary.json).
+[Exact totals, measured/published commits and source receipt hash](ARCHIVED-DATA.md?path=results/column-0220-summary.json#lookup).
 <!-- column-0220:end -->
 
 <!-- column-0215:start -->
@@ -758,7 +758,7 @@ whole-map ceilings and applicable system-library checks. Unchanged paths retain
 reviewed, exactly attributed setup costs of 17–82 instructions per call; no per-row
 or per-block allowance was needed. Correctness, targeted Miri and host checks passed.
 
-[Complete matrix, first/warm timings and evidence hashes](results/column-0215-summary.json).
+[Complete matrix, first/warm timings and evidence hashes](ARCHIVED-DATA.md?path=results/column-0215-summary.json#lookup).
 
 Limitations from the approved publication packet:
 
@@ -820,7 +820,7 @@ Baseline: `49eb4453cf333e926357ecd71448175449d5a07c`.
 Measured candidate: `019d729e2944b0baf4fd573274ab49bad6d7bf63`.
 Published candidate: `99790566bbf72e1b1431df95fd0a6e4e89ad7e0b` differs only in
 two scoring/control files; measured production source is unchanged.
-[Full first/warm matrices, rescan witnesses and provenance hashes](results/column-0214-summary.json).
+[Full first/warm matrices, rescan witnesses and provenance hashes](ARCHIVED-DATA.md?path=results/column-0214-summary.json#lookup).
 
 Output zero-initialization remains; generic F64/Bool expansion is outside this
 record. **Old-path benchmarks not re-measured for 0214 (column-only source scope).**
@@ -875,7 +875,7 @@ Baseline: `0f95d955081fd21d43b04bba6b5fac6f1b6bc084`.
 Measured candidate: `1263b1e449d7470e947701874f075841b9843739`.
 Published candidate: `49eb4453cf333e926357ecd71448175449d5a07c` differs only in
 backlog documentation and four scoring/control files; product source is unchanged.
-[Full first/warm matrix, adversarial results and provenance hashes](results/column-0213-summary.json).
+[Full first/warm matrix, adversarial results and provenance hashes](ARCHIVED-DATA.md?path=results/column-0213-summary.json#lookup).
 
 Constant Add/Sub still uses scalar execution in generic masked chains. Output
 zero-initialization remains; generic F64/Bool expansion is outside this record.
@@ -909,7 +909,7 @@ Baseline: `9b161210578a53d010e6c4ea8ab61d6bb01f9c8a`.
 Measured candidate: `1d2bc05e79b7a75cb6b11dddc6b0a5a4e0025cdd`.
 Published candidate: `0f95d955081fd21d43b04bba6b5fac6f1b6bc084` differs only in the
 acceptance launcher's cross-verifier output path; product source is unchanged.
-[All six kernels, four layouts, both sizes/calls and provenance hashes](results/column-0212-summary.json).
+[All six kernels, four layouts, both sizes/calls and provenance hashes](ARCHIVED-DATA.md?path=results/column-0212-summary.json#lookup).
 
 **Old-path benchmarks not re-measured for 0212 (column-only source scope).**
 Source isolation does not establish unchanged LTO code generation elsewhere.
@@ -1103,3 +1103,6 @@ relabelled as measurements of today's engine:
   [standalone rustc](results/rustc-42/summary.md) retain their own conditions.
 
 The full record-specific catalogue is in [probes/README.md](probes/README.md).
+
+Historical data is stored outside git. See [Archived benchmark evidence](ARCHIVED-DATA.md)
+for original-path lookup and checksum-verified report rendering.

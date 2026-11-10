@@ -2,11 +2,12 @@
 import itertools
 import json
 from pathlib import Path
+from archive_inputs import evidence
 import re
 import statistics
 
 ROOT = Path(__file__).resolve().parents[1]
-text = (ROOT / 'results/column-0227-summary.json').read_text()
+text = (evidence('results/column-0227-summary.json')).read_text()
 assert len(text.encode()) < 1000000
 assert not re.search(r'/(?:home|Users)/|[A-Z]:\\Users\\', text)
 s = json.loads(text)
@@ -66,7 +67,7 @@ lines += ['',
 'These are **not directly comparable measurements**. This report covers',
 'column buffers; unchanged interpreter paths were not re-measured.', '',
 'Core, Miri, host, integration, generated-project and cross checks passed.',
-'[Raw sample times, ranges, binary identities and receipt hashes](results/column-0227-summary.json).',
+'[Raw sample times, ranges, binary identities and receipt hashes](ARCHIVED-DATA.md?path=results/column-0227-summary.json#lookup).',
 '[Renderer and validation](scripts/render_column_0227.py).']
 block = '<!-- column-0227:start -->\n' + '\n'.join(lines) + '\n<!-- column-0227:end -->'
 p = ROOT / 'README.md'; old = p.read_text()

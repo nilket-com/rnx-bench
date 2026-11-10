@@ -2,11 +2,12 @@
 import itertools
 import json
 from pathlib import Path
+from archive_inputs import evidence
 import re
 import statistics as st
 
 ROOT = Path(__file__).resolve().parents[1]
-raw = (ROOT / 'results/column-0233-summary.json').read_text()
+raw = (evidence('results/column-0233-summary.json')).read_text()
 assert len(raw.encode()) < 1000000
 assert not re.search(r'/(?:home|Users)/|[A-Z]:\\Users\\', raw)
 s = json.loads(raw)
@@ -107,7 +108,7 @@ lines += ['', 'The investigation also records per-call process CPU ticks and fau
 	're-measured. Unchanged-path system-library bands at 100M were not measured;',
 	'the accepted coverage is SMALL vectors and the changed-path 64K/10M matrix.',
 	'Failed exploratory captures and the original timing remain recorded.',
-	'[Samples, exact pins, receipt hashes and caveats](results/column-0233-summary.json).',
+	'[Samples, exact pins, receipt hashes and caveats](ARCHIVED-DATA.md?path=results/column-0233-summary.json#lookup).',
 	'[Renderer and validation](scripts/render_column_0233.py).']
 block = '<!-- column-0233:start -->\n' + '\n'.join(lines) + '\n<!-- column-0233:end -->'
 p = ROOT / 'README.md'; old = p.read_text()

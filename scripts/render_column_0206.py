@@ -4,10 +4,11 @@ import hashlib
 import itertools
 import json
 from pathlib import Path
+from archive_inputs import evidence
 import re
 
 ROOT = Path(__file__).resolve().parents[1]
-ARCHIVE = ROOT / 'results/column-0206-2026-11-05'
+ARCHIVE = evidence('results/column-0206-2026-11-05')
 REPORT = ROOT / 'results/column-0206-2026-11-05.md'
 KINDS = ('i64add', 'axpy', 'multiply3', 'f64const', 'f64add', 'boolnot')
 LAYOUTS = ('flat', 'alternating', 'deterministic-random', 'sliced-chunked-null')

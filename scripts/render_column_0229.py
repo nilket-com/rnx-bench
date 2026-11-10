@@ -2,11 +2,12 @@
 import itertools
 import json
 from pathlib import Path
+from archive_inputs import evidence
 import re
 import statistics
 
 ROOT = Path(__file__).resolve().parents[1]
-text = (ROOT / 'results/column-0229-summary.json').read_text()
+text = (evidence('results/column-0229-summary.json')).read_text()
 assert len(text.encode()) < 1000000
 assert not re.search(r'/(?:home|Users)/|[A-Z]:\\Users\\',text)
 s = json.loads(text)
@@ -67,7 +68,7 @@ lines += ['',
 'and +1 negative controls preserve the approved scope.', '',
 'Core, targeted Miri, instance/identity, host, integration, generated-project,',
 'cross and commit checks passed. Unchanged interpreter paths were not re-measured.',
-'[Samples, ranges, faults, identities and receipt hashes](results/column-0229-summary.json).',
+'[Samples, ranges, faults, identities and receipt hashes](ARCHIVED-DATA.md?path=results/column-0229-summary.json#lookup).',
 '[Renderer and validation](scripts/render_column_0229.py).']
 block = '<!-- column-0229:start -->\n'+'\n'.join(lines)+'\n<!-- column-0229:end -->'
 p = ROOT/'README.md';old = p.read_text()

@@ -4,10 +4,11 @@ import hashlib
 import itertools
 import json
 from pathlib import Path
+from archive_inputs import evidence
 import re
 
 ROOT = Path(__file__).resolve().parents[1]
-ARCHIVE = ROOT / 'results/column-0205-2026-11-04'
+ARCHIVE = evidence('results/column-0205-2026-11-04')
 REPORT = ROOT / 'results/column-0205-2026-11-04.md'
 KINDS = ('i64add', 'axpy', 'boolnot', 'f64add', 'multiply3')
 SIZES = (10_000_000, 100_000_000)
@@ -83,8 +84,8 @@ def validate(cli, matched, allocation, provenance):
 def load():
 	manifest = json.loads((ARCHIVE / 'MANIFEST.json').read_text())
 	for name, digest in manifest['files'].items():
-		path = ROOT / name
-		assert path.resolve().is_relative_to(ROOT)
+		path = evidence(name, ROOT)
+		assert path.is_file()
 		data = path.read_bytes()
 		assert sha(data) == digest, f'archive changed: {name}'
 		assert len(data) < 1_000_000
@@ -93,7 +94,7 @@ def load():
 	assert proof['status'] == 'PASS' and len(proof['files']) == 3
 	harness = {r['archive']: r for r in json.loads((ARCHIVE / 'harness.json').read_text())}
 	for row in proof['files']:
-		data = (ROOT / row['archive']).read_bytes()
+		data = evidence(row['archive'], ROOT).read_bytes()
 		assert row['diff_w_empty'] and row['expandtabs_4_reconstructs_pre_tab_bytes']
 		assert sha(data) == row['post_tab_archive_sha256'] == harness[row['archive']]['archived_sha256']
 		assert sha(data.expandtabs(4)) == row['pre_tab_archive_sha256'], 'formatting changed non-whitespace bytes'

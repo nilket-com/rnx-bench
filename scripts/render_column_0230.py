@@ -2,11 +2,12 @@
 import itertools
 import json
 from pathlib import Path
+from archive_inputs import evidence
 import re
 import statistics
 
 ROOT = Path(__file__).resolve().parents[1]
-text = (ROOT / 'results/column-0230-summary.json').read_text()
+text = (evidence('results/column-0230-summary.json')).read_text()
 assert len(text.encode()) < 1000000
 assert not re.search(r'/(?:home|Users)/|[A-Z]:\\Users\\',text)
 s = json.loads(text)
@@ -86,7 +87,7 @@ lines += ['',
 'Bitwise/Path parity, donor fallback, refusal, cancellation, retention, core,',
 'Miri, instance/identity, host, integration, generated-project, cross and',
 'commit checks passed. Unchanged interpreter paths were not re-measured.',
-'[Samples, ranges, total faults, phase attribution and receipt hashes](results/column-0230-summary.json).',
+'[Samples, ranges, total faults, phase attribution and receipt hashes](ARCHIVED-DATA.md?path=results/column-0230-summary.json#lookup).',
 '[Renderer and validation](scripts/render_column_0230.py).']
 assert f'**{gain_min:.0f}–{gain_max:.0f}% faster**' in '\n'.join(lines)
 block = '<!-- column-0230:start -->\n'+'\n'.join(lines)+'\n<!-- column-0230:end -->'

@@ -2,11 +2,12 @@
 import itertools
 import json
 from pathlib import Path
+from archive_inputs import evidence
 import re
 import statistics
 
 ROOT = Path(__file__).resolve().parents[1]
-text = (ROOT / 'results/column-0228-summary.json').read_text()
+text = (evidence('results/column-0228-summary.json')).read_text()
 assert len(text.encode()) < 1000000
 assert not re.search(r'/(?:home|Users)/|[A-Z]:\\Users\\', text)
 s = json.loads(text)
@@ -30,7 +31,7 @@ for r in s['table']:
 for v in s['receipts'].values(): assert re.fullmatch('[0-9a-f]{64}', v)
 for k in ('published', 'baseline'): assert re.fullmatch('[0-9a-f]{40}', s[k])
 context = {}
-source = json.loads((ROOT / 'results/column-0224-summary.json').read_text())
+source = json.loads((evidence('results/column-0224-summary.json')).read_text())
 for engine in ('arrow','polars'):
 	context[engine] = {}
 	for kind in ('f64const','f64add','f64chain'):
@@ -89,7 +90,7 @@ f"versus {reuse_chain:.0f} ms for reuse).",
 'establish parity or a win over either engine.', '',
 'Core, targeted Miri, ownership/retention, host, integration, generated-project,',
 'cross and commit checks passed. Unchanged interpreter paths were not re-measured.',
-'[Raw sample times, ranges, binary identities and receipt hashes](results/column-0228-summary.json).',
+'[Raw sample times, ranges, binary identities and receipt hashes](ARCHIVED-DATA.md?path=results/column-0228-summary.json#lookup).',
 '[Renderer and validation](scripts/render_column_0228.py).']
 block = '<!-- column-0228:start -->\n' + '\n'.join(lines) + '\n<!-- column-0228:end -->'
 p = ROOT / 'README.md'; old = p.read_text()
