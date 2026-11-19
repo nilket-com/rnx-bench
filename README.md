@@ -3,11 +3,43 @@
 Measurements of rnx and the Rune engine against other dynamic runtimes, with
 rerunnable harnesses, output checks and retained results.
 
-The whole-process matrix uses rnx `c32a6ba7`, which pins public [Rune N6](https://github.com/nilket-com/rune/commit/a68e739e6213dd02877258503f16df7ddaae6fc7).
-`rnx run` enables its native tier by default. The same binary supports
-`--native=off` and `--engine=legacy`. The pinned production binary passed native
-entry/return witnesses for permute and two additional method fixtures, including
-a field loop with the default native setting and budget.
+## Current cross-runtime matrix
+
+Measured on Strix (Intel Core i9-14900K) on November 19, 2026, using published rnx `6e96db98`.
+Values are **whole-process milliseconds, median of 12 runs** on one CPU. Lower is faster.
+Each compute process runs 16 kernel calls, except the million-element lists, which run once.
+Startup and script preparation are included. A dash marks an unmeasured cell.
+
+| Runtime | Startup | 10k JSON | Fib | Loops | Numeric calls | AWFY Sieve | AWFY Permute |
+|---|---:|---:|---:|---:|---:|---:|---:|
+| rnx | 4.14 | 18.16 | 12.86 | 5.27 | 5.84 | 6.84 | 22.27 |
+| rnx native off | 4.19 | 18.02 | 21.08 | 8.61 | 11.23 | 13.79 | 41.80 |
+| rnx legacy | 4.15 | 13.69 | 31.72 | 19.68 | 25.01 | 33.76 | 71.73 |
+| Haskell (GHC -O2) | 1.98 | — | 2.24 | 2.43 | 2.60 | 2.10 | 2.69 |
+| LuaJIT | 1.65 | 13.76 | 2.18 | 2.80 | 2.70 | 2.17 | 4.15 |
+| Lua 5.4 | 1.69 | 29.36 | 6.18 | 2.55 | 4.21 | 3.84 | 11.42 |
+| Bun | 2.80 | 4.00 | 5.25 | 4.53 | 6.95 | 4.48 | 8.61 |
+| Node | 10.95 | 13.99 | 12.37 | 12.84 | 13.00 | 13.83 | 15.81 |
+| Deno | 13.30 | 14.67 | 14.95 | 13.97 | 14.91 | 14.56 | 17.28 |
+| Python | 7.17 | 22.30 | 14.34 | 10.92 | 12.59 | 11.01 | 16.44 |
+| Perl | 1.97 | 48.47 | — | — | — | — | — |
+
+| Runtime | List i64 | List bool | Shared rows | 1M i64 | 1M bool |
+|---|---:|---:|---:|---:|---:|
+| rnx | 7.94 | 8.16 | 4.61 | 31.23 | 31.60 |
+| rnx native off | 30.23 | 39.22 | 4.43 | 167.57 | 222.94 |
+| rnx legacy | 111.30 | 126.99 | 4.53 | 673.83 | 765.83 |
+| Haskell (GHC -O2) | 3.00 | 3.13 | — | 8.86 | 10.06 |
+| LuaJIT | 2.99 | 9.31 | 1.72 | 8.02 | 34.00 |
+| Lua 5.4 | 17.29 | 18.03 | 1.70 | 97.99 | 101.09 |
+| Bun | 9.34 | 9.23 | — | 30.96 | 32.21 |
+| Node | 20.27 | 20.45 | — | 53.33 | 55.79 |
+| Deno | 20.76 | 20.02 | — | 52.71 | 55.36 |
+| Python | 22.59 | 21.96 | — | 103.71 | 99.67 |
+
+On AWFY Sieve, rnx took 6.84 ms and Haskell took 2.10 ms. On AWFY Permute the gap was wider at 22.27 ms and 2.69 ms. On scalar loops, raising the workload from 16 to 128 calls cost rnx less additional time than GHC in all 12 paired blocks. GHC still finished sooner at every measured call count. [Full report, call-count comparisons and measurement details](results/language-comparison-2026-11-19.md)
+
+The [November 2 matrix](results/cross-runtime-2026-11-02-c32a6ba7.md) includes additional runtimes and JSON encoders measured on an Intel i7-14700.
 
 <!-- column-0233:start -->
 ## Packed I64 comparisons — ADR 0233
@@ -979,7 +1011,7 @@ The older whole-process N6 matrix below retains its original binary and numbers.
 
 <!-- column-summary:end -->
 
-## Current cross-runtime matrix
+## Historical cross-runtime matrix · November 2, 2026
 
 Measured on an **Intel i7-14700** measurement host, pinned to CPU 4, with
 hyperfine `-N` (no shell). Every cell includes startup, compilation and native
@@ -1054,7 +1086,7 @@ mean ± sample standard deviation. [Conditions, versions and provenance](results
 
 <!-- current-matrix:end -->
 
-## Reproduction
+### Reproducing the November 2 matrix
 
 Build the exact locked rnx production revision and retain its build receipt,
 including clean source directories and the executable hash. The runtime
@@ -1075,7 +1107,7 @@ source/binary/jar hashes and thermal counters, and excludes cooperating jobs
 using the measurement lease. It reports only a terminal result. Raw samples and
 logs stay in the ignored run directory; the compact result summaries and tables
 are committed. The renderer requires a passing receipt and all expected sample
-counts. See the current results for exact source pins, runtime locations and
+counts. See the November 2 results for exact source pins, runtime locations and
 command semantics.
 
 The older `./run_bare.sh` and `./run_json_loop.sh` remain available; they overwrite
