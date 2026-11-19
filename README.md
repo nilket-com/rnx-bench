@@ -5,41 +5,42 @@ rerunnable harnesses, output checks and retained results.
 
 ## Current cross-runtime matrix
 
-Measured on Strix (Intel Core i9-14900K) on November 19, 2026, using published rnx `6e96db98`.
-Values are **whole-process milliseconds, median of 12 runs** on one CPU. Lower is faster.
-Each compute process runs 16 kernel calls, except the million-element lists, which run once.
-Startup and script preparation are included. A dash marks an unmeasured cell.
+Measured on Strix (Intel Core i9-14900K) on November 19, 2026, using published rnx `6e96db98`. Values are **milliseconds from source to exit, median of 12 samples**, with all processes pinned to CPU 4. Lower is faster. Each compute process runs 16 kernel calls, except the million-element lists, which run once. A dash marks an unmeasured cell.
 
-| Runtime | Startup | 10k JSON | Fib | Loops | Numeric calls | AWFY Sieve | AWFY Permute |
+| Runtime | Print 42 | 10k JSON | Fib | Loops | Numeric calls | AWFY Sieve | AWFY Permute |
 |---|---:|---:|---:|---:|---:|---:|---:|
-| rnx | 4.14 | 18.16 | 12.86 | 5.27 | 5.84 | 6.84 | 22.27 |
-| rnx native off | 4.19 | 18.02 | 21.08 | 8.61 | 11.23 | 13.79 | 41.80 |
-| rnx legacy | 4.15 | 13.69 | 31.72 | 19.68 | 25.01 | 33.76 | 71.73 |
-| Haskell (GHC -O2) | 1.98 | — | 2.24 | 2.43 | 2.60 | 2.10 | 2.69 |
-| LuaJIT | 1.65 | 13.76 | 2.18 | 2.80 | 2.70 | 2.17 | 4.15 |
-| Lua 5.4 | 1.69 | 29.36 | 6.18 | 2.55 | 4.21 | 3.84 | 11.42 |
-| Bun | 2.80 | 4.00 | 5.25 | 4.53 | 6.95 | 4.48 | 8.61 |
-| Node | 10.95 | 13.99 | 12.37 | 12.84 | 13.00 | 13.83 | 15.81 |
-| Deno | 13.30 | 14.67 | 14.95 | 13.97 | 14.91 | 14.56 | 17.28 |
-| Python | 7.17 | 22.30 | 14.34 | 10.92 | 12.59 | 11.01 | 16.44 |
-| Perl | 1.97 | 48.47 | — | — | — | — | — |
+| rnx | 4.51 | 18.36 | 13.30 | 5.50 | 5.73 | 7.11 | 22.35 |
+| rnx native off | 4.62 | 18.24 | 21.19 | 8.63 | 11.39 | 13.77 | 41.83 |
+| rnx legacy | 4.45 | 13.90 | 31.81 | 19.90 | 25.37 | 33.99 | 71.85 |
+| Haskell (runghc) | 67.58 | — | 194.78 | 149.61 | 183.74 | 196.56 | 282.02 |
+| Haskell (GHC -O2, build + run) | 242.66 | — | 283.56 | 284.28 | 283.80 | 303.56 | 322.96 |
+| LuaJIT | 1.69 | 14.47 | 2.29 | 2.66 | 2.67 | 2.26 | 2.95 |
+| Lua 5.4 | 1.56 | 29.46 | 6.14 | 2.51 | 4.30 | 3.85 | 11.50 |
+| Bun | 2.85 | 4.40 | 5.89 | 4.37 | 6.89 | 4.97 | 8.68 |
+| Node | 11.31 | 14.42 | 12.59 | 13.17 | 12.94 | 14.27 | 15.74 |
+| Deno | 41.50 | 83.41 | 44.15 | 44.21 | 42.99 | 44.09 | 46.29 |
+| Python | 7.33 | 22.65 | 14.51 | 11.13 | 12.62 | 11.03 | 16.68 |
+| Perl | 2.00 | 48.68 | — | — | — | — | — |
+| Kotlin | 2,773.37 | 3,135.97 | — | — | — | — | — |
+| Scala | 2,216.93 | 2,846.94 | — | — | — | — | — |
 
 | Runtime | List i64 | List bool | Shared rows | 1M i64 | 1M bool |
 |---|---:|---:|---:|---:|---:|
-| rnx | 7.94 | 8.16 | 4.61 | 31.23 | 31.60 |
-| rnx native off | 30.23 | 39.22 | 4.43 | 167.57 | 222.94 |
-| rnx legacy | 111.30 | 126.99 | 4.53 | 673.83 | 765.83 |
-| Haskell (GHC -O2) | 3.00 | 3.13 | — | 8.86 | 10.06 |
-| LuaJIT | 2.99 | 9.31 | 1.72 | 8.02 | 34.00 |
-| Lua 5.4 | 17.29 | 18.03 | 1.70 | 97.99 | 101.09 |
-| Bun | 9.34 | 9.23 | — | 30.96 | 32.21 |
-| Node | 20.27 | 20.45 | — | 53.33 | 55.79 |
-| Deno | 20.76 | 20.02 | — | 52.71 | 55.36 |
-| Python | 22.59 | 21.96 | — | 103.71 | 99.67 |
+| rnx | 8.14 | 8.11 | 4.74 | 31.80 | 31.99 |
+| rnx native off | 30.67 | 39.26 | 4.67 | 167.81 | 222.90 |
+| rnx legacy | 111.79 | 127.27 | 4.66 | 674.25 | 766.53 |
+| Haskell (runghc) | 556.27 | 579.75 | — | 2,976.75 | 3,101.11 |
+| Haskell (GHC -O2, build + run) | 327.58 | 322.84 | — | 334.17 | 330.34 |
+| LuaJIT | 3.10 | 9.55 | 1.76 | 8.32 | 34.42 |
+| Lua 5.4 | 17.27 | 17.81 | 1.70 | 98.56 | 101.05 |
+| Bun | 9.23 | 9.52 | — | 31.09 | 34.40 |
+| Node | 20.42 | 20.50 | — | 53.23 | 56.11 |
+| Deno | 52.66 | 54.47 | — | 134.10 | 87.10 |
+| Python | 22.65 | 21.80 | — | 103.96 | 100.05 |
 
-On AWFY Sieve, rnx took 6.84 ms and Haskell took 2.10 ms. On AWFY Permute the gap was wider at 22.27 ms and 2.69 ms. On scalar loops, raising the workload from 16 to 128 calls cost rnx less additional time than GHC in all 12 paired blocks. GHC still finished sooner at every measured call count. [Full report, call-count comparisons and measurement details](results/language-comparison-2026-11-19.md)
+Each sample starts with a source file and ends when the program exits. On AWFY Sieve, rnx took **7.11 ms**, Haskell via runghc **196.56 ms**, and a fresh optimized GHC build plus execution **303.56 ms**. [Full source-to-completion report and compiler timings](results/source-to-completion-2026-11-19.md)
 
-The [November 2 matrix](results/cross-runtime-2026-11-02-c32a6ba7.md) includes additional runtimes and JSON encoders measured on an Intel i7-14700.
+The [earlier Strix table](results/language-comparison-2026-11-19.md) shows GHC executable launch after compilation. The [November 2 matrix](results/cross-runtime-2026-11-02-c32a6ba7.md) also covers Ruby, Julia, R and alternate encoders on a different host.
 
 <!-- column-0233:start -->
 ## Packed I64 comparisons — ADR 0233
